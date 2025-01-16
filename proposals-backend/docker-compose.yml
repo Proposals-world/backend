@@ -25,11 +25,10 @@ services:
 
     db:
         image: mysql:8.0
-        container_name: laravel_db
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: laravel
+            MYSQL_DATABASE: proposals
             MYSQL_USER: laravel
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: secret

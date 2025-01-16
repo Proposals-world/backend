@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class UserFeedback extends Model
+{
+    use HasFactory;
+
+    protected $primaryKey = 'feedback_id';
+
+    protected $fillable = [
+        'user_id',
+        'match_id',
+        'feedback',
+        'rating',
+    ];
+
+    // Relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function match()
+    {
+        return $this->belongsTo(Matches::class, 'match_id');
+    }
+}
