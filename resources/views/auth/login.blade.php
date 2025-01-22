@@ -1,47 +1,106 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    @include("admin.partials.title-meta")
+    @include('admin.partials.head-css')
+</head>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<body class="authentication-bg pb-0">
+
+    <div class="auth-fluid">
+        
+        <!-- Auth fluid right content -->
+        <div class="auth-fluid-right text-center">
+            <div class="auth-user-testimonial">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h2 class="mb-3">I love the color!</h2>
+                            <p class="lead"><i class="ri-double-quotes-l"></i> Everything you need is in this template. Love the overall look and feel. Not too flashy, and still very professional and smart.</p>
+                            <p>- Admin User</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="mb-3">Flexibility!</h2>
+                            <p class="lead"><i class="ri-double-quotes-l"></i> Pretty nice theme, hoping you guys could add more features to this. Keep up the good work.</p>
+                            <p>- Admin User</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="mb-3">Feature Availability!</h2>
+                            <p class="lead"><i class="ri-double-quotes-l"></i> This is a great product, helped us a lot and very quick to work with and implement.</p>
+                            <p>- Admin User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- end Auth fluid right content -->
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!--Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="card-body d-flex flex-column h-100 gap-3">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                <!-- Logo -->
+                <div class="auth-brand text-center text-lg-start">
+                    <a href="{{ url('/') }}" class="logo-dark">
+                        <span><img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="dark logo" height="24"></span>
+                    </a>
+                    <a href="{{ url('/') }}" class="logo-light">
+                        <span><img src="{{ asset('admin/assets/images/logo.png') }}" alt="logo" height="24"></span>
+                    </a>
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <div class="my-auto">
+                    <!-- title-->
+                    <h4 class="mt-0">Sign In</h4>
+                    <p class="text-muted mb-4">Enter your email address and password to access your account.</p>
+
+                    <!-- Laravel Form -->
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="Enter your email">
+                            @error('email')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <a href="{{ route('password.request') }}" class="text-muted float-end"><small>Forgot your password?</small></a>
+                            <label for="password" class="form-label">Password</label>
+                            <input class="form-control" type="password" name="password" id="password" required placeholder="Enter your password">
+                            @error('password')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="checkbox-signin" name="remember">
+                                <label class="form-check-label" for="checkbox-signin">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="d-grid mb-0 text-center">
+                            <button class="btn btn-primary" type="submit"><i class="ri-login-box-line"></i> Log In </button>
+                        </div>
+                    </form>
+                    <!-- end form-->
+                </div>
+
+                <!-- Footer-->
+                <footer class="footer footer-alt">
+                    <p class="text-muted">Don't have an account? <a href="{{ route('register') }}" class="text-muted ms-1"><b>Sign Up</b></a></p>
+                </footer>
+            </div>
         </div>
+        <!-- end auth-fluid-form-box -->
+    </div>
+    <!-- end auth-fluid-->
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+    @include('admin.partials.footer-scripts')
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+    <!-- App js -->
+    <script src="{{ asset('admin/assets/js/app.js') }}"></script>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</body>
+
+</html>

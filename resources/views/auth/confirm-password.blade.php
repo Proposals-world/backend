@@ -1,27 +1,96 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @include("admin.partials.title-meta")
+    @include('admin.partials.head-css')
+</head>
+
+<body class="authentication-bg pb-0">
+
+    <div class="auth-fluid">
+        <!-- Auth fluid right content -->
+        <div class="auth-fluid-right text-center">
+            <div class="auth-user-testimonial">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h2 class="mb-3">I love the color!</h2>
+                            <p class="lead"><i class="ri-double-quotes-l"></i> Everything you need is in this template. Love the overall look and feel. Not too flashy, and still very professional and smart.</p>
+                            <p>- Admin User</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="mb-3">Flexibility!</h2>
+                            <p class="lead"><i class="ri-double-quotes-l"></i> Pretty nice theme, hoping you guys could add more features to this. Keep up the good work.</p>
+                            <p>- Admin User</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="mb-3">Feature Availability!</h2>
+                            <p class="lead"><i class="ri-double-quotes-l"></i> This is a great product, helped us a lot and very quick to work with and implement.</p>
+                            <p>- Admin User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end Auth fluid right content -->
+
+        <!-- Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="card-body d-flex flex-column h-100 gap-3">
+
+                <!-- Logo -->
+                <div class="auth-brand text-center text-lg-start">
+                    <a href="{{ url('/') }}" class="logo-dark">
+                        <span><img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="dark logo" height="24"></span>
+                    </a>
+                    <a href="{{ url('/') }}" class="logo-light">
+                        <span><img src="{{ asset('admin/assets/images/logo.png') }}" alt="logo" height="24"></span>
+                    </a>
+                </div>
+
+                <div class="my-auto">
+                    <!-- Title -->
+                    <h4 class="text-center">Confirm Your Password</h4>
+                    <p class="text-muted text-center mb-4">This is a secure area of the application. Please confirm your password before continuing.</p>
+
+                    <!-- Laravel Form -->
+                    <form method="POST" action="{{ route('password.confirm') }}">
+                        @csrf
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                            @error('password')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid mb-0 text-center">
+                            <button class="btn btn-primary" type="submit">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <footer class="footer footer-alt">
+                    <p class="text-muted">
+                        <script>document.write(new Date().getFullYear())</script> © Propasals - Propasals.world
+                    </p>
+                </footer>
+
+            </div>
+        </div>
+        <!-- end auth-fluid-form-box -->
     </div>
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
+    @include('admin.partials.footer-scripts')
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
+    <!-- App js -->
+    <script src="{{ asset('admin/assets/js/app.js') }}"></script>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+</body>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>
