@@ -9,9 +9,10 @@ class UserProfile extends Model
 {
     use HasFactory;
 
+    // Disable auto-incrementing since 'id' is not auto-incremented
     public $incrementing = false;
 
-
+    // Specify the primary key type
     protected $keyType = 'unsignedBigInteger';
 
     protected $fillable = [
@@ -62,6 +63,13 @@ class UserProfile extends Model
      */
     protected $primaryKey = 'id';
 
+    /**
+     * Define the relationship to the User model.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 
     public function nationality()
     {
