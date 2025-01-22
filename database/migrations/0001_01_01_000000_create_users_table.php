@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone_number')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('profile_status')->default('active');
+            $table->string('gender');
             $table->timestamps();
+            $table->timestamp('last_active')->nullable();
+            $table->string('status')->default('active');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

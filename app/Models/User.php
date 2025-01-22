@@ -20,7 +20,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_number',
         'password',
+        'profile_status',
+        'gender',
+        'last_active',
+        'status',
     ];
 
     /**
@@ -34,7 +39,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -44,5 +49,120 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class, 'id');
+    }
+
+    public function agreements()
+    {
+        return $this->hasMany(UserAgreement::class);
+    }
+
+    public function preference()
+    {
+        return $this->hasOne(UserPreference::class);
+    }
+
+    public function preferredLanguages()
+    {
+        return $this->hasMany(UserPreferredLanguage::class);
+    }
+
+    public function preferredPets()
+    {
+        return $this->hasMany(UserPreferredPet::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    public function userRoles()
+    {
+        return $this->hasMany(UserRole::class);
+    }
+
+    public function reportsMade()
+    {
+        return $this->hasMany(UserReport::class, 'reporter_id');
+    }
+
+    public function reportsReceived()
+    {
+        return $this->hasMany(UserReport::class, 'reported_id');
+    }
+
+    public function blocksMade()
+    {
+        return $this->hasMany(UserBlock::class, 'blocker_id');
+    }
+
+    public function blocksReceived()
+    {
+        return $this->hasMany(UserBlock::class, 'blocked_id');
+    }
+
+    public function successStories()
+    {
+        return $this->hasMany(SuccessStory::class);
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(UserFeedback::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function deviceTokens()
+    {
+        return $this->hasMany(DeviceToken::class);
+    }
+
+    public function supportTickets()
+    {
+        return $this->hasMany(SupportTicket::class);
+    }
+
+    public function supportReplies()
+    {
+        return $this->hasMany(SupportReply::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(UserLog::class);
+    }
+
+    public function emailLogs()
+    {
+        return $this->hasMany(EmailLog::class);
+    }
+
+    public function smsLogs()
+    {
+        return $this->hasMany(SmsLog::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(UserPhoto::class);
+    }
+
+    public function verificationTokens()
+    {
+        return $this->hasMany(VerificationToken::class);
+    }
+
+    public function eventLogs()
+    {
+        return $this->hasMany(EventLog::class);
     }
 }
