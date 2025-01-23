@@ -132,12 +132,12 @@
             
             <div class="message">
                 <p>Assalamu Alaikum,</p>
-                <p>Thank you for subscribing to Islamic Proposals. We're excited to have you join our community of individuals seeking a halal way to find their life partner.</p>
+                <p>Thank you for subscribing to Proposals. We're excited to have you join our community of individuals seeking a halal way to find their life partner.</p>
                 <p>We'll keep you updated about our launch and send you exclusive information about our services.</p>
             </div>
 
             <div class="button-container">
-                <a href="{{ url('/') }}" class="button">Visit Our Website</a>
+                <a style="color: white" href="{{ url('/') }}" class="button">Visit Our Website</a>
             </div>
 
             <div class="message">
@@ -155,8 +155,8 @@
 
             <div class="disclaimer">
                 <p>This email was sent to {{ $email }}</p>
-                <p>If you didn't subscribe to Islamic Proposals, please ignore this email.</p>
-                <p>© {{ date('Y') }} Islamic Proposals. All rights reserved.</p>
+                <p>If you didn't subscribe to Proposals, please ignore this email.</p>
+                <p>© {{ date('Y') }} Proposals. All rights reserved.</p>
             </div>
         </div>
     </div>
