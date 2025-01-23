@@ -27,7 +27,7 @@
             background: white;
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            /* overflow: hidden; */
             /* Prevent scrolling */
             position: relative;
         }
@@ -580,13 +580,6 @@
                             required>
                         <button type="submit" class="btn btn-notify">Notify Me</button>
                     </form>
-                </div>
-
-                <!-- Social Media Links -->
-                <div class="social-links mt-3">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
         </div>
