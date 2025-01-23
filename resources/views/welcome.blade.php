@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +15,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <!-- Custom Styles -->
     <style>
+        /* [Your existing CSS styles here] */
         :root {
             --primary-color: #2D3047;
-            --accent-color: #E91E63;
+            --accent-color: #9c0c58;
             --text-color: #2D3047;
             --light-gray: #f8f9fa;
         }
@@ -25,8 +27,112 @@
             background: white;
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
+            /* Prevent scrolling */
             position: relative;
+        }
+
+        /* Add these styles to your existing CSS */
+
+        /* Alert Styles */
+        .alert {
+            position: relative;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            animation: slideDown 0.3s ease-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .alert-success {
+            background-color: rgba(75, 181, 67, 0.1);
+            color: #2d8a25;
+            border-left: 4px solid #4BB543;
+        }
+
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .alert ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .alert ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Close button for alerts */
+        .alert-dismissible {
+            padding-right: 3rem;
+        }
+
+        .alert-dismissible .close {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            color: inherit;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .alert-dismissible .close:hover {
+            opacity: 1;
+        }
+
+        /* Animation for alerts */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Alert icon styles */
+        .alert::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .alert-success::before {
+            content: "\f00c";
+            /* Checkmark icon */
+        }
+
+        .alert-danger::before {
+            content: "\f071";
+            /* Warning icon */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .alert {
+                padding: 0.8rem 1rem;
+                font-size: 0.85rem;
+            }
         }
 
         .pattern-overlay {
@@ -93,12 +199,14 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            flex: 1 1 200px; /* Flex-grow, Flex-shrink, Flex-basis */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            flex: 1 1 200px;
+            /* Flex-grow, Flex-shrink, Flex-basis */
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 200px; /* Fixed height for uniformity */
+            height: 200px;
+            /* Fixed height for uniformity */
         }
 
         .feature-card::before {
@@ -118,7 +226,7 @@
 
         .feature-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .subscribe-form {
@@ -160,7 +268,7 @@
             height: 100%;
             top: 0;
             left: -100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: 0.5s;
         }
 
@@ -169,7 +277,7 @@
         }
 
         .btn-notify:hover {
-            background: #d81b60;
+            background: #c22a7b;
             transform: translateY(-2px);
         }
 
@@ -198,9 +306,20 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .countdown {
@@ -216,14 +335,16 @@
             background: var(--light-gray);
             padding: 0.8rem 1rem;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             min-width: 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100px; /* Fixed width for uniformity */
-            height: 100px; /* Fixed height for uniformity */
+            width: 100px;
+            /* Fixed width for uniformity */
+            height: 100px;
+            /* Fixed height for uniformity */
         }
 
         .countdown-number {
@@ -295,15 +416,19 @@
             0% {
                 transform: translate(0, 0) rotate(0deg);
             }
+
             25% {
                 transform: translate(50px, 25px) rotate(90deg);
             }
+
             50% {
                 transform: translate(25px, 50px) rotate(180deg);
             }
+
             75% {
                 transform: translate(-25px, 25px) rotate(270deg);
             }
+
             100% {
                 transform: translate(0, 0) rotate(360deg);
             }
@@ -326,7 +451,8 @@
             .feature-card {
                 padding: 1rem;
                 margin: 0.3rem;
-                height: 180px; /* Adjusted for smaller screens */
+                height: 180px;
+                /* Adjusted for smaller screens */
             }
 
             .logo-container {
@@ -345,8 +471,10 @@
             }
 
             .countdown-item {
-                width: 80px; /* Adjusted width for smaller screens */
-                height: 80px; /* Adjusted height for smaller screens */
+                width: 80px;
+                /* Adjusted width for smaller screens */
+                height: 80px;
+                /* Adjusted height for smaller screens */
             }
 
             .feature-row {
@@ -355,6 +483,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Pattern Overlay -->
     <div class="pattern-overlay"></div>
@@ -374,7 +503,8 @@
                 <!-- Logo -->
                 <div class="logo-container">
                     <div class="logo-circle"></div>
-                    <img src="{{asset('admin/assets/images/brands/proposals-logo.jpeg')}}" alt="Islamic Proposals" class="logo">
+                    <img src="{{ asset('admin/assets/images/brands/proposals-logo.jpeg') }}" alt="Islamic Proposals"
+                        class="logo">
                 </div>
 
                 <!-- Heading -->
@@ -417,10 +547,46 @@
 
                 <!-- Subscription Form -->
                 <div class="subscribe-form">
-                    <form class="d-flex justify-content-center gap-2">
-                        <input type="email" class="form-control" placeholder="Your email address" required>
+                    <!-- Success Message -->
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle"></i>
+                            {{ session('success') }}
+                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    @endif
+
+                    <!-- Validation Errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('subscribe.message') }}" method="POST"
+                        class="d-flex justify-content-center gap-2">
+                        @csrf
+                        <input type="email" name="email" class="form-control" placeholder="Your email address"
+                            required>
                         <button type="submit" class="btn btn-notify">Notify Me</button>
                     </form>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="social-links mt-3">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
         </div>
@@ -451,7 +617,8 @@
             // If the countdown is finished, display a message
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                document.querySelector('.countdown').innerHTML = '<div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Days</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Hours</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Minutes</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Seconds</div></div>';
+                document.querySelector('.countdown').innerHTML =
+                    '<div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Days</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Hours</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Minutes</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Seconds</div></div>';
             }
         }
 
@@ -469,8 +636,35 @@
                 const movement = (index + 1) * 10; // Reduced movement for smaller elements
                 const translateX = (mouseX - 0.5) * movement;
                 const translateY = (mouseY - 0.5) * movement;
-                
-                element.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${translateX}deg)`;
+
+                element.style.transform =
+                    `translate(${translateX}px, ${translateY}px) rotate(${translateX}deg)`;
+            });
+        });
+        // Add this to your existing script section
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                });
+            }, 5000);
+
+            // Add fade out animation before closing
+            const closeButtons = document.querySelectorAll('.alert .close');
+            closeButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const alert = this.closest('.alert');
+                    alert.style.transition = 'opacity 0.3s ease-out';
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        const bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    }, 300);
+                });
             });
         });
     </script>
@@ -478,4 +672,5 @@
     <!-- Bootstrap JS (Optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
