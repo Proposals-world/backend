@@ -6,6 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Enum\Laravel\HasEnums;
+use App\Enums\AccountStatus;
+use App\Enums\EmploymentStatus;
+use App\Enums\Gender;
+use App\Enums\MatchGender;
+use App\Enums\MatchStatus;
+use App\Enums\ReportStatus;
+use App\Enums\SubscriptionStatus;
 
 class User extends Authenticatable
 {
@@ -26,6 +34,20 @@ class User extends Authenticatable
         'gender',
         'last_active',
         'status',
+    ];
+    //
+    // use HasEnums;
+    // enums
+    protected $casts = [
+        'account status' => AccountStatus::class,
+        'gender' => Gender::class,
+        'employment_status' => EmploymentStatus::class,
+        'match_gender' => MatchGender::class,
+        'match status' => MatchStatus::class,
+        'report status' => ReportStatus::class,
+        'subscription status' => SubscriptionStatus::class,
+        'smoking_status' => SmokingStatus::class,
+
     ];
 
     /**
