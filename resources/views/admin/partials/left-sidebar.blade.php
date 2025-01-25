@@ -55,7 +55,7 @@
             <li class="side-nav-title mt-1"> Main</li>
 
             <li class="side-nav-item">
-                <a href="index.html" class="side-nav-link">
+                <a href="{{route('dashboard')}}" class="side-nav-link">
                     <i class="ri-dashboard-2-fill"></i>
                     <span class="badge bg-success float-end">9+</span>
                     <span> Dashboard </span>
@@ -128,42 +128,13 @@
             </li>
 
             <li class="side-nav-title mt-2">Custom</li>
-
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
-                    <i class="ri-pages-fill"></i>
-                    <span> Pages </span>
-                    <span class="menu-arrow"></span>
+                <a href="{{route('countries.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Countries </span>
                 </a>
-                <div class="collapse" id="sidebarPages">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="pages-profile.html">Profile</a>
-                        </li>
-                        <li>
-                            <a href="pages-invoice.html">Invoice</a>
-                        </li>
-                        <li>
-                            <a href="pages-faq.html">FAQ</a>
-                        </li>
-                        <li>
-                            <a href="pages-pricing.html">Pricing</a>
-                        </li>
-                        <li>
-                            <a href="pages-maintenance.html">Maintenance</a>
-                        </li>
-                        <li>
-                            <a href="pages-starter.html">Starter Page</a>
-                        </li>
-                        <li>
-                            <a href="pages-preloader.html">With Preloader</a>
-                        </li>
-                        <li>
-                            <a href="pages-timeline.html">Timeline</a>
-                        </li>
-                    </ul>
-                </div>
             </li>
+
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">

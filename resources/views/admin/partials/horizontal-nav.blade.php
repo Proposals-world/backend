@@ -39,48 +39,9 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ri-pages-line"></i>Pages <div class="arrow-down"></div>
+                        <a class="nav-link dropdown-toggle arrow-none" href="index.html" role="button">
+                            <i class="ri-dashboard-2-fill"></i>Countries
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-auth" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Authenitication <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-auth">
-                                    <a href="auth-login.html" class="dropdown-item">Login</a>
-                                    <a href="auth-login-2.html" class="dropdown-item">Login 2</a>
-                                    <a href="auth-register.html" class="dropdown-item">Register</a>
-                                    <a href="auth-register-2.html" class="dropdown-item">Register 2</a>
-                                    <a href="auth-logout.html" class="dropdown-item">Logout</a>
-                                    <a href="auth-logout-2.html" class="dropdown-item">Logout 2</a>
-                                    <a href="auth-recoverpw.html" class="dropdown-item">Recover Password</a>
-                                    <a href="auth-recoverpw-2.html" class="dropdown-item">Recover Password 2</a>
-                                    <a href="auth-lock-screen.html" class="dropdown-item">Lock Screen</a>
-                                    <a href="auth-lock-screen-2.html" class="dropdown-item">Lock Screen 2</a>
-                                    <a href="auth-confirm-mail.html" class="dropdown-item">Confirm Mail</a>
-                                    <a href="auth-confirm-mail-2.html" class="dropdown-item">Confirm Mail 2</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-error" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Error <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-error">
-                                    <a href="error-404.html" class="dropdown-item">Error 404</a>
-                                    <a href="error-404-alt.html" class="dropdown-item">Error 404-alt</a>
-                                    <a href="error-500.html" class="dropdown-item">Error 500</a>
-                                </div>
-                            </div>
-                            <a href="pages-starter.html" class="dropdown-item">Starter Page</a>
-                            <a href="pages-preloader.html" class="dropdown-item">With Preloader</a>
-                            <a href="pages-profile.html" class="dropdown-item">Profile</a>
-                            <a href="pages-invoice.html" class="dropdown-item">Invoice</a>
-                            <a href="pages-faq.html" class="dropdown-item">FAQ</a>
-                            <a href="pages-pricing.html" class="dropdown-item">Pricing</a>
-                            <a href="pages-maintenance.html" class="dropdown-item">Maintenance</a>
-                            <a href="pages-timeline.html" class="dropdown-item">Timeline</a>
-                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
