@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Gender;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,12 +24,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'phone_number' => fake()->numerify('##########'), // 10-digit phone number
+            'password' => "testuser",
+            'profile_status' => fake()->randomElement(['active', 'inactive', 'pending']), // Example profile statuses
+            'created_at' => fake()->dateTimeThisYear(), // Random created_at within this year
+            'updated_at' => fake()->dateTimeThisYear(), // Random updated_at within this year
+            'last_active' => fake()->dateTimeThisMonth(), // Random last_active within this month
+            'status' => fake()->randomElement(['active', 'inactive', 'suspended']), // Example status values
         ];
     }
 
@@ -37,7 +44,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
