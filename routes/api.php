@@ -19,4 +19,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 });
 
-Route::post('/token/refresh', [AuthController::class, 'refreshToken']);

@@ -286,4 +286,12 @@ class AuthController extends Controller
         'message' => 'A new verification link has been sent to your email.',
     ], 200);
 }
+public function me(Request $request)
+{
+    return response()->json([
+        'success' => true,
+        'message' => 'User details retrieved successfully.',
+        'data' => $request->user(), // Authenticated user
+    ], 200);
+}
 }
