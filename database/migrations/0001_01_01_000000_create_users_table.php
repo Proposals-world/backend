@@ -15,12 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('email')->unique();
-            $table->string('phone_number')->unique();
+            $table->string('phone_number')->unique()->nullable();
             $table->string('password');
             $table->string('profile_status')->default('active');
-            $table->string('gender');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
             $table->timestamps();
             $table->timestamp('last_active')->nullable();
+            $table->foreignId(column: 'role_id')->constrained('roles');
             $table->string('status')->default('active');
         });
 

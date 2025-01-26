@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Enum\Laravel\HasEnums;
+use Laravel\Sanctum\HasApiTokens;
 use App\Enums\AccountStatus;
 use App\Enums\EmploymentStatus;
 use App\Enums\Gender;
@@ -18,7 +18,7 @@ use App\Enums\SubscriptionStatus;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable ,HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -34,13 +34,12 @@ class User extends Authenticatable
         'gender',
         'last_active',
         'status',
+        'role_id'
     ];
-    //
-    // use HasEnums;
-    // enums
+
     protected $casts = [
         'account status' => AccountStatus::class,
-        'gender' => Gender::class,
+        'email_verified_at' => 'datetime',
         'employment_status' => EmploymentStatus::class,
         'match_gender' => MatchGender::class,
         'match status' => MatchStatus::class,
@@ -58,6 +57,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'otp',
+        'otp_expires_at',
     ];
 
     /**
@@ -98,16 +99,10 @@ class User extends Authenticatable
         return $this->hasMany(UserPreferredPet::class);
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class, 'user_roles');
+        return $this->belongsTo(Role::class);
     }
-
-    public function userRoles()
-    {
-        return $this->hasMany(UserRole::class);
-    }
-
     public function reportsMade()
     {
         return $this->hasMany(UserReport::class, 'reporter_id');
