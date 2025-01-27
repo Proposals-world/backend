@@ -134,6 +134,30 @@
                     <span> Countries </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{route('origins.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Origins </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('sports-activities.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Sports Activities </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('hair-colors.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Hair Colors </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('pets.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Pets </span>
+                </a>
+            </li>
 
 
             <li class="side-nav-item">
