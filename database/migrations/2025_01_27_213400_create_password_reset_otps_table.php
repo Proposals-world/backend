@@ -4,19 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreatePasswordResetOtpsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('refresh_tokens', function (Blueprint $table) {
+        Schema::create('password_reset_otps', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('token')->unique();
+            $table->string('email')->index();
+            $table->string('otp', 6);
             $table->timestamp('expires_at');
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
+
+            $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('refresh_tokens');
+        Schema::dropIfExists('password_reset_otps');
     }
-};
+}
