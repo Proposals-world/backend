@@ -18,7 +18,7 @@ use App\Enums\SubscriptionStatus;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable ,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -46,7 +46,7 @@ class User extends Authenticatable
         'report status' => ReportStatus::class,
         'subscription status' => SubscriptionStatus::class,
         'smoking_status' => SmokingStatus::class,
-
+        'zodiac_sign' => ZodiacSign::class,
     ];
 
     /**
