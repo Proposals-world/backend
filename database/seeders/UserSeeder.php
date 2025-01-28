@@ -15,7 +15,8 @@ class UserSeeder extends Seeder
     {
         // Seed Admin user
         User::create([
-            'name' => 'Admin',
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
             'email' => 'admin@proposals.world',
             'phone_number' => '1234567890',
             'password' => Hash::make('password'), // Replace with a secure password
@@ -27,7 +28,8 @@ class UserSeeder extends Seeder
 
         // Seed User
         User::create([
-            'name' => 'User',
+            'first_name' => 'User',
+            'last_name' => 'User',
             'email' => 'user@proposals.world',
             'phone_number' => '0987654321',
             'password' => Hash::make('password'), // Replace with a secure password

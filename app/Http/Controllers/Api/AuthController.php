@@ -22,13 +22,14 @@ class AuthController extends Controller
     {
         // Validate incoming request
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|unique:users,name',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'phone_number' => 'nullable|string|unique:users,phone_number',
             'password' => 'required|string|min:6|confirmed',
             'gender' => 'required|in:male,female',
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -36,25 +37,26 @@ class AuthController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-
+    
         // Create user
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
             'role_id' => 2,
         ]);
-
+    
         // Generate OTP
         $otp = rand(100000, 999999);
-
+    
         // Delete existing OTPs for this user
         VerificationToken::where('user_id', $user->id)
             ->where('token_type', 'otp_verification')
             ->delete();
-
+    
         // Create verification token
         VerificationToken::create([
             'user_id' => $user->id,
@@ -63,10 +65,10 @@ class AuthController extends Controller
             'expires_at' => Carbon::now()->addHour(),
             'is_used' => false,
         ]);
-
+    
         // Send OTP via email
         Mail::to($user->email)->send(new OTPVerificationMail($user, $otp));
-
+    
         return response()->json([
             'success' => true,
             'message' => 'Registration successful. Please verify your email using the OTP sent.',
