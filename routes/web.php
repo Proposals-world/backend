@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DrinkingStatusesController;
+use App\Http\Controllers\Admin\EducationalLevelsController;
 use App\Http\Controllers\Admin\LocationsController;
 use App\Http\Controllers\Admin\OriginController;
 use App\Http\Controllers\Admin\SportsActivitiesController;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HairColorsController;
 use App\Http\Controllers\Admin\HobbiesController;
 use App\Http\Controllers\Admin\PetsController;
+use App\Http\Controllers\Admin\SpecializationsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +36,9 @@ Route::resource('admin/hair-colors', HairColorsController::class);
 Route::resource('admin/pets', PetsController::class);
 Route::resource('admin/hobbies', HobbiesController::class);
 Route::resource('admin/drinking-statuses', DrinkingStatusesController::class);
-
+Route::resource('admin/cities', CitiesController::class);
+Route::resource('admin/educational-levels', EducationalLevelsController::class);
+Route::resource('admin/specializations', SpecializationsController::class);
 
 
 // Route to handle message subscriptions
