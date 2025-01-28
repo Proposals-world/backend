@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hobbies', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('hobbies_id')->constrained('hobbies');
-            $table->timestamps();
 
-            $table->unique(['user_id', 'hobbies_id']);
+            $table->id();
+            $table->string('name_en');
+            $table->string('name_ar');
+            $table->timestamps();
         });
     }
 

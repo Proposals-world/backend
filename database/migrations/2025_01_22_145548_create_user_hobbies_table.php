@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_hobbies', function (Blueprint $table) {
             $table->id();
-            $table->string('name_en');
-            $table->string('name_ar');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('hobbies_id')->constrained('hobbies');
             $table->timestamps();
+            $table->unique(['user_id', 'hobbies_id']);
         });
     }
 
