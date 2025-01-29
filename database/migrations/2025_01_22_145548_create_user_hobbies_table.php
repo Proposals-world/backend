@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_hobbies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('hobbies_id')->constrained('hobbies')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('hobbies_id')->constrained('hobbies');
             $table->timestamps();
-        
             $table->unique(['user_id', 'hobbies_id']);
         });
     }

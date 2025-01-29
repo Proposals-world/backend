@@ -158,6 +158,36 @@
                     <span> Pets </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{route('drinking-statuses.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Drinking Statuses </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('hobbies.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Hobbies </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('cities.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Cities </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('educational-levels.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Educational Levels </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('specializations.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Specializations </span>
+                </a>
+            </li>
 
 
             <li class="side-nav-item">
