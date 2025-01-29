@@ -2,18 +2,67 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-        $this->call(RoleSeeder::class);
-        $this->call(UserSeeder::class);
+        $this->call([
+            // Existing Seeders
+            RoleSeeder::class,
+            UserSeeder::class,
+            NationalitiesTableSeeder::class,
+            ReligionsTableSeeder::class,
+            OriginsTableSeeder::class,
+            CountriesTableSeeder::class,
+            CitiesTableSeeder::class,
+            EducationalLevelsTableSeeder::class,
+            SpecializationsTableSeeder::class,
+            JobTitlesTableSeeder::class,
+            SectorsTableSeeder::class,
+            PositionLevelsTableSeeder::class,
+            FinancialStatusesTableSeeder::class,
+            HousingStatusesTableSeeder::class,
+            HeightsTableSeeder::class,
+            WeightsTableSeeder::class,
+            MaritalStatusesTableSeeder::class,
+            SkinColorsTableSeeder::class,
+            ZodiacSignsTableSeeder::class,
+            HairColorsTableSeeder::class,
+            HijabStatusesTableSeeder::class,
+            SmokingStatusesTableSeeder::class,
+            SmokingToolsTableSeeder::class,
+            DrinkingStatusesTableSeeder::class,
+            SportsActivitiesTableSeeder::class,
+            SocialMediaPresencesTableSeeder::class,
+            MarriageBudgetsTableSeeder::class,
+            PetsTableSeeder::class,
+            UserPetsTableSeeder::class,
+            HobbiesTableSeeder::class,
+            UserHobbiesTableSeeder::class,
+            UserProfilesTableSeeder::class,
+            UserAgreementsTableSeeder::class,
+            UserPreferencesTableSeeder::class,
+            UserPreferredLanguagesTableSeeder::class,
+            UserPreferredPetsTableSeeder::class,
+            UserMatchesTableSeeder::class,
+            SubscriptionPackagesTableSeeder::class,
+            SubscriptionsTableSeeder::class,
+            SubscriptionContactsTableSeeder::class,
+            // New Seeders
+            SmokingStatusesTableSeeder::class,
+            SmokingToolsTableSeeder::class,
+            UserSmokingToolPivotsTableSeeder::class,
+            UserReportsTableSeeder::class,
+            UserBlocksTableSeeder::class,
+            SuccessStoriesTableSeeder::class,
+            UserFeedbackTableSeeder::class,
+            SeoSettingsTableSeeder::class,
+            CmsContentsTableSeeder::class,
+            UserLogsTableSeeder::class,
+            LocationsTableSeeder::class,
+            UserPhotosTableSeeder::class,
+        ]);
     }
 }

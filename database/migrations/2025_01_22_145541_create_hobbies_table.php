@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('hobbies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('hobbies_id')->constrained('hobbies');
+            $table->string('name_en');
+            $table->string('name_ar');
             $table->timestamps();
-
-            $table->unique(['user_id', 'hobbies_id']);
         });
     }
 

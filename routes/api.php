@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -18,4 +19,6 @@ Route::post('/resend-verification-link', [AuthController::class, 'resendVerifica
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
+
 });

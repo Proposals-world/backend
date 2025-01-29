@@ -31,7 +31,6 @@ return new class extends Migration
             $table->foreignId('religion_id')->constrained('religions');
             $table->foreignId('country_of_residence_id')->constrained('countries');
             $table->foreignId('city_id')->constrained('cities');
-            $table->string('area')->nullable();
             $table->date('date_of_birth');
             $table->integer('age')->nullable();
             $table->foreignId('zodiac_sign_id')->nullable()->constrained('zodiac_signs');
