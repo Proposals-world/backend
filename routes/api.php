@@ -46,7 +46,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/create-ticket', [TicketsController::class, 'createTicket']);
     Route::post('/reply-ticket', [TicketsController::class, 'ticketsReply']);
     Route::get('/get-ticket-with-replies', [TicketsController::class, 'getTicketWithReplies']);
-    Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);    Route::post('/profile', [UserProfileController::class, 'update']);
+    Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);   
+    
+    
+    Route::post('/profile', [UserProfileController::class, 'update']);
 
 
     Route::get('/hair-colors', [HairColorController::class, 'index']);
