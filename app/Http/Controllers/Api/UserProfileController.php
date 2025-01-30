@@ -32,12 +32,7 @@ class UserProfileController extends Controller
     public function show(Request $request)
     {
         // Validate 'lang' parameter
-        $validated = $request->validate([
-            'lang' => 'nullable|in:en,ar',
-        ]);
-
-        // Retrieve 'lang' parameter from query string, default to 'en'
-        $lang = $validated['lang'] ?? 'en';
+        $lang = $request->header('Accept-Language', 'en');
 
         // Get the authenticated user
         $user = $request->user();
