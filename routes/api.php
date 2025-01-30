@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PasswordResetController;
+use App\Http\Controllers\Api\Tickets\TicketsController;
 
 // Public Routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -40,7 +41,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
-    Route::post('/profile', [UserProfileController::class, 'update']);
+    // tickets routes
+    Route::get('/all-tickets', [TicketsController::class, 'getTickets']);
+    Route::post('/create-ticket', [TicketsController::class, 'createTicket']);
+    Route::post('/reply-ticket', [TicketsController::class, 'ticketsReply']);
+    Route::get('/get-ticket-with-replies', [TicketsController::class, 'getTicketWithReplies']);
+    Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);    Route::post('/profile', [UserProfileController::class, 'update']);
 
 
     Route::get('/hair-colors', [HairColorController::class, 'index']);
@@ -62,6 +68,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/heights', [HeightController::class, 'index']);
     Route::get('/weights', [WeightController::class, 'index']);
 });
+
 
 
 
