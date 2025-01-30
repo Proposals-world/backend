@@ -50,12 +50,13 @@ class UserProfile extends Model
         'children',
         'skin_color_id',
         'hair_color_id',
-        'hijab_status_id',
-        'smoking_status_id',
+        'hijab_status',
+        'smoking_status',
         'drinking_status_id',
         'sports_activity_id',
         'social_media_presence_id',
         'guardian_contact_encrypted',
+
     ];
 
     /**
@@ -161,14 +162,9 @@ class UserProfile extends Model
         return $this->belongsTo(HairColor::class);
     }
 
-    public function hijabStatus()
-    {
-        return $this->belongsTo(HijabStatus::class);
-    }
-
     public function smokingStatus()
     {
-        return $this->belongsTo(SmokingStatus::class);
+        return $this->belongsTo(SmokingStatus::class, 'smoking_status_id');
     }
 
     public function drinkingStatus()

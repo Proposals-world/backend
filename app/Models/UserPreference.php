@@ -25,7 +25,7 @@ class UserPreference extends Model
         'preferred_height_id',
         'preferred_weight_id',
         'preferred_marital_status_id',
-        'preferred_smoking_status_id',
+        'preferred_smoking_status',
         'preferred_drinking_status_id',
         'preferred_sports_activity_id',
         'preferred_social_media_presence_id',
@@ -94,11 +94,6 @@ class UserPreference extends Model
     public function preferredMaritalStatus()
     {
         return $this->belongsTo(MaritalStatus::class, 'preferred_marital_status_id');
-    }
-
-    public function preferredSmokingStatus()
-    {
-        return $this->belongsTo(SmokingStatus::class, 'preferred_smoking_status_id');
     }
 
     public function preferredDrinkingStatus()

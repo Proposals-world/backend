@@ -26,7 +26,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_height_id' => 3, // 170 cm
                 'preferred_weight_id' => 3, // 70 kg
                 'preferred_marital_status_id' => 1, // Single
-                'preferred_smoking_status_id' => 2, // Does not smoke
+                'preferred_smoking_status' => 0, // Does not smoke
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 1, // Football
                 'preferred_social_media_presence_id' => 1, // Instagram
@@ -54,7 +54,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_height_id' => 2, // 160 cm
                 'preferred_weight_id' => 2, // 60 kg
                 'preferred_marital_status_id' => 1, // Single
-                'preferred_smoking_status_id' => 1, // Smokes
+                'preferred_smoking_status' => 1, // Smokes
                 'preferred_drinking_status_id' => 3, // Occasionally drinks Alcohol
                 'preferred_sports_activity_id' => 2, // Swimming
                 'preferred_social_media_presence_id' => 2, // Facebook
@@ -82,7 +82,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_height_id' => 4, // 180 cm
                 'preferred_weight_id' => 4, // 80 kg
                 'preferred_marital_status_id' => 2, // Married
-                'preferred_smoking_status_id' => 2, // Does not smoke
+                'preferred_smoking_status' => 0, // Does not smoke
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 3, // Basketball
                 'preferred_social_media_presence_id' => 3, // Twitter
@@ -110,7 +110,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_height_id' => 3, // 170 cm
                 'preferred_weight_id' => 5, // 90 kg
                 'preferred_marital_status_id' => 1, // Single
-                'preferred_smoking_status_id' => 2, // Does not smoke
+                'preferred_smoking_status' => 0, // Does not smoke
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 4, // Tennis
                 'preferred_social_media_presence_id' => 4, // LinkedIn
@@ -138,7 +138,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_height_id' => 1, // 150 cm
                 'preferred_weight_id' => 1, // 50 kg
                 'preferred_marital_status_id' => 1, // Single
-                'preferred_smoking_status_id' => 1, // Smokes
+                'preferred_smoking_status' => 1, // Smokes
                 'preferred_drinking_status_id' => 4, // Prefers not to say
                 'preferred_sports_activity_id' => 5, // Running
                 'preferred_social_media_presence_id' => 6, // Other

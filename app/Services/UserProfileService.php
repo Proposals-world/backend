@@ -40,8 +40,6 @@ class UserProfileService
                 'profile.maritalStatus',
                 'profile.skinColor',
                 'profile.hairColor',
-                'profile.hijabStatus',
-                'profile.smokingStatus',
                 'profile.drinkingStatus',
                 'profile.sportsActivity',
                 'profile.socialMediaPresence',
@@ -81,7 +79,7 @@ class UserProfileService
                 ]);
             });
         }
-
+// dd( $data['hijab_status']);
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en,
@@ -99,13 +97,15 @@ class UserProfileService
             'specialization_id' => $data['specialization_id'] ?? null,
             'employment_status' => $data['employment_status'],
             'job_title_id' => $data['job_title_id'] ?? null,
-            'smoking_status_id' => $data['smoking_status_id'] ?? null,
+            'smoking_status' => $data['smoking_status'] ?? null,
             'drinking_status_id' => $data['drinking_status_id'] ?? null,
             'sports_activity_id' => $data['sports_activity_id'] ?? null,
             'social_media_presence_id' => $data['social_media_presence_id'] ?? null,
             'marital_status_id' => $data['marital_status_id'],
             'children' => $data['number_of_children'] ?? null,
             'housing_status_id' => $data['housing_status_id'],
+            'hijab_status' => $data['hijab_status'],
+            'financial_status_id' => $data['financial_status_id'] ?? null,
             'health_issues_en' => $data['health_issues_en'] ?? null,
             'car_ownership' => $data['car_ownership'] ?? null,
             'health_issues_ar' => $data['health_issues_ar'] ?? null,

@@ -35,8 +35,8 @@ class UserProfileResource extends JsonResource
      */
     public function toArray($request)
     {
-        // Helper function to get localized field
-        $getLocalized = function ($model, $fieldBase) {
+        // Modify the closure to remove the second parameter
+        $getLocalized = function ($model) {
             return $model && isset($model->{'name_' . $this->lang}) ? $model->{'name_' . $this->lang} : null;
         };
 
@@ -79,12 +79,12 @@ class UserProfileResource extends JsonResource
                 'children' => $this->profile ? $this->profile->children : null,
                 'skin_color' => $getLocalized($this->profile->skinColor, 'name'),
                 'hair_color' => $getLocalized($this->profile->hairColor, 'name'),
-                'hijab_status' => $getLocalized($this->profile->hijabStatus, 'name'),
-                'smoking_status' => $this->profile && $this->profile->smokingStatus ? $this->profile->smokingStatus->name : null,
+                'hijab_status' => $this->profile ? (bool) $this->profile->hijab_status : null,
+                'smoking_status' => $this->profile ? (bool) $this->profile->smoking_status : null,
                 'drinking_status' => $getLocalized($this->profile->drinkingStatus, 'name'),
                 'sports_activity' => $getLocalized($this->profile->sportsActivity, 'name'),
                 'social_media_presence' => $getLocalized($this->profile->socialMediaPresence, 'name'),
-                'guardian_contact' => $this->profile && $this->profile->guardian_contact_encrypted ? $this->profile->guardian_contact_encrypted: null,
+                'guardian_contact' => $this->profile && $this->profile->guardian_contact_encrypted ? $this->profile->guardian_contact_encrypted : null,
                 // Smoking Tools
                 'smoking_tools' => $this->profile && $this->profile->smokingTools ? $this->profile->smokingTools->map(function ($tool) use ($getLocalized) {
                     return $getLocalized($tool, 'name');

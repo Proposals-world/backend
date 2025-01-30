@@ -37,8 +37,8 @@ class UserProfilesTableSeeder extends Seeder
                 'children' => 0,
                 'skin_color_id' => 2, // Medium
                 'hair_color_id' => 1, // Black
-                'hijab_status_id' => 2, // Does not wear Hijab
-                'smoking_status_id' => 2, // Does not smoke
+                'hijab_status' => 0, // Does not wear Hijab
+               'smoking_status' => 0, // Does not smoke
                 'drinking_status_id' => 2, // Does not drink Alcohol
                 'sports_activity_id' => 1, // Football
                 'social_media_presence_id' => 1, // Instagram
@@ -79,8 +79,8 @@ class UserProfilesTableSeeder extends Seeder
                 'children' => 0,
                 'skin_color_id' => 1, // Fair
                 'hair_color_id' => 2, // Brown
-                'hijab_status_id' => 1, // Wears Hijab
-                'smoking_status_id' => 1, // Smokes
+                'hijab_status' => 1, // Wears Hijab
+                'smoking_status' => 1, // Smokes
                 'drinking_status_id' => 3, // Occasionally drinks Alcohol
                 'sports_activity_id' => 2, // Swimming
                 'social_media_presence_id' => 2, // Facebook
@@ -121,8 +121,8 @@ class UserProfilesTableSeeder extends Seeder
                 'children' => 2,
                 'skin_color_id' => 2, // Medium
                 'hair_color_id' => 1, // Black
-                'hijab_status_id' => 2, // Does not wear Hijab
-                'smoking_status_id' => 2, // Does not smoke
+                'hijab_status' => 1, // Does not wear Hijab
+               'smoking_status' => 0, // Does not smoke
                 'drinking_status_id' => 2, // Does not drink Alcohol
                 'sports_activity_id' => 3, // Basketball
                 'social_media_presence_id' => 3, // Twitter
@@ -163,8 +163,8 @@ class UserProfilesTableSeeder extends Seeder
                 'children' => 0,
                 'skin_color_id' => 1, // Fair
                 'hair_color_id' => 3, // Blonde
-                'hijab_status_id' => 1, // Wears Hijab
-                'smoking_status_id' => 1, // Smokes
+                'hijab_status' => 1, // Wears Hijab
+                'smoking_status' => 1, // Smokes
                 'drinking_status_id' => 1, // Drinks Alcohol
                 'sports_activity_id' => 3, // Basketball
                 'social_media_presence_id' => 4, // LinkedIn
@@ -205,8 +205,8 @@ class UserProfilesTableSeeder extends Seeder
                 'children' => 1,
                 'skin_color_id' => 3, // Dark
                 'hair_color_id' => 2, // Brown
-                'hijab_status_id' => 2, // Does not wear Hijab
-                'smoking_status_id' => 2, // Does not smoke
+                'hijab_status' => 0, // Does not wear Hijab
+               'smoking_status' => 0, // Does not smoke
                 'drinking_status_id' => 2, // Does not drink Alcohol
                 'sports_activity_id' => 4, // Tennis
                 'social_media_presence_id' => 5, // Snapchat
@@ -247,8 +247,8 @@ class UserProfilesTableSeeder extends Seeder
                 'children' => 0,
                 'skin_color_id' => 4, // Other
                 'hair_color_id' => 4, // Red
-                'hijab_status_id' => 3, // Occasionally wears Hijab
-                'smoking_status_id' => 1, // Smokes
+                'hijab_status' => 0, // Occasionally wears Hijab
+                'smoking_status' => 1, // Smokes
                 'drinking_status_id' => 4, // Prefers not to say
                 'sports_activity_id' => 5, // Running
                 'social_media_presence_id' => 6, // Other

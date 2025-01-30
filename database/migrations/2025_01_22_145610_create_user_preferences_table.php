@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreignId('preferred_height_id')->nullable()->constrained('heights');
             $table->foreignId('preferred_weight_id')->nullable()->constrained('weights');
             $table->foreignId('preferred_marital_status_id')->nullable()->constrained('marital_statuses');
-            $table->foreignId('preferred_smoking_status_id')->nullable()->constrained('smoking_statuses');
+            $table->boolean('preferred_smoking_status')->nullable();
             $table->foreignId('preferred_drinking_status_id')->nullable()->constrained('drinking_statuses');
             $table->foreignId('preferred_sports_activity_id')->nullable()->constrained('sports_activities');
             $table->foreignId('preferred_social_media_presence_id')->nullable()->constrained('social_media_presences');

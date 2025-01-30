@@ -51,8 +51,8 @@ return new class extends Migration
             $table->integer('children')->nullable();
             $table->foreignId('skin_color_id')->nullable()->constrained('skin_colors');
             $table->foreignId('hair_color_id')->nullable()->constrained('hair_colors');
-            $table->foreignId('hijab_status_id')->nullable()->constrained('hijab_statuses');
-            $table->foreignId('smoking_status_id')->nullable()->constrained('smoking_statuses');
+            $table->integer('hijab_status')->nullable(); // 0 = no, 1 = yes,
+            $table->boolean('smoking_status');// 0: never, 1: smoke,
             $table->foreignId('drinking_status_id')->nullable()->constrained('drinking_statuses');
             $table->foreignId('sports_activity_id')->nullable()->constrained('sports_activities');
             $table->foreignId('social_media_presence_id')->nullable()->constrained('social_media_presences');
