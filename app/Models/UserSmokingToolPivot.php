@@ -12,8 +12,8 @@ class UserSmokingToolPivot extends Model
     protected $table = 'user_smoking_tool_pivot';
 
     protected $fillable = [
+        'user_profile_id', 
         'tool_id',
-        'smoking_status_id',
     ];
 
     public function smokingTool()
@@ -21,8 +21,8 @@ class UserSmokingToolPivot extends Model
         return $this->belongsTo(SmokingTool::class, 'tool_id');
     }
 
-    public function smokingStatus()
+        public function userProfile()
     {
-        return $this->belongsTo(SmokingStatus::class, 'smoking_status_id');
+        return $this->belongsTo(UserProfile::class, 'user_profile_id');
     }
 }

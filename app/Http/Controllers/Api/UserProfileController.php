@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserProfileRequest;
 use App\Http\Resources\UserProfileResource;
 use App\Services\UserProfileService;
 use Illuminate\Http\Request;
@@ -57,6 +58,32 @@ class UserProfileController extends Controller
         }
 
         // Return the user profile using the resource
+        return new UserProfileResource($userProfile, $lang);
+    }
+
+
+    /**
+     * Update the authenticated user's profile.
+     *
+     * @param UpdateUserProfileRequest $request
+     * @return Response
+     */
+       public function update(UpdateUserProfileRequest $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Unauthorized.'
+            ], 401);
+        }
+
+        $validated = $request->validated();
+
+        $lang = $request->header('Accept-Language', 'en');
+
+        $userProfile = $this->userProfileService->updateProfile($user, $validated, $lang);
+
         return new UserProfileResource($userProfile, $lang);
     }
 }

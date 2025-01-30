@@ -16,11 +16,13 @@ class Pet extends Model
 
     public function userPets()
     {
-        return $this->hasMany(UserPet::class, 'pet_id');
+        return $this->belongsToMany(UserPet::class, 'user_pet', 'pet_id', 'user_id');
     }
 
     public function userPreferredPets()
     {
         return $this->hasMany(UserPreferredPet::class, 'pet_id');
     }
+
+    
 }

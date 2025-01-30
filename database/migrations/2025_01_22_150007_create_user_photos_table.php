@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('photo_url');
             $table->text('caption_en')->nullable();
             $table->text('caption_ar')->nullable();
+            $table->boolean('is_main')->default(false);
             $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });

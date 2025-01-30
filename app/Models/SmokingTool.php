@@ -14,8 +14,8 @@ class SmokingTool extends Model
         'name_ar',
     ];
 
-    public function userSmokingToolPivots()
+    public function userProfiles()
     {
-        return $this->hasMany(UserSmokingToolPivot::class, 'tool_id');
+        return $this->belongsToMany(UserProfile::class, 'user_smoking_tool_pivots', 'tool_id', 'user_profile_id');
     }
 }

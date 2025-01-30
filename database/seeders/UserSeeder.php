@@ -27,6 +27,8 @@ class UserSeeder extends Seeder
             'role_id' => 1, // Admin role
             'created_at' => now(),
             'updated_at' => now(),
+            'otp_expires_at' => now(),
+            'email_verified_at' => now(),
         ]);
 
         // User Accounts
@@ -43,6 +45,8 @@ class UserSeeder extends Seeder
                 'role_id' => 2, // User role
                 'created_at' => now(),
                 'updated_at' => now(),
+                'otp_expires_at' => now(),
+                'email_verified_at' => now(),
             ],
             [
                 'first_name' => 'User2',
@@ -56,6 +60,8 @@ class UserSeeder extends Seeder
                 'role_id' => 2, // User role
                 'created_at' => now(),
                 'updated_at' => now(),
+                'otp_expires_at' => now(),
+                'email_verified_at' => now(),
             ],
             [
                 'first_name' => 'User3',
@@ -69,6 +75,8 @@ class UserSeeder extends Seeder
                 'role_id' => 2, // User role
                 'created_at' => now(),
                 'updated_at' => now(),
+                'otp_expires_at' => now(),
+                'email_verified_at' => now(),
             ],
             [
                 'first_name' => 'User4',
@@ -82,6 +90,8 @@ class UserSeeder extends Seeder
                 'role_id' => 2, // User role
                 'created_at' => now(),
                 'updated_at' => now(),
+                'otp_expires_at' => now(),
+                'email_verified_at' => now(),
             ],
             [
                 'first_name' => 'User5',
@@ -95,6 +105,8 @@ class UserSeeder extends Seeder
                 'role_id' => 2, // User role
                 'created_at' => now(),
                 'updated_at' => now(),
+                'otp_expires_at' => now(),
+                'email_verified_at' => now(),
             ],
         ]);
     }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_smoking_tool_pivots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tool_id')->constrained('smoking_tools');
-            $table->foreignId('smoking_status_id')->constrained('smoking_statuses');
+            $table->foreignId('user_profile_id')->constrained('user_profiles')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -11,26 +11,30 @@ class UserSmokingToolPivotsTableSeeder extends Seeder
     {
         DB::table('user_smoking_tool_pivots')->insert([
             [
+                'user_profile_id' => 1,
                 'tool_id' => 1, // Cigarettes
-                'smoking_status_id' => 1, // Smokes
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'user_profile_id' => 2,
                 'tool_id' => 2, // Shisha
-                'smoking_status_id' => 1, // Smokes
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'user_profile_id' => 3,
                 'tool_id' => 3, // E-cigarettes
-                'smoking_status_id' => 1, // Smokes
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'user_profile_id' => 4,
                 'tool_id' => 4, // Other
-                'smoking_status_id' => 1, // Does not smoke
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

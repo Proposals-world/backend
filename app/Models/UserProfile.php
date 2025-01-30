@@ -185,4 +185,14 @@ class UserProfile extends Model
     {
         return $this->belongsTo(SocialMediaPresence::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(UserPhoto::class);
+    }
+
+    public function smokingTools()
+    {
+        return $this->belongsToMany(SmokingTool::class, 'user_smoking_tool_pivots', 'user_profile_id', 'tool_id');
+    }
 }

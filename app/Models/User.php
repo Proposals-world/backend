@@ -169,10 +169,6 @@ class User extends Authenticatable
         return $this->hasMany(SmsLog::class);
     }
 
-    public function photos()
-    {
-        return $this->hasMany(UserPhoto::class);
-    }
 
     public function verificationTokens()
     {
@@ -182,5 +178,25 @@ class User extends Authenticatable
     public function eventLogs()
     {
         return $this->hasMany(EventLog::class);
+    }
+
+    public function hobbies()
+    {
+        return $this->belongsToMany(Hobby::class, 'user_hobbies', 'user_id', 'hobbies_id');
+    }
+
+    public function pets()
+    {
+        return $this->belongsToMany(Pet::class, 'user_pets', 'user_id', 'pet_id');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(UserPhoto::class);
+    }
+
+    public function mainPhoto()
+    {
+        return $this->hasOne(UserPhoto::class)->where('is_main', true);
     }
 }

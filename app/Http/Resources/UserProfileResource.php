@@ -36,8 +36,8 @@ class UserProfileResource extends JsonResource
     public function toArray($request)
     {
         // Helper function to get localized field
-        $getLocalized = function($model, $fieldBase) {
-            return $model && isset($model->{'name_'.$this->lang}) ? $model->{'name_'.$this->lang} : null;
+        $getLocalized = function ($model, $fieldBase) {
+            return $model && isset($model->{'name_' . $this->lang}) ? $model->{'name_' . $this->lang} : null;
         };
 
         return [
@@ -54,14 +54,14 @@ class UserProfileResource extends JsonResource
             // Profile Information
             'profile' => [
                 'bio' => $this->profile ? ($this->lang === 'ar' ? $this->profile->bio_ar : $this->profile->bio_en) : null,
-                'avatar_url' => $this->profile ? $this->profile->avatar_url : null,
+                'avatar_url' => $this->profile ? config('app.url') . $this->profile->avatar_url : null,
                 'id_number' => $this->profile ? $this->profile->id_number : null,
                 'nationality' => $getLocalized($this->profile->nationality, 'name'),
                 'origin' => $getLocalized($this->profile->origin, 'name'),
                 'religion' => $getLocalized($this->profile->religion, 'name'),
                 'country_of_residence' => $getLocalized($this->profile->countryOfResidence, 'name'),
                 'city' => $getLocalized($this->profile->city, 'name'),
-                'area' => $this->profile ? $this->profile->area : null,
+                // 'area' => $this->profile ? $this->profile->area : null,
                 'date_of_birth' => $this->profile ? $this->profile->date_of_birth : null,
                 'age' => $this->profile ? $this->profile->age : null,
                 'zodiac_sign' => $getLocalized($this->profile->zodiacSign, 'name'),
@@ -84,16 +84,28 @@ class UserProfileResource extends JsonResource
                 'drinking_status' => $getLocalized($this->profile->drinkingStatus, 'name'),
                 'sports_activity' => $getLocalized($this->profile->sportsActivity, 'name'),
                 'social_media_presence' => $getLocalized($this->profile->socialMediaPresence, 'name'),
-                'guardian_contact' => $this->profile && $this->profile->guardian_contact_encrypted ? Crypt::decryptString($this->profile->guardian_contact_encrypted) : null,
-            ],
+                'guardian_contact' => $this->profile && $this->profile->guardian_contact_encrypted ? $this->profile->guardian_contact_encrypted: null,
+                // Smoking Tools
+                'smoking_tools' => $this->profile && $this->profile->smokingTools ? $this->profile->smokingTools->map(function ($tool) use ($getLocalized) {
+                    return $getLocalized($tool, 'name');
+                }) : [],
+                'hobbies' => $this->hobbies ? $this->hobbies->map(function ($hobby) use ($getLocalized) {
+                    return $getLocalized($hobby, 'name');
+                }) : [],
 
-            // Photos
-            'photos' => $this->photos->map(function ($photo) {
-                return [
-                    'photo_url' => $photo->photo_url,
-                    'caption' => $this->lang === 'ar' ? $photo->caption_ar : $photo->caption_en,
-                ];
-            }),
+                // Pets
+                'pets' => $this->pets ? $this->pets->map(function ($pet) use ($getLocalized) {
+                    return $getLocalized($pet, 'name');
+                }) : [],
+                // Photos
+                'photos' => $this->photos->map(function ($photo) {
+                    return [
+                        'photo_url' => config('app.url') . $photo->photo_url,
+                        'caption' => $this->lang === 'ar' ? $photo->caption_ar : $photo->caption_en,
+                        'is_main' => $photo->is_main,
+                    ];
+                }),
+            ],
         ];
     }
 }
