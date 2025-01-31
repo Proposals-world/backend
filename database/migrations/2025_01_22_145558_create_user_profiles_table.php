@@ -18,25 +18,25 @@ return new class extends Migration
             // Set 'id' as a foreign key referencing 'users.id'
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->text('bio_en');
-            $table->text('bio_ar');
+            $table->text('bio_en')->nullable();
+            $table->text('bio_ar')->nullable();
             $table->string('avatar_url')->nullable();
             $table->string('id_number')->nullable();
             $table->string('criminal_record_url')->nullable();
             $table->string('id_verification_status')->default('unverified');
             $table->string('criminal_record_status')->default('unverified');
 
-            $table->foreignId('nationality_id')->constrained('nationalities');
+            $table->foreignId('nationality_id')->nullable()->constrained('nationalities');
             $table->foreignId('origin_id')->nullable()->constrained('origins');
-            $table->foreignId('religion_id')->constrained('religions');
-            $table->foreignId('country_of_residence_id')->constrained('countries');
-            $table->foreignId('city_id')->constrained('cities');
-            $table->date('date_of_birth');
+            $table->foreignId('religion_id')->nullable()->constrained('religions');
+            $table->foreignId('country_of_residence_id')->nullable()->constrained('countries');
+            $table->foreignId('city_id')->nullable()->constrained('cities');
+            $table->date('date_of_birth')->nullable();
             $table->integer('age')->nullable();
             $table->foreignId('zodiac_sign_id')->nullable()->constrained('zodiac_signs');
-            $table->foreignId('educational_level_id')->constrained('educational_levels');
+            $table->foreignId('educational_level_id')->nullable()->constrained('educational_levels');
             $table->foreignId('specialization_id')->nullable()->constrained('specializations');
-            $table->boolean('employment_status');
+            $table->boolean('employment_status')->nullable();
             $table->foreignId('job_title_id')->nullable()->constrained('job_titles');
             $table->foreignId('sector_id')->nullable()->constrained('sectors');
             $table->foreignId('position_level_id')->nullable()->constrained('position_levels');
@@ -47,12 +47,12 @@ return new class extends Migration
             $table->foreignId('weight_id')->nullable()->constrained('weights');
             $table->text('health_issues_en')->nullable();
             $table->text('health_issues_ar')->nullable();
-            $table->foreignId('marital_status_id')->constrained('marital_statuses');
+            $table->foreignId('marital_status_id')->nullable()->constrained('marital_statuses');
             $table->integer('children')->nullable();
             $table->foreignId('skin_color_id')->nullable()->constrained('skin_colors');
             $table->foreignId('hair_color_id')->nullable()->constrained('hair_colors');
             $table->integer('hijab_status')->nullable(); // 0 = no, 1 = yes,
-            $table->boolean('smoking_status');// 0: never, 1: smoke,
+            $table->boolean('smoking_status')->nullable();// 0: never, 1: smoke,
             $table->foreignId('drinking_status_id')->nullable()->constrained('drinking_statuses');
             $table->foreignId('sports_activity_id')->nullable()->constrained('sports_activities');
             $table->foreignId('social_media_presence_id')->nullable()->constrained('social_media_presences');
