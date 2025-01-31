@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Services;
+namespace App\Traits;
 
 use Google\Auth\ApplicationDefaultCredentials;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 
-class FCMService
+trait FCMTrait
 {
-    protected static function getAccessToken()
+    protected function getAccessToken()
     {
         $credentialsPath = config('firebase.credentials');
-
-        // dd($credentialsPath);
         putenv("GOOGLE_APPLICATION_CREDENTIALS={$credentialsPath}");
 
         $client = ApplicationDefaultCredentials::getCredentials(['https://www.googleapis.com/auth/firebase.messaging']);
         $authToken = $client->fetchAuthToken();
-// dd($authToken);
+
         return $authToken['access_token'] ?? null;
     }
 
-    public static function sendNotification($title, $body, $token)
+    public function sendFCMNotification($title, $body, $token)
     {
-        $accessToken = self::getAccessToken();
+        $accessToken = $this->getAccessToken();
         if (!$accessToken) {
             return ['error' => 'Unable to get Firebase Access Token'];
         }

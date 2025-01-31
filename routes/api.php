@@ -77,20 +77,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/heights', [HeightController::class, 'index']);
     Route::get('/weights', [WeightController::class, 'index']);
     // Group 1: Personal Attributes
-        Route::get('/personal-attributes', [PersonalAttributesController::class, 'index']);
-    
-    
-Route::post('/send-notification', [FCMController::class, 'sendNotification']); 
-
-
-// Group 2: Lifestyle & Interests
-        Route::get('/lifestyle-interests', [LifestyleInterestsController::class, 'index']);
-    
-    
+    Route::get('/personal-attributes', [PersonalAttributesController::class, 'index']);
+    Route::post('/send-notification', [FCMController::class, 'sendNotification']);
+    // Group 2: Lifestyle & Interests
+    Route::get('/lifestyle-interests', [LifestyleInterestsController::class, 'index']);
     // Group 3: Professional & Educational Background
-        Route::get('/professional-educational', [ProfessionalEducationalController::class, 'index']);
-    
-    
+    Route::get('/professional-educational', [ProfessionalEducationalController::class, 'index']);
     // Group 4: Geographic, Cultural & Socioeconomic Information
-        Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
+    Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
 });
