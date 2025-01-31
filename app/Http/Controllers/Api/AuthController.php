@@ -133,7 +133,50 @@ class AuthController extends Controller
         // Mark email as verified
         $user->email_verified_at = Carbon::now();
         $user->save();
-
+        if (!$user->profile) {
+            $user->profile()->create([
+                'id' => $user->id,
+                'bio_en' => '',
+                'bio_ar' => '',
+                'avatar_url' => null,
+                'id_number' => null,
+                'criminal_record_url' => null,
+                'id_verification_status' => 'unverified',
+                'criminal_record_status' => 'unverified',
+                'nationality_id' => null,
+                'origin_id' => null,
+                'religion_id' => null,
+                'country_of_residence_id' => null,
+                'city_id' => null,
+                'date_of_birth' => null,
+                'age' => null,
+                'zodiac_sign_id' => null,
+                'educational_level_id' => null,
+                'specialization_id' => null,
+                'employment_status' => false,
+                'job_title_id' => null,
+                'sector_id' => null,
+                'position_level_id' => null,
+                'financial_status_id' => null,
+                'housing_id' => null,
+                'car_ownership' => null,
+                'height_id' => null,
+                'weight_id' => null,
+                'health_issues_en' => null,
+                'health_issues_ar' => null,
+                'marital_status_id' => null,
+                'children' => null,
+                'skin_color_id' => null,
+                'hair_color_id' => null,
+                'hijab_status' => null,
+                'smoking_status' => null,
+                'drinking_status_id' => null,
+                'sports_activity_id' => null,
+                'social_media_presence_id' => null,
+                'guardian_contact_encrypted' => null,
+            ]);
+        }
+    
         return response()->json([
             'success' => true,
             'message' => 'OTP verified successfully.',

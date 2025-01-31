@@ -119,7 +119,7 @@ class UserProfileService
         ]);
 
         // Handle Smoking Tools based on Smoking Status
-        if (isset($data['smoking_status_id']) && $data['smoking_status_id'] == 1) {
+        if (isset($data['smoking_status']) && $data['smoking_status'] == 1) {
             if (isset($data['smoking_tools']) && is_array($data['smoking_tools'])) {
                 $profile->smokingTools()->sync($data['smoking_tools']);
             } else {
