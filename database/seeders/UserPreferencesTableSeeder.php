@@ -85,7 +85,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_smoking_status' => 0, // Does not smoke
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 3, // Basketball
-                'preferred_social_media_presence_id' => 3, // Twitter
+                'preferred_social_media_presence_id' => 1, // Twitter
                 'marriage_budget_id' => 3, // 20000-30000
                 'must_have_criteria_en' => 'Must be career-oriented.',
                 'must_have_criteria_ar' => 'يجب أن يكون موجهًا نحو المهنة.',
@@ -113,7 +113,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_smoking_status' => 0, // Does not smoke
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 4, // Tennis
-                'preferred_social_media_presence_id' => 4, // LinkedIn
+                'preferred_social_media_presence_id' => 2, // LinkedIn
                 'marriage_budget_id' => 4, // 30000+
                 'must_have_criteria_en' => 'Must be financially stable.',
                 'must_have_criteria_ar' => 'يجب أن يكون مستقرًا ماليًا.',
@@ -141,7 +141,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_smoking_status' => 1, // Smokes
                 'preferred_drinking_status_id' => 4, // Prefers not to say
                 'preferred_sports_activity_id' => 5, // Running
-                'preferred_social_media_presence_id' => 6, // Other
+                'preferred_social_media_presence_id' => 1, // Other
                 'marriage_budget_id' => 1, // 5000-10000
                 'must_have_criteria_en' => 'Must enjoy cooking.',
                 'must_have_criteria_ar' => 'يجب أن يستمتع بالطهي.',

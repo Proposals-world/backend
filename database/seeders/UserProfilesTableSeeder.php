@@ -125,7 +125,7 @@ class UserProfilesTableSeeder extends Seeder
                'smoking_status' => 0, // Does not smoke
                 'drinking_status_id' => 2, // Does not drink Alcohol
                 'sports_activity_id' => 3, // Basketball
-                'social_media_presence_id' => 3, // Twitter
+                'social_media_presence_id' => 1, // Twitter
                 'guardian_contact_encrypted' => null,
                 'avatar_url' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                 'id_number' => 'J112233445',
@@ -167,7 +167,7 @@ class UserProfilesTableSeeder extends Seeder
                 'smoking_status' => 1, // Smokes
                 'drinking_status_id' => 1, // Drinks Alcohol
                 'sports_activity_id' => 3, // Basketball
-                'social_media_presence_id' => 4, // LinkedIn
+                'social_media_presence_id' => 1, // LinkedIn
                 'guardian_contact_encrypted' => null,
                 'avatar_url' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                 'id_number' => 'L556677889',
@@ -209,7 +209,7 @@ class UserProfilesTableSeeder extends Seeder
                'smoking_status' => 0, // Does not smoke
                 'drinking_status_id' => 2, // Does not drink Alcohol
                 'sports_activity_id' => 4, // Tennis
-                'social_media_presence_id' => 5, // Snapchat
+                'social_media_presence_id' => 2, // Snapchat
                 'guardian_contact_encrypted' => null,
                 'avatar_url' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                 'id_number' => 'S998877665',
@@ -251,7 +251,7 @@ class UserProfilesTableSeeder extends Seeder
                 'smoking_status' => 1, // Smokes
                 'drinking_status_id' => 4, // Prefers not to say
                 'sports_activity_id' => 5, // Running
-                'social_media_presence_id' => 6, // Other
+                'social_media_presence_id' => 2, // Other
                 'guardian_contact_encrypted' => null,
                 'avatar_url' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                 'id_number' => 'P223344556',
