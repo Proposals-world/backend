@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -85,6 +86,7 @@ class UserProfileService
             'bio_en' => $data['bio_en'] ?? $profile->bio_en,
             'bio_ar' => $data['bio_ar'] ?? $profile->bio_ar,
             'date_of_birth' => $data['date_of_birth'],
+            'age' => Carbon::parse($data['date_of_birth'])->age,
             'height_id' => $data['height'],
             'weight_id' => $data['weight'],
             'nationality_id' => $data['nationality_id'],
