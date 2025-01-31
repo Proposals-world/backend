@@ -22,6 +22,7 @@ use App\Http\Controllers\API\SpecializationController;
 use App\Http\Controllers\API\SkinColorController;
 use App\Http\Controllers\API\SmokingToolController;
 use App\Http\Controllers\Api\UserProfileController;
+use App\Http\Controllers\FCMController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -74,5 +75,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 
-
+Route::post('/send-notification', [FCMController::class, 'sendNotification']);
 

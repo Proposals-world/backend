@@ -26,6 +26,7 @@ return new class extends Migration
             $table->timestamp('last_active')->nullable();
             $table->foreignId(column: 'role_id')->constrained('roles');
             $table->string('status')->default('active');
+            $table->string('fcm_token')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
