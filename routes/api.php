@@ -78,6 +78,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/weights', [WeightController::class, 'index']);
     // Group 1: Personal Attributes
     Route::get('/personal-attributes', [PersonalAttributesController::class, 'index']);
+    // send notification
     Route::post('/send-notification', [FCMController::class, 'sendNotification']);
     // Group 2: Lifestyle & Interests
     Route::get('/lifestyle-interests', [LifestyleInterestsController::class, 'index']);
