@@ -13,7 +13,7 @@ class UpdateUserProfileRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $rules = [
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'bio_en' => 'nullable|string|max:1000',
             'bio_ar' => 'nullable|string|max:1000',
@@ -50,5 +50,30 @@ class UpdateUserProfileRequest extends FormRequest
             'guardian_contact' => 'nullable|string|regex:/^\+?[0-9]{10,20}$/',
             'car_ownership' => 'required|boolean',
         ];
+
+        if ($this->input('gender') === 'male') {
+            $rules['hijab_status'] = [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ($value !== null && $value != 0) {
+                        $fail('Male cannot dress hijab.');
+                    }
+                },
+            ];
+        }
+
+        if ($this->input('smoking_status') == 1) {
+            $rules['smoking_tools'] = [
+            'required',
+            'array',
+            function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                $fail('You should specify the smoking tools.');
+                }
+            },
+            ];
+        }
+
+        return $rules;
     }
 }
