@@ -4,13 +4,17 @@ use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\Api\DrinkingStatusController;
 use App\Http\Controllers\API\FinancialStatusController;
+use App\Http\Controllers\API\GeographicCulturalSocioeconomicController;
 use App\Http\Controllers\API\HobbyController;
 use App\Http\Controllers\API\HousingStatusController;
+use App\Http\Controllers\API\LifestyleInterestsController;
 use App\Http\Controllers\API\MaritalStatusController;
 use App\Http\Controllers\API\OriginController;
+use App\Http\Controllers\API\PersonalAttributesController;
 use App\Http\Controllers\API\PetController;
 
 use App\Http\Controllers\Api\HeightController;
+use App\Http\Controllers\API\ProfessionalEducationalController;
 use App\Http\Controllers\Api\WeightController;
 use App\Http\Controllers\API\HairColorController;
 use App\Http\Controllers\API\ReligionController;
@@ -72,8 +76,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/financial-statuses', [FinancialStatusController::class, 'index']);
     Route::get('/heights', [HeightController::class, 'index']);
     Route::get('/weights', [WeightController::class, 'index']);
+    // Group 1: Personal Attributes
+        Route::get('/personal-attributes', [PersonalAttributesController::class, 'index']);
+    
+    
+Route::post('/send-notification', [FCMController::class, 'sendNotification']); 
+
+
+// Group 2: Lifestyle & Interests
+        Route::get('/lifestyle-interests', [LifestyleInterestsController::class, 'index']);
+    
+    
+    // Group 3: Professional & Educational Background
+        Route::get('/professional-educational', [ProfessionalEducationalController::class, 'index']);
+    
+    
+    // Group 4: Geographic, Cultural & Socioeconomic Information
+        Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
 });
-
-
-Route::post('/send-notification', [FCMController::class, 'sendNotification']);
-
