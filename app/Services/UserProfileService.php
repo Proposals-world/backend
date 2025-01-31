@@ -64,8 +64,8 @@ class UserProfileService
                     // Delete the file from storage
                     Storage::disk('public')->delete(str_replace('/storage/', '', $currentMainPhoto->photo_url));
     
-                    // Set is_main to false for the old photo
-                    $currentMainPhoto->update(['is_main' => false]);
+                    // Delete the old photo record from user_photos
+                    $currentMainPhoto->delete();
                 }
     
                 // Store the new photo
@@ -79,13 +79,11 @@ class UserProfileService
                 ]);
             });
         }
-// dd( $data['hijab_status']);
+
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en,
             'bio_ar' => $data['bio_ar'] ?? $profile->bio_ar,
-            'photo_url' => $data['profile_photo_url'] ?? $profile->profile_photo_url,
-            'gender' => $data['gender'],
             'date_of_birth' => $data['date_of_birth'],
             'height_id' => $data['height'],
             'weight_id' => $data['weight'],
@@ -115,12 +113,17 @@ class UserProfileService
 
         $profile->save();
 
+        // Update gender in the user table
+        $user->update([
+            'gender' => $data['gender'],
+        ]);
+
         // Handle Smoking Tools based on Smoking Status
         if (isset($data['smoking_status_id']) && $data['smoking_status_id'] == 1) {
             if (isset($data['smoking_tools']) && is_array($data['smoking_tools'])) {
-            $profile->smokingTools()->sync($data['smoking_tools']);
+                $profile->smokingTools()->sync($data['smoking_tools']);
             } else {
-            $profile->smokingTools()->detach();
+                $profile->smokingTools()->detach();
             }
         } else {
             $profile->smokingTools()->detach();
@@ -132,6 +135,6 @@ class UserProfileService
         // Sync pets
         $user->pets()->sync($data['pets'] ?? []);
 
-        return  $user;
+        return $user;
     }
 }

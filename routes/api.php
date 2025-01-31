@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\CountryController;
+use App\Http\Controllers\Api\DrinkingStatusController;
 use App\Http\Controllers\API\FinancialStatusController;
 use App\Http\Controllers\API\HobbyController;
 use App\Http\Controllers\API\HousingStatusController;
@@ -51,7 +52,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
     Route::post('/profile', [UserProfileController::class, 'update']);
 
-
+    Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
     Route::get('/hair-colors', [HairColorController::class, 'index']);
     Route::get('/religions', [ReligionController::class, 'index']);
     Route::get('/educational-levels', [EducationalLevelController::class, 'index']);
