@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\Tickets\TicketsController;
+use App\Http\Controllers\UserPreferenceController;
 
 // Public Routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -52,9 +53,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/create-ticket', [TicketsController::class, 'createTicket']);
     Route::post('/reply-ticket', [TicketsController::class, 'ticketsReply']);
     Route::get('/get-ticket-with-replies', [TicketsController::class, 'getTicketWithReplies']);
-    Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);   
-    
-    
+    Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);
+
+
     Route::post('/profile', [UserProfileController::class, 'update']);
 
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
@@ -86,4 +87,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/professional-educational', [ProfessionalEducationalController::class, 'index']);
     // Group 4: Geographic, Cultural & Socioeconomic Information
     Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
+    // Route::get('/user-preferences', [UserPreferenceController::class, 'index']); // List all user preferences
+    Route::post('/store-user-preferences', [UserPreferenceController::class, 'store']); // Create a new user preference
+    Route::get('/user-preferences/{userPreference}', [UserPreferenceController::class, 'show']); // Get a single user preference
+    Route::put('/user-preferences/{userPreference}', [UserPreferenceController::class, 'update']); // Update a user preference
+    Route::delete('/user-preferences/{userPreference}', [UserPreferenceController::class, 'destroy']); // Delete a user preference
 });
