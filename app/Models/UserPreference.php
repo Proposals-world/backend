@@ -26,6 +26,7 @@ class UserPreference extends Model
         'preferred_weight_id',
         'preferred_marital_status_id',
         'preferred_smoking_status',
+        "preferred_smoking_tool_id",
         'preferred_drinking_status_id',
         'preferred_sports_activity_id',
         'preferred_social_media_presence_id',
@@ -114,5 +115,11 @@ class UserPreference extends Model
     public function marriageBudget()
     {
         return $this->belongsTo(MarriageBudget::class, 'marriage_budget_id');
+    }
+    // UserPreference.php model
+
+    public function smokingTool()
+    {
+        return $this->belongsTo(SmokingTool::class, 'preferred_smoking_tool_id');
     }
 }

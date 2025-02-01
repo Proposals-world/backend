@@ -18,4 +18,8 @@ class SmokingTool extends Model
     {
         return $this->belongsToMany(UserProfile::class, 'user_smoking_tool_pivots', 'tool_id', 'user_profile_id');
     }
+    public function userPreferences()
+    {
+        return $this->hasMany(UserPreference::class, 'preferred_smoking_tool_id');  // Foreign key in the UserPreference table
+    }
 }
