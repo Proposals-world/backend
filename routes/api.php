@@ -88,8 +88,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Group 4: Geographic, Cultural & Socioeconomic Information
     Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
     // Route::get('/user-preferences', [UserPreferenceController::class, 'index']); // List all user preferences
-    Route::post('/store-user-preferences', [UserPreferenceController::class, 'store']); // Create a new user preference
-    Route::get('/user-preferences/{userPreference}', [UserPreferenceController::class, 'show']); // Get a single user preference
+    Route::post('/user-preferences', [UserPreferenceController::class, 'store']); // Create a new user preference
+    Route::get('/show-user-preferences', [UserPreferenceController::class, 'show']); // Get a single user preference
     Route::put('/user-preferences/{userPreference}', [UserPreferenceController::class, 'update']); // Update a user preference
     Route::delete('/user-preferences/{userPreference}', [UserPreferenceController::class, 'destroy']); // Delete a user preference
 });
