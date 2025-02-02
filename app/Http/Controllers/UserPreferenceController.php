@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 class UserPreferenceController extends Controller
 {
     /**
-     * Store a newly created user preference.
+     * Store or update a user preference using updateOrCreate.
      */
     public function store(UserPreferenceRequest $request)
     {
-        $userPreference = UserPreference::create($request->validated());
-
+        $userPreference = UserPreference::updateOrCreate(
+            ['user_id' => $request->user()->id], // Search condition (assuming preferences are linked to users)
+            $request->validated() // Data to insert or update
+        );
 
         return new UserPreferenceResource($userPreference);
     }
@@ -29,11 +31,14 @@ class UserPreferenceController extends Controller
     }
 
     /**
-     * Update the specified user preference.
+     * Update or create the specified user preference.
      */
     public function update(UserPreferenceRequest $request, UserPreference $userPreference)
     {
-        $userPreference->update($request->validated());
+        $userPreference = UserPreference::updateOrCreate(
+            ['user_id' => $request->user()->id], // Search condition
+            $request->validated() // Data to insert or update
+        );
 
         return new UserPreferenceResource($userPreference);
     }

@@ -116,10 +116,4 @@ class UserPreference extends Model
     {
         return $this->belongsTo(MarriageBudget::class, 'marriage_budget_id');
     }
-    // UserPreference.php model
-
-    public function smokingTool()
-    {
-        return $this->belongsTo(SmokingTool::class, 'preferred_smoking_tool_id');
-    }
 }

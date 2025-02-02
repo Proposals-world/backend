@@ -30,7 +30,6 @@ class UserPreferenceResource extends JsonResource
             'preferred_weight' => $this->preferredWeight ? $this->preferredWeight->name_en : null,
             'preferred_marital_status' => $this->preferredMaritalStatus ? $this->preferredMaritalStatus->name_en : null,
             'preferred_smoking_status' => $this->preferred_smoking_status ? $this->preferred_smoking_status : null,
-            'preferred_smoking_tool' => $this->smokingTool ? $this->smokingTool->name_en : null,
             'preferred_drinking_status' => $this->preferredDrinkingStatus ? $this->preferredDrinkingStatus->name_en : null,
             'preferred_sports_activity' => $this->preferredSportsActivity ? $this->preferredSportsActivity->name_en : null,
             'preferred_social_media_presence' => $this->preferredSocialMediaPresence ? $this->preferredSocialMediaPresence->name_en : null,
