@@ -10,41 +10,72 @@ use Illuminate\Http\Request;
 class UserPreferenceController extends Controller
 {
     /**
-     * Store a newly created user preference.
+     * Store or update a user preference using updateOrCreate.
      */
     public function store(UserPreferenceRequest $request)
     {
-        $userPreference = UserPreference::create($request->validated());
+        $userPreference = UserPreference::updateOrCreate(
+            ['user_id' => $request->user()->id], // Search condition
+            $request->validated() // Data to insert or update
+        );
 
+        // Get the language header, default to 'en' if not provided
+        $language = $request->header('Accept-Language', 'en');
 
-        return new UserPreferenceResource($userPreference);
+        return new UserPreferenceResource($userPreference, $language);
     }
 
     /**
      * Display the specified user preference.
      */
-    public function show(UserPreference $userPreference)
+    public function show(Request $request)
     {
-        return new UserPreferenceResource($userPreference);
+        $user = $request->user();
+        $language = $request->header('Accept-Language', 'en');
+        if (!$user) {
+
+            return response()->json([
+                'message' => $language == 'ar' ? 'غير مصرح لك.' : 'Unauthorized.'
+            ], 401);
+        }
+
+        $userPreference = UserPreference::where('user_id', $user->id)->first();
+
+        if (!$userPreference) {
+            return response()->json([
+                'message' => $language == 'ar' ? 'لم يتم العثور على تفضيلات المستخدم.' : 'User preference not found.'
+            ], 404);
+        }
+
+        return new UserPreferenceResource($userPreference, $request->header('Accept-Language', 'en'));
     }
 
     /**
-     * Update the specified user preference.
+     * Update or create the specified user preference.
      */
     public function update(UserPreferenceRequest $request, UserPreference $userPreference)
     {
-        $userPreference->update($request->validated());
+        $userPreference = UserPreference::updateOrCreate(
+            ['user_id' => $request->user()->id], // Search condition
+            $request->validated() // Data to insert or update
+        );
 
-        return new UserPreferenceResource($userPreference);
+        $language = $request->header('Accept-Language', 'en');
+
+        return new UserPreferenceResource($userPreference, $language);
     }
 
     /**
      * Remove the specified user preference.
      */
-    public function destroy(UserPreference $userPreference)
+    public function destroy(UserPreference $userPreference, Request $request)
     {
         $userPreference->delete();
 
-        return response()->json(['message' => 'User preference deleted successfully']);
+        $language = $request->header('Accept-Language', 'en');
+
+        return response()->json([
+            'message' => $language == 'ar' ? 'تم حذف تفضيلات المستخدم بنجاح.' : 'User preference deleted successfully.'
+        ]);
     }
 }

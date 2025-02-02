@@ -63,7 +63,7 @@ class UserProfileController extends Controller
      * @param UpdateUserProfileRequest $request
      * @return Response
      */
-       public function update(UpdateUserProfileRequest $request)
+    public function update(UpdateUserProfileRequest $request)
     {
         $user = $request->user();
 
