@@ -10,11 +10,10 @@ class HeightsTableSeeder extends Seeder
     public function run()
     {
         DB::table('heights')->insert([
-            ['name_en' => '150 cm', 'name_ar' => '150 سم', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '160 cm', 'name_ar' => '160 سم', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '170 cm', 'name_ar' => '170 سم', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '180 cm', 'name_ar' => '180 سم', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '190 cm', 'name_ar' => '190 سم', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Short', 'name_ar' => 'قصير', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Medium', 'name_ar' => 'متوسط', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Tall', 'name_ar' => 'طويل', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Very Tall', 'name_ar' => 'طويل جدًا', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

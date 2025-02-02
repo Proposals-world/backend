@@ -113,7 +113,7 @@ class UserProfilesTableSeeder extends Seeder
                 'financial_status_id' => 1, // Stable
                 'housing_id' => 1, // Owned
                 'car_ownership' => true,
-                'height_id' => 4, // 180 cm
+                'height_id' => 3, // 180 cm
                 'weight_id' => 3, // 70 kg
                 'health_issues_en' => null,
                 'health_issues_ar' => null,
@@ -155,7 +155,7 @@ class UserProfilesTableSeeder extends Seeder
                 'financial_status_id' => 3, // Excellent
                 'housing_id' => 3, // Living with Parents
                 'car_ownership' => false,
-                'height_id' => 5, // 190 cm
+                'height_id' => 2, // 190 cm
                 'weight_id' => 4, // 80 kg
                 'health_issues_en' => null,
                 'health_issues_ar' => null,

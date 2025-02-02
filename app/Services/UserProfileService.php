@@ -117,12 +117,6 @@ class UserProfileService
         ]);
 
         $profile->save();
-
-        // Update gender in the user table
-        $user->update([
-            'gender' => $data['gender'],
-        ]);
-
         // Handle Smoking Tools based on Smoking Status
         if (isset($data['smoking_status']) && $data['smoking_status'] == 1) {
             if (isset($data['smoking_tools']) && is_array($data['smoking_tools'])) {
