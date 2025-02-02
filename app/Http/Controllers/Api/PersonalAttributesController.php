@@ -10,6 +10,7 @@ use App\Models\Weight;
 use App\Models\Origin;
 use App\Models\MaritalStatus;
 use App\Models\SkinColor;
+use App\Models\ZodiacSign;
 use Illuminate\Http\Request;
 
 class PersonalAttributesController extends Controller
@@ -29,6 +30,7 @@ class PersonalAttributesController extends Controller
         $origins = Origin::all();
         $maritalStatuses = MaritalStatus::all();
         $skinColors = SkinColor::all();
+        $zodiacSigns = ZodiacSign::all();
 
         // Prepare the aggregated data
         $data = [
@@ -38,6 +40,7 @@ class PersonalAttributesController extends Controller
             'origins' => $origins,
             'maritalStatuses' => $maritalStatuses,
             'skinColors' => $skinColors,
+            'zodiacSigns' => $zodiacSigns,
         ];
 
         // Return using the aggregated resource
