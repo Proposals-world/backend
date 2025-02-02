@@ -53,17 +53,6 @@ class UpdateUserProfileRequest extends FormRequest
             'car_ownership' => 'required|boolean',
         ];
 
-        if ($this->input('gender') === 'male') {
-            $rules['hijab_status'] = [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if ($value !== null && $value != 0) {
-                        $fail('Male cannot dress hijab.');
-                    }
-                },
-            ];
-        }
-
         if ($this->input('smoking_status') == 1) {
             $rules['smoking_tools'] = [
             'required',
