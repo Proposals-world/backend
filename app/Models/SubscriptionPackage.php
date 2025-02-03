@@ -23,4 +23,10 @@ class SubscriptionPackage extends Model
     {
         return $this->hasMany(Subscription::class, 'package_id');
     }
+    public function features()
+    {
+        return $this->belongsToMany(Feature::class)
+            ->withPivot('included')
+            ->withTimestamps();
+    }
 }
