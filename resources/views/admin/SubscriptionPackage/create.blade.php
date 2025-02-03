@@ -45,10 +45,16 @@
     <div class="mb-3">
         <label class="form-label">Select Features</label>
         @foreach($features as $feature)
-            @php
+        @if (isset($subscriptionPackage))
+        @php
                 // Check if editing and this feature is attached to the package
-                $isChecked = in_array($feature->id, $selectedFeatures);
+                $isChecked = $selectedFeatures ? in_array($feature->id, $selectedFeatures) :  null;
             @endphp
+            @else
+            @php
+                $isChecked= null;
+            @endphp
+            @endif
             <div class="form-check mb-2">
                 <!-- Feature Checkbox -->
                 <input type="checkbox" name="features[]" id="feature_{{ $feature->id }}" value="{{ $feature->id }}"

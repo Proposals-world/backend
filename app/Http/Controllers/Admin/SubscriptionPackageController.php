@@ -85,10 +85,18 @@ class SubscriptionPackageController extends Controller
 
         return response()->json(['message' => 'Subscription package updated successfully']);
     }
-
-    public function destroy(SubscriptionPackage $package)
+    public function destroy($id)
     {
+        // Fetch the SubscriptionPackage by its ID
+        $package = SubscriptionPackage::findOrFail($id);
+
+        // Detach the related features (if any) before deleting the package
+        $package->features()->detach();
+
+        // Delete the subscription package
         $package->delete();
+
+        // Return a JSON response indicating success
         return response()->json(['message' => 'Subscription package deleted successfully']);
     }
 }
