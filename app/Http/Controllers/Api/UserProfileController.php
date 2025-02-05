@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserProfilePhotoRequest;
 use App\Http\Requests\UpdateUserProfileRequest;
 use App\Http\Resources\UserProfileResource;
 use App\Services\UserProfileService;
@@ -80,5 +81,25 @@ class UserProfileController extends Controller
         $userProfile = $this->userProfileService->updateProfile($user, $validated, $lang);
 
         return new UserProfileResource($userProfile, $lang);
+    }
+    /**
+     * Update the authenticated user's profile photo.
+     *
+     * @param UpdateUserProfilePhotoRequest $request
+     * @return Response
+     */
+    public function updateProfilePhoto(UpdateUserProfilePhotoRequest $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Unauthorized.'
+            ], 401);
+        }
+
+        $updatedUser = $this->userProfileService->updateProfilePhoto($user, $request->file('profile_photo'));
+
+        return new UserProfileResource($updatedUser);
     }
 }

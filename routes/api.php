@@ -92,4 +92,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/show-user-preferences', [UserPreferenceController::class, 'show']); // Get a single user preference
     Route::put('/user-preferences/{userPreference}', [UserPreferenceController::class, 'update']); // Update a user preference
     Route::delete('/user-preferences/{userPreference}', [UserPreferenceController::class, 'destroy']); // Delete a user preference
+    Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto']);
 });

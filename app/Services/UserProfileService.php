@@ -55,32 +55,6 @@ class UserProfileService
     {
         $profile = $user->profile ?? $user->profile()->create([]);
 
-        // Handle profile photo
-        if (isset($data['profile_photo'])) {
-            DB::transaction(function () use ($user, $data) {
-                // Retrieve and update the current main photo
-                $currentMainPhoto = $user->photos()->where('is_main', true)->first();
-    
-                if ($currentMainPhoto) {
-                    // Delete the file from storage
-                    Storage::disk('public')->delete(str_replace('/storage/', '', $currentMainPhoto->photo_url));
-    
-                    // Delete the old photo record from user_photos
-                    $currentMainPhoto->delete();
-                }
-    
-                // Store the new photo
-                $path = $data['profile_photo']->store('profile_photos', 'public');
-                $newPhotoUrl = Storage::url($path);
-    
-                // Create a new photo record in user_photos
-                $user->photos()->create([
-                    'photo_url' => $newPhotoUrl,
-                    'is_main' => true, // Ensure new photo is main
-                ]);
-            });
-        }
-
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en,
@@ -135,5 +109,30 @@ class UserProfileService
         $user->pets()->sync($data['pets'] ?? []);
 
         return $user;
+    }
+
+    public function updateProfilePhoto(User $user, $photoFile)
+    {
+        DB::transaction(function () use ($user, $photoFile) {
+            // Retrieve and delete the current main photo
+            $currentMainPhoto = $user->photos()->where('is_main', true)->first();
+
+            if ($currentMainPhoto) {
+                Storage::disk('public')->delete(str_replace('/storage/', '', $currentMainPhoto->photo_url));
+                $currentMainPhoto->delete();
+            }
+
+            // Store the new photo
+            $path = $photoFile->store('profile_photos', 'public');
+            $newPhotoUrl = Storage::url($path);
+
+            // Create a new photo record
+            $user->photos()->create([
+                'photo_url' => $newPhotoUrl,
+                'is_main' => true,
+            ]);
+        });
+
+        return $user->refresh();
     }
 }
