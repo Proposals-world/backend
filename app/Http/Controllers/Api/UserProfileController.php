@@ -100,6 +100,8 @@ class UserProfileController extends Controller
 
         $updatedUser = $this->userProfileService->updateProfilePhoto($user, $request->file('profile_photo'));
 
-        return new UserProfileResource($updatedUser);
+        return response()->json([
+            'message' => 'Image updated successfully.'
+        ], 200);
     }
 }
