@@ -188,6 +188,18 @@
                     <span> Specializations </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{route('features.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Features </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{route('subscription-packages.index')}}" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Subscription Packages </span>
+                </a>
+            </li>
 
 
             <li class="side-nav-item">

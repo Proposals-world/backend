@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('package_name_en');
             $table->string('package_name_ar');
-            $table->text('features_en');
-            $table->text('features_ar');
             $table->decimal('price', 10, 2);
             $table->integer('duration_days');
             $table->integer('contact_limit');
