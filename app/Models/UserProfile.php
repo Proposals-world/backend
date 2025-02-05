@@ -54,9 +54,11 @@ class UserProfile extends Model
         'smoking_status',
         'drinking_status_id',
         'sports_activity_id',
+        'marriage_budget_id',
         'social_media_presence_id',
         'guardian_contact_encrypted',
-
+        'religiosity_level_id',
+        'sleep_habit_id',
     ];
 
     /**
@@ -190,5 +192,18 @@ class UserProfile extends Model
     public function smokingTools()
     {
         return $this->belongsToMany(SmokingTool::class, 'user_smoking_tool_pivots', 'user_profile_id', 'tool_id');
+    }
+
+    public function sleepHabit()
+    {
+        return $this->belongsTo(SleepHabit::class, 'sleep_habit_id');
+    }
+    public function marriageBudget()
+    {
+        return $this->belongsTo(MarriageBudget::class, 'marriage_budget_id');
+    }
+    public function religiosityLevel()
+    {
+        return $this->belongsTo(ReligiosityLevel::class);
     }
 }

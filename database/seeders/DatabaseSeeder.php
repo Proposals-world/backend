@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
             SkinColorsTableSeeder::class,
             ZodiacSignsTableSeeder::class,
             HairColorsTableSeeder::class,
-
+            ReligiosityLevelsSeeder::class,
+            SleepHabitsSeeder::class,
             SmokingToolsTableSeeder::class,
             DrinkingStatusesTableSeeder::class,
             SportsActivitiesTableSeeder::class,
@@ -49,7 +50,6 @@ class DatabaseSeeder extends Seeder
             SubscriptionPackagesTableSeeder::class,
             SubscriptionsTableSeeder::class,
             SubscriptionContactsTableSeeder::class,
-
             UserSmokingToolPivotsTableSeeder::class,
             UserReportsTableSeeder::class,
             UserBlocksTableSeeder::class,

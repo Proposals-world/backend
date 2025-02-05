@@ -30,11 +30,9 @@ class UserPreference extends Model
         'preferred_drinking_status_id',
         'preferred_sports_activity_id',
         'preferred_social_media_presence_id',
-        'marriage_budget_id',
-        'must_have_criteria_en',
-        'must_have_criteria_ar',
-        'extra_features_en',
-        'extra_features_ar',
+        'preferred_marriage_budget_id',
+        'preferred_sleep_habit_id',
+        'preferred_religiosity_level_id',
     ];
 
     public function user()
@@ -114,6 +112,15 @@ class UserPreference extends Model
 
     public function marriageBudget()
     {
-        return $this->belongsTo(MarriageBudget::class, 'marriage_budget_id');
+        return $this->belongsTo(MarriageBudget::class, 'preferred_marriage_budget_id');
+    }
+
+    public function sleepHabit()
+    {
+        return $this->belongsTo(SleepHabit::class, 'preferred_sleep_habit_id');
+    }
+    public function religiosityLevel()
+    {
+        return $this->belongsTo(ReligiosityLevel::class, 'preferred_religiosity_level_id');
     }
 }

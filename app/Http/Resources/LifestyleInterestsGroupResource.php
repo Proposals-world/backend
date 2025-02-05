@@ -23,6 +23,7 @@ class LifestyleInterestsGroupResource extends JsonResource
             'sports_activities' => SportsActivityResource::collection($this->sportsActivities),
             'smoking_tools' => SmokingToolResource::collection($this->smokingTools),
             'drinking_statuses' => DrinkingStatusResource::collection($this->drinkingStatuses),
+            'religiosityLevels' => ReligiousLevelResource::collection($this->religiosityLevels),
         ];
     }
 }

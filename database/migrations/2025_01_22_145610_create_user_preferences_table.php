@@ -32,11 +32,9 @@ return new class extends Migration
             $table->foreignId('preferred_drinking_status_id')->nullable()->constrained('drinking_statuses');
             $table->foreignId('preferred_sports_activity_id')->nullable()->constrained('sports_activities');
             $table->foreignId('preferred_social_media_presence_id')->nullable()->constrained('social_media_presences');
-            $table->foreignId('marriage_budget_id')->nullable()->constrained('marriage_budgets');
-            $table->text('must_have_criteria_en')->nullable();
-            $table->text('must_have_criteria_ar')->nullable();
-            $table->text('extra_features_en')->nullable();
-            $table->text('extra_features_ar')->nullable();
+            $table->foreignId('preferred_religiosity_level_id')->nullable()->constrained('religiosity_levels');
+            $table->foreignId('preferred_sleep_habit_id')->nullable()->constrained('sleep_habits');
+            $table->foreignId('preferred_marriage_budget_id')->nullable()->constrained('marriage_budgets');
             $table->timestamps();
         });
     }

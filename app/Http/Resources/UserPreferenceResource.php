@@ -46,9 +46,9 @@ class UserPreferenceResource extends JsonResource
             'preferred_drinking_status' => $this->preferredDrinkingStatus ? $this->preferredDrinkingStatus->{"name_{$lang}"} : null,
             'preferred_sports_activity' => $this->preferredSportsActivity ? $this->preferredSportsActivity->{"name_{$lang}"} : null,
             'preferred_social_media_presence' => $this->preferredSocialMediaPresence ? $this->preferredSocialMediaPresence->{"name_{$lang}"} : null,
-            'marriage_budget' => $this->marriageBudget ? $this->marriageBudget->budget : null,
-            'must_have_criteria' => explode(',', $this->{"must_have_criteria_{$lang}"}),
-            'extra_features' => explode(',', $this->{"extra_features_{$lang}"}),
+            'marriage_budget'=> $this->profile && $this->profile->marriageBudget? $this->profile->marriageBudget->{'budget_' . $this->lang}: null,
+            'preferred_religiosity_level' => $this->preferredReligiosityLevel ? $this->preferredReligiosityLevel->{"name_{$lang}"} : null,
+            'preferred_sleep_habit' => $this->preferredSleepHabit ? $this->preferredSleepHabit->{"name_{$lang}"} : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

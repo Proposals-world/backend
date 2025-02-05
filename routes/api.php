@@ -15,6 +15,7 @@ use App\Http\Controllers\API\PetController;
 
 use App\Http\Controllers\Api\HeightController;
 use App\Http\Controllers\API\ProfessionalEducationalController;
+use App\Http\Controllers\API\ReligiousLevelController;
 use App\Http\Controllers\Api\WeightController;
 use App\Http\Controllers\API\HairColorController;
 use App\Http\Controllers\API\ReligionController;
@@ -93,4 +94,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/user-preferences/{userPreference}', [UserPreferenceController::class, 'update']); // Update a user preference
     Route::delete('/user-preferences/{userPreference}', [UserPreferenceController::class, 'destroy']); // Delete a user preference
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto']);
+    Route::get('/religious-levels', [ReligiousLevelController::class, 'index']);
+
 });

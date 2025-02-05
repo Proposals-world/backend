@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PersonalAttributesGroupResource;
 use App\Models\HairColor;
 use App\Models\Height;
+use App\Models\SleepHabit;
 use App\Models\Weight;
 use App\Models\Origin;
 use App\Models\MaritalStatus;
@@ -31,6 +32,7 @@ class PersonalAttributesController extends Controller
         $maritalStatuses = MaritalStatus::all();
         $skinColors = SkinColor::all();
         $zodiacSigns = ZodiacSign::all();
+        $sleepHabits = SleepHabit::all();
 
         // Prepare the aggregated data
         $data = [
@@ -41,6 +43,7 @@ class PersonalAttributesController extends Controller
             'maritalStatuses' => $maritalStatuses,
             'skinColors' => $skinColors,
             'zodiacSigns' => $zodiacSigns,
+            'sleepHabits' => $sleepHabits,
         ];
 
         // Return using the aggregated resource

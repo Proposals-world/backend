@@ -250,7 +250,7 @@ class UserProfilesTableSeeder extends Seeder
                 'hijab_status' => 0, // Occasionally wears Hijab
                 'smoking_status' => 1, // Smokes
                 'drinking_status_id' => 4, // Prefers not to say
-                'sports_activity_id' => 5, // Running
+                'sports_activity_id' => 4, // Running
                 'social_media_presence_id' => 2, // Other
                 'guardian_contact_encrypted' => null,
                 'avatar_url' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',

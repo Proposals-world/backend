@@ -30,11 +30,8 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 1, // Football
                 'preferred_social_media_presence_id' => 1, // Instagram
-                'marriage_budget_id' => 2, // 10000-20000
-                'must_have_criteria_en' => 'Must be honest and kind.',
-                'must_have_criteria_ar' => 'يجب أن يكون صادقًا ولطيفًا.',
-                'extra_features_en' => 'Preferably with a good sense of humor.',
-                'extra_features_ar' => 'يفضل أن يكون لديه حس فكاهي جيد.',
+                'preferred_marriage_budget_id' => 2, // 10000-20000
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -58,11 +55,8 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_drinking_status_id' => 3, // Occasionally drinks Alcohol
                 'preferred_sports_activity_id' => 2, // Swimming
                 'preferred_social_media_presence_id' => 2, // Facebook
-                'marriage_budget_id' => 1, // 5000-10000
-                'must_have_criteria_en' => 'Must love pets.',
-                'must_have_criteria_ar' => 'يجب أن يحب الحيوانات الأليفة.',
-                'extra_features_en' => 'Enjoys outdoor activities.',
-                'extra_features_ar' => 'يستمتع بالأنشطة الخارجية.',
+                'preferred_marriage_budget_id' => 1, // 5000-10000
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -86,11 +80,8 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 3, // Basketball
                 'preferred_social_media_presence_id' => 1, // Twitter
-                'marriage_budget_id' => 3, // 20000-30000
-                'must_have_criteria_en' => 'Must be career-oriented.',
-                'must_have_criteria_ar' => 'يجب أن يكون موجهًا نحو المهنة.',
-                'extra_features_en' => 'Prefers someone who enjoys traveling.',
-                'extra_features_ar' => 'يفضل شخصًا يستمتع بالسفر.',
+                'preferred_marriage_budget_id' => 3, // 20000-30000
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -114,11 +105,8 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
                 'preferred_sports_activity_id' => 4, // Tennis
                 'preferred_social_media_presence_id' => 2, // LinkedIn
-                'marriage_budget_id' => 4, // 30000+
-                'must_have_criteria_en' => 'Must be financially stable.',
-                'must_have_criteria_ar' => 'يجب أن يكون مستقرًا ماليًا.',
-                'extra_features_en' => 'Loves cooking and baking.',
-                'extra_features_ar' => 'يحب الطهي والخبز.',
+                'preferred_marriage_budget_id' => 4, // 30000+
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -140,13 +128,10 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_marital_status_id' => 1, // Single
                 'preferred_smoking_status' => 1, // Smokes
                 'preferred_drinking_status_id' => 4, // Prefers not to say
-                'preferred_sports_activity_id' => 5, // Running
+                'preferred_sports_activity_id' => 3, // Running
                 'preferred_social_media_presence_id' => 1, // Other
-                'marriage_budget_id' => 1, // 5000-10000
-                'must_have_criteria_en' => 'Must enjoy cooking.',
-                'must_have_criteria_ar' => 'يجب أن يستمتع بالطهي.',
-                'extra_features_en' => 'Prefers someone who is understanding.',
-                'extra_features_ar' => 'يفضل شخصًا متفهمًا.',
+                'preferred_marriage_budget_id' => 1, // 5000-10000
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

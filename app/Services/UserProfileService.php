@@ -54,7 +54,7 @@ class UserProfileService
     public function updateProfile(User $user, array $data, string $lang)
     {
         $profile = $user->profile ?? $user->profile()->create([]);
-
+// dd($data);
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en,
@@ -87,6 +87,9 @@ class UserProfileService
             'car_ownership' => $data['car_ownership'] ?? null,
             'health_issues_ar' => $data['health_issues_ar'] ?? null,
             'zodiac_sign_id' => $data['zodiac_sign_id'] ?? null,
+            'religiosity_level_id' => $data['religiosity_level_id'] ?? null,
+            'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
+            'marriage_budget_id' => $data['marriage_budget_id'] ?? null,
             'guardian_contact_encrypted' => $data['guardian_contact'] ?? $profile->guardian_contact,
         ]);
 

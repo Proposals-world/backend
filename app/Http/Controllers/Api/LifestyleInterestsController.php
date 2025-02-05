@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\LifestyleInterestsGroupResource;
 use App\Models\Hobby;
 use App\Models\Pet;
+use App\Models\ReligiosityLevel;
 use App\Models\SportsActivity;
 use App\Models\SmokingTool;
 use App\Models\DrinkingStatus;
@@ -21,7 +22,18 @@ class LifestyleInterestsController extends Controller
      */
     public function index(Request $request)
     {
-        // Fetch all required data
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized.'], 401);
+        }
+
+        // Convert the user's gender ('male' or 'female') to the corresponding integer value.
+        // For example: male => 1, female => 2.
+        $gender = $user->gender === 'male' ? 1 : 2;
+
+        // Retrieve religiosity levels based on the gender
+        $religiosityLevels = ReligiosityLevel::where('gender', $gender)->get();
         $hobbies = Hobby::all();
         $pets = Pet::all();
         $sportsActivities = SportsActivity::all();
@@ -35,6 +47,8 @@ class LifestyleInterestsController extends Controller
             'sportsActivities' => $sportsActivities,
             'smokingTools' => $smokingTools,
             'drinkingStatuses' => $drinkingStatuses,
+            'religiosityLevels' => $religiosityLevels
+            
         ];
 
         // Return using the aggregated resource

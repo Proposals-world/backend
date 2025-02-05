@@ -55,8 +55,9 @@ class UserPreferenceController extends Controller
      */
     public function update(UserPreferenceRequest $request, UserPreference $userPreference)
     {
+        $user = $request->user();
         $userPreference = UserPreference::updateOrCreate(
-            ['user_id' => $request->user()->id], // Search condition
+            ['user_id' => $user->id], // Search condition
             $request->validated() // Data to insert or update
         );
 

@@ -25,6 +25,7 @@ class PersonalAttributesGroupResource extends JsonResource
             'marital_statuses' => MaritalStatusResource::collection($this->maritalStatuses),
             'skin_colors' => SkinColorResource::collection($this->skinColors),
             'zodiac_signs' => ZodiacSignResource::collection($this->zodiacSigns),
+            'sleep_habits' => SleepHabitResource::collection($this->sleepHabits),
         ];
     }
 }

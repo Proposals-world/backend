@@ -10,12 +10,30 @@ class SportsActivitiesTableSeeder extends Seeder
     public function run()
     {
         DB::table('sports_activities')->insert([
-            ['name_en' => 'Football', 'name_ar' => 'كرة القدم', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Swimming', 'name_ar' => 'السباحة', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Basketball', 'name_ar' => 'كرة السلة', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Tennis', 'name_ar' => 'التنس', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Running', 'name_ar' => 'الركض', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Other', 'name_ar' => 'أخرى', 'created_at' => now(), 'updated_at' => now()],
+            [
+                'name_en'    => 'Not for me',
+                'name_ar'    => 'ليست لي',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name_en'    => 'Sometimes',
+                'name_ar'    => 'أحيانا',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name_en'    => 'Regularly',
+                'name_ar'    => 'بانتظام',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name_en'    => 'Always',
+                'name_ar'    => 'دائما',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

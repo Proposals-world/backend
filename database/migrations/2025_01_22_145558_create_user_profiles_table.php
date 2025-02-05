@@ -57,6 +57,9 @@ return new class extends Migration
             $table->foreignId('sports_activity_id')->nullable()->constrained('sports_activities');
             $table->foreignId('social_media_presence_id')->nullable()->constrained('social_media_presences');
             $table->string('guardian_contact_encrypted')->nullable();
+            $table->foreignId('religiosity_level_id')->nullable()->constrained('religiosity_levels');
+            $table->foreignId('sleep_habit_id')->nullable()->constrained('sleep_habits');
+            $table->foreignId('marriage_budget_id')->nullable()->constrained('marriage_budgets');
 
             $table->timestamps();
         });
