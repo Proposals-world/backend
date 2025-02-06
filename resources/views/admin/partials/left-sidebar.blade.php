@@ -172,23 +172,6 @@
                 </div>
             </li>
 
-            <li class="side-nav-item">
-                <a href="apps-kanban.html" class="side-nav-link">
-                    <i class="ri-clipboard-fill"></i>
-                    <span> Kanban Board </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="apps-file-manager.html" class="side-nav-link">
-                    <i class="ri-folder-4-fill"></i>
-                    <span class="badge bg-purple float-end">1 File</span>
-                    <span> File Manager </span>
-                </a>
-            </li>
-
-
-
         </ul>
         <!--- End Sidemenu -->
 
