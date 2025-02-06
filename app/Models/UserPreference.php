@@ -110,17 +110,22 @@ class UserPreference extends Model
         return $this->belongsTo(SocialMediaPresence::class, 'preferred_social_media_presence_id');
     }
 
-    public function marriageBudget()
+    public function preferredmarriageBudget()
     {
         return $this->belongsTo(MarriageBudget::class, 'preferred_marriage_budget_id');
     }
 
-    public function sleepHabit()
+    public function preferredsleepHabit()
     {
         return $this->belongsTo(SleepHabit::class, 'preferred_sleep_habit_id');
     }
-    public function religiosityLevel()
+    public function preferredreligiosityLevel()
     {
         return $this->belongsTo(ReligiosityLevel::class, 'preferred_religiosity_level_id');
+    }
+    public function smokingTools()
+    {
+        return $this->belongsToMany(SmokingTool::class, 'user_preference_smoking_tool')
+            ->withTimestamps();
     }
 }
