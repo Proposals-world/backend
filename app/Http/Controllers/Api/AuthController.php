@@ -174,12 +174,17 @@ class AuthController extends Controller
                 'sports_activity_id' => null,
                 'social_media_presence_id' => null,
                 'guardian_contact_encrypted' => null,
+                'marriage_budget_id' => null,
+                'sleep_habit_id' => null,
+                'religiosity_level_id' => null,
+
             ]);
         }
-    
+     $token = $user->createToken('API Token')->plainTextToken;
         return response()->json([
             'success' => true,
             'message' => 'OTP verified successfully.',
+            'access_token'   => $token,
         ], 200);
     }
 
