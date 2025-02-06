@@ -50,7 +50,7 @@ class UpdateUserProfileRequest extends FormRequest
             'health_issues_ar' => 'nullable|string|max:2000',
             'guardian_contact' => 'nullable|string|regex:/^\+?[0-9]{10,20}$/',
             'car_ownership' => 'required|boolean',
-            'religiosity_level_id' => 'nullable|integer|exists:religiosity_levels,id',
+            'religiosity_level_id' => 'required|integer|exists:religiosity_levels,id',
             'sleep_habit_id' => 'required|integer|exists:sleep_habits,id',
             'marriage_budget_id' => 'required|integer|exists:marriage_budgets,id',
         ];

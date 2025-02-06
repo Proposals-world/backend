@@ -10,7 +10,8 @@ class MarriageBudget extends Model
     use HasFactory;
 
     protected $fillable = [
-        'budget',
+        'budget_en',
+        'budget_ar',
         'currency_id'
     ];
 
