@@ -80,7 +80,7 @@ class UserProfileService
             'social_media_presence_id' => $data['social_media_presence_id'] ?? null,
             'marital_status_id' => $data['marital_status_id'],
             'children' => $data['number_of_children'] ?? null,
-            'housing_status_id' => $data['housing_status_id'],
+            'housing_id' => $data['housing_status_id'],
             'hijab_status' => $data['hijab_status']?? 0,
             'position_level_id' => $data['position_level_id'],
             'financial_status_id' => $data['financial_status_id'] ?? null,
