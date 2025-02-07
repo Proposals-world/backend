@@ -53,6 +53,7 @@ class UpdateUserProfileRequest extends FormRequest
             'religiosity_level_id' => 'required|integer|exists:religiosity_levels,id',
             'sleep_habit_id' => 'required|integer|exists:sleep_habits,id',
             'marriage_budget_id' => 'required|integer|exists:marriage_budgets,id',
+            'position_level_id' => 'nullable|integer|exists:position_levels,id',
         ];
 
         if ($this->input('smoking_status') == 1) {

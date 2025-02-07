@@ -82,6 +82,7 @@ class UserProfileService
             'children' => $data['number_of_children'] ?? null,
             'housing_status_id' => $data['housing_status_id'],
             'hijab_status' => $data['hijab_status']?? 0,
+            'position_level_id' => $data['position_level_id'],
             'financial_status_id' => $data['financial_status_id'] ?? null,
             'health_issues_en' => $data['health_issues_en'] ?? null,
             'car_ownership' => $data['car_ownership'] ?? null,
