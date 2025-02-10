@@ -24,7 +24,7 @@ class UserPreferenceResource extends JsonResource
     {
         // Determine the language dynamically
         $lang = $this->lang === 'ar' ? 'ar' : 'en';
-
+        // dd($request);
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
@@ -46,9 +46,15 @@ class UserPreferenceResource extends JsonResource
             'preferred_drinking_status' => $this->preferredDrinkingStatus ? $this->preferredDrinkingStatus->{"name_{$lang}"} : null,
             'preferred_sports_activity' => $this->preferredSportsActivity ? $this->preferredSportsActivity->{"name_{$lang}"} : null,
             'preferred_social_media_presence' => $this->preferredSocialMediaPresence ? $this->preferredSocialMediaPresence->{"name_{$lang}"} : null,
-            'marriage_budget'=> $this->profile && $this->profile->marriageBudget? $this->profile->marriageBudget->{'budget_' . $this->lang}: null,
+            'preferred_marriage_budget' => $this->preferredmarriageBudget ? $this->preferredmarriageBudget->{'budget_' . $this->lang} : null,
             'preferred_religiosity_level' => $this->preferredReligiosityLevel ? $this->preferredReligiosityLevel->{"name_{$lang}"} : null,
             'preferred_sleep_habit' => $this->preferredSleepHabit ? $this->preferredSleepHabit->{"name_{$lang}"} : null,
+            'preferred_smoking_tools' => $this->smokingTools ? $this->smokingTools->map(function ($tool) use ($lang) {
+                return [
+                    'id' => $tool->id,
+                    'name' => $tool->{"name_{$lang}"},
+                ];
+            }) : [],
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

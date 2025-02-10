@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title', 'subscription-package')
+@section('title', 'subscription package')
 
-@section('page-title', 'Admin Dashboard - subscription-package')
+@section('page-title', 'Admin Dashboard - subscription package')
 
-@section('subtitle', 'subscription-package')
+@section('subtitle', 'subscription package')
 
 @section('content')
     <div class="content">
@@ -12,11 +12,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
-                        <h4 class="page-title">subscription-package List</h4>
+                        <h4 class="page-title">subscription package List</h4>
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Jidox</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">subscription-package List</li>
+                            <li class="breadcrumb-item active">subscription package List</li>
                         </ol>
                     </div>
                 </div>
@@ -25,8 +25,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">subscription-package List</h4>
-                            <a class="btn btn-primary mb-3" id="add_btn">Add subscription-package</a>
+                            <h4 class="header-title">subscription package List</h4>
+                            <a class="btn btn-primary mb-3" id="add_btn">Add subscription package</a>
                             <div class="table-responsive">
                                 {{ $dataTable->table([
                                     'class' => 'table table-bordered table-hover  w-100',

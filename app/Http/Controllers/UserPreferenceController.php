@@ -14,10 +14,16 @@ class UserPreferenceController extends Controller
      */
     public function store(UserPreferenceRequest $request)
     {
+        // Create or update the user preference
         $userPreference = UserPreference::updateOrCreate(
             ['user_id' => $request->user()->id], // Search condition
-            $request->validated() // Data to insert or update
+            $request->validated()               // Data to insert or update
         );
+
+        // Sync the preferred smoking tools if provided
+        if ($request->has('preferred_smoking_tools')) {
+            $userPreference->SmokingTools()->sync($request->preferred_smoking_tools);
+        }
 
         // Get the language header, default to 'en' if not provided
         $language = $request->header('Accept-Language', 'en');
@@ -53,18 +59,18 @@ class UserPreferenceController extends Controller
     /**
      * Update or create the specified user preference.
      */
-    public function update(UserPreferenceRequest $request, UserPreference $userPreference)
-    {
-        $user = $request->user();
-        $userPreference = UserPreference::updateOrCreate(
-            ['user_id' => $user->id], // Search condition
-            $request->validated() // Data to insert or update
-        );
+    // public function update(UserPreferenceRequest $request, UserPreference $userPreference)
+    // {
+    //     $user = $request->user();
+    //     $userPreference = UserPreference::updateOrCreate(
+    //         ['user_id' => $user->id], // Search condition
+    //         $request->validated() // Data to insert or update
+    //     );
 
-        $language = $request->header('Accept-Language', 'en');
+    //     $language = $request->header('Accept-Language', 'en');
 
-        return new UserPreferenceResource($userPreference, $language);
-    }
+    //     return new UserPreferenceResource($userPreference, $language);
+    // }
 
     /**
      * Remove the specified user preference.

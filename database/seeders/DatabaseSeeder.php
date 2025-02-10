@@ -60,6 +60,7 @@ class DatabaseSeeder extends Seeder
             UserLogsTableSeeder::class,
             LocationsTableSeeder::class,
             UserPhotosTableSeeder::class,
+            SmokingToolsSeeder::class,
         ]);
     }
 }
