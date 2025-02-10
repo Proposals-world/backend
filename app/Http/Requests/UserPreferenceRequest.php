@@ -45,6 +45,7 @@ class UserPreferenceRequest extends FormRequest
             'preferred_marriage_budget_id'       => 'required|exists:marriage_budgets,id',
             'preferred_religiosity_level_id'     => 'required|exists:religiosity_levels,id',
             'preferred_sleep_habit_id'           => 'required|exists:sleep_habits,id',
+            
         ];
 
         // If the user has a smoking status of 1 (smokes), require that smoking tools are provided.
