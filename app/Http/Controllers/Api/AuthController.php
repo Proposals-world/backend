@@ -186,7 +186,6 @@ class AuthController extends Controller
             'message' => 'OTP verified successfully.',
             'access_token'   => $token,
             'first_time_login' => True,
-            'user_id' => $user->id,
         ], 200);
     }
 
@@ -244,7 +243,6 @@ class AuthController extends Controller
             'data' => [
             'access_token' => $accessToken,
             'token_type' => 'Bearer',
-            'user_id' => $user->id,
             ],
         ], 200);
         }
