@@ -51,8 +51,8 @@ class UpdateUserProfileRequest extends FormRequest
             'guardian_contact' => 'nullable|string|regex:/^\+?[0-9]{10,20}$/',
             'car_ownership' => 'required|boolean',
             'religiosity_level_id' => 'required|integer|exists:religiosity_levels,id',
-            'sleep_habit_id' => 'required|integer|exists:sleep_habits,id',
-            'marriage_budget_id' => 'required|integer|exists:marriage_budgets,id',
+            'sleep_habit_id' => 'nullable|integer|exists:sleep_habits,id',
+            'marriage_budget_id' => 'nullable|integer|exists:marriage_budgets,id',
             'position_level_id' => 'nullable|integer|exists:position_levels,id',
         ];
 
