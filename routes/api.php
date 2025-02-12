@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DynamicDataController;
 use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\Api\DrinkingStatusController;
@@ -96,4 +97,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto']);
     Route::get('/religious-levels', [ReligiousLevelController::class, 'index']);
 
+    Route::get('/dynamic-data', [DynamicDataController::class, 'index']);
 });
+
+
+

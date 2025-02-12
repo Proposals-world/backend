@@ -1,669 +1,864 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon - Islamic Proposals</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Animate.css for Animations -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Custom Styles -->
-    <style>
-        /* [Your existing CSS styles here] */
-        :root {
-            --primary-color: #2D3047;
-            --accent-color: #9c0c58;
-            --text-color: #2D3047;
-            --light-gray: #f8f9fa;
-        }
-
-        body {
-            background: white;
-            min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            /* overflow: hidden; */
-            /* Prevent scrolling */
-            position: relative;
-        }
-
-        /* Add these styles to your existing CSS */
-
-        /* Alert Styles */
-        .alert {
-            position: relative;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            border: none;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            animation: slideDown 0.3s ease-out;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .alert-success {
-            background-color: rgba(75, 181, 67, 0.1);
-            color: #2d8a25;
-            border-left: 4px solid #4BB543;
-        }
-
-        .alert-danger {
-            background-color: rgba(220, 53, 69, 0.1);
-            color: #dc3545;
-            border-left: 4px solid #dc3545;
-        }
-
-        .alert ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .alert ul li {
-            margin-bottom: 0.3rem;
-        }
-
-        .alert ul li:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Close button for alerts */
-        .alert-dismissible {
-            padding-right: 3rem;
-        }
-
-        .alert-dismissible .close {
-            position: absolute;
-            top: 50%;
-            right: 1rem;
-            transform: translateY(-50%);
-            padding: 0.5rem;
-            background: transparent;
-            border: none;
-            color: inherit;
-            opacity: 0.7;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-        }
-
-        .alert-dismissible .close:hover {
-            opacity: 1;
-        }
-
-        /* Animation for alerts */
-        @keyframes slideDown {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Alert icon styles */
-        .alert::before {
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            margin-right: 10px;
-            font-size: 1rem;
-        }
-
-        .alert-success::before {
-            content: "\f00c";
-            /* Checkmark icon */
-        }
-
-        .alert-danger::before {
-            content: "\f071";
-            /* Warning icon */
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .alert {
-                padding: 0.8rem 1rem;
-                font-size: 0.85rem;
-            }
-        }
-
-        .pattern-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(#f0f0f0 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 1;
-            padding: 1rem;
-        }
-
-        .logo-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .logo-circle {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--accent-color);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        .logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            height: 90%;
-            object-fit: contain;
-            border-radius: 50%;
-            padding: 8px;
-        }
-
-        /* Flexbox for Equal Height Feature Cards */
-        .feature-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .feature-card {
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 0.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            flex: 1 1 200px;
-            /* Flex-grow, Flex-shrink, Flex-basis */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 200px;
-            /* Fixed height for uniformity */
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: var(--accent-color);
-            transition: height 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            height: 100%;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .subscribe-form {
-            position: relative;
-            max-width: 400px;
-            margin: 1.5rem auto;
-        }
-
-        .form-control {
-            padding: 0.8rem 1.2rem;
-            border-radius: 50px;
-            border: 2px solid #eee;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-color);
-            box-shadow: none;
-        }
-
-        .btn-notify {
-            background: var(--accent-color);
-            color: white;
-            border-radius: 50px;
-            padding: 0.6rem 1.8rem;
-            border: none;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .btn-notify::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: -100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-notify:hover::after {
-            left: 100%;
-        }
-
-        .btn-notify:hover {
-            background: #c22a7b;
-            transform: translateY(-2px);
-        }
-
-        .social-links a {
-            color: var(--text-color);
-            margin: 0 10px;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .social-links a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-color);
-            bottom: -5px;
-            left: 0;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .social-links a:hover::after {
-            transform: scaleX(1);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.05);
-                opacity: 0.7;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .countdown-item {
-            text-align: center;
-            background: var(--light-gray);
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            min-width: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            /* Fixed width for uniformity */
-            height: 100px;
-            /* Fixed height for uniformity */
-        }
-
-        .countdown-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .countdown-label {
-            font-size: 0.75rem;
-            color: var(--text-color);
-            text-transform: uppercase;
-        }
-
-        /* Moving Background Elements */
-        .moving-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .floating-element {
-            position: absolute;
-            background: linear-gradient(45deg, rgba(233, 30, 99, 0.05), rgba(233, 30, 99, 0.1));
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float-around 15s linear infinite;
-        }
-
-        .element-1 {
-            width: 80px;
-            height: 80px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .element-2 {
-            width: 100px;
-            height: 100px;
-            top: 70%;
-            right: 10%;
-            animation-delay: -5s;
-        }
-
-        .element-3 {
-            width: 60px;
-            height: 60px;
-            top: 40%;
-            left: 50%;
-            animation-delay: -8s;
-        }
-
-        .element-4 {
-            width: 90px;
-            height: 90px;
-            top: 20%;
-            right: 30%;
-            animation-delay: -12s;
-        }
-
-        @keyframes float-around {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-
-            25% {
-                transform: translate(50px, 25px) rotate(90deg);
-            }
-
-            50% {
-                transform: translate(25px, 50px) rotate(180deg);
-            }
-
-            75% {
-                transform: translate(-25px, 25px) rotate(270deg);
-            }
-
-            100% {
-                transform: translate(0, 0) rotate(360deg);
-            }
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .countdown {
-                gap: 0.5rem;
-            }
-
-            .countdown-number {
-                font-size: 1.5rem;
-            }
-
-            .countdown-label {
-                font-size: 0.7rem;
-            }
-
-            .feature-card {
-                padding: 1rem;
-                margin: 0.3rem;
-                height: 180px;
-                /* Adjusted for smaller screens */
-            }
-
-            .logo-container {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 1rem;
-            }
-
-            .logo {
-                padding: 6px;
-            }
-
-            .btn-notify {
-                padding: 0.6rem 1.5rem;
-                font-size: 0.8rem;
-            }
-
-            .countdown-item {
-                width: 80px;
-                /* Adjusted width for smaller screens */
-                height: 80px;
-                /* Adjusted height for smaller screens */
-            }
-
-            .feature-row {
-                gap: 0.5rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Pattern Overlay -->
-    <div class="pattern-overlay"></div>
-
-    <!-- Moving Background Elements -->
-    <div class="moving-background">
-        <div class="floating-element element-1"></div>
-        <div class="floating-element element-2"></div>
-        <div class="floating-element element-3"></div>
-        <div class="floating-element element-4"></div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container main-container d-flex align-items-center justify-content-center">
-        <div class="row w-100">
-            <div class="col-12 mt-5 text-center">
-                <!-- Logo -->
-                <div class="logo-container">
-                    <div class="logo-circle"></div>
-                    <img src="{{ asset('admin/assets/images/brands/proposals-logo.jpeg') }}" alt="Islamic Proposals"
-                        class="logo">
-                </div>
-
-                <!-- Heading -->
-                <h1 class="display-5 mb-2 animate__animated animate__fadeIn">Coming Soon</h1>
-                <p class="lead mb-3 animate__animated animate__fadeIn">Finding your soulmate the halal way</p>
-
-                <!-- Countdown Timer -->
-                <div class="countdown mb-3">
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="days">00</div>
-                        <div class="countdown-label">Days</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="hours">00</div>
-                        <div class="countdown-label">Hours</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="minutes">00</div>
-                        <div class="countdown-label">Minutes</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="seconds">00</div>
-                        <div class="countdown-label">Seconds</div>
-                    </div>
-                </div>
-
-                <!-- Feature Cards -->
-                <div class="feature-row mb-3">
-                    <div class="feature-card animate__animated animate__fadeInUp">
-                        <i class="fas fa-heart mb-2" style="color: var(--accent-color); font-size: 1.2rem;"></i>
-                        <h6>Halal Matchmaking</h6>
-                        <p class="mb-0">Guided by Islamic principles</p>
-                    </div>
-                    <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                        <i class="fas fa-shield-alt mb-2" style="color: var(--accent-color); font-size: 1.2rem;"></i>
-                        <h6>Safe & Secure</h6>
-                        <p class="mb-0">Your privacy matters</p>
-                    </div>
-                </div>
-
-                <!-- Subscription Form -->
-                <div class="subscribe-form">
-                    <!-- Success Message -->
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle"></i>
-                            {{ session('success') }}
-                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    @endif
-
-                    <!-- Validation Errors -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle"></i>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
+@extends('frontend.layouts.app')
+@section('section')
+    <div>
+        <!-- slider-area -->
+        <section id="parallax" class="slider-area slider-bg2 second-slider-bg d-flex fix"
+            style="background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }}); background-position:right 0; background-repeat: no-repeat; background-size: 65%;">
+
+            <div class="slider-shape ss-one layer" data-depth="0.10"><img 
+                    src="{{ asset('frontend/img/shape/header-sape.png') }}" alt="shape"></div>
+
+            <div class="slider-shape ss-eight layer" data-depth="0.50"></div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="slider-content second-slider-content left-center">
+                            <ul class="small-title mb-30">
+                                <li>New</li>
+                                <li>Best Mobile App</li>
                             </ul>
-                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            <h2 data-animation="fadeInUp" data-delay=".4s">Best Mobile App <span>Showcase</span>
+                            </h2>
+                            <p data-animation="fadeInUp" data-delay=".6s">Aenean dictum odio dapibus turpis dapibus
+                                vestibulum. Mauris quis massa nisi. Nullam porta lorem at volutpat euismod. Proin in
+                                ex
+                                nunc.</p>
+                            <div class="slider-btn mt-30 mb-30">
+                                <a href="#" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">Read
+                                    More</a>
+                            </div>
                         </div>
-                    @endif
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="{{ asset('frontend/img/bg/mobile.png') }}" alt="shape" class="s-img">
+                    </div>
+                </div>
 
-                    <form action="{{ route('subscribe.message') }}" method="POST"
-                        class="d-flex justify-content-center gap-2">
-                        @csrf
-                        <input type="email" name="email" class="form-control" placeholder="Your email address"
-                            required>
-                        <button type="submit" class="btn btn-notify">Notify Me</button>
-                    </form>
+            </div>
+        </section>
+        <!-- slider-area-end -->
+        <!-- services-area -->
+        <section id="about" class="services-area services-bg pt-25 pb-20"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape2.png') }}); background-position: right top; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-10">
+                        <div class="section-title text-center pl-40 pr-40 mb-45">
+                            <h2>Our Features</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 mb-30">
+                        <div class="s-single-services active text-center">
+                            <div class="services-icon">
+                                <img src="{{ asset('frontend/img/icon/f-icon1.png') }}" />
+                            </div>
+                            <div class="second-services-content">
+                                <h5>Perfect UI Design</h5>
+                                <p>Praesent ac vehicula sapien. Sed sollicitudin molestie consequat. Ut vitae ante
+                                    ut mi
+                                    vehicula vulputate.</p>
+                                <a href="#"><span>1</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 mb-30">
+                        <div class="s-single-services text-center">
+                            <div class="services-icon">
+                                <img src="{{ asset('img/icon/f-icon3.png') }}" />
+                            </div>
+                            <div class="second-services-content">
+                                <h5>Great CSS Animation</h5>
+                                <p>Praesent ac vehicula sapien. Sed sollicitudin molestie consequat. Ut vitae ante
+                                    ut mi
+                                    vehicula vulputate.</p>
+                                <a href="#"><span>2</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 mb-30">
+                        <div class="s-single-services text-center">
+                            <div class="services-icon">
+                                <img src="{{ asset('frontend/img/icon/f-icon2.png') }}" />
+                            </div>
+                            <div class="second-services-content">
+                                <h5>Fully Secured</h5>
+                                <p>Praesent ac vehicula sapien. Sed sollicitudin molestie consequat. Ut vitae ante
+                                    ut mi
+                                    vehicula vulputate.</p>
+                                <a href="#"><span>3</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!-- services-area-end -->
+        <!-- choose-area -->
+        <section class="choose-area pt-100 pb-60 p-relative"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape3.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="chosse-img" style="background-image:url({{ asset('frontend/img/bg/easy-m-bg.png') }})">
+            </div>
+            <div class="chosse-img2"><img src="{{ asset('frontend/img/bg/mobile2.png') }}" alt="mobile" /></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5">
+                    </div>
+                    <div class="col-xl-7">
+                        <div class="choose-wrap">
+                            <div class="section-title w-title left-align mb-25">
+                                <h2>Easy And Perfect Solution For Your Business App</h2>
+                            </div>
+                            <div class="choose-content">
+                                <p>Aliquam aliquet purus a est consequat lobortis. Etiam vehicula suscipit purus,
+                                    eget
+                                    ullamcorper augue blandit vitae. Ut eu euismod felis. Etiam at varius quam.
+                                    Vivamus
+                                    lacinia pulvinar turpis in suscipit. Aenean mattis enim ut pretium gravida. Sed
+                                    fermentum a lacus bibendum convallis.</p>
+                                <p>Consequat purus aliquet a est aliquam lobortis. Etiam vehicula suscipit purus,
+                                    eget
+                                    ullamcorper augue blandit vitae. Ut eu euismod felis. Etiam at varius quam.
+                                    Vivamus
+                                    lacinia pulvinar turpis in suscipit. Aenean mattis enim ut pretium gravida. Sed
+                                    fermentum a lacus bibendum convallis.</p>
+
+                                <div class="choose-btn mt-30">
+                                    <a href="#"><span class="icon"><img
+                                                src="{{ asset('frontend/img/icon/apple-icon.png') }}"
+                                                alt="apple-icon"></span>
+                                        <span class="text"> Available on <strong>APP STORE</strong></span></a>
+                                    <a href="#" class="g-btn"><span class="icon"><img
+                                                src="{{ asset('frontend/img/icon/g-play-icon.png') }}"
+                                                alt="apple-icon"></span>
+                                        <span class="text"> Available on <strong>GOOGLE PLAY</strong></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+        <!-- choose-area-end -->
+        <!-- how-app-work -->
+        <section id="features" class="app-work pt-70 pb-100 p-relative"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row align-items-center ">
+
+                    <div class="col-xl-6">
+                        <div class="choose-wrap">
+                            <div class="section-title w-title left-align mb-15">
+                                <h2>How does This App Work?</h2>
+                            </div>
+                            <div class="app-work-content mt-20">
+                                <ul>
+                                    <li>
+                                        <div class="icon"><img src="{{ asset('frontend/img/icon/apw-Icon1.png') }}">
+                                        </div>
+                                        <div class="text">
+                                            <h4>Make A Profile</h4>
+                                            <p>Aliquam varius ligula nec leo tempus porta. Vestibulum suscipit leo
+                                                at
+                                                nunc imperdiet, quis lacinia nisi euismod.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><img src="{{ asset('frontend/img/icon/apw-Icon2.png') }}">
+                                        </div>
+                                        <div class="text">
+                                            <h4>Download It For Free</h4>
+                                            <p>Aliquam varius ligula nec leo tempus porta. Vestibulum suscipit leo
+                                                at
+                                                nunc imperdiet, quis lacinia nisi euismod.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><img src="{{ asset('frontend/img/icon/apw-Icon3.png') }}">
+                                        </div>
+                                        <div class="text">
+                                            <h4>Enjoy This App</h4>
+                                            <p>Aliquam varius ligula nec leo tempus porta. Vestibulum suscipit leo
+                                                at
+                                                nunc imperdiet, quis lacinia nisi euismod.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <img src="{{ asset('frontend/img/bg/app-work-img.png') }}" alt="app-work-img" class="img">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- how-app-work -->
+        <!-- video-area -->
+        <section class="video-area pt-100 pb-100 p-relative">
+            <div class="video-img2">
+
+                <img src="{{ asset('frontend/img/bg/video-img.png') }}" alt="mobile" />
+
+                <a href="https://www.youtube.com/watch?v=7e90gBu4pas" class="popup-video"><img src="img/bg/play-btn.png"
+                        alt="play-btn.png"></a>
+            </div>
+            <div class="video-img3">
+                <img src="{{ asset('frontend/img/shape/header-sape5.png') }}" alt="header-sape4">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6">
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="video-wrap">
+                            <div class="section-title w-title left-align mb-25">
+                                <h2>Build The App That Everyonee Love</h2>
+                            </div>
+                            <div class="video-content">
+                                <p>Praesent fermentum nisl at ipsum facilisis viverra. Ut elementum accumsan
+                                    finibus.
+                                    Cras placerat lacinia mi, ac dictum ante. Donec libero enim, tincidunt sit amet
+                                    venenatis id, maximus eu quam. </p>
+                                <ul>
+                                    <li>
+                                        <div class="icon"><img src="{{ asset('frontend/img/icon/vs-icon.png') }}">
+                                        </div>
+                                        <div class="text">Pellentesque placerat, nisi congue vehicula efficitur.
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><img src="{{ asset('frontend/img/icon/vs-icon.png') }}">
+                                        </div>
+                                        <div class="text">Pellentesque placerat, nisi congue vehicula efficitur.
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><img src="{{ asset('frontend/img/icon/vs-icon.png') }}">
+                                        </div>
+                                        <div class="text">Suspendisse vitae varius diam, a vulputate urna.
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- video-area-end -->
+        <!-- screen-area -->
+        <section id="screen" class="screen-area services-bg services-two pt-100 pb-70"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-10">
+                        <div class="section-title text-center pl-40 pr-40 mb-50">
+                            <h2>Our App ScreenShots</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- Swiper -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="{{ asset('frontend/img/gallery/screen-img01.png') }}"
+                                    alt="slide 1">
+                            </div>
+                            <div class="swiper-slide"><img src="{{ asset('frontend/img/gallery/screen-img02.png') }}"
+                                    alt="slide 1">
+                            </div>
+                            <div class="swiper-slide"><img src="{{ asset('frontend/img/gallery/screen-img03.png') }}"
+                                    alt="slide 1">
+                            </div>
+                            <div class="swiper-slide"><img src="{{ asset('frontend/img/gallery/screen-img04.png') }}"
+                                    alt="slide 1">
+                            </div>
+                            <div class="swiper-slide"><img src="{{ asset('frontend/img/gallery/screen-img05.png') }}"
+                                    alt="slide 1">
+                            </div>
+
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </section>
+        <!-- screen-area-end -->
+
+        <!-- faq-area -->
+        <section class="faq-area pb-100"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row align-items-end">
+                    <div class="col-lg-6">
+                        <div class="faq-img text-right">
+                            <img src="{{ asset('frontend/img/icon/logos-icons.png') }}" alt="img" class="img">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-title left-align mb-50">
+                            <h2>Designed & Worked By The Latest Partners</h2>
+                            <p>Duis non aliquet tellus, in mollis leo. Phasellus quis posuere dui. Nulla mauris
+                                purus,
+                                mattis eget sagittis at, accumsan sed leo.</p>
+                        </div>
+                        <div class="faq-wrap">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h2 class="mb-0">
+                                            <button class="faq-btn" type="button" data-toggle="collapse"
+                                                data-target="#collapseThree" aria-expanded="true"
+                                                aria-controls="collapseThree">
+                                                Aliquam varius ligula nec leo tempus porta.
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree"
+                                        data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                            laboris
+                                            nisi ut aliquip
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="faq-btn collapsed" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Suspendisse vitae varius diam, a vulputate urna.
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                        data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                            laboris
+                                            nisi ut aliquip
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h2 class="mb-0">
+                                            <button class="faq-btn collapsed" type="button" data-toggle="collapse"
+                                                data-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">
+                                                Aliquam aliquet purus eget lacus pretium.
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                        data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                            laboris
+                                            nisi ut aliquip
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- faq-aread-end -->
+
+        <!-- newslater-area -->
+        <section class="newslater-area pt-90 pb-100"
+            style=" background-image: url({{ asset('frontend/img/bg/subscribe-bg.png') }});background-size: cover;">
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-10">
+                        <div class="section-title text-center pl-40 pr-40 mb-50">
+                            <h2>Subscreibe For New Features</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-10">
+                        <form name="ajax-form" id="contact-form4" action="#" method="post"
+                            class="contact-form newslater">
+                            <div class="form-group">
+                                <input class="form-control" id="email2" name="email" type="email"
+                                    placeholder="Email Address..." value="" required="">
+                                <button type="submit" class="btn btn-custom" id="send2">Subscribe
+                                    Now</button>
+                            </div>
+                            <!-- /Form-email -->
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- newslater-aread-end -->
+
+        <!-- pricing-area -->
+        <section id="pricing" class="pricing-area pt-100 pb-50"
+            style="background-image:  url({{ asset('frontend/img/shape/header-sape7.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-title text-center mb-50">
+                            <h2>Our Pricing Plans</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                        <nav class="pricing-tab mb-60">
+                            <span class="monthly_tab_title">
+                                Monthly </span>
+                            <span class="pricing-tab-switcher"></span>
+                            <span class="annual_tab_title">
+                                Annual </span>
+                        </nav>
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="pricing-box text-center mb-60">
+                            <div class="pricing-head">
+                                <h4>Beginner</h4>
+                                <div class="pricing-amount">
+                                    <div class="annual_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 95 </span>
+                                        <span class="subscription"> / Annual </span>
+                                    </div>
+                                    <div class="monthly_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 15 </span>
+                                        <span class="subscription"> / Monthly </span>
+                                    </div>
+                                </div>
+                                <h5>I have a dream</h5>
+                            </div>
+
+                            <div class="pricing-body mb-40 text-left">
+
+                                <ul>
+                                    <li>1000+ projets</li>
+                                    <li>No transaction fees</li>
+                                    <li>Unlimited Storage</li>
+                                    <li>5 Download</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-btn">
+                                <a href="#" class="btn">Start Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="pricing-box active text-center mb-60">
+                            <div class="poppuler">
+                                <span class="btn">Poppuler</span>
+                            </div>
+                            <div class="pricing-head">
+                                <h4>Starter</h4>
+                                <div class="pricing-amount">
+                                    <div class="annual_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 78 </span>
+                                        <span class="subscription"> /Annual </span>
+                                    </div>
+                                    <div class="monthly_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 15 </span>
+                                        <span class="subscription"> /Monthly </span>
+                                    </div>
+                                </div>
+                                <h5>I have a dream</h5>
+                            </div>
+                            <div class="pricing-body mb-40 text-left">
+
+                                <ul>
+                                    <li>1000+ projets</li>
+                                    <li>No transaction fees</li>
+                                    <li>Unlimited Storage</li>
+                                    <li>5 Download</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-btn">
+                                <a href="#" class="btn">Start Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="pricing-box active text-center mb-60">
+                            <div class="pricing-head">
+                                <h4>Professionl</h4>
+                                <div class="pricing-amount">
+                                    <div class="annual_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 90 </span>
+                                        <span class="subscription"> / Annual </span>
+                                    </div>
+                                    <div class="monthly_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 18 </span>
+                                        <span class="subscription"> / Monthly </span>
+                                    </div>
+                                </div>
+                                <h5>I have a dream</h5>
+                            </div>
+
+                            <div class="pricing-body mb-40 text-left">
+
+                                <ul>
+                                    <li>1000+ projets</li>
+                                    <li>No transaction fees</li>
+                                    <li>Unlimited Storage</li>
+                                    <li>5 Download</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-btn">
+                                <a href="#" class="btn">Start Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="pricing-box active text-center mb-60">
+                            <div class="pricing-head">
+                                <h4>Power Plan</h4>
+                                <div class="pricing-amount">
+                                    <div class="annual_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 120 </span>
+                                        <span class="subscription"> / Annual </span>
+                                    </div>
+                                    <div class="monthly_price">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price"> 25 </span>
+                                        <span class="subscription"> / Monthly </span>
+                                    </div>
+                                </div>
+                                <h5>I have a dream</h5>
+                            </div>
+                            <div class="pricing-body mb-40 text-left">
+
+                                <ul>
+                                    <li>1000+ projets</li>
+                                    <li>No transaction fees</li>
+                                    <li>Unlimited Storage</li>
+                                    <li>5 Download</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-btn">
+                                <a href="#" class="btn">Start Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- pricing-area-end -->
+
+        <!-- testimonial-area -->
+        <section id="testimonios" class="testimonial-area testimonial-p  pt-100 pb-70"
+            style="background-image:url({{ asset('frontend/img/bg/client-bg.png') }}); background-repeat: no-repeat; background-position: right center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="section-title center-align">
+                            <h2>What Our Clients Say’s</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+
+                        <div class="testimonial-active">
+                            <div class="col-xl-4">
+                                <div class="single-testimonial">
+                                    <div class="testi-author text-left">
+                                        <img src="{{ asset('frontend/img/testimonial/testi_avatar.png') }}"
+                                            alt="img">
+                                        <div class="ta-info">
+                                            <h6>Mr Jone Dose</h6>
+                                            <span>Author</span>
+                                        </div>
+                                    </div>
+                                    <div class="qutation"><img src="{{ asset('frontend/img/bg/qutation.png') }}"
+                                            alt="qutation.png"></div>
+
+                                    <p>Praesent fermentum nisl at ipsum fcilisis viverra elementum accumsan finibus.
+                                        Cras placerat lacinia mitincidunt sit amet venenatis.</p>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="single-testimonial">
+                                    <div class="testi-author text-left">
+                                        <img src="{{ asset('frontend/img/testimonial/testi_avatar2.png') }}"
+                                            alt="img">
+                                        <div class="ta-info">
+                                            <h6>Mr Jone Dose</h6>
+                                            <span>Author</span>
+                                        </div>
+                                    </div>
+                                    <div class="qutation"><img src="{{ asset('frontend/img/bg/qutation.png') }}"
+                                            alt="qutation.png"></div>
+                                    <p>Praesent fermentum nisl at ipsum fcilisis viverra elementum accumsan finibus.
+                                        Cras placerat lacinia mitincidunt sit amet venenatis.</p>
+
+
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="single-testimonial">
+                                    <div class="testi-author text-left">
+                                        <img src="{{ asset('frontend/img/testimonial/testi_avatar3.png') }}"
+                                            alt="img">
+                                        <div class="ta-info">
+                                            <h6>Mr Jone Dose</h6>
+                                            <span>Web Developer</span>
+                                        </div>
+                                    </div>
+                                    <div class="qutation"><img src="{{ asset('frontend/img/bg/qutation.png') }}"
+                                            alt="qutation.png"></div>
+                                    <p>Praesent fermentum nisl at ipsum fcilisis viverra elementum accumsan finibus.
+                                        Cras placerat lacinia mitincidunt sit amet venenatis.</p>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="single-testimonial">
+                                    <div class="testi-author text-left">
+                                        <img src="{{ asset('frontend/img/testimonial/testi_avatar.png') }}"
+                                            alt="img">
+                                        <div class="ta-info">
+                                            <h6>Mr Jone Dose</h6>
+                                            <span>Web Developer</span>
+                                        </div>
+                                    </div>
+                                    <div class="qutation"><img src="{{ asset('frontend/img/bg/qutation.png') }}"
+                                            alt="qutation.png"></div>
+                                    <p>Praesent fermentum nisl at ipsum fcilisis viverra elementum accumsan finibus.
+                                        Cras placerat lacinia mitincidunt sit amet venenatis.</p>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="single-testimonial">
+                                    <div class="testi-author text-left">
+                                        <img src="{{ asset('frontend/img/testimonial/testi_avatar2.png') }}"
+                                            alt="img">
+                                        <div class="ta-info">
+                                            <h6>Mr Jone Dose</h6>
+                                            <span>Web Developer</span>
+                                        </div>
+                                    </div>
+                                    <div class="qutation"><img src="{{ asset('frontend/img/bg/qutation.png') }}"
+                                            alt="qutation.png"></div>
+                                    <p>Praesent fermentum nisl at ipsum fcilisis viverra elementum accumsan finibus.
+                                        Cras placerat lacinia mitincidunt sit amet venenatis.</p>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- testimonial-area-end -->
+
+
+        <!-- blog-area -->
+        <section id="blog" class="blog-area p-relative pt-70"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-10">
+                        <div class="section-title text-center mb-50">
+                            <h2>Our Latest Blog & News</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="single-post mb-30">
+                            <div class="blog-thumb">
+                                <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}"
+                                        alt="img"></a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="b-meta mb-40">
+                                    <ul>
+                                        <li><a href="#">20 jan 2019</a></li>
+                                    </ul>
+                                </div>
+                                <h4><a href="blog-details.html">Making Distribut Product Team
+                                        Work More With Monday</a></h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="admin">
+                                    <ul>
+                                        <li><img src="{{ asset('frontend/img/blog/admin-img.png') }}" alt="test">
+                                        </li>
+                                        <li>
+                                            <h6>Jhon Abraham</h6> Author
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="single-post mb-30">
+                            <div class="blog-thumb">
+                                <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}"
+                                        alt="img"></a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="b-meta mb-40">
+                                    <ul>
+                                        <li><a href="#">20 jan 2019</a></li>
+                                    </ul>
+                                </div>
+                                <h4><a href="blog-details.html">Monthly Web Development Upto Cost Of JavaScript
+                                        Ethics</a></h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="admin">
+                                    <ul>
+                                        <li><img src="{{ asset('frontend/img/blog/admin-img.png') }}" alt="test">
+                                        </li>
+                                        <li>
+                                            <h6>Jhon Abraham</h6> Author
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="single-post mb-30">
+                            <div class="blog-thumb">
+                                <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}"
+                                        alt="img"></a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="b-meta mb-40">
+                                    <ul>
+                                        <li><a href="#">20 jan 2019</a></li>
+                                    </ul>
+                                </div>
+                                <h4><a href="blog-details.html">User Experience Psychology And Performance
+                                        Smashing</a>
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="admin">
+                                    <ul>
+                                        <li><img src="{{ asset('frontend/img/blog/admin-img.png') }}" alt="test">
+                                        </li>
+                                        <li>
+                                            <h6>Jhon Abraham</h6> Author
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- blog-area-end -->
+
+        <!-- contact-area -->
+        <section id="contact" class="contact-area contact-bg  pt-50 pb-100 p-relative fix"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto;background-repeat: no-repeat;">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="contact-img2">
+                            <img src="{{ asset('frontend/img/bg/illustration.png') }}" alt="test">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-title mb-40">
+                            <h2>Get In Tuch</h2>
+                            <p>Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque
+                                porttitor,
+                                leo quam vulputate nibh, sit amet blandit erat magna.</p>
+                        </div>
+                        <form action="#" class="contact-form">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="contact-field p-relative c-name mb-20">
+                                        <input type="text" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="contact-field p-relative c-email mb-20">
+                                        <input type="text" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="contact-field p-relative c-subject mb-20">
+                                        <input type="text" placeholder="Phone">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="contact-field p-relative c-message mb-45">
+                                        <textarea name="message" id="message" cols="10" rows="10" placeholder="Write comments"></textarea>
+                                    </div>
+                                    <button class="btn">Send Message</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
     </div>
-
-    <!-- Countdown Script -->
-    <script>
-        // Set the launch date to 2 months from now
-        const launchDate = new Date();
-        launchDate.setMonth(launchDate.getMonth() + 2);
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
-
-            // Time calculations
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Update the countdown display
-            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
-            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
-
-            // If the countdown is finished, display a message
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.querySelector('.countdown').innerHTML =
-                    '<div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Days</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Hours</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Minutes</div></div><div class="countdown-item"><div class="countdown-number">00</div><div class="countdown-label">Seconds</div></div>';
-            }
-        }
-
-        // Update the countdown every second
-        updateCountdown(); // Initial call
-        const countdownInterval = setInterval(updateCountdown, 1000);
-
-        // Add interactive movement to floating elements based on mouse position
-        document.addEventListener('mousemove', (e) => {
-            const elements = document.querySelectorAll('.floating-element');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-
-            elements.forEach((element, index) => {
-                const movement = (index + 1) * 10; // Reduced movement for smaller elements
-                const translateX = (mouseX - 0.5) * movement;
-                const translateY = (mouseY - 0.5) * movement;
-
-                element.style.transform =
-                    `translate(${translateX}px, ${translateY}px) rotate(${translateX}deg)`;
-            });
-        });
-        // Add this to your existing script section
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto-dismiss alerts after 5 seconds
-            setTimeout(function() {
-                const alerts = document.querySelectorAll('.alert');
-                alerts.forEach(function(alert) {
-                    const bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-                });
-            }, 5000);
-
-            // Add fade out animation before closing
-            const closeButtons = document.querySelectorAll('.alert .close');
-            closeButtons.forEach(function(button) {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const alert = this.closest('.alert');
-                    alert.style.transition = 'opacity 0.3s ease-out';
-                    alert.style.opacity = '0';
-                    setTimeout(function() {
-                        const bsAlert = new bootstrap.Alert(alert);
-                        bsAlert.close();
-                    }, 300);
-                });
-            });
-        });
-    </script>
-
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+@endsection
