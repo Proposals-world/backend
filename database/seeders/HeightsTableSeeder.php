@@ -13,7 +13,7 @@ class HeightsTableSeeder extends Seeder
             ['name_en' => 'Short', 'name_ar' => 'قصير', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Medium', 'name_ar' => 'متوسط', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Tall', 'name_ar' => 'طويل', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Very Tall', 'name_ar' => 'طويل جدًا', 'created_at' => now(), 'updated_at' => now()],
+            // ['name_en' => 'Very Tall', 'name_ar' => 'طويل جدًا', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

@@ -15,6 +15,23 @@ class CountriesTableSeeder extends Seeder
             ['name_en' => 'Lebanon', 'name_ar' => 'لبنان', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Syria', 'name_ar' => 'سوريا', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Palestine', 'name_ar' => 'فلسطين', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Iraq', 'name_ar' => 'العراق', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Saudi Arabia', 'name_ar' => 'السعودية', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'United Arab Emirates', 'name_ar' => 'الإمارات', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Kuwait', 'name_ar' => 'الكويت', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Qatar', 'name_ar' => 'قطر', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Bahrain', 'name_ar' => 'البحرين', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Oman', 'name_ar' => 'عمان', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Yemen', 'name_ar' => 'اليمن', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Sudan', 'name_ar' => 'السودان', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Libya', 'name_ar' => 'ليبيا', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Tunisia', 'name_ar' => 'تونس', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Algeria', 'name_ar' => 'الجزائر', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Morocco', 'name_ar' => 'المغرب', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Mauritania', 'name_ar' => 'موريتانيا', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Somalia', 'name_ar' => 'الصومال', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Djibouti', 'name_ar' => 'جيبوتي', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Comoros', 'name_ar' => 'جزر القمر', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
