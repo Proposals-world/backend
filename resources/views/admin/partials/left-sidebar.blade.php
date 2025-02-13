@@ -4,20 +4,20 @@
     <!-- Brand Logo Light -->
     <a href="index.html" class="logo logo-light">
         <span class="logo-lg">
-            <img src="{{asset('admin/assets/images/logo.png')}}" alt="logo">
+            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="logo">
         </span>
         <span class="logo-sm">
-            <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="small logo">
+            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="small logo">
         </span>
     </a>
 
     <!-- Brand Logo Dark -->
     <a href="index.html" class="logo logo-dark">
         <span class="logo-lg">
-            <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="dark logo">
+            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo">
         </span>
         <span class="logo-sm">
-            <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="small logo">
+            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="small logo">
         </span>
     </a>
 
@@ -57,7 +57,7 @@
             <li class="side-nav-item">
                 <a href="{{route('dashboard')}}" class="side-nav-link">
                     <i class="ri-dashboard-2-fill"></i>
-                    <span class="badge bg-success float-end">9+</span>
+                    <span class="badge bg-success float-end" style="background-color: #9e086c !important;">9+</span>
                     <span> Dashboard </span>
                 </a>
             </li>
