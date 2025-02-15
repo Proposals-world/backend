@@ -1,0 +1,41 @@
+
+#header-ul{
+    text-align: left !important;
+}
+.s-img{
+    transform: rotate(-14deg)!important;
+}
+/* rtl.css */
+html[dir="rtl"] body {
+    direction: rtl;
+}
+html[dir="rtl"] .text-left {
+    text-align: right !important;
+}
+html[dir="rtl"] .text-right {
+    text-align: left !important;
+}
+/* Add RTL-specific tweaks */
+html[dir="rtl"] .slider-content, 
+html[dir="rtl"] .section-title, 
+html[dir="rtl"] .contact-form, 
+html[dir="rtl"] .pricing-box {
+    text-align: right;
+}
+div:not(.pricing-box):not(.pricing-box *):not(#pricing):not(#pricing *):not(.section-title.text-center.mb-50):not(.section-title.text-center.mb-50 *) {
+    text-align: right !important;
+}
+.video-content ul {
+    direction: rtl;
+}
+
+.swiper-slide-active::before {
+    content: "";
+    position: absolute;
+    width: 400px !important;
+    height: 750px !important;
+    top: -38px !important;
+    left: -45px !important;
+    background-image: url(../img/bg/iphone-slider.png) !important;
+    z-index: 99 !important;
+}

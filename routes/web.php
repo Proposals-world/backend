@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\FeatureController as AdminFeatureController;
 use App\Http\Controllers\Admin\LocationsController;
 use App\Http\Controllers\Admin\OriginController;
 use App\Http\Controllers\Admin\SportsActivitiesController;
+use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\MessageSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,8 @@ use App\Http\Controllers\admin\SubscriptionPackageController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
