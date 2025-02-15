@@ -33,7 +33,7 @@ return [
     'step_2_desc'          => 'Explore profiles that suit your preferences.',
     'step_3'               => 'Connect & Chat',
     'step_3_desc'          => 'Initiate real conversations with your potential matches.',
-    'step_4'               => 'Meet & Celebrate',
+    'step_4'               => 'Meet & Start Your Journey Safely',
     'step_4_desc'          => 'Take the step to meet in person and start your journey together.',
 
     // Video Area

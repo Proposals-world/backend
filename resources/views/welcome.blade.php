@@ -185,15 +185,6 @@
                                             <img src="{{ asset('frontend/img/icon/apw-Icon3.png') }}" alt="step 3">
                                         </div>
                                         <div class="text">
-                                            <h4>{{ __('home.step_3') }}</h4>
-                                            <p>{{ __('home.step_3_desc') }}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/apw-Icon4.png') }}" alt="step 4">
-                                        </div>
-                                        <div class="text">
                                             <h4>{{ __('home.step_4') }}</h4>
                                             <p>{{ __('home.step_4_desc') }}</p>
                                         </div>
