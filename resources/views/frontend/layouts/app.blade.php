@@ -2,14 +2,33 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Bingle - Mobile App Landing Page html Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shorBtcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Place favicon.ico in the root directory -->
+<!-- Basic Meta Tags -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Proposals.world - Find Your Perfect Life Partner</title>
+<meta name="description" content="Proposals.world is a premium matchmaking platform dedicated to helping you find your ideal life partner. Join thousands of happy couples and start your journey toward a lifelong relationship.">
+<meta name="keywords" content="matchmaking, proposals, marriage, soulmate, dating, relationships, proposals world">
+<meta name="author" content="Proposals.world">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://proposals.world">
 
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="Proposals.world - Find Your Perfect Life Partner">
+<meta property="og:description" content="Join thousands of happy couples who discovered true love on Proposals.world.">
+<meta property="og:image" content="{{ asset('frontend/img/logo/proposals-logo-removebg-preview.png') }}">
+<meta property="og:url" content="https://proposals.world">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proposals.world - Find Your Perfect Life Partner">
+<meta name="twitter:description" content="Join thousands of happy couples who discovered true love on Proposals.world.">
+<meta name="twitter:image" content="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
+
+<!-- Favicon & Apple Touch Icon -->
+<link rel="icon" type="image/jpeg" href="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
+<link rel="apple-touch-icon" href="{{ asset('frontend/img/logo/proposals-logo-removebg-preview.png') }}">
     <!-- CSS here -->
     @if (app()->getLocale() === 'ar')
         <!-- RTL CSS -->
