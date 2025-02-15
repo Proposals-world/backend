@@ -18,8 +18,11 @@ use App\Http\Controllers\Admin\HobbiesController;
 use App\Http\Controllers\Admin\PetsController;
 use App\Http\Controllers\Admin\SpecializationsController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\MarriageBudgetsController;
+use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\admin\SubscriptionPackageController;
-
+use App\Http\Controllers\admin\ReligionsController;
+use App\Models\MarriageBudget;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,6 +52,8 @@ Route::resource('admin/specializations', SpecializationsController::class);
 
 Route::resource('admin/features', FeatureController::class);
 Route::resource('admin/subscription-packages', SubscriptionPackageController::class);
+Route::resource('admin/marriage-budgets', MarriageBudgetsController::class);
+Route::resource('admin/religions', ReligionController::class);
 
 
 // Route to handle message subscriptions

@@ -12,7 +12,7 @@ class UserPreferencesTableSeeder extends Seeder
         DB::table('user_preferences')->insert([
             [
                 'user_id' => 1, // Admin
-                'preferred_nationality_id' => 2, // Egyptian
+                'preferred_nationality_id' => 1, // Jordanian
                 // 'preferred_origin_id' => 1, // Middle Eastern
                 'preferred_country_id' => 2, // Egypt
                 'preferred_city_id' => 2, // Cairo
@@ -62,7 +62,7 @@ class UserPreferencesTableSeeder extends Seeder
             ],
             [
                 'user_id' => 3, // User2
-                'preferred_nationality_id' => 3, // Lebanese
+                'preferred_nationality_id' => 1, // Jordanian
                 // 'preferred_origin_id' => 1, // Middle Eastern
                 'preferred_country_id' => 3, // Lebanon
                 'preferred_city_id' => 3, // Beirut
@@ -73,7 +73,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_employment_status' => true,
                 'preferred_job_title_id' => 3, // Project Manager
                 'preferred_financial_status_id' => 1, // Stable
-                'preferred_height_id' => 4, // 180 cm
+                'preferred_height_id' => 2, // 180 cm
                 'preferred_weight_id' => 4, // 80 kg
                 'preferred_marital_status_id' => 2, // Married
                 'preferred_smoking_status' => 0, // Does not smoke
@@ -87,7 +87,7 @@ class UserPreferencesTableSeeder extends Seeder
             ],
             [
                 'user_id' => 4, // User3
-                'preferred_nationality_id' => 4, // Syrian
+                'preferred_nationality_id' => 1, // Jordanian
                 // 'preferred_origin_id' => 1, // Middle Eastern
                 'preferred_country_id' => 4, // Syria
                 'preferred_city_id' => 4, // Damascus
@@ -112,7 +112,7 @@ class UserPreferencesTableSeeder extends Seeder
             ],
             [
                 'user_id' => 5, // User4
-                'preferred_nationality_id' => 5, // Palestinian
+                'preferred_nationality_id' => 1, // Jordanian
                 // 'preferred_origin_id' => 1, // Middle Eastern
                 'preferred_country_id' => 5, // Palestine
                 'preferred_city_id' => 5, // Ramallah
@@ -127,7 +127,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_weight_id' => 1, // 50 kg
                 'preferred_marital_status_id' => 1, // Single
                 'preferred_smoking_status' => 1, // Smokes
-                'preferred_drinking_status_id' => 4, // Prefers not to say
+                'preferred_drinking_status_id' => 2, // Prefers not to say
                 'preferred_sports_activity_id' => 3, // Running
                 'preferred_social_media_presence_id' => 1, // Other
                 'preferred_marriage_budget_id' => 1, // 5000-10000

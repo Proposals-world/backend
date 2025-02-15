@@ -63,7 +63,7 @@
             </li>
 
             <li class="side-nav-title mt-2">Managment</li>
-
+{{--
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false" aria-controls="sidebarLocations" class="side-nav-link">
                     <i class="ri-user-location-fill"></i>
@@ -84,7 +84,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarSubscriptions" aria-expanded="false" aria-controls="sidebarSubscriptions" class="side-nav-link">
@@ -99,11 +99,11 @@
                                 <span> Subscription Packages </span>
                             </a>
                         </li>
-                        <li class="side-nav-item">
+                        {{-- <li class="side-nav-item">
                             <a href="{{route('features.index')}}" class="side-nav-link">
                                 <span> Features </span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </li>
@@ -116,16 +116,17 @@
                 </a>
                 <div class="collapse" id="sidebarEducation">
                     <ul class="side-nav-second-level">
-                        <li class="side-nav-item">
+                        {{-- <li class="side-nav-item">
                             <a href="{{route('educational-levels.index')}}" class="side-nav-link">
                                 <span> Educational Levels </span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="side-nav-item">
                             <a href="{{route('specializations.index')}}" class="side-nav-link">
                                 <span> Specializations </span>
                             </a>
                         </li>
+
                     </ul>
                 </div>
             </li>
@@ -143,26 +144,36 @@
                                 <span> Origins </span>
                             </a>
                         </li>
-                        <li class="side-nav-item">
+                        {{-- <li class="side-nav-item">
                             <a href="{{route('sports-activities.index')}}" class="side-nav-link">
                                 <span> Sports Activities </span>
                             </a>
+                        </li> --}}
+                        <li class="side-nav-item">
+                            <a href="{{route('marriage-budgets.index')}}" class="side-nav-link">
+                                <span> Marriage Budgets </span>
+                            </a>
                         </li>
                         <li class="side-nav-item">
+                            <a href="{{route('religions.index')}}" class="side-nav-link">
+                                <span> Religions </span>
+                            </a>
+                        </li>
+                        {{-- <li class="side-nav-item">
                             <a href="{{route('hair-colors.index')}}" class="side-nav-link">
                                 <span> Hair Colors </span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="side-nav-item">
                             <a href="{{route('pets.index')}}" class="side-nav-link">
                                 <span> Pets </span>
                             </a>
                         </li>
-                        <li class="side-nav-item">
+                        {{-- <li class="side-nav-item">
                             <a href="{{route('drinking-statuses.index')}}" class="side-nav-link">
                                 <span> Drinking Statuses </span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="side-nav-item">
                             <a href="{{route('hobbies.index')}}" class="side-nav-link">
                                 <span> Hobbies </span>
