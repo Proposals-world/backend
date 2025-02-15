@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <header class="header-area">            
     <div id="header-sticky" class="menu-area">
         <div class="container">
@@ -11,15 +14,20 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-9">
-                        <div class="responsive"><i class="icon dripicons-align-right"></i></div>
+                        <div class="responsive d-lg-none"><i class="icon dripicons-align-right"></i></div>
                         <div class="main-menu text-right text-xl-right">
                              <nav id="mobile-menu">
                                 <ul id="header-ul">
-                                    <li style="margin-left: 20px"><a href="#about">{{ __('header.about_us') }}</a></li>
+                                    <div></div>
+                                    <li ><a href="#about">{{ __('header.about_us') }}</a></li>
                                     <li><a href="#features">{{ __('header.features') }}</a></li>
                                     <li><a href="#blog">{{ __('header.blog') }}</a></li>
                                     <li><a href="#pricing">{{ __('header.pricing') }}</a></li>
-                                    <li><a href="#contact">{{ __('header.contact') }}</a></li>                                            
+                                    <li><a href="#contact">{{ __('header.contact') }}</a></li>
+                                    <li class="d-lg-none"><a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
+                                        style="color: gray; font-size: 16px; text-decoration: none;">
+                                        {{ __('header.language_switcher') }}
+                                    </a></li>                                            
                                 </ul>
                             </nav>
                         </div>

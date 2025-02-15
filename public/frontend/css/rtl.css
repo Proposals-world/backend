@@ -39,3 +39,12 @@ div:not(.pricing-box):not(.pricing-box *):not(#pricing):not(#pricing *):not(.sec
     background-image: url(../img/bg/iphone-slider.png) !important;
     z-index: 99 !important;
 }
+
+@media (max-width: 767px) {
+    html[dir="rtl"] .responsive {
+        float: left !important; /* Ensure it moves left on smaller screens */
+    }
+}
+.dripicons-align-right:before {
+    color: black !important;
+}

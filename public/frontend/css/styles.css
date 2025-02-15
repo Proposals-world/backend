@@ -716,8 +716,8 @@ label {
 
 .s-img {
 	margin-left: 114px;
-    margin-top: 180px;
-    transform: rotate(14deg);
+    margin-top: 180px !important;
+    transform: rotate(14deg) !important;
 }
 
 .slick-slider {
