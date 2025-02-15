@@ -2,7 +2,7 @@
 
 </style>
 <header class="header-area">            
-    <div id="header-sticky" class="menu-area">
+    <div id="" class="menu-area">
         <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
