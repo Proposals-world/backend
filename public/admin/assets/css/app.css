@@ -173,7 +173,7 @@ html[data-bs-theme="dark"][data-topbar-color="dark"] {
     --ct-pink-rgb: 255, 103, 155;
     --ct-primary-text-emphasis: #9e086c;
     --ct-secondary-text-emphasis: #616971;
-    --ct-success-text-emphasis: #159488;
+    --ct-success-text-emphasis: #6b0449;
     --ct-info-text-emphasis: #258cdd;
     --ct-warning-text-emphasis: #e5af0c;
     --ct-danger-text-emphasis: #de4034;
@@ -15372,7 +15372,7 @@ html[data-bs-theme="dark"] .logo.logo-dark {
 }
 
 .leftbar-user {
-    background: url("../images/small/small-10.png") center center;
+    background: url("../images/small/small-8.png") center center;
     display: none;
     position: relative;
 }
