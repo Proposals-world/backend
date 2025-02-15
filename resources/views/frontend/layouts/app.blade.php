@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/swiper.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 
 </head>
