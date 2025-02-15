@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/phone-screem-3.jpeg') }}" alt="app" class="s-img">
+                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/screen-6.png') }}" alt="app" class="s-img">
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                     <div class="col-lg-3 col-md-12 mb-30">
                         <div class="s-single-services text-center">
                             <div class="services-icon">
-                                <img src="{{ asset('frontend/img/icon/f-icon4.png') }}" alt="icon">
+                                <img src="{{ asset('frontend/img/icon/f-icon2.png') }}" alt="icon">
                             </div>
                             <div class="second-services-content">
                                 <h5>{{ __('home.feature_4') }}</h5>
