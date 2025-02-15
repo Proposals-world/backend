@@ -1,6 +1,9 @@
 @if (isset($subscriptionPackage))
     <form action="{{ route('subscription-packages.update', $subscriptionPackage->id) }}" id="subscriptionPackageForm" method="POST">
         @method('PUT')
+        <input type="hidden" name="subscription_package_id" id="subscription_package_id" class="form-control" value="
+        {{ $subscriptionPackage->id }}"
+>
 @else
     <form action="{{ route('subscription-packages.store') }}" id="subscriptionPackageForm" method="POST">
 @endif

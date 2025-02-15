@@ -64,8 +64,10 @@ class SubscriptionPackageController extends Controller
 
     public function update(Request $request, SubscriptionPackage $package)
     {
+
         // Validate form data
         $validatedData = $request->validate([
+            'subscription_package_id' => 'required',
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -74,10 +76,10 @@ class SubscriptionPackageController extends Controller
             'features' => 'nullable|array', // Features can be null or an array of selected feature IDs
             'features.*' => 'exists:features,id', // Ensure the selected features exist
         ]);
-
         // Update the subscription package
+        // dd($request->all());
         $package->update($validatedData);
-
+        // dd($package);
         // Sync the selected features (removes existing features and adds the new ones)
         if (isset($validatedData['features'])) {
             $package->features()->sync($validatedData['features']);

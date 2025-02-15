@@ -16,8 +16,10 @@ class Feature extends Model
      */
     public function subscriptionPackages()
     {
-        return $this->belongsToMany(SubscriptionPackage::class)
-            ->withPivot('included')
-            ->withTimestamps();
+        return $this->belongsToMany(SubscriptionPackage::class, 'feature_subscription_package', 'subscription_package_id ', 'feature_id ');
+
+        // return $this->belongsToMany(SubscriptionPackage::class)
+        //     ->withPivot('included')
+        //     ->withTimestamps();
     }
 }
