@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
             LocationsTableSeeder::class,
             UserPhotosTableSeeder::class,
             SmokingToolsSeeder::class,
+            FeatureSeeder::class,
         ]);
     }
 }
