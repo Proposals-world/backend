@@ -10,10 +10,11 @@ class FinancialStatusesTableSeeder extends Seeder
     public function run()
     {
         DB::table('financial_statuses')->insert([
-            ['name_en' => 'Stable', 'name_ar' => 'مستقر', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Needs Improvement', 'name_ar' => 'يحتاج لتحسين', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Excellent', 'name_ar' => 'ممتاز', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Poor', 'name_ar' => 'فقير', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Very Modest', 'name_ar' => 'متواضع جدا', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Modest', 'name_ar' => 'متواضع', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Average', 'name_ar' => 'متوسط', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Very Good', 'name_ar' => 'جيد جدا', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Advanced', 'name_ar' => 'متقدم', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

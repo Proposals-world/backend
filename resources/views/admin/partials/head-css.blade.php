@@ -2,7 +2,7 @@
 <script src="{{ asset('admin/assets/js/config.js') }}"></script>
 
 <!-- App css -->
-<link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
+<link href="{{ asset('admin/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
 <!-- Icons css -->
 <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />

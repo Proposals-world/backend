@@ -10,11 +10,11 @@ class WeightsTableSeeder extends Seeder
     public function run()
     {
         DB::table('weights')->insert([
-            ['name_en' => '50 kg', 'name_ar' => '50 كغ', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '60 kg', 'name_ar' => '60 كغ', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '70 kg', 'name_ar' => '70 كغ', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '80 kg', 'name_ar' => '80 كغ', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '90 kg', 'name_ar' => '90 كغ', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Slim', 'name_ar' => 'نحيف', 'weight_kg' => '50 kg', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Average', 'name_ar' => 'متوسط', 'weight_kg' => '60 kg', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Chubby', 'name_ar' => 'ممتلئ', 'weight_kg' => '70 kg', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Overweight', 'name_ar' => 'ممتلئ جداً', 'weight_kg' => '80 kg', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Overweight+', 'name_ar' => 'ممتلئ جداً', 'weight_kg' => '90 kg', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

@@ -13,6 +13,7 @@ class SmokingToolsTableSeeder extends Seeder
             ['name_en' => 'Cigarettes', 'name_ar' => 'سجائر', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Shisha', 'name_ar' => 'شيشة', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'E-cigarettes', 'name_ar' => 'السيجار الإلكتروني', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Vape', 'name_ar' => 'فاپ', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Other', 'name_ar' => 'أخرى', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }

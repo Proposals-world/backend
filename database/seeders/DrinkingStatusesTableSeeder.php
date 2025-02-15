@@ -10,10 +10,9 @@ class DrinkingStatusesTableSeeder extends Seeder
     public function run()
     {
         DB::table('drinking_statuses')->insert([
-            ['name_en' => 'Drinks Alcohol', 'name_ar' => 'يشرب الكحول', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Does not drink Alcohol', 'name_ar' => 'لا يشرب الكحول', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Occasionally drinks Alcohol', 'name_ar' => 'يشرب الكحول أحيانًا', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Prefers not to say', 'name_ar' => 'يفضل عدم القول', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'No', 'name_ar' => 'لا', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Sometimes', 'name_ar' => 'أحيانًا', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Yes', 'name_ar' => 'نعم', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
