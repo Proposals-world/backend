@@ -12,35 +12,32 @@ class FilteredUserResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    protected $lang;
+
     public function toArray(Request $request): array
     {
-        // goo to models and try without joins
+        $this->lang = $request->header('Accept-Language', 'en');
+
+        // Return the user details along with their profile data and photos
         return [
-            'id' => $this->id,
-            'user' => new UserProfileResource($this->whenLoaded('user')), // Load related user details
-            'nationality' => $this->nationality_id,
-            'origin' => $this->origin_id,
-            'religion' => $this->religion_id,
-            'religiosity_level' => $this->religiosity_level_id,
-            'country_of_residence' => $this->country_of_residence_id,
-            'city' => $this->city_id,
-            'age' => $this->age,
-            'educational_level' => $this->educational_level_id,
-            'specialization' => $this->specialization_id,
-            'employment_status' => $this->employment_status,
-            'job_title' => $this->job_title_id,
-            'financial_status' => $this->financial_status_id,
-            'height' => $this->height_id,
-            'weight' => $this->weight_id,
-            'marital_status' => $this->marital_status_id,
-            'children' => $this->children,
-            'smoking_status' => $this->smoking_status,
-            'drinking_status' => $this->drinking_status_id,
-            'sports_activity' => $this->sports_activity_id,
-            'social_media_presence' => $this->social_media_presence_id,
-            'sleep_habit' => $this->sleep_habit_id,
-            'marriage_budget' => $this->marriage_budget_id,
-            'created_at' => $this->created_at,
+            'id' => $this->user->id, // Get user id from the related user model
+            'first_name' => $this->user->first_name, // User's first name
+            'last_name' => $this->user->last_name, // User's last name
+            'email' => $this->user->email, // User's email
+            'phone_number' => $this->user->phone_number, // User's phone number
+            'gender' => $this->user->gender, // User's gender
+            'profile_status' => $this->profile_status, // Profile status from user profile
+            'status' => $this->user->status, // Status from the user model
+            'last_active' => $this->user->last_active, // Last active date from the user model
+            // Photos
+            'photos' => $this->user->photos->map(function ($photo) {
+                return [
+                    'photo_url' => config('app.url') . $photo->photo_url,
+                    'caption' => $this->lang === 'ar' ? $photo->caption_ar : $photo->caption_en,
+                    'is_main' => $photo->is_main,
+                ];
+            }),
+
         ];
     }
 }

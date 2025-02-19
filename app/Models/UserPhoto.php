@@ -16,7 +16,7 @@ class UserPhoto extends Model
         'caption_ar',
         'is_verified',
         'is_main',
-        
+
     ];
 
     public function user()

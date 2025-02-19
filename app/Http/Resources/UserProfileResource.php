@@ -88,7 +88,7 @@ class UserProfileResource extends JsonResource
                 'religiosity_level' => $getLocalized($this->profile->religiosityLevel, 'name'),
                 'guardian_contact' => $this->profile && $this->profile->guardian_contact_encrypted ? $this->profile->guardian_contact_encrypted : null,
                 // Smoking Tools
-                'marriage_budget'=> $this->profile && $this->profile->marriageBudget? $this->profile->marriageBudget->{'budget_' . $this->lang}: null,
+                'marriage_budget' => $this->profile && $this->profile->marriageBudget ? $this->profile->marriageBudget->{'budget_' . $this->lang} : null,
 
                 'smoking_tools' => $this->profile && $this->profile->smokingTools ? $this->profile->smokingTools->map(function ($tool) use ($getLocalized) {
                     return $getLocalized($tool, 'name');

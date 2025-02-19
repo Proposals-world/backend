@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FilteredUserResource;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FilterController extends Controller
 {
     public function filterUsers(Request $request)
     {
-        $query = UserProfile::with('user');
+        $query = UserProfile::with(['user', 'user.photos']);
+        $query->whereHas('user', function ($query) use ($request) {
+            $query->where('gender', '!=', Auth::user()->gender);
+        });
         //Nationality
         if ($request->filled("nationality_id"))
             $query->where('nationality_id', $request->nationality_id);
@@ -99,7 +104,7 @@ class FilterController extends Controller
         $users = $query->get();
         return response()->json([
             'message' => "success",
-            'users' => $users
+            'users' => FilteredUserResource::collection($users)
         ], 200);
     }
 }
