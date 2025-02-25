@@ -32,8 +32,10 @@ use App\Http\Controllers\FCMController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\Tickets\TicketsController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserPreferenceController;
 
 // Public Routes
@@ -98,7 +100,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/religious-levels', [ReligiousLevelController::class, 'index']);
 
     Route::get('/dynamic-data', [DynamicDataController::class, 'index']);
+    Route::get('/users/filter', [FilterController::class, 'filterUsers']);
+    Route::post('/like', [LikeController::class, 'likeUser']);
+    Route::post('/dislike', [LikeController::class, 'dislikeUser']);
 });
-
-
-

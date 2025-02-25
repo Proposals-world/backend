@@ -199,4 +199,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserPhoto::class)->where('is_main', true);
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function dislikes()
+    {
+        return $this->hasMany(Dislike::class);
+    }
+
+    public function matches()
+    {
+        return $this->hasMany(MatchedUser::class);
+    }
 }
