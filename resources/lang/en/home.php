@@ -64,10 +64,10 @@ return [
     'subscribe_button' => 'Subscribe Now',
 
     // Pricing Section (Cards kept EXACTLY as provided)
-    'pricing_title' => 'Our Pricing Plans',
-    'pricing_desc' => 'Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque porttitor, leo quam vulputate nibh, sit amet blandit erat magna.',
-    'monthly' => 'Monthly',
-    'annual' => 'Annual',
+'pricing_title' => 'Our Pricing Plans',
+'pricing_desc'  => 'Choose the plan that best suits your needs and start your journey to find your ideal partner. Flexible options with affordable rates and premium features.',
+'monthly'       => 'Monthly',
+'annual'        => 'Annual',
 
     'plan_beginner_title' => 'Beginner',
     'plan_beginner_annual_price' => '95',

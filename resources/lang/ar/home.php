@@ -67,10 +67,10 @@ return [
     'subscribe_button' => 'اشترك الآن',
 
     // قسم الأسعار (الحفاظ على نفس المحتوى والتصميم كما في النسخة الإنجليزية)
-    'pricing_title' => 'Our Pricing Plans',
-    'pricing_desc' => 'Quisque posuere mollis ipsum et molestie. Fusce cursus, risus vel scelerisque porttitor, leo quam vulputate nibh, sit amet blandit erat magna.',
-    'monthly' => 'Monthly',
-    'annual' => 'Annual',
+'pricing_title' => 'خطط الأسعار لدينا',
+'pricing_desc'  => 'اختر الخطة التي تناسب احتياجاتك وابدأ رحلتك للعثور على شريكك المثالي. خيارات مرنة مع أسعار معقولة وميزات مميزة.',
+'monthly'       => 'شهري',
+'annual'        => 'سنوي',
 
     'plan_beginner_title' => 'المبتدئ',
     'plan_beginner_annual_price' => '95',
