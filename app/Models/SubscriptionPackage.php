@@ -10,7 +10,6 @@ class SubscriptionPackage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'package_name_en',
         'package_name_ar',
         'features_en',

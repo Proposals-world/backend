@@ -202,7 +202,7 @@
         <!-- how-app-work-end -->
     
         <!-- video-area (Meet Your Match Video) -->
-        <section style="direction: ltr !important;" class="video-area pt-100 pb-100 p-relative">
+        {{-- <section style="direction: ltr !important;" class="video-area pt-100 pb-100 p-relative">
             <div class="video-img2">
                 <img src="{{ asset('frontend/img/bg/video-img.png') }}" alt="video">
                 <a href="https://www.youtube.com/watch?v=7e90gBu4pas" class="popup-video">
@@ -247,7 +247,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- video-area-end -->
     
         <!-- screen-area (App Screenshots) -->
@@ -377,7 +377,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" style="direction: ltr;">
                     <div class="col-xl-6 col-lg-10">
                         <form name="ajax-form" id="contact-form4" action="#" method="post"
                             class="contact-form newslater">
@@ -571,7 +571,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}" alt="blog"></a>
+                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}" alt="blog"></a>
                             </div>
                             <div class="blog-content">
                                 <div class="b-meta mb-40">
@@ -580,17 +580,10 @@
                                     </ul>
                                 </div>
                                 <h4>
-                                    <a href="blog-details.html">{{ __('home.blog_post_title1') }}</a>
+                                    <a href="#">{{ __('home.blog_post_title1') }}</a>
                                 </h4>
                                 <p>{{ __('home.blog_post_desc1') }}</p>
-                                <div class="admin">
-                                    <ul>
-                                        <li><img src="{{ asset('frontend/img/blog/admin-img.png') }}" alt="admin"></li>
-                                        <li>
-                                            <h6>{{ __('home.blog_post_author') }}</h6> {{ __('home.author') }}
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -598,7 +591,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}" alt="blog"></a>
+                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}" alt="blog"></a>
                             </div>
                             <div class="blog-content">
                                 <div class="b-meta mb-40">
@@ -607,17 +600,9 @@
                                     </ul>
                                 </div>
                                 <h4>
-                                    <a href="blog-details.html">{{ __('home.blog_post_title2') }}</a>
+                                    <a href="#">{{ __('home.blog_post_title2') }}</a>
                                 </h4>
                                 <p>{{ __('home.blog_post_desc2') }}</p>
-                                <div class="admin">
-                                    <ul>
-                                        <li><img src="{{ asset('frontend/img/blog/admin-img.png') }}" alt="admin"></li>
-                                        <li>
-                                            <h6>{{ __('home.blog_post_author') }}</h6> {{ __('home.author') }}
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -625,7 +610,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}" alt="blog"></a>
+                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}" alt="blog"></a>
                             </div>
                             <div class="blog-content">
                                 <div class="b-meta mb-40">
@@ -634,17 +619,10 @@
                                     </ul>
                                 </div>
                                 <h4>
-                                    <a href="blog-details.html">{{ __('home.blog_post_title3') }}</a>
+                                    <a href="#">{{ __('home.blog_post_title3') }}</a>
                                 </h4>
                                 <p>{{ __('home.blog_post_desc3') }}</p>
-                                <div class="admin">
-                                    <ul>
-                                        <li><img src="{{ asset('frontend/img/blog/admin-img.png') }}" alt="admin"></li>
-                                        <li>
-                                            <h6>{{ __('home.blog_post_author') }}</h6> {{ __('home.author') }}
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>

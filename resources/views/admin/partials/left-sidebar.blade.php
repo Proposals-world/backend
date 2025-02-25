@@ -88,7 +88,7 @@
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarSubscriptions" aria-expanded="false" aria-controls="sidebarSubscriptions" class="side-nav-link">
-                    <i class="ri-user-location-fill"></i>
+                    <i class="ri-vip-crown-line"></i>
                     <span> Subscriptions </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -96,52 +96,78 @@
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{route('subscription-packages.index')}}" class="side-nav-link">
+                                <i class="ri-vip-diamond-line"></i>
                                 <span> Subscription Packages </span>
                             </a>
                         </li>
-                        {{-- <li class="side-nav-item">
-                            <a href="{{route('features.index')}}" class="side-nav-link">
-                                <span> Features </span>
-                            </a>
-                        </li> --}}
                     </ul>
                 </div>
             </li>
-
+            
+            {{-- <li class="side-nav-item">
+                <a href="{{route('features.index')}}" class="side-nav-link">
+                    <span> Features </span>
+                </a>
+            </li> --}}
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEducation" aria-expanded="false" aria-controls="sidebarEducation" class="side-nav-link">
-                    <i class="ri-user-location-fill"></i>
+                    <i class="ri-book-line"></i>
                     <span> Education </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarEducation">
                     <ul class="side-nav-second-level">
-                        {{-- <li class="side-nav-item">
-                            <a href="{{route('educational-levels.index')}}" class="side-nav-link">
-                                <span> Educational Levels </span>
-                            </a>
-                        </li> --}}
                         <li class="side-nav-item">
                             <a href="{{route('specializations.index')}}" class="side-nav-link">
+                                <i class="ri-bookmark-line"></i>
                                 <span> Specializations </span>
                             </a>
                         </li>
-
                     </ul>
                 </div>
             </li>
-
+            {{-- <li class="side-nav-item">
+                <a href="{{route('educational-levels.index')}}" class="side-nav-link">
+                    <span> Educational Levels </span>
+                </a>
+            </li> --}}
+            
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarPerson" aria-expanded="false" aria-controls="sidebarPerson" class="side-nav-link">
-                    <i class="ri-user-location-fill"></i>
-                    <span> Person </span>
+                    <i class="ri-user-3-line"></i>
+                    <span> Customer Info </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarPerson">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{route('origins.index')}}" class="side-nav-link">
+                                <i class="ri-map-pin-line"></i>
                                 <span> Origins </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('marriage-budgets.index')}}" class="side-nav-link">
+                                <i class="ri-money-dollar-circle-line"></i>
+                                <span> Marriage Budgets </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('religions.index')}}" class="side-nav-link">
+                                <i class="ri-heart-2-line"></i>
+                                <span> Religions </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('pets.index')}}" class="side-nav-link d-flex align-items-center">
+                                <img width="16px" style="margin-left: 7px;" class="me-2" src="{{asset('admin/assets/images/svg/paw-solid.svg')}}" alt="">
+                                <span> Pets </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('hobbies.index')}}" class="side-nav-link">
+                                <i class="ri-paint-brush-line"></i>
+                                <span> Hobbies </span>
                             </a>
                         </li>
                         {{-- <li class="side-nav-item">
@@ -149,36 +175,16 @@
                                 <span> Sports Activities </span>
                             </a>
                         </li> --}}
-                        <li class="side-nav-item">
-                            <a href="{{route('marriage-budgets.index')}}" class="side-nav-link">
-                                <span> Marriage Budgets </span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="{{route('religions.index')}}" class="side-nav-link">
-                                <span> Religions </span>
-                            </a>
-                        </li>
                         {{-- <li class="side-nav-item">
                             <a href="{{route('hair-colors.index')}}" class="side-nav-link">
                                 <span> Hair Colors </span>
                             </a>
                         </li> --}}
-                        <li class="side-nav-item">
-                            <a href="{{route('pets.index')}}" class="side-nav-link">
-                                <span> Pets </span>
-                            </a>
-                        </li>
                         {{-- <li class="side-nav-item">
                             <a href="{{route('drinking-statuses.index')}}" class="side-nav-link">
                                 <span> Drinking Statuses </span>
                             </a>
                         </li> --}}
-                        <li class="side-nav-item">
-                            <a href="{{route('hobbies.index')}}" class="side-nav-link">
-                                <span> Hobbies </span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </li>

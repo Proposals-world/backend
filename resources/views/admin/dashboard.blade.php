@@ -207,10 +207,10 @@
                         </div>
 
                         <div class="card-body pt-0">
-                            <div id="average-sales" class="apex-charts mb-3 mt-n5" data-colors="#4254ba">
+                            <div id="average-sales" class="apex-charts mb-3 mt-n5" data-colors="#9e086c">
                             </div>
 
-                            <h5 class="mb-1 mt-0 fw-normal">Brooklyn, New York</h5>
+                            <h5 class="mb-1 mt-0 fw-normal">Amman, Jordan</h5>
                             <div class="progress-w-percent">
                                 <span class="progress-value fw-bold">72k </span>
                                 <div class="progress progress-sm">
@@ -219,7 +219,7 @@
                                 </div>
                             </div>
 
-                            <h5 class="mb-1 mt-0 fw-normal">The Castro, San Francisco</h5>
+                            <h5 class="mb-1 mt-0 fw-normal">Irbid, Jordan</h5>
                             <div class="progress-w-percent">
                                 <span class="progress-value fw-bold">39k </span>
                                 <div class="progress progress-sm">
@@ -228,7 +228,7 @@
                                 </div>
                             </div>
 
-                            <h5 class="mb-1 mt-0 fw-normal">Kovan, Singapore</h5>
+                            <h5 class="mb-1 mt-0 fw-normal">Aqaba, Jordan</h5>
                             <div class="progress-w-percent mb-0">
                                 <span class="progress-value fw-bold">61k </span>
                                 <div class="progress progress-sm">
@@ -296,7 +296,7 @@
                         </div>
                         <div class="card-body pt-0">
                             <div dir="ltr">
-                                <div id="revenue-chart" class="apex-charts mt-1" data-colors="#4254ba,#17a497"></div>
+                                <div id="revenue-chart" class="apex-charts mt-1" data-colors="#a0076c,#17a497"></div>
                             </div>
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
@@ -422,218 +422,6 @@
             </div>
             <!-- end row -->
 
-            <div class="row">
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card">
-                        <div class="d-flex card-header justify-content-between align-items-center">
-                            <h4 class="header-title">Channels</h4>
-                            <a href="javascript:void(0);" class="btn btn-sm btn-success">Export <i
-                                    class="ri-download-line ms-1"></i></a>
-                        </div>
-
-                        <div class="card-body p-0">
-
-                            <div class="table-responsive">
-                                <table class="table table-sm table-centered table-hover table-borderless mb-0">
-                                    <thead class="border-top border-bottom bg-light-subtle border-light">
-                                        <tr>
-                                            <th>Channel</th>
-                                            <th>Visits</th>
-                                            <th style="width: 40%;">Progress</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Direct</td>
-                                            <td>2,050</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 65%;"
-                                                        aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Organic Search</td>
-                                            <td>1,405</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar bg-info" role="progressbar"
-                                                        style="width: 45%;" aria-valuenow="45" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Refferal</td>
-                                            <td>750</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: 30%;" aria-valuenow="30" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Social</td>
-                                            <td>540</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar bg-danger" role="progressbar"
-                                                        style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Other</td>
-                                            <td>8,965</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width: 30%" aria-valuenow="30" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> <!-- end table-responsive-->
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
-
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card">
-                        <div class="d-flex card-header justify-content-between align-items-center">
-                            <h4 class="header-title">Social Media Traffic</h4>
-                            <a href="javascript:void(0);" class="btn btn-sm btn-success">Export <i
-                                    class="ri-download-line ms-1"></i></a>
-                        </div>
-
-                        <div class="card-body p-0">
-
-                            <div class="table-responsive">
-                                <table class="table table-sm table-centered table-hover table-borderless mb-0">
-                                    <thead class="border-top border-bottom bg-light-subtle border-light">
-                                        <tr>
-                                            <th>Network</th>
-                                            <th>Visits</th>
-                                            <th style="width: 40%;">Progress</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Facebook</td>
-                                            <td>2,250</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 65%"
-                                                        aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Instagram</td>
-                                            <td>1,501</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 45%"
-                                                        aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Twitter</td>
-                                            <td>750</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 30%"
-                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>LinkedIn</td>
-                                            <td>540</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 25%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Other</td>
-                                            <td>13,851</td>
-                                            <td>
-                                                <div class="progress" style="height: 3px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 52%"
-                                                        aria-valuenow="52" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> <!-- end table-responsive-->
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
-
-                <div class="col-xl-4 col-lg-12">
-                    <div class="card">
-                        <div class="d-flex card-header justify-content-between align-items-center">
-                            <h4 class="header-title">Engagement Overview</h4>
-                            <a href="javascript:void(0);" class="btn btn-sm btn-success">Export <i
-                                    class="ri-download-line ms-1"></i></a>
-                        </div>
-
-                        <div class="card-body p-0">
-
-                            <div class="table-responsive">
-                                <table class="table table-sm table-centered table-hover table-borderless mb-0">
-                                    <thead class="border-top border-bottom bg-light-subtle border-light">
-                                        <tr>
-                                            <th>Duration (Secs)</th>
-                                            <th style="width: 30%;">Sessions</th>
-                                            <th style="width: 30%;">Views</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>0-30</td>
-                                            <td>2,250</td>
-                                            <td>4,250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>31-60</td>
-                                            <td>1,501</td>
-                                            <td>2,050</td>
-                                        </tr>
-                                        <tr>
-                                            <td>61-120</td>
-                                            <td>750</td>
-                                            <td>1,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>121-240</td>
-                                            <td>540</td>
-                                            <td>1,040</td>
-                                        </tr>
-                                        <tr>
-                                            <td>141-420</td>
-                                            <td>56</td>
-                                            <td>886</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> <!-- end table-responsive-->
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
-
-            </div>
             <!-- end row -->
 
         </div>
