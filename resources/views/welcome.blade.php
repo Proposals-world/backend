@@ -409,7 +409,7 @@
 
                 </div>
             </div>
-            <div class="row" id="pricing-plan-cards">
+            <div class="row justify-content-center" id="pricing-plan-cards">
                 @if(isset($subscriptionPackage) && count($subscriptionPackage) > 0)
                     @foreach ($subscriptionPackage as $package)
                         <div class="col-lg-3 col-md-6">
