@@ -20,4 +20,19 @@ class Like extends Model
     {
         return $this->belongsTo(User::class, 'liked_user_id');
     }
+
+    public static function isMatch($userId1, $userId2)
+    {
+        return self::where(function ($query) use ($userId1, $userId2) {
+            $query->where('user_id', $userId1)
+                ->where('liked_user_id', $userId2);
+        })
+            ->whereExists(function ($query) use ($userId1, $userId2) {
+                $query->select('id')
+                    ->from('likes')
+                    ->where('user_id', $userId2)
+                    ->where('liked_user_id', $userId1);
+            })
+            ->exists();
+    }
 }

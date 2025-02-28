@@ -17,7 +17,7 @@ return new class extends Migration
 
             // Set 'id' as a foreign key referencing 'users.id'
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->foreignId('city_location_id')->nullable()->constrained('city_locations')->onDelete('cascade');
             $table->text('bio_en')->nullable();
             $table->text('bio_ar')->nullable();
             $table->string('avatar_url')->nullable();

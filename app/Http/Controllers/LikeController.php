@@ -40,7 +40,7 @@ class LikeController extends Controller
             'liked_user_id' => $likedUser->id,
         ]);
         // Check if the liked user also liked the current user
-        if ($likedUser->likes()->where('liked_user_id', $user->id)->exists()) {
+        if (Like::isMatch($likedUser->id, $user->id)) {
             MatchedUser::create([
                 'user1_id' => $user->id,
                 'user2_id' => $likedUser->id,
