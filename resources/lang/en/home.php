@@ -64,10 +64,12 @@ return [
     'subscribe_button' => 'Subscribe Now',
 
     // Pricing Section (Cards kept EXACTLY as provided)
-'pricing_title' => 'Our Pricing Plans',
-'pricing_desc'  => 'Choose the plan that best suits your needs and start your journey to find your ideal partner. Flexible options with affordable rates and premium features.',
-'monthly'       => 'Monthly',
-'annual'        => 'Annual',
+    'pricing_title' => 'Our Pricing Plans',
+    'pricing_desc' => 'Choose the plan that best suits your needs and start your journey to find your ideal partner. Flexible options with affordable rates and premium features.',
+    'monthly' => 'Monthly',
+    'annual' => 'Annual',
+    'days' => 'Days',
+    'contact_limit' => 'Contacts',
 
     'plan_beginner_title' => 'Beginner',
     'plan_beginner_annual_price' => '95',
@@ -132,4 +134,9 @@ return [
     'contact_placeholder_phone' => 'Your Phone Number',
     'contact_placeholder_message' => 'Write your message...',
     'contact_button' => 'Send Message',
+
+
+
+
+
 ];

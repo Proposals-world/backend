@@ -17,8 +17,7 @@ class SubscriptionPackageController extends Controller
 
     public function create()
     {
-        $features = Feature::all(); // Fetch features to show in the form
-        return view('admin.SubscriptionPackage.create', compact('features'));
+        return view('admin.SubscriptionPackage.create');
     }
 
     public function store(Request $request)
@@ -31,17 +30,12 @@ class SubscriptionPackageController extends Controller
             'price' => 'required|numeric|min:0',
             'duration_days' => 'required|integer|min:1', // Duration in days
             'contact_limit' => 'required|integer|min:0', // New field
-            'features' => 'nullable|array', // Features can be null or an array of selected feature IDs
-            'features.*' => 'exists:features,id', // Ensure the selected features exist
+
         ]);
 
         // Create the subscription package
         $subscriptionPackage = SubscriptionPackage::create($validatedData);
 
-        // Attach selected features to the subscription package (many-to-many relationship)
-        if (isset($validatedData['features'])) {
-            $subscriptionPackage->features()->attach($validatedData['features']);
-        }
 
         return response()->json(['message' => 'Subscription package added successfully']);
     }
@@ -51,14 +45,9 @@ class SubscriptionPackageController extends Controller
         // Fetch the SubscriptionPackage by its ID
         $subscriptionPackage = SubscriptionPackage::findOrFail($id);
 
-        // Fetch all features from the Feature model
-        $features = Feature::all();
-
-        // Get selected feature IDs for the subscription package
-        $selectedFeatures = $subscriptionPackage->features->pluck('id')->toArray();
 
         // Return the view with the subscriptionPackage, all features, and selected features for this package
-        return view('admin.SubscriptionPackage.create', compact('subscriptionPackage', 'features', 'selectedFeatures'));
+        return view('admin.SubscriptionPackage.create', compact('subscriptionPackage'));
     }
 
 
@@ -73,17 +62,11 @@ class SubscriptionPackageController extends Controller
             'price' => 'required|numeric|min:0',
             'duration_days' => 'required|integer|min:1',
             'contact_limit' => 'required|integer|min:0',
-            'features' => 'nullable|array', // Features can be null or an array of selected feature IDs
-            'features.*' => 'exists:features,id', // Ensure the selected features exist
         ]);
         // Update the subscription package
         // dd($request->all());
         $package->update($validatedData);
-        // dd($package);
-        // Sync the selected features (removes existing features and adds the new ones)
-        if (isset($validatedData['features'])) {
-            $package->features()->sync($validatedData['features']);
-        }
+
 
         return response()->json(['message' => 'Subscription package updated successfully']);
     }
@@ -91,9 +74,6 @@ class SubscriptionPackageController extends Controller
     {
         // Fetch the SubscriptionPackage by its ID
         $package = SubscriptionPackage::findOrFail($id);
-
-        // Detach the related features (if any) before deleting the package
-        $package->features()->detach();
 
         // Delete the subscription package
         $package->delete();

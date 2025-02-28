@@ -16,3 +16,9 @@
     type="text/css" />
 <link href="{{ asset('admin/assets/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('admin/assets/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+<style>
+    .auth-logo{
+        width: 115px !important;
+        height: auto !important;
+    }
+</style>

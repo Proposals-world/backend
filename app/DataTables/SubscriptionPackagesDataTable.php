@@ -18,11 +18,7 @@ class SubscriptionPackagesDataTable extends DataTable
     public function dataTable($query)
     {
         return (new EloquentDataTable($query))
-            ->addColumn('features', function (SubscriptionPackage $subscriptionPackage) {
-                // Get an array of feature names. Adjust the field (name_en) as needed.
-                $featureNames = $subscriptionPackage->features->pluck('name_en')->toArray();
-                return implode(', ', $featureNames);
-            })
+
             ->addColumn('action', function (SubscriptionPackage $subscriptionPackage) {
                 // Make sure the view path matches your folder structure
                 return view('admin.SubscriptionPackage.columns._actions', compact('subscriptionPackage'));
@@ -71,13 +67,6 @@ class SubscriptionPackagesDataTable extends DataTable
             'id',
             'package_name_en', // use the correct column name
             'package_name_ar', // use the correct column name
-            [
-                'data'       => 'features',
-                'name'       => 'features',
-                'title'      => 'Features',
-                'orderable'  => false,
-                'searchable' => false,
-            ],
             'created_at',
             'updated_at',
         ];

@@ -44,30 +44,5 @@
                value="{{ old('contact_limit', $subscriptionPackage->contact_limit ?? '') }}" required>
     </div>
 
-    <!-- Features Selection -->
-    <div class="mb-3">
-        <label class="form-label">Select Features</label>
-        @foreach($features as $feature)
-        @if (isset($subscriptionPackage))
-        @php
-                // Check if editing and this feature is attached to the package
-                $isChecked = $selectedFeatures ? in_array($feature->id, $selectedFeatures) :  null;
-            @endphp
-            @else
-            @php
-                $isChecked= null;
-            @endphp
-            @endif
-            <div class="form-check mb-2">
-                <!-- Feature Checkbox -->
-                <input type="checkbox" name="features[]" id="feature_{{ $feature->id }}" value="{{ $feature->id }}"
-                       class="form-check-input" {{ $isChecked ? 'checked' : '' }}>
-                <label for="feature_{{ $feature->id }}" class="form-check-label">
-                    {{ $feature->name_en }} / {{ $feature->name_ar }}
-                </label>
-            </div>
-        @endforeach
-    </div>
-
     <button type="submit" class="btn btn-success">Submit</button>
 </form>

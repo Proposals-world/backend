@@ -23,19 +23,18 @@ use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\admin\SubscriptionPackageController;
 use App\Http\Controllers\admin\ReligionsController;
 use App\Models\MarriageBudget;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 
 // admins route
 Route::resource('admin/countries', CountriesController::class);
@@ -54,7 +53,7 @@ Route::resource('admin/features', FeatureController::class);
 Route::resource('admin/subscription-packages', SubscriptionPackageController::class);
 Route::resource('admin/marriage-budgets', MarriageBudgetsController::class);
 Route::resource('admin/religions', ReligionController::class);
-
+});
 
 // Route to handle message subscriptions
 Route::post('/subscribe-message', [MessageSubscriptionController::class, 'subscribe'])->name('subscribe.message');

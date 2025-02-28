@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/screen-6.png') }}" alt="app" class="s-img">
+                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/home.png') }}" alt="app" class="s-img">
                     </div>
                 </div>
             </div>
@@ -193,8 +193,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6">
-                        <img src="{{ asset('frontend/img/bg/app-work-img.png') }}" alt="app-work-img" class="img">
+                    <div id="how-it-works-img-section" class="col-xl-6">
+                        <img src="{{ asset('frontend/img/gallery/how_it_works.png') }}" alt="app-work-img" class="img">
                     </div>
                 </div>
             </div>
@@ -267,20 +267,21 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/img/gallery/phone-screen.jpeg') }}" alt="slide 1">
+                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}" alt="slide 5">
                             </div>
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/img/gallery/phone-screem-1.jpeg') }}" alt="slide 2">
+                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}" alt="slide 2">
                             </div>
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/img/gallery/phone-screem-2.jpeg') }}" alt="slide 3">
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-5.jpeg') }}" alt="slide 1">
                             </div>
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/img/gallery/phone-screem-3.jpeg') }}" alt="slide 4">
+                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-2.jpeg') }}" alt="slide 3">
                             </div>
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/img/gallery/phone-screem-4.jpeg') }}" alt="slide 5">
+                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-3.jpeg') }}" alt="slide 4">
                             </div>
+                          
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -405,149 +406,42 @@
                         <h2>{{ __('home.pricing_title') }}</h2>
                         <p>{{ __('home.pricing_desc') }}</p>
                     </div>
-                    <nav class="pricing-tab mb-60">
-                        <span class="monthly_tab_title">
-                            {{ __('home.monthly') }}
-                        </span>
-                        <span class="pricing-tab-switcher"></span>
-                        <span class="annual_tab_title">
-                            {{ __('home.annual') }}
-                        </span>
-                    </nav>
+
                 </div>
             </div>
             <div class="row">
-                <!-- Beginner Plan -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-60">
-                        <div class="pricing-head">
-                            <h4>{{ __('home.plan_beginner_title') }}</h4>
-                            <div class="pricing-amount">
-                                <div class="annual_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_beginner_annual_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_beginner_annual_subscription') }}</span>
+                @if(isset($subscriptionPackage) && count($subscriptionPackage) > 0)
+                    @foreach ($subscriptionPackage as $package)
+                        <div class="col-lg-3 col-md-6">
+                            <div class="pricing-box text-center mb-60">
+                                <div class="pricing-head">
+                                    <h4>{{ $package['package_name'] }}</h4>
+                                    <div class="pricing-amount">
+                                        <sup><span class="currency">$</span></sup>
+                                        <span class="price">{{ $package['price'] }}</span>
+                                        <br>
+                                        <span class="subscription"></span>
+                                    </div>
+                                    <h5></h5>
                                 </div>
-                                <div class="monthly_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_beginner_monthly_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_beginner_monthly_subscription') }}</span>
+                                <div class="pricing-body mb-40 text-left">
+                                    <ul>
+                                        <li>{{ __('home.days') }}: {{ $package['duration_days'] }}</li>
+                                        <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
+
+                                    </ul>
                                 </div>
-                            </div>
-                            <h5>{{ __('home.plan_beginner_tagline') }}</h5>
-                        </div>
-                        <div class="pricing-body mb-40 text-left">
-                            <ul>
-                                <li>{{ __('home.plan_features.0') }}</li>
-                                <li>{{ __('home.plan_features.1') }}</li>
-                                <li>{{ __('home.plan_features.2') }}</li>
-                                <li>{{ __('home.plan_features.3') }}</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Starter Plan -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box active text-center mb-60">
-                        <div class="poppuler">
-                            <span class="btn">Poppuler</span>
-                        </div>
-                        <div class="pricing-head">
-                            <h4>{{ __('home.plan_starter_title') }}</h4>
-                            <div class="pricing-amount">
-                                <div class="annual_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_starter_annual_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_starter_annual_subscription') }}</span>
-                                </div>
-                                <div class="monthly_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_starter_monthly_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_starter_monthly_subscription') }}</span>
+                                <div class="pricing-btn">
+                                    <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
                                 </div>
                             </div>
-                            <h5>{{ __('home.plan_starter_tagline') }}</h5>
                         </div>
-                        <div class="pricing-body mb-40 text-left">
-                            <ul>
-                                <li>{{ __('home.plan_features.0') }}</li>
-                                <li>{{ __('home.plan_features.1') }}</li>
-                                <li>{{ __('home.plan_features.2') }}</li>
-                                <li>{{ __('home.plan_features.3') }}</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
-                        </div>
+                    @endforeach
+                @else
+                    <div class="col-12 text-center">
+                        <p>{{ __('home.no_packages_available') }}</p>
                     </div>
-                </div>
-                <!-- Professionl Plan -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box active text-center mb-60">
-                        <div class="pricing-head">
-                            <h4>{{ __('home.plan_professionl_title') }}</h4>
-                            <div class="pricing-amount">
-                                <div class="annual_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_professionl_annual_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_professionl_annual_subscription') }}</span>
-                                </div>
-                                <div class="monthly_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_professionl_monthly_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_professionl_monthly_subscription') }}</span>
-                                </div>
-                            </div>
-                            <h5>{{ __('home.plan_professionl_tagline') }}</h5>
-                        </div>
-                        <div class="pricing-body mb-40 text-left">
-                            <ul>
-                                <li>{{ __('home.plan_features.0') }}</li>
-                                <li>{{ __('home.plan_features.1') }}</li>
-                                <li>{{ __('home.plan_features.2') }}</li>
-                                <li>{{ __('home.plan_features.3') }}</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Power Plan -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box active text-center mb-60">
-                        <div class="pricing-head">
-                            <h4>{{ __('home.plan_power_title') }}</h4>
-                            <div class="pricing-amount">
-                                <div class="annual_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_power_annual_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_power_annual_subscription') }}</span>
-                                </div>
-                                <div class="monthly_price">
-                                    <sup><span class="currency">$</span></sup>
-                                    <span class="price">{{ __('home.plan_power_monthly_price') }}</span>
-                                    <span class="subscription">{{ __('home.plan_power_monthly_subscription') }}</span>
-                                </div>
-                            </div>
-                            <h5>{{ __('home.plan_power_tagline') }}</h5>
-                        </div>
-                        <div class="pricing-body mb-40 text-left">
-                            <ul>
-                                <li>{{ __('home.plan_features.0') }}</li>
-                                <li>{{ __('home.plan_features.1') }}</li>
-                                <li>{{ __('home.plan_features.2') }}</li>
-                                <li>{{ __('home.plan_features.3') }}</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </section>
