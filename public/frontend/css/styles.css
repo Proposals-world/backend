@@ -726,7 +726,10 @@ label {
 .slick-slider {
 	z-index: 999;
 }
-
+#pricing-plan-cards{
+	display: flex;
+	justify-content: center;
+}
 .small-title {
 	background: #f7f4fe;
 	display: inline-block;
