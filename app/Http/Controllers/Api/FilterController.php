@@ -18,10 +18,22 @@ class FilterController extends Controller
         // Get the logged-in user's preferences
         $preferences = UserPreference::where('user_id', Auth::id())->first();
         $isFromFilter = $request->input('isFilter', false);
-        $query = UserProfile::with(['user', 'user.photos']);
+        $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools']);
+        // dd($query->get());
         $query->whereHas('user', function ($query) use ($request) {
             $query->where('gender', '!=', Auth::user()->gender);
         });
+
+        $query->whereHas('user', function ($query) use ($request) {
+            $query->where('role_id', '!=', 1);
+        });
+
+        if ($request->filled('smoking_tools')) {
+            $smokingToolIds = $request->input('smoking_tools');
+            $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
+                $q->whereIn('tool_id', $smokingToolIds);
+            });
+        }
         // Filter out liked and disliked users
         $likedUsers = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
@@ -135,6 +147,11 @@ class FilterController extends Controller
             if ($preferences->preferred_marriage_budget_id) {
                 $query->where('marriage_budget_id', $preferences->preferred_marriage_budget_id);
             }
+            if ($preferences->preferred_pet_ids) {
+                $query->whereHas('user.pets', function ($q) use ($preferences) {
+                    $q->whereIn('pets.id', $preferences->preferred_pet_ids);
+                });
+            }
         } else {
             // Handle additional request filters (if any)
             // dd("from filter");
@@ -203,6 +220,19 @@ class FilterController extends Controller
             }
             if ($request->filled('marriage_budget_id')) {
                 $query->where('marriage_budget_id', $request->marriage_budget_id);
+            }
+
+            if ($request->filled('pets_id')) {
+                $petIds = $request->input('pets_id');
+                $query->whereHas('user.pets', function ($q) use ($petIds) {
+                    $q->whereIn('pets.id', $petIds);
+                });
+            }
+            if ($request->filled('smoking_tools')) {
+                $smokingToolIds = $request->input('smoking_tools');
+                $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
+                    $q->whereIn('tool_id', $smokingToolIds);
+                });
             }
         }
 

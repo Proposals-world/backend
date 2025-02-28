@@ -90,10 +90,13 @@ class User extends Authenticatable
         return $this->hasOne(UserPreference::class);
     }
 
+
+
     public function preferredLanguages()
     {
-        return $this->hasMany(UserPreferredLanguage::class);
+        return $this->belongsToMany(Language::class, 'user_preferred_languages', 'user_id', 'language_id');
     }
+
 
     public function preferredPets()
     {

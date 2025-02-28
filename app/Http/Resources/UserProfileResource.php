@@ -50,13 +50,20 @@ class UserProfileResource extends JsonResource
             'profile_status' => $this->profile_status,
             'status' => $this->status,
             'last_active' => $this->last_active,
-
+            'city_location' => $this->profile && $this->profile->cityLocation
+                ? $this->profile->cityLocation->{'name_' . $this->lang}
+                : null,
             // Profile Information
             'profile' => [
                 'bio' => $this->profile ? ($this->lang === 'ar' ? $this->profile->bio_ar : $this->profile->bio_en) : null,
                 'avatar_url' => $this->profile ? config('app.url') . $this->profile->avatar_url : null,
                 'id_number' => $this->profile ? $this->profile->id_number : null,
                 'nationality' => $getLocalized($this->profile->nationality, 'name'),
+
+                'language' => $this->profile && $this->profile->language
+                    ? $this->profile->language->{'name_' . $this->lang} // Adjust to get the language name based on the current language
+                    : 'English', // Default fallback
+
                 'origin' => $getLocalized($this->profile->origin, 'name'),
                 'religion' => $getLocalized($this->profile->religion, 'name'),
                 'country_of_residence' => $getLocalized($this->profile->countryOfResidence, 'name'),

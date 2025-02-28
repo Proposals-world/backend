@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user1_id')->constrained('users');
             $table->foreignId('user2_id')->constrained('users');
-            $table->string('match_gender');
-            $table->integer('match_percentage')->nullable();
+            // $table->string('match_gender');
+            // $table->integer('match_percentage')->nullable();
             $table->string('match_status')->default('pending');
             $table->boolean('contact_exchanged')->default(false);
             $table->timestamps();

@@ -8,6 +8,7 @@ use App\Models\Match;
 use App\Models\Dislike;
 use App\Models\MatchedUser;
 use App\Models\User;
+use App\Models\UserMatch;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
@@ -21,6 +22,10 @@ class LikeController extends Controller
         if (!$likedUser) {
             return response()->json(['message' => 'User not found.'], 404);
         }
+        if ($user->id  == $likedUser->id) {
+            return response()->json(['message' => 'You can not like youself.'], 404);
+        }
+
         // Check if the dislike exists and remove it
         $existingLike = Dislike::where('user_id', $user->id)->where('disliked_user_id', $likedUser->id)->first();
         if ($existingLike) {
@@ -30,10 +35,6 @@ class LikeController extends Controller
         if (Like::where('user_id', $user->id)->where('liked_user_id', $likedUser->id)->exists()) {
             return response()->json(['message' => 'Already liked this user.'], 400);
         }
-        // if ($user->likes()->where('liked_user_id', $likedUser->id)->exists()) {
-        //     return response()->json(['message' => 'Already liked this user.'], 400);
-        // }
-
         // Save the like
         $like = Like::create([
             'user_id' => $user->id,
@@ -41,9 +42,11 @@ class LikeController extends Controller
         ]);
         // Check if the liked user also liked the current user
         if (Like::isMatch($likedUser->id, $user->id)) {
-            MatchedUser::create([
+            UserMatch::create([
                 'user1_id' => $user->id,
                 'user2_id' => $likedUser->id,
+                'match_status' => "pending",
+                'contact_exchanged' => 0,
             ]);
 
             return response()->json(['message' => 'It’s a match! 🎉'], 200);

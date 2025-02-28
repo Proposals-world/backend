@@ -33,6 +33,7 @@ class UserPreference extends Model
         'preferred_marriage_budget_id',
         'preferred_sleep_habit_id',
         'preferred_religiosity_level_id',
+        'preferred_language_id'
     ];
 
     public function user()
@@ -125,7 +126,14 @@ class UserPreference extends Model
     }
     public function smokingTools()
     {
-        return $this->belongsToMany(SmokingTool::class, 'user_preference_smoking_tool')
-            ->withTimestamps();
+        return $this->belongsToMany(SmokingTool::class, 'user_preference_smoking_tool', 'user_preference_id', 'smoking_tool_id');
+    }
+    public function pets()
+    {
+        return $this->belongsToMany(Pet::class, 'user_preferred_pets', 'user_id', 'pet_id');
+    }
+    public function language()
+    {
+        return $this->belongsTo(Language::class, 'preferred_language_id');
     }
 }

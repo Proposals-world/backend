@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->unique();
             $table->foreignId('preferred_nationality_id')->nullable()->constrained('nationalities');
+            $table->foreignId('preferred_language_id')->nullable()->constrained('languages');
+
             $table->foreignId('preferred_origin_id')->nullable()->constrained('origins');
             $table->foreignId('preferred_country_id')->nullable()->constrained('countries');
             $table->foreignId('preferred_city_id')->nullable()->constrained('cities');

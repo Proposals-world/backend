@@ -29,6 +29,7 @@ class UserProfile extends Model
         'religion_id',
         'country_of_residence_id',
         'city_id',
+        'city_location_id',
         'area',
         'date_of_birth',
         'age',
@@ -97,6 +98,10 @@ class UserProfile extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+    public function cityLocation()
+    {
+        return $this->belongsTo(CityLocation::class, 'city_location_id');
     }
 
     public function zodiacSign()
@@ -205,5 +210,9 @@ class UserProfile extends Model
     public function religiosityLevel()
     {
         return $this->belongsTo(ReligiosityLevel::class);
+    }
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
     }
 }

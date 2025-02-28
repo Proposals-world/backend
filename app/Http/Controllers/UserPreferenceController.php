@@ -19,15 +19,27 @@ class UserPreferenceController extends Controller
             ['user_id' => $request->user()->id], // Search condition
             $request->validated()               // Data to insert or update
         );
+        // dd($request);
+        // Sync the preferred pets if provided
+        if ($request->has('preferred_pets_id')) {
+            $userPreference->pets()->sync($request->preferred_pets_id);
+        }
 
         // Sync the preferred smoking tools if provided
         if ($request->has('preferred_smoking_tools')) {
             $userPreference->SmokingTools()->sync($request->preferred_smoking_tools);
         }
 
+        // Sync the preferred languages if provided
+        // if ($request->has('preferred_languages_id')) {
+        //     // Sync the languages using the 'preferredLanguages' relationship on the User model
+        //     $userPreference->user->preferredLanguages()->sync($request->preferred_languages_id);
+        // }
+
         // Get the language header, default to 'en' if not provided
         $language = $request->header('Accept-Language', 'en');
-
+        // dd($userPreference);
+        // Return the user preference resource
         return new UserPreferenceResource($userPreference, $language);
     }
 

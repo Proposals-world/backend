@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('bio_ar')->nullable();
             $table->string('avatar_url')->nullable();
             $table->string('id_number')->nullable();
+            $table->foreignId('language_id')->nullable()->constrained('languages', 'id')->onDelete('cascade');
+
             $table->string('criminal_record_url')->nullable();
             $table->string('id_verification_status')->default('unverified');
             $table->string('criminal_record_status')->default('unverified');
@@ -52,7 +54,7 @@ return new class extends Migration
             $table->foreignId('skin_color_id')->nullable()->constrained('skin_colors');
             $table->foreignId('hair_color_id')->nullable()->constrained('hair_colors');
             $table->integer('hijab_status')->nullable(); // 0 = no, 1 = yes,
-            $table->boolean('smoking_status')->nullable();// 0: never, 1: smoke,
+            $table->boolean('smoking_status')->nullable(); // 0: never, 1: smoke,
             $table->foreignId('drinking_status_id')->nullable()->constrained('drinking_statuses');
             $table->foreignId('sports_activity_id')->nullable()->constrained('sports_activities');
             $table->foreignId('social_media_presence_id')->nullable()->constrained('social_media_presences');

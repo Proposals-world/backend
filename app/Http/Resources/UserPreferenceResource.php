@@ -25,10 +25,13 @@ class UserPreferenceResource extends JsonResource
         // Determine the language dynamically
         $lang = $this->lang === 'ar' ? 'ar' : 'en';
         // dd($request);
+        // dd($this->smokingTools()->get());
+
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
             'preferred_nationality' => $this->preferredNationality ? $this->preferredNationality->{"name_{$lang}"} : null,
+            'preferred_language_id' => $this->language ? $this->language->{"name_{$lang}"} : null, // Fixed here
             'preferred_origin' => $this->preferredOrigin ? $this->preferredOrigin->{"name_{$lang}"} : null,
             'preferred_country' => $this->preferredCountry ? $this->preferredCountry->{"name_{$lang}"} : null,
             'preferred_city' => $this->preferredCity ? $this->preferredCity->{"name_{$lang}"} : null,
@@ -49,10 +52,19 @@ class UserPreferenceResource extends JsonResource
             'preferred_marriage_budget' => $this->preferredmarriageBudget ? $this->preferredmarriageBudget->{'budget_' . $this->lang} : null,
             'preferred_religiosity_level' => $this->preferredReligiosityLevel ? $this->preferredReligiosityLevel->{"name_{$lang}"} : null,
             'preferred_sleep_habit' => $this->preferredSleepHabit ? $this->preferredSleepHabit->{"name_{$lang}"} : null,
+
             'preferred_smoking_tools' => $this->smokingTools ? $this->smokingTools->map(function ($tool) use ($lang) {
                 return [
                     'id' => $tool->id,
                     'name' => $tool->{"name_{$lang}"},
+                ];
+            }) : [],
+
+            // Preferred Pets
+            'preferred_pets' => $this->pets ? $this->pets->map(function ($pet) use ($lang) {
+                return [
+                    'id' => $pet->id,
+                    'name' => $pet->{"name_{$lang}"},
                 ];
             }) : [],
             'created_at' => $this->created_at,

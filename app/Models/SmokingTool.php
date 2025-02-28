@@ -20,7 +20,8 @@ class SmokingTool extends Model
     }
     public function userPreferences()
     {
-        return $this->belongsToMany(UserPreference::class, 'user_preference_smoking_tool')
+        // Ensure this is using the correct pivot table and columns
+        return $this->belongsToMany(UserPreference::class, 'user_preference_smoking_tool', 'user_preference_id', 'smoking_tool_id')
             ->withTimestamps();
     }
 }

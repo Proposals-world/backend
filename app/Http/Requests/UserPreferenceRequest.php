@@ -45,6 +45,9 @@ class UserPreferenceRequest extends FormRequest
             'preferred_marriage_budget_id'       => 'nullable|exists:marriage_budgets,id',
             'preferred_religiosity_level_id'     => 'nullable|exists:religiosity_levels,id',
             'preferred_sleep_habit_id'           => 'nullable|exists:sleep_habits,id',
+            'preferred_pets_id' => 'array',
+            'preferred_pets_id.*' => 'exists:pets,id',
+            'preferred_language_id' => 'nullable|exists:languages,id',
 
         ];
 
