@@ -60,7 +60,7 @@
     <!-- footer -->
 
     <!-- footer-end -->
-    @include('frontend.layouts.footer');
+    @include('frontend.layouts.footer')
 
     <!-- JS here -->
     <script src="{{ asset('frontend/js/vendor/modernizr-3.5.0.min.js') }}"></script>
