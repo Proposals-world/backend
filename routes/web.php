@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -26,6 +27,8 @@ use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/blog-details/{blog}', [HomeController::class, 'blog-details'])->name('blog-details');
+
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 
 
@@ -54,7 +57,9 @@ Route::resource('admin/subscription-packages', SubscriptionPackageController::cl
 Route::resource('admin/marriage-budgets', MarriageBudgetsController::class);
 Route::resource('admin/religions', ReligionController::class);
 });
-
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('blogs', BlogController::class);
+});
 // Route to handle message subscriptions
 Route::post('/subscribe-message', [MessageSubscriptionController::class, 'subscribe'])->name('subscribe.message');
 
