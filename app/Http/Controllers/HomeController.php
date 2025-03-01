@@ -22,9 +22,8 @@ class HomeController extends Controller
     }
 
 
-    public function blogDetails(Blog $blog)
+    public function blogDetails()
     {
-        $locale = app()->getLocale();
-        return view('blog-details', compact('blog', 'locale'));
+        return view('blog-details');
     }
 }

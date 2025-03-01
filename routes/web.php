@@ -27,7 +27,7 @@ use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
-Route::get('/blog-details/{blog}', [HomeController::class, 'blog-details'])->name('blog-details');
+Route::get('/blog-details', [HomeController::class, 'blogDetails'])->name('blog-details');
 
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 

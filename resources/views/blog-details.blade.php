@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('section')
 <div>
-    <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(img/testimonial/test-bg.jpg)">
+    <section class="breadcrumb-area d-flex align-items-center" style="background-image:url({{ asset('frontend/img/bg/test-bg.jpg') }})">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
@@ -11,7 +11,7 @@
                         </div>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">News Details</li>
                             </ol>
                         </nav>
