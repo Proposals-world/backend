@@ -4,22 +4,20 @@
         <!-- slider-area -->
         <section id="parallax" class="slider-area slider-bg2 second-slider-bg d-flex fix"
             style="
-                @if (app()->getLocale() === 'ar')
-                    background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
+                @if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
                     background-position: left 0;
                 @else
                     background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
-                    background-position: right 0;
-                @endif
+                    background-position: right 0; @endif
                 background-repeat: no-repeat;
                 background-size: 65%;">
-    
+
             <div class="slider-shape ss-one layer" data-depth="0.10">
                 <img src="{{ asset('frontend/img/shape/header-sape.png') }}" alt="shape">
             </div>
-    
+
             <div class="slider-shape ss-eight layer" data-depth="0.50"></div>
-    
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
@@ -38,13 +36,14 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/home.png') }}" alt="app" class="s-img">
+                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/home.png') }}" alt="app"
+                            class="s-img">
                     </div>
                 </div>
             </div>
         </section>
         <!-- slider-area-end -->
-    
+
         <!-- features-area (Our Features) -->
         <section id="about" class="services-area services-bg pt-25 pb-20"
             style="background-image: url({{ asset('frontend/img/shape/header-sape2.png') }}); background-position: right top; background-size: auto; background-repeat: no-repeat;">
@@ -110,14 +109,13 @@
             </div>
         </section>
         <!-- features-area-end -->
-    
+
         <!-- choose-area (Find Your Ideal Match) -->
-        <section class="choose-area pt-100 pb-60 p-relative" style="direction: ltr; background-image: url({{ asset('frontend/img/shape/header-sape3.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
+        <section class="choose-area pt-100 pb-60 p-relative"
+            style="direction: ltr; background-image: url({{ asset('frontend/img/shape/header-sape3.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="chosse-img" style="background-image: url({{ asset('frontend/img/bg/easy-m-bg.png') }})"></div>
-            <div class="chosse-img2">
-                <img src="{{ asset('admin/assets/images/mobile2.png') }}" alt="mobile" />
-            </div>
-            <div class="container">
+
+            <div class="container" >
                 <div class="row">
                     <div class="col-xl-5"></div>
                     <div class="col-xl-7">
@@ -139,7 +137,8 @@
                                         <span class="icon">
                                             <img src="{{ asset('frontend/img/icon/g-play-icon.png') }}" alt="g-play-icon">
                                         </span>
-                                        <span class="text"> {{ __('home.google_play') }} <strong>GOOGLE PLAY</strong></span>
+                                        <span class="text"> {{ __('home.google_play') }} <strong>GOOGLE
+                                                PLAY</strong></span>
                                     </a>
                                 </div>
                             </div>
@@ -149,7 +148,7 @@
             </div>
         </section>
         <!-- choose-area-end -->
-    
+
         <!-- how-app-work (How It Works) -->
         <section id="features" class="app-work pt-70 pb-100 p-relative"
             style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
@@ -194,13 +193,14 @@
                         </div>
                     </div>
                     <div id="how-it-works-img-section" class="col-xl-6">
-                        <img src="{{ asset('frontend/img/gallery/how_it_works.png') }}" alt="app-work-img" class="img">
+                        <img src="{{ asset('frontend/img/gallery/how_it_works.png') }}" alt="app-work-img"
+                            class="img">
                     </div>
                 </div>
             </div>
         </section>
         <!-- how-app-work-end -->
-    
+
         <!-- video-area (Meet Your Match Video) -->
         {{-- <section style="direction: ltr !important;" class="video-area pt-100 pb-100 p-relative">
             <div class="video-img2">
@@ -249,7 +249,7 @@
             </div>
         </section> --}}
         <!-- video-area-end -->
-    
+
         <!-- screen-area (App Screenshots) -->
         <section id="screen" class="screen-area services-bg services-two pt-100 pb-70"
             style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
@@ -267,21 +267,26 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}" alt="slide 5">
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}"
+                                    alt="slide 5">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}" alt="slide 2">
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}"
+                                    alt="slide 2">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-5.jpeg') }}" alt="slide 1">
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-5.jpeg') }}"
+                                    alt="slide 1">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-2.jpeg') }}" alt="slide 3">
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-2.jpeg') }}"
+                                    alt="slide 3">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;"  src="{{ asset('frontend/img/gallery/screen-3.jpeg') }}" alt="slide 4">
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-3.jpeg') }}"
+                                    alt="slide 4">
                             </div>
-                          
+
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -289,7 +294,7 @@
             </div>
         </section>
         <!-- screen-area-end -->
-    
+
         <!-- faq-area (Frequently Asked Questions) -->
         <section class="faq-area pb-100"
             style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
@@ -365,7 +370,7 @@
             </div>
         </section>
         <!-- faq-area-end -->
-    
+
         <!-- newslater-area (Subscribe for Updates) -->
         <section class="newslater-area pt-90 pb-100"
             style="background-image: url({{ asset('frontend/img/bg/subscribe-bg.png') }}); background-size: cover;">
@@ -395,59 +400,59 @@
             </div>
         </section>
         <!-- newslater-area-end -->
-    
+
         <!-- pricing-area (Our Pricing Plans) -->
         <section id="pricing" class="pricing-area pt-100 pb-50"
-        style="background-image: url({{ asset('frontend/img/shape/header-sape7.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8">
-                    <div class="section-title text-center mb-50">
-                        <h2>{{ __('home.pricing_title') }}</h2>
-                        <p>{{ __('home.pricing_desc') }}</p>
+            style="background-image: url({{ asset('frontend/img/shape/header-sape7.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-title text-center mb-50">
+                            <h2>{{ __('home.pricing_title') }}</h2>
+                            <p>{{ __('home.pricing_desc') }}</p>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
-            <div class="row justify-content-center" id="pricing-plan-cards">
-                @if(isset($subscriptionPackage) && count($subscriptionPackage) > 0)
-                    @foreach ($subscriptionPackage as $package)
-                        <div class="col-lg-3 col-md-6">
-                            <div class="pricing-box text-center mb-60">
-                                <div class="pricing-head">
-                                    <h4>{{ $package['package_name'] }}</h4>
-                                    <div class="pricing-amount">
-                                        <sup><span class="currency">$</span></sup>
-                                        <span class="price">{{ $package['price'] }}</span>
-                                        <br>
-                                        <span class="subscription"></span>
+                <div class="row justify-content-center" id="pricing-plan-cards">
+                    @if (isset($subscriptionPackage) && count($subscriptionPackage) > 0)
+                        @foreach ($subscriptionPackage as $package)
+                            <div class="col-lg-3 col-md-6">
+                                <div class="pricing-box text-center mb-60">
+                                    <div class="pricing-head">
+                                        <h4>{{ $package['package_name'] }}</h4>
+                                        <div class="pricing-amount">
+                                            <sup><span class="currency">$</span></sup>
+                                            <span class="price">{{ $package['price'] }}</span>
+                                            <br>
+                                            <span class="subscription"></span>
+                                        </div>
+                                        <h5></h5>
                                     </div>
-                                    <h5></h5>
-                                </div>
-                                <div class="pricing-body mb-40 text-left">
-                                    <ul>
-                                        <li>{{ __('home.days') }}: {{ $package['duration_days'] }}</li>
-                                        <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
+                                    <div class="pricing-body mb-40 text-left">
+                                        <ul>
+                                            <li>{{ __('home.days') }}: {{ $package['duration_days'] }}</li>
+                                            <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
 
-                                    </ul>
-                                </div>
-                                <div class="pricing-btn">
-                                    <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-btn">
+                                        <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
+                                    </div>
                                 </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="col-12 text-center">
+                            <p>{{ __('home.no_packages_available') }}</p>
                         </div>
-                    @endforeach
-                @else
-                    <div class="col-12 text-center">
-                        <p>{{ __('home.no_packages_available') }}</p>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
         <!-- pricing-area-end -->
-    
-    
+
+
         <!-- blog-area (Our Latest Blog & News) -->
         <section id="blog" class="blog-area p-relative pt-70"
             style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
@@ -465,7 +470,8 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}" alt="blog"></a>
+                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}"
+                                        alt="blog"></a>
                             </div>
                             <div class="blog-content">
                                 <div class="b-meta mb-40">
@@ -485,7 +491,8 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}" alt="blog"></a>
+                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}"
+                                        alt="blog"></a>
                             </div>
                             <div class="blog-content">
                                 <div class="b-meta mb-40">
@@ -504,7 +511,8 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}" alt="blog"></a>
+                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}"
+                                        alt="blog"></a>
                             </div>
                             <div class="blog-content">
                                 <div class="b-meta mb-40">
@@ -524,7 +532,7 @@
             </div>
         </section>
         <!-- blog-area-end -->
-    
+
         <!-- contact-area (Get In Touch) -->
         <section id="contact" class="contact-area contact-bg pt-50 pb-100 p-relative fix"
             style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">

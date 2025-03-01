@@ -20,4 +20,11 @@ class HomeController extends Controller
         });
         return view('welcome', compact('subscriptionPackage'));
     }
+
+
+    public function blogDetails(Blog $blog)
+    {
+        $locale = app()->getLocale();
+        return view('blog-details', compact('blog', 'locale'));
+    }
 }
