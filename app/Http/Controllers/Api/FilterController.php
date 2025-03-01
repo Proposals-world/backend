@@ -49,33 +49,33 @@ class FilterController extends Controller
                 $query->where('nationality_id', $preferences->preferred_nationality_id);
             }
 
-            // // Origins
+            // // // Origins
             if (!is_null($preferences->preferred_origin_id)) {
                 $query->where('origin_id', $preferences->preferred_origin_id);
             }
 
-            // // Country of residence
-            // dd(($preferences->preferred_country_id));
+            // // // Country of residence
+            // // dd(($preferences->preferred_country_id));
             if (!is_null($preferences->preferred_country_id)) {
                 $query->where('country_of_residence_id', $preferences->preferred_country_id);
             }
 
-            // // City
+            // // // City
             if (!is_null($preferences->preferred_city_id)) {
                 $query->where('city_id', $preferences->preferred_city_id);
             }
 
-            // // Age range
+            // // // Age range
             if (!is_null($preferences->preferred_age_min) && !is_null($preferences->preferred_age_max)) {
                 $query->whereBetween('age', [$preferences->preferred_age_min, $preferences->preferred_age_max]);
             }
 
-            // // Educational level
+            // // // Educational level
             if (!is_null($preferences->preferred_educational_level_id)) {
                 $query->where('educational_level_id', $preferences->preferred_educational_level_id);
             }
 
-            // // Specialization
+            // // // Specialization
             if (!is_null($preferences->preferred_specialization_id)) {
                 $query->where('specialization_id', $preferences->preferred_specialization_id);
             }
@@ -90,7 +90,7 @@ class FilterController extends Controller
                 $query->where('job_title_id', $preferences->preferred_job_title_id);
             }
 
-            // // Financial status
+            // // // Financial status
             if (!is_null($preferences->preferred_financial_status_id)) {
                 $query->where('financial_status_id', $preferences->preferred_financial_status_id);
             }
@@ -100,12 +100,12 @@ class FilterController extends Controller
                 $query->where('height_id', $preferences->preferred_height_id);
             }
 
-            // Weight
+            // // Weight
             if (!is_null($preferences->preferred_weight_id)) {
                 $query->where('weight_id', $preferences->preferred_weight_id);
             }
 
-            // Marital status
+            // // Marital status
             if (!is_null($preferences->preferred_marital_status_id)) {
                 $query->where('marital_status_id', $preferences->preferred_marital_status_id);
             }
@@ -115,7 +115,7 @@ class FilterController extends Controller
                 $query->where('smoking_status', $preferences->preferred_smoking_status);
             }
 
-            // Drinking status
+            // // Drinking status
             if (!is_null($preferences->preferred_drinking_status_id)) {
                 $query->where('drinking_status_id', $preferences->preferred_drinking_status_id);
             }
@@ -125,7 +125,7 @@ class FilterController extends Controller
                 $query->where('sports_activity_id', $preferences->preferred_sports_activity_id);
             }
 
-            // Social media presence
+            // // Social media presence
             if (!is_null($preferences->preferred_social_media_presence_id)) {
                 $query->where('social_media_presence_id', $preferences->preferred_social_media_presence_id);
             }
@@ -145,7 +145,7 @@ class FilterController extends Controller
                 $query->where('language_id', $request->language_id);
             }
 
-            // Marriage budget
+            // // Marriage budget
             if (!is_null($preferences->preferred_marriage_budget_id)) {
                 $query->where('marriage_budget_id', $preferences->preferred_marriage_budget_id);
             }
