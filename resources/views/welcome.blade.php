@@ -470,7 +470,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}"
+                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-1.jpeg') }}"
                                         alt="blog"></a>
                             </div>
                             <div class="blog-content">
@@ -491,7 +491,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}"
+                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-2.jpeg') }}"
                                         alt="blog"></a>
                             </div>
                             <div class="blog-content">
@@ -511,7 +511,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}"
+                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-3.jpeg') }}"
                                         alt="blog"></a>
                             </div>
                             <div class="blog-content">

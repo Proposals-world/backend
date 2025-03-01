@@ -28,13 +28,7 @@
                 <div class="col-lg-8">
                     <div class="blog-details-wrap">
                     <div class="bsingle__post-thumb mb-30">
-                            <img src="img/blog/inner_b1.jpg" alt="">
-                        </div>
-                        <div class="meta__info">
-                            <ul>
-                                <li><a href="#"><i class="far fa-user"></i>by Zcube</a></li>
-                                <li><i class="far fa-comments"></i>35 Comments</li>
-                            </ul>
+                            {{-- <img src="{{asset('frontend/img/blog/inner_b1.jpg')}}" alt=""> --}}
                         </div>
                         <div class="details__content pb-50">
                             <h2>With our vastly improved notifications system, users
@@ -72,7 +66,7 @@
                                 mollit anim id est
                                 laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusant.</p>
                             <div class="details__content-img">
-                                <img src="img/blog/b_details01.jpg" alt="">
+                                <img src="{{asset('frontend/img/blogs/blog-1.jpeg')}}" alt="">
                             </div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -93,7 +87,7 @@
                                 quaerat voluptatem.
                                 Lorem ipsum dolor sit amet,consectetur adipisicing elit, sed do eiusmod incididunt.</p>
                             <figure>
-                                <img src="img/blog/b_details02.jpg" alt="">
+                                <img src="{{asset('frontend/img/blogs/blog-4.jpeg')}}" alt="">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
                                     et dolore magna
                                     ali qua. Ut enim ad minim veniam, quis nostrud exercitation ulla mco laboris nisi ut aliquip ex ea
@@ -106,30 +100,7 @@
                                     eaque ipsa quae ab
                                     illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                             </figure>
-                            <div class="row">
-                                <div class="col-xl-6 col-md-7">
-                                    <div class="post__tag">
-                                        <h5>Releted Tags</h5>
-                                        <ul>
-                                            <li><a href="#">organic</a></li>
-                                            <li><a href="#">Foods</a></li>
-                                            <li><a href="#">tasty</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-5">
-                                    <div class="post__share text-right">
-                                        <h5>Social Share</h5>
-                                        <ul>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-gg"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                     
                         </div>
                         <div class="posts_navigation pt-35 pb-35">
                             <div class="row align-items-center">
@@ -140,7 +111,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-md-2 text-left text-md-center">
-                                    <a href="blog.html" class="blog-filter"><img src="img/icon/c_d01.png" alt=""></a>
+                                    <a  class="blog-filter"><img src="{{asset('frontend/img/icon/c_d01.png')}}" alt=""></a>
                                 </div>
                                 <div class="col-xl-4 col-md-5">
                                     <div class="next-link text-left text-md-right">
@@ -158,7 +129,7 @@
                                 <div class="col-md-6">
                                     <div class="related-post-wrap mb-30">
                                         <div class="post-thumb">
-                                            <img src="img/blog/b_details03.jpg" alt="">
+                                            <img src="{{asset('frontend/img/blogs/blog-3.jpeg')}}" alt="">
                                         </div>
                                         <div class="rp__content">
                                             <h3><a href="#">A series of iOS 7 inspire
@@ -171,7 +142,7 @@
                                 <div class="col-md-6">
                                     <div class="related-post-wrap mb-30">
                                         <div class="post-thumb">
-                                            <img src="img/blog/b_details04.jpg" alt="">
+                                            <img src="{{asset('frontend/img/blogs/blog-2.jpeg')}}" alt="">
                                         </div>
                                         <div class="rp__content">
                                             <h3><a href="#">Sed ut perspiciatis unde omnis iste natus.</a></h3>
@@ -180,105 +151,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="avatar__wrap text-center mb-45">
-                            <div class="avatar-img">
-                                <img src="img/blog/comment/avatar.png" alt="">
-                            </div>
-                            <div class="avatar__info">
-                                <h5>Rosalina William</h5>
-                                <div class="avatar__info-social">
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-behance"></i></a>
-                                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="avatar__wrap-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequa aute irure dolor.</p>
-                            </div>
-                        </div>
-                        <div class="comment__wrap pb-45 mb-45">
-                            <div class="comment__wrap-title">
-                                <h5>Comments</h5>
-                            </div>
-                            <div class="single__comment mb-35">
-                                <div class="comments-avatar">
-                                    <img src="img/blog/comment/c_01.png" alt="">
-                                </div>
-                                <div class="comment-text">
-                                    <div class="avatar-name mb-15">
-                                        <h6>ALina Kelian</h6>
-                                        <span>19th May 2018</span>
-                                        <a href="#" class="comment-reply"><i class="fas fa-reply"></i>Reply</a>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                </div>
-                            </div>
-                            <div class="single__comment children mb-35">
-                                <div class="comments-avatar">
-                                    <img src="img/blog/comment/c_02.png" alt="">
-                                </div>
-                                <div class="comment-text">
-                                    <div class="avatar-name mb-15">
-                                        <h6>Rlex Kelian <i class="fas fa-bookmark"></i></h6>
-                                        <span>19th May 2018</span>
-                                        <a href="#" class="comment-reply"><i class="fas fa-reply"></i>Reply</a>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut
-                                        aliquip commodo.</p>
-                                </div>
-                            </div>
-                            <div class="single__comment">
-                                <div class="comments-avatar">
-                                    <img src="img/blog/comment/c_03.png" alt="">
-                                </div>
-                                <div class="comment-text">
-                                    <div class="avatar-name mb-15">
-                                        <h6>Roboto Alex</h6>
-                                        <span>21th May 2018</span>
-                                        <a href="#" class="comment-reply"><i class="fas fa-reply"></i>Reply</a>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut
-                                        aliquip ex ea commodo consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-comments-form mb-50">
-                            <div class="comment__wrap-title">
-                                <h5>Post Comment</h5>
-                            </div>
-                            <div class="comment-box">
-                                <form action="#" class="comment__form">
-                                    <div class="comment-field text-area mb-20">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        <textarea name="message" id="message" cols="30" rows="10"
-                                            placeholder="Type your comments...."></textarea>
-                                    </div>
-                                    <div class="comment-field mb-20">
-                                        <i class="far fa-user"></i>
-                                        <input type="text" placeholder="Type your name....">
-                                    </div>
-                                    <div class="comment-field mb-20">
-                                        <i class="fas fa-envelope"></i>
-                                        <input type="email" placeholder="Type your email....">
-                                    </div>
-                                    <div class="comment-field mb-20">
-                                        <i class="fas fa-globe"></i>
-                                        <input type="email" placeholder="Type your website....">
-                                    </div>
-                                    <button class="btn">Post Comments</button>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -296,22 +168,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="widget mb-40">
-                            <div class="widget-title text-center">
-                                <h4>Instagram</h4>
-                            </div>
-                            <ul class="widget-insta-post">
-                                <li><a href="#"><img src="img/blog/aside/insta_01.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_02.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_03.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_04.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_05.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_06.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_07.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_08.jpg" alt="img"></a></li>
-                                <li><a href="#"><img src="img/blog/aside/insta_09.jpg" alt="img"></a></li>
-                            </ul>
-                        </div>
+
                         <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>Follow Us</h4>
@@ -336,60 +193,7 @@
                                 <li><a href="#">Branding <span>(56)</span></a></li>
                             </ul>
                         </div>
-                        <div class="widget mb-40">
-                            <div class="widget-title text-center">
-                                <h4>Feeds</h4>
-                            </div>
-                            <div class="widget__post">
-                                <ul>
-                                    <li>
-                                        <div class="widget__post-thumb">
-                                            <img src="img/blog/aside/post_01.jpg" alt="">
-                                        </div>
-                                        <div class="widget__post-content">
-                                            <h6><a href="#">Alonso kelina falao asiano pero</a></h6>
-                                            <span><i class="far fa-clock"></i>1 Hours ago</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget__post-thumb">
-                                            <img src="img/blog/aside/post_02.jpg" alt="">
-                                        </div>
-                                        <div class="widget__post-content">
-                                            <h6><a href="#">It is a long established fact that a reader</a></h6>
-                                            <span><i class="far fa-clock"></i>3 Hours ago</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget__post-thumb">
-                                            <img src="img/blog/aside/post_03.jpg" alt="">
-                                        </div>
-                                        <div class="widget__post-content">
-                                            <h6><a href="#">Many desktop publish packages and web</a></h6>
-                                            <span><i class="far fa-clock"></i>5 Hours ago</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget__post-thumb">
-                                            <img src="img/blog/aside/post_04.jpg" alt="">
-                                        </div>
-                                        <div class="widget__post-content">
-                                            <h6><a href="#">Various versions have evolved over the years</a></h6>
-                                            <span><i class="far fa-clock"></i>6 Hours ago</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget__post-thumb">
-                                            <img src="img/blog/aside/post_05.jpg" alt="">
-                                        </div>
-                                        <div class="widget__post-content">
-                                            <h6><a href="#">Photo booth anim 8-bit PBR 3 wolf moon.</a></h6>
-                                            <span><i class="far fa-clock"></i>8 Hours ago</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
                         <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>Tags</h4>
