@@ -28,12 +28,7 @@ class FilterController extends Controller
             $query->where('role_id', '!=', 1);
         });
 
-        if ($request->filled('smoking_tools')) {
-            $smokingToolIds = $request->input('smoking_tools');
-            $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
-                $q->whereIn('tool_id', $smokingToolIds);
-            });
-        }
+
         // Filter out liked and disliked users
         $likedUsers = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
@@ -45,71 +40,73 @@ class FilterController extends Controller
         $query->whereHas('user', function ($query) use ($request) {
             $query->where('gender', '!=', Auth::user()->gender);
         });
+
         // Filter based on user's preferences if available
         if ($preferences && !$isFromFilter) {
             // dd("from pref");
             // Nationality
-            if ($preferences->preferred_nationality_id) {
+            if (!is_null($preferences->preferred_nationality_id)) {
                 $query->where('nationality_id', $preferences->preferred_nationality_id);
             }
 
-            // Origins
-            if ($preferences->preferred_origin_id) {
+            // // Origins
+            if (!is_null($preferences->preferred_origin_id)) {
                 $query->where('origin_id', $preferences->preferred_origin_id);
             }
 
-            // Country of residence
-            if ($preferences->preferred_country_id) {
+            // // Country of residence
+            // dd(($preferences->preferred_country_id));
+            if (!is_null($preferences->preferred_country_id)) {
                 $query->where('country_of_residence_id', $preferences->preferred_country_id);
             }
 
-            // City
-            if ($preferences->preferred_city_id) {
+            // // City
+            if (!is_null($preferences->preferred_city_id)) {
                 $query->where('city_id', $preferences->preferred_city_id);
             }
 
-            // Age range
-            if ($preferences->preferred_age_min && $preferences->preferred_age_max) {
+            // // Age range
+            if (!is_null($preferences->preferred_age_min) && !is_null($preferences->preferred_age_max)) {
                 $query->whereBetween('age', [$preferences->preferred_age_min, $preferences->preferred_age_max]);
             }
 
-            // Educational level
-            if ($preferences->preferred_educational_level_id) {
+            // // Educational level
+            if (!is_null($preferences->preferred_educational_level_id)) {
                 $query->where('educational_level_id', $preferences->preferred_educational_level_id);
             }
 
-            // Specialization
-            if ($preferences->preferred_specialization_id) {
+            // // Specialization
+            if (!is_null($preferences->preferred_specialization_id)) {
                 $query->where('specialization_id', $preferences->preferred_specialization_id);
             }
 
-            // Employment status
+            // // Employment status
             if ($preferences->preferred_employment_status !== null) {
                 $query->where('employment_status', $preferences->preferred_employment_status);
             }
 
-            // Job title
-            if ($preferences->preferred_job_title_id) {
+            // // Job title
+            if (!is_null($preferences->preferred_job_title_id)) {
                 $query->where('job_title_id', $preferences->preferred_job_title_id);
             }
 
-            // Financial status
-            if ($preferences->preferred_financial_status_id) {
+            // // Financial status
+            if (!is_null($preferences->preferred_financial_status_id)) {
                 $query->where('financial_status_id', $preferences->preferred_financial_status_id);
             }
 
             // Height
-            if ($preferences->preferred_height_id) {
+            if (!is_null($preferences->preferred_height_id)) {
                 $query->where('height_id', $preferences->preferred_height_id);
             }
 
             // Weight
-            if ($preferences->preferred_weight_id) {
+            if (!is_null($preferences->preferred_weight_id)) {
                 $query->where('weight_id', $preferences->preferred_weight_id);
             }
 
             // Marital status
-            if ($preferences->preferred_marital_status_id) {
+            if (!is_null($preferences->preferred_marital_status_id)) {
                 $query->where('marital_status_id', $preferences->preferred_marital_status_id);
             }
 
@@ -119,37 +116,51 @@ class FilterController extends Controller
             }
 
             // Drinking status
-            if ($preferences->preferred_drinking_status_id) {
+            if (!is_null($preferences->preferred_drinking_status_id)) {
                 $query->where('drinking_status_id', $preferences->preferred_drinking_status_id);
             }
 
             // Sports activity
-            if ($preferences->preferred_sports_activity_id) {
+            if (!is_null($preferences->preferred_sports_activity_id)) {
                 $query->where('sports_activity_id', $preferences->preferred_sports_activity_id);
             }
 
             // Social media presence
-            if ($preferences->preferred_social_media_presence_id) {
+            if (!is_null($preferences->preferred_social_media_presence_id)) {
                 $query->where('social_media_presence_id', $preferences->preferred_social_media_presence_id);
             }
 
             // Religiosity level
-            if ($preferences->preferred_religiosity_level_id) {
+            if (!is_null($preferences->preferred_religiosity_level_id)) {
                 $query->where('religiosity_level_id', $preferences->preferred_religiosity_level_id);
             }
 
             // Sleep habit
-            if ($preferences->preferred_sleep_habit_id) {
+            if (!is_null($preferences->preferred_sleep_habit_id)) {
                 $query->where('sleep_habit_id', $preferences->preferred_sleep_habit_id);
             }
 
+            // Language check
+            if ($request->filled('language_id')) {
+                $query->where('language_id', $request->language_id);
+            }
+
             // Marriage budget
-            if ($preferences->preferred_marriage_budget_id) {
+            if (!is_null($preferences->preferred_marriage_budget_id)) {
                 $query->where('marriage_budget_id', $preferences->preferred_marriage_budget_id);
             }
-            if ($preferences->preferred_pet_ids) {
+
+            // // Pets preferences
+            if (!empty($preferences->preferred_pet_ids)) {
                 $query->whereHas('user.pets', function ($q) use ($preferences) {
                     $q->whereIn('pets.id', $preferences->preferred_pet_ids);
+                });
+            }
+
+            // Smoking tools preferences
+            if (!empty($preferences->preferred_smoking_tools)) {
+                $query->whereHas('smokingTools', function ($q) use ($preferences) {
+                    $q->whereIn('tool_id', $preferences->preferred_smoking_tools);
                 });
             }
         } else {
@@ -221,14 +232,26 @@ class FilterController extends Controller
             if ($request->filled('marriage_budget_id')) {
                 $query->where('marriage_budget_id', $request->marriage_budget_id);
             }
+            if ($request->filled('language_id')) {
+                $query->where('language_id', $request->language_id);
+            }
+            // dd($request->input('language_id'));
 
-            if ($request->filled('pets_id')) {
+
+            if ($request->filled('pets_id') && ($request->input('pets_id') != [])) {
                 $petIds = $request->input('pets_id');
                 $query->whereHas('user.pets', function ($q) use ($petIds) {
                     $q->whereIn('pets.id', $petIds);
                 });
             }
-            if ($request->filled('smoking_tools')) {
+
+            // if ($request->filled('smoking_tools')) {
+            //     $smokingToolIds = $request->input('smoking_tools');
+            //     $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
+            //         $q->whereIn('tool_id', $smokingToolIds);
+            //     });
+            // }
+            if ($request->filled('smoking_tools') && ($request->input('smoking_tools') != [])) {
                 $smokingToolIds = $request->input('smoking_tools');
                 $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
                     $q->whereIn('tool_id', $smokingToolIds);
@@ -239,7 +262,6 @@ class FilterController extends Controller
 
 
 
-        // dd("filter");
         // Execute the query and return filtered users
         $users = $query->get();
 
