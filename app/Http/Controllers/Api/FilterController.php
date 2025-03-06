@@ -263,8 +263,21 @@ class FilterController extends Controller
 
 
         // Execute the query and return filtered users
-        $users = $query->get();
+        // if ($query->get()->isEmpty()) {
+        //     $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools']);
+        //     // Reapply the initial filtering conditions (gender, role, liked, disliked users)
+        //     $query->whereHas('user', function ($query) {
+        //         $query->where('gender', '!=', Auth::user()->gender);
+        //     });
+        //     $query->whereHas('user', function ($query) {
+        //         $query->where('role_id', '!=', 1);
+        //     });
+        //     $query->whereNotIn('id', $likedUsers);
+        //     $query->whereNotIn('id', $dislikedUsers);
 
+        //     // Fetch all users based on these conditions
+        // }
+        $users = $query->get();
         return response()->json([
             'message' => 'success',
             'users' => FilteredUserResource::collection($users),
