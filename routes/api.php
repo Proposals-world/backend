@@ -33,6 +33,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\Tickets\TicketsController;
 use App\Http\Controllers\LikeController;
@@ -103,4 +104,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/users/filter', [FilterController::class, 'filterUsers']);
     Route::post('/like', [LikeController::class, 'likeUser']);
     Route::post('/dislike', [LikeController::class, 'dislikeUser']);
+    Route::get('/matches', [MatchController::class, 'getMatches']);
 });
