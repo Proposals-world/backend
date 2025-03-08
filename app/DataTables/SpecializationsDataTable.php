@@ -13,7 +13,7 @@ class SpecializationsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function (Specialization $specialization) {
-                return view('admin.specializations.columns._actions', compact('specialization'));
+                return view('admin.Specializations.columns._actions', compact('specialization'));
             })
             ->setRowId('id')
             ->rawColumns(['action']);
