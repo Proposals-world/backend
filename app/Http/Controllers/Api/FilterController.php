@@ -163,6 +163,21 @@ class FilterController extends Controller
                     $q->whereIn('tool_id', $preferences->preferred_smoking_tools);
                 });
             }
+            // Execute the query and return filtered users
+            if ($query->get()->isEmpty()) {
+                $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools']);
+                // Reapply the initial filtering conditions (gender, role, liked, disliked users)
+                $query->whereHas('user', function ($query) {
+                    $query->where('gender', '!=', Auth::user()->gender);
+                });
+                $query->whereHas('user', function ($query) {
+                    $query->where('role_id', '!=', 1);
+                });
+                $query->whereNotIn('id', $likedUsers);
+                $query->whereNotIn('id', $dislikedUsers);
+
+                // Fetch all users based on these conditions
+            }
         } else {
             // Handle additional request filters (if any)
             // dd("from filter");
@@ -235,7 +250,6 @@ class FilterController extends Controller
             if ($request->filled('language_id')) {
                 $query->where('language_id', $request->language_id);
             }
-            // dd($request->input('language_id'));
 
 
             if ($request->filled('pets_id') && ($request->input('pets_id') != [])) {
@@ -244,39 +258,971 @@ class FilterController extends Controller
                     $q->whereIn('pets.id', $petIds);
                 });
             }
-
-            // if ($request->filled('smoking_tools')) {
-            //     $smokingToolIds = $request->input('smoking_tools');
-            //     $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
-            //         $q->whereIn('tool_id', $smokingToolIds);
-            //     });
-            // }
             if ($request->filled('smoking_tools') && ($request->input('smoking_tools') != [])) {
                 $smokingToolIds = $request->input('smoking_tools');
                 $query->whereHas('smokingTools', function ($q) use ($smokingToolIds) {
                     $q->whereIn('tool_id', $smokingToolIds);
                 });
             }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+                if ($request->filled('sports_activity_id')) {
+                    $query->where('sports_activity_id', $request->sports_activity_id);
+                }
+                if ($request->filled('social_media_presence_id')) {
+                    $query->where('social_media_presence_id', $request->social_media_presence_id);
+                }
+                if ($request->filled('sleep_habit_id')) {
+                    $query->where('sleep_habit_id', $request->sleep_habit_id);
+                }
+                if ($request->filled('marriage_budget_id')) {
+                    $query->where('marriage_budget_id', $request->marriage_budget_id);
+                }
+                if ($request->filled('language_id')) {
+                    $query->where('language_id', $request->language_id);
+                }
+
+
+                if ($request->filled('pets_id') && ($request->input('pets_id') != [])) {
+                    $petIds = $request->input('pets_id');
+                    $query->whereHas('user.pets', function ($q) use ($petIds) {
+                        $q->whereIn('pets.id', $petIds);
+                    });
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+                if ($request->filled('sports_activity_id')) {
+                    $query->where('sports_activity_id', $request->sports_activity_id);
+                }
+                if ($request->filled('social_media_presence_id')) {
+                    $query->where('social_media_presence_id', $request->social_media_presence_id);
+                }
+                if ($request->filled('sleep_habit_id')) {
+                    $query->where('sleep_habit_id', $request->sleep_habit_id);
+                }
+                if ($request->filled('marriage_budget_id')) {
+                    $query->where('marriage_budget_id', $request->marriage_budget_id);
+                }
+                if ($request->filled('language_id')) {
+                    $query->where('language_id', $request->language_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+                if ($request->filled('sports_activity_id')) {
+                    $query->where('sports_activity_id', $request->sports_activity_id);
+                }
+                if ($request->filled('social_media_presence_id')) {
+                    $query->where('social_media_presence_id', $request->social_media_presence_id);
+                }
+                if ($request->filled('sleep_habit_id')) {
+                    $query->where('sleep_habit_id', $request->sleep_habit_id);
+                }
+                if ($request->filled('marriage_budget_id')) {
+                    $query->where('marriage_budget_id', $request->marriage_budget_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+                if ($request->filled('sports_activity_id')) {
+                    $query->where('sports_activity_id', $request->sports_activity_id);
+                }
+                if ($request->filled('social_media_presence_id')) {
+                    $query->where('social_media_presence_id', $request->social_media_presence_id);
+                }
+                if ($request->filled('sleep_habit_id')) {
+                    $query->where('sleep_habit_id', $request->sleep_habit_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+                if ($request->filled('sports_activity_id')) {
+                    $query->where('sports_activity_id', $request->sports_activity_id);
+                }
+                if ($request->filled('social_media_presence_id')) {
+                    $query->where('social_media_presence_id', $request->social_media_presence_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+                if ($request->filled('sports_activity_id')) {
+                    $query->where('sports_activity_id', $request->sports_activity_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+                if ($request->filled('drinking_status_id')) {
+                    $query->where('drinking_status_id', $request->drinking_status_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+                if ($request->filled('smoking_status')) {
+                    $query->where('smoking_status', $request->smoking_status);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+                if ($request->filled('children')) {
+                    $query->where('children', $request->children);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+                if ($request->filled('marital_status_id')) {
+                    $query->where('marital_status_id', $request->marital_status_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+                if ($request->filled('weight_id')) {
+                    $query->where('weight_id', $request->weight_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+                if ($request->filled('height_id')) {
+                    $query->where('height_id', $request->height_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+                if ($request->filled('financial_status_id')) {
+                    $query->where('financial_status_id', $request->financial_status_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+                if ($request->filled('job_title_id')) {
+                    $query->where('job_title_id', $request->job_title_id);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($request->filled('employment_status')) {
+                    $query->where('employment_status', $request->employment_status);
+                }
+            }
+            if ($query->get()->isEmpty()) {
+                if ($request->filled('nationality_id')) {
+                    $query->where('nationality_id', $request->nationality_id);
+                }
+                if ($request->filled('origin_id')) {
+                    $query->where('origin_id', $request->origin_id);
+                }
+                if ($request->filled('religion_id')) {
+                    $query->where('religion_id', $request->religion_id);
+                }
+                if ($request->filled('religiosity_level_id')) {
+                    $query->where('religiosity_level_id', $request->religiosity_level_id);
+                }
+                if ($request->filled('country_of_residence_id')) {
+                    $query->where('country_of_residence_id', $request->country_of_residence_id);
+                }
+                if ($request->filled('city_id')) {
+                    $query->where('city_id', $request->city_id);
+                }
+                if ($request->filled('age_min') && $request->filled('age_max')) {
+                    $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
+                if ($request->filled('educational_level_id')) {
+                    $query->where('educational_level_id', $request->educational_level_id);
+                }
+                if ($request->filled('specialization_id')) {
+                    $query->where('specialization_id', $request->specialization_id);
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                    if ($request->filled('religion_id')) {
+                        $query->where('religion_id', $request->religion_id);
+                    }
+                    if ($request->filled('religiosity_level_id')) {
+                        $query->where('religiosity_level_id', $request->religiosity_level_id);
+                    }
+                    if ($request->filled('country_of_residence_id')) {
+                        $query->where('country_of_residence_id', $request->country_of_residence_id);
+                    }
+                    if ($request->filled('city_id')) {
+                        $query->where('city_id', $request->city_id);
+                    }
+                    if ($request->filled('age_min') && $request->filled('age_max')) {
+                        $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                    }
+                    if ($request->filled('educational_level_id')) {
+                        $query->where('educational_level_id', $request->educational_level_id);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                    if ($request->filled('religion_id')) {
+                        $query->where('religion_id', $request->religion_id);
+                    }
+                    if ($request->filled('religiosity_level_id')) {
+                        $query->where('religiosity_level_id', $request->religiosity_level_id);
+                    }
+                    if ($request->filled('country_of_residence_id')) {
+                        $query->where('country_of_residence_id', $request->country_of_residence_id);
+                    }
+                    if ($request->filled('city_id')) {
+                        $query->where('city_id', $request->city_id);
+                    }
+                    if ($request->filled('age_min') && $request->filled('age_max')) {
+                        $query->whereBetween('age', [$request->age_min, $request->age_max]);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                    if ($request->filled('religion_id')) {
+                        $query->where('religion_id', $request->religion_id);
+                    }
+                    if ($request->filled('religiosity_level_id')) {
+                        $query->where('religiosity_level_id', $request->religiosity_level_id);
+                    }
+                    if ($request->filled('country_of_residence_id')) {
+                        $query->where('country_of_residence_id', $request->country_of_residence_id);
+                    }
+                    if ($request->filled('city_id')) {
+                        $query->where('city_id', $request->city_id);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                    if ($request->filled('religion_id')) {
+                        $query->where('religion_id', $request->religion_id);
+                    }
+                    if ($request->filled('religiosity_level_id')) {
+                        $query->where('religiosity_level_id', $request->religiosity_level_id);
+                    }
+                    if ($request->filled('country_of_residence_id')) {
+                        $query->where('country_of_residence_id', $request->country_of_residence_id);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                    if ($request->filled('religion_id')) {
+                        $query->where('religion_id', $request->religion_id);
+                    }
+                    if ($request->filled('religiosity_level_id')) {
+                        $query->where('religiosity_level_id', $request->religiosity_level_id);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                    if ($request->filled('religion_id')) {
+                        $query->where('religion_id', $request->religion_id);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                    if ($request->filled('origin_id')) {
+                        $query->where('origin_id', $request->origin_id);
+                    }
+                }
+                if ($query->get()->isEmpty()) {
+                    if ($request->filled('nationality_id')) {
+                        $query->where('nationality_id', $request->nationality_id);
+                    }
+                }
+            }
         }
 
 
 
 
-        // Execute the query and return filtered users
-        // if ($query->get()->isEmpty()) {
-        //     $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools']);
-        //     // Reapply the initial filtering conditions (gender, role, liked, disliked users)
-        //     $query->whereHas('user', function ($query) {
-        //         $query->where('gender', '!=', Auth::user()->gender);
-        //     });
-        //     $query->whereHas('user', function ($query) {
-        //         $query->where('role_id', '!=', 1);
-        //     });
-        //     $query->whereNotIn('id', $likedUsers);
-        //     $query->whereNotIn('id', $dislikedUsers);
 
-        //     // Fetch all users based on these conditions
-        // }
         $users = $query->get();
         return response()->json([
             'message' => 'success',
