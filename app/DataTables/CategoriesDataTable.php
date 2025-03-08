@@ -2,32 +2,31 @@
 
 namespace App\DataTables;
 
-use App\Models\MarriageBudget;
+use App\Models\Category;
 use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Services\DataTable;
 
-class MarriageBudgetsDataTable extends DataTable
+class CategoriesDataTable extends DataTable
 {
     public function dataTable($query)
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function (MarriageBudget $marriageBudget) {
-                return view('admin.marriageBudgets.columns._actions', compact('marriageBudget'));
+            ->addColumn('action', function (Category $category) {
+                return view('admin.categories.columns._actions', compact('category'));
             })
             ->setRowId('id')
             ->rawColumns(['action']);
     }
 
-    public function query(MarriageBudget $model)
+    public function query(Category $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->select('id', 'name_en', 'name_ar', 'slug', 'created_at', 'updated_at');
     }
 
     public function html()
     {
         return $this->builder()
-            ->setTableId('marriage-budgets-table')
+            ->setTableId('categories-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->addAction(['title' => 'Actions', 'width' => '80px'])
@@ -40,15 +39,14 @@ class MarriageBudgetsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
-            'budget_en',
-            'budget_ar',
-
+            'id' => ['title' => 'ID'],
+            'name_en' => ['title' => 'Category Name (English)'],
+            'name_ar' => ['title' => 'Category Name (Arabic)'],
         ];
     }
 
     protected function filename(): string
     {
-        return 'MarriageBudgets_' . date('YmdHis');
+        return 'Categories_' . date('YmdHis');
     }
 }

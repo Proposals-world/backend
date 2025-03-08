@@ -43,8 +43,6 @@ class SpecializationsDataTable extends DataTable
             'id',
             'name_en' => ['title' => 'Name (English)'],
             'name_ar' => ['title' => 'Name (Arabic)'],
-            'created_at',
-            'updated_at',
         ];
     }
 

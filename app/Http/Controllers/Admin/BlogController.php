@@ -1,120 +1,111 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\BlogsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the blogs.
-     */
-    public function index()
+    public function index(BlogsDataTable $dataTable)
     {
-        $blogs = Blog::latest()->paginate(10);
-        return view('admin.blogs.index', compact('blogs'));
+        return $dataTable->render('admin.blogs.index');
     }
 
-    /**
-     * Show the form for creating a new blog.
-     */
+    public function show()
+    {
+        
+    }
     public function create()
     {
-        return view('admin.blogs.create');
+        $categories = Category::all();
+        return view('admin.blogs.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created blog in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'image' => 'nullable|image|max:2048',
+            'title_en' => 'required|string|max:255',
+            'title_ar' => 'required|string|max:255',
+            'content_en' => 'required',
+            'content_ar' => 'required',
             'status' => 'required|in:draft,published',
-            'seo_title' => 'nullable|string|max:255',
-            'seo_description' => 'nullable|string',
-            'seo_keywords' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
         ]);
-
-        // Handle image upload
-        $imagePath = $request->file('image') ? $request->file('image')->store('blogs', 'public') : null;
-
-        Blog::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'content' => $request->content,
-            'image' => $imagePath,
+    
+        // Handle Image Upload
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('blogs', 'public'); // Saves to storage/app/public/blogs
+        }
+    
+        $blog = Blog::create([
+            'title_en' => $request->title_en,
+            'title_ar' => $request->title_ar,
+            'slug' => Str::slug($request->title_en),
+            'content_en' => $request->content_en,
+            'content_ar' => $request->content_ar,
             'status' => $request->status,
-            'seo_title' => $request->seo_title,
-            'seo_description' => $request->seo_description,
-            'seo_keywords' => $request->seo_keywords,
+            'image' => $imagePath, // Store image path
         ]);
-
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
+    
+        $blog->categories()->sync($request->categories);
+    
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog added successfully');
     }
 
-    /**
-     * Display the specified blog.
-     */
-    public function show(Blog $blog)
-    {
-        return view('admin.blogs.show', compact('blog'));
-    }
-
-    /**
-     * Show the form for editing the specified blog.
-     */
     public function edit(Blog $blog)
     {
-        return view('admin.blogs.edit', compact('blog'));
+        $categories = Category::all();
+        return view('admin.blogs.create', compact('blog', 'categories'));
     }
 
-    /**
-     * Update the specified blog in storage.
-     */
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'image' => 'nullable|image|max:2048',
+            'title_en' => 'required|string|max:255',
+            'title_ar' => 'required|string|max:255',
+            'content_en' => 'required',
+            'content_ar' => 'required',
             'status' => 'required|in:draft,published',
-            'seo_title' => 'nullable|string|max:255',
-            'seo_description' => 'nullable|string',
-            'seo_keywords' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
         ]);
-
-        // Handle image upload
+    
+        // Handle Image Upload
         if ($request->hasFile('image')) {
+            // Delete the old image if exists
+            if ($blog->image) {
+                \Storage::disk('public')->delete($blog->image);
+            }
             $imagePath = $request->file('image')->store('blogs', 'public');
-        } else {
-            $imagePath = $blog->image;
+            $blog->image = $imagePath;
         }
-
+    
         $blog->update([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'content' => $request->content,
-            'image' => $imagePath,
+            'title_en' => $request->title_en,
+            'title_ar' => $request->title_ar,
+            'slug' => Str::slug($request->title_en),
+            'content_en' => $request->content_en,
+            'content_ar' => $request->content_ar,
             'status' => $request->status,
-            'seo_title' => $request->seo_title,
-            'seo_description' => $request->seo_description,
-            'seo_keywords' => $request->seo_keywords,
         ]);
-
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully.');
+    
+        $blog->categories()->sync($request->categories);
+    
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully');
     }
 
-    /**
-     * Remove the specified blog from storage.
-     */
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
+        return response()->json(['message' => 'Blog deleted successfully']);
     }
 }

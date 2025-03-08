@@ -14,8 +14,7 @@
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
                         <h4 class="page-title">Sport Activities List</h4>
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Jidox</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Sport Activities List</li>
                         </ol>
                     </div>
@@ -25,7 +24,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Sport Activities List</h4>
                             <a class="btn btn-primary mb-3" id="add_sports_activity">Add Sport Activity</a>
                             <div class="table-responsive">
                                 {{ $dataTable->table([

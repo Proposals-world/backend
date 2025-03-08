@@ -42,8 +42,6 @@ class ReligionsDataTable extends DataTable
             'id',
             'name_en',
             'name_ar',
-            'created_at',
-            'updated_at',
         ];
     }
 
