@@ -43,4 +43,7 @@
 
 @push('scripts')
 {{ $dataTable->scripts() }}
+<script>
+    remove('remove_btn', 'admin/blogs', 'blogs-table', '{{ csrf_token() }}');
+</script>
 @endpush
