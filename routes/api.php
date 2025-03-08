@@ -62,6 +62,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/profile', [UserProfileController::class, 'update']);
 
+
+
+    //jop-title
+    //mariage-buget
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
     Route::get('/hair-colors', [HairColorController::class, 'index']);
     Route::get('/religions', [ReligionController::class, 'index']);

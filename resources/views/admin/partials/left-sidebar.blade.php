@@ -97,7 +97,7 @@
                 <div class="collapse" id="sidebarLocations">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{ route('blogs.index') }}" class="side-nav-link">
+                            <a href="{{ route('admin.blogs.index') }}" class="side-nav-link">
                                 <span> Blogs </span>
                             </a>
                         </li>
