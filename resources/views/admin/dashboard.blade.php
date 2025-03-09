@@ -157,8 +157,8 @@
                                     <div class="progress progress-sm">
                                         <div class="progress-bar" role="progressbar"
                                             style="width: {{ ($totalSalesChart['city_sales'][$index] / max($totalSalesChart['city_sales']->toArray())) * 100 }}%;"
-                                            aria-valuenow="{{ $totalSalesChart['city_sales'][$index] }}"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                            aria-valuenow="{{ $totalSalesChart['city_sales'][$index] }}" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             @endforeach
@@ -331,75 +331,75 @@
                 var chart = new ApexCharts(document.querySelector("#revenue-sales-chart"), options);
                 chart.render();
 
-                    // Radial Chart for Total Sales (Same as Average Sales)
-                    var totalSalesOptions = {
-                        series: [{{ $totalSalesChart['sales_percentage'] }}], // Percentage of sales
-                        chart: {
-                            height: 367,
-                            type: "radialBar"
-                        },
-                        plotOptions: {
-                            radialBar: {
-                                startAngle: -135,
-                                endAngle: 135,
-                                dataLabels: {
-                                    name: {
-                                        fontSize: "14px",
-                                        color: undefined,
-                                        offsetY: 100
-                                    },
-                                    value: {
-                                        offsetY: 55,
-                                        fontSize: "24px",
-                                        color: undefined,
-                                        formatter: function(val) {
-                                            return val + "%";
-                                        }
-                                    }
+                // Radial Chart for Total Sales (Same as Average Sales)
+                var totalSalesOptions = {
+                    series: [{{ $totalSalesChart['sales_percentage'] }}], // Percentage of sales
+                    chart: {
+                        height: 367,
+                        type: "radialBar"
+                    },
+                    plotOptions: {
+                        radialBar: {
+                            startAngle: -135,
+                            endAngle: 135,
+                            dataLabels: {
+                                name: {
+                                    fontSize: "14px",
+                                    color: undefined,
+                                    offsetY: 100
                                 },
-                                track: {
-                                    background: "rgba(170,184,197, 0.2)",
-                                    margin: 0
+                                value: {
+                                    offsetY: 55,
+                                    fontSize: "24px",
+                                    color: undefined,
+                                    formatter: function(val) {
+                                        return val + "%";
+                                    }
                                 }
-                            }
-                        },
-                        fill: {
-                            gradient: {
-                                enabled: true,
-                                shade: "dark",
-                                shadeIntensity: 0.2,
-                                inverseColors: false,
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                                stops: [0, 50, 65, 91]
-                            }
-                        },
-                        stroke: {
-                            dashArray: 4
-                        },
-                        colors: ["#9e086c"],
-                        labels: ["Avrage Sales"],
-                        responsive: [{
-                            breakpoint: 380,
-                            options: {
-                                chart: {
-                                    height: 180
-                                }
-                            }
-                        }],
-                        grid: {
-                            padding: {
-                                top: 0,
-                                right: 0,
-                                bottom: 0,
-                                left: 0
+                            },
+                            track: {
+                                background: "rgba(170,184,197, 0.2)",
+                                margin: 0
                             }
                         }
-                    };
+                    },
+                    fill: {
+                        gradient: {
+                            enabled: true,
+                            shade: "dark",
+                            shadeIntensity: 0.2,
+                            inverseColors: false,
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                            stops: [0, 50, 65, 91]
+                        }
+                    },
+                    stroke: {
+                        dashArray: 4
+                    },
+                    colors: ["#9e086c"],
+                    labels: ["Avrage Sales"],
+                    responsive: [{
+                        breakpoint: 380,
+                        options: {
+                            chart: {
+                                height: 180
+                            }
+                        }
+                    }],
+                    grid: {
+                        padding: {
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            left: 0
+                        }
+                    }
+                };
 
-                    var totalSalesChart = new ApexCharts(document.querySelector("#total-sales-chart"),
-                        totalSalesOptions);
-                    totalSalesChart.render();
+                var totalSalesChart = new ApexCharts(document.querySelector("#total-sales-chart"),
+                    totalSalesOptions);
+                totalSalesChart.render();
 
             });
         </script>

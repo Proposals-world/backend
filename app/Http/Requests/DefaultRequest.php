@@ -12,8 +12,6 @@ trait DefaultRequest
         return true;
     }
 
-    // use DefaultRequest;
-
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json(['errors' => $validator->errors(), 'status' => 422]));

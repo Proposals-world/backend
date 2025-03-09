@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\MarriageBudgetsController;
 use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\ReligionsController;
+use App\Http\Controllers\Admin\AdminsController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
@@ -57,6 +58,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('subscription-packages', SubscriptionPackageController::class);
     Route::resource('marriage-budgets', MarriageBudgetsController::class);
     Route::resource('religions', ReligionController::class);
+    Route::resource('admins', AdminsController::class);
 });
 
     Route::resource('blogs', BlogController::class);
