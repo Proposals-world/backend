@@ -90,14 +90,14 @@
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false"
                     aria-controls="sidebarLocations" class="side-nav-link">
-                    <i class="ri-user-location-fill"></i>
+                    <i class="ri-newspaper-line"></i>
                     <span> Blogs </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarLocations">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{ route('admin.blogs.index') }}" class="side-nav-link">
+                            <a href="{{ route('blogs.index') }}" class="side-nav-link">
                                 <span> Blogs </span>
                             </a>
                         </li>

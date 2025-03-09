@@ -26,7 +26,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary mb-3">Add Blog</a>
+                            <a href="{{ route('blogs.create') }}" class="btn btn-primary mb-3">Add Blog</a>
                             <div class="table-responsive">
                                 {{ $dataTable->table([
                                     'class' => 'table table-bordered table-hover w-100',

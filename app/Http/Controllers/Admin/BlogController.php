@@ -57,7 +57,7 @@ class BlogController extends Controller
     
         $blog->categories()->sync($request->categories);
     
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog added successfully');
+        return redirect()->route('blogs.index')->with('success', 'Blog added successfully');
     }
 
     public function edit(Blog $blog)
@@ -100,7 +100,7 @@ class BlogController extends Controller
     
         $blog->categories()->sync($request->categories);
     
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully');
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
     }
 
     public function destroy(Blog $blog)

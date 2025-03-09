@@ -29,7 +29,6 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/blog-details', [HomeController::class, 'blogDetails'])->name('blog-details');
-
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 
 
@@ -59,8 +58,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('marriage-budgets', MarriageBudgetsController::class);
     Route::resource('religions', ReligionController::class);
 });
-});
-Route::prefix('admin')->name('admin.')->group(function () {
+
     Route::resource('blogs', BlogController::class);
 });
 // Route to handle message subscriptions

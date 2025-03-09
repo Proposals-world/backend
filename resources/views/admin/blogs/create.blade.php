@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ isset($blog) ? route('admin.blogs.update', $blog) : route('admin.blogs.store') }}"
+                        <form action="{{ isset($blog) ? route('blogs.update', $blog) : route('blogs.store') }}"
                             id="blogForm" method="POST" enctype="multipart/form-data">
                             @csrf
                             @isset($blog)
