@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\CountriesController;
@@ -21,8 +22,10 @@ use App\Http\Controllers\Admin\SpecializationsController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\MarriageBudgetsController;
 use App\Http\Controllers\Admin\ReligionController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\admin\SubscriptionPackageController;
 use App\Http\Controllers\admin\ReligionsController;
+// use App\Http\Controllers\AdminUserController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
@@ -39,23 +42,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-// admins route
-Route::resource('admin/countries', CountriesController::class);
-Route::resource('admin/origins', OriginController::class);
-Route::resource('admin/sports-activities', SportsActivitiesController::class);
-Route::resource('admin/hair-colors', HairColorsController::class);
-Route::resource('admin/pets', PetsController::class);
-Route::resource('admin/hobbies', HobbiesController::class);
-Route::resource('admin/drinking-statuses', DrinkingStatusesController::class);
-Route::resource('admin/cities', CitiesController::class);
-Route::resource('admin/educational-levels', EducationalLevelsController::class);
-Route::resource('admin/specializations', SpecializationsController::class);
+    // admins route
+    Route::resource('admin/countries', CountriesController::class);
+    Route::resource('admin/origins', OriginController::class);
+    Route::resource('admin/sports-activities', SportsActivitiesController::class);
+    Route::resource('admin/hair-colors', HairColorsController::class);
+    Route::resource('admin/pets', PetsController::class);
+    Route::resource('admin/hobbies', HobbiesController::class);
+    Route::resource('admin/drinking-statuses', DrinkingStatusesController::class);
+    Route::resource('admin/cities', CitiesController::class);
+    Route::resource('admin/educational-levels', EducationalLevelsController::class);
+    Route::resource('admin/specializations', SpecializationsController::class);
 
 
-Route::resource('admin/features', FeatureController::class);
-Route::resource('admin/subscription-packages', SubscriptionPackageController::class);
-Route::resource('admin/marriage-budgets', MarriageBudgetsController::class);
-Route::resource('admin/religions', ReligionController::class);
+    Route::resource('admin/features', FeatureController::class);
+    Route::resource('admin/subscription-packages', SubscriptionPackageController::class);
+    Route::resource('admin/marriage-budgets', MarriageBudgetsController::class);
+    Route::resource('admin/religions', ReligionController::class);
+    Route::resource('admin/manageAdmins', AdminController::class);
 });
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('blogs', BlogController::class);

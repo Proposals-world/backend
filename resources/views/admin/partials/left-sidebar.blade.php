@@ -103,7 +103,7 @@
                     </ul>
                 </div>
             </li>
-            
+
             {{-- <li class="side-nav-item">
                 <a href="{{route('features.index')}}" class="side-nav-link">
                     <span> Features </span>
@@ -131,7 +131,7 @@
                     <span> Educational Levels </span>
                 </a>
             </li> --}}
-            
+
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarPerson" aria-expanded="false" aria-controls="sidebarPerson" class="side-nav-link">
                     <i class="ri-user-3-line"></i>
@@ -168,6 +168,12 @@
                             <a href="{{route('hobbies.index')}}" class="side-nav-link">
                                 <i class="ri-paint-brush-line"></i>
                                 <span> Hobbies </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('manageAdmins.index')}}" class="side-nav-link">
+                                <i class="ri-paint-brush-line"></i>
+                                <span> manageAdmins </span>
                             </a>
                         </li>
                         {{-- <li class="side-nav-item">
