@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Faq;
 use App\Models\SubscriptionPackage;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,14 @@ class HomeController extends Controller
                 'contact_limit' => $package->contact_limit,
             ];
         });
-        return view('welcome', compact('subscriptionPackage'));
+        // Fetch FAQs
+        $faqs = Faq::all()->map(function ($faq) use ($locale) {
+            return [
+                'question' => $locale === 'ar' ? $faq->question_ar : $faq->question_en,
+                'answer' => $locale === 'ar' ? $faq->answer_ar : $faq->answer_en,
+            ];
+        });
+        return view('welcome', compact('subscriptionPackage', 'faqs'));
     }
 
 

@@ -21,7 +21,8 @@ class UsersDataTable extends DataTable
 
     public function query(User $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->where('role_id', '!=', 1);  // Exclude users with role_id 1
     }
 
     public function html()

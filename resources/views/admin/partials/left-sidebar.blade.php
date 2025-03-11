@@ -170,12 +170,7 @@
                                 <span> Hobbies </span>
                             </a>
                         </li>
-                        <li class="side-nav-item">
-                            <a href="{{route('manageAdmins.index')}}" class="side-nav-link">
-                                <i class="ri-paint-brush-line"></i>
-                                <span> manageAdmins </span>
-                            </a>
-                        </li>
+
                         {{-- <li class="side-nav-item">
                             <a href="{{route('sports-activities.index')}}" class="side-nav-link">
                                 <span> Sports Activities </span>
@@ -194,6 +189,32 @@
                     </ul>
                 </div>
             </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarManagement" aria-expanded="false" aria-controls="sidebarManagement" class="side-nav-link">
+                    <i class="ri-settings-3-line"></i>
+                        <span> Management </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarManagement">  <!-- Changed ID here -->
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{route('manageUsers.index')}}" class="side-nav-link">
+                                <i class="ri-admin-line"></i>
+                                <span> Manage Users </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="{{route('faqs.index')}}" class="side-nav-link">
+                                <i class="ri-question-line"></i>
+                                <span> Manage FAQs </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
 
         </ul>
         <!--- End Sidemenu -->

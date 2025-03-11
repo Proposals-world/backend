@@ -130,13 +130,13 @@ class FilterController extends Controller
                             }
                         }
                     }
-                    // If data is found, break out of the loop
-                    if (!$query->get()->isEmpty()) {
-                        $finalQuery = $query;
-                        break;
-                    } else {
-                        array_pop($filters); // Removes the last filter
-                    }
+                    // // If data is found, break out of the loop
+                    // if (!$query->get()->isEmpty()) {
+                    //     $finalQuery = $query;
+                    //     break;
+                    // } else {
+                    //     array_pop($filters); // Removes the last filter
+                    // }
                 }
             }
         }

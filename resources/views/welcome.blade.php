@@ -296,80 +296,49 @@
         <!-- screen-area-end -->
 
         <!-- faq-area (Frequently Asked Questions) -->
-        <section class="faq-area pb-100"
-            style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
-            <div class="container">
-                <div class="row align-items-end">
-                    <div class="col-lg-6">
-                        <div class="faq-img text-right">
-                            <img src="{{ asset('frontend/img/icon/logos-icons.png') }}" alt="logos" class="img">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="section-title left-align mb-50">
-                            <h2>{{ __('home.faq_title') }}</h2>
-                            <p>{{ __('home.faq_desc') }}</p>
-                        </div>
-                        <div class="faq-wrap">
-                            <div class="accordion" id="accordionExample">
-                                <div class="card">
-                                    <div class="card-header" id="faqHeadingOne">
-                                        <h2 class="mb-0">
-                                            <button class="faq-btn" type="button" data-toggle="collapse"
-                                                data-target="#faqCollapseOne" aria-expanded="true"
-                                                aria-controls="faqCollapseOne">
-                                                {{ __('home.faq_question1') }}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="faqCollapseOne" class="collapse show" aria-labelledby="faqHeadingOne"
-                                        data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            {{ __('home.faq_answer1') }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" id="faqHeadingTwo">
-                                        <h2 class="mb-0">
-                                            <button class="faq-btn collapsed" type="button" data-toggle="collapse"
-                                                data-target="#faqCollapseTwo" aria-expanded="false"
-                                                aria-controls="faqCollapseTwo">
-                                                {{ __('home.faq_question2') }}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="faqCollapseTwo" class="collapse" aria-labelledby="faqHeadingTwo"
-                                        data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            {{ __('home.faq_answer2') }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" id="faqHeadingThree">
-                                        <h2 class="mb-0">
-                                            <button class="faq-btn collapsed" type="button" data-toggle="collapse"
-                                                data-target="#faqCollapseThree" aria-expanded="false"
-                                                aria-controls="faqCollapseThree">
-                                                {{ __('home.faq_question3') }}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="faqCollapseThree" class="collapse" aria-labelledby="faqHeadingThree"
-                                        data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            {{ __('home.faq_answer3') }}
-                                        </div>
-                                    </div>
+<section class="faq-area pb-100"
+style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
+<div class="container">
+    <div class="row align-items-end">
+        <div class="col-lg-6">
+            <div class="faq-img text-right">
+                <img src="{{ asset('frontend/img/icon/logos-icons.png') }}" alt="logos" class="img">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="section-title left-align mb-50">
+                <h2>{{ __('home.faq_title') }}</h2>
+                <p>{{ __('home.faq_desc') }}</p>
+            </div>
+            <div class="faq-wrap">
+                <div class="accordion" id="accordionExample">
+                    @foreach ($faqs as $index => $faq)
+                        <div class="card">
+                            <div class="card-header" id="faqHeading{{ $index }}">
+                                <h2 class="mb-0">
+                                    <button class="faq-btn {{ $index == 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapse{{ $index }}" aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
+                                        aria-controls="faqCollapse{{ $index }}">
+                                        {{ $faq['question'] }}
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="faqCollapse{{ $index }}" class="collapse {{ $index == 0 ? 'show' : '' }}"
+                                aria-labelledby="faqHeading{{ $index }}" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    {{ $faq['answer'] }}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </section>
-        <!-- faq-area-end -->
+        </div>
+    </div>
+</div>
+</section>
+<!-- faq-area-end -->
+
 
         <!-- newslater-area (Subscribe for Updates) -->
         <section class="newslater-area pt-90 pb-100"

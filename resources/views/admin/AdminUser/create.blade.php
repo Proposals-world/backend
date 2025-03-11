@@ -1,8 +1,8 @@
 @if (isset($user))
-    <form action="{{ route('manageAdmins.update', $user->id) }}" id="userForm" method="POST">
+    <form action="{{ route('manageUsers.update', $user->id) }}" id="userForm" method="POST">
         @method('PUT')
 @else
-    <form action="{{ route('manageAdmins.store') }}" id="userForm" method="POST">
+    <form action="{{ route('manageUsers.store') }}" id="userForm" method="POST">
 @endif
     @csrf
 
