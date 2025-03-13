@@ -1,32 +1,32 @@
 <?php
 
 use App\Http\Controllers\Api\DynamicDataController;
-use App\Http\Controllers\API\CityController;
-use App\Http\Controllers\API\CountryController;
+use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\DrinkingStatusController;
-use App\Http\Controllers\API\FinancialStatusController;
-use App\Http\Controllers\API\GeographicCulturalSocioeconomicController;
-use App\Http\Controllers\API\HobbyController;
-use App\Http\Controllers\API\HousingStatusController;
-use App\Http\Controllers\API\LifestyleInterestsController;
-use App\Http\Controllers\API\MaritalStatusController;
-use App\Http\Controllers\API\OriginController;
-use App\Http\Controllers\API\PersonalAttributesController;
-use App\Http\Controllers\API\PetController;
+use App\Http\Controllers\Api\FinancialStatusController;
+use App\Http\Controllers\Api\GeographicCulturalSocioeconomicController;
+use App\Http\Controllers\Api\HobbyController;
+use App\Http\Controllers\Api\HousingStatusController;
+use App\Http\Controllers\Api\LifestyleInterestsController;
+use App\Http\Controllers\Api\MaritalStatusController;
+use App\Http\Controllers\Api\OriginController;
+use App\Http\Controllers\Api\PersonalAttributesController;
+use App\Http\Controllers\Api\PetController;
 
 use App\Http\Controllers\Api\HeightController;
-use App\Http\Controllers\API\ProfessionalEducationalController;
-use App\Http\Controllers\API\ReligiousLevelController;
+use App\Http\Controllers\Api\ProfessionalEducationalController;
+use App\Http\Controllers\Api\ReligiousLevelController;
 use App\Http\Controllers\Api\WeightController;
-use App\Http\Controllers\API\HairColorController;
-use App\Http\Controllers\API\ReligionController;
-use App\Http\Controllers\API\EducationalLevelController;
-use App\Http\Controllers\API\SportsActivityController;
-use App\Http\Controllers\API\PositionLevelController;
-use App\Http\Controllers\API\SpecializationController;
+use App\Http\Controllers\Api\HairColorController;
+use App\Http\Controllers\Api\ReligionController;
+use App\Http\Controllers\Api\EducationalLevelController;
+use App\Http\Controllers\Api\SportsActivityController;
+use App\Http\Controllers\Api\PositionLevelController;
+use App\Http\Controllers\Api\SpecializationController;
 
-use App\Http\Controllers\API\SkinColorController;
-use App\Http\Controllers\API\SmokingToolController;
+use App\Http\Controllers\Api\SkinColorController;
+use App\Http\Controllers\Api\SmokingToolController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\FCMController;
 use Illuminate\Http\Request;
