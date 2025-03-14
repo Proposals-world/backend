@@ -65,10 +65,11 @@ class SubscriptionPackagesDataTable extends DataTable
     {
         return [
             'id',
-            'package_name_en', // use the correct column name
-            'package_name_ar', // use the correct column name
-            'created_at',
-            'updated_at',
+            'package_name_en',
+            'package_name_ar',
+            'price',
+            'duration_days',
+            'contact_limit',
         ];
     }
 

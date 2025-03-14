@@ -439,7 +439,7 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b1.jpg') }}"
+                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-1.jpeg') }}"
                                         alt="blog"></a>
                             </div>
                             <div class="blog-content">
@@ -449,7 +449,7 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
                                     </ul>
                                 </div>
                                 <h4>
-                                    <a href="#">{{ __('home.blog_post_title1') }}</a>
+                                    <a href="{{route('blog-details')}}">{{ __('home.blog_post_title1') }}</a>
                                 </h4>
                                 <p>{{ __('home.blog_post_desc1') }}</p>
 
@@ -460,7 +460,7 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b2.jpg') }}"
+                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-2.jpeg') }}"
                                         alt="blog"></a>
                             </div>
                             <div class="blog-content">
@@ -480,7 +480,7 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
                     <div class="col-lg-4 col-md-12">
                         <div class="single-post mb-30">
                             <div class="blog-thumb">
-                                <a href="#"><img src="{{ asset('frontend/img/blog/inner_b3.jpg') }}"
+                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-3.jpeg') }}"
                                         alt="blog"></a>
                             </div>
                             <div class="blog-content">
@@ -490,7 +490,7 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
                                     </ul>
                                 </div>
                                 <h4>
-                                    <a href="#">{{ __('home.blog_post_title3') }}</a>
+                                    <a href="{{route('blog-details')}}">{{ __('home.blog_post_title3') }}</a>
                                 </h4>
                                 <p>{{ __('home.blog_post_desc3') }}</p>
 

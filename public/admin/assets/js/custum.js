@@ -94,13 +94,16 @@ function editModal(editClass, route, title = 'Edit', form_id, table_id) {
                             if (data.status === 422) {
                                 $("#btn-submit").prop("disabled", false)
                                 $.each(data.errors, function (index, value) {
-                                    console.log(index)
                                     var error = '<span class="text-danger span_error"> ' + value + '</span>'
-                                    $('[name="' + index + '"]').parent().last().append(error)
+                                    if (index.split('.').length > 1) {
+                                        $('#error').last().append(error)
+                                    } else {
+                                        $('[name="' + index + '"]').parent().last().append(error)
+                                    }
                                 });
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Oops,there were an errors...',
+                                    title: 'Oops, there were errors...',
                                 })
                             } else {
                                 Swal.fire({

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('package_name_en');
             $table->string('package_name_ar');
             $table->decimal('price', 10, 2);
-            $table->integer('duration_days');
+            $table->integer('duration_days')->nullable();
             $table->integer('contact_limit');
             $table->timestamps();
         });

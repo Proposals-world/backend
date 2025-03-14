@@ -43,8 +43,7 @@ class MarriageBudgetsDataTable extends DataTable
             'id',
             'budget_en',
             'budget_ar',
-            'created_at',
-            'updated_at',
+
         ];
     }
 

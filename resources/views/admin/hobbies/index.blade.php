@@ -25,7 +25,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Hobby List</h4>
                             <a class="btn btn-primary mb-3" id="add_btn">Add Hobby</a>
                             <div class="table-responsive">
                                 {{ $dataTable->table([

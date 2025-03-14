@@ -4,20 +4,20 @@
     <!-- Brand Logo Light -->
     <a href="index.html" class="logo logo-light">
         <span class="logo-lg">
-            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="logo">
+            <img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="logo">
         </span>
         <span class="logo-sm">
-            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="small logo">
+            <img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="small logo">
         </span>
     </a>
 
     <!-- Brand Logo Dark -->
     <a href="index.html" class="logo logo-dark">
         <span class="logo-lg">
-            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo">
+            <img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="dark logo">
         </span>
         <span class="logo-sm">
-            <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="small logo">
+            <img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="small logo">
         </span>
     </a>
 
@@ -37,10 +37,11 @@
         <div class="leftbar-user p-3 text-white">
             <a href="pages-profile.html" class="d-flex align-items-center text-reset">
                 <div class="flex-shrink-0">
-                    <img src="{{asset('admin/assets/images/users/avatar-1.jpg')}}" alt="user-image" height="42" class="rounded-circle shadow">
+                    <img src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}" alt="user-image" height="42"
+                        class="rounded-circle shadow">
                 </div>
                 <div class="flex-grow-1 ms-2">
-                    <span class="fw-semibold fs-15 d-block">Doris Larson</span>
+                    <span class="fw-semibold fs-15 d-block">{{ Auth::user()->first_name ?? 'Guest' }} </span>
                     <span class="fs-13">Founder</span>
                 </div>
                 <div class="ms-auto">
@@ -55,7 +56,7 @@
             <li class="side-nav-title mt-1"> Main</li>
 
             <li class="side-nav-item">
-                <a href="{{route('dashboard')}}" class="side-nav-link">
+                <a href="{{ route('dashboard') }}" class="side-nav-link">
                     <i class="ri-dashboard-2-fill"></i>
                     <span class="badge bg-success float-end" style="background-color: #9e086c !important;">9+</span>
                     <span> Dashboard </span>
@@ -63,7 +64,7 @@
             </li>
 
             <li class="side-nav-title mt-2">Managment</li>
-{{--
+            {{--
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false" aria-controls="sidebarLocations" class="side-nav-link">
                     <i class="ri-user-location-fill"></i>
@@ -87,7 +88,51 @@
             </li> --}}
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarSubscriptions" aria-expanded="false" aria-controls="sidebarSubscriptions" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false" aria-controls="sidebarLocations" class="side-nav-link">
+                    <i class="ri-user-location-fill"></i>
+                    <span> Users </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarLocations">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{route('admins.index')}}" class="side-nav-link">
+                                <span> Admins </span>
+                            </a>
+                        </li>
+                        {{-- <li class="side-nav-item">
+                            <a href="" class="side-nav-link">
+                                <span> Cities </span>
+                            </a>
+                        </li> --}}
+                    </ul>
+                </div>
+            </li> 
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false"
+                    aria-controls="sidebarLocations" class="side-nav-link">
+                    <i class="ri-newspaper-line"></i>
+                    <span> Blogs </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarLocations">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ route('blogs.index') }}" class="side-nav-link">
+                                <span> Blogs </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('categories.index') }}" class="side-nav-link">
+                                <span> Categories </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarSubscriptions" aria-expanded="false"
+                    aria-controls="sidebarSubscriptions" class="side-nav-link">
                     <i class="ri-vip-crown-line"></i>
                     <span> Subscriptions </span>
                     <span class="menu-arrow"></span>
@@ -95,7 +140,7 @@
                 <div class="collapse" id="sidebarSubscriptions">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{route('subscription-packages.index')}}" class="side-nav-link">
+                            <a href="{{ route('subscription-packages.index') }}" class="side-nav-link">
                                 <i class="ri-vip-diamond-line"></i>
                                 <span> Subscription Packages </span>
                             </a>
@@ -110,7 +155,8 @@
                 </a>
             </li> --}}
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarEducation" aria-expanded="false" aria-controls="sidebarEducation" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarEducation" aria-expanded="false"
+                    aria-controls="sidebarEducation" class="side-nav-link">
                     <i class="ri-book-line"></i>
                     <span> Education </span>
                     <span class="menu-arrow"></span>
@@ -118,7 +164,7 @@
                 <div class="collapse" id="sidebarEducation">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{route('specializations.index')}}" class="side-nav-link">
+                            <a href="{{ route('specializations.index') }}" class="side-nav-link">
                                 <i class="ri-bookmark-line"></i>
                                 <span> Specializations </span>
                             </a>
@@ -133,7 +179,8 @@
             </li> --}}
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarPerson" aria-expanded="false" aria-controls="sidebarPerson" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarPerson" aria-expanded="false" aria-controls="sidebarPerson"
+                    class="side-nav-link">
                     <i class="ri-user-3-line"></i>
                     <span> Customer Info </span>
                     <span class="menu-arrow"></span>
@@ -141,31 +188,32 @@
                 <div class="collapse" id="sidebarPerson">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{route('origins.index')}}" class="side-nav-link">
+                            <a href="{{ route('origins.index') }}" class="side-nav-link">
                                 <i class="ri-map-pin-line"></i>
                                 <span> Origins </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('marriage-budgets.index')}}" class="side-nav-link">
+                            <a href="{{ route('marriage-budgets.index') }}" class="side-nav-link">
                                 <i class="ri-money-dollar-circle-line"></i>
                                 <span> Marriage Budgets </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('religions.index')}}" class="side-nav-link">
+                            <a href="{{ route('religions.index') }}" class="side-nav-link">
                                 <i class="ri-heart-2-line"></i>
                                 <span> Religions </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('pets.index')}}" class="side-nav-link d-flex align-items-center">
-                                <img width="16px" style="margin-left: 7px;" class="me-2" src="{{asset('admin/assets/images/svg/paw-solid.svg')}}" alt="">
+                            <a href="{{ route('pets.index') }}" class="side-nav-link d-flex align-items-center">
+                                <img width="16px" style="margin-left: 7px;" class="me-2"
+                                    src="{{ asset('admin/assets/images/svg/paw-solid.svg') }}" alt="">
                                 <span> Pets </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('hobbies.index')}}" class="side-nav-link">
+                            <a href="{{ route('hobbies.index') }}" class="side-nav-link">
                                 <i class="ri-paint-brush-line"></i>
                                 <span> Hobbies </span>
                             </a>

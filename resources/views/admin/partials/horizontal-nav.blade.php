@@ -185,7 +185,6 @@
                             <i class="ri-layout-line"></i>Layouts <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-layouts">
-                            <a href="layouts-horizontal.html" class="dropdown-item" target="_blank">Horizontal</a>
                             <a href="layouts-detached.html" class="dropdown-item" target="_blank">Detached</a>
                             <a href="layouts-full.html" class="dropdown-item" target="_blank">Full</a>
                             <a href="layouts-fullscreen.html" class="dropdown-item" target="_blank">Fullscreen</a>

@@ -484,11 +484,6 @@ class ThemeCustomizer {
                 self.changeLayoutPosition(element.value);
             })
         });
-        document.querySelectorAll('input[name=data-layout]').forEach(function (element) {
-            element.addEventListener('change', function (e) {
-                window.location = element.value === 'horizontal' ? 'layouts-horizontal.html' : 'index.html'
-            })
-        });
         document.querySelectorAll('input[name=data-topbar-color]').forEach(function (element) {
             element.addEventListener('change', function (e) {
                 self.changeTopbarColor(element.value);

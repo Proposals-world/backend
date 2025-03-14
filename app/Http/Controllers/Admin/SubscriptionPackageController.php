@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\SubscriptionPackagesDataTable;
 use App\Http\Controllers\Controller;
@@ -28,7 +28,7 @@ class SubscriptionPackageController extends Controller
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'duration_days' => 'required|integer|min:1', // Duration in days
+            'duration_days' => 'nullable|integer|min:1', // Duration in days
             'contact_limit' => 'required|integer|min:0', // New field
 
         ]);
@@ -51,23 +51,26 @@ class SubscriptionPackageController extends Controller
     }
 
 
-    public function update(Request $request, SubscriptionPackage $package)
+    public function update(Request $request, $id)
     {
-
         // Validate form data
         $validatedData = $request->validate([
-            'subscription_package_id' => 'required',
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'duration_days' => 'required|integer|min:1',
+            'duration_days' => 'nullable|integer|min:1',
             'contact_limit' => 'required|integer|min:0',
         ]);
+    
+        // Find the package first
+        $package = SubscriptionPackage::findOrFail($id);
+    
+        // Debugging: Check the request data
+        \Log::info('Updating Package', $validatedData);
+    
         // Update the subscription package
-        // dd($request->all());
         $package->update($validatedData);
-
-
+    
         return response()->json(['message' => 'Subscription package updated successfully']);
     }
     public function destroy($id)

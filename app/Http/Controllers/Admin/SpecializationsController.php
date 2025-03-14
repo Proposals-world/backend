@@ -11,12 +11,12 @@ class SpecializationsController extends Controller
 {
     public function index(SpecializationsDataTable $dataTable)
     {
-        return $dataTable->render('admin.specializations.index');
+        return $dataTable->render('admin.Specializations.index');
     }
 
     public function create()
     {
-        return view('admin.specializations.create');
+        return view('admin.Specializations.create');
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class SpecializationsController extends Controller
 
     public function edit(Specialization $specialization)
     {
-        return view('admin.specializations.create', compact('specialization'));
+        return view('admin.Specializations.create', compact('specialization'));
     }
 
     public function update(Request $request, Specialization $specialization)
