@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+
 class UserProfileService
 {
     /**
@@ -51,10 +52,51 @@ class UserProfileService
             ]);
         });
     }
+    public function getAuthenticatedUserProfileFromRequest(string $lang = 'en'): ?User
+    {
+        $user = request()->user();
+
+        if (!$user) {
+            return null;
+        }
+
+        // Validate language parameter
+        $lang = in_array($lang, ['en', 'ar']) ? $lang : 'en';
+
+        // Optionally, cache the profile data to optimize performance
+        return Cache::remember("user_profile_{$user->id}_{$lang}", 60, function () use ($user) {
+            return $user->load([
+                'profile.nationality',
+                'profile.origin',
+                'profile.religion',
+                'profile.countryOfResidence',
+                'profile.city',
+                'profile.zodiacSign',
+                'profile.educationalLevel',
+                'profile.specialization',
+                'profile.jobTitle',
+                'profile.positionLevel',
+                'profile.financialStatus',
+                'profile.housingStatus',
+                'profile.height',
+                'profile.weight',
+                'profile.maritalStatus',
+                'profile.skinColor',
+                'profile.hairColor',
+                'profile.drinkingStatus',
+                'profile.sportsActivity',
+                'profile.socialMediaPresence',
+                'profile.smokingTools', // Many-to-many relationship
+                'photos',
+                'hobbies', // Many-to-many relationship
+                'pets', // Many-to-many relationship
+            ]);
+        });
+    }
     public function updateProfile(User $user, array $data, string $lang)
     {
         $profile = $user->profile ?? $user->profile()->create([]);
-// dd($data);
+        // dd($data);
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en,
@@ -80,9 +122,9 @@ class UserProfileService
             'social_media_presence_id' => $data['social_media_presence_id'] ?? null,
             'marital_status_id' => $data['marital_status_id'],
             'children' => $data['number_of_children'] ?? null,
-            'housing_id' => $data['housing_status_id']?? null,
-            'hijab_status' => $data['hijab_status']?? 0,
-            'position_level_id' => $data['position_level_id']?? null,
+            'housing_id' => $data['housing_status_id'] ?? null,
+            'hijab_status' => $data['hijab_status'] ?? 0,
+            'position_level_id' => $data['position_level_id'] ?? null,
             'financial_status_id' => $data['financial_status_id'] ?? null,
             'health_issues_en' => $data['health_issues_en'] ?? null,
             'car_ownership' => $data['car_ownership'] ?? null,

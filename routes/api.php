@@ -53,6 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
+    Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     // tickets routes
     Route::get('/all-tickets', [TicketsController::class, 'getTickets']);
     Route::post('/create-ticket', [TicketsController::class, 'createTicket']);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserProfilePhotoRequest;
 use App\Http\Requests\UpdateUserProfileRequest;
 use App\Http\Resources\UserProfileResource;
+use App\Models\User;
 use App\Services\UserProfileService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,6 +38,32 @@ class UserProfileController extends Controller
 
         // Get the authenticated user
         $user = $request->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => $lang === 'ar' ? 'غير مصرح به.' : 'Unauthorized.'
+            ], 401);
+        }
+
+        // Fetch user profile using the service
+        $userProfile = $this->userProfileService->getAuthenticatedUserProfile($user, $lang);
+
+        if (!$userProfile) {
+            return response()->json([
+                'message' => $lang === 'ar' ? 'ملف المستخدم غير موجود.' : 'User profile not found.'
+            ], 404);
+        }
+
+        // Return the user profile using the resource
+        return new UserProfileResource($userProfile, $lang);
+    }
+    public function getUserWithProfile(Request $request)
+    {
+        // Validate 'lang' parameter
+        $lang = $request->header('Accept-Language', 'en');
+
+        // Get the authenticated user
+        $user = User::where('id', $request->input('user_id'))->first();
 
         if (!$user) {
             return response()->json([
