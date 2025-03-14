@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Requests\Admin\CategoriesStoreRequest;
+use App\Http\Requests\Admin\CategoriesUpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -23,12 +25,8 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(CategoriesStoreRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255|unique:categories,name_en',
-            'name_ar' => 'required|string|max:255',
-        ]);
 
         // Generate slug dynamically from name_en
         $validatedData = $request->all();
@@ -44,12 +42,9 @@ class CategoryController extends Controller
         return view('admin.categories.create', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(CategoriesUpdateRequest $request, Category $category)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255|unique:categories,name_en,' . $category->id,
-            'name_ar' => 'required|string|max:255',
-        ]);
+
 
         // Generate slug dynamically from name_en
         $validatedData = $request->all();

@@ -41,8 +41,7 @@
                         class="rounded-circle shadow">
                 </div>
                 <div class="flex-grow-1 ms-2">
-                    <span class="fw-semibold fs-15 d-block">{{ Auth::user()->first_name ?? 'Guest' }} </span>
-                    <span class="fs-13">Founder</span>
+                    <span class="fw-semibold fs-15 d-block">{{ Auth::user()->first_name ?? 'Admin' }} </span>
                 </div>
                 <div class="ms-auto">
                     <i class="ri-arrow-right-s-fill fs-20"></i>
@@ -97,12 +96,13 @@
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{route('admins.index')}}" class="side-nav-link">
+                                <i class="ri-admin-line"></i>
                                 <span> Admins </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
                             <a href="{{route('manageUsers.index')}}" class="side-nav-link">
-                                <i class="ri-admin-line"></i>
+                                <i class="ri-user-3-line"></i>
                                 <span> Customers </span>
                             </a>
                         </li>
@@ -125,11 +125,13 @@
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{ route('blogs.index') }}" class="side-nav-link">
+                                <i class="ri-article-line"></i>
                                 <span> Blogs </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
                             <a href="{{ route('categories.index') }}" class="side-nav-link">
+                                <i class="ri-list-unordered"></i>
                                 <span> Categories </span>
                             </a>
                         </li>
