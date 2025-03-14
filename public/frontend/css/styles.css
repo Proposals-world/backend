@@ -2746,7 +2746,7 @@ section:hover .section-title h2::before {
 	margin-bottom: 18px;
 }
 
-.details__content blockquote {
+/* .details__content blockquote {
 	background: transparent linear-gradient(90deg, #7D4196 0%, #FF3494 100%) 0% 0% no-repeat padding-box;
 	padding: 30px 35px;
 	padding-left: 90px;
@@ -2758,7 +2758,7 @@ section:hover .section-title h2::before {
 	line-height: 1.7;
 	color: #fff;
 	z-index: 1;
-}
+} */
 
 .details__content blockquote::before {
 	position: absolute;

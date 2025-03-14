@@ -16,10 +16,72 @@ class BlogController extends Controller
         return $dataTable->render('admin.blogs.index');
     }
 
-    public function show()
+    public function show($id)
     {
-        
+        $locale = app()->getLocale(); // Detect the current locale
+
+        $blog = Blog::with('categories')->findOrFail($id);
+
+        // Format the blog details based on the locale
+        $formattedBlog = [
+            'title' => $locale === 'ar' ? $blog->title_ar : $blog->title_en,
+            'slug' => $blog->slug,
+            'content' => $locale === 'ar' ? $blog->content_ar : $blog->content_en,
+            'image' => $blog->image ?  $blog->image : null, // Handle image path
+            // 'views' => $blog->views,
+            // 'status' => ucfirst($blog->status),
+            // 'seo_title' => $locale === 'ar' ? $blog->seo_title_ar : $blog->seo_title_en,
+            // 'seo_description' => $blog->seo_description,
+            // 'seo_keywords' => $blog->seo_keywords,
+            'categories' => $blog->categories->map(function ($category) use ($locale) {
+                return [
+                    'name' => $locale === 'ar' ? $category->name_ar : $category->name_en,
+                    'slug' => $category->slug,
+                ];
+            }),
+        ];
+        // dd($formattedBlog);
+        $otherBlogs = Blog::where('status', 'published')->where('id', '!=', $id)->get();
+        $otherBlogs = $otherBlogs->random(min(3, $otherBlogs->count()))->map(function ($blog) use ($locale) {
+            return [
+                'id' => $blog->id,
+                'title' => $locale === 'ar' ? $blog->title_ar : $blog->title_en,
+                'slug' => $blog->slug,
+                'image' => $blog->image ? $blog->image : null,
+                'excerpt' => $locale === 'ar' ? Str::limit($blog->content_ar, 100) : Str::limit($blog->content_en, 100),
+            ];
+        });
+
+        $previousBlog = Blog::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        $nextBlog = Blog::where('id', '>', $id)->orderBy('id')->first();
+
+        if ($previousBlog) {
+            $previousBlog = [
+                'id' => $previousBlog->id,
+                'title' => $locale === 'ar' ? $previousBlog->title_ar : $previousBlog->title_en,
+                'slug' => $previousBlog->slug,
+                'image' => $previousBlog->image ? $previousBlog->image : null,
+            ];
+        }
+
+        if ($nextBlog) {
+            $nextBlog = [
+                'id' => $nextBlog->id,
+                'title' => $locale === 'ar' ? $nextBlog->title_ar : $nextBlog->title_en,
+                'slug' => $nextBlog->slug,
+                'image' => $nextBlog->image ? $nextBlog->image : null,
+            ];
+        }
+        // dD($nextBlog);
+        return view('blog-details')->with([
+            'formattedBlog' => $formattedBlog,
+            'otherBlogs' => $otherBlogs,
+            'previousBlog' => $previousBlog,
+            'nextBlog' => $nextBlog
+        ]);
     }
+
+
     public function create()
     {
         $categories = Category::all();
@@ -38,13 +100,13 @@ class BlogController extends Controller
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
         ]);
-    
+
         // Handle Image Upload
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('blogs', 'public'); // Saves to storage/app/public/blogs
         }
-    
+
         $blog = Blog::create([
             'title_en' => $request->title_en,
             'title_ar' => $request->title_ar,
@@ -54,9 +116,9 @@ class BlogController extends Controller
             'status' => $request->status,
             'image' => $imagePath, // Store image path
         ]);
-    
+
         $blog->categories()->sync($request->categories);
-    
+
         return redirect()->route('blogs.index')->with('success', 'Blog added successfully');
     }
 
@@ -78,7 +140,7 @@ class BlogController extends Controller
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
         ]);
-    
+
         // Handle Image Upload
         if ($request->hasFile('image')) {
             // Delete the old image if exists
@@ -88,7 +150,7 @@ class BlogController extends Controller
             $imagePath = $request->file('image')->store('blogs', 'public');
             $blog->image = $imagePath;
         }
-    
+
         $blog->update([
             'title_en' => $request->title_en,
             'title_ar' => $request->title_ar,
@@ -97,9 +159,9 @@ class BlogController extends Controller
             'content_ar' => $request->content_ar,
             'status' => $request->status,
         ]);
-    
+
         $blog->categories()->sync($request->categories);
-    
+
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
     }
 

@@ -7,7 +7,7 @@
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
                     <div class="breadcrumb-wrap text-center">
                         <div class="breadcrumb-title mt-60 mb-30">
-                            <h2>News Details</h2>                                  
+                            <h2>News Details</h2>
                         </div>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -28,65 +28,21 @@
                 <div class="col-lg-8">
                     <div class="blog-details-wrap">
                     <div class="bsingle__post-thumb mb-30">
-                            {{-- <img src="{{asset('frontend/img/blog/inner_b1.jpg')}}" alt=""> --}}
-                        </div>
+                        <img src="{{asset('storage/' . $formattedBlog['image']) }}" alt="">
+                    </div>
                         <div class="details__content pb-50">
-                            <h2>With our vastly improved notifications system, users
-                                have more control on your mind.</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip
-                                ex ea commodo amet set for your cool happiness for lyour loyal city.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip
-                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deser unt
-                                mollit anim id est
-                                laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusant ium doloremque
-                                laudantium, totam rem
-                                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                                explicabo. Nemo enim
-                                ipsam voluptatem quia voluptas sit asperna tur aut odit aut fugit, sed quia consequuntur magni dolores
-                                eos qui
-                                ratione voluptatem sequi nesciunt. Neque porro quisquam est.</p>
-                            <blockquote>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                with ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation a deef
-                                ullamco laboris nisi ut aliquip ex ea commodo consequat see you again tommorow.
-                                <footer>- Rosalina Pong</footer>
-                            </blockquote>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip
-                                ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deser unt
-                                mollit anim id est
-                                laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusant.</p>
-                            <div class="details__content-img">
+                            {{-- blog title --}}
+                            <h2>{{ $formattedBlog['title'] }}</h2>
+
+                            <p>{!! $formattedBlog['content'] !!}</p>
+                            {{-- .details__content blockquote {
+ --}}
+
+                            {{-- <div class="details__content-img">
                                 <img src="{{asset('frontend/img/blogs/blog-1.jpeg')}}" alt="">
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip
-                                ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deser unt
-                                mollit anim id est
-                                laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan tium doloremque
-                                laudantium, totam rem
-                                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi archi tecto beatae vitae dicta sunt
-                                explicabo. Nemo enim
-                                ipsam voluptatem quia voluptas sit asperna tur aut odit aut fugit, sed quia consequuntur magni dolores
-                                eos qui
-                                ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                consectetur,
-                                adipisci velit, sed quia non num quam eius modi tempora incidunt ut labore et dolore magnam aliquam
-                                quaerat voluptatem.
-                                Lorem ipsum dolor sit amet,consectetur adipisicing elit, sed do eiusmod incididunt.</p>
-                            <figure>
+                            </div> --}}
+
+                            {{-- <figure>
                                 <img src="{{asset('frontend/img/blogs/blog-4.jpeg')}}" alt="">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
                                     et dolore magna
@@ -99,65 +55,57 @@
                                     unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
                                     eaque ipsa quae ab
                                     illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                            </figure>
-                     
+                            </figure> --}}
+
                         </div>
                         <div class="posts_navigation pt-35 pb-35">
                             <div class="row align-items-center">
                                 <div class="col-xl-4 col-md-5">
-                                    <div class="prev-link">
-                                        <span>Prev Post</span>
-                                        <h4><a href="#">Tips on Minimalist</a></h4>
-                                    </div>
+                                    @if($previousBlog)
+                                        <div class="prev-link">
+                                            <span>{{ __('blog.Prev_Post') }}</span>
+                                            <h4><a href="{{ route('blog-details', $previousBlog['id']) }}">{{ $previousBlog['title'] }}</a></h4>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="col-xl-4 col-md-2 text-left text-md-center">
-                                    <a  class="blog-filter"><img src="{{asset('frontend/img/icon/c_d01.png')}}" alt=""></a>
+                                    <a class="blog-filter"><img src="{{asset('frontend/img/icon/c_d01.png')}}" alt=""></a>
                                 </div>
                                 <div class="col-xl-4 col-md-5">
-                                    <div class="next-link text-left text-md-right">
-                                        <span>next Post</span>
-                                        <h4><a href="#">Less Is More</a></h4>
-                                    </div>
+                                    @if($nextBlog)
+                                        <div class="next-link text-left text-md-right">
+                                            <span>{{ __('blog.Next_Post') }}</span>
+                                            <h4><a href="{{ route('blog-details', $nextBlog['id']) }}">{{ $nextBlog['title'] }}</a></h4>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <div class="related__post mt-45 mb-85">
                             <div class="post-title">
-                                <h4>Related Post</h4>
+                                <h4>{{ __('blog.Other_Blogs') }}</h4>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="related-post-wrap mb-30">
-                                        <div class="post-thumb">
-                                            <img src="{{asset('frontend/img/blogs/blog-3.jpeg')}}" alt="">
-                                        </div>
-                                        <div class="rp__content">
-                                            <h3><a href="#">A series of iOS 7 inspire
-                                                    vector icons.</a></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or
-                                                incididunt ut labore et dolore.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="related-post-wrap mb-30">
-                                        <div class="post-thumb">
-                                            <img src="{{asset('frontend/img/blogs/blog-2.jpeg')}}" alt="">
-                                        </div>
-                                        <div class="rp__content">
-                                            <h3><a href="#">Sed ut perspiciatis unde omnis iste natus.</a></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or
-                                                incididunt ut labore et dolore.</p>
+                                @foreach ($otherBlogs as $blog)
+                                    <div class="col-md-6">
+                                        <div class="related-post-wrap mb-30">
+                                            <div class="post-thumb">
+                                                <img src="{{asset('storage/' . $blog['image']) }}" alt="">
+                                            </div>
+                                            <div class="rp__content">
+                                                <h3><a href="{{ route('blog-details', $blog['id']) }}">{{ $blog['title'] }}</a></h3>
+                                                <p>{!! Str::limit($blog['excerpt'], 100) !!}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <aside>
-                        <div class="widget mb-40">
+                        {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>Search</h4>
                             </div>
@@ -167,11 +115,11 @@
                                     <button><i class="fas fa-search"></i></button>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="widget mb-40">
                             <div class="widget-title text-center">
-                                <h4>Follow Us</h4>
+                                <h4>{{ __('blog.Follow_Us') }}</h4>
                             </div>
                             <div class="widget-social text-center">
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -183,18 +131,16 @@
                         </div>
                         <div class="widget mb-40">
                             <div class="widget-title text-center">
-                                <h4>Categories</h4>
+                                <h4>{{ __('blog.Categories') }}</h4>
                             </div>
                             <ul class="cat__list">
-                                <li><a href="#">Lifestyle <span>(05)</span></a></li>
-                                <li><a href="#">Travel <span>(34)</span></a></li>
-                                <li><a href="#">Fashion <span>(89)</span></a></li>
-                                <li><a href="#">Music <span>(92)</span></a></li>
-                                <li><a href="#">Branding <span>(56)</span></a></li>
+                                @foreach ($formattedBlog['categories'] as $category)
+                                    <li><a>{{ $category['name'] }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
 
-                        <div class="widget mb-40">
+                        {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>Tags</h4>
                             </div>
@@ -214,7 +160,7 @@
                                     <li><a href="#">08</a></li>
                                 </ul>
                             </div>
-                        </div>                               
+                        </div> --}}
                     </aside>
                 </div>
             </div>

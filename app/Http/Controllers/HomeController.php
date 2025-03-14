@@ -26,7 +26,18 @@ class HomeController extends Controller
                 'answer' => $locale === 'ar' ? $faq->answer_ar : $faq->answer_en,
             ];
         });
-        return view('welcome', compact('subscriptionPackage', 'faqs'));
+        // Fetch Blogs where status is published
+        $blogs = Blog::where('status', 'published')->get()->map(function ($blog) use ($locale) {
+            return [
+                'id' => $blog->id,
+                'title' => $locale === 'ar' ? $blog->title_ar : $blog->title_en,
+                'content' => $locale === 'ar' ? $blog->content_ar : $blog->content_en,
+                'author' => $blog->author,
+                'created_at' => $blog->created_at,
+                'image' => $blog->image,
+            ];
+        });
+        return view('welcome', compact('subscriptionPackage', 'faqs', 'blogs'));
     }
 
 

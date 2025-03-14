@@ -1,9 +1,8 @@
-
-#header-ul{
+#header-ul {
     text-align: left !important;
 }
-.s-img{
-    transform: rotate(-14deg)!important;
+.s-img {
+    transform: rotate(-14deg) !important;
 }
 /* rtl.css */
 html[dir="rtl"] body {
@@ -19,25 +18,31 @@ html[dir="rtl"] .text-right {
     text-align: right !important;
     padding-right: 0px !important;
 }
-.app-work-content h4{
+.app-work-content h4 {
     text-align: right !important;
 }
-
-
+.details__content {
+    text-align: right;
+}
+.cat__list li {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 10px;
+    text-align: right;
+}
 .faq-btn {
-
     text-align: right !important;
 }
-.faq-wrap .card-body{
+.faq-wrap .card-body {
     text-align: right !important;
 }
-.newslater input{
+.newslater input {
     margin-right: 123px;
 }
 /* Add RTL-specific tweaks */
-html[dir="rtl"] .slider-content, 
-html[dir="rtl"] .section-title, 
-html[dir="rtl"] .contact-form, 
+html[dir="rtl"] .slider-content,
+html[dir="rtl"] .section-title,
+html[dir="rtl"] .contact-form,
 html[dir="rtl"] .pricing-box {
     text-align: right;
 }
@@ -74,4 +79,7 @@ html[dir="rtl"] .pricing-box {
     position: absolute;
     top: -16px;
     left: 0px !important;
+}
+.related__post {
+    text-align: right;
 }

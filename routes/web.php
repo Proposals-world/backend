@@ -32,7 +32,7 @@ use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
-Route::get('/blog-details', [HomeController::class, 'blogDetails'])->name('blog-details');
+Route::get('/blog-details/{id}', [BlogController::class, 'show'])->name('blog-details');
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 
 
@@ -43,31 +43,30 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-// admins route
-Route::prefix('admin')->group(function () {
-    Route::resource('countries', CountriesController::class);
-    Route::resource('origins', OriginController::class);
-    Route::resource('sports-activities', SportsActivitiesController::class);
-    Route::resource('hair-colors', HairColorsController::class);
-    Route::resource('pets', PetsController::class);
-    Route::resource('hobbies', HobbiesController::class);
-    Route::resource('drinking-statuses', DrinkingStatusesController::class);
-    Route::resource('cities', CitiesController::class);
-    Route::resource('educational-levels', EducationalLevelsController::class);
-    Route::resource('specializations', SpecializationsController::class);
-    Route::resource('blogs', BlogController::class);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('features', FeatureController::class);
-    Route::resource('subscription-packages', SubscriptionPackageController::class);
-    Route::resource('marriage-budgets', MarriageBudgetsController::class);
-    Route::resource('religions', ReligionController::class);
-    Route::resource('admins', AdminsController::class);
-    Route::resource('manageUsers', AdminController::class)->parameters([
-        'manageUsers' => 'user' // Ensure Laravel uses 'user' as the model key
-    ]);
-    Route::resource('faqs', FaqsController::class);
-
-});
+    // admins route
+    Route::prefix('admin')->group(function () {
+        Route::resource('countries', CountriesController::class);
+        Route::resource('origins', OriginController::class);
+        Route::resource('sports-activities', SportsActivitiesController::class);
+        Route::resource('hair-colors', HairColorsController::class);
+        Route::resource('pets', PetsController::class);
+        Route::resource('hobbies', HobbiesController::class);
+        Route::resource('drinking-statuses', DrinkingStatusesController::class);
+        Route::resource('cities', CitiesController::class);
+        Route::resource('educational-levels', EducationalLevelsController::class);
+        Route::resource('specializations', SpecializationsController::class);
+        Route::resource('blogs', BlogController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('features', FeatureController::class);
+        Route::resource('subscription-packages', SubscriptionPackageController::class);
+        Route::resource('marriage-budgets', MarriageBudgetsController::class);
+        Route::resource('religions', ReligionController::class);
+        Route::resource('admins', AdminsController::class);
+        Route::resource('manageUsers', AdminController::class)->parameters([
+            'manageUsers' => 'user' // Ensure Laravel uses 'user' as the model key
+        ]);
+        Route::resource('faqs', FaqsController::class);
+    });
 
     Route::resource('blogs', BlogController::class);
 });

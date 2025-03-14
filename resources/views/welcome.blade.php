@@ -424,78 +424,38 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
         <section id="blog" class="blog-area p-relative pt-70"
             style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-10">
-                        <div class="section-title text-center mb-50">
-                            <h2>{{ __('home.blog_title') }}</h2>
-                            <p>{{ __('home.blog_desc') }}</p>
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-10">
+                <div class="section-title text-center mb-50">
+                    <h2>{{ __('home.blog_title') }}</h2>
+                    <p>{{ __('home.blog_desc') }}</p>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($blogs as $blog)
+                <div class="col-lg-4 col-md-12">
+                    <div class="single-post mb-30">
+                    <div class="blog-thumb">
+                        @if(isset($blog['image']))
+                            <a href="{{ route('blog-details', $blog['id']) }}"><img src="{{ asset('storage/' . $blog['image']) }}" alt="blog"></a>
+                        @endif
+                    </div>
+                    <div class="blog-content">
+                        <div class="b-meta mb-40">
+                        <ul>
+                            <li><a href="#">{{ $blog['created_at']->format('d M Y') }}</a></li>
+                        </ul>
                         </div>
+                        <h4>
+                        <a href="{{ route('blog-details', $blog['id']) }}">{{ $blog['title'] }}</a>
+                        </h4>
+                        <p>{{ strip_tags(Str::limit($blog['content'], 100)) }}</p>
+                    </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Blog Post 1 -->
-                    <div class="col-lg-4 col-md-12">
-                        <div class="single-post mb-30">
-                            <div class="blog-thumb">
-                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-1.jpeg') }}"
-                                        alt="blog"></a>
-                            </div>
-                            <div class="blog-content">
-                                <div class="b-meta mb-40">
-                                    <ul>
-                                        <li><a href="#">20 Jan 2019</a></li>
-                                    </ul>
-                                </div>
-                                <h4>
-                                    <a href="{{route('blog-details')}}">{{ __('home.blog_post_title1') }}</a>
-                                </h4>
-                                <p>{{ __('home.blog_post_desc1') }}</p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Blog Post 2 -->
-                    <div class="col-lg-4 col-md-12">
-                        <div class="single-post mb-30">
-                            <div class="blog-thumb">
-                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-2.jpeg') }}"
-                                        alt="blog"></a>
-                            </div>
-                            <div class="blog-content">
-                                <div class="b-meta mb-40">
-                                    <ul>
-                                        <li><a href="#">20 Jan 2019</a></li>
-                                    </ul>
-                                </div>
-                                <h4>
-                                    <a href="#">{{ __('home.blog_post_title2') }}</a>
-                                </h4>
-                                <p>{{ __('home.blog_post_desc2') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Blog Post 3 -->
-                    <div class="col-lg-4 col-md-12">
-                        <div class="single-post mb-30">
-                            <div class="blog-thumb">
-                                <a href="{{route('blog-details')}}"><img src="{{ asset('frontend/img/blogs/blog-3.jpeg') }}"
-                                        alt="blog"></a>
-                            </div>
-                            <div class="blog-content">
-                                <div class="b-meta mb-40">
-                                    <ul>
-                                        <li><a href="#">20 Jan 2019</a></li>
-                                    </ul>
-                                </div>
-                                <h4>
-                                    <a href="{{route('blog-details')}}">{{ __('home.blog_post_title3') }}</a>
-                                </h4>
-                                <p>{{ __('home.blog_post_desc3') }}</p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+            </div>
             </div>
         </section>
         <!-- blog-area-end -->
