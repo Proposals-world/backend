@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+// this for managing customers
 class AdminController extends Controller
 {
     public function index(UsersDataTable $dataTable)

@@ -129,11 +129,10 @@ class FilterController extends Controller
                             }
                         }
                     }
-    
                     // If data is found, break out of the loop
-                    if (!$query->get()->isEmpty()) {
-                        break;
-                    }
+                if (!$query->get()->isEmpty()) {
+                    break;
+                }
                 }
             }
         }

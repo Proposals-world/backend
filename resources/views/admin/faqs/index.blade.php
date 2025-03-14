@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title', 'Users')
+@section('title', 'faqs')
 
-@section('page-title', 'Users Dashboard - Users')
+@section('page-title', 'Admin Dashboard - faqs')
 
-@section('subtitle', 'Users')
+@section('subtitle', 'faqs')
 
 @section('content')
     <div class="content">
@@ -12,11 +12,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
-                        <h4 class="page-title">Users List</h4>
+                        <h4 class="page-title">Faqs List</h4>
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Jidox</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Users List</li>
+                            <li class="breadcrumb-item active">Faqs List</li>
                         </ol>
                     </div>
                 </div>
@@ -25,8 +25,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Users List</h4>
-                            {{-- <a class="btn btn-primary mb-3" id="add_btn">Add User</a> --}}
+                            <h4 class="header-title">Faqs List</h4>
+                            <a class="btn btn-primary mb-3" id="add_btn">Add Faqs</a>
                             <div class="table-responsive">
                                 {{ $dataTable->table([
                                     'class' => 'table table-bordered table-hover  w-100',
@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modal" tabindex="-1" >
+    <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,9 +57,9 @@
 {{ $dataTable->scripts() }}
 
 <script>
-    addModal('add_btn', '{{ route('manageUsers.create') }}', 'Add User ', 'userForm', 'users-table');
-    editModal('edit_btn', 'admin/manageUsers', 'Edit User', 'userForm', 'users-table');
-    remove('remove_btn', 'admin/manageUsers', 'users-table', '{{ csrf_token() }}');
+    addModal('add_btn', '{{ route('faqs.create') }}', 'Add Faqs ', 'faqForm', 'faqs-table');
+    editModal('edit_btn', 'admin/faqs', 'Edit Faqs', 'faqForm', 'faqs-table');
+    remove('remove_btn', 'admin/faqs', 'faqs-table', '{{ csrf_token() }}');
 </script>
 @endpush
 

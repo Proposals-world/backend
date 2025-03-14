@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\admin\SubscriptionPackageController;
 use App\Http\Controllers\admin\ReligionsController;
+use App\Http\Controllers\Admin\FaqsController;
+
 // use App\Http\Controllers\AdminUserController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
@@ -59,9 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin/subscription-packages', SubscriptionPackageController::class);
     Route::resource('admin/marriage-budgets', MarriageBudgetsController::class);
     Route::resource('admin/religions', ReligionController::class);
-    Route::resource('admin/manageAdmins', AdminController::class)->parameters([
-        'manageAdmins' => 'user' // Ensure Laravel uses 'user' as the model key
+    Route::resource('admin/manageUsers', AdminController::class)->parameters([
+        'manageUsers' => 'user' // Ensure Laravel uses 'user' as the model key
     ]);
+    Route::resource('admin/faqs', FaqsController::class);
 });
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('blogs', BlogController::class);

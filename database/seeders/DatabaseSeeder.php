@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
             UserPhotosTableSeeder::class,
             SmokingToolsSeeder::class,
             FeatureSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }
