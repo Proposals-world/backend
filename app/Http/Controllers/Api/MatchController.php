@@ -15,7 +15,7 @@ class MatchController extends Controller
         if (!Auth::user()) {
             return response()->json(["failed" => "Unauthorized"], 401);
         };
-        $matches = UserMatch::with(['user1', 'user2'])->where('user1_id', Auth::user()->id)->get();
+        $matches = UserMatch::with(['user1', 'user2'])->where('user1_id', Auth::user()->id)->orWhere('user2_id', Auth::user()->id)->get();
         return MatchResource::collection($matches);
     }
 }

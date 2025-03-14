@@ -16,7 +16,6 @@ class HomeController extends Controller
             return [
                 'package_name' => $locale === 'ar' ? $package->package_name_ar : $package->package_name_en,
                 'price' => $package->price,
-                'duration_days' => $package->duration_days,
                 'contact_limit' => $package->contact_limit,
             ];
         });

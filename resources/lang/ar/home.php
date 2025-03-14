@@ -137,7 +137,7 @@ return [
     'contact_button' => 'أرسل الرسالة',
 
 
-
-    'days' => 'يومًا',
-    'contact_limit' => 'أرقام الاتصال:',
+'no_packages_available' => 'لا توجد باقات متاحة',
+'days' => 'يومًا',
+'contact_limit' => 'حدود الاتصال:',
 ];

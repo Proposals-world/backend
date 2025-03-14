@@ -28,7 +28,6 @@ class SubscriptionPackageController extends Controller
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'duration_days' => 'nullable|integer|min:1', // Duration in days
             'contact_limit' => 'required|integer|min:0', // New field
 
         ]);
@@ -58,7 +57,6 @@ class SubscriptionPackageController extends Controller
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'duration_days' => 'nullable|integer|min:1',
             'contact_limit' => 'required|integer|min:0',
         ]);
     

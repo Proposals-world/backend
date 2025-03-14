@@ -17,7 +17,6 @@ class SubscriptionPackageRequest extends FormRequest
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
             'price'           => 'required|numeric|min:0',
-            'duration_days'   => 'required|integer|min:1',
             'contact_limit'   => 'required|integer|min:0',
             // Optionally validate features if provided:
             'features'        => 'array',

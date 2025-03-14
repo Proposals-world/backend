@@ -400,9 +400,7 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
                                     </div>
                                     <div class="pricing-body mb-40 text-left">
                                         <ul>
-                                            <li>{{ __('home.days') }}: {{ $package['duration_days'] }}</li>
                                             <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
-
                                         </ul>
                                     </div>
                                     <div class="pricing-btn">

@@ -30,12 +30,6 @@
                value="{{ old('price', $subscriptionPackage->price ?? '') }}" required>
     </div>
 
-    <!-- Duration in Days -->
-    <div class="mb-3">
-        <label for="duration_days" class="form-label">Duration (Days)</label>
-        <input type="number" name="duration_days" id="duration_days" class="form-control"
-               value="{{ old('duration_days', $subscriptionPackage->duration_days ?? '') }}" required>
-    </div>
 
     <!-- Contact Limit -->
     <div class="mb-3">

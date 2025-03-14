@@ -15,7 +15,6 @@ class SubscriptionPackagesTableSeeder extends Seeder
                 'package_name_ar' => 'أساسي',
 
                 'price' => 19.99,
-                'duration_days' => 30,
                 'contact_limit' => 10,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -25,7 +24,6 @@ class SubscriptionPackagesTableSeeder extends Seeder
                 'package_name_ar' => 'بريميوم',
 
                 'price' => 49.99,
-                'duration_days' => 90,
                 'contact_limit' => 50,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -35,7 +33,6 @@ class SubscriptionPackagesTableSeeder extends Seeder
                 'package_name_ar' => 'ذهبي',
 
                 'price' => 99.99,
-                'duration_days' => 180,
                 'contact_limit' => 100,
                 'created_at' => now(),
                 'updated_at' => now(),
