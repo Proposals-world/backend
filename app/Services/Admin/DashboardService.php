@@ -3,7 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Models\User;
-use App\Models\MatchedUser;
+use App\Models\UserMatch;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -14,8 +14,8 @@ class DashboardService
         // Get the total number of users with role_id = 2
         $totalUsers = User::where('role_id', 2)->count();
 
-        // Get the total number of matches using MatchedUser model
-        $totalMatches = MatchedUser::count();
+        // Get the total number of matches using UserMatch model
+        $totalMatches = UserMatch::count();
 
         // Get the number of users last month
         $lastMonthUsers = User::where('role_id', 2)
@@ -28,7 +28,7 @@ class DashboardService
             ->count();
 
         // Get the number of matches since last month
-        $matchesSinceLastMonth = MatchedUser::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
+        $matchesSinceLastMonth = UserMatch::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
 
         // Calculate growth percentage for this month
         $growthPercentage = $lastMonthUsers > 0 ? (($thisMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;

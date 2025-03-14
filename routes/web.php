@@ -62,6 +62,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('marriage-budgets', MarriageBudgetsController::class);
     Route::resource('religions', ReligionController::class);
     Route::resource('admins', AdminsController::class);
+    Route::resource('manageUsers', AdminController::class)->parameters([
+        'manageUsers' => 'user' // Ensure Laravel uses 'user' as the model key
+    ]);
     Route::resource('faqs', FaqsController::class);
 
 });

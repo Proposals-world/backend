@@ -100,6 +100,12 @@
                                 <span> Admins </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('manageUsers.index')}}" class="side-nav-link">
+                                <i class="ri-admin-line"></i>
+                                <span> Customers </span>
+                            </a>
+                        </li>
                         {{-- <li class="side-nav-item">
                             <a href="" class="side-nav-link">
                                 <span> Cities </span>
