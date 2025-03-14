@@ -18,24 +18,24 @@ class FilterController extends Controller
         // Get user preferences
         $preferences = UserPreference::where('user_id', Auth::id())->first();
         $isFromFilter = $request->input('isFilter', false);
-
+    
         // Start query with base conditions
         $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
             ->whereHas('user', function ($query) {
                 $query->where('gender', '!=', Auth::user()->gender)
                     ->where('role_id', '!=', 1);
             });
-
+    
         // Exclude liked & disliked users
         $likedUsers = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
-
+    
         $query->whereNotIn('id', $likedUsers)
             ->whereNotIn('id', $dislikedUsers);
-
+    
         // **Define Filters Based on Preferences or Request**
         $filters = [];
-
+    
         if ($preferences && !$isFromFilter) {
             $filters = [
                 'nationality_id' => $preferences->preferred_nationality_id,
@@ -60,7 +60,7 @@ class FilterController extends Controller
                 'language_id' => $preferences->preferred_language_id,
                 'marriage_budget_id' => $preferences->preferred_marriage_budget_id
             ];
-
+    
             if (!is_null($preferences->preferred_age_min) && !is_null($preferences->preferred_age_max)) {
                 $filters['age'] = [$preferences->preferred_age_min, $preferences->preferred_age_max];
             }
@@ -89,12 +89,12 @@ class FilterController extends Controller
                 'marriage_budget_id' => $request->marriage_budget_id,
                 'language_id' => $request->language_id
             ];
-
+    
             if ($request->filled('age_min') && $request->filled('age_max')) {
                 $filters['age'] = [$request->age_min, $request->age_max];
             }
         }
-
+    
         // **Apply Filters Initially**
         foreach ($filters as $key => $value) {
             if (!is_null($value)) {
@@ -105,13 +105,12 @@ class FilterController extends Controller
                 }
             }
         }
-
+    
         // **If No Data Found, Relax Filters One by One**
         if ($query->get()->isEmpty()) {
             foreach ($filters as $key => $value) {
                 if (!is_null($value)) {
-                    // Reset Query
-                    $finalQuery = null;
+                    // Reset Query to base criteria
                     $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
                         ->whereHas('user', function ($query) {
                             $query->where('gender', '!=', Auth::user()->gender)
@@ -119,7 +118,7 @@ class FilterController extends Controller
                         })
                         ->whereNotIn('id', $likedUsers)
                         ->whereNotIn('id', $dislikedUsers);
-
+    
                     // Apply all filters **except the one being relaxed**
                     foreach ($filters as $filterKey => $filterValue) {
                         if ($filterKey !== $key && !is_null($filterValue)) {
@@ -130,22 +129,32 @@ class FilterController extends Controller
                             }
                         }
                     }
+    
                     // If data is found, break out of the loop
                     if (!$query->get()->isEmpty()) {
-                        $finalQuery = $query;
                         break;
-                    } else {
-                        array_pop($filters); // Removes the last filter
                     }
                 }
             }
         }
-        dd($finalQuery);
+    
+        // **Final Fallback: If No Data Found, Return All Users Based on Gender & Role**
+        if ($query->get()->isEmpty()) {
+            $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
+                ->whereHas('user', function ($query) {
+                    $query->where('gender', '!=', Auth::user()->gender)
+                        ->where('role_id', '!=', 1);
+                })
+                ->whereNotIn('id', $likedUsers)
+                ->whereNotIn('id', $dislikedUsers);
+        }
+    
         // **Return Final Results**
-        $users = $finalQuery->get();
+        $users = $query->get();
         return response()->json([
             'message' => 'success',
             'users' => FilteredUserResource::collection($users),
         ], 200);
     }
+    
 }

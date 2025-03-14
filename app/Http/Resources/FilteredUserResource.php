@@ -37,19 +37,19 @@ class FilteredUserResource extends JsonResource
                     'is_main' => $photo->is_main,
                 ];
             }),
-            // Pets
-            'pets' => $this->user->pets ? $this->user->pets->map(function ($pet) {
-                return [
-                    'id' => $pet->id,
-                    'name' => $this->lang === 'ar' ? $pet->name_ar : $pet->name_en,
-                ];
-            }) : [],
-            'smooking_tools' => $this->smokingTools->map(function ($tool) {
-                return [
-                    'id' => $tool->id,
-                    'name' => $tool->name_en,
-                ];
-            }),
+            // // Pets
+            // 'pets' => $this->user->pets ? $this->user->pets->map(function ($pet) {
+            //     return [
+            //         'id' => $pet->id,
+            //         'name' => $this->lang === 'ar' ? $pet->name_ar : $pet->name_en,
+            //     ];
+            // }) : [],
+            // 'smooking_tools' => $this->smokingTools->map(function ($tool) {
+            //     return [
+            //         'id' => $tool->id,
+            //         'name' => $tool->name_en,
+            //     ];
+            // }),
 
 
         ];
