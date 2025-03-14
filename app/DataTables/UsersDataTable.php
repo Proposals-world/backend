@@ -49,8 +49,6 @@ class UsersDataTable extends DataTable
             'profile_status',
             'gender',
             'status',
-            'created_at',
-            'updated_at',
         ];
     }
 

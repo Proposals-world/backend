@@ -251,12 +251,7 @@
                 </a>
                 <div class="collapse" id="sidebarManagement">  <!-- Changed ID here -->
                     <ul class="side-nav-second-level">
-                        <li class="side-nav-item">
-                            <a href="{{route('manageUsers.index')}}" class="side-nav-link">
-                                <i class="ri-admin-line"></i>
-                                <span> Manage Users </span>
-                            </a>
-                        </li>
+
 
                         <li class="side-nav-item">
                             <a href="{{route('faqs.index')}}" class="side-nav-link">
