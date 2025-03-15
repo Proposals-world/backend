@@ -6,7 +6,7 @@
             <!-- Topbar Brand Logo -->
             <div class="logo-topbar">
                 <!-- Logo light -->
-                <a href="index.html" class="logo-light">
+                <a href="{{ route('dashboard') }}" class="logo-light">
                     <span class="logo-lg">
                         <img src="{{asset('admin/assets/images/logo.png')}}" alt="logo">
                     </span>
@@ -16,7 +16,7 @@
                 </a>
 
                 <!-- Logo Dark -->
-                <a href="index.html" class="logo-dark">
+                <a href="{{ route('dashboard') }}" class="logo-dark">
                     <span class="logo-lg">
                         <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo" >
                     </span>
@@ -143,38 +143,38 @@
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
                     <!-- item-->
                     <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome !</h6>
+                        <h6 class="text-overflow m-0">Welcome {{ Auth::user()->first_name ?? 'Admin' }}!</h6>
                     </div>
 
-                    <!-- item-->
-                    <a href="pages-profile.html" class="dropdown-item">
+                    {{-- <!-- item-->
+                    <a href="#" class="dropdown-item">
                         <i class="ri-account-circle-fill align-middle me-1"></i>
                         <span>My Account</span>
-                    </a>
+                    </a> --}}
+
+
 
                     <!-- item-->
-                    <a href="pages-profile.html" class="dropdown-item">
-                        <i class="ri-settings-4-fill align-middle me-1"></i>
-                        <span>Settings</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="pages-faq.html" class="dropdown-item">
+                    {{-- <a href="pages-faq.html" class="dropdown-item">
                         <i class="ri-customer-service-2-fill align-middle me-1"></i>
                         <span>Support</span>
-                    </a>
+                    </a> --}}
 
-                    <!-- item-->
+                    {{-- <!-- item-->
                     <a href="auth-lock-screen.html" class="dropdown-item">
                         <i class="ri-lock-password-fill align-middle me-1"></i>
                         <span>Lock Screen</span>
-                    </a>
+                    </a> --}}
 
                     <!-- item-->
-                    <a href="auth-logout-2.html" class="dropdown-item">
+                    <a href="{{ route('logout') }}" class="dropdown-item" 
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="ri-logout-box-fill align-middle me-1"></i>
                         <span>Logout</span>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </li>
         </ul>
