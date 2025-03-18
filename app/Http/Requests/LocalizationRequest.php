@@ -3,14 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use App\Http\Requests\DefaultRequest;
 
-
-class FeatureRequest extends FormRequest
+class LocalizationRequest extends FormRequest
 {
 
     use DefaultRequest;
-    public function rules()
+
+    public function rules(): array
     {
         return [
             'name_en' => 'required|string|max:255',

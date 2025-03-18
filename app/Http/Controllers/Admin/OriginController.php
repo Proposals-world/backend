@@ -6,6 +6,7 @@ use App\DataTables\OriginsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Origin;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class OriginController extends Controller
 {
@@ -28,14 +29,9 @@ class OriginController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        Origin::create($request->all());
+        Origin::create($request->validated());
 
         return response()->json(['message' => 'Origin added successfully']);
     }
@@ -51,14 +47,9 @@ class OriginController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Origin $origin)
+    public function update(LocalizationRequest $request, Origin $origin)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $origin->update($request->all());
+        $origin->update($request->validated());
 
         return response()->json(['message' => 'Origin updated successfully']);
     }

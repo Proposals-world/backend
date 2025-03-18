@@ -4,12 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Http\Requests\DefaultRequest;
+
 class UpdateUserProfileRequest extends FormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
+
+    use DefaultRequest;
+
 
     public function rules()
     {
@@ -58,13 +59,13 @@ class UpdateUserProfileRequest extends FormRequest
 
         if ($this->input('smoking_status') == 1) {
             $rules['smoking_tools'] = [
-            'required',
-            'array',
-            function ($attribute, $value, $fail) {
-                if (empty($value)) {
-                $fail('You should specify the smoking tools.');
-                }
-            },
+                'required',
+                'array',
+                function ($attribute, $value, $fail) {
+                    if (empty($value)) {
+                        $fail('You should specify the smoking tools.');
+                    }
+                },
             ];
         }
 

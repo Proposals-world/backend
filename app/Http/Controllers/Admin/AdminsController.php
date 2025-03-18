@@ -32,6 +32,7 @@ class AdminsController extends Controller
      */
     public function store(AdminsStoreRequest $request)
     {
+        $validatedData = $request->validated();
         $admin = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Http\Requests\DefaultRequest;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -13,8 +14,11 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    use DefaultRequest;
     public function rules(): array
     {
+
+
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => [

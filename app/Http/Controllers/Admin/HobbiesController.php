@@ -6,6 +6,7 @@ use App\DataTables\HobbiesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Hobby;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class HobbiesController extends Controller
 {
@@ -19,14 +20,9 @@ class HobbiesController extends Controller
         return view('admin.hobbies.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        Hobby::create($request->all());
+        Hobby::create($request->validated());
 
         return response()->json(['message' => 'Hobby added successfully']);
     }
@@ -36,14 +32,9 @@ class HobbiesController extends Controller
         return view('admin.hobbies.create', compact('hobby'));
     }
 
-    public function update(Request $request, Hobby $hobby)
+    public function update(LocalizationRequest $request, Hobby $hobby)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $hobby->update($request->all());
+        $hobby->update($request->validated());
 
         return response()->json(['message' => 'Hobby updated successfully']);
     }

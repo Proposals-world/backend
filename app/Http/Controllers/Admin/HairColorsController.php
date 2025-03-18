@@ -6,6 +6,7 @@ use App\DataTables\HairColorsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\HairColor;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class HairColorsController extends Controller
 {
@@ -22,18 +23,12 @@ class HairColorsController extends Controller
     }
 
     // Store a new hair color
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
+        HairColor::create($request->validated());
 
-        HairColor::create($request->all());
-
-        return response()->json(['message' => 'Hair color added successfully']);
+        return response()->json(['message' => 'Hair color added successfully'], 201);
     }
-
     // Show the form to edit an existing hair color
     public function edit(HairColor $hairColor)
     {
@@ -41,18 +36,12 @@ class HairColorsController extends Controller
     }
 
     // Update an existing hair color
-    public function update(Request $request, HairColor $hairColor)
+    public function update(LocalizationRequest $request, HairColor $hairColor)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $hairColor->update($request->all());
+        $hairColor->update($request->validated());
 
         return response()->json(['message' => 'Hair color updated successfully']);
     }
-
     // Delete a hair color
     public function destroy(HairColor $hairColor)
     {

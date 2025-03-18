@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\EducationalLevelsDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LocalizationRequest;
 use App\Models\EducationalLevel;
 use Illuminate\Http\Request;
 
@@ -19,31 +20,22 @@ class EducationalLevelsController extends Controller
         return view('admin.educationalLevels.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
+        EducationalLevel::create($request->validated());
 
-        EducationalLevel::create($request->all());
-
-        return response()->json(['message' => 'Educational Level added successfully']);
+        return response()->json(['message' => 'Educational Level created successfully'], 201);
     }
-
     public function edit(EducationalLevel $educationalLevel)
     {
         return view('admin.educationalLevels.create', compact('educationalLevel'));
     }
 
-    public function update(Request $request, EducationalLevel $educationalLevel)
+    public function update(LocalizationRequest $request, EducationalLevel $educationalLevel)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
 
-        $educationalLevel->update($request->all());
+
+        $educationalLevel->update($request->validated());
 
         return response()->json(['message' => 'Educational Level updated successfully']);
     }

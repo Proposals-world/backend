@@ -6,6 +6,7 @@ use App\DataTables\SpecializationsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Specialization;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class SpecializationsController extends Controller
 {
@@ -19,14 +20,9 @@ class SpecializationsController extends Controller
         return view('admin.Specializations.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        Specialization::create($request->all());
+        Specialization::create($request->validated());
 
         return response()->json(['message' => 'Specialization added successfully']);
     }
@@ -36,18 +32,12 @@ class SpecializationsController extends Controller
         return view('admin.Specializations.create', compact('specialization'));
     }
 
-    public function update(Request $request, Specialization $specialization)
+    public function update(LocalizationRequest $request, Specialization $specialization)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $specialization->update($request->all());
+        $specialization->update($request->validated());
 
         return response()->json(['message' => 'Specialization updated successfully']);
     }
-
     public function destroy(Specialization $specialization)
     {
         $specialization->delete();

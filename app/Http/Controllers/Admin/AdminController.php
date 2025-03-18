@@ -27,21 +27,12 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'phone_number' => 'nullable|string|unique:users,phone_number',
-            'password' => 'required|string|min:6',
-            'gender' => 'required|string|in:male,female',
-            'role_id' => 'required|exists:roles,id',
-        ]);
+        $validatedData = $request->validated();
 
-        // return response()->json(['message' => 'Validation Passed!', 'data' => $validatedData], 200);
-
-        // If validation passes, hash password and create user
+        // Hash the password
         $validatedData['password'] = Hash::make($validatedData['password']);
 
+        // Create the user
         User::create($validatedData);
 
         return response()->json(['message' => 'Admin created successfully'], 201);
@@ -50,16 +41,9 @@ class AdminController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $data = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone_number' => 'nullable|unique:users,phone_number,' . $user->id,
-            'gender' => 'required|string|in:male,female',
-            'role_id' => 'required|exists:roles,id',
-        ]);
+        $validatedData = $request->validated();
 
-        $user->update($data);
+        $user->update($validatedData);
 
         return response()->json(['message' => 'Admin updated successfully']);
     }
