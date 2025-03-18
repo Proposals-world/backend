@@ -294,10 +294,202 @@ label {
 #scrollUp:hover {
 	background: #ff3494;
 }
+
 #header-phone-image {
 	max-height: 650px !important;
 	width: auto !important;
 }
+
+
+.slider-area {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.container {
+	position: relative;
+	z-index: 10;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.matchmaking-form-wrapper {
+	background-color: #ffffff;
+	border-radius: 15px;
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+	padding: 35px;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 20;
+	transition: all 0.3s ease;
+}
+
+/* If you want to add a slight elevation effect */
+.matchmaking-form-wrapper::after {
+	content: '';
+	position: absolute;
+	bottom: -10px;
+	left: 0;
+	right: 0;
+	height: 10px;
+	background: rgba(0, 0, 0, 0.05);
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	z-index: -1;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+	.matchmaking-form-wrapper {
+		margin-top: 20vh;
+	}
+}
+
+
+@media (max-width: 768px) {
+	.matchmaking-form-wrapper {
+		padding: 25px;
+		max-width: 90%;
+	}
+
+	.slider-area {
+		min-height: auto;
+		padding: 50px 0;
+	}
+}
+
+.matchmaking-form-wrapper:hover {
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+	transform: translateY(-5px);
+}
+
+.matchmaking-form-group {
+	margin-bottom: 20px;
+}
+
+.matchmaking-form-label {
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.matchmaking-form-options {
+	display: flex;
+	justify-content: space-between;
+}
+
+.matchmaking-radio-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.matchmaking-radio-input {
+	margin-right: 10px;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	outline: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.matchmaking-radio-input:checked {
+	background-color: #ff4081;
+	border-color: #ff4081;
+}
+
+.matchmaking-radio-label {
+	color: #666;
+	cursor: pointer;
+}
+
+.matchmaking-age-range {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.matchmaking-select-wrapper {
+	flex: 1;
+}
+
+.matchmaking-select-input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	appearance: none;
+	background-color: #f9f9f9;
+	transition: all 0.3s ease;
+}
+
+.matchmaking-select-input:focus {
+	border-color: #ff4081;
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.1);
+}
+
+.matchmaking-age-separator {
+	color: #666;
+}
+
+.matchmaking-form-submit {
+	margin-top: 20px;
+}
+
+.matchmaking-submit-btn {
+	width: 100%;
+	padding: 12px;
+	background-color: #ff4081;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.matchmaking-submit-btn:hover {
+	background-color: #ff2d6a;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(255, 64, 129, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+.matchmaking-form-options {
+    display: flex
+;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.matchmaking-form-group {
+    margin-bottom: 20px;
+    display: flex
+;
+    justify-content: space-between;
+    gap: 10px;
+}
+.matchmaking-select-input {
+	max-width: 150px;
+}
+#country-select{
+	max-width: 150px;
+}
+}
+
+
+
 /* 2. header */
 .header-top {
 	padding-top: 40px;
@@ -719,17 +911,19 @@ label {
 
 .s-img {
 	margin-left: 114px;
-    margin-top: 180px !important;
-    transform: rotate(14deg) !important;
+	margin-top: 180px !important;
+	transform: rotate(14deg) !important;
 }
 
 .slick-slider {
 	z-index: 999;
 }
-#pricing-plan-cards{
+
+#pricing-plan-cards {
 	display: flex;
 	justify-content: center;
 }
+
 .small-title {
 	background: #f7f4fe;
 	display: inline-block;
@@ -914,7 +1108,7 @@ label {
 }
 
 .second-slider-content {
-	padding-top: 285px;
+	padding-top: 135px;
 	padding-bottom: 5px;
 	z-index: 999;
 	position: relative;
@@ -4099,7 +4293,7 @@ li.has-sub.has-mega-menu:hover>ul>li>ul {
 }
 
 .sidebar-widget .widget li.page_item_has_children {
-padding-bottom: 0;
+	padding-bottom: 0;
 }
 
 .sidebar-widget .widget .children {
@@ -5458,7 +5652,7 @@ pre cite {
 	width: 400px;
 	height: 750px;
 	top: -38px;
-    left: -40px;
+	left: -40px;
 	background-image: url(../img/bg/iphone-slider.png);
 	z-index: 99;
 }

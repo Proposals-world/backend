@@ -84,7 +84,7 @@
     <script src="{{ asset('frontend/js/element-in-view.js') }}"></script>
     <script src="{{ asset('frontend/js/swiper.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-
+    <script src="{{ asset('frontend/js/custom.js') }}"></script>
 
 
 </body>

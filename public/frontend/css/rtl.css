@@ -83,3 +83,11 @@ html[dir="rtl"] .pricing-box {
 .related__post {
     text-align: right;
 }
+
+.matchmaking-form-wrapper{
+    text-align: right !important;
+}
+
+.matchmaking-radio-wrapper{
+    gap:10px;
+}

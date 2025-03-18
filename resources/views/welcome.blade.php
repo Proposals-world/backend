@@ -35,9 +35,83 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <img id="header-phone-image" src="{{ asset('frontend/img/gallery/home.png') }}" alt="app"
-                            class="s-img">
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="matchmaking-form-wrapper">
+                            <form class="matchmaking-form">
+                                <div class="matchmaking-form-group">
+                                    <div class="matchmaking-form-label">{{ __('home.gender_label') }}</div>
+                                    <div class="matchmaking-form-options">
+                                        <div class="matchmaking-radio-wrapper">
+                                            <input type="radio" id="gender-male" name="gender"
+                                                class="matchmaking-radio-input" value="man">
+                                            <label for="gender-male" class="matchmaking-radio-label">{{ __('home.man') }}</label>
+                                        </div>
+                                        <div class="matchmaking-radio-wrapper">
+                                            <input type="radio" id="gender-female" name="gender"
+                                                class="matchmaking-radio-input" value="woman">
+                                            <label for="gender-female" class="matchmaking-radio-label">{{ __('home.woman') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <!-- Seeking Selection -->
+                                <div class="matchmaking-form-group">
+                                    <div class="matchmaking-form-label">{{ __('home.seeking_label') }}</div>
+                                    <div class="matchmaking-form-options">
+                                        <div class="matchmaking-radio-wrapper">
+                                            <input type="radio" id="seeking-man" name="seeking"
+                                                class="matchmaking-radio-input" value="man">
+                                            <label for="seeking-man" class="matchmaking-radio-label">{{ __('home.man') }}</label>
+                                        </div>
+                                        <div class="matchmaking-radio-wrapper">
+                                            <input type="radio" id="seeking-woman" name="seeking"
+                                                class="matchmaking-radio-input" value="woman">
+                                            <label for="seeking-woman" class="matchmaking-radio-label">{{ __('home.woman') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <!-- Age Selection -->
+                                <div class="matchmaking-form-group">
+                                    <div class="matchmaking-form-label">{{ __('home.age_label') }}</div>
+                                    <div class="matchmaking-age-range">
+                                        <div class="matchmaking-select-wrapper">
+                                            <select class="matchmaking-select-input">
+                                                <option value="">18</option>
+                                                <option value="">20</option>
+                                                <option value="">24</option>
+                                            </select>
+                                        </div>
+                                        <span class="matchmaking-age-separator">-</span>
+                                        <div class="matchmaking-select-wrapper">
+                                            <select class="matchmaking-select-input">
+                                                <option value="">30</option>
+                                                <option value="">35</option>
+                                                <option value="">40</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <!-- Country Selection -->
+                                <div class="matchmaking-form-group">
+                                    <div class="matchmaking-form-label">{{ __('home.country_label') }}</div>
+                                    <div id="country-select" class="matchmaking-select-wrapper">
+                                        <select class="matchmaking-select-input">
+                                            <option>{{ __('home.select_country') }}</option>
+                                            <option value="">India</option>
+                                            <option value="">Japan</option>
+                                            <option value="">England</option>
+                                        </select>
+                                    </div>
+                                </div>
+                    
+                                <!-- Submit Button -->
+                                <div class="matchmaking-form-submit">
+                                    <button type="submit" class="matchmaking-submit-btn">{{ __('home.join_now') }}</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,7 +189,7 @@
             style="direction: ltr; background-image: url({{ asset('frontend/img/shape/header-sape3.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="chosse-img" style="background-image: url({{ asset('frontend/img/bg/easy-m-bg.png') }})"></div>
 
-            <div class="container" >
+            <div class="container">
                 <div class="row">
                     <div class="col-xl-5"></div>
                     <div class="col-xl-7">
@@ -135,7 +209,8 @@
                                     </a>
                                     <a href="#" class="g-btn">
                                         <span class="icon">
-                                            <img src="{{ asset('frontend/img/icon/g-play-icon.png') }}" alt="g-play-icon">
+                                            <img src="{{ asset('frontend/img/icon/g-play-icon.png') }}"
+                                                alt="g-play-icon">
                                         </span>
                                         <span class="text"> {{ __('home.google_play') }} <strong>GOOGLE
                                                 PLAY</strong></span>
@@ -150,7 +225,7 @@
         <!-- choose-area-end -->
 
         <!-- how-app-work (How It Works) -->
-        <section id="features" class="app-work pt-70 pb-100 p-relative"
+        {{-- <section id="features" class="app-work pt-70 pb-100 p-relative"
             style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="container">
                 <div class="row align-items-center">
@@ -198,7 +273,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- how-app-work-end -->
 
         <!-- video-area (Meet Your Match Video) -->
@@ -296,48 +371,52 @@
         <!-- screen-area-end -->
 
         <!-- faq-area (Frequently Asked Questions) -->
-<section class="faq-area pb-100"
-style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
-<div class="container">
-    <div class="row align-items-end">
-        <div class="col-lg-6">
-            <div class="faq-img text-right">
-                <img src="{{ asset('frontend/img/icon/logos-icons.png') }}" alt="logos" class="img">
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="section-title left-align mb-50">
-                <h2>{{ __('home.faq_title') }}</h2>
-                <p>{{ __('home.faq_desc') }}</p>
-            </div>
-            <div class="faq-wrap">
-                <div class="accordion" id="accordionExample">
-                    @foreach ($faqs as $index => $faq)
-                        <div class="card">
-                            <div class="card-header" id="faqHeading{{ $index }}">
-                                <h2 class="mb-0">
-                                    <button class="faq-btn {{ $index == 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse"
-                                        data-target="#faqCollapse{{ $index }}" aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
-                                        aria-controls="faqCollapse{{ $index }}">
-                                        {{ $faq['question'] }}
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="faqCollapse{{ $index }}" class="collapse {{ $index == 0 ? 'show' : '' }}"
-                                aria-labelledby="faqHeading{{ $index }}" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    {{ $faq['answer'] }}
-                                </div>
+        <section class="faq-area pb-100"
+            style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
+            <div class="container">
+                <div class="row align-items-end">
+                    <div class="col-lg-6">
+                        <div class="faq-img text-right">
+                            <img src="{{ asset('frontend/img/icon/logos-icons.png') }}" alt="logos" class="img">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-title left-align mb-50">
+                            <h2>{{ __('home.faq_title') }}</h2>
+                            <p>{{ __('home.faq_desc') }}</p>
+                        </div>
+                        <div class="faq-wrap">
+                            <div class="accordion" id="accordionExample">
+                                @foreach ($faqs as $index => $faq)
+                                    <div class="card">
+                                        <div class="card-header" id="faqHeading{{ $index }}">
+                                            <h2 class="mb-0">
+                                                <button class="faq-btn {{ $index == 0 ? '' : 'collapsed' }}"
+                                                    type="button" data-toggle="collapse"
+                                                    data-target="#faqCollapse{{ $index }}"
+                                                    aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
+                                                    aria-controls="faqCollapse{{ $index }}">
+                                                    {{ $faq['question'] }}
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="faqCollapse{{ $index }}"
+                                            class="collapse {{ $index == 0 ? 'show' : '' }}"
+                                            aria-labelledby="faqHeading{{ $index }}"
+                                            data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                {{ $faq['answer'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-</section>
-<!-- faq-area-end -->
+        </section>
+        <!-- faq-area-end -->
 
 
         <!-- newslater-area (Subscribe for Updates) -->
@@ -424,38 +503,39 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
         <section id="blog" class="blog-area p-relative pt-70"
             style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-10">
-                <div class="section-title text-center mb-50">
-                    <h2>{{ __('home.blog_title') }}</h2>
-                    <p>{{ __('home.blog_desc') }}</p>
-                </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($blogs as $blog)
-                <div class="col-lg-4 col-md-12">
-                    <div class="single-post mb-30">
-                    <div class="blog-thumb">
-                        @if(isset($blog['image']))
-                            <a href="{{ route('blog-details', $blog['id']) }}"><img src="{{ asset('storage/' . $blog['image']) }}" alt="blog"></a>
-                        @endif
-                    </div>
-                    <div class="blog-content">
-                        <div class="b-meta mb-40">
-                        <ul>
-                            <li><a href="#">{{ $blog['created_at']->format('d M Y') }}</a></li>
-                        </ul>
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-10">
+                        <div class="section-title text-center mb-50">
+                            <h2>{{ __('home.blog_title') }}</h2>
+                            <p>{{ __('home.blog_desc') }}</p>
                         </div>
-                        <h4>
-                        <a href="{{ route('blog-details', $blog['id']) }}">{{ $blog['title'] }}</a>
-                        </h4>
-                        <p>{{ strip_tags(Str::limit($blog['content'], 100)) }}</p>
-                    </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+                <div class="row">
+                    @foreach ($blogs as $blog)
+                        <div class="col-lg-4 col-md-12">
+                            <div class="single-post mb-30">
+                                <div class="blog-thumb">
+                                    @if (isset($blog['image']))
+                                        <a href="{{ route('blog-details', $blog['id']) }}"><img
+                                                src="{{ asset('storage/' . $blog['image']) }}" alt="blog"></a>
+                                    @endif
+                                </div>
+                                <div class="blog-content">
+                                    <div class="b-meta mb-40">
+                                        <ul>
+                                            <li><a href="#">{{ $blog['created_at']->format('d M Y') }}</a></li>
+                                        </ul>
+                                    </div>
+                                    <h4>
+                                        <a href="{{ route('blog-details', $blog['id']) }}">{{ $blog['title'] }}</a>
+                                    </h4>
+                                    <p>{{ strip_tags(Str::limit($blog['content'], 100)) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </section>
         <!-- blog-area-end -->
@@ -506,5 +586,46 @@ style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }})
             </div>
         </section>
         <!-- contact-area-end -->
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const seekingRadios = document.querySelectorAll('input[name="seeking"]');
+                const genderRadios = document.querySelectorAll('input[name="gender"]');
+
+                function handleSelectionChange(source) {
+                    const selectedSeeking = document.querySelector('input[name="seeking"]:checked');
+                    const selectedGender = document.querySelector('input[name="gender"]:checked');
+
+                    if (source === "seeking" && selectedSeeking) {
+                        // Switch gender selection to the opposite
+                        genderRadios.forEach(radio => {
+                            if (radio.value !== selectedSeeking.value) {
+                                radio.checked = true;
+                            }
+                        });
+                    } else if (source === "gender" && selectedGender) {
+                        // Switch seeking selection to the opposite
+                        seekingRadios.forEach(radio => {
+                            if (radio.value !== selectedGender.value) {
+                                radio.checked = true;
+                            }
+                        });
+                    }
+                }
+
+                // Listen for changes in both radio groups
+                seekingRadios.forEach(radio => {
+                    radio.addEventListener("change", function() {
+                        handleSelectionChange("seeking");
+                    });
+                });
+
+                genderRadios.forEach(radio => {
+                    radio.addEventListener("change", function() {
+                        handleSelectionChange("gender");
+                    });
+                });
+            });
+        </script>
     </div>
 @endsection

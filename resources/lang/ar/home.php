@@ -140,4 +140,14 @@ return [
 'no_packages_available' => 'لا توجد باقات متاحة',
 'days' => 'يومًا',
 'contact_limit' => 'حدود الاتصال:',
+
+
+'gender_label' => 'أنا:',
+'seeking_label' => 'أبحث عن:',
+'age_label' => 'العمر:',
+'country_label' => 'الدولة:',
+'select_country' => 'اختر الدولة',
+'join_now' => 'انضم الآن!',
+'man' => 'رجل',
+'woman' => 'امرأة',
 ];

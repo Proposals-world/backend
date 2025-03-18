@@ -139,4 +139,14 @@ return [
 
     'no_packages_available' => 'No Packages Available',
 
+
+
+    'gender_label' => 'I am a:',
+    'seeking_label' => 'Seeking a:',
+    'age_label' => 'Ages:',
+    'country_label' => 'Country:',
+    'select_country' => 'Select Country',
+    'join_now' => 'Join Now!',
+    'man' => 'Man',
+    'woman' => 'Woman',
 ];
