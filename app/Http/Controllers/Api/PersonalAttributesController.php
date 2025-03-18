@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PersonalAttributesGroupResource;
@@ -51,7 +51,7 @@ class PersonalAttributesController extends Controller
 
         // Return using the aggregated resource
         return (new PersonalAttributesGroupResource((object)$data))
-                    ->response()
-                    ->setStatusCode(200);
+            ->response()
+            ->setStatusCode(200);
     }
 }

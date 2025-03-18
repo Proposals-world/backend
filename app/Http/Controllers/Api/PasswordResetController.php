@@ -92,9 +92,9 @@ class PasswordResetController extends Controller
 
         // Retrieve the OTP record
         $passwordResetOTP = PasswordResetOTP::where('email', $email)
-                                ->where('otp', $otp)
-                                ->where('is_used', false)
-                                ->first();
+            ->where('otp', $otp)
+            ->where('is_used', false)
+            ->first();
 
         if (!$passwordResetOTP) {
             return response()->json([
@@ -164,7 +164,7 @@ class PasswordResetController extends Controller
         ], [
             'password.regex' => 'Password must contain at least one uppercase letter, one lowercase letter, and one digit.',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -172,43 +172,43 @@ class PasswordResetController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-    
+
         $resetToken = $request->reset_token;
         $email = $request->email;
         $newPassword = $request->password;
-    
+
         // Retrieve the password reset token record by email
         $passwordReset = PasswordResetToken::where('email', $email)->first();
-    
+
         if (!$passwordReset || !Hash::check($resetToken, $passwordReset->token)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid password reset token.',
             ], 400);
         }
-    
+
         // Check if the token has expired (valid for 60 minutes)
         if (Carbon::parse($passwordReset->created_at)->addMinutes(60)->isPast()) {
             // Delete the expired token
             $passwordReset->delete();
-    
+
             return response()->json([
                 'success' => false,
                 'message' => 'Password reset token has expired.',
             ], 400);
         }
-    
+
         // Update the user's password
         $user = User::where('email', $email)->first();
         $user->password = Hash::make($newPassword);
         $user->save();
-    
+
         // Delete the password reset token to prevent reuse
         $passwordReset->delete();
-    
+
         // Optionally, send a confirmation email
         // Mail::to($user->email)->send(new PasswordResetConfirmationMail($user->name));
-    
+
         return response()->json([
             'success' => true,
             'message' => 'Your password has been reset successfully.',
