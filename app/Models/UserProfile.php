@@ -169,10 +169,7 @@ class UserProfile extends Model
         return $this->belongsTo(HairColor::class);
     }
 
-    public function smokingStatus()
-    {
-        return $this->belongsTo(SmokingStatus::class, 'smoking_status_id');
-    }
+
 
     public function drinkingStatus()
     {

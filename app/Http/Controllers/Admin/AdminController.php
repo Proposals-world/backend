@@ -61,4 +61,29 @@ class AdminController extends Controller
             return response()->json(['error' => 'Failed to delete admin', 'message' => $e->getMessage()], 500);
         }
     }
+    public function show(User $user, string $userid)
+    {
+        $user = User::with([
+            'profile' => function ($query) {
+                $query->with([
+                    'nationality',
+                    'city',
+                    'countryOfResidence',
+                    'origin',
+                    'religion',
+                    'educationalLevel',
+                    'specialization',
+                    'jobTitle',
+                    'sector',
+                    'height',
+                    'weight',
+                    'drinkingStatus',
+                    'socialMediaPresence',
+                    'zodiacSign'
+                ]);
+            },
+            'photos'
+        ])->findOrFail($userid);
+        return view('admin.viewUser', compact('user')); // Ensure this view exists
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Resources\LikeResource;
 use Illuminate\Http\Request;
 use App\Models\Like;
 use App\Models\Match;
@@ -85,5 +85,21 @@ class LikeController extends Controller
         ]);
 
         return response()->json(['message' => 'Disliked successfully.'], 200);
+    }
+
+    public function getLikes()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $likes = Like::where('user_id', $user->id)->with('user.photos')->get();
+
+        return response()->json([
+            'message' => 'Likes fetched successfully',
+            'likes' => LikeResource::collection($likes)
+        ], 200);
     }
 }

@@ -45,6 +45,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // admins route
     Route::prefix('admin')->group(function () {
+        Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
         Route::resource('countries', CountriesController::class);
         Route::resource('origins', OriginController::class);
         Route::resource('sports-activities', SportsActivitiesController::class);

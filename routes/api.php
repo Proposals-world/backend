@@ -33,9 +33,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\Api\LikeController as ApiLikeController;
 use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\Tickets\TicketsController;
+use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserPreferenceController;
 
@@ -98,16 +100,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Group 4: Geographic, Cultural & Socioeconomic Information
     Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
     // Route::get('/user-preferences', [UserPreferenceController::class, 'index']); // List all user preferences
-    Route::post('/user-preferences', [UserPreferenceController::class, 'store']); // Create a new user preference
-    Route::get('/show-user-preferences', [UserPreferenceController::class, 'show']); // Get a single user preference
-    Route::put('/user-preferences/{userPreference}', [UserPreferenceController::class, 'update']); // Update a user preference
-    Route::delete('/user-preferences/{userPreference}', [UserPreferenceController::class, 'destroy']); // Delete a user preference
+    Route::post('/user-preferences', [ApiUserPreferenceController::class, 'store']); // Create a new user preference
+    Route::get('/show-user-preferences', [ApiUserPreferenceController::class, 'show']); // Get a single user preference
+    Route::put('/user-preferences/{userPreference}', [ApiUserPreferenceController::class, 'update']); // Update a user preference
+    Route::delete('/user-preferences/{userPreference}', [ApiUserPreferenceController::class, 'destroy']); // Delete a user preference
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto']);
     Route::get('/religious-levels', [ReligiousLevelController::class, 'index']);
+    Route::get('/getlikes', [ApiLikeController::class, 'getlikes']);
 
     Route::get('/dynamic-data', [DynamicDataController::class, 'index']);
     Route::get('/users/filter', [FilterController::class, 'filterUsers']);
-    Route::post('/like', [LikeController::class, 'likeUser']);
-    Route::post('/dislike', [LikeController::class, 'dislikeUser']);
+    Route::post('/like', [ApiLikeController::class, 'likeUser']);
+    Route::post('/dislike', [ApiLikeController::class, 'dislikeUser']);
     Route::get('/matches', [MatchController::class, 'getMatches']);
 });
