@@ -345,6 +345,7 @@ label {
 	border-bottom-right-radius: 15px;
 	z-index: -1;
 }
+
 @media (min-width: 992px) and (max-width: 1200px) {
 	.matchmaking-form-wrapper {
 		margin-top: 20vh;
@@ -467,25 +468,26 @@ label {
 /* Responsive adjustments */
 @media (max-width: 768px) {
 
-.matchmaking-form-options {
-    display: flex
-;
-    justify-content: flex-start;
-    gap: 20px;
-}
-.matchmaking-form-group {
-    margin-bottom: 20px;
-    display: flex
-;
-    justify-content: space-between;
-    gap: 10px;
-}
-.matchmaking-select-input {
-	max-width: 150px;
-}
-#country-select{
-	max-width: 150px;
-}
+	.matchmaking-form-options {
+		display: flex;
+		justify-content: flex-start;
+		gap: 20px;
+	}
+
+	.matchmaking-form-group {
+		margin-bottom: 20px;
+		display: flex;
+		justify-content: space-between;
+		gap: 10px;
+	}
+
+	.matchmaking-select-input {
+		max-width: 150px;
+	}
+
+	#country-select {
+		max-width: 150px;
+	}
 }
 
 
@@ -5736,3 +5738,160 @@ pre cite {
 		justify-content: center;
 	}
 }
+
+
+
+/* onboarding css starts */
+/* Onboarding Steps Indicator */
+.onboarding-steps-indicator {
+	position: relative;
+	width: 107%;
+	margin-left: -21px;
+
+}
+
+@media (min-width: 992px) and (max-width: 1201px) {
+	#container {
+		margin-top: 100px;
+	}
+}
+
+.step-indicator {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	opacity: 0.5;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.step-indicator.active {
+	opacity: 1 !important;
+}
+
+.step-number {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #f1f1f1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	margin-bottom: 10px;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.step-indicator.active .step-number {
+	background-color: #7D4196;
+	color: white;
+	transform: scale(1.1);
+}
+
+.step-name {
+	text-align: center;
+	font-size: 0.8rem;
+	color: #666;
+}
+
+.onboarding-card {
+	background-color: rgba(255, 255, 255, 0.95);
+	border: none;
+	box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+}
+
+.section-title {
+	color: #333;
+	font-weight: 600;
+	position: relative;
+	padding-bottom: 10px;
+}
+
+.section-title::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100px;
+	height: 3px;
+	background: linear-gradient(90deg, #7D4196 0%, #FF3494 100%) 0% 0% no-repeat padding-box;
+}
+
+.form-label {
+	font-weight: 600;
+	color: #555;
+}
+
+.input-group-text {
+	background-color: #f8f9fa;
+	border: none;
+	color: #FF3494;
+}
+
+.custom-control-label {
+	cursor: pointer;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before {
+	background-color: #FF3494;
+	border-color: #7D4196;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+	#container {
+		margin-top: 50px;
+	}
+
+	.card-body {
+		padding: 0px !important;
+	}
+
+	/* Move Steps to the Right */
+	.onboarding-steps-indicator {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 10;
+	}
+
+	.no-gutters {
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Display Steps in a Vertical List */
+	.step-indicator {
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: 8px;
+		justify-content: flex-end;
+	}
+
+	.step-number {
+		width: 30px;
+		height: 30px;
+		font-size: 14px;
+		margin-right: 10px;
+		box-shadow: none;
+	}
+
+	.step-name {
+		font-size: 0.7rem;
+		color: #333;
+	}
+
+	/* Adjust Form Padding */
+	.onboarding-card {
+		padding: 20px !important;
+		margin-right: 50px;
+	}
+}
+
+/* onboarding css ends */

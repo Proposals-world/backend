@@ -45,4 +45,8 @@ class HomeController extends Controller
     {
         return view('blog-details');
     }
+    public function onboarding()
+    {
+        return view('onBoarding');
+    }
 }

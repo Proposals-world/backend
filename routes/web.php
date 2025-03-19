@@ -28,10 +28,16 @@ use App\Http\Controllers\Admin\ReligionsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
 
+// users web routes
+use App\Http\Controllers\User\OnBoardingController;
+
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
+
 Route::get('/blog-details/{id}', [BlogController::class, 'show'])->name('blog-details');
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');
 

@@ -45,6 +45,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/swiper.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/select2/css/select2.min.css') }}">
 
 </head>
 
@@ -85,8 +86,9 @@
     <script src="{{ asset('frontend/js/swiper.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    <script src="{{ asset('admin/assets/vendor/select2/js/select2.min.js') }}"></script>
 
-
+@stack('scripts')
 </body>
 
 </html>

@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     @include("admin.partials.title-meta", ["title" => "Register"])
     @include('admin.partials.head-css')
+    <style>
+        /* Custom styles for registration page if needed */
+        .auth-fluid {
+            display: flex;
+            min-height: 100vh;
+        }
+        .auth-fluid-right {
+            background: #f8f9fa;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .auth-fluid-form-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+    </style>
 </head>
-
 <body class="authentication-bg pb-0">
-
     <div class="auth-fluid">
-        <!-- Auth fluid right content -->
+        <!-- Right Content (Optional testimonial carousel) -->
         <div class="auth-fluid-right text-center">
             <div class="auth-user-testimonial">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -33,19 +52,18 @@
                 </div>
             </div>
         </div>
-        <!-- end Auth fluid right content -->
+        <!-- End Auth fluid right content -->
 
-        <!-- Auth fluid left content -->
+        <!-- Left Content: Registration Form -->
         <div class="auth-fluid-form-box">
             <div class="card-body d-flex flex-column h-100 gap-3">
-
                 <!-- Logo -->
                 <div class="auth-brand text-center text-lg-start">
                     <a href="{{ url('/') }}" class="logo-dark">
-                        <span><img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo" class="auth-logo"></span>
+                        <span><img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="dark logo" class="auth-logo"></span>
                     </a>
                     <a href="{{ url('/') }}" class="logo-light">
-                        <span><img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="logo" height="24"></span>
+                        <span><img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="logo" height="24"></span>
                     </a>
                 </div>
 
@@ -54,95 +72,123 @@
                     <h4 class="mt-3">Free Sign Up</h4>
                     <p class="text-muted mb-4">Don't have an account? Create your account, it takes less than a minute.</p>
 
-                    <!-- Laravel Form -->
+                    <!-- Registration Form -->
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <!-- Name -->
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required placeholder="Enter your name">
-                            @error('name')
-                                <div class="text-danger mt-2">{{ $message }}</div>
-                            @enderror
+                        <!-- First Name and Last Name -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required placeholder="Enter your first name">
+                                    @error('first_name')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="Enter your last name">
+                                    @error('last_name')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Email -->
+                        <!-- Email Address -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
+                            <label for="email" class="form-label">Email Address
+                            </label>
                             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required placeholder="Enter your email">
                             @error('email')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <!-- Password -->
+                        <!-- Phone Number -->
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
-                            @error('password')
+                            <label for="phone_number" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="Enter your phone number">
+                            @error('phone_number')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <!-- Confirm Password -->
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
-                            @error('password_confirmation')
-                                <div class="text-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Terms -->
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="terms" required>
-                                <label class="form-check-label" for="terms">I accept <a href="#" class="text-muted">Terms and Conditions</a></label>
+                        <!-- Password and Confirm Password -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                                    @error('password')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+                                    @error('password_confirmation')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <div class="mb-0 d-grid text-center">
-                            <button class="btn btn-primary fw-semibold" type="submit">Sign Up</button>
+                        <!-- Gender Selection -->
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <div class="d-flex justify-content-around">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" {{ old('gender') == 'male' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" {{ old('gender') == 'female' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            </div>
+                            @error('gender')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <!-- Social Links -->
-                        <div class="text-center mt-4">
-                            <p class="text-muted fs-16">Create account using</p>
-                            <ul class="social-list list-inline mt-3">
-                                <li class="list-inline-item">
-                                    <a href="#" class="social-list-item border-primary text-primary"><i class="ri-facebook-circle-fill"></i></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="social-list-item border-danger text-danger"><i class="ri-google-fill"></i></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="social-list-item border-info text-info"><i class="ri-twitter-fill"></i></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="social-list-item border-secondary text-secondary"><i class="ri-github-fill"></i></a>
-                                </li>
-                            </ul>
+                        <!-- Hidden Profile Status Field -->
+                        <input type="hidden" name="profile_status" value="pending">
+
+                        <!-- Terms and Privacy Policy -->
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                <label class="form-check-label" for="terms">I agree to the <a href="" class="text-muted">Terms of Service</a> and <a href="" class="text-muted">Privacy Policy</a></label>
+                            </div>
+                            @error('terms')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- Submit Button -->
+                        <div class="mb-0 text-center">
+                            <button class="btn btn-primary fw-semibold rounded-pill px-5" type="submit">Sign Up <i class="fas fa-user-plus ml-2"></i></button>
+                        </div>
+
                     </form>
                 </div>
 
                 <!-- Footer -->
-                <footer class="footer footer-alt">
-                    <p class="text-muted">Already have an account? <a href="{{ route('login') }}" class="text-muted ms-1"><b>Log In</b></a></p>
+                <footer class="footer footer-alt text-center">
+                    <p class="text-muted">Already have an account? <a href="{{ route('login') }}" class="ms-1 fw-bold">Log In</a></p>
                 </footer>
-
             </div>
         </div>
-        <!-- end auth-fluid-form-box -->
     </div>
 
     @include('admin.partials.footer-scripts')
-
     <!-- App js -->
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
-
 </body>
-
 </html>

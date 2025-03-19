@@ -108,7 +108,9 @@
                     
                                 <!-- Submit Button -->
                                 <div class="matchmaking-form-submit">
-                                    <button type="submit" class="matchmaking-submit-btn">{{ __('home.join_now') }}</button>
+                                    <a href="{{ route('onboarding') }}">
+                                    <button  class="matchmaking-submit-btn">{{ __('home.join_now') }}</button>
+                                </a>
                                 </div>
                             </form>
                         </div>
@@ -222,110 +224,7 @@
                 </div>
             </div>
         </section>
-        <!-- choose-area-end -->
 
-        <!-- how-app-work (How It Works) -->
-        {{-- <section id="features" class="app-work pt-70 pb-100 p-relative"
-            style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-6">
-                        <div class="choose-wrap">
-                            <div class="section-title w-title left-align mb-15">
-                                <h2>{{ __('home.how_it_works') }}</h2>
-                            </div>
-                            <div class="app-work-content mt-20">
-                                <ul>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/apw-Icon1.png') }}" alt="step 1">
-                                        </div>
-                                        <div class="text">
-                                            <h4>{{ __('home.step_1') }}</h4>
-                                            <p>{{ __('home.step_1_desc') }}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/apw-Icon2.png') }}" alt="step 2">
-                                        </div>
-                                        <div class="text">
-                                            <h4>{{ __('home.step_2') }}</h4>
-                                            <p>{{ __('home.step_2_desc') }}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/apw-Icon3.png') }}" alt="step 3">
-                                        </div>
-                                        <div class="text">
-                                            <h4>{{ __('home.step_4') }}</h4>
-                                            <p>{{ __('home.step_4_desc') }}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="how-it-works-img-section" class="col-xl-6">
-                        <img src="{{ asset('frontend/img/gallery/how_it_works.png') }}" alt="app-work-img"
-                            class="img">
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-        <!-- how-app-work-end -->
-
-        <!-- video-area (Meet Your Match Video) -->
-        {{-- <section style="direction: ltr !important;" class="video-area pt-100 pb-100 p-relative">
-            <div class="video-img2">
-                <img src="{{ asset('frontend/img/bg/video-img.png') }}" alt="video">
-                <a href="https://www.youtube.com/watch?v=7e90gBu4pas" class="popup-video">
-                    <img src="{{ asset('frontend/img/bg/play-btn.png') }}" alt="play-btn">
-                </a>
-            </div>
-            <div class="video-img3">
-                <img src="{{ asset('frontend/img/shape/header-sape5.png') }}" alt="shape">
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6"></div>
-                    <div class="col-xl-6">
-                        <div class="video-wrap">
-                            <div class="section-title w-title left-align mb-25">
-                                <h2>{{ __('home.video_title') }}</h2>
-                            </div>
-                            <div class="video-content">
-                                <p>{{ __('home.video_desc') }}</p>
-                                <ul>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/vs-icon.png') }}" alt="icon">
-                                        </div>
-                                        <div class="text">{{ __('home.video_point1') }}</div>
-                                    </li>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/vs-icon.png') }}" alt="icon">
-                                        </div>
-                                        <div class="text">{{ __('home.video_point2') }}</div>
-                                    </li>
-                                    <li>
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/img/icon/vs-icon.png') }}" alt="icon">
-                                        </div>
-                                        <div class="text">{{ __('home.video_point3') }}</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-        <!-- video-area-end -->
-
-        <!-- screen-area (App Screenshots) -->
         <section id="screen" class="screen-area services-bg services-two pt-100 pb-70"
             style="background-image: url({{ asset('frontend/img/shape/header-sape4.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="container">
@@ -587,45 +486,5 @@
         </section>
         <!-- contact-area-end -->
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const seekingRadios = document.querySelectorAll('input[name="seeking"]');
-                const genderRadios = document.querySelectorAll('input[name="gender"]');
-
-                function handleSelectionChange(source) {
-                    const selectedSeeking = document.querySelector('input[name="seeking"]:checked');
-                    const selectedGender = document.querySelector('input[name="gender"]:checked');
-
-                    if (source === "seeking" && selectedSeeking) {
-                        // Switch gender selection to the opposite
-                        genderRadios.forEach(radio => {
-                            if (radio.value !== selectedSeeking.value) {
-                                radio.checked = true;
-                            }
-                        });
-                    } else if (source === "gender" && selectedGender) {
-                        // Switch seeking selection to the opposite
-                        seekingRadios.forEach(radio => {
-                            if (radio.value !== selectedGender.value) {
-                                radio.checked = true;
-                            }
-                        });
-                    }
-                }
-
-                // Listen for changes in both radio groups
-                seekingRadios.forEach(radio => {
-                    radio.addEventListener("change", function() {
-                        handleSelectionChange("seeking");
-                    });
-                });
-
-                genderRadios.forEach(radio => {
-                    radio.addEventListener("change", function() {
-                        handleSelectionChange("gender");
-                    });
-                });
-            });
-        </script>
     </div>
 @endsection
