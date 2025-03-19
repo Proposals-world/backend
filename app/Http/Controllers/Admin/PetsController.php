@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\LocalizationRequest;
+
 use App\DataTables\PetsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Pet;
@@ -22,14 +24,9 @@ class PetsController extends Controller
     }
 
     // Store a new pet
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        Pet::create($request->all());
+        Pet::create($request->validated());
 
         return response()->json(['message' => 'Pet added successfully']);
     }
@@ -41,14 +38,9 @@ class PetsController extends Controller
     }
 
     // Update an existing pet
-    public function update(Request $request, Pet $pet)
+    public function update(LocalizationRequest $request, Pet $pet)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $pet->update($request->all());
+        $pet->update($request->validated());
 
         return response()->json(['message' => 'Pet updated successfully']);
     }

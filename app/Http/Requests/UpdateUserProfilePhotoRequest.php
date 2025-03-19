@@ -1,14 +1,14 @@
 <?php
+
 namespace App\Http\Requests;
 
+use App\Http\Requests\DefaultRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserProfilePhotoRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true; // Ensure only authenticated users can update their profile photo
-    }
+
+    use DefaultRequest;
 
     public function rules(): array
     {

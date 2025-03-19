@@ -6,6 +6,7 @@ use App\DataTables\FeaturesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Feature;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class FeatureController extends Controller
 {
@@ -19,14 +20,11 @@ class FeatureController extends Controller
         return view('admin.feature.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        Feature::create($request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]));
+        Feature::create($request->validated());
 
-        return response()->json(['message' => 'feature added successfully']);
+        return response()->json(['message' => 'Feature added successfully'], 201);
     }
 
     public function edit(Feature $feature)
@@ -34,12 +32,9 @@ class FeatureController extends Controller
         return view('admin.feature.create', compact('feature'));
     }
 
-    public function update(Request $request, Feature $feature)
+    public function update(LocalizationRequest $request, Feature $feature)
     {
-        $feature->update($request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]));
+        $feature->update($request->validated());
 
         return response()->json(['message' => 'Feature updated successfully']);
     }

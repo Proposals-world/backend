@@ -6,6 +6,7 @@ use App\DataTables\MarriageBudgetsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\MarriageBudget;
 use Illuminate\Http\Request;
+use App\Http\Requests\MarriageBudgetRequest;
 
 class MarriageBudgetsController extends Controller
 {
@@ -19,31 +20,20 @@ class MarriageBudgetsController extends Controller
         return view('admin.marriageBudgets.create');
     }
 
-    public function store(Request $request)
+    public function store(MarriageBudgetRequest $request)
     {
-        $request->validate([
-            'budget_en' => 'required|string|max:255',
-            'budget_ar' => 'required|string|max:255',
-        ]);
-
-        MarriageBudget::create($request->all());
+        MarriageBudget::create($request->validated());
 
         return response()->json(['message' => 'Marriage budget added successfully']);
     }
-
     public function edit(MarriageBudget $marriageBudget)
     {
         return view('admin.marriageBudgets.create', compact('marriageBudget'));
     }
 
-    public function update(Request $request, MarriageBudget $marriageBudget)
+    public function update(MarriageBudgetRequest $request, MarriageBudget $marriageBudget)
     {
-        $request->validate([
-            'budget_en' => 'required|string|max:255',
-            'budget_ar' => 'required|string|max:255',
-        ]);
-
-        $marriageBudget->update($request->all());
+        $marriageBudget->update($request->validated());
 
         return response()->json(['message' => 'Marriage budget updated successfully']);
     }

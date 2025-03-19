@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\DrinkingStatusesDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LocalizationRequest;
 use App\Models\DrinkingStatus;
 use Illuminate\Http\Request;
 
@@ -19,16 +20,11 @@ class DrinkingStatusesController extends Controller
         return view('admin.drinkingStatus.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
+        DrinkingStatus::create($request->validated());
 
-        DrinkingStatus::create($request->all());
-
-        return response()->json(['message' => 'Drinking status added successfully']);
+        return redirect()->route('drinking-status.index')->with('success', 'Drinking status added successfully');
     }
 
     public function edit(DrinkingStatus $drinkingStatus)
@@ -36,14 +32,10 @@ class DrinkingStatusesController extends Controller
         return view('admin.drinkingStatus.create', compact('drinkingStatus'));
     }
 
-    public function update(Request $request, DrinkingStatus $drinkingStatus)
+    public function update(LocalizationRequest $request, DrinkingStatus $drinkingStatus)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
 
-        $drinkingStatus->update($request->all());
+        $drinkingStatus->update($request->validated());
 
         return response()->json(['message' => 'Drinking status updated successfully']);
     }

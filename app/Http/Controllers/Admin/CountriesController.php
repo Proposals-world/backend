@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\DataTables\CountriesDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LocalizationRequest;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
@@ -19,31 +21,21 @@ class CountriesController extends Controller
         return view('admin.countries.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest  $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
+        Country::create($request->validated());
 
-        Country::create($request->all());
-
-        return response()->json(['message' => 'Country added successfully']);
+        return redirect()->route('countries.index')->with('success', 'Country created successfully');
     }
-
     public function edit(Country $country)
     {
         return view('admin.countries.create', compact('country'));
     }
 
-    public function update(Request $request, Country $country)
+    public function update(LocalizationRequest  $request, Country $country)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
 
-        $country->update($request->all());
+        $country->update($request->validated());
 
         return response()->json(['message' => 'Country updated successfully']);
     }

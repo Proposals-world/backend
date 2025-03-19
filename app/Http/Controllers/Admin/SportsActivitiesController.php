@@ -6,6 +6,7 @@ use App\DataTables\SportsActivitiesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\SportsActivity;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class SportsActivitiesController extends Controller
 {
@@ -19,14 +20,9 @@ class SportsActivitiesController extends Controller
         return view('admin.sportsActivities.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        SportsActivity::create($request->all());
+        SportsActivity::create($request->validated());
 
         return response()->json(['message' => 'Sports activity added successfully']);
     }
@@ -36,14 +32,9 @@ class SportsActivitiesController extends Controller
         return view('admin.sports activities.create', compact('sportsActivity'));
     }
 
-    public function update(Request $request, SportsActivity $sportsActivity)
+    public function update(LocalizationRequest $request, SportsActivity $sportsActivity)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $sportsActivity->update($request->all());
+        $sportsActivity->update($request->validated());
 
         return response()->json(['message' => 'Sports activity updated successfully']);
     }

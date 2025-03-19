@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Feature;
 use App\Models\SubscriptionPackage;
 use Illuminate\Http\Request;
+use App\Http\Requests\SubscriptionPackageRequest;
 
 class SubscriptionPackageController extends Controller
 {
@@ -20,21 +21,9 @@ class SubscriptionPackageController extends Controller
         return view('admin.SubscriptionPackage.create');
     }
 
-    public function store(Request $request)
+    public function store(SubscriptionPackageRequest $request)
     {
-        // Validate form data
-
-        $validatedData = $request->validate([
-            'package_name_en' => 'required|string|max:255',
-            'package_name_ar' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'contact_limit' => 'required|integer|min:0', // New field
-
-        ]);
-
-        // Create the subscription package
-        $subscriptionPackage = SubscriptionPackage::create($validatedData);
-
+        SubscriptionPackage::create($request->validated());
 
         return response()->json(['message' => 'Subscription package added successfully']);
     }
@@ -50,25 +39,17 @@ class SubscriptionPackageController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(SubscriptionPackageRequest $request, $id)
     {
-        // Validate form data
-        $validatedData = $request->validate([
-            'package_name_en' => 'required|string|max:255',
-            'package_name_ar' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'contact_limit' => 'required|integer|min:0',
-        ]);
-    
         // Find the package first
         $package = SubscriptionPackage::findOrFail($id);
-    
+
         // Debugging: Check the request data
-        \Log::info('Updating Package', $validatedData);
-    
+        // \Log::info('Updating Package', $request->validated());
+
         // Update the subscription package
-        $package->update($validatedData);
-    
+        $package->update($request->validated());
+
         return response()->json(['message' => 'Subscription package updated successfully']);
     }
     public function destroy($id)

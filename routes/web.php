@@ -51,6 +51,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // admins route
     Route::prefix('admin')->group(function () {
+        Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
         Route::resource('countries', CountriesController::class);
         Route::resource('origins', OriginController::class);
         Route::resource('sports-activities', SportsActivitiesController::class);
@@ -69,7 +70,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('religions', ReligionController::class);
         Route::resource('admins', AdminsController::class);
         Route::resource('manageUsers', AdminController::class)->parameters([
-            'manageUsers' => 'user' 
+            'manageUsers' => 'user'
         ]);
         Route::resource('faqs', FaqsController::class);
     });

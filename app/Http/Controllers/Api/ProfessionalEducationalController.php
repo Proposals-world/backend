@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfessionalEducationalGroupResource;
@@ -37,7 +37,7 @@ class ProfessionalEducationalController extends Controller
 
         // Return using the aggregated resource
         return (new ProfessionalEducationalGroupResource((object)$data))
-                    ->response()
-                    ->setStatusCode(200);
+            ->response()
+            ->setStatusCode(200);
     }
 }

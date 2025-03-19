@@ -6,6 +6,7 @@ use App\DataTables\ReligionsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Religion;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocalizationRequest;
 
 class ReligionController extends Controller
 {
@@ -19,31 +20,20 @@ class ReligionController extends Controller
         return view('admin.religions.create');
     }
 
-    public function store(Request $request)
+    public function store(LocalizationRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        Religion::create($request->all());
+        Religion::create($request->validated());
 
         return response()->json(['message' => 'Religion added successfully']);
     }
-
     public function edit(Religion $religion)
     {
         return view('admin.religions.create', compact('religion'));
     }
 
-    public function update(Request $request, Religion $religion)
+    public function update(LocalizationRequest $request, Religion $religion)
     {
-        $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-        ]);
-
-        $religion->update($request->all());
+        $religion->update($request->validated());
 
         return response()->json(['message' => 'Religion updated successfully']);
     }
