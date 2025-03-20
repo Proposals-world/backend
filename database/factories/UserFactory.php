@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Enums\Gender;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -13,9 +13,11 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * The name of the factory's corresponding model.
+     *
+     * @var string
      */
-    protected static ?string $password;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
@@ -24,28 +26,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-
-
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->numerify('##########'), // 10-digit phone number
-            'password' => "testuser",
-            'profile_status' => fake()->randomElement(['active', 'inactive', 'pending']), // Example profile statuses
-            'created_at' => fake()->dateTimeThisYear(), // Random created_at within this year
-            'updated_at' => fake()->dateTimeThisYear(), // Random updated_at within this year
-            'last_active' => fake()->dateTimeThisMonth(), // Random last_active within this month
-            'status' => fake()->randomElement(['active', 'inactive', 'suspended']), // Example status values
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $this->faker->unique()->safeEmail,
+            'phone_number' => $this->faker->optional()->phoneNumber,
+            'password' => Hash::make('password123'), // Default password
+            'profile_status' => 'active',
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'otp' => null,
+            'otp_expires_at' => null,
+            'last_active' => now(),
+            'role_id' => rand(1, 2), // Adjust based on available roles
+            'status' => 'active',
+            'fcm_token' => Str::random(32),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn(array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

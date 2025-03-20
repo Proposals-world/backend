@@ -63,6 +63,8 @@ class DatabaseSeeder extends Seeder
             SmokingToolsSeeder::class,
             FeatureSeeder::class,
             FaqSeeder::class,
+            CategorySeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\ReligionsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
-
+use App\Http\Controllers\Admin\ReportController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
@@ -67,6 +67,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
             'manageUsers' => 'user'
         ]);
         Route::resource('faqs', FaqsController::class);
+        Route::resource('reports', ReportController::class);
+        Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
     });
 
     Route::resource('blogs', BlogController::class);

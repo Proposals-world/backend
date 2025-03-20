@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
         // Seed Admin user
         DB::table('users')->insert([
             'first_name' => 'Admin',
@@ -109,5 +110,6 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ],
         ]);
+        User::factory(10)->create();
     }
 }

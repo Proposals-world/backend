@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <!-- Seeking Selection -->
                                 <div class="matchmaking-form-group">
                                     <div class="matchmaking-form-label">{{ __('home.seeking_label') }}</div>
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <!-- Age Selection -->
                                 <div class="matchmaking-form-group">
                                     <div class="matchmaking-form-label">{{ __('home.age_label') }}</div>
@@ -92,7 +92,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <!-- Country Selection -->
                                 <div class="matchmaking-form-group">
                                     <div class="matchmaking-form-label">{{ __('home.country_label') }}</div>
@@ -105,7 +105,7 @@
                                         </select>
                                     </div>
                                 </div>
-                    
+
                                 <!-- Submit Button -->
                                 <div class="matchmaking-form-submit">
                                     <button type="submit" class="matchmaking-submit-btn">{{ __('home.join_now') }}</button>
@@ -524,7 +524,7 @@
                                 <div class="blog-content">
                                     <div class="b-meta mb-40">
                                         <ul>
-                                            <li><a href="#">{{ $blog['created_at']->format('d M Y') }}</a></li>
+                                            <li><a >{{ $blog['created_at']->format('d M Y') }}</a></li>
                                         </ul>
                                     </div>
                                     <h4>
