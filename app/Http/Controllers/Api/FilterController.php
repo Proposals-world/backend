@@ -160,7 +160,7 @@ class FilterController extends Controller
                 })
                 ->whereNotIn('id', array_merge($likedUsers->toArray(), $dislikedUsers->toArray(), $exactMatchIds))
                 ->get();
-            $suggestedPercentage = 50;
+            $suggestedPercentage = 0;
         }
 
         // **Return response with both exact matches & suggestions with percentage message**

@@ -1,5 +1,10 @@
 @extends('frontend.layouts.app')
 @section('section')
+<style>
+   .row {
+    align-items:unset;
+}
+</style>
 <div>
     <section class="breadcrumb-area d-flex align-items-center" style="background-image:url({{ asset('frontend/img/bg/test-bg.jpg') }})">
         <div class="container">
@@ -7,12 +12,12 @@
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
                     <div class="breadcrumb-wrap text-center">
                         <div class="breadcrumb-title mt-60 mb-30">
-                            <h2>News Details</h2>
+                            <h2>{{ $formattedBlog['title'] }}</h2>
                         </div>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">News Details</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $formattedBlog['title'] }}jkl90ikkl;l</li>
                             </ol>
                         </nav>
                     </div>
