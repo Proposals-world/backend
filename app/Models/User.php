@@ -211,9 +211,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Dislike::class);
     }
+    public function likedBy()
+    {
+        return $this->hasMany(Like::class, 'liked_user_id');
+    }
 
+    public function dislikedBy()
+    {
+        return $this->hasMany(Dislike::class, 'disliked_user_id');
+    }
     public function matches()
     {
-        return $this->hasMany(MatchedUser::class);
+        return $this->hasMany(UserMatch::class, 'user1_id');
     }
 }

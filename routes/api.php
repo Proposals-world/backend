@@ -38,6 +38,8 @@ use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\Tickets\TicketsController;
 use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
+use App\Http\Controllers\Api\ReportController;
+
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserPreferenceController;
 
@@ -111,6 +113,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dynamic-data', [DynamicDataController::class, 'index']);
     Route::get('/users/filter', [FilterController::class, 'filterUsers']);
     Route::post('/like', [ApiLikeController::class, 'likeUser']);
+    Route::get('/liked-by', [ApiLikeController::class, 'getLikedBy']);
     Route::post('/dislike', [ApiLikeController::class, 'dislikeUser']);
     Route::get('/matches', [MatchController::class, 'getMatches']);
+    Route::post('/report-user', [ReportController::class, 'store']);
 });

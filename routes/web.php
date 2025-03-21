@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\FaqsController;
 // users web routes
 use App\Http\Controllers\User\OnBoardingController;
 
+use App\Http\Controllers\Admin\ReportController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
@@ -73,6 +74,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
             'manageUsers' => 'user'
         ]);
         Route::resource('faqs', FaqsController::class);
+        Route::resource('reports', ReportController::class);
+        Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
     });
 
     Route::resource('blogs', BlogController::class);

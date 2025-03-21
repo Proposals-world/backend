@@ -15,9 +15,17 @@ return new class extends Migration
             $table->id();
             $table->foreignId('reporter_id')->constrained('users');
             $table->foreignId('reported_id')->constrained('users');
-            $table->text('reason_en');
-            $table->text('reason_ar');
-            $table->string('status')->default('pending');
+
+            // Enum for reasons
+            $table->enum('reason_en', ['harassment', 'spam', 'abuse', 'offensive', 'other'])->default('other');
+            $table->enum('reason_ar', ['تحرش', 'رسائل مزعجة', 'إساءة', 'محتوى مسيء', 'أخرى'])->default('أخرى');
+            // Column for other reason (if 'other' is selected)
+            $table->text('other_reason_en')->nullable(); // other reason in English
+            $table->text('other_reason_ar')->nullable(); // other reason in Arabic
+            // Enum for status
+            $table->enum('status', ['pending', 'reviewed', 'resolved', 'rejected'])->default('pending');
+            // $table->enum('status', ['معلق', 'تم المراجعة', 'مقيد', 'مرفوض'])->default('معلق');
+
             $table->integer('report_count')->default(1);
             $table->timestamps();
         });

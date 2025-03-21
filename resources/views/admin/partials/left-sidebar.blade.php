@@ -106,6 +106,12 @@
                                 <span> Customers </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('reports.index')}}" class="side-nav-link">
+                                <i class="ri-user-3-line"></i>
+                                <span> Customer Reports </span>
+                            </a>
+                        </li>
                         {{-- <li class="side-nav-item">
                             <a href="" class="side-nav-link">
                                 <span> Cities </span>
@@ -113,15 +119,15 @@
                         </li> --}}
                     </ul>
                 </div>
-            </li> 
+            </li>
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false"
+                <a data-bs-toggle="collapse" href="#sidebarLocationsBlogs" aria-expanded="false"
                     aria-controls="sidebarLocations" class="side-nav-link">
                     <i class="ri-newspaper-line"></i>
                     <span> Blogs </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarLocations">
+                <div class="collapse" id="sidebarLocationsBlogs">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{ route('blogs.index') }}" class="side-nav-link">
