@@ -82,7 +82,13 @@ class AdminController extends Controller
                     'zodiacSign'
                 ]);
             },
-            'photos'
+            'photos',
+            'matches',
+            'likes.likedUser.profile',
+            'dislikes.dislikedUser.profile',
+            'likedBy.user.profile',
+            'dislikedBy.user.profile',
+
         ])->findOrFail($userid);
         return view('admin.viewUser', compact('user')); // Ensure this view exists
     }

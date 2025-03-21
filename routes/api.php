@@ -113,6 +113,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dynamic-data', [DynamicDataController::class, 'index']);
     Route::get('/users/filter', [FilterController::class, 'filterUsers']);
     Route::post('/like', [ApiLikeController::class, 'likeUser']);
+    Route::get('/liked-by', [ApiLikeController::class, 'getLikedBy']);
     Route::post('/dislike', [ApiLikeController::class, 'dislikeUser']);
     Route::get('/matches', [MatchController::class, 'getMatches']);
     Route::post('/report-user', [ReportController::class, 'store']);

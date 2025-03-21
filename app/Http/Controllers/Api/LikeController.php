@@ -102,4 +102,21 @@ class LikeController extends Controller
             'likes' => LikeResource::collection($likes)
         ], 200);
     }
+    public function getLikedBy()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $likedBy = Like::where('liked_user_id', $user->id)
+            ->with('user.photos')
+            ->get();
+
+        return response()->json([
+            'message' => 'Liked by users fetched successfully',
+            'liked_by' => LikeResource::collection($likedBy)
+        ], 200);
+    }
 }

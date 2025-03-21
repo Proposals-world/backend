@@ -517,7 +517,27 @@
                                 <!-- Matches Tab -->
                                 <div class="tab-pane fade" id="matches">
                                     <h5 class="mb-4 text-uppercase"><i class="ri-user-heart-line me-1"></i> Matches</h5>
-                                    <p>This is the Matches tab content.</p>
+                                    <div class="row">
+                                        @forelse($user->matches as $match)
+                                        @php
+                                            $matchedUser = $match->user1_id == $user->id ? $match->user2 : $match->user1;
+                                        @endphp
+
+                                        <div class="col-sm-6 col-lg-3">
+                                            <div class="card">
+                                                <img src="{{ asset($matchedUser->profile->avatar_url ?? 'default-avatar.jpg') }}" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ $matchedUser->first_name }} {{ $matchedUser->last_name }}</h5>
+                                                    <p class="card-text">{{ Str::limit($matchedUser->profile->bio_en ?? 'No bio available', 50) }}</p>
+                                                    <a href="{{ route('userprofile', $matchedUser->id) }}" class="btn btn-primary mt-2">View Full Profile</a>
+                                                </div> <!-- end card-body -->
+                                            </div> <!-- end card -->
+                                        </div> <!-- end col-->
+                                    @empty
+                                        <p class="text-muted">No matches found.</p>
+                                    @endforelse
+
+                                    </div>
                                     <!-- Add your matches content here -->
                                 </div>
 
