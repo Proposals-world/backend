@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('subject_ar');
             $table->text('description_en');
             $table->text('description_ar');
-            $table->string('status')->default('open');
+            $table->enum('status', ['open', 'in_progress', 'resolved', 'closed'])->default('open');
             $table->timestamps();
         });
     }
