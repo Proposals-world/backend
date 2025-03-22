@@ -60,6 +60,7 @@ class UserProfile extends Model
         'guardian_contact_encrypted',
         'religiosity_level_id',
         'sleep_habit_id',
+        'eye_color_id',
     ];
 
     /**
@@ -211,5 +212,10 @@ class UserProfile extends Model
     public function language()
     {
         return $this->belongsTo(Language::class);
+    }
+
+    public function eyeColor()
+    {
+        return $this->belongsTo(EyeColor::class);
     }
 }

@@ -26,14 +26,15 @@ use App\Models\PositionLevel;
 use App\Models\EducationalLevel;
 use App\Models\SmokingTool;
 use App\Models\SocialMediaPresence;
-
-
+use App\Models\EyeColor;
+use App\Models\ReligiosityLevel;
 use Illuminate\Support\Facades\DB;
 
 class OnboardingService
 {
     /**
-     * Retrieve onboarding data with the name field selected according to the current locale.
+     * Retrieve onboarding data with the name field selected according to the current locale,
+     * along with the authenticated user's gender.
      *
      * @return array
      */
@@ -52,7 +53,21 @@ class OnboardingService
             return $model::select('id', DB::raw("{$column} as name"))->get();
         };
 
+        // Get the authenticated user's gender (if available).
+        $userGender = auth()->check() ? auth()->user()->gender : null;
+
+        // Get religious levels based on the authenticated user's gender.
+        $religiousLevels = collect([]);
+        if ($userGender) {
+            // Convert gender: 'male' maps to 1 and 'female' maps to 2
+            $genderValue = $userGender === 'male' ? 1 : 2;
+            $religiousLevels = ReligiosityLevel::select('id', DB::raw("{$nameField} as name"))
+                ->where('gender', $genderValue)
+                ->get();
+        }
+
         return [
+            'gender'            => $userGender,
             'hairColors'        => $getData(HairColor::class),
             'heights'           => $getData(Height::class),
             'weights'           => $getData(Weight::class),
@@ -62,8 +77,9 @@ class OnboardingService
             'zodiacSigns'       => $getData(ZodiacSign::class),
             'sleepHabits'       => $getData(SleepHabit::class),
             // For MarriageBudget, pass the specific field.
+            'eyeColors'    => $getData(EyeColor::class),
             'marriageBudget'    => $getData(MarriageBudget::class, $budgetField),
-            'jobTitles'    => $getData(JobTitle::class),
+            'jobTitles'         => $getData(JobTitle::class),
             'hobbies'           => $getData(Hobby::class),
             'pets'              => $getData(Pet::class),
             'sportsActivities'  => $getData(SportsActivity::class),
@@ -78,15 +94,7 @@ class OnboardingService
             'positionLevels'    => $getData(PositionLevel::class),
             'educationalLevels' => $getData(EducationalLevel::class),
             'socialMediaPresence' => $getData(SocialMediaPresence::class),
+            'religiousLevels'   => $religiousLevels,
         ];
     }
-
-
-    /**
-     * Retrieve cities based on the given country ID.
-     *
-     * @param int $countryId
-     * @return \Illuminate\Http\JsonResponse
-     */
-
 }

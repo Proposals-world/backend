@@ -14,13 +14,12 @@ use App\Enums\MatchGender;
 use App\Enums\MatchStatus;
 use App\Enums\ReportStatus;
 use App\Enums\SubscriptionStatus;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
-
-    /**
+    /** @use HasFactory<\Database\Factories\UserFactory> 
      * The attributes that are mass assignable.
      *
      * @var list<string>

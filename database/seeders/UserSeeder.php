@@ -110,6 +110,6 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ],
         ]);
-        User::factory(1000)->create();
+        User::factory(100)->create();
     }
 }

@@ -5863,5 +5863,54 @@ pre cite {
         margin-right: 50px;
     }
 }
+/* Ensure form groups are flex columns */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
 
+/* Make sure the Select2 container takes full width */
+.select2-container {
+    width: 100% !important;
+}
+
+/* Single Select2 Styling */
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    width: 100% !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #495057;
+    line-height: 1.5;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: calc(2.25rem + 2px);
+    right: 0.75rem;
+    width: 20px;
+}
+
+/* Multiple Select2 Styling */
+.select2-container--default .select2-selection--multiple {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 25px !important;
+    padding: 0.375rem 0.75rem;
+    min-height: calc(2.25rem + 2px);
+    width: 100% !important;
+    /* border-radius: 40px; */
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #ff3494;
+    border: none;
+    border-radius: 25px !important;
+    color: #fff;
+    padding: 0 0.5rem;
+    margin-top: 0.25rem;
+    margin-right: 0.25rem;
+    font-size: 0.875rem;
+}
 /* onboarding css ends */

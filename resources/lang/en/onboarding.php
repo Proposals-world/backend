@@ -149,6 +149,22 @@ return [
 'no_car' => 'No Car',
     'own_car'    => 'Own Car',
     'select_car' => 'Select Car',
-
+'select_sports_activity' => 'Select Sports Activity',
     'valid_email_message' => 'Please enter a valid email address for verification.',
+
+
+    'required'                 => 'This field is required.',
+    'invalid_email'            => 'Please enter a valid email address.',
+    'password_min'             => 'Password must be at least 8 characters long.',
+    'password_mismatch'        => 'Passwords do not match.',
+    'age_min'                  => 'You must be at least 18 years old.',
+    'age_max'                  => 'Please enter a valid date of birth.',
+    'arabic_required'          => 'Please write in Arabic.',
+    'invalid_guardian_contact' => 'Please enter a valid guardian contact in the format 078#######, 077####### or 079#######.',
+    'invalid_image_file'       => 'Please upload a valid image file (JPG, JPEG, PNG, GIF).',
+    'file_size'                => 'File size should not exceed 5MB.',
+    'children_range'           => 'Please enter a number between 0 and 10.',
+    'invalid_phone'            => 'Please enter a valid phone number.',
+    'eye_color' => 'Eye Color',
+    'select_eye_color' => 'Select Eye Color',
 ];

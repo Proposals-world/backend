@@ -105,16 +105,16 @@ class UserProfileService
             'age' => Carbon::parse($data['date_of_birth'])->age, //
             'height_id' => $data['height'], //
             'weight_id' => $data['weight'],//
-            'nationality_id' => $data['nationality_id'],//
+            'nationality_id' => $data['nationality_id'] ?? null, //
             'origin_id' => $data['origin_id'] ?? null, //
-            'religion_id' => $data['religion_id'], //
-            'skin_color_id' => $data['skin_color_id'],//
-            'hair_color_id' => $data['hair_color_id'],//
+            'religion_id' => $data['religion_id'] ?? null, //
+            'skin_color_id' => $data['skin_color_id'] ?? null, //
+            'hair_color_id' => $data['hair_color_id'] ?? null, //
             'country_of_residence_id' => $data['country_of_residence_id'],//
             'city_id' => $data['city_id'],//
             'educational_level_id' => $data['educational_level_id'], //
             'specialization_id' => $data['specialization_id'] ?? null, //
-            'employment_status' => $data['employment_status'], //
+            'employment_status' => $data['employment_status']?? null, //
             'job_title_id' => $data['job_title_id'] ?? null, //
             'smoking_status' => $data['smoking_status'] ?? null, //
             'drinking_status_id' => $data['drinking_status_id'] ?? null, //
@@ -133,6 +133,7 @@ class UserProfileService
             'religiosity_level_id' => $data['religiosity_level_id'] ?? null,  //missing 
             'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
             'marriage_budget_id' => $data['marriage_budget_id'] ?? null, //missing for men
+            'eye_color_id' => $data['eye_color_id'] ?? null, //missing for men
             'guardian_contact_encrypted' => $data['guardian_contact'] ?? $profile->guardian_contact,
         ]);
 

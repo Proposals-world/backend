@@ -63,6 +63,8 @@ return new class extends Migration
             $table->foreignId('sleep_habit_id')->nullable()->constrained('sleep_habits');
             $table->foreignId('marriage_budget_id')->nullable()->constrained('marriage_budgets');
 
+            $table->foreignId('eye_color_id')->nullable()->constrained('eye_colors');
+
             $table->timestamps();
         });
     }
