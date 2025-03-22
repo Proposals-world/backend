@@ -65,6 +65,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             CategorySeeder::class,
             BlogSeeder::class,
+            EyeColorSeeder::class,
         ]);
     }
 }

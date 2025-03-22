@@ -4,7 +4,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\CountriesController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\DrinkingStatusesController;
 use App\Http\Controllers\Admin\EducationalLevelsController;
 use App\Http\Controllers\Admin\FeatureController as AdminFeatureController;
@@ -13,7 +14,7 @@ use App\Http\Controllers\Admin\OriginController;
 use App\Http\Controllers\Admin\SportsActivitiesController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\MessageSubscriptionController;
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HairColorsController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -30,13 +31,19 @@ use App\Http\Controllers\Admin\FaqsController;
 
 // users web routes
 use App\Http\Controllers\User\OnBoardingController;
-
 use App\Http\Controllers\Admin\ReportController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
+// users dashboard routes
+use App\Http\Controllers\User\UserDashboardController;
+
+
+Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
-Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+
+
 Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
 
 Route::get('/blog-details/{id}', [BlogController::class, 'show'])->name('blog-details');
@@ -44,10 +51,10 @@ Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->nam
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
     // admins route
@@ -78,8 +85,30 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
     });
 
-    Route::resource('blogs', BlogController::class);
+    // Route::resource('blogs', BlogController::class);
 });
+
+
+
+Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
+    // On-boarding page: only accessible if profile is not complete.
+    Route::middleware('redirect.if.profile.complete')->group(function () {
+        Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+
+    });
+    
+    Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
+    ->name('user.profile.update');
+    // Dashboard: only accessible if profile is complete.
+    Route::middleware('profile.complete')->group(function () {
+        Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+        // Add other routes that require complete profile here.
+    });
+
+});
+
+
+
 // Route to handle message subscriptions
 Route::post('/subscribe-message', [MessageSubscriptionController::class, 'subscribe'])->name('subscribe.message');
 

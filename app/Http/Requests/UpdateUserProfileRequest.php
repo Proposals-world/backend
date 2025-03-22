@@ -15,6 +15,7 @@ class UpdateUserProfileRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'photo_url' => 'nullable|image',
             'bio_en' => 'nullable|string|max:1000',
             'bio_ar' => 'nullable|string|max:1000',
             'date_of_birth' => 'required|date',
@@ -40,7 +41,7 @@ class UpdateUserProfileRequest extends FormRequest
             'religion_id' => 'required|integer|exists:religions,id',
             'skin_color_id' => 'required|integer|exists:skin_colors,id',
             'hair_color_id' => 'required|integer|exists:hair_colors,id',
-            'housing_status_id' => 'required|integer|exists:housing_statuses,id',
+            'housing_status_id' => 'nullable|integer|exists:housing_statuses,id',
             'hobbies' => 'nullable|array',
             'hobbies.*' => 'integer|exists:hobbies,id',
             'pets' => 'nullable|array',
@@ -55,6 +56,8 @@ class UpdateUserProfileRequest extends FormRequest
             'sleep_habit_id' => 'nullable|integer|exists:sleep_habits,id',
             'marriage_budget_id' => 'nullable|integer|exists:marriage_budgets,id',
             'position_level_id' => 'nullable|integer|exists:position_levels,id',
+            'eye_color_id' => 'nullable|integer|exists:eye_colors,id',
+
         ];
 
         if ($this->input('smoking_status') == 1) {

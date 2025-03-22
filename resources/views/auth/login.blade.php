@@ -87,9 +87,9 @@
                 </div>
 
                 <!-- Footer-->
-                {{-- <footer class="footer footer-alt">
+                <footer class="footer footer-alt">
                     <p class="text-muted">Don't have an account? <a href="{{ route('register') }}" class="text-muted ms-1"><b>Sign Up</b></a></p>
-                </footer> --}}
+                </footer>
             </div>
         </div>
         <!-- end auth-fluid-form-box -->

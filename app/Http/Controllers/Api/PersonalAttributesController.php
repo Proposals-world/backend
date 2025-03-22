@@ -11,6 +11,8 @@ use App\Models\Weight;
 use App\Models\Origin;
 use App\Models\MaritalStatus;
 use App\Models\SkinColor;
+use App\Models\SocialMediaPresence;
+use App\Models\JobTitle;
 use App\Models\ZodiacSign;
 use App\Models\MarriageBudget;
 use Illuminate\Http\Request;
@@ -35,6 +37,11 @@ class PersonalAttributesController extends Controller
         $zodiacSigns = ZodiacSign::all();
         $sleepHabits = SleepHabit::all();
         $MarriageBudget = MarriageBudget::all();
+        $jobTitles = JobTitle::all();
+        $socialMediaPresence =SocialMediaPresence::all();
+
+       
+
 
         // Prepare the aggregated data
         $data = [
@@ -47,6 +54,8 @@ class PersonalAttributesController extends Controller
             'zodiacSigns' => $zodiacSigns,
             'sleepHabits' => $sleepHabits,
             'marriageBudget' => $MarriageBudget,
+            'socialMediaPresence' => $socialMediaPresence,
+            'jobTitles' => $jobTitles,
         ];
 
         // Return using the aggregated resource

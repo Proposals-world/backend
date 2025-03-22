@@ -5,6 +5,9 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\Localization;
+use App\Http\Middleware\EnsureProfileIsComplete;
+use App\Http\Middleware\RedirectIfProfileComplete;
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -18,6 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'admin' => isAdmin::class,
+            'profile.complete' => EnsureProfileIsComplete::class,
+            'redirect.if.profile.complete' => RedirectIfProfileComplete::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
