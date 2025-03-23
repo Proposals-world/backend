@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
             SubscriptionsTableSeeder::class,
             SubscriptionContactsTableSeeder::class,
             UserSmokingToolPivotsTableSeeder::class,
-            UserReportsTableSeeder::class,
+            // UserReportsTableSeeder::class,
             UserBlocksTableSeeder::class,
             SuccessStoriesTableSeeder::class,
             UserFeedbackTableSeeder::class,
