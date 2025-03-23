@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfessionalEducationalGroupResource;
 
+use App\Models\MarriageBudget;
 use App\Models\Specialization;
 use App\Models\PositionLevel;
 use App\Models\EducationalLevel;
