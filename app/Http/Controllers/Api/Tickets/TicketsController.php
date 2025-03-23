@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api\Tickets;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SupportTicketRequest;
+use App\Http\Requests\TicketReplyRequest;
+use App\Http\Resources\SupportReplyResource;
+use App\Http\Resources\SupportTicketResource;
 use App\Models\SupportReply;
 use App\Models\SupportTicket;
 use App\Models\User;
@@ -14,102 +18,87 @@ use PHPUnit\Framework\Attributes\Ticket;
 
 class TicketsController extends Controller
 {
+    //  check on reqqqq for ar and en
     // get all tickets for the admin
     public function getTickets()
     {
-        $tickets = SupportTicket::with("user")->orderBy('created_at', 'desc')->get();
+        $tickets = SupportTicket::with(['user', 'replies' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }, 'replies.user'])
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return response()->json([
             "success" => true,
-            "meassage" => "get all tickets successfully",
+            "message" => "Get all tickets with replies successfully",
             "data" => [
-                "tickets" => $tickets
+                "tickets" => SupportTicketResource::collection($tickets)
             ]
         ], 200);
     }
     // create tickets only for the user
-    public function createTicket(Request $request)
+    public function createTicket(SupportTicketRequest $request)
     {
-        // Validate incoming request
-        $validator = Validator::make($request->all(), [
-            'user_id'        => 'required|exists:users,id',
-            'subject_en'     => 'required|string|max:255',
-            'subject_ar'     => 'required|string|max:255',
-            'description_en' => 'required|string',
-            'description_ar' => 'required|string',
-        ]);
+        $user = Auth::user();
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-        // return response()->json(['user' => Auth::user()], 200);
-
-        $ticket = SupportTicket::create([
-            "user_id"        => Auth::user()->id,
-            "subject_en"     => $request->subject_en,
-            "subject_ar"     => $request->subject_ar,
-            "description_en" => $request->description_en,
-            "description_ar" => $request->description_ar,
-            "status"         => "open", // Change this if needed
-        ]);
-
-        $user = User::where("id", Auth::user()->id)->first();
         if ($user->role_id != 2) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized role.',
             ], 403);
         }
+
+        $ticket = SupportTicket::create([
+            "user_id"        => $user->id,
+            "subject_en"     => $request->subject_en,
+            "subject_ar"     => $request->subject_ar,
+            "description_en" => $request->description_en,
+            "description_ar" => $request->description_ar,
+            "status"         => "open",
+        ]);
+
         return response()->json([
             "success" => true,
             "message" => "Ticket created successfully",
             "data"    => [
-                "Created by" => $user,
-                "ticket" => $ticket
+                "created_by" => [
+                    "first_name" => $user->first_name,
+                    "last_name"  => $user->last_name,
+                    "email"      => $user->email,
+                ],
+                "ticket" => new SupportTicketResource($ticket),
             ],
         ], 200);
     }
     // reply to a ticket
-    public function ticketsReply(Request $request)
+    public function ticketsReply(TicketReplyRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'ticket_id'    => 'required|exists:support_tickets,id',  // Check that ticket_id exists in the support_tickets table
-            'user_id'      => 'required|exists:users,id',  // Check that user_id exists in the users table
-            'message_en'   => 'required|string',
-            'message_ar'   => 'required|string',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);  // Return validation errors if any
-        }
-        $ticketId = $request->ticket_id;
+
         $ticket = SupportTicket::with("user")
-            ->where('id', $ticketId)
+            ->where('id', $request->ticket_id)
             ->where('user_id', Auth::user()->id)
             ->first();
+
         if (!$ticket) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Ticket not found or you do not have permission to access this ticket.',
             ], 404);
         }
+
         $reply = SupportReply::create([
-            "ticket_id" => $request->ticket_id,
-            "user_id" => $request->user_id,
+            "ticket_id"  => $request->ticket_id,
+            "user_id"    => Auth::user()->id,
             "message_en" => $request->message_en,
             "message_ar" => $request->message_ar,
-
         ]);
 
         return response()->json([
             "success" => true,
             "message" => "Ticket reply created successfully",
-            "data"    => [
-                // "Created by" => $user,
-                "ticket"  => $ticket,
-                "replies" => $reply
-            ],
+            "replies" => new SupportReplyResource($reply),
+
         ], 201);
     }
     // get each ticket with its replies
@@ -117,7 +106,6 @@ class TicketsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ticket_id'    => 'required|exists:support_tickets,id',  // Check that ticket_id exists in the support_tickets table
-            'user_id'      => 'required|exists:users,id',  // Check that user_id exists in the users table
         ]);
         if ($validator->fails()) {
             return response()->json([

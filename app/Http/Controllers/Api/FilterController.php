@@ -19,6 +19,9 @@ class FilterController extends Controller
         $preferences = UserPreference::where('user_id', Auth::id())->first();
         $isFromFilter = $request->input('isFilter', false);
 
+        // ✅ Fixed user profile check by user_id
+        $hasUserProfile = UserProfile::where('id', Auth::id())->exists();
+
         // Start query with base conditions
         $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
             ->whereHas('user', function ($query) {
@@ -33,7 +36,7 @@ class FilterController extends Controller
         $query->whereNotIn('id', $likedUsers)
             ->whereNotIn('id', $dislikedUsers);
 
-        // **Define Filters Based on Preferences or Request**
+        // Define Filters Based on Preferences or Request
         $filters = [];
         $preferencesFilters = [];
 
@@ -93,77 +96,78 @@ class FilterController extends Controller
             'language_id' => $request->language_id
         ]);
 
-        // **Apply Filters Initially**
+        // ✅ Apply age range filtering separately using has()
+        if ($request->has('age_min') && $request->has('age_max')) {
+            $query->whereBetween('age', [$request->age_min, $request->age_max]);
+        }
+
+        // ✅ Apply all other filters
         foreach ($filters as $key => $value) {
             if (!is_null($value)) {
-                if ($key === 'age') {
-                    $query->whereBetween('age', $value);
-                } else {
-                    $query->where($key, $value);
-                }
+                $query->where($key, $value);
             }
         }
 
-        // **Get exact matches first**
+        // Get exact matches first
         $exactMatches = $query->get();
 
-        // **Prepare a suggestion query (excluding exact matches)**
-        $suggestedQuery = clone $query;
         $suggestedUsers = collect();
         $suggestedPercentage = 100;
 
-        $exactMatchIds = $exactMatches->pluck('id')->toArray();
+        // 👇 Handle users with no profile as suggestions
+        if (!$hasUserProfile && !$isFromFilter) {
+            $suggestedUsers = $exactMatches;
+            $exactMatches = collect();
+        } else {
+            $suggestedQuery = clone $query;
+            $exactMatchIds = $exactMatches->pluck('id')->toArray();
 
-        $totalFilters = count(array_filter($filters, fn($value) => !is_null($value))); // Count active filters
+            $totalFilters = count(array_filter($filters, fn($value) => !is_null($value)));
+            $relaxationLevels = [90, 80, 70, 60];
 
-        // **Progressive filter relaxation logic**
-        $relaxationLevels = [90, 80, 70, 60];
+            foreach ($relaxationLevels as $level) {
+                if (!$suggestedUsers->isEmpty()) break;
 
-        foreach ($relaxationLevels as $level) {
-            if (!$suggestedUsers->isEmpty()) {
-                break; // Stop if we already have suggestions
-            }
+                $remainingFiltersCount = ceil($totalFilters * ($level / 100));
+                $activeFilters = array_filter($filters, fn($value) => !is_null($value));
+                $selectedFilters = array_slice($activeFilters, 0, $remainingFiltersCount, true);
 
-            $remainingFiltersCount = ceil($totalFilters * ($level / 100)); // How many filters to retain
+                $tempQuery = clone $suggestedQuery;
 
-            // Randomly select filters to keep
-            $activeFilters = array_filter($filters, fn($value) => !is_null($value));
-            $selectedFilters = array_slice($activeFilters, 0, $remainingFiltersCount, true);
+                // ✅ Apply age range in suggestion query too
+                if ($request->has('age_min') && $request->has('age_max')) {
+                    $tempQuery->whereBetween('age', [$request->age_min, $request->age_max]);
+                }
 
-            $tempQuery = clone $suggestedQuery;
+                foreach ($selectedFilters as $key => $value) {
+                    if (!is_null($value)) {
+                        $tempQuery->where($key, $value);
+                    }
+                }
 
-            foreach ($selectedFilters as $key => $value) {
-                if ($key === 'age') {
-                    $tempQuery->whereBetween('age', $value);
-                } else {
-                    $tempQuery->where($key, $value);
+                $tempQuery->whereNotIn('id', $exactMatchIds);
+                $suggestedUsers = $tempQuery->get();
+
+                if (!$suggestedUsers->isEmpty()) {
+                    $suggestedPercentage = $level;
+                    break;
                 }
             }
 
-            // Exclude exact matches from suggestions
-            $tempQuery->whereNotIn('id', $exactMatchIds);
-
-            $suggestedUsers = $tempQuery->get();
-
-            if (!$suggestedUsers->isEmpty()) {
-                $suggestedPercentage = $level;
-                break; // Stop once we have suggestions
+            // Final fallback
+            if ($suggestedUsers->isEmpty()) {
+                $suggestedUsers = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
+                    ->whereHas('user', function ($query) {
+                        $query->where('gender', '!=', Auth::user()->gender)
+                            ->where('role_id', '!=', 1);
+                    })
+                    ->whereNotIn('id', array_merge($likedUsers->toArray(), $dislikedUsers->toArray(), $exactMatchIds))
+                    ->get();
+                $suggestedPercentage = 0;
             }
         }
 
-        // **Final fallback: If no suggestions, return users filtered only by gender & role**
-        if ($suggestedUsers->isEmpty()) {
-            $suggestedUsers = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
-                ->whereHas('user', function ($query) {
-                    $query->where('gender', '!=', Auth::user()->gender)
-                        ->where('role_id', '!=', 1);
-                })
-                ->whereNotIn('id', array_merge($likedUsers->toArray(), $dislikedUsers->toArray(), $exactMatchIds))
-                ->get();
-            $suggestedPercentage = 0;
-        }
-
-        // **Return response with both exact matches & suggestions with percentage message**
+        // ✅ Return response
         return response()->json([
             'message' => 'success',
             'exact_matches' => FilteredUserResource::collection($exactMatches),

@@ -16,15 +16,15 @@ class LikeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => [
-                'id' => $this->user->id,
-                'first_name' => $this->user->first_name,
-                'last_name' => $this->user->last_name,
-                'email' => $this->user->email,
-                'photos' => $this->user->photos->map(function ($photo) {
+            'liked_user' => [
+                'id'         => $this->likedUser->id,
+                'first_name' => $this->likedUser->first_name,
+                'last_name'  => $this->likedUser->last_name,
+                'email'      => $this->likedUser->email,
+                'photos'     => $this->likedUser->photos->map(function ($photo) {
                     return [
-                        'id' => $photo->id,
-                        'url' => $photo->photo_url, // Assuming `url` is the field storing the photo path
+                        'id'  => $photo->id,
+                        'url' => $photo->photo_url, // Assuming this is the photo URL field
                     ];
                 }),
             ],

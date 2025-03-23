@@ -59,11 +59,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     // tickets routes
-    Route::get('/all-tickets', [TicketsController::class, 'getTickets']);
+    // Route::get('/all-tickets', [TicketsController::class, 'getTickets']);
     Route::post('/create-ticket', [TicketsController::class, 'createTicket']);
     Route::post('/reply-ticket', [TicketsController::class, 'ticketsReply']);
-    Route::get('/get-ticket-with-replies', [TicketsController::class, 'getTicketWithReplies']);
-    Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);
+    Route::get('/get-ticket-with-replies', [TicketsController::class, 'getTickets']);
+    // Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);
 
 
     Route::post('/profile', [UserProfileController::class, 'update']);
