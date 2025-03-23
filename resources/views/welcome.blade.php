@@ -29,7 +29,7 @@
                                 {{ __('home.slider_subtitle') }}
                             </p>
                             <div class="slider-btn mt-30 mb-30">
-                                <a href="#" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">
+                                <a  href="{{ route('register') }}" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">
                                     {{ __('home.call_to_action') }}
                                 </a>
                             </div>
@@ -108,9 +108,9 @@
 
                                 <!-- Submit Button -->
                                 <div class="matchmaking-form-submit">
-                                    <a href="{{ route('onboarding') }}">
-                                    <button  class="matchmaking-submit-btn">{{ __('home.join_now') }}</button>
-                                </a>
+                                    <a href="{{ route('register') }}" class="btn ss-btn">
+                                        {{ __('home.join_now') }}
+                                    </a>
                                 </div>
                             </form>
                         </div>

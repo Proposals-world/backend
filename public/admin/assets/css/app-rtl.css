@@ -19266,7 +19266,7 @@ body.auth-fluid-pages[data-sidenav-size="condensed"] {
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
-    background: url("../images/login1.jpg") center;
+    background: url("../../../dashboard/img/carousels/bg-1.jpg") center;
     background-size: cover;
 }
 .auth-fluid .auth-fluid-form-box {

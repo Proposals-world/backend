@@ -21,7 +21,7 @@ class ProfessionalEducationalGroupResource extends JsonResource
             'specializations' => SpecializationResource::collection($this->specializations),
             'position_levels' => PositionLevelResource::collection($this->positionLevels),
             'educational_levels' => EducationalLevelResource::collection($this->educationalLevels),
-            // 'marriage_budget' => MarriageBudgetResource::collection($this->marriageBudget),
+            'marriage_budget' => MarriageBudgetResource::collection($this->marriageBudget),
         ];
     }
 }

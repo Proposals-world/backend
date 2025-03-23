@@ -32,12 +32,8 @@
     <div class="navbar-right">
 
         <div class="user d-inline-block">
-            <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <span class="text-gray small">{{ Auth::user()->first_name }}</span>
-                <span>
-                    <img  src="" />
-                </span>
+            <button class="btn btn-empty p-2 bg-white border border-primary shadow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-gray small">{{ Auth::user() ? Auth::user()->first_name : 'Guest' }}</span>
             </button>
 
             <div class="dropdown-menu dropdown-menu-right mt-3">

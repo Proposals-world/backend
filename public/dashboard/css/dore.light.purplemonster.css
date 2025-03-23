@@ -1383,13 +1383,13 @@ button {
       .navbar .menu-button-mobile {
         width: 20px; } }
   .navbar .menu-button {
-    color: #8f8f8f;
+    color: #a3236d !important;
     width: 120px;
     text-align: center; }
     .navbar .menu-button svg {
       height: 12px; }
     .navbar .menu-button .main {
-      fill: #3a3a3a;
+      fill: #a3236d !important;
       transition: fill 300ms; }
     .navbar .menu-button .sub {
       fill: #3a3a3a;
@@ -1558,10 +1558,10 @@ button {
       height: 70px; } }
 
       .logo {
-        width: 110px; /* adjust as needed */
-        height: 35px; /* adjust as needed */
+        width: 138px;
+        height: 44px;
         background: url(../logos/proposals-logo-removebg-preview.png) no-repeat center center;
-        background-size: contain; /* Ensures the logo is fully displayed */
+        background-size: contain;
         margin: 0 auto;
     }
   @media (max-width: 767px) {
@@ -1579,13 +1579,13 @@ button {
 
 #app-container.sub-hidden .menu-button .sub,
 #app-container.menu-sub-hidden .menu-button .sub {
-  fill: #8f8f8f; }
+  fill: #a3236d !important; }
 
 #app-container.main-hidden .menu-button .main,
 #app-container.main-hidden .menu-button .sub,
 #app-container.menu-hidden .menu-button .main,
 #app-container.menu-hidden .menu-button .sub {
-  fill: #8f8f8f; }
+  fill: #a3236d !important; }
 
 /* 11.Menu*/
 .menu {

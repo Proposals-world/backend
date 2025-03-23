@@ -5,7 +5,7 @@
                 <li class="active">
                     <a href="{{ route('user.dashboard') }}">
                         <i class="iconsminds-shop-2"></i>
-                        <span>Dashboard</span>
+                        <span>Main Menu</span>
                     </a>
                 </li>
                 <li>
@@ -15,17 +15,23 @@
                 </li>
                 <li>
                     <a href="#">
-                        <i class="iconsminds-heart"></i> Liked Me
+                        <i class="iconsminds-heart"></i> Half Match
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="iconsminds-box-with-folders"></i> Packages
+                        <i class="iconsminds-box-with-folders"></i>Your Profile
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="iconsminds-handshake"></i> Preferred Partner
+                        <i class="iconsminds-handshake"></i> Desired Partner characteristics
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="iconsminds-box-with-folders"></i>Subscription Packages
                     </a>
                 </li>
             </ul>

@@ -23,7 +23,7 @@
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-clock" style="font-size: xx-large;"></i>
-                        <p class="card-text mb-0">Pending Orders</p>
+                        <p class="card-text mb-0">Matchs</p>
                         <p class="lead text-center">16</p>
                     </div>
                 </a>
@@ -32,7 +32,7 @@
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-check" style="font-size: xx-large;"></i>
-                        <p class="card-text mb-0">Completed Orders</p>
+                        <p class="card-text mb-0">Half Matchs</p>
                         <p class="lead text-center">42</p>
                     </div>
                 </a>
@@ -40,7 +40,7 @@
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
-                        <p class="card-text mb-0">Cancelled Orders</p>
+                        <p class="card-text mb-0">Remaining Contacts</p>
                         <p class="lead text-center">5</p>
                     </div>
                 </a>

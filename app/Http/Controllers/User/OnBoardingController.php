@@ -48,6 +48,8 @@ class OnBoardingController extends Controller
      */
     public function updateProfileAndImage(UpdateUserProfileRequest $request)
     {
+
+        // dd($request);
         // dd($request->file('photo_url'));
         $user = $request->user();
         $data = $request->all();
