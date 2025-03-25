@@ -4,7 +4,15 @@
     @php
         $locale = app()->getLocale();
     @endphp
-
+<style>
+    @media (max-width: 768px) {
+    .onboarding-navigation .btn {
+        font-size: 12px; /* Smaller text size */
+        padding: 8px 16px; /* Smaller padding */
+        min-width: 80px; /* Limit the button's width */
+    }
+}
+</style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
         style="
             @if ($locale === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
@@ -40,6 +48,7 @@
                                         __('onboarding.physical_attributes'),
                                         __('onboarding.employment_lifestyle'),
                                         __('onboarding.family_housing'),
+                                        __('onboarding.nationality_city_residence'),
                                         __('onboarding.final_details'),
                                     ];
                                 @endphp
@@ -116,61 +125,17 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
-                                                            class="form-label">{{ __('onboarding.nationality') }}</label>
-                                                        <select name="nationality_id" class="form-control rounded-pill"
+                                                            class="form-label">{{ __('onboarding.zodiac_sign') }}</label>
+                                                        <select name="zodiac_sign_id" class="form-control rounded-pill"
                                                             required>
                                                             <option value="">
-                                                                {{ __('onboarding.select_nationality') }}</option>
-                                                            @foreach ($data['nationalities'] as $nationality)
-                                                                <option value="{{ $nationality->id }}">
-                                                                    {{ $nationality->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger"
-                                                            style="font-size:12px;"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.origin') }}</label>
-                                                        <select name="origin_id" class="form-control rounded-pill" required>
-                                                            <option value="">{{ __('onboarding.select_origin') }}</option>
-                                                            @foreach ($data['origins'] as $origin)
-                                                                <option value="{{ $origin->id }}">{{ $origin->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger" style="font-size:12px;"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.zodiac_sign') }}</label>
-                                                        <select name="zodiac_sign_id" class="form-control rounded-pill" required>
-                                                            <option value="">{{ __('onboarding.select_zodiac_sign') }}</option>
+                                                                {{ __('onboarding.select_zodiac_sign') }}</option>
                                                             @foreach ($data['zodiacSigns'] as $zodiac)
-                                                                <option value="{{ $zodiac->id }}">{{ $zodiac->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger" style="font-size:12px;"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label
-                                                            class="form-label">{{ __('onboarding.country_of_residence') }}</label>
-                                                        <select name="country_of_residence_id" id="country_id"
-                                                            class="form-control rounded-pill" required>
-                                                            <option value="">{{ __('onboarding.select_country') }}
-                                                            </option>
-                                                            @foreach ($data['countries'] as $country)
-                                                                <option value="{{ $country->id }}">{{ $country->name }}
+                                                                <option value="{{ $zodiac->id }}">{{ $zodiac->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -178,19 +143,9 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.city') }}</label>
-                                                        <select name="city_id" id="city_id"
-                                                            class="form-control rounded-pill" required>
-                                                            <option value="">{{ __('onboarding.select_city') }}
-                                                            </option>
-                                                        </select>
-                                                        <span class="error-message text-danger"
-                                                            style="font-size:12px;"></span>
-                                                    </div>
-                                                </div>
                                             </div>
+
+
 
                                             <div class="onboarding-navigation d-flex justify-content-end mt-4">
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
@@ -442,14 +397,19 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.specialization') }}</label>
-                                                        <select name="specialization_id" class="form-control rounded-pill" required>
-                                                            <option value="">{{ __('onboarding.select_specialization') }}</option>
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.specialization') }}</label>
+                                                        <select name="specialization_id" class="form-control rounded-pill"
+                                                            required>
+                                                            <option value="">
+                                                                {{ __('onboarding.select_specialization') }}</option>
                                                             @foreach ($data['specializations'] as $specialization)
-                                                                <option value="{{ $specialization->id }}">{{ $specialization->name }}</option>
+                                                                <option value="{{ $specialization->id }}">
+                                                                    {{ $specialization->name }}</option>
                                                             @endforeach
                                                         </select>
-                                                        <span class="error-message text-danger" style="font-size:12px;"></span>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
 
@@ -514,7 +474,8 @@
                                                             <option value="">
                                                                 {{ __('onboarding.select_drinking_status') }}</option>
                                                             @foreach ($data['drinkingStatuses'] as $drinking)
-                                                                <option value="{{ $drinking->id }}">{{ $drinking->name }}
+                                                                <option value="{{ $drinking->id }}">
+                                                                    {{ $drinking->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -542,7 +503,7 @@
                                                         <span class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
-                                                
+
                                                 </div>
                                             </div>
 
@@ -592,25 +553,21 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
-                                                @if (old('gender') !== 'female')
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label
-                                                                class="form-label">{{ __('onboarding.marriage_budget') }}</label>
-                                                            <select name="marriage_budget_id"
-                                                                class="form-control rounded-pill" required>
-                                                                <option value="">
-                                                                    {{ __('onboarding.select_marriage_budget') }}</option>
-                                                                @foreach ($data['marriageBudget'] as $budget)
-                                                                    <option value="{{ $budget->id }}">
-                                                                        {{ $budget->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span class="error-message text-danger"
-                                                                style="font-size:12px;"></span>
-                                                        </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.pets') }}</label>
+                                                        <select name="pets[]" class="form-control rounded-pill" required
+                                                            multiple>
+                                                            @foreach ($data['pets'] as $pet)
+                                                                <option value="{{ $pet->id }}">{{ $pet->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
                                                     </div>
-                                                @endif
+                                                </div>
+                                              {{--  --}}
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -627,20 +584,26 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
+                                                @if (old('gender') !== 'female')
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.pets') }}</label>
-                                                        <select name="pets[]" class="form-control rounded-pill" required
-                                                            multiple>
-                                                            @foreach ($data['pets'] as $pet)
-                                                                <option value="{{ $pet->id }}">{{ $pet->name }}
-                                                                </option>
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.marriage_budget') }}</label>
+                                                        <select name="marriage_budget_id"
+                                                            class="form-control rounded-pill" required>
+                                                            <option value="">
+                                                                {{ __('onboarding.select_marriage_budget') }}</option>
+                                                            @foreach ($data['marriageBudget'] as $budget)
+                                                                <option value="{{ $budget->id }}">
+                                                                    {{ $budget->name }}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
+                                            @endif
+                                               
                                             </div>
                                             @if (old('gender') == 'female')
                                                 <div class="form-group">
@@ -666,38 +629,117 @@
                                                 </button>
                                             </div>
                                         </div>
-
                                         <!-- Step 4: Final Details -->
                                         <div class="onboarding-step" id="step-4" style="display:none;">
                                             <h2 class="card-title text-center mb-4 section-title">
                                                 {{ __('onboarding.final_details') }}</h2>
                                             <div class="row">
-                                                @if (old('gender') !== 'male')
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label">
-                                                                {{ __('onboarding.guardian_contact') }}
-                                                                <small
-                                                                    class="form-text text-muted">{{ __('onboarding.guardian_contact_help') }}</small>
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i
-                                                                            class="fas fa-phone"></i></span>
-                                                                </div>
-                                                                <input type="tel" name="guardian_contact"
-                                                                    class="form-control rounded-right" required>
-                                                            </div>
-                                                            <span class="error-message text-danger"
-                                                                style="font-size:12px;"></span>
-                                                        </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.country_of_residence') }}</label>
+                                                        <select name="country_of_residence_id" id="country_id"
+                                                            class="form-control rounded-pill" required>
+                                                            <option value="">{{ __('onboarding.select_country') }}
+                                                            </option>
+                                                            @foreach ($data['countries'] as $country)
+                                                                <option value="{{ $country->id }}">
+                                                                    {{ $country->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
                                                     </div>
-                                                @endif
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.city') }}</label>
+                                                        <select name="city_id" id="city_id"
+                                                            class="form-control rounded-pill" required>
+                                                            <option value="">{{ __('onboarding.select_city') }}
+                                                            </option>
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.origin') }}</label>
+                                                        <select name="origin_id" class="form-control rounded-pill"
+                                                            required>
+                                                            <option value="">{{ __('onboarding.select_origin') }}
+                                                            </option>
+                                                            @foreach ($data['origins'] as $origin)
+                                                                <option value="{{ $origin->id }}">{{ $origin->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.nationality') }}</label>
+                                                        <select name="nationality_id" class="form-control rounded-pill"
+                                                            required>
+                                                            <option value="">
+                                                                {{ __('onboarding.select_nationality') }}</option>
+                                                            @foreach ($data['nationalities'] as $nationality)
+                                                                <option value="{{ $nationality->id }}">
+                                                                    {{ $nationality->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="onboarding-navigation d-flex justify-content-between mt-4">
+                                                <button type="button" class="btn btn-secondary rounded-pill prev-step">
+                                                    <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
+                                                </button>
+                                                <button type="button" class="btn btn-primary rounded-pill next-step"
+                                                    disabled>
+                                                    {{ __('onboarding.next') }} <i
+                                                        class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Step 4: Final Details -->
+                                        <div class="onboarding-step" id="step-5" style="display:none;">
+                                            <h2 class="card-title text-center mb-4 section-title">
+                                                {{ __('onboarding.final_details') }}</h2>
+                                            <div class="row">
+                                              
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.car_ownership') }}</label>
+                                                        <select name="car_ownership" class="form-control rounded-pill"
+                                                            required>
+                                                            <option value="1">{{ __('onboarding.own_car') }}
+                                                            </option>
+                                                            <option value="0">{{ __('onboarding.no_car') }}</option>
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+                                                {{--  --}}
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.financial_status') }}</label>
-                                                        <br>
+                                                        {{-- <br> --}}
                                                         <select name="financial_status_id"
                                                             class="form-control rounded-pill" required>
                                                             <option value="">
@@ -713,20 +755,31 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                             
+
+                                                {{--  --}}
+                                                @if (old('gender') !== 'male')
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label
-                                                            class="form-label">{{ __('onboarding.car_ownership') }}</label>
-                                                        <select name="car_ownership" class="form-control rounded-pill"
-                                                            required>
-                                                            <option value="1">{{ __('onboarding.own_car') }}
-                                                            </option>
-                                                            <option value="0">{{ __('onboarding.no_car') }}</option>
-                                                        </select>
+                                                        <label class="form-label">
+                                                            {{ __('onboarding.guardian_contact') }}
+                                                            <small
+                                                                class="form-text text-muted">{{ __('onboarding.guardian_contact_help') }}</small>
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-phone"></i></span>
+                                                            </div>
+                                                            <input type="tel" name="guardian_contact"
+                                                                class="form-control rounded-right" required>
+                                                        </div>
                                                         <span class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
+                                            @endif
+
                                             </div>
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
@@ -777,7 +830,25 @@
             }
 
             $(document).ready(function() {
+                function validateReligiosityLevel() {
+                    var religiosityField = $('select[name="religiosity_level_id"]');
+                    var religiosityValue = religiosityField.val();
 
+                    // If the field is empty, set it to required
+                    if (!religiosityValue) {
+                        religiosityField.prop('required', true);
+                    } else {
+                        religiosityField.prop('required', false);
+                    }
+                }
+
+                // Run the check when the page loads
+                validateReligiosityLevel();
+
+                // Check again if the field changes
+                $('select[name="religiosity_level_id"]').on('change', function() {
+                    validateReligiosityLevel();
+                });
                 loadFormData();
 
                 // Save data on change

@@ -1627,6 +1627,7 @@ button {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          text-align: center;
           font-size: 13px;
           font-style: normal;
           font-weight: 400;

@@ -142,7 +142,7 @@ return [
     'select_marriage_budget' => 'Select Marriage Budget',
     'select_zodiac_sign'     => 'Select Zodiac Sign',
     'religiosity_level' => 'Religiosity Level',
-
+'nationality_city_residence' => 'Nationality, City, and Residence',  
     'position_level'                => 'Position Level',
     'select_position_level'         => 'Select Position Level',
     'select_social_media_presence'  => 'Select Social Media Presence',
@@ -151,8 +151,8 @@ return [
     'select_car' => 'Select Car',
 'select_sports_activity' => 'Select Sports Activity',
     'valid_email_message' => 'Please enter a valid email address for verification.',
-
-
+'select_origin' => 'Select Your Origin',
+'select_religion' => 'Select Religion',  
     'required'                 => 'This field is required.',
     'invalid_email'            => 'Please enter a valid email address.',
     'password_min'             => 'Password must be at least 8 characters long.',
