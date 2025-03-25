@@ -3,29 +3,18 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\UserProfile; // Import the UserProfile model
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        // Create a user data
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,

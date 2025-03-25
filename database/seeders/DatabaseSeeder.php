@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // Existing Seeders
             RoleSeeder::class,
-            UserSeeder::class,
             NationalitiesTableSeeder::class,
             ReligionsTableSeeder::class,
             OriginsTableSeeder::class,
@@ -38,8 +37,10 @@ class DatabaseSeeder extends Seeder
             SocialMediaPresencesTableSeeder::class,
             MarriageBudgetsTableSeeder::class,
             PetsTableSeeder::class,
-            UserPetsTableSeeder::class,
             HobbiesTableSeeder::class,
+            EyeColorSeeder::class,
+            UserSeeder::class,
+            UserPetsTableSeeder::class,
             UserHobbiesTableSeeder::class,
             UserProfilesTableSeeder::class,
             UserAgreementsTableSeeder::class,
@@ -65,7 +66,6 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             CategorySeeder::class,
             BlogSeeder::class,
-            EyeColorSeeder::class,
         ]);
     }
 }

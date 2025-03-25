@@ -11,10 +11,19 @@ use App\Models\Dislike;
 use App\Models\MatchedUser;
 use App\Models\User;
 use App\Models\UserMatch;
+use App\Services\LikeService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
+    protected $likeService;
+
+    public function __construct(LikeService $likeService)
+    {
+        $this->likeService = $likeService;
+    }
+
     public function likeUser(Request $request)
     {
         // $user = auth()->user();
@@ -87,36 +96,33 @@ class LikeController extends Controller
         return response()->json(['message' => 'Disliked successfully.'], 200);
     }
 
-    public function getLikes()
+    public function getLikes(): JsonResponse
     {
-        $user = Auth::user();
+        $likes = $this->likeService->getLikes();
 
-        if (!$user) {
+        if ($likes === null) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-
-        $likes = Like::where('user_id', $user->id)->with('user.photos')->get();
 
         return response()->json([
             'message' => 'Likes fetched successfully',
-            'likes' => LikeResource::collection($likes)
+            'likes' => $likes
         ], 200);
     }
-    public function getLikedBy()
-    {
-        $user = Auth::user();
 
-        if (!$user) {
+    //Liked me
+
+    public function getLikedMe()
+    {
+        $likedBy = $this->likeService->getLikedMe();
+
+        if ($likedBy === null) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $likedBy = Like::where('liked_user_id', $user->id)
-            ->with('user.photos')
-            ->get();
-
         return response()->json([
             'message' => 'Liked by users fetched successfully',
-            'liked_by' => LikeResource::collection($likedBy)
+            'liked_by' => $likedBy
         ], 200);
     }
 }

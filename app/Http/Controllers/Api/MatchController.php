@@ -5,17 +5,29 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MatchResource;
 use App\Models\UserMatch;
+use App\Services\LikeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MatchController extends Controller
 {
-    public function getMatches(Request $request)
+    protected $likeService;
+
+    public function __construct(LikeService $likeService)
     {
-        if (!Auth::user()) {
-            return response()->json(["failed" => "Unauthorized"], 401);
-        };
-        $matches = UserMatch::with(['user1', 'user2'])->where('user1_id', Auth::user()->id)->orWhere('user2_id', Auth::user()->id)->get();
-        return MatchResource::collection($matches);
+        $this->likeService = $likeService;
+    }
+    public function getMatches()
+    {
+        $matches = $this->likeService->getMatches();
+
+        if ($matches === null) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return response()->json([
+            'message' => 'Matches fetched successfully',
+            'matches' => $matches
+        ], 200);
     }
 }
