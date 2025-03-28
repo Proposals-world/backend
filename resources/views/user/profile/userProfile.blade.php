@@ -9,15 +9,12 @@
             <div class="mb-2">
                 <h1>{{ ucfirst($userProfile['first_name']) .' '. ucfirst($userProfile['last_name']) }}</h1>
                 <div class="text-zero top-right-button-container">
-                    <button type="button"
-                        class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split top-right-button top-right-button-single"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        ACTIONS
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                    </div>
+                    <a href="{{ route('updateProfile') }}"
+                        class="btn btn-lg btn-outline-primary   top-right-button top-right-button-single"
+                       >
+                        ACTION
+                    </a>
+
                 </div>
                 <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                     <ol class="breadcrumb pt-0">
@@ -73,7 +70,7 @@
                                     <p class="mb-3">
                                         @if (!empty($userProfile['profile']['hobbies']))
                                             @foreach ($userProfile['profile']['hobbies'] as $hobby)
-                                                <a href="#">
+                                                <a >
                                                     <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $hobby }}</span>
                                                 </a>
                                             @endforeach
@@ -85,7 +82,7 @@
                                     <p class="mb-3">
                                         @if (!empty($userProfile['profile']['pets']))
                                             @foreach ($userProfile['profile']['pets'] as $pet)
-                                                <a href="#">
+                                                <a >
                                                     <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $pet }}</span>
                                                 </a>
                                             @endforeach
@@ -98,7 +95,7 @@
                                     <p class="text-muted text-small mb-2">Smoking Tools</p>
                                     <p class="mb-3">
                                         @foreach ($userProfile['profile']['smoking_tools'] ?? [] as $tool)
-                                            <a href="#">
+                                            <a >
                                                 <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
                                             </a>
                                         @endforeach

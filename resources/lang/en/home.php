@@ -20,8 +20,8 @@ return [
 
     // Choose Area
     'choose_title' => 'Find Your Ideal Match',
-    'choose_desc_1' => 'Discover potential partners adapt with your needs & share common interests.',
-    'choose_desc_2' => 'Our intuitive platform makes it easy to connect with like-minded individuals.',
+    'choose_desc_1' => 'Discover partners that adapt with your needs & meet your aspirations.',
+    'choose_desc_2' => 'Our platform makes it easy to connect with like-minded individuals.',
     'app_store' => 'Available on',
     'google_play' => 'Available on',
 

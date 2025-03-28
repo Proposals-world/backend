@@ -22,6 +22,20 @@ class TicketsController extends Controller
     // get all tickets for the admin
     public function getTickets()
     {
+        $tickets = SupportTicket::where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            "success" => true,
+            "message" => "Get all tickets successfully",
+            "data" => [
+                "tickets" => SupportTicketResource::collection($tickets)
+            ]
+        ], 200);
+    }
+    public function getTicketWithReplys()
+    {
         $tickets = SupportTicket::with(['user', 'replies' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }, 'replies.user'])
@@ -188,5 +202,41 @@ class TicketsController extends Controller
                 "status"  => "solved",
             ],
         ], 201);
+    }
+    public function getSingleTicketWithReplies(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ticket_id' => 'required|exists:support_tickets,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $ticket = SupportTicket::with([
+            'replies' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'replies.user'
+        ])
+            ->where('id', $request->ticket_id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+
+        if (!$ticket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ticket not found or you do not have permission to access this ticket.',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ticket with replies fetched successfully',
+            'data' => new SupportTicketResource($ticket),
+        ], 200);
     }
 }

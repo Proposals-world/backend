@@ -104,6 +104,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::middleware('profile.complete')->group(function () {
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('index');
+        Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
         // Add other routes that require complete profile here.
     });
 });

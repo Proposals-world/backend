@@ -43,10 +43,14 @@ class UserProfileController extends Controller
         $formattedUserProfile = new UserProfileResource($userProfile, $request->input('lang', 'en'));
 
         // Pass the transformed data, likes, and matches to the view
-        return view('user.userProfile', [
+        return view('user.profile.userProfile', [
             'userProfile' => $formattedUserProfile->resolve(),
             'likes' => $likes->resolve(),  // Add likes data to the view
             'matches' => $matches->resolve()  // Add matches data to the view
         ]);
+    }
+    public function updateProfile()
+    {
+        return view('user.profile.updateProfile');
     }
 }
