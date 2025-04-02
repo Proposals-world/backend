@@ -1,4 +1,4 @@
-<footer class="page-footer">
+<footer class="page-footer" style="position: relative;">
     <div class="footer-content">
         <div class="container-fluid">
             <div class="row">

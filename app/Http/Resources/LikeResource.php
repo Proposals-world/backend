@@ -25,6 +25,7 @@ class LikeResource extends JsonResource
                     return [
                         'id'  => $photo->id,
                         'url' => $photo->photo_url, // Assuming this is the photo URL field
+                        'is_main' => $photo->is_main, // Assuming this is the photo URL field
                     ];
                 }),
             ],

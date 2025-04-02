@@ -241,11 +241,11 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}"
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}"
                                     alt="slide 5">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}"
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}"
                                     alt="slide 2">
                             </div>
                             <div class="swiper-slide">

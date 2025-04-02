@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{ asset('dashboard/css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('dashboard/css/vendor/owl.carousel.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dashboard/css/vendor/video-js.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dashboard/css/vendor/smart_wizard.min.css') }}" />
+
     <link rel="stylesheet" href="{{ asset('dashboard/css/dore.light.purplemonster.css') }}" />
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/css/dore.dark.bluenavy.min.css') }}" /> --}}
 </head>
@@ -47,7 +49,6 @@ background-size: 65%;">
     </main>
 
     @include('user.layouts.footer')
-
     <script src="{{ asset('dashboard/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/vendor/moment.min.js') }}"></script>
@@ -67,6 +68,9 @@ background-size: 65%;">
     <script src="{{ asset('dashboard/js/dore.script.js') }}"></script>
     <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
     <script src="{{ asset('dashboard/js/scripts.single.theme.js') }}"></script>
+    <script src="{{ asset('dashboard/js/vendor/jquery.smartWizard.min.js') }}"></script>
+    <script src="{{ asset('dashboard/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('dashboard/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     <script>
         (function ($) {
             if ($().dropzone) {
@@ -74,27 +78,27 @@ background-size: 65%;">
             }
             const currentLocale = "{{ app()->getLocale() }}";
             const direction = currentLocale === 'ar' ? 'rtl' : 'ltr';
-    
+
             document.documentElement.setAttribute('dir', direction);
             $('body').removeClass('ltr rtl').addClass(direction);
-    
+
             localStorage.setItem("dore-direction", direction);
-            
+
             $("input[name='directionRadio'][data-direction='" + direction + "']").prop('checked', true);
-    
+
             $('input[name="directionRadio"]').on('change', function (event) {
                 const selectedDirection = $(this).data('direction');
                 localStorage.setItem('dore-direction', selectedDirection);
                 window.location.reload();
             });
-    
+
         })(jQuery);
     </script>
-    @stack('scripts')
+    
 </body>
 
 <script>
-    
+
 </script>
 
 </html>

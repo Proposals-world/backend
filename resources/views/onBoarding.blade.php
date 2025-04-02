@@ -603,7 +603,7 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                               
+
                                             </div>
                                             @if (old('gender') == 'female')
                                                 <div class="form-group">
@@ -719,7 +719,7 @@
                                             <h2 class="card-title text-center mb-4 section-title">
                                                 {{ __('onboarding.final_details') }}</h2>
                                             <div class="row">
-                                              
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
@@ -755,7 +755,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                             
+
 
                                                 {{--  --}}
                                                 @if (old('gender') !== 'male')

@@ -40,7 +40,7 @@ class MatchResource extends JsonResource
                 $phoneNumber = $this->maskPhoneNumber($matchedUser->phone_number);
             }
         }
-
+        // dd($matchedUser->photos()->where('is_main', 1)->first());
         return [
             'id' => $this->id,
             'matched_user_id' => $matchedUser ? $matchedUser->id : null,
@@ -51,8 +51,8 @@ class MatchResource extends JsonResource
             // 'match_status' => $this->match_status,
             'contact_exchanged' => $this->contact_exchanged,
             'matched_user_phone' => $phoneNumber,
-            'matched_user_photo' => $matchedUser && $matchedUser->photos()->first() 
-                ? $matchedUser->photos()->first()->photo_url 
+            'matched_user_photo' => $matchedUser && $matchedUser->photos()->where('is_main', 1)->first()
+                ? $matchedUser->photos()->where('is_main', 1)->first()->photo_url
                 : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
