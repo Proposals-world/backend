@@ -94,7 +94,7 @@ background-size: 65%;">
 
         })(jQuery);
     </script>
-    
+    @stack('scripts')
 </body>
 
 <script>

@@ -33,7 +33,6 @@ use App\Http\Controllers\Admin\ReportController;
 // users web routes
 use App\Http\Controllers\User\LikedMeController;
 use App\Http\Controllers\User\OnBoardingController;
-use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
