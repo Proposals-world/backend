@@ -30,8 +30,15 @@
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/css/dore.dark.bluenavy.min.css') }}" /> --}}
 </head>
 
-<body id="app-container" class="menu-default">
-
+<body id="app-container" class="menu-default" style="
+@if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
+    background-position: left 0;
+@else
+    background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
+    background-position: right 0; @endif
+background-repeat: no-repeat;
+background-size: 65%;">
+  
     @include('user.layouts.header')
 
     @include('user.layouts.sidebar')
@@ -87,7 +94,7 @@
 
         })(jQuery);
     </script>
-
+    @stack('scripts')
 </body>
 
 <script>

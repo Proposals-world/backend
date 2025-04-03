@@ -28,10 +28,11 @@ use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\ReligionsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\ReportController;
 
 // users web routes
+use App\Http\Controllers\User\LikedMeController;
 use App\Http\Controllers\User\OnBoardingController;
-use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
@@ -105,6 +106,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         ->name('user.profile.update');
     // Dashboard: only accessible if profile is complete.
     Route::middleware('profile.complete')->group(function () {
+        Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('index');
         Route::get('/view-user/{id}', [UserUserProfileController::class, 'viewUser'])->name('viewUser');

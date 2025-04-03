@@ -2,20 +2,10 @@
     <div class="main-menu">
         <div class="scroll">
             <ul class="list-unstyled">
-                <li class="active">
+                <li class="{{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
                     <a href="{{ route('user.dashboard') }}">
                         <i class="iconsminds-shop-2"></i>
                         <span>Main Menu</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#applications">
-                        <i class="iconsminds-male-female"></i> Find A Match
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="iconsminds-heart"></i> Half Match
                     </a>
                 </li>
                 <li>
@@ -28,6 +18,24 @@
                         <i class="iconsminds-handshake"></i> Desired Partner characteristics
                     </a>
                 </li>
+                <li>
+                    <a href="#applications">
+                        <i class="iconsminds-male-female"></i> Find A Match
+                    </a>
+                </li>
+                <li class="{{ request()->routeIs('liked-me') ? 'active' : '' }}">
+                    <a href="{{ route('liked-me') }}">
+                        <i class="iconsminds-heart"></i> Half Match
+                    </a>
+                </li>
+                <li>
+                    <a href="#applications">
+                        <i class="iconsminds-male-female"></i> Matches
+                    </a>
+                </li>
+          
+               
+
 
                 <li>
                     <a href="#">

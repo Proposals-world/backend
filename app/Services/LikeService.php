@@ -15,7 +15,7 @@ class LikeService
         $user = Auth::user();
 
         if (!$user) {
-            return null; // Return null for unauthorized users
+            return abort(403);
         }
 
         return LikeResource::collection(
