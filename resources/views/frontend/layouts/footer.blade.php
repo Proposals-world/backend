@@ -1,4 +1,4 @@
-<footer class="footer-bg footer-p pt-60" style="background-image: url({{ asset('frontend/img/bg/f-bg.png') }}); background-position: center top; background-size: auto; background-repeat: no-repeat;">            
+<footer class="footer-bg footer-p pt-60" style="background-image: url({{ asset('frontend/img/bg/f-bg.png') }}); background-position: center top; background-size: auto; background-repeat: no-repeat;">
     <div class="footer-top">
         <div class="container">
             <div class="row justify-content-between">
@@ -31,6 +31,7 @@
                                 <li><a href="#">{{ __('footer.about_us') }}</a></li>
                                 <li><a href="#">{{ __('footer.services') }}</a></li>
                                 <li><a href="#">{{ __('footer.project') }}</a></li>
+                                <li><a href="#">{{ __('footer.careers') }}</a></li>
                                 <li><a href="#">{{ __('footer.our_team') }}</a></li>
                             </ul>
                         </div>
@@ -45,10 +46,10 @@
                         <div class="footer-link">
                             <div class="f-contact">
                                 <ul>
-                                    <li>
+                                    {{-- <li>
                                         <i class="icon dripicons-phone"></i>
                                         <span>{!! __('footer.phone') !!}</span>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <i class="icon dripicons-mail"></i>
                                         <span>{!! __('footer.email') !!}</span>

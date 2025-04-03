@@ -11,12 +11,13 @@ return [
     'services'     => 'الخدمات',
     'project'      => 'المشاريع',
     'our_team'     => 'فريقنا',
+    'careers'     => 'careers',
 
     // قسم اتصل بنا
     'contact_us'   => 'اتصل بنا',
     'phone'        => '1800-121-3637<br>+91 555 234-8765',
     'email'        => '<a href="mailto:info@proposals.world">info@proposals.world</a><br><a href="mailto:sales@proposals.world">sales@proposals.world</a>',
-    'address'      => '380 St Kilda Road, Melbourne<br>VIC 3004, Australia',
+    'address'      => 'عمان - الأردن',
 
     // حقوق الطبع والنشر
     'copyright'    => '&copy; Proposals.world. جميع الحقوق محفوظة.',

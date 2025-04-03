@@ -11,10 +11,11 @@ class FaqSeeder extends Seeder
     {
         Faq::insert([
             [
-                'question_en' => 'How can I submit a tender request for Islamic marriage services?',
-                'question_ar' => 'كيف يمكنني تقديم طلب عطاء لخدمات الزواج الإسلامي؟',
-                'answer_en' => 'To submit a tender request, create an account, go to the "Submit Tender" page, and fill in the required details about the service you need.',
-                'answer_ar' => 'لتقديم طلب عطاء، قم بإنشاء حساب، ثم انتقل إلى صفحة "تقديم عطاء"، واملأ التفاصيل المطلوبة عن الخدمة التي تحتاجها.',
+                'question_en' => 'Which countries are targeted by proposals?',
+                'question_ar' => 'ما هي الدول المستهدفة من proposals؟',
+                'answer_en' => 'Proposals is currently targeted to Jordanians world wide and anyone living in Jordan, wait for our
+                                next editions to include more countries.',
+                'answer_ar' => 'Proposals حالياً موجهة للأردنيين في جميع أنحاء العالم وأي شخص مقيم في الأردن. انتظروا إصداراتنا القادمة التي ستشمل المزيد من الدول.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

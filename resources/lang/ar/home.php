@@ -71,6 +71,7 @@ return [
     'pricing_desc'  => 'اختر الخطة التي تناسب احتياجاتك وابدأ رحلتك للعثور على شريكك المثالي. خيارات مرنة مع أسعار معقولة وميزات مميزة.',
     'monthly'       => 'شهري',
     'annual'        => 'سنوي',
+    'duration'        => 'المدة',
 
     'plan_beginner_title' => 'المبتدئ',
     'plan_beginner_annual_price' => '95',
@@ -139,7 +140,7 @@ return [
 
     'no_packages_available' => 'لا توجد باقات متاحة',
     'days' => 'يومًا',
-    'contact_limit' => 'حدود الاتصال:',
+    'contact_limit' => 'حدود الاتصال',
 
 
     'gender_label' => 'أنا:',
@@ -150,4 +151,6 @@ return [
     'join_now' => 'انضم الآن!',
     'man' => 'رجل',
     'woman' => 'امرأة',
+    // about us
+    'about-us' => 'من نحن',
 ];

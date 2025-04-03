@@ -1,5 +1,13 @@
 @extends('frontend.layouts.app')
 @section('section')
+<style>
+    .icon-size {
+    height: 117px;
+    width: 124px;
+    object-fit: contain; /* Keeps image aspect ratio nicely inside */
+}
+
+</style>
     <div>
         <!-- slider-area -->
         <section id="parallax" class="slider-area slider-bg2 second-slider-bg d-flex fix"
@@ -137,7 +145,7 @@
                     <div class="col-lg-3 col-md-12 mb-30">
                         <div class="s-single-services text-center">
                             <div class="services-icon">
-                                <img src="{{ asset('frontend/img/icon/f-icon1.png') }}" alt="icon">
+                                <img src="{{ asset('frontend/img/icon/Smart Matchmaking.png') }}" alt="icon" class="icon-size">
                             </div>
                             <div class="second-services-content">
                                 <h5>{{ __('home.feature_1') }}</h5>
@@ -149,7 +157,7 @@
                     <div class="col-lg-3 col-md-12 mb-30">
                         <div class="s-single-services text-center">
                             <div class="services-icon">
-                                <img src="{{ asset('frontend/img/icon/f-icon2.png') }}" alt="icon">
+                                <img src="{{ asset('frontend/img/icon/secure-search.png') }}" alt="icon" class="icon-size">
                             </div>
                             <div class="second-services-content">
                                 <h5>{{ __('home.feature_2') }}</h5>
@@ -161,7 +169,7 @@
                     <div class="col-lg-3 col-md-12 mb-30">
                         <div class="s-single-services text-center">
                             <div class="services-icon">
-                                <img src="{{ asset('frontend/img/icon/f-icon3.png') }}" alt="icon">
+                                <img src="{{ asset('frontend/img/icon/Respects your time.png') }}" alt="icon" class="icon-size">
                             </div>
                             <div class="second-services-content">
                                 <h5>{{ __('home.feature_3') }}</h5>
@@ -173,7 +181,7 @@
                     <div class="col-lg-3 col-md-12 mb-30">
                         <div class="s-single-services text-center">
                             <div class="services-icon">
-                                <img src="{{ asset('frontend/img/icon/f-icon2.png') }}" alt="icon">
+                                <img src="{{ asset('frontend/img/icon/Aligned with Values.png') }}" alt="icon" class="icon-size">
                             </div>
                             <div class="second-services-content">
                                 <h5>{{ __('home.feature_4') }}</h5>
@@ -274,12 +282,8 @@
             style="background-image: url({{ asset('frontend/img/shape/header-sape6.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
             <div class="container">
                 <div class="row align-items-end">
-                    <div class="col-lg-6">
-                        <div class="faq-img text-right">
-                            <img src="{{ asset('frontend/img/icon/logos-icons.png') }}" alt="logos" class="img">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
+
+                    <div class="col-lg-12">
                         <div class="section-title left-align mb-50">
                             <h2>{{ __('home.faq_title') }}</h2>
                             <p>{{ __('home.faq_desc') }}</p>
@@ -369,7 +373,7 @@
                                     <div class="pricing-head">
                                         <h4>{{ $package['package_name'] }}</h4>
                                         <div class="pricing-amount">
-                                            <sup><span class="currency">$</span></sup>
+                                            <sup><span class="currency">JD</span></sup>
                                             <span class="price">{{ $package['price'] }}</span>
                                             <br>
                                             <span class="subscription"></span>
@@ -379,6 +383,7 @@
                                     <div class="pricing-body mb-40 text-left">
                                         <ul>
                                             <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
+                                            <li>{{ __('home.duration') }}: {{ $package['duration'] ?? "N/A" }}</li>
                                         </ul>
                                     </div>
                                     <div class="pricing-btn">
@@ -439,51 +444,56 @@
         </section>
         <!-- blog-area-end -->
 
-        <!-- contact-area (Get In Touch) -->
-        <section id="contact" class="contact-area contact-bg pt-50 pb-100 p-relative fix"
-            style="background-image: url({{ asset('frontend/img/shape/header-sape8.png') }}); background-position: right center; background-size: auto; background-repeat: no-repeat;">
-            <div class="container">
+      <!-- contact-area (Get In Touch) -->
+<section id="contact" class="contact-area pt-50 pb-100"
+style="background-color: #fff; position: relative;">
+<div class="container">
+    <div class="row align-items-center" style="max-width: 1140px; margin: auto;">
+        <!-- Left Image -->
+        <div class="col-lg-6 d-flex justify-content-center">
+            <div class="contact-img2" style="max-width: 723px; max-height: 555px;">
+                <img src="{{ asset('frontend/img/bg/couples.jpg') }}" alt="couples"
+                    style="width: 100%; height: auto; object-fit: cover; border-radius: 12px;">
+            </div>
+        </div>
+
+        <!-- Right Form -->
+        <div class="col-lg-6">
+            <div class="section-title mb-40">
+                <h2>{{ __('home.contact_title') }}</h2>
+                <p>{{ __('home.contact_desc') }}</p>
+            </div>
+            <form action="#" class="contact-form">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="contact-img2">
-                            <img src="{{ asset('frontend/img/bg/illustration.png') }}" alt="illustration">
+                    <div class="col-lg-12">
+                        <div class="contact-field p-relative c-name mb-20">
+                            <input type="text" placeholder="{{ __('home.contact_placeholder_name') }}">
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="section-title mb-40">
-                            <h2>{{ __('home.contact_title') }}</h2>
-                            <p>{{ __('home.contact_desc') }}</p>
+                    <div class="col-lg-12">
+                        <div class="contact-field p-relative c-email mb-20">
+                            <input type="email" placeholder="{{ __('home.contact_placeholder_email') }}">
                         </div>
-                        <form action="#" class="contact-form">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="contact-field p-relative c-name mb-20">
-                                        <input type="text" placeholder="{{ __('home.contact_placeholder_name') }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="contact-field p-relative c-email mb-20">
-                                        <input type="email" placeholder="{{ __('home.contact_placeholder_email') }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="contact-field p-relative c-subject mb-20">
-                                        <input type="text" placeholder="{{ __('home.contact_placeholder_phone') }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="contact-field p-relative c-message mb-45">
-                                        <textarea name="message" id="message" cols="10" rows="10"
-                                            placeholder="{{ __('home.contact_placeholder_message') }}"></textarea>
-                                    </div>
-                                    <button class="btn">{{ __('home.contact_button') }}</button>
-                                </div>
-                            </div>
-                        </form>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="contact-field p-relative c-subject mb-20">
+                            <input type="text" placeholder="{{ __('home.contact_placeholder_phone') }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="contact-field p-relative c-message mb-45">
+                            <textarea name="message" id="message" cols="10" rows="10"
+                                placeholder="{{ __('home.contact_placeholder_message') }}"></textarea>
+                        </div>
+                        <button class="btn">{{ __('home.contact_button') }}</button>
                     </div>
                 </div>
-            </div>
-        </section>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
         <!-- contact-area-end -->
 
     </div>

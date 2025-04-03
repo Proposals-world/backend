@@ -111,7 +111,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ],
         ]);
-        User::factory(1000)->create()->each(function ($user) {
+        User::factory(10)->create()->each(function ($user) {
             UserProfile::factory()->create([
                 'id' => $user->id,
             ]);

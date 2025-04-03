@@ -44,6 +44,9 @@ use App\Models\UserProfile;
 Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/about-us', function () {
+    return view('about-us');
+})->name('about-us');
 
 
 Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
@@ -104,6 +107,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::middleware('profile.complete')->group(function () {
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('index');
+        Route::get('/view-user/{id}', [UserUserProfileController::class, 'viewUser'])->name('viewUser');
         Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
         // Add other routes that require complete profile here.
     });
