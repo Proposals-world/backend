@@ -28,15 +28,11 @@
                         <i class="iconsminds-heart"></i> Half Match
                     </a>
                 </li>
-                <li>
-                    <a href="#applications">
+                <li class="{{ request()->routeIs('matches') ? 'active' : '' }}">
+                    <a href="{{ route('matches') }}">
                         <i class="iconsminds-male-female"></i> Matches
                     </a>
                 </li>
-          
-               
-
-
                 <li>
                     <a href="#">
                         <i class="iconsminds-box-with-folders"></i>Subscription Packages

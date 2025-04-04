@@ -2378,7 +2378,6 @@ section:hover .section-title h2::before {
 .faq-wrap .card-header:first-child {
     border-radius: 0;
 }
-
 .faq-wrap .card-header {
     padding: 0;
     margin-bottom: 0;

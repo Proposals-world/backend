@@ -24,23 +24,23 @@ class MatchResource extends JsonResource
     public function toArray($request)
     {
         $lang = $this->lang === 'ar' ? 'ar' : 'en';
-
-        // Identify the matched user dynamically
+    
         $authUserId = Auth::id();
         $matchedUser = $this->user1_id === $authUserId ? $this->user2 : $this->user1;
-
-        // Handle phone number visibility
+    
         $phoneNumber = null;
+        $email = null;
+    
         if ($matchedUser) {
             if ($this->contact_exchanged) {
-                // Show full phone number if contact is exchanged
                 $phoneNumber = $matchedUser->phone_number;
+                $email = $matchedUser->email;
             } else {
-                // Mask the phone number, ensuring it starts with "07"
                 $phoneNumber = $this->maskPhoneNumber($matchedUser->phone_number);
+                $email = $this->maskEmail($matchedUser->email);
             }
         }
-        // dd($matchedUser->photos()->where('is_main', 1)->first());
+    
         return [
             'id' => $this->id,
             'matched_user_id' => $matchedUser ? $matchedUser->id : null,
@@ -48,9 +48,9 @@ class MatchResource extends JsonResource
             'matched_user_age' => $matchedUser && $matchedUser->profile ? $matchedUser->profile->age : null,
             'matched_user_city' => $matchedUser && $matchedUser->profile && $matchedUser->profile->city
                 ? ($matchedUser->profile->city->{'name_' . $lang} ?? null) : null,
-            // 'match_status' => $this->match_status,
             'contact_exchanged' => $this->contact_exchanged,
             'matched_user_phone' => $phoneNumber,
+            'matched_user_email' => $email,
             'matched_user_photo' => $matchedUser && $matchedUser->photos()->where('is_main', 1)->first()
                 ? $matchedUser->photos()->where('is_main', 1)->first()->photo_url
                 : null,
@@ -70,4 +70,18 @@ class MatchResource extends JsonResource
 
         return substr($phone, 0, 2) . str_repeat('*', strlen($phone) - 4) . substr($phone, -2);
     }
+    
+    private function maskEmail($email)
+{
+    if (!$email || !str_contains($email, '@')) {
+        return '***@***.com';
+    }
+
+    [$name, $domain] = explode('@', $email);
+    $maskedName = substr($name, 0, 1) . str_repeat('*', max(1, strlen($name) - 2)) . substr($name, -1);
+    $domainParts = explode('.', $domain);
+    $maskedDomain = str_repeat('*', strlen($domainParts[0])) . '.' . end($domainParts);
+
+    return $maskedName . '@' . $maskedDomain;
+}
 }

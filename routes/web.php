@@ -29,11 +29,12 @@ use App\Http\Controllers\Admin\ReligionsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Api\UserProfileController;
 
 // users web routes
 use App\Http\Controllers\User\LikedMeController;
+use App\Http\Controllers\User\MatchController;
 use App\Http\Controllers\User\OnBoardingController;
-use App\Http\Controllers\Api\UserProfileController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
@@ -104,6 +105,10 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     // Dashboard: only accessible if profile is complete.
     Route::middleware('profile.complete')->group(function () {
         Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
+        Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
+Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
+
+        Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('index');
         Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');

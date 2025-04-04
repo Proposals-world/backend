@@ -59,5 +59,28 @@ return [
     'pets' => 'Pets',
 
     'na' => 'N/A',
-    ]
+    ],
+    'matches' => [
+    'users_who_matched_with_you' => 'Users Who Matched With You',
+    'contact_not_exchanged' => 'Pending Contacts ',
+    'contact_exchanged' => 'Contact Exchanged',
+    'no_matches' => 'Currently you do not have any matches',
+    'profile_details' => 'Profile Details',
+    'profile_image' => 'Profile Image',
+    'basic_information' => 'Basic Information',
+    'additional_details' => 'Additional Details',
+    'gender' => 'Gender',
+    'age' => 'Age',
+    'nationality' => 'Nationality',
+    'city' => 'City',
+    'unknown_location' => 'Unknown Location',
+    'close' => 'Close',
+    'remove' => 'Demove Match',
+    'like_back' => 'Like Back',
+    'contact_info' => 'Contact Information',
+        'reveal_info' => 'Reveal Info',
+        'phone_number' => 'Phone Number',
+        'email' => 'Email',
+    
+],
 ];
