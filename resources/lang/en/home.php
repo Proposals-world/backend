@@ -13,7 +13,7 @@ return [
     'feature_1_desc' => 'Get personalized matches based on your interests, values and society factors.',
     'feature_2' => 'Secure Profiles',
     'feature_2_desc' => 'Your privacy is our priority – only verified profiles are allowed.',
-    'feature_3' => 'Time Caring',
+    'feature_3' => ' Respects your time',
     'feature_3_desc' => 'Our Application respects your time and is straight forward.',
     'feature_4' => 'Aligned with Values',
     'feature_4_desc' => 'We connect you with your dream partner in a way that respects our society values.',
@@ -70,6 +70,7 @@ return [
     'annual' => 'Annual',
     'days' => 'Days',
     'contact_limit' => 'Contacts',
+    'duration' => 'Duration',
 
     'plan_beginner_title' => 'Beginner',
     'plan_beginner_annual_price' => '95',
@@ -149,4 +150,6 @@ return [
     'join_now' => 'Join Now!',
     'man' => 'Man',
     'woman' => 'Woman',
+    // about us
+    'about-us' => 'About Us',
 ];

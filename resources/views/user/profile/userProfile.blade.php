@@ -58,6 +58,7 @@
 
 
 
+
                                 <div class="card-body">
                                     <p class="text-muted text-small mb-2">Bio</p>
                                     <p class="mb-3">
@@ -126,11 +127,12 @@
 
                                 <div class="card-body">
                                     <h5 class="card-title">Matches</h5>
-                                    <div>
+                                    <div style="max-height: 460px; overflow-y: auto;">
                                         @foreach($matches as $match)
                                         <div class="d-flex flex-row mb-3">
                                             <a class="d-block position-relative" href="#">
                                                 <!-- Check if the matched user's photo is available -->
+
                                                 <img src="{{ asset($match['matched_user_photo'] ?? 'default-profile.png') }}"
                                                      alt="{{ $match['matched_user_name'] }}"
                                                      class="list-thumbnail border-0" />
@@ -143,10 +145,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    @endforeach
-
-
-
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -481,38 +480,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 col-12 mb-4">
-                                        <div class="card">
-                                            <div class="position-absolute card-top-buttons">
-                                                <button class="btn btn-header-light icon-button">
-                                                </button>
-                                            </div>
 
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <i class="simple-icon-shield"></i> Criminal Record
-                                                </h5>
-                                                <div>
-                                                    <!-- Criminal Record -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Criminal Record:</strong> {{ $userProfile['profile']['criminal_record'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Record Status -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Record Status:</strong> {{ $userProfile['profile']['record_status'] ?? 'unverified' }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <!--  Education -->
-                                    <div class="col-lg-6 col-12 mb-4">
+                                      <!--  Education -->
+                                      <div class="col-lg-6 col-12 mb-4">
                                         <div class="card">
                                             <div class="position-absolute card-top-buttons">
                                                 <button class="btn btn-header-light icon-button">
@@ -545,6 +516,36 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- <div class="col-lg-6 col-12 mb-4">
+                                        <div class="card">
+                                            <div class="position-absolute card-top-buttons">
+                                                <button class="btn btn-header-light icon-button">
+                                                </button>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <i class="simple-icon-shield"></i> Criminal Record
+                                                </h5>
+                                                <div>
+                                                    <!-- Criminal Record -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>Criminal Record:</strong> {{ $userProfile['profile']['criminal_record'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Record Status -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>Record Status:</strong> {{ $userProfile['profile']['record_status'] ?? 'unverified' }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+
 
                                     @if ($userProfile['gender'] === 'female')
                                     <div class="col-lg-6 col-12 mb-3">
@@ -621,40 +622,42 @@
 
                 <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab">
                     <div class="row">
-                        @foreach($likes as $like)
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card d-flex flex-row mb-4">
-            <a class="d-flex" href="#">
-
-                <!-- Display the profile image -->
-                <img src="{{ asset(optional($like['liked_user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
-                alt="Profile"
-                class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
-
-            </a>
-            <div class="d-flex flex-grow-1 min-width-zero">
-                <div class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
-                    <div class="min-width-zero">
-                        <a href="#">
-                            <!-- Use optional() to safely access liked_user properties -->
-                            <p class="list-item-heading mb-1 truncate">
-                                {{-- {{ dd($like['liked_user']) }} --}}
-                                {{ $like['liked_user']['first_name'] ?? '' }}
-                                {{ $like['liked_user']['last_name'] ?? '' }}
-
-
-                            </p>
-                        </a>
-                        <p class="mb-2 text-muted text-small">
-                            {{ $like['liked_user']['email'] ?? '' }}
-                        </p>
-                        <button type="button" class="btn btn-xs btn-outline-primary">View</button>
+                        @if(empty($likes))
+                            <div class="col-12">
+                                <p class="text-center text-muted">No likes yet.</p>
+                            </div>
+                        @else
+                            @foreach($likes as $like)
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="card d-flex flex-row mb-4">
+                                        <a class="d-flex" href="#">
+                                            <!-- Display the profile image -->
+                                            <img src="{{ asset(optional($like['liked_user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
+                                                 alt="Profile"
+                                                 class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+                                        </a>
+                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                            <div class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                                                <div class="min-width-zero">
+                                                    <a href="#">
+                                                        <!-- Use optional() to safely access liked_user properties -->
+                                                        <p class="list-item-heading mb-1 truncate">
+                                                            {{ $like['liked_user']['first_name'] ?? '' }}
+                                                            {{ $like['liked_user']['last_name'] ?? '' }}
+                                                        </p>
+                                                    </a>
+                                                    <p class="mb-2 text-muted text-small">
+                                                        {{ $like['liked_user']['email'] ?? '' }}
+                                                    </p>
+                                                    <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endforeach
 
 
 

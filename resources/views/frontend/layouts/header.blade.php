@@ -1,7 +1,7 @@
 <style>
 
 </style>
-<header class="header-area">            
+<header class="header-area">
     <div id="" class="menu-area">
         <div class="container">
             <div class="second-menu">
@@ -19,7 +19,7 @@
                              <nav id="mobile-menu">
                                 <ul id="header-ul">
                                     <div></div>
-                                    <li ><a href="#about">{{ __('header.about_us') }}</a></li>
+                                    <li ><a href="{{ route('about-us') }}">{{ __('header.about_us') }}</a></li>
                                     <li><a href="#features">{{ __('header.features') }}</a></li>
                                     <li><a href="#blog">{{ __('header.blog') }}</a></li>
                                     <li><a href="#pricing">{{ __('header.pricing') }}</a></li>
@@ -27,7 +27,7 @@
                                     <li class="d-lg-none"><a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
                                         style="color: gray; font-size: 16px; text-decoration: none;">
                                         {{ __('header.language_switcher') }}
-                                    </a></li>                                            
+                                    </a></li>
                                 </ul>
                             </nav>
                         </div>

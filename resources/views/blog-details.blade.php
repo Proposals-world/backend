@@ -17,7 +17,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $formattedBlog['title'] }}jkl90ikkl;l</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $formattedBlog['title'] }}</li>
                             </ol>
                         </nav>
                     </div>

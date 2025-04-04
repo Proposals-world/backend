@@ -11,12 +11,13 @@ return [
     'services'     => 'Services',
     'project'      => 'Project',
     'our_team'     => 'Our Team',
+    'careers'     => 'Careers',
 
     // Contact Us Section
     'contact_us'   => 'Contact Us',
     'phone'        => '1800-121-3637<br>+91 555 234-8765',
     'email'        => '<a href="mailto:info@proposals.world">info@proposals.world</a><br><a href="mailto:sale@proposals.world">sale@proposals.world</a>',
-    'address'      => '380 St Kilda Road, Melbourne<br>VIC 3004, Australia',
+    'address'      => 'Amman - Jordan',
 
     // Copyright
     'copyright'    => '&copy; Proposals.world. All rights reserved.',
