@@ -38,7 +38,7 @@
     background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
     background-position: right 0; @endif
 background-repeat: no-repeat;
-background-size: 65%;">
+background-size: 40%;">
 
     @include('user.layouts.header')
 

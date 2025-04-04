@@ -49,8 +49,8 @@ class UserProfileController extends Controller
         // Pass the transformed data, likes, and matches to the view
         return view('user.profile.userProfile', [
             'userProfile' => $formattedUserProfile->resolve(),
-            'likes' => $likes->resolve(),  // Add likes data to the view
-            'matches' => $matches->resolve()  // Add matches data to the view
+            'likes' => $likes->resolve(),
+            'matches' => $matches->resolve() 
         ]);
     }
     public function updateProfile()
