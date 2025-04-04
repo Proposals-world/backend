@@ -99,9 +99,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     // On-boarding page: only accessible if profile is not complete.
-    Route::middleware('redirect.if.profile.complete')->group(function () {
-        Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
-    });
+    Route::middleware('redirect.if.profile.complete')->group(function () {});
+    Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
 
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
@@ -113,8 +112,7 @@ Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.
 
         Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
-        Route::get('/profile', [UserUserProfileController::class, 'index'])->name('index');
-        Route::get('/view-user/{id}', [UserUserProfileController::class, 'viewUser'])->name('viewUser');
+        Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
         Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
         // Add other routes that require complete profile here.
     });

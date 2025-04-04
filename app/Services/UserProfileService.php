@@ -49,6 +49,7 @@ class UserProfileService
                 'photos',
                 'hobbies', // Many-to-many relationship
                 'pets', // Many-to-many relationship
+                'profile.smokingTools', // Many-to-many relationship
             ]);
         });
     }
@@ -104,33 +105,33 @@ class UserProfileService
             'date_of_birth' => $data['date_of_birth'], //
             'age' => Carbon::parse($data['date_of_birth'])->age, //
             'height_id' => $data['height'], //
-            'weight_id' => $data['weight'],//
+            'weight_id' => $data['weight'], //
             'nationality_id' => $data['nationality_id'] ?? null, //
             'origin_id' => $data['origin_id'] ?? null, //
             'religion_id' => $data['religion_id'] ?? null, //
             'skin_color_id' => $data['skin_color_id'] ?? null, //
             'hair_color_id' => $data['hair_color_id'] ?? null, //
-            'country_of_residence_id' => $data['country_of_residence_id'],//
-            'city_id' => $data['city_id'],//
+            'country_of_residence_id' => $data['country_of_residence_id'], //
+            'city_id' => $data['city_id'], //
             'educational_level_id' => $data['educational_level_id'], //
             'specialization_id' => $data['specialization_id'] ?? null, //
-            'employment_status' => $data['employment_status']?? null, //
+            'employment_status' => $data['employment_status'] ?? null, //
             'job_title_id' => $data['job_title_id'] ?? null, //
             'smoking_status' => $data['smoking_status'] ?? null, //
             'drinking_status_id' => $data['drinking_status_id'] ?? null, //
             'sports_activity_id' => $data['sports_activity_id'] ?? null, //
-            'social_media_presence_id' => $data['social_media_presence_id'] ?? null, //missing 
+            'social_media_presence_id' => $data['social_media_presence_id'] ?? null, //missing
             'marital_status_id' => $data['marital_status_id'],  //
             'children' => $data['number_of_children'] ?? null, //
             'housing_id' => $data['housing_status_id'] ?? null, //
-            'hijab_status' => $data['hijab_status'] ?? 0, //missing for wemon only 
+            'hijab_status' => $data['hijab_status'] ?? 0, //missing for wemon only
             'position_level_id' => $data['position_level_id'] ?? null,  //missing
             'financial_status_id' => $data['financial_status_id'] ?? null, //
             'health_issues_en' => $data['health_issues_en'] ?? null,
             'car_ownership' => $data['car_ownership'] ?? null, //missing
             'health_issues_ar' => $data['health_issues_ar'] ?? null,
-            'zodiac_sign_id' => $data['zodiac_sign_id'] ?? null, //missing 
-            'religiosity_level_id' => $data['religiosity_level_id'] ?? null,  //missing 
+            'zodiac_sign_id' => $data['zodiac_sign_id'] ?? null, //missing
+            'religiosity_level_id' => $data['religiosity_level_id'] ?? null,  //missing
             'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
             'marriage_budget_id' => $data['marriage_budget_id'] ?? null, //missing for men
             'eye_color_id' => $data['eye_color_id'] ?? null, //missing for men
@@ -139,7 +140,7 @@ class UserProfileService
 
         $profile->save();
         // Handle Smoking Tools based on Smoking Status
-        if (isset($data['smoking_status']) && $data['smoking_status'] == 1) { 
+        if (isset($data['smoking_status']) && $data['smoking_status'] == 1) {
             if (isset($data['smoking_tools']) && is_array($data['smoking_tools'])) { // missing
                 $profile->smokingTools()->sync($data['smoking_tools']);
             } else {
@@ -150,7 +151,7 @@ class UserProfileService
         }
 
         // Sync hobbies
-        $user->hobbies()->sync($data['hobbies'] ?? []); 
+        $user->hobbies()->sync($data['hobbies'] ?? []);
 
         // Sync pets
         $user->pets()->sync($data['pets'] ?? []); // missing

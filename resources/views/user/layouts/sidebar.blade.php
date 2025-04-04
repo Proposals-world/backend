@@ -9,7 +9,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('user.profile') }}">
                         <i class="iconsminds-box-with-folders"></i>Your Profile
                     </a>
                 </li>
@@ -33,6 +33,10 @@
                         <i class="iconsminds-male-female"></i> Matches
                     </a>
                 </li>
+
+
+
+
                 <li>
                     <a href="#">
                         <i class="iconsminds-box-with-folders"></i>Subscription Packages
