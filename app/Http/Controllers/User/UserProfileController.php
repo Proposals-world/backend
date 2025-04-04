@@ -11,16 +11,19 @@ use App\Services\UserProfileService;
 use App\Services\LikeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\User\OnboardingService;
 
 class UserProfileController extends Controller
 {
     protected $userProfileService;
     protected $likeService;
+    protected $onboardingService;
 
-    public function __construct(UserProfileService $userProfileService, LikeService $likeService)
+    public function __construct(UserProfileService $userProfileService, LikeService $likeService, OnboardingService $onboardingService)
     {
         $this->userProfileService = $userProfileService;
         $this->likeService = $likeService;
+        $this->onboardingService = $onboardingService;
     }
 
     public function index(Request $request)
@@ -52,33 +55,14 @@ class UserProfileController extends Controller
     }
     public function updateProfile()
     {
-        return view('user.profile.updateProfile');
-    }
-    public function viewUser(Request $request, string $id)
-    {
-        $user = User::find($id);
+        $user = Auth::user(); // Get the authenticated user
+        $locale = app()->getLocale(); // Get the app locale (en or ar)
 
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'You must be logged in to access your profile.');
-        }
+        // Pass the locale to the service to load localized profile data
+        $profile = $this->userProfileService->getAuthenticatedUserProfile($user, $locale);
 
-        // Get user profile data from UserProfileService
-        $userProfile = $this->userProfileService->getAuthenticatedUserProfile($user);
-
-        // Get likes data using LikeService
-        $likes = $this->likeService->getLikes();
-
-        // Get matches data using LikeService
-        $matches = $this->likeService->getMatches();  // Call getMatches()
-
-        // Transform the user profile using UserProfileResource
-        $formattedUserProfile = new UserProfileResource($userProfile, $request->input('lang', 'en'));
-
-        // Pass the transformed data, likes, and matches to the view
-        return view('user.viewUser', [
-            'userProfile' => $formattedUserProfile->resolve(),
-            'likes' => $likes->resolve(),  // Add likes data to the view
-            'matches' => $matches->resolve()  // Add matches data to the view
-        ]);
+        $data = $this->onboardingService->getOnboardingData();
+        // dd($profile);
+        return view('user.profile.updateProfile', compact('user', 'profile', 'data', 'locale'));
     }
 }

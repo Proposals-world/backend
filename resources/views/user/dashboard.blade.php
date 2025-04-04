@@ -48,9 +48,9 @@
 
             <div class="col-xl-6 col-lg-12 mb-4">
                 <div class="card">
-            
+
                     <div class="card-body">
-                        <h5 class="card-title">Recent Orders</h5>
+                        <h5 class="card-title">Recent Feedback</h5>
                         <div class="scroll dashboard-list-with-thumbs">
                             <!-- Recent orders remain unchanged -->
                             <div class="d-flex flex-row mb-3">

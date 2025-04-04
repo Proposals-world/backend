@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -10,9 +11,9 @@
                 <h1>{{ ucfirst($userProfile['first_name']) .' '. ucfirst($userProfile['last_name']) }}</h1>
                 <div class="text-zero top-right-button-container">
                     <a href="{{ route('updateProfile') }}"
-                        class="btn btn-lg btn-outline-primary   top-right-button top-right-button-single"
+                        class="btn btn-lg btn-primary mt-1   top-right-button top-right-button-single"
                        >
-                        ACTION
+                        Update Profile
                     </a>
 
                 </div>
@@ -51,9 +52,10 @@
                                         <i class="simple-icon-pencil"></i>
                                     </button>
                                 </div>
-                                <img src="{{ asset(optional($userProfile['profile']['photos']->where('is_main', true)->first())['photo_url'] ?? 'default-profile.png') }}"
-                                    alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
-                                    class="card-img-top" />
+                                <img src="{{ asset(optional($userProfile['profile']['photos']->firstWhere('is_main', 1))->photo_url ?? 'default-profile.png') }}"
+                                alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
+                                class="card-img-top" />
+
 
 
 
