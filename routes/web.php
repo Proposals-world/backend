@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\ReligionsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\UserFeedbackController;
 use App\Http\Controllers\Api\UserProfileController;
 
 // users web routes
@@ -41,7 +42,6 @@ use App\Http\Controllers\HomeController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
-use App\Http\Controllers\UserFeedbackController;
 use App\Models\UserProfile;
 
 Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -110,12 +110,12 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
         Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
         Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
+        Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
 
         Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
         Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
-        Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
 
         // Add other routes that require complete profile here.
     });
