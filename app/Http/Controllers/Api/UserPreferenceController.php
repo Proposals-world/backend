@@ -45,6 +45,59 @@ class UserPreferenceController extends Controller
         return new UserPreferenceResource($userPreference, $language);
     }
 
+    public function updateChangedData(UserPreferenceRequest $request)
+    {
+        try {
+            // Retrieve the current user preference (if any)
+            $userPreference = UserPreference::firstOrNew(['user_id' => $request->user()->id]);
+
+            // Get the validated data from the request
+            $validatedData = $request->validated();
+
+            // Iterate over the validated data and update only the changed data
+            foreach ($validatedData as $key => $value) {
+                // If the value has changed, update the field
+                if ($userPreference->$key !== $value) {
+                    $userPreference->$key = $value;
+                }
+            }
+
+            // Save the updated or new user preference
+            $userPreference->save();
+
+            // Sync the preferred pets if provided
+            if ($request->has('preferred_pets_id')) {
+                $userPreference->pets()->sync($request->preferred_pets_id);
+            }
+
+            // Sync the preferred smoking tools if provided
+            if ($request->has('preferred_smoking_tools')) {
+                $userPreference->SmokingTools()->sync($request->preferred_smoking_tools);
+            }
+
+            // Sync the preferred languages if provided
+            if ($request->has('preferred_languages_id')) {
+                $userPreference->user->preferredLanguages()->sync($request->preferred_languages_id);
+            }
+
+            // Get the language header, default to 'en' if not provided
+            $language = $request->header('Accept-Language', 'en');
+
+            // Return a success response with the updated user preference data
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User preferences updated successfully.',
+                'data' => new UserPreferenceResource($userPreference, $language)
+            ], 200);
+        } catch (\Exception $e) {
+            // Return an error response if something goes wrong
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     /**
      * Display the specified user preference.
      */

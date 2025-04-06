@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserFeedbackController;
+use App\Http\Controllers\Api\UserPreferenceController;
 use App\Http\Controllers\Api\UserProfileController;
 
 // users web routes
@@ -117,6 +118,8 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
+        Route::get('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
+        Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('user.profile');
         Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
 
         // Add other routes that require complete profile here.

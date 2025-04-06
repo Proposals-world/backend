@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserProfileResource;
 use App\Http\Resources\LikeResource;
 use App\Http\Resources\MatchResource; // Import MatchResource
+use App\Http\Resources\UserPreferenceResource;
 use App\Models\User;
 use App\Services\UserProfileService;
 use App\Services\LikeService;
@@ -34,6 +35,14 @@ class UserProfileController extends Controller
         if (!$user) {
             return redirect()->route('login')->with('error', 'You must be logged in to access your profile.');
         }
+    }
+    public function desired(Request $request)
+    {
+        $user = Auth::user(); // Get authenticated user
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'You must be logged in to access your profile.');
+        }
 
         // Get user profile data from UserProfileService
         $userProfile = $this->userProfileService->getAuthenticatedUserProfile($user);
@@ -44,16 +53,26 @@ class UserProfileController extends Controller
         // Get matches data using LikeService
         $matches = $this->likeService->getMatches();  // Call getMatches()
 
+        // Get user preferences directly (assuming the UserPreference model is related to the user)
+        $userPreferences = $user->preference;  // Assuming you have a relationship method like `preference()` on the User model
+
         // Transform the user profile using UserProfileResource
         $formattedUserProfile = new UserProfileResource($userProfile, app()->getLocale());
 
-        // Pass the transformed data, likes, and matches to the view
-        return view('user.profile.userProfile', [
+        // Transform the user preferences using UserPreferenceResource
+        $formattedUserPreferences = new UserPreferenceResource($userPreferences, app()->getLocale());
+        // dd($formattedUserPreferences->resolve());
+        // Pass the transformed data, likes, matches, and user preferences to the view
+        return view('user.desiredPartnerCharacteristics.partnerProfile', [
             'userProfile' => $formattedUserProfile->resolve(),
             'likes' => $likes->resolve(),
-            'matches' => $matches->resolve()
+            'matches' => $matches->resolve(),
+            'userPreferences' => $formattedUserPreferences->resolve()  // Add user preferences directly
         ]);
     }
+
+
+
     public function updateProfile()
     {
         $user = Auth::user(); // Get the authenticated user
