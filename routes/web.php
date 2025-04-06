@@ -100,8 +100,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     // On-boarding page: only accessible if profile is not complete.
-    Route::middleware('redirect.if.profile.complete')->group(function () {});
-    Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+    Route::middleware('redirect.if.profile.complete')->group(function () {
+
+        Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+    });
 
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');

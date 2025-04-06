@@ -13,7 +13,7 @@
                     <a href="{{ route('updateProfile') }}"
                         class="btn btn-lg btn-primary mt-1   top-right-button top-right-button-single"
                        >
-                        Update Profile
+                        {{ __('profile.Update_Profile') }}
                     </a>
 
                 </div>
@@ -34,12 +34,12 @@
             <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="first-tab" data-toggle="tab" href="#first" role="tab"
-                        aria-controls="first" aria-selected="true">PROFILE</a>
+                        aria-controls="first" aria-selected="true">{{ __('profile.profile') }}</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link " id="second-tab" data-toggle="tab" href="#second" role="tab"
-                        aria-controls="second" aria-selected="false">My Likes</a>
+                        aria-controls="second" aria-selected="false">{{ __('profile.My_Likes') }}</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -62,14 +62,14 @@
 
 
                                 <div class="card-body">
-                                    <p class="text-muted text-small mb-2">Bio</p>
+                                    <p class="text-muted text-small mb-2">{{ __('profile.Bio') }}</p>
                                     <p class="mb-3">
                                         {{ $userProfile['profile']['bio'] ?? 'N/A' }}
                                     </p>
 
-                                    <p class="text-muted text-small mb-2">Location</p>
+                                    <p class="text-muted text-small mb-2">{{ __('profile.Location') }}</p>
                                     <p class="mb-3">{{ $userProfile['profile']['country_of_residence'] . ' , ' .  $userProfile['profile']['city'] }}</p>
-                                    <p class="text-muted text-small mb-2">Hobbies</p>
+                                    <p class="text-muted text-small mb-2">{{ __('profile.Hobbies') }}</p>
                                     <p class="mb-3">
                                         @if (!empty($userProfile['profile']['hobbies']))
                                             @foreach ($userProfile['profile']['hobbies'] as $hobby)
@@ -78,10 +78,10 @@
                                                 </a>
                                             @endforeach
                                         @else
-                                            <span class="text-muted">No hobbies available</span>
+                                            <span class="text-muted">{{ __('profile.No_hobbies_available') }}</span>
                                         @endif
                                     </p>
-                                    <p class="text-muted text-small mb-2">Pets</p>
+                                    <p class="text-muted text-small mb-2">{{ __('profile.Pets') }}</p>
                                     <p class="mb-3">
                                         @if (!empty($userProfile['profile']['pets']))
                                             @foreach ($userProfile['profile']['pets'] as $pet)
@@ -90,12 +90,12 @@
                                                 </a>
                                             @endforeach
                                         @else
-                                            <span class="text-muted">No pets available</span>
+                                            <span class="text-muted">{{ __('profile.No_pets_available') }}</span>
                                         @endif
                                     </p>
 
                                     @if ($userProfile['profile']['smoking_status'] == true)
-                                    <p class="text-muted text-small mb-2">Smoking Tools</p>
+                                    <p class="text-muted text-small mb-2">{{ __('profile.Smoking_Tools') }}</p>
                                     <p class="mb-3">
                                         @foreach ($userProfile['profile']['smoking_tools'] ?? [] as $tool)
                                             <a >
@@ -128,7 +128,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Matches</h5>
+                                    <h5 class="card-title">{{ __('profile.Matches') }}</h5>
                                     <div style="max-height: 460px; overflow-y: auto;">
                                         @foreach($matches as $match)
                                         <div class="d-flex flex-row mb-3">
@@ -142,8 +142,8 @@
                                             <div class="pl-3 pt-2 pr-2 pb-2">
                                                 <a href="#">
                                                     <p class="list-item-heading">{{ $match['matched_user_name'] }}</p>
-                                                    <p class="text-muted">Age: {{ $match['matched_user_age'] }} | City: {{ $match['matched_user_city'] }}</p>
-                                                    <p>Phone: {{ $match['matched_user_phone'] }}</p>
+                                                    <p class="text-muted">{{ __('profile.Age') }}: {{ $match['matched_user_age'] }} | {{ __('profile.City') }}: {{ $match['matched_user_city'] }}</p>
+                                                    <p>{{ __('profile.Phone') }}: {{ $match['matched_user_phone'] }}</p>
                                                 </a>
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-user"></i> Personal Info
+                                                    <i class="simple-icon-user"></i> {{ __('profile.Personal_Info') }}
                                                 </h5>
                                                 <div>
                                                     {{-- <div class="d-flex flex-row mb-3">
@@ -177,19 +177,19 @@
 
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Nationality:</strong> {{ $userProfile['profile']['nationality'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Nationality') }}:</strong> {{ $userProfile['profile']['nationality'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Age:</strong> {{ $userProfile['profile']['age'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Age') }}:</strong> {{ $userProfile['profile']['age'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Zodiac Sign:</strong> {{ $userProfile['profile']['zodiac_sign'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Zodiac_Sign') }}:</strong> {{ $userProfile['profile']['zodiac_sign'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -207,34 +207,28 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-location-pin"></i> Location Info
+                                                    <i class="simple-icon-location-pin"></i> {{ __('profile.Location_Info') }}
                                                 </h5>
                                                 <div>
-                                                    <!-- Nationality -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Nationality:</strong> {{ $userProfile['profile']['nationality'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
 
                                                     <!-- Origin -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Origin:</strong> {{ $userProfile['profile']['origin'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Origin') }}:</strong> {{ $userProfile['profile']['origin'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Country of Residence -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Country of Residence:</strong> {{ $userProfile['profile']['country_of_residence'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Country_of_Residence') }}:</strong> {{ $userProfile['profile']['country_of_residence'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- City -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>City:</strong> {{ $userProfile['profile']['city'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.City') }}:</strong> {{ $userProfile['profile']['city'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -251,34 +245,34 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-briefcase"></i> Employment & Financial Info
+                                                    <i class="simple-icon-briefcase"></i> {{ __('profile.Employment_&_Financial_Info') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Sector -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Sector:</strong> {{ $userProfile['profile']['sector'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Sector') }}:</strong> {{ $userProfile['profile']['sector'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Position Level -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Position Level:</strong> {{ $userProfile['profile']['position_level'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Position_Level') }}:</strong> {{ $userProfile['profile']['position_level'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Job Title -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Job Title:</strong> {{ $userProfile['profile']['job_title'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Job_Title') }}:</strong> {{ $userProfile['profile']['job_title'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                      <!-- Employment Status -->
                                                      <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Employment Status:</strong>
+                                                            <strong>{{ __('profile.Employment_Status') }}:</strong>
                                                             @if ($userProfile['profile']['employment_status'] ?? false)
                                                                 <i class="simple-icon-check text-success"></i>
                                                             @else
@@ -289,7 +283,7 @@
                                                     <!-- Financial Status -->
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Financial Status:</strong> {{ $userProfile['profile']['financial_status'] ?? 'N/A' }}
+                                                            <strong>{{ (__('profile.Financial_Status')) }}:</strong> {{ $userProfile['profile']['financial_status'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -308,13 +302,13 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-heart"></i> Lifestyle & Habits
+                                                    <i class="simple-icon-heart"></i> {{ __('profile.Lifestyle_&_Habits') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Car Ownership -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Car Ownership:</strong>
+                                                            <strong>{{ __('profile.Car_Ownership') }}:</strong>
                                                             @if ($userProfile['profile']['car_ownership'] ?? false)
                                                                 <i class="simple-icon-check text-success"></i>
                                                             @else
@@ -326,7 +320,7 @@
                                                     <!-- Smoking Status -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Smoking Status:</strong>
+                                                            <strong>{{ __('profile.Smoking_Status') }}:</strong>
                                                             @if ($userProfile['profile']['smoking_status'] ?? false)
                                                                 <i class="simple-icon-check text-success"></i>
                                                             @else
@@ -338,7 +332,7 @@
                                                     <!-- Drinking Status -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Drinking Status:</strong>
+                                                            <strong>{{ __('profile.Drinking_Status') }}:</strong>
                                                             @if ($userProfile['profile']['drinking_status'] ?? false)
                                                                 <i class="simple-icon-check text-success"></i>
                                                             @else
@@ -349,14 +343,14 @@
                                                     <!-- Sleep Habit -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Sleep Habit:</strong> {{ $userProfile['profile']['sleep_habit'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Sleep_Habit') }}:</strong> {{ $userProfile['profile']['sleep_habit'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Sports Activity -->
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Sports Activity:</strong> {{ $userProfile['profile']['sports_activity'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Sports_Activity') }}:</strong> {{ $userProfile['profile']['sports_activity'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
@@ -374,27 +368,27 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-diamond"></i> Religion & Marriage
+                                                    <i class="simple-icon-diamond"></i> {{ __('profile.Religion_&_Marriage') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Religiosity Level -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Religiosity Level:</strong> {{ $userProfile['profile']['religiosity_level'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Religiosity_Level') }}:</strong> {{ $userProfile['profile']['religiosity_level'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Marriage Budget -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Marriage Budget:</strong> {{ $userProfile['profile']['marriage_budget'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Marriage_Budget') }}:</strong> {{ $userProfile['profile']['marriage_budget'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Religion -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Religion:</strong> {{ $userProfile['profile']['religion'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Religion') }}:</strong> {{ $userProfile['profile']['religion'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
@@ -402,7 +396,7 @@
                                                     <!-- Hijab Status -->
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                                <strong>Hijab Status:</strong> {{ $userProfile['profile']['hijab_status'] ?? 'N/A' }}
+                                                                <strong>{{ __('profile.Hijab_Status') }}:</strong> {{ $userProfile['profile']['hijab_status'] ?? 'N/A' }}
                                                             </div>
                                                         </div>
                                                         @endif
@@ -420,27 +414,27 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-home"></i> Housing & Marital
+                                                    <i class="simple-icon-home"></i> {{ __('profile.Housing_&_Marital_Status') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Housing Status -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Housing Status:</strong> {{ $userProfile['profile']['housing_status'] ?? 'N/A' }}
+                                                            <strong> {{ __('profile.Housing_Status') }} :</strong> {{ $userProfile['profile']['housing_status'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Marital Status -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Marital Status:</strong> {{ $userProfile['profile']['marital_status'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Marital_Status') }}:</strong> {{ $userProfile['profile']['marital_status'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Children -->
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Children:</strong> {{ $userProfile['profile']['children'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Children') }}:</strong> {{ $userProfile['profile']['children'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -457,26 +451,26 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-heart"></i> Physical Appearance & Health
+                                                    <i class="simple-icon-heart"></i> {{ __('profile.Physical_&_Health_Info') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Skin Color -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Skin Color:</strong> {{ $userProfile['profile']['skin_color'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Skin_Color') }}:</strong> {{ $userProfile['profile']['skin_color'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Hair Color -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Hair Color:</strong> {{ $userProfile['profile']['hair_color'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Hair_Color') }}:</strong> {{ $userProfile['profile']['hair_color'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                     <!-- Health Status -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Health Status:</strong> {{ $userProfile['profile']['health_status'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Health_Status') }}:</strong> {{ $userProfile['profile']['health_status'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -494,20 +488,20 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="simple-icon-graduation"></i> Education
+                                                    <i class="simple-icon-graduation"></i> {{ __('profile.Education') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Educational Level -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Educational Level:</strong> {{ $userProfile['profile']['educational_level'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Educational_Level') }}:</strong> {{ $userProfile['profile']['educational_level'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
                                                     <!-- Specialization -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Specialization:</strong> {{ $userProfile['profile']['specialization'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Specialization') }}:</strong> {{ $userProfile['profile']['specialization'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
 
@@ -559,19 +553,19 @@
 
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <i class="iconsminds-network"></i> Guardian Contact && Social Media
+                                                    <i class="iconsminds-network"></i> {{ __('profile.Guardian_Contact_&_Social_Media') }}
                                                 </h5>
                                                 <div>
                                                     <!-- Contact (Encrypted) -->
                                                     <div class="d-flex flex-row mb-2">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Guardian Contact:</strong> {{ $userProfile['profile']['guardian_contact'] ?? 'None' }}
+                                                            <strong>{{ __('profile.Guardian_Contact') }}:</strong> {{ $userProfile['profile']['guardian_contact'] ?? 'None' }}
                                                         </div>
                                                     </div>
                                                     <!-- Social Media Presence -->
                                                     <div class="d-flex flex-row mb-2">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>Social Media Presence:</strong> {{ $userProfile['profile']['social_media_presence'] ?? 'N/A' }}
+                                                            <strong>{{ __('profile.Social_Media_Presence') }}:</strong> {{ $userProfile['profile']['social_media_presence'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -590,19 +584,19 @@
 
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <i class="iconsminds-network"></i> Contact & Social Media
+                                                <i class="iconsminds-network"></i> {{ __('profile.Contact_&_Social_Media') }}
                                             </h5>
                                             <div>
                                                 <!-- Contact (Encrypted) -->
                                                 <div class="d-flex flex-row mb-2">
                                                     <div class="pl-3 pt-2 pr-2 pb-2">
-                                                        <strong>Contact:</strong> {{ $userProfile['phone_number'] ?? 'N/A' }}
+                                                        <strong>{{ __('profile.Contact') }}:</strong> {{ $userProfile['phone_number'] ?? 'N/A' }}
                                                     </div>
                                                 </div>
                                                 <!-- Social Media Presence -->
                                                 <div class="d-flex flex-row mb-2">
                                                     <div class="pl-3 pt-2 pr-2 pb-2">
-                                                        <strong>Social Media Presence:</strong> {{ $userProfile['profile']['social_media_presence'] ?? 'N/A' }}
+                                                        <strong>{{ __('profile.Social_Media_Presence') }}:</strong> {{ $userProfile['profile']['social_media_presence'] ?? 'N/A' }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -626,7 +620,7 @@
                     <div class="row">
                         @if(empty($likes))
                             <div class="col-12">
-                                <p class="text-center text-muted">No likes yet.</p>
+                                <p class="text-center text-muted">{{ __('profile.No_like_yet') }}</p>
                             </div>
                         @else
                             @foreach($likes as $like)

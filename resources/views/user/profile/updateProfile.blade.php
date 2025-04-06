@@ -293,12 +293,31 @@ h2 {
     position: relative;
     left: -5px;
     top: 0;
+
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
     cursor: default;
     padding-left: 2px;
     padding-right: 5px;
 }
+.custom-file-label {
+    box-shadow: initial !important;
+    border-radius: 0.1rem;
+    height: calc(2em + 1rem);
+    padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+    background: white;
+    border-color: #d7d7d7;    border-radius: 0.25rem;
+
+}
+.custom-file-label::after {
+    height: calc(2em + 0.9rem);
+    padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+    /* color: #3a3a3a !important; */
+    background-color: #e9ecef !important;
+    border-color: #d7d7d7;
+    background: transparent;
+}
+
 </style>
 <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
 style="

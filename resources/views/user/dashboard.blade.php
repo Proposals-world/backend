@@ -220,23 +220,25 @@
 
                                                 @if(app()->getLocale() === 'ar')
                                                     <div class="form-group">
-                                                        <label>{{ __('Feedback (Arabic)') }}</label>
+                                                        <label><label>{{ __('feedback.Feedback') }}</label>
+                                                    </label>
                                                         <textarea name="feedback_text_ar" class="form-control" rows="2"></textarea>
                                                     </div>
                                                 @else
                                                     <div class="form-group">
-                                                        <label>{{ __('Feedback (English)') }}</label>
+                                                        <label><label>{{ __('feedback.Feedback') }}</label>
+                                                    </label>
                                                         <textarea name="feedback_text_en" class="form-control" rows="2"></textarea>
                                                     </div>
                                                 @endif
 
                                                 <div class="form-group">
-                                                    <label>{{ __('Outcome') }}</label>
-                                                    <input type="text" class="form-control" name="outcome" placeholder="{{ __('e.g. Success, No response') }}">
+                                                    <label>{{ __('feedback.Outcome') }}</label>
+                                                    <input type="text" class="form-control" name="outcome">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="mb-2 d-block">{{ __('Is Profile Accurate?') }}</label>
+                                                    <label class="mb-2 d-block">{{ __('feedback.Is_Profile_Accurate') }}</label>
                                                     <div class="custom-switch custom-switch-primary-inverse custom-switch-large switch-wrapper">
                                                         <input class="custom-switch-input" id="isProfileAccurate_{{ $match['id'] }}"
                                                                type="checkbox" name="is_profile_accurate" value="1">
@@ -246,7 +248,7 @@
 
 
                                                 <div class="feedback-success alert alert-success mt-3 d-none">
-                                                    {{ __('Feedback submitted successfully.') }}
+                                                    {{ __('feedback.Feedback submitted successfully.') }}
                                                 </div>
                                             </div>
 
@@ -254,8 +256,8 @@
                                         {{-- Footer --}}
                                         <div class="modal-footer justify-content-between">
 
-                                                <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                                                <button type="submit" class="btn btn-primary">{{ __('feedback.Submit') }}</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">{{ __('feedback.Cancel') }}</button>
 
                                         </div>
 
