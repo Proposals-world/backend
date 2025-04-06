@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('desired') }}">
                         <i class="iconsminds-handshake"></i> Desired Partner characteristics
                     </a>
                 </li>

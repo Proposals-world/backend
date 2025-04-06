@@ -42,6 +42,8 @@ class UserPreferenceRequest extends FormRequest
             'preferred_pets_id' => 'array',
             'preferred_pets_id.*' => 'exists:pets,id',
             'preferred_language_id' => 'nullable|exists:languages,id',
+            'eye_color_id' => ['nullable', 'exists:eye_colors,id'],
+
 
         ];
 

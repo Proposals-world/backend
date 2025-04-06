@@ -218,4 +218,8 @@ class UserProfile extends Model
     {
         return $this->belongsTo(EyeColor::class);
     }
+    public function hobbies()
+    {
+        return $this->belongsToMany(Hobby::class, 'user_hobby_pivots', 'user_profile_id', 'hobby_id');
+    }
 }

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class UserPreferenceController extends Controller
 {
+
     /**
      * Store or update a user preference using updateOrCreate.
      */
@@ -26,6 +27,11 @@ class UserPreferenceController extends Controller
         if ($request->has('preferred_pets_id')) {
             $userPreference->pets()->sync($request->preferred_pets_id);
         }
+        // Sync the preferred hobbies if provided
+
+        if ($request->has('preferred_hobbies_id')) {
+            $userPreference->hobbies()->sync($request->preferred_hobbies_id);
+        }
 
         // Sync the preferred smoking tools if provided
         if ($request->has('preferred_smoking_tools')) {
@@ -35,7 +41,7 @@ class UserPreferenceController extends Controller
         // Sync the preferred languages if provided
         // if ($request->has('preferred_languages_id')) {
         //     // Sync the languages using the 'preferredLanguages' relationship on the User model
-        //     $userPreference->user->preferredLanguages()->sync($request->preferred_languages_id);
+        //     $userPreference->user->preferredLanguages()->sync($request->preferr1ed_languages_id);
         // }
 
         // Get the language header, default to 'en' if not provided

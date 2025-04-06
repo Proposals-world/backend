@@ -103,6 +103,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/geographic', [GeographicCulturalSocioeconomicController::class, 'index']);
     // Route::get('/user-preferences', [UserPreferenceController::class, 'index']); // List all user preferences
     Route::post('/user-preferences', [ApiUserPreferenceController::class, 'store']); // Create a new user preference
+
     Route::get('/show-user-preferences', [ApiUserPreferenceController::class, 'show']); // Get a single user preference
     Route::put('/user-preferences/{userPreference}', [ApiUserPreferenceController::class, 'update']); // Update a user preference
     Route::delete('/user-preferences/{userPreference}', [ApiUserPreferenceController::class, 'destroy']); // Delete a user preference

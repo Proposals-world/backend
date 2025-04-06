@@ -59,6 +59,12 @@ class UserPreferenceResource extends JsonResource
                     'name' => $tool->{"name_{$lang}"},
                 ];
             }) : [],
+            'preferred_hobbies' => $this->hobbies ? $this->hobbies->map(function ($hobby) use ($lang) {
+                return [
+                    'id' => $hobby->id,
+                    'name' => $hobby->{"name_{$lang}"},
+                ];
+            }) : [],
 
             // Preferred Pets
             'preferred_pets' => $this->pets ? $this->pets->map(function ($pet) use ($lang) {

@@ -72,4 +72,17 @@ return [
 
     'No_like_yet' => 'No likes yet',
     'Update_Profile' => 'Update Profile',
+    'height' => 'height',
+    'weight' => 'weight',
+    'eye_color' => 'Eye Color',
+    'To' => 'To',
+    'From' => 'From',
+    'Yes' => 'Yes',
+    'No' => 'No',
+    'Desired_Partner_characteristics' => 'Save Desired Partner Characteristics',
+    'Save' => 'Save',
+    'Saved' => 'Saved',
+    'Saving...' => 'Saving...',
+    'Desired_partner_characteristics_saved_successfully' => 'Desired partner characteristics saved successfully.',
+
 ];

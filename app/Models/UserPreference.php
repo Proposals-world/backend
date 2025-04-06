@@ -136,4 +136,8 @@ class UserPreference extends Model
     {
         return $this->belongsTo(Language::class, 'preferred_language_id');
     }
+    public function hobbies()
+    {
+        return $this->belongsToMany(Hobby::class, 'user_hobbies', 'user_id', 'hobbies_id');
+    }
 }

@@ -79,4 +79,17 @@ return [
     'No_like_yet' => 'لا توجد إعجابات حتى الآن',
 
     'Update_Profile' => 'تحديث الملف الشخصي',
+    'height' => 'الطول',
+    'weight' => 'الوزن',
+    'eye_color' => 'لون العين',
+    'To' => 'إلى',
+    'From' => 'من',
+    'Yes' => 'نعم',
+    'No' => 'لا',
+    'Desired_Partner_characteristics' => 'حفظ خصائص الشريك المرغوب',
+    'Save' => 'حفظ',
+    'Saved' => 'تم الحفظ',
+    'Saving...' => 'جارٍ الحفظ...',
+    'Desired_partner_characteristics_saved_successfully' => 'تم حفظ خصائص الشريك المرغوب بنجاح',
+
 ];

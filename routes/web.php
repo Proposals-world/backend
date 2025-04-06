@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserFeedbackController;
 use App\Http\Controllers\Api\UserPreferenceController;
 use App\Http\Controllers\Api\UserProfileController;
+use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
 
 // users web routes
 use App\Http\Controllers\User\LikedMeController;
@@ -119,8 +120,10 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
         Route::get('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
-        Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('user.profile');
+        Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');
         Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
+        Route::post('/user-preferences', [ApiUserPreferenceController::class, 'store'])
+            ->name('api.user-preferences.store');
 
         // Add other routes that require complete profile here.
     });
