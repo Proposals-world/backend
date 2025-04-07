@@ -11062,9 +11062,9 @@ footer.page-footer .footer-content {
     }
 
     .onboarding-navigation .btn {
-        font-size: 12px; /* Smaller text size */
-        padding: 8px 16px; /* Smaller padding */
-        min-width: 80px; /* Limit the button's width */
+        font-size: 12px;
+        padding: 6px 11px;
+        min-width: 77px;
     }
     .no-gutters {
         display: flex;
@@ -11287,6 +11287,31 @@ h2 {
     left: -5px;
     top: 0;
 }
+/* LTR when lang="ar" */
+html[lang="ar"]
+    .select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    margin-left: 5px; /* Keep margin to the left for LTR */
+    margin-right: 0; /* Reset right margin */
+    padding-left: 20px; /* Keep padding-left */
+    padding-right: 0; /* Remove padding-right */
+    text-align: left; /* Align text to the left */
+    border: 0; /* Remove border */
+}
+
+/* RTL-specific styles when lang="ar" */
+html[lang="ar"]
+    .select2-container--default[dir="rtl"]
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
+    border-left: 1px solid #aaa;
+    border-right: 0;
+    margin-left: 11px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 .select2-container--default
     .select2-selection--multiple
     .select2-selection__choice__display {

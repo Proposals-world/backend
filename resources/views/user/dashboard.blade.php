@@ -201,10 +201,10 @@
                                     <div class="modal-header bg-primary" >
                                         <div class="modal-drag-handle d-block d-sm-none">
 
+                                        </div>
                                         <h5 class="modal-title" id="feedbackModalLabel_{{ $match['id'] }}">
                                             <i class="fas fa-comment-dots"></i> {{ __('Give Feedback for') }}<b> {{ $match['matched_user_name'] }}</b>
                                         </h5>
-                                    </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true" class="text-white">&times;</span>
                                         </button>
@@ -348,52 +348,72 @@
             });
         });
     });
-    // drage the modal
-    const modals = document.querySelectorAll('.modal');
+    // Mobile-specific drag functionality for modal
+const modals = document.querySelectorAll('.modal');
 
 modals.forEach(modal => {
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
-
+    const threshold = 300; // Increase threshold to make the drag longer (higher value = longer drag distance)
+    const timeoutDuration = 5000; // Time to wait before closing the modal (in ms)
+    let timeoutId; // Variable to store timeout reference
     const dialog = modal.querySelector('.modal-dialog');
 
-    // Apply full modal height always on mobile
+    // Apply full modal height always on mobile (screen width <= 576px)
     if (window.innerWidth <= 576 && dialog) {
         // Ensure modal opens fully
         modal.addEventListener('shown.bs.modal', function () {
-            dialog.style.transform = 'translateY(0)';
+            dialog.style.transform = 'translateY(0)'; // Reset position when modal is shown
         });
 
+        // When touch starts, record the initial touch position
         dialog.addEventListener('touchstart', function (e) {
             startY = e.touches[0].clientY;
             isDragging = true;
+
+            // Clear any existing timeout to reset the timeout on each touch start
+            clearTimeout(timeoutId);
         });
 
+        // During touch move, apply dragging effect
         dialog.addEventListener('touchmove', function (e) {
             if (!isDragging) return;
             currentY = e.touches[0].clientY;
-
             const diff = currentY - startY;
-            if (diff > 0) {
-                dialog.style.transform = `translateY(${diff}px)`;
+
+            // If dragged down beyond threshold, close the modal immediately
+            if (diff > threshold) {
+                $(modal).modal('hide');
+                return; // Exit early, modal is closed
             }
+
+            // Apply the dragging effect
+            dialog.style.transform = `translateY(${diff}px)`;
         });
 
+        // When touch ends, reset the modal if not closed
         dialog.addEventListener('touchend', function () {
-            const diff = currentY - startY;
-
-            if (diff > 100) {
-                // Close modal
-                $(modal).modal('hide');
-            } else {
-                // Snap back
-                dialog.style.transform = 'translateY(0)';
-            }
-
             isDragging = false;
+
+            // Reset the position of the modal if not dragged enough to close
+            dialog.style.transform = 'translateY(0)';
             startY = 0;
             currentY = 0;
+
+            // Set a timeout to close the modal after a delay
+            timeoutId = setTimeout(function () {
+                $(modal).modal('hide'); // Close modal after timeout
+            }, timeoutDuration);
+        });
+
+        // Reset modal position when it is closed and then reopened
+        modal.addEventListener('hidden.bs.modal', function () {
+            dialog.style.transform = ''; // Remove transform to reset position
+        });
+
+        modal.addEventListener('shown.bs.modal', function () {
+            dialog.style.transform = 'translateY(0)'; // Reset position when modal is opened
         });
     }
 });

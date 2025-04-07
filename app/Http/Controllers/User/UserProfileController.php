@@ -45,7 +45,7 @@ class UserProfileController extends Controller
         $matches = $this->likeService->getMatches();  // Call getMatches()
 
         // Transform the user profile using UserProfileResource
-        $formattedUserProfile = new UserProfileResource($userProfile, $request->input('lang', 'en'));
+        $formattedUserProfile = new UserProfileResource($userProfile, app()->getLocale());
 
         // Pass the transformed data, likes, and matches to the view
         return view('user.profile.userProfile', [

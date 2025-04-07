@@ -24,7 +24,7 @@ return [
     'Origin' => 'Origin',
     'Country_of_Residence' => 'Country of Residence',
     // Employment & Financial Info
-    'Employment_&_Financial_Info' => 'Employment & Financial Info',
+    'Employment' => 'Employment ',
     'Sector' => 'Sector',
     'Position_Level' => 'Position Level',
     'Job_Title' => 'Job Title',
@@ -43,11 +43,11 @@ return [
     'Marriage_Budget' => 'Marriage Budget',
     'Religion' => 'Religion',
     'Hijab_Status' => 'Hijab Status',
-    'Housing_&_Marital_Status' => 'Housing & Marital Status',
+    'Housing_&_Financial_Info' => 'Housing & Financial Info',
     'Physical_&_Health_Info' => 'Physical & Health Info',
 
     // Housing & Marital
-    'Housing_&_Marital' => 'Housing & Marital',
+    'Housing_&__Financial_Info' => 'Housing & Marital',
     'Housing_Status' => 'Housing Status',
     'Marital_Status' => 'Marital Status',
     'Children' => 'Children',
@@ -69,7 +69,10 @@ return [
     'Contact_&_Social_Media' => 'Contact & Social Media',
     'Contact' => 'Contact',
     'Social_Media_Presence' => 'Social Media Presence',
-
+    // Hobbies & Pets
+    'Hobbies_&_Pets' => 'Hobbies & Pets',
+    'Hobbies' => 'Hobbies',
+    'Pets' => 'Pets',
     'No_like_yet' => 'No likes yet',
     'Update_Profile' => 'Update Profile',
     'height' => 'height',
@@ -84,5 +87,8 @@ return [
     'Saved' => 'Saved',
     'Saving...' => 'Saving...',
     'Desired_partner_characteristics_saved_successfully' => 'Desired partner characteristics saved successfully.',
-
+    'Employment_&_Financial_Info' => 'Employment & Financial Info',
+    'Housing_&_Marital_Status' => 'Housing & Marital Status',
+    'Profile_saved_successfully' => 'Profile saved successfully.',
+    'Preferences saved successfully' => 'Preferences saved successfully.',
 ];

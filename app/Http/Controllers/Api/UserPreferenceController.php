@@ -22,6 +22,7 @@ class UserPreferenceController extends Controller
             ['user_id' => $request->user()->id], // Search condition
             $request->validated()               // Data to insert or update
         );
+        // dd($userPreference);
         // dd($request);
         // Sync the preferred pets if provided
         if ($request->has('preferred_pets_id')) {

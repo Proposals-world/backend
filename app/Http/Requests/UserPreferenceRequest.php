@@ -43,8 +43,11 @@ class UserPreferenceRequest extends FormRequest
             'preferred_pets_id.*' => 'exists:pets,id',
             'preferred_language_id' => 'nullable|exists:languages,id',
             'eye_color_id' => ['nullable', 'exists:eye_colors,id'],
-
-
+            // New rules for hobbies
+            'preferred_hobbies_id'                 => 'nullable|array', // New rule for hobbies
+            'preferred_hobbies_id.*'               => 'nullable|exists:hobbies,id', // Each hobby should be valid
+            'preferred_pets_id'                  => 'nullable|array', // New rule for pets
+            'preferred_pets_id.*'                => 'nullable|exists:pets,id', // Each pet should be valid
         ];
 
         // If the user has a smoking status of 1 (smokes), require that smoking tools are provided.

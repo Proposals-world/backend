@@ -26,7 +26,7 @@ return [
     'Country_of_Residence' => 'بلد الإقامة',
 
     // Employment & Financial Info
-    'Employment_&_Financial_Info' => 'المعلومات الوظيفية والمالية',
+    'Employment' => 'المعلومات الوظيفية ',
     'Sector' => 'القطاع',
     'Position_Level' => 'المستوى الوظيفي',
     'Job_Title' => 'المسمى الوظيفي',
@@ -53,7 +53,7 @@ return [
     'Housing_Status' => 'حالة السكن',
     'Marital_Status' => 'الحالة الاجتماعية',
     'Children' => 'الأطفال',
-    'Housing_&_Marital_Status' => 'حالة السكن والحالة الاجتماعية',
+    'Housing_&_Financial_Info' => 'السكن والمعلومات المالية',
     'Physical_&_Health_Info' => 'المظهر والصحة',
     // Physical Appearance & Health
     'Physical_Appearance_&_Health' => 'المظهر والصحة',
@@ -66,6 +66,10 @@ return [
     'Educational_Level' => 'المستوى التعليمي',
     'Specialization' => 'التخصص',
 
+    // hobbies & pets
+    'Hobbies_&_Pets' => 'الهوايات والحيوانات الأليفة',
+    'Hobbies' => 'الهوايات',
+    'Pets' => 'الحيوانات الأليفة',
     // Guardian Contact & Social Media
     'Guardian_Contact_&_Social_Media' => 'بيانات ولي الأمر ومواقع التواصل الاجتماعي',
     'Guardian_Contact' => 'بيانات ولي الأمر',
@@ -91,5 +95,9 @@ return [
     'Saved' => 'تم الحفظ',
     'Saving...' => 'جارٍ الحفظ...',
     'Desired_partner_characteristics_saved_successfully' => 'تم حفظ خصائص الشريك المرغوب بنجاح',
+    'Employment_&_Financial_Info' => 'المعلومات الوظيفية والمالية',
+    'Housing_&_Marital_Status' => 'المعلومات السكنية والاجتماعية',
+    'Profile_saved_successfully' => 'تم حفظ الملف الشخصي بنجاح',
+    'Preferences saved successfully' => 'تم حفظ التفضيلات بنجاح',
 
 ];

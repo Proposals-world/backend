@@ -11,7 +11,8 @@
 $locale = app()->getLocale();
 @endphp
 
-
+<form id="profile-form"  enctype="multipart/form-data">
+@csrf
 
 <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
 style="
@@ -52,6 +53,8 @@ style="
                                 __('onboarding.final_details'),
                             ];
                         @endphp
+
+
                         @foreach ($steps as $index => $step)
                             <div class="col step-indicator {{ $index == 0 ? 'active' : '' }}"
                                 data-step="{{ $index }}">
@@ -60,13 +63,23 @@ style="
                             </div>
                         @endforeach
                     </div>
+                    <div id="profile-success-alert" class="d-none">
+                        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                            <i class="simple-icon-info mr-2"></i>
+                            <span id="preference-success-message">{{ __('profile.Profile_saved_successfully') }}!</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <!-- Onboarding Form -->
-                <div class="card rounded-lg shadow-lg onboarding-card">
+                <div class="card rounded-lg shadow-lg onboarding-card mb-4">
+
                     <div class="card-body p-lg-5">
-                        <form id="onboarding-form" method="POST" action="{{ route('user.profile.update') }}"
-                            enctype="multipart/form-data">
-                            @csrf
+                        <form id="onboarding-form"
+                         >
+
                             <input type="hidden" value="true" name="FromUpdateProfile">
                             <div class="onboarding-steps">
                                 <!-- Step 0: Personal Information -->
@@ -78,20 +91,18 @@ style="
                                     <div class="form-group">
                                         <label class="form-label">{{ __('onboarding.photo_upload') }}</label>
                                         <div class="custom-file">
-                                            <input type="file" name="photo_url" class="custom-file-input"
-                                                id="customFile" accept="image/*"
-                                                @if (!optional($user->photos->firstWhere('is_main', 1))->photo_url) required @endif
-                                                >
-                                            <label class="custom-file-label"
-                                                for="customFile">{{ __('onboarding.choose_photo') }}</label>
+                                            <input type="file" name="profile_photo" class="custom-file-input" id="customFile" accept="image/*"
+                                                @if (!optional($user->photos->firstWhere('is_main', 1))->photo_url) required @endif>
+                                            <label class="custom-file-label" for="customFile">{{ __('onboarding.choose_photo') }}</label>
                                         </div>
                                         <img id="preview"
-                                        src="{{ optional($user->photos->firstWhere('is_main', 1))->photo_url }}"
-                                        alt="{{ __('Thumbnail') }}"
-                                        style="display: block; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 150px;" />
+                                            src="{{ optional($user->photos->firstWhere('is_main', 1))->photo_url }}"
+                                            alt="{{ __('Thumbnail') }}"
+                                            style="display: block; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 150px;" />
 
                                         <span class="error-message text-danger" style="font-size:12px;"></span>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -299,7 +310,7 @@ style="
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.eye_color') }}</label>
-                                                <select name="eye_color" class="form-control rounded-pill"
+                                                <select name="eye_color_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">{{ __('onboarding.select_eye_color') }}
                                                     </option>
@@ -808,6 +819,7 @@ style="
     </div>
 </div>
 </section>
+</form>
 
 @push('scripts')
 <script>
@@ -838,8 +850,96 @@ style="
             }
         }
     }
+    $('#profile-form').submit(function(e) {
+    e.preventDefault(); // Prevent the form from submitting normally
 
-    $(document).ready(function() {
+    // Get the form data for profile info
+    var formData = new FormData(this); // Use FormData for file uploads
+
+    // URLs for both profile update and photo update
+    var profileUrl = '{{ route("profile.update") }}';
+    var photoUrl = '{{ route("user.profile.photo.update") }}';
+
+    // Make AJAX requests for both profile update and photo upload
+    let profileRequest = $.ajax({
+        url: profileUrl, // URL for updating profile
+        type: 'POST',
+        data: formData,
+        processData: false,  // Necessary for FormData
+        contentType: false,  // Necessary for FormData
+    });
+
+    // Separate request for photo upload
+    let photoRequest = $.ajax({
+        url: photoUrl, // URL for updating profile photo
+        type: 'POST',
+        data: formData,
+        processData: false,  // Necessary for FormData
+        contentType: false,  // Necessary for FormData
+    });
+
+    // Run both requests concurrently with Promise.all
+    Promise.all([profileRequest, photoRequest])
+        .then((responses) => {
+            // Both requests have completed successfully
+            console.log('Profile and photo updated successfully!');
+
+            // Log only the photo update response
+            console.log('Photo response:', responses[1]);
+
+            // Check if the photo update was successful
+            if (responses[1].success) {
+                // Update the photo preview if photo is uploaded
+                $('#preview').attr('src', responses[1].photoUrl);
+            }
+
+            // Handle success for the profile update
+            if (responses[0].success) {
+                alert('Profile updated successfully!');
+            }
+
+            // Display the success message using the custom alert
+            $('#profile-success-alert').removeClass('d-none').fadeIn();
+
+            // Redirect to the user profile page after a short delay
+            setTimeout(function() {
+                window.location.href = '{{ route("user.profile") }}';
+            }, 2000);  // Wait 2 seconds before redirecting
+        })
+        .catch((error) => {
+            // Handle any errors that occurred during the AJAX requests
+            console.error('An error occurred:', error);
+
+            // Show errors from the response if status is 422 (validation errors)
+            if (error.status === 422) {
+                var errors = error.responseJSON.errors;
+
+                // Clear previous errors
+                $('.error-message').text('');
+
+                // Loop through each field's errors and display them
+                for (var field in errors) {
+                    if (errors.hasOwnProperty(field)) {
+                        var errorMessage = errors[field].join(', '); // Concatenate multiple errors
+                        $('#' + field).closest('.form-group').find('.error-message').text(errorMessage);
+                    }
+                }
+            } else {
+                alert('There was an error submitting the form.');
+            }
+        });
+});
+
+// Handle the file input change to show a preview image
+$('#customFile').change(function(event) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        $('#preview').attr('src', e.target.result); // Update preview image with selected file
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
+
+
         function validateReligiosityLevel() {
             var religiosityField = $('select[name="religiosity_level_id"]');
             var religiosityValue = religiosityField.val();
@@ -1205,39 +1305,40 @@ style="
                 }
             });
         }
+// When the country changes, update the cities dropdown
+$('#country_id').on('change', function() {
+    var countryId = $(this).val();
+    $('#city_id').empty().append('<option value="">{{ __('onboarding.select_city') }}</option>'); // Clear existing cities
 
-        $('#country_id').on('change', function() {
-            var countryId = $(this).val();
-            $('#city_id').empty().append(
-            '<option value="">{{ __('onboarding.select_city') }}</option>');
-            if (countryId) {
-            $.ajax({
-                url: "{{ route('cities.by.country', '') }}/" + countryId,
-                type: 'GET',
-                success: function(data) {
+    if (countryId) {
+        $.ajax({
+            url: "{{ route('cities.by.country', '') }}/" + countryId,
+            type: 'GET',
+            success: function(data) {
                 $.each(data, function(index, city) {
-                    $('#city_id').append('<option value="' + city.id +
-                    '">' + city.name + '</option>');
+                    $('#city_id').append('<option value="' + city.id + '">' + city.name + '</option>');
                 });
 
                 // If the user's profile has a city_id, preselect it
                 var userCityId = "{{ $user->profile->city_id ?? '' }}";
                 if (userCityId) {
-                    $('#city_id').val(userCityId);
+                    $('#city_id').val(userCityId); // Preselect the city if it exists in the user's profile
                 }
-                },
-            });
-            }
+            },
         });
+    }
+});
 
-        // Trigger change event on page load to populate cities for the user's country
-        $(document).ready(function() {
-            var userCountryId = "{{ $user->profile->country_id ?? '' }}";
-            if (userCountryId) {
-            $('#country_id').val(userCountryId).trigger('change');
-            }
-        });
-    });
+// Trigger change event on page load to populate cities for the user's selected country
+$(document).ready(function() {
+    var userCountryId = "{{ $user->profile->country_of_residence_id ?? '' }}";
+    if (userCountryId) {
+        $('#country_id').val(userCountryId).trigger('change'); // Set the selected country and trigger the change event
+    }
+});
+
+
+
 </script>
 @endpush
 @endsection
