@@ -54,27 +54,30 @@ class UserProfileController extends Controller
             'matches' => $matches->resolve()
         ]);
     }
-    public function    desired(Request $request)
+    public function desired(Request $request)
     {
-        $user = Auth::user(); // Get authenticated user
+        $user = Auth::user();
 
         if (!$user) {
             return redirect()->route('login')->with('error', 'You must be logged in to access your profile.');
         }
 
-        // Get user preferences directly (assuming the UserPreference model is related to the user)
-        $userPreferences = $user->preference;  // Assuming you have a relationship method like `preference()` on the User model
+        // ✅ Use the method correctly as a relationship
+        $userPreferences = $user->preference()->firstOrNew([
+            'user_id' => $user->id
+        ]);
+
         $data = $this->onboardingService->getOnboardingData();
-        // Transform the user preferences using UserPreferenceResource
+
         $formattedUserPreferences = new UserPreferenceResource($userPreferences, app()->getLocale());
-        // dd($formattedUserPreferences->resolve());
-        // dd($data);
-        // Pass the transformed data, likes, matches, and user preferences to the view
+
         return view('user.desiredPartnerCharacteristics.partnerProfile', [
-            'userPreferences' => $formattedUserPreferences->resolve(), // Add user preferences directly
+            'userPreferences' => $formattedUserPreferences->resolve(),
             'data' => $data
         ]);
     }
+
+
 
 
 

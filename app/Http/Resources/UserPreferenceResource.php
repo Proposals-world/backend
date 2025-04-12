@@ -24,12 +24,12 @@ class UserPreferenceResource extends JsonResource
     {
         // Determine the language dynamically
         $lang = $this->lang === 'ar' ? 'ar' : 'en';
-        // dd($request);
+        // dd($this->id ?? null);
         // dd($this->smokingTools()->get());
 
         return [
-            'id' => $this->id,
-            'user_id' => $this->user_id,
+            'id' => $this->id ?? null,
+            'user_id' => $this->user_id ?? null,
             'preferred_nationality' => $this->preferredNationality ? $this->preferredNationality->{"name_{$lang}"} : null,
             'preferred_language_id' => $this->language ? $this->language->{"name_{$lang}"} : null, // Fixed here
             'preferred_origin' => $this->preferredOrigin ? $this->preferredOrigin->{"name_{$lang}"} : null,

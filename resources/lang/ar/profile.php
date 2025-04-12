@@ -99,5 +99,7 @@ return [
     'Housing_&_Marital_Status' => 'المعلومات السكنية والاجتماعية',
     'Profile_saved_successfully' => 'تم حفظ الملف الشخصي بنجاح',
     'Preferences saved successfully' => 'تم حفظ التفضيلات بنجاح',
-
+    'No_Preference' => 'لا توجد تفضيلات',
+    'You can select up to 10 fields. Remaining:' => 'يمكنك اختيار ما يصل إلى 10 مجالات. المتبقي:',
+    'you_can_select_more_than_one' => 'يمكنك اختيار أكثر من واحد',
 ];

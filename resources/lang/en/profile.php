@@ -91,4 +91,7 @@ return [
     'Housing_&_Marital_Status' => 'Housing & Marital Status',
     'Profile_saved_successfully' => 'Profile saved successfully.',
     'Preferences saved successfully' => 'Preferences saved successfully.',
+    'No_Preference' => 'No Preference',
+    'You can select up to 10 fields. Remaining:' => 'You can select up to 10 fields. Remaining:',
+    'you_can_select_more_than_one' => 'You can select more than one',
 ];

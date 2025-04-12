@@ -84,14 +84,13 @@ html[dir="rtl"] .pricing-box {
     text-align: right;
 }
 
-.matchmaking-form-wrapper{
+.matchmaking-form-wrapper {
     text-align: right !important;
 }
 
-.matchmaking-radio-wrapper{
-    gap:10px;
+.matchmaking-radio-wrapper {
+    gap: 10px;
 }
-
 
 /* Custom Select2 Styles */
 .select2-container--default .select2-selection--multiple {
@@ -101,11 +100,13 @@ html[dir="rtl"] .pricing-box {
     min-height: 38px;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #FF3494;
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    background-color: #ff3494;
     border: none;
     border-radius: 0.25rem;
-    color: #fff;
+    color: rgb(85, 85, 85);
     padding: 0 0.5rem;
     margin-top: 0.25rem;
     margin-right: 0.25rem;
@@ -115,7 +116,6 @@ html[dir="rtl"] .pricing-box {
 .rtl .select2-container--default .select2-selection--multiple {
     text-align: right;
 }
-
 
 /* Adjust specific components if needed */
 .onboarding-steps-indicator {

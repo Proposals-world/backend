@@ -3,10 +3,66 @@
 @section('content')
 
 <style>
+
     .card-title{
         font-size: 1.1rem;
         font-weight: bold;
     }
+    .slider-wrapper {
+    position: relative;
+    height: 50px;
+}
+
+.slider-track {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.slider-track::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--theme-color-1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 4;
+}
+
+.slider-track::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--theme-color-1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 4;
+}
+
+.range-highlight {
+    position: absolute;
+    height: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--theme-color-1);
+    border-radius: 3px;
+    z-index: 2;
+}
+
+
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -35,7 +91,16 @@
                     </ol>
                 </nav>
             </div>
+            <div id="field-limit-counter"
+            class="alert alert-info py-2 px-3 mb-3 shadow-sm"
+            style="font-size: 16px; position: sticky; top: 105px; left: 0; z-index: 1050;">
+           {{ __('profile.You can select up to 10 fields. Remaining:') }}
+           <strong id="remaining-count">10</strong>
+       </div>
+
+
             <div id="preference-success-alert" class=" d-none">
+
                 <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
                     <i class="simple-icon-info mr-2"></i>
                     <span id="preference-success-message">{{ __('Preferences saved successfully!') }}</span>
@@ -139,27 +204,26 @@
                                                     </select>
                                                 </div>
                                             @endif
+                                                {{-- Age Range --}}
+                                                <div class="form-group">
+                                                    <label class="form-label d-block mb-2">{{ __('profile.Age') }}</label>
 
-                                                 {{-- Age Range --}}
-                                                 <div class="form-group">
-                                                    <label class="form-label" for="preferred_age_min">{{ __('profile.Age') }}</label>
-                                                    <div class="d-flex align-items-center">
-                                                        <label class="form-label mb-0 mr-2" for="preferred_age_min">{{ __('From') }}</label>
-                                                        <input type="number"
-                                                               class="form-control form-control-sm mx-1"
-                                                               name="preferred_age_min"
-                                                               id="preferred_age_min"
-                                                               value="{{ $userPreferences['preferred_age_min'] ?? '' }}"
-                                                               placeholder="Min Age">
+                                                    {{-- Top Labels --}}
+                                                    <div class="d-flex justify-content-between px-2 mt-2">
 
-                                                        <label class="form-label mb-0 mx-2" for="preferred_age_max">{{ __('To') }}</label>
-                                                        <input type="number"
-                                                               class="form-control form-control-sm"
-                                                               name="preferred_age_max"
-                                                               id="preferred_age_max"
-                                                               value="{{ $userPreferences['preferred_age_max'] ?? '' }}"
-                                                               placeholder="Max Age">
+                                                        <div class="bg-light rounded px-3 py-1 border" id="age-min-label">{{ $userPreferences['preferred_age_min'] ?? 18 }}</div>
+                                                        <div class="bg-light rounded px-3 py-1 border" id="age-max-label">{{ $userPreferences['preferred_age_max'] ?? 65 }}</div>
                                                     </div>
+                                                    {{-- Slider --}}
+                                                    {{-- these 4 should be as one input in js --}}
+                                                    <div class="position-relative slider-wrapper mb-3">
+                                                        <input type="range" min="18" max="65" value="{{ $userPreferences['preferred_age_min'] ?? 18 }}" id="ageMin" class="form-range slider-track">
+                                                        <input type="range" min="18" max="65" value="{{ $userPreferences['preferred_age_max'] ?? 65 }}" id="ageMax" class="form-range slider-track">
+                                                        <div class="range-highlight"></div>
+                                                        <input type="hidden" class="form-control form-control-sm mx-1" name="preferred_age_min" id="preferred_age_min" value="{{ $userPreferences['preferred_age_min'] ?? 18 }}" placeholder="Min Age" min="18" max="100">
+                                                        <input type="hidden" class="form-control form-control-sm" name="preferred_age_max" id="preferred_age_max" value="{{ $userPreferences['preferred_age_max'] ?? 60 }}" placeholder="Max Age" min="18" max="100">
+                                                    </div>
+
                                                 </div>
 
 
@@ -187,19 +251,21 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_smoking_status">{{ __('profile.Smoking_Status') }}</label>
                                                     <select class="form-control" name="preferred_smoking_status" id="preferred_smoking_status">
+                                                        <option value=""{{ $userPreferences['preferred_smoking_status'] ??'selected' }}>{{ __('profile.No_Preference') }}</option>
                                                         <option value="1" {{ ($userPreferences['preferred_smoking_status'] ?? null) == 1 ? 'selected' : '' }}>{{ __('profile.Yes') }}</option>
                                                         <option value="0" {{ ($userPreferences['preferred_smoking_status'] ?? null) == 0 ? 'selected' : '' }}>{{ __('profile.No') }}</option>
                                                     </select>
                                                 </div>
 
                                                 {{-- Smoking Tools --}}
-                                                @if (!empty($data['smokingTools']) && ($userPreferences['preferred_smoking_status'] ?? null) == 1)
-                                                    <div class="form-group smoking-tools-wrapper">
+                                                @if (!empty($data['smokingTools']))
+                                                    <div class="form-group smoking-tools-wrapper" style="display: none;">
                                                         <label class="form-label">
                                                             {{ __('onboarding.smoking_tools') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <select name="preferred_smoking_tools[]" class="form-control rounded-pill" multiple>
+                                                            <option value="null"> No Preferences</option>
                                                             @foreach ($data['smokingTools'] as $tool)
                                                                 <option value="{{ $tool->id }}"
                                                                     @if (in_array($tool->id, $userPreferences['preferred_smoking_tools']->pluck('id')->toArray())) selected @endif>
@@ -210,6 +276,7 @@
                                                         <span class="error-message text-danger" style="font-size:12px;"></span>
                                                     </div>
                                                 @endif
+
 
 
                                                 {{-- Drinking Status --}}
@@ -351,37 +418,38 @@
                                                     <i class="fas fa-paw"></i> {{ __('profile.Hobbies_&_Pets') }}
                                                 </h5>
                                                 {{-- Hobbies --}}
-                                                <div class="form-group">
-                                                    <label class="form-label" >
+
+                                                <div class="form-group w-100">
+                                                    <label class="form-label">
                                                         {{ __('profile.Hobbies') }}
                                                     </label>
-                                                    <select name="preferred_hobbies_id[]" class="form-control rounded-pill" multiple>
+                                                    <select name="preferred_hobbies_id[]" class="form-control rounded-pill w-100" multiple>
                                                         @foreach ($data['hobbies'] as $hobby)
-                                                        <option value="{{ $hobby->id }}"
-                                                            @if (in_array($hobby->id, $userPreferences['preferred_hobbies']->pluck('id')->toArray())) selected @endif>
-                                                            {{ $hobby->name }}
-                                                        </option>
+                                                            <option value="{{ $hobby->id }}"
+                                                                @if (in_array($hobby->id, $userPreferences['preferred_hobbies']->pluck('id')->toArray())) selected @endif>
+                                                                {{ $hobby->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                     <span class="error-message text-danger" style="font-size:12px;"></span>
                                                 </div>
 
-
-                                            {{-- Pets --}}
-                                                <div class="form-group">
+                                                {{-- Pets --}}
+                                                <div class="form-group w-100">
                                                     <label class="form-label">
                                                         {{ __('profile.Pets') }}
                                                     </label>
-                                                    <select name="preferred_pets_id[]" class="form-control rounded-pill" multiple>
+                                                    <select name="preferred_pets_id[]" class="form-control rounded-pill w-100" multiple>
                                                         @foreach ($data['pets'] as $pet)
-                                                        <option value="{{ $pet->id }}"
-                                                            @if (in_array($pet->id, $userPreferences['preferred_pets']->pluck('id')->toArray())) selected @endif>
-                                                            {{ $pet->name }}
-                                                        </option>
+                                                            <option value="{{ $pet->id }}"
+                                                                @if (in_array($pet->id, $userPreferences['preferred_pets']->pluck('id')->toArray())) selected @endif>
+                                                                {{ $pet->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                     <span class="error-message text-danger" style="font-size:12px;"></span>
                                                 </div>
+
 
 
                                             </div>
@@ -417,6 +485,7 @@
                                                     <select class="form-control"
                                                             name="preferred_employment_status"
                                                             id="preferred_employment_status">
+                                                        <option value="">{{ __('No Preference') }}</option>
                                                         <option value="1" {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
                                                             Employed
                                                         </option>
@@ -643,50 +712,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab">
-                    <div class="row">
-                        @if(empty($likes))
-                            <div class="col-12">
-                                <p class="text-center text-muted">{{ __('profile.No_like_yet') }}</p>
-                            </div>
-                        @else
-                            @foreach($likes as $like)
-                                <div class="col-12  col-lg-4">
-                                    <div class="card d-flex flex-row mb-4">
-                                        <a class="d-flex" href="#">
-                                            <!-- Display the profile image -->
-                                            <img src="{{ asset(optional($like['liked_user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
-                                                 alt="Profile"
-                                                 class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
-                                        </a>
-                                        <div class="d-flex flex-grow-1 min-width-zero">
-                                            <div class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
-                                                <div class="min-width-zero">
-                                                    <a href="#">
-                                                        <!-- Use optional() to safely access liked_user properties -->
-                                                        <p class="list-item-heading mb-1 truncate">
-                                                            {{ $like['liked_user']['first_name'] ?? '' }}
-                                                            {{ $like['liked_user']['last_name'] ?? '' }}
-                                                        </p>
-                                                    </a>
-                                                    <p class="mb-2 text-muted text-small">
-                                                        {{ $like['liked_user']['email'] ?? '' }}
-                                                    </p>
-                                                    <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
 
-
-
-
-
-                    </div>
                 </form>
                 </div>
 
@@ -697,6 +723,92 @@
 </main>
 @push('scripts')
 <script>
+  $(document).ready(function () {
+    const MAX_FIELDS = 10;
+    const trackedInputsSelector = 'input:not([type="hidden"]):not([type="submit"]):not([type="radio"]), select, textarea';
+    function countTotalSelected() {
+    let count = 0;
+
+    const ageMin = parseInt($('#preferred_age_min').val());
+    const ageMax = parseInt($('#preferred_age_max').val());
+
+    $(trackedInputsSelector).each(function () {
+        const el = $(this);
+        const name = el.attr('name');
+        const type = el.attr('type');
+        const id = el.attr('id');
+
+        // ❌ Skip hidden, submit, and radio inputs
+        if (type === 'hidden' || type === 'submit' || type === 'radio') return;
+
+        // ❌ Skip the visual range sliders (handled via hidden synced inputs)
+        if (id === 'ageMin' || id === 'ageMax') return;
+
+        if (el.prop('disabled')) return;
+
+        const value = el.val();
+
+        // ✅ Multi-selects
+        if (el.is('select[multiple]') && Array.isArray(value)) {
+            count += value.filter(v => v !== '').length;
+        }
+        // ✅ Normal fields
+        else if (value && value !== '' && value !== 'No Preference') {
+            count += 1;
+        }
+    });
+
+    // ✅ Only count age if changed from default (treat as 1 field)
+    if (ageMin > 18 || ageMax < 65) {
+        count += 1;
+    }
+
+    return count;
+}
+
+
+
+
+
+
+
+
+    function updateRemainingCountDisplay(remaining) {
+        $('#remaining-count').text(remaining);
+    }
+
+    function toggleFieldsDisabledState() {
+        const total = countTotalSelected();
+        const remaining = MAX_FIELDS - total;
+        const disable = total >= MAX_FIELDS;
+
+        updateRemainingCountDisplay(remaining >= 0 ? remaining : 0);
+
+        $(trackedInputsSelector).each(function () {
+            const el = $(this);
+            if (!el.is(':focus')) {
+                el.prop('disabled', disable && !el.val());
+            }
+        });
+    }
+
+    function enforceLimit(e) {
+        const total = countTotalSelected();
+
+        if (total > MAX_FIELDS) {
+            e.preventDefault();
+            const $field = $(this);
+            $field.val(null).trigger('change');
+            alert(`⚠️ You can only fill up to ${MAX_FIELDS} fields in total.`);
+        }
+
+        toggleFieldsDisabledState();
+    }
+
+    $(document).on('change input', trackedInputsSelector, enforceLimit);
+    toggleFieldsDisabledState(); // Initial run
+});
+
     $('#user-preference-form').on('submit', function (e) {
     e.preventDefault(); // Prevent page refresh
 
@@ -707,7 +819,19 @@
     // Clear previous errors
     $('.error-message').text('');
     $('.form-control').removeClass('is-invalid');
-
+    let formData = {};
+    form.serializeArray().forEach(item => {
+        const isEmpty = item.value === '' || item.value === 'null' || item.value === 'No Preference';
+        if (formData[item.name]) {
+            // Handle multiple values (like multiselects)
+            if (!Array.isArray(formData[item.name])) {
+                formData[item.name] = [formData[item.name]];
+            }
+            formData[item.name].push(isEmpty ? null : item.value);
+        } else {
+            formData[item.name] = isEmpty ? null : item.value;
+        }
+    });
     $.ajax({
         url: '{{ route("api.user-preferences.store") }}',
         type: 'POST',
@@ -815,7 +939,7 @@ $(document).ready(function() {
 
     // Initialize Select2 on multi-selects
     $('select[multiple]').select2({
-        placeholder: "{{ __('onboarding.select_hobbies') }}",
+        placeholder: "{{ __('profile.you_can_select_more_than_one') }}",
         allowClear: true
     });
 
@@ -1113,7 +1237,58 @@ $(document).ready(function () {
 
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+        const minRange = document.getElementById('ageMin');
+        const maxRange = document.getElementById('ageMax');
+        const minInput = document.getElementById('preferred_age_min');
+        const maxInput = document.getElementById('preferred_age_max');
+        const minLabel = document.getElementById('age-min-label');
+        const maxLabel = document.getElementById('age-max-label');
+        const highlight = document.querySelector('.range-highlight');
 
+        function updateSlider() {
+    const minVal = parseInt($('#ageMin').val());
+    const maxVal = parseInt($('#ageMax').val());
+
+    if (minVal > maxVal) $('#ageMin').val(maxVal);
+    if (maxVal < minVal) $('#ageMax').val(minVal);
+
+    $('#preferred_age_min').val($('#ageMin').val());
+    $('#preferred_age_max').val($('#ageMax').val());
+
+    // Optional label update if visible
+    $('#age-min-label').text($('#ageMin').val());
+    $('#age-max-label').text($('#ageMax').val());
+
+    // Update range highlight
+    const min = parseInt(minRange.min);   // should be 18
+    const max = parseInt(minRange.max);   // now correctly 65
+    const minPercent = ((minRange.value - min) / (max - min)) * 100;
+const maxPercent = ((maxRange.value - min) / (max - min)) * 100;
+    $('.range-highlight').css({
+        left: `${minPercent}%`,
+        width: `${maxPercent - minPercent}%`
+    });
+}
+
+
+        function updateFromInputs() {
+            let minVal = parseInt(minInput.value) || 18;
+            let maxVal = parseInt(maxInput.value) || 100;
+            minVal = Math.max(18, Math.min(minVal, maxVal));
+            maxVal = Math.min(100, Math.max(minVal, maxVal));
+            minRange.value = minVal;
+            maxRange.value = maxVal;
+            updateSlider();
+        }
+
+        minRange.addEventListener('input', updateSlider);
+        maxRange.addEventListener('input', updateSlider);
+        minInput.addEventListener('change', updateFromInputs);
+        maxInput.addEventListener('change', updateFromInputs);
+
+        updateSlider();
+    });
 </script>
 @endpush
 {{--
