@@ -33,7 +33,8 @@ class MatchController extends Controller
     
         if ($matches->isEmpty()) {
             return view('user.matches', [
-                'matches' => collect(), 
+                'matchesWithContact' => collect(),
+                'matchesWithoutContact' => collect(),
                 'noMatchesMessage' => 'Currently you do not have any matches',
             ]);
         }
@@ -65,7 +66,7 @@ class MatchController extends Controller
     
         $matchesWithContact = $enrichedMatches->filter(fn($m) => $m['contact_exchanged']);
         $matchesWithoutContact = $enrichedMatches->filter(fn($m) => !$m['contact_exchanged']);
-        
+        // dd($matchesWithContact, $matchesWithoutContact);
         return view('user.matches', [
             'matchesWithContact' => $matchesWithContact,
             'matchesWithoutContact' => $matchesWithoutContact,
