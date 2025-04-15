@@ -53,6 +53,12 @@ class UserPreferenceResource extends JsonResource
             'preferred_religiosity_level' => $this->preferredReligiosityLevel ? $this->preferredReligiosityLevel->{"name_{$lang}"} : null,
             'preferred_sleep_habit' => $this->preferredSleepHabit ? $this->preferredSleepHabit->{"name_{$lang}"} : null,
 
+            'preferred_skin_color' => $this->preferredSkinColor ? $this->preferredSkinColor->{"name_{$lang}"} : null,
+            'preferred_hair_color' => $this->preferredHairColor ? $this->preferredHairColor->{"name_{$lang}"} : null,
+            'preferred_hijab_status' => $this->preferred_hijab_status,
+            'preferred_children_count' => $this->preferred_children_count,
+            'preferred_car_ownership' => $this->preferred_car_ownership,
+            'preferred_housing_status' => $this->preferredHousingStatus ? $this->preferredHousingStatus->{"name_{$lang}"} : null,
             'preferred_smoking_tools' => $this->smokingTools ? $this->smokingTools->map(function ($tool) use ($lang) {
                 return [
                     'id' => $tool->id,

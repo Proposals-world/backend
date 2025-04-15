@@ -18,4 +18,8 @@ class HousingStatus extends Model
     {
         return $this->hasMany(UserProfile::class, 'housing_id');
     }
+    public function userPreferences()
+    {
+        return $this->hasMany(UserPreference::class, 'preferred_housing_status_id');
+    }
 }

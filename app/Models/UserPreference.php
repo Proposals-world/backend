@@ -12,6 +12,7 @@ class UserPreference extends Model
     protected $fillable = [
         'user_id',
         'preferred_nationality_id',
+        'preferred_language_id',
         'preferred_origin_id',
         'preferred_country_id',
         'preferred_city_id',
@@ -26,15 +27,21 @@ class UserPreference extends Model
         'preferred_weight_id',
         'preferred_marital_status_id',
         'preferred_smoking_status',
-        "preferred_smoking_tool_id",
         'preferred_drinking_status_id',
         'preferred_sports_activity_id',
         'preferred_social_media_presence_id',
-        'preferred_marriage_budget_id',
-        'preferred_sleep_habit_id',
         'preferred_religiosity_level_id',
-        'preferred_language_id'
+        'preferred_sleep_habit_id',
+        'preferred_marriage_budget_id',
+        'preferred_skin_color_id',  // Added skin color
+        'preferred_hair_color_id',  // Added hair color
+        'preferred_hijab_status',   // Added hijab status
+        'preferred_children_count', // Added children count
+        'preferred_car_ownership',  // Added car ownership
+        'preferred_housing_status_id' // Added housing status
     ];
+
+
 
     public function user()
     {
@@ -139,5 +146,21 @@ class UserPreference extends Model
     public function hobbies()
     {
         return $this->belongsToMany(Hobby::class, 'user_hobbies', 'user_id', 'hobbies_id');
+    }
+    public function preferredSkinColor()
+    {
+        return $this->belongsTo(SkinColor::class, 'preferred_skin_color_id');
+    }
+
+    public function preferredHairColor()
+    {
+        return $this->belongsTo(HairColor::class, 'preferred_hair_color_id');
+    }
+
+
+    // Housing status relationship
+    public function preferredhousingStatus()
+    {
+        return $this->belongsTo(HousingStatus::class, 'preferred_housing_status_id');
     }
 }

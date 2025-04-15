@@ -18,4 +18,8 @@ class HairColor extends Model
     {
         return $this->hasMany(UserProfile::class);
     }
+    public function userPreferences()
+    {
+        return $this->hasMany(UserPreference::class, 'preferred_hair_color_id');
+    }
 }
