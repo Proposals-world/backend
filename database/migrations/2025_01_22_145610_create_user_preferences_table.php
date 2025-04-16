@@ -37,6 +37,14 @@ return new class extends Migration
             $table->foreignId('preferred_religiosity_level_id')->nullable()->constrained('religiosity_levels');
             $table->foreignId('preferred_sleep_habit_id')->nullable()->constrained('sleep_habits');
             $table->foreignId('preferred_marriage_budget_id')->nullable()->constrained('marriage_budgets');
+            // Added new columns
+            $table->foreignId('preferred_skin_color_id')->nullable()->constrained('skin_colors'); // New skin color
+            $table->foreignId('preferred_hair_color_id')->nullable()->constrained('hair_colors'); // New hair color
+            $table->boolean('preferred_hijab_status')->nullable(); // New hijab status
+            $table->integer('preferred_children_count')->nullable(); // New children count
+            $table->boolean('preferred_car_ownership')->nullable(); // New car ownership
+            $table->foreignId('preferred_housing_status_id')->nullable()->constrained('housing_statuses'); // New housing status
+
             $table->timestamps();
         });
     }

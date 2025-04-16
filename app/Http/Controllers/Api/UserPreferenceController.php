@@ -17,11 +17,15 @@ class UserPreferenceController extends Controller
      */
     public function store(UserPreferenceRequest $request)
     {
+        // dd($request->validated());
+
+
         // Create or update the user preference
         $userPreference = UserPreference::updateOrCreate(
             ['user_id' => $request->user()->id], // Search condition
             $request->validated()               // Data to insert or update
         );
+        // dd($request->validated(), $userPreference->getFillable());
         // dd($userPreference);
         // dd($request);
         // Sync the preferred pets if provided
@@ -54,6 +58,7 @@ class UserPreferenceController extends Controller
 
     public function updateChangedData(UserPreferenceRequest $request)
     {
+
         try {
             // Retrieve the current user preference (if any)
             $userPreference = UserPreference::firstOrNew(['user_id' => $request->user()->id]);

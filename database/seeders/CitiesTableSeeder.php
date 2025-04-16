@@ -23,9 +23,10 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Tafila', 'name_ar' => 'الطفيلة', 'country_id' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Balqa', 'name_ar' => 'البلقاء', 'country_id' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Ajloun', 'name_ar' => 'عجلون', 'country_id' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Cairo', 'name_ar' => 'القاهرة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Maan', 'name_ar' => 'معان', 'country_id' => 1, 'created_at' => now(), 'updated_at' => now()],
 
             //Egypt
+            ['name_en' => 'Cairo', 'name_ar' => 'القاهرة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Alexandria', 'name_ar' => 'الإسكندرية', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Giza', 'name_ar' => 'الجيزة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Cairo', 'name_ar' => 'القاهرة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],

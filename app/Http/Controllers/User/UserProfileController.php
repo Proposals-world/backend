@@ -70,7 +70,7 @@ class UserProfileController extends Controller
         $data = $this->onboardingService->getOnboardingData();
 
         $formattedUserPreferences = new UserPreferenceResource($userPreferences, app()->getLocale());
-
+        // dd($formattedUserPreferences->resolve());
         return view('user.desiredPartnerCharacteristics.partnerProfile', [
             'userPreferences' => $formattedUserPreferences->resolve(),
             'data' => $data

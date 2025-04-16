@@ -18,4 +18,8 @@ class SkinColor extends Model
     {
         return $this->hasMany(UserProfile::class);
     }
+    public function userPreferences()
+    {
+        return $this->hasMany(UserPreference::class, 'preferred_skin_color_id');
+    }
 }

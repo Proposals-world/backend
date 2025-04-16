@@ -150,7 +150,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_nationality">{{ __('profile.Nationality') }}</label>
                                                     <select class="form-control" name="preferred_nationality_id">
-                                                        <option value="">{{ __('No Preference') }}</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['nationalities'] as $option)
                                                             <option value="{{ $option->id }}" {{ $userPreferences['preferred_nationality'] == $option->name ? 'selected' : '' }}>
                                                                 {{ $option->name }}
@@ -166,7 +166,7 @@
                                                     <div class="form-group">
                                                         <label class="form-label" for="preferred_origin">{{ __('profile.Origin') }}</label>
                                                         <select class="form-control" name="preferred_origin_id">
-                                                            <option value="">No Preference</option>
+                                                            <option value="">{{ __('profile.No_Preference') }}</option>
                                                             @foreach($data['origins'] as $option)
                                                                 <option value="{{ $option->id }}" {{ $userPreferences['preferred_origin'] == $option->name ? 'selected' : '' }}>
                                                                     {{ $option->name }}
@@ -180,7 +180,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_height">{{ __('profile.height') }}</label>
                                                     <select class="form-control" name="preferred_height_id">
-                                                        <option value="">No Preference</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['heights'] as $option)
                                                             <option value="{{ $option->id }}" {{ $userPreferences['preferred_height'] == $option->name ? 'selected' : '' }}>
                                                                 {{ $option->name }}
@@ -195,7 +195,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_weight">{{ __('profile.weight') }}</label>
                                                     <select class="form-control" name="preferred_weight_id">
-                                                        <option value="">No Preference</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['weights'] as $option)
                                                             <option value="{{ $option->id }}" {{ $userPreferences['preferred_weight'] == $option->name ? 'selected' : '' }}>
                                                                 {{ $option->name }}
@@ -251,7 +251,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_smoking_status">{{ __('profile.Smoking_Status') }}</label>
                                                     <select class="form-control" name="preferred_smoking_status" id="preferred_smoking_status">
-                                                        <option value=""{{ $userPreferences['preferred_smoking_status'] ??'selected' }}>{{ __('profile.No_Preference') }}</option>
+                                                        <option value="3"{{ $userPreferences['preferred_smoking_status'] ??'selected' }}>{{ __('profile.No_Preference') }}</option>
                                                         <option value="1" {{ ($userPreferences['preferred_smoking_status'] ?? null) == 1 ? 'selected' : '' }}>{{ __('profile.Yes') }}</option>
                                                         <option value="0" {{ ($userPreferences['preferred_smoking_status'] ?? null) == 0 ? 'selected' : '' }}>{{ __('profile.No') }}</option>
                                                     </select>
@@ -265,7 +265,7 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <select name="preferred_smoking_tools[]" class="form-control rounded-pill" multiple>
-                                                            <option value="null"> No Preferences</option>
+                                                            <option value="null"> {{ __('profile.No_Preference') }}</option>
                                                             @foreach ($data['smokingTools'] as $tool)
                                                                 <option value="{{ $tool->id }}"
                                                                     @if (in_array($tool->id, $userPreferences['preferred_smoking_tools']->pluck('id')->toArray())) selected @endif>
@@ -277,14 +277,25 @@
                                                     </div>
                                                 @endif
 
+                    @if(Auth::check() && Auth::user()->gender == 'female')  {{-- Check if user is female --}}
 
+                    {{-- Car Ownership --}}
+                    <div class="form-group">
+                        <label class="form-label">{{ __('profile.Car_Ownership') }}</label>
+                        <select class="form-control" name="preferred_car_ownership">
+                            <option value="">{{ __('profile.No_Preference') }}</option>
+                            <option value="1" {{ $userPreferences['preferred_car_ownership'] ? 'selected' : '' }}>{{ __('profile.Yes') }}</option>
+                            <option value="0" {{ $userPreferences['preferred_car_ownership'] === false ? 'selected' : '' }}>{{ __('profile.No') }}</option>
+                        </select>
+                    </div>
+                    @endif
 
                                                 {{-- Drinking Status --}}
                                                 @if (!empty($data['drinkingStatuses']))
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_drinking_status">{{ __('profile.Drinking_Status') }}</label>
                                                     <select class="form-control" name="preferred_drinking_status_id" id="preferred_drinking_status">
-                                                        <option value="">{{ __('No Preference') }}</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['drinkingStatuses'] as $status)
                                                             <option value="{{ $status->id }}" {{ $userPreferences['preferred_drinking_status'] == $status->name ? 'selected' : '' }}>
                                                                 {{ $status->name }}
@@ -299,7 +310,7 @@
                                                     <div class="form-group">
                                                         <label class="form-label" for="preferred_sleep_habit">{{ __('profile.Sleep_Habit') }}</label>
                                                         <select class="form-control" name="preferred_sleep_habit_id">
-                                                            <option value="">No Preference</option>
+                                                            <option value="">{{ __('profile.No_Preference') }}</option>
                                                             @foreach($data['sleepHabits'] as $option)
                                                                 <option value="{{ $option->id }}" {{ $userPreferences['preferred_sleep_habit'] == $option->name ? 'selected' : '' }}>
                                                                     {{ $option->name }}
@@ -314,7 +325,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_sports_activity">{{ __('profile.Sports_Activity') }}</label>
                                                     <select class="form-control" name="preferred_sports_activity_id" id="preferred_sports_activity">
-                                                        <option value="">{{ __('No Preference') }}</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['sportsActivities'] as $option)
                                                             <option value="{{ $option->id }}" {{ $userPreferences['preferred_sports_activity'] == $option->name ? 'selected' : '' }}>
                                                                 {{ $option->name }}
@@ -341,7 +352,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="country_id">{{ __('profile.Country_of_Residence') }}</label>
                                                     <select class="form-control" name="preferred_country_id" id="country_id">
-                                                        <option value="">{{ __('No Preference') }}</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['countries'] as $option)
                                                             <option value="{{ $option->id }}"
                                                                 {{ old('country_of_residence', $userPreferences['preferred_country'] ?? '') == $option->name ? 'selected' : '' }}>
@@ -388,7 +399,7 @@
                                                 <div class="form-group ">
                                                     <label class="form-label" for="preferred_educational_level">{{ __('profile.Educational_Level') }}</label>
                                                     <select class="form-control" name="preferred_educational_level_id">
-                                                        <option value="">No Preference</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['educationalLevels'] as $option)
                                                             <option value="{{ $option->id }}" {{ $userPreferences['preferred_educational_level'] == $option->name ? 'selected' : '' }}>{{ $option->name }}</option>
                                                         @endforeach
@@ -399,7 +410,7 @@
                                                 <div class="form-group ">
                                                 <label  class="form-label" for="preferred_specialization">{{ __('profile.Specialization') }}</label>
                                                 <select class="form-control" name="preferred_specialization_id">
-                                                    <option value="">No Preference</option>
+                                                    <option value="">{{ __('profile.No_Preference') }}</option>
                                                     @foreach($data['specializations'] as $option)
                                                         <option value="{{ $option->id }}" {{ $userPreferences['preferred_specialization'] == $option->name ? 'selected' : '' }}>{{ $option->name }}</option>
                                                     @endforeach
@@ -469,7 +480,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_job_title">{{ __('profile.Job_Title') }}</label>
                                                     <select class="form-control" name="preferred_job_title_id" id="preferred_job_title">
-                                                        <option value="">{{ __('No Preference') }}</option>
+                                                        <option value="">{{ __('profile.No_Preference') }}</option>
                                                         @foreach($data['jobTitles'] as $option)
                                                             <option value="{{ $option->id }}"
                                                                 {{ $userPreferences['preferred_job_title'] == $option->name ? 'selected' : '' }}>
@@ -482,18 +493,27 @@
                                                 {{-- Employment Status --}}
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_employment_status">{{ __('profile.Employment_Status') }}</label>
-                                                    <select class="form-control"
-                                                            name="preferred_employment_status"
-                                                            id="preferred_employment_status">
-                                                        <option value="">{{ __('No Preference') }}</option>
-                                                        <option value="1" {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
-                                                            Employed
-                                                        </option>
-                                                        <option value="0" {{ ($userPreferences['preferred_employment_status'] ?? null) == 0 ? 'selected' : '' }}>
-                                                            Unemployed
-                                                        </option>
+                                                    <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
+                                                        <option value="3" {{ ($userPreferences['preferred_employment_status'] ?? null) == 3 ? 'selected' : '' }}>{{ __('profile.No_Preference') }}</option>
+
+                                                        @if(App::getLocale() == 'ar') {{-- Check if the current language is Arabic --}}
+                                                            <option value="1" {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
+                                                                موظف
+                                                            </option>
+                                                            <option value="0" {{ ($userPreferences['preferred_employment_status'] ?? null) == 0 ? 'selected' : '' }}>
+                                                                عاطل عن العمل
+                                                            </option>
+                                                        @else {{-- Default to English --}}
+                                                            <option value="1" {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
+                                                                Employed
+                                                            </option>
+                                                            <option value="0" {{ ($userPreferences['preferred_employment_status'] ?? null) == 0 ? 'selected' : '' }}>
+                                                                Unemployed
+                                                            </option>
+                                                        @endif
                                                     </select>
                                                 </div>
+
 
 
                                             </div>
@@ -502,6 +522,62 @@
 
 
 
+{{-- Religion & Marriage --}}
+<div class="col-lg-6 col-12 mb-4">
+    <div class="card">
+
+        <div class="card-body">
+            <h5 class="card-title">
+                <i class="simple-icon-diamond"></i> {{ __('profile.Religion_&_Marriage') }}
+            </h5>
+
+            {{-- Religiosity Level --}}
+            <div class="form-group">
+                <label class="form-label" for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
+                <select class="form-control" name="preferred_religiosity_level_id" id="preferred_religiosity_level">
+                    <option value="">{{ __('profile.No_Preference') }}</option>
+                    @foreach($data['religiousLevels'] as $option)
+                        <option value="{{ $option->id }}" {{ $userPreferences['preferred_religiosity_level'] == $option->name ? 'selected' : '' }}>
+                            {{ $option->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Children Count --}}
+            <div class="form-group">
+                <label class="form-label">{{ __('profile.Children_Count') }}</label>
+                <input type="number" class="form-control" name="preferred_children_count" min="0" value="{{ $userPreferences['preferred_children_count'] }}">
+            </div>
+            {{-- Marriage Budget --}}
+            @if (Auth::check() && Auth::user()->gender == 'female')
+   {{-- Hijab Status --}}
+   <div class="form-group">
+    <label class="form-label">{{ __('profile.Hijab_Status') }}</label>
+    <select class="form-control" name="preferred_hijab_status">
+        <option value="3" {{ is_null($userPreferences['preferred_hijab_status']) || $userPreferences['preferred_hijab_status'] == 3 ? 'selected' : '' }}>{{ __('profile.No_Preference') }}</option>
+        <option value="1" {{ $userPreferences['preferred_hijab_status'] == 1 ? 'selected' : '' }}>{{ __('profile.Yes') }}</option>
+        <option value="0" {{ $userPreferences['preferred_hijab_status'] == 0 ? 'selected' : '' }}>{{ __('profile.No') }}</option>
+    </select>
+</div>
+            <div class="form-group">
+                <label class="form-label" for="preferred_marriage_budget">{{ __('profile.Marriage_Budget') }}</label>
+                <select class="form-control" name="preferred_marriage_budget_id" id="preferred_marriage_budget">
+                    {{-- <option value="">{{ __('profile.No_Preference') }}</option> --}}
+                    @foreach($data['marriageBudget'] as $option)
+                        <option value="{{ $option->id }}" {{ $userPreferences['preferred_marriage_budget'] == $option->name ? 'selected' : '' }}>
+                            {{ $option->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @endif
+
+            {{-- (اختياري) Religion و Hijab Status إذا كنت تستخدمهم مستقبلاً --}}
+
+        </div>
+    </div>
+</div>
 
 
 <div class="col-lg-6 col-12 mb-4">
@@ -515,7 +591,7 @@
             <div class="form-group">
                 <label class="form-label" for="preferred_marital_status">{{ __('profile.Marital_Status') }}</label>
                 <select class="form-control" name="preferred_marital_status_id">
-                    <option value="">No Preference</option>
+                    <option value="">{{ __('profile.No_Preference') }}</option>
                     @foreach($data['maritalStatuses'] as $option)
                         <option value="{{ $option->id }}"
                             {{ $userPreferences['preferred_marital_status'] == $option->name ? 'selected' : '' }}>
@@ -529,79 +605,67 @@
  <div class="form-group ">
     <label class="form-label" for="preferred_financial_status">{{ __('profile.Financial_Status') }}</label>
     <select class="form-control" name="preferred_financial_status_id">
-        <option value="">No Preference</option>
+        <option value="">{{ __('profile.No_Preference') }}</option>
         @foreach($data['financialStatuses'] as $option)
             <option value="{{ $option->id }}" {{ $userPreferences['preferred_financial_status'] == $option->name ? 'selected' : '' }}>{{ $option->name }}</option>
         @endforeach
     </select>
 </div>
 
+       {{-- Housing Status --}}
+       @if(Auth::check() && Auth::user()->gender == 'female')  {{-- Check if user is female --}}
+       <div class="form-group">
+           <label class="form-label">{{ __('profile.Housing_Status') }}</label>
+           <select class="form-control" name="preferred_housing_status_id">
+               <option value="">{{ __('profile.No_Preference') }}</option>
+               @foreach($data['housingStatuses'] as $option)
+                   <option value="{{ $option->id }}" {{ $userPreferences['preferred_housing_status'] == $option->id ? 'selected' : '' }}>
+                       {{ $option->name }}
+                   </option>
+               @endforeach
+           </select>
+       </div>
+       @endif
 
 
         </div>
     </div>
 </div>
+{{-- Skin Color & Hair Color --}}
 <div class="col-lg-6 col-12 mb-4">
     <div class="card">
-
         <div class="card-body">
             <h5 class="card-title">
-                <i class="simple-icon-diamond"></i> {{ __('profile.Religion_&_Marriage') }}
+                <i class="fas fa-user"></i> {{ __('profile.Appearance') }}
             </h5>
 
-            {{-- Religiosity Level --}}
+            {{-- Skin Color --}}
             <div class="form-group">
-                <label class="form-label" for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
-                <select class="form-control" name="preferred_religiosity_level_id" id="preferred_religiosity_level">
-                    <option value="">No Preference</option>
-                    @foreach($data['religiousLevels'] as $option)
-                        <option value="{{ $option->id }}" {{ $userPreferences['preferred_religiosity_level'] == $option->name ? 'selected' : '' }}>
+                <label class="form-label">{{ __('profile.Skin_Color') }}</label>
+                <select class="form-control" name="preferred_skin_color_id">
+                    <option value="">{{ __('profile.No_Preference') }}</option>
+                    @foreach($data['skinColors'] as $option)
+                        <option value="{{ $option->id }}"
+                            {{ $userPreferences['preferred_skin_color'] == $option->name ? 'selected' : '' }}>
                             {{ $option->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
 
-            {{-- Marriage Budget --}}
-            @if ($data['gender'] != 'female')
-
+            {{-- Hair Color --}}
             <div class="form-group">
-                <label class="form-label" for="preferred_marriage_budget">{{ __('profile.Marriage_Budget') }}</label>
-                <select class="form-control" name="preferred_marriage_budget_id" id="preferred_marriage_budget">
-                    <option value="">{{ __('No Preference') }}</option>
-                    @foreach($data['marriageBudget'] as $option)
-                        <option value="{{ $option->id }}" {{ $userPreferences['preferred_marriage_budget'] == $option->name ? 'selected' : '' }}>
+                <label class="form-label">{{ __('profile.Hair_Color') }}</label>
+                <select class="form-control" name="preferred_hair_color_id">
+                    <option value="">{{ __('profile.No_Preference') }}</option>
+                    @foreach($data['hairColors'] as $option)
+                        <option value="{{ $option->id }}"
+                            {{ $userPreferences['preferred_hair_color'] == $option->name ? 'selected' : '' }}>
                             {{ $option->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
-            @endif
-
-            {{-- (اختياري) Religion و Hijab Status إذا كنت تستخدمهم مستقبلاً --}}
-            {{--
-            <div class="form-group">
-                <label for="religion">{{ __('profile.Religion') }}</label>
-                <input type="text"
-                       class="form-control"
-                       name="religion"
-                       id="religion"
-                       value="{{ $userProfile['profile']['religion'] ?? '' }}"
-                       placeholder="No Preference">
-            </div>
-
-            @if ($userProfile['gender'] === 'female')
-            <div class="form-group">
-                <label for="hijab_status">{{ __('profile.Hijab_Status') }}</label>
-                <input type="text"
-                       class="form-control"
-                       name="hijab_status"
-                       id="hijab_status"
-                       value="{{ $userProfile['profile']['hijab_status'] ?? '' }}"
-                       placeholder="No Preference">
-            </div>
-            @endif
-            --}}
         </div>
     </div>
 </div>
@@ -842,8 +906,9 @@
         },
         success: function (response) {
             // console.log('Success response:', response);
-            // console.log('preferred_hobbies_id:', $('[name="preferred_hobbies_id[]"]').val());
-
+            // console.log('preferred_housing_status_id:', $('[name="preferred_housing_status_id"]').val());
+            // console.log('preferred_marriage_budget_id:', $('[name="preferred_marriage_budget_id"]').val());
+            // console.log('preferred_religiosity_level_id:', $('[name="preferred_religiosity_level_id"]').val());
             const alertContainer = $('#preference-success-alert');
             $('#preference-success-message').text("{{ __('profile.Desired_partner_characteristics_saved_successfully') }}");
 
@@ -858,6 +923,7 @@
             }, 10000);
         },
         error: function (xhr) {
+
             submitBtn.prop('disabled', false).text('{{ __("profile.Save") }}');
 
             if (xhr.status === 422) {

@@ -94,4 +94,8 @@ return [
     'No_Preference' => 'No Preference',
     'You can select up to 10 fields. Remaining:' => 'You can select up to 10 fields. Remaining:',
     'you_can_select_more_than_one' => 'You can select more than one',
+    'Appearance' => 'Appearance',
+    'Family_And_Religion' => 'Family And Religion',
+    'Lifestyle' => 'Lifestyle',
+    'Children_Count' => 'Children Count',
 ];

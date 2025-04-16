@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CityLocation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -66,6 +67,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             CategorySeeder::class,
             BlogSeeder::class,
+            CityLocationSeeder::class,
         ]);
     }
 }

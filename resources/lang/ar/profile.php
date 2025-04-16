@@ -102,4 +102,8 @@ return [
     'No_Preference' => 'لا توجد تفضيلات',
     'You can select up to 10 fields. Remaining:' => 'يمكنك اختيار ما يصل إلى 10 مجالات. المتبقي:',
     'you_can_select_more_than_one' => 'يمكنك اختيار أكثر من واحد',
+    'Appearance' => 'المظهر',
+    'Family_And_Religion' => 'العائلة والدين',
+    'Lifestyle' => 'نمط الحياة',
+    'Children_Count' => 'عدد الأطفال',
 ];
