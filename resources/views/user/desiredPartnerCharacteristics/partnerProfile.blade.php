@@ -251,7 +251,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_smoking_status">{{ __('profile.Smoking_Status') }}</label>
                                                     <select class="form-control" name="preferred_smoking_status" id="preferred_smoking_status">
-                                                        <option value="3"{{ $userPreferences['preferred_smoking_status'] ??'selected' }}>{{ __('profile.No_Preference') }}</option>
+                                                        <option value=""{{ $userPreferences['preferred_smoking_status'] ??'selected' }}>{{ __('profile.No_Preference') }}</option>
                                                         <option value="1" {{ ($userPreferences['preferred_smoking_status'] ?? null) == 1 ? 'selected' : '' }}>{{ __('profile.Yes') }}</option>
                                                         <option value="0" {{ ($userPreferences['preferred_smoking_status'] ?? null) == 0 ? 'selected' : '' }}>{{ __('profile.No') }}</option>
                                                     </select>
@@ -494,7 +494,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="preferred_employment_status">{{ __('profile.Employment_Status') }}</label>
                                                     <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
-                                                        <option value="3" {{ ($userPreferences['preferred_employment_status'] ?? null) == 3 ? 'selected' : '' }}>{{ __('profile.No_Preference') }}</option>
+                                                        <option value="" {{ ($userPreferences['preferred_employment_status'] ?? null) == 3 ? 'selected' : '' }}>{{ __('profile.No_Preference') }}</option>
 
                                                         @if(App::getLocale() == 'ar') {{-- Check if the current language is Arabic --}}
                                                             <option value="1" {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
@@ -555,7 +555,7 @@
    <div class="form-group">
     <label class="form-label">{{ __('profile.Hijab_Status') }}</label>
     <select class="form-control" name="preferred_hijab_status">
-        <option value="3" {{ is_null($userPreferences['preferred_hijab_status']) || $userPreferences['preferred_hijab_status'] == 3 ? 'selected' : '' }}>{{ __('profile.No_Preference') }}</option>
+        <option value="" {{ is_null($userPreferences['preferred_hijab_status']) || $userPreferences['preferred_hijab_status'] == 3 ? 'selected' : '' }}>{{ __('profile.No_Preference') }}</option>
         <option value="1" {{ $userPreferences['preferred_hijab_status'] == 1 ? 'selected' : '' }}>{{ __('profile.Yes') }}</option>
         <option value="0" {{ $userPreferences['preferred_hijab_status'] == 0 ? 'selected' : '' }}>{{ __('profile.No') }}</option>
     </select>
@@ -793,8 +793,8 @@
     function countTotalSelected() {
     let count = 0;
 
-    const ageMin = parseInt($('#preferred_age_min').val());
-    const ageMax = parseInt($('#preferred_age_max').val());
+    const ageMinVal = parseInt($('#preferred_age_min').val());
+    const ageMaxVal = parseInt($('#preferred_age_max').val());
 
     $(trackedInputsSelector).each(function () {
         const el = $(this);
@@ -802,28 +802,30 @@
         const type = el.attr('type');
         const id = el.attr('id');
 
-        // ❌ Skip hidden, submit, and radio inputs
+        // Skip hidden, submit, and radio inputs
         if (type === 'hidden' || type === 'submit' || type === 'radio') return;
 
-        // ❌ Skip the visual range sliders (handled via hidden synced inputs)
+        // Skip the visible range sliders (only hidden synced inputs are counted)
         if (id === 'ageMin' || id === 'ageMax') return;
 
         if (el.prop('disabled')) return;
 
         const value = el.val();
 
-        // ✅ Multi-selects
-        if (el.is('select[multiple]') && Array.isArray(value)) {
-            count += value.filter(v => v !== '').length;
+        // ✅ Multi-selects: count once if anything is selected
+        if (el.is('select[multiple]')) {
+            if (value && value.length > 0 && value.some(v => v !== '' && v !== 'null' && v !== 'No Preference')) {
+                count += 1;
+            }
         }
-        // ✅ Normal fields
-        else if (value && value !== '' && value !== 'No Preference') {
+        // ✅ Regular input/selects
+        else if (value && value !== '' && value !== 'null' && value !== 'No Preference') {
             count += 1;
         }
     });
 
-    // ✅ Only count age if changed from default (treat as 1 field)
-    if (ageMin > 18 || ageMax < 65) {
+    // ✅ Only count age range if changed from default (18 to 65)
+    if (ageMinVal !== 18 || ageMaxVal !== 65) {
         count += 1;
     }
 
@@ -1312,7 +1314,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxLabel = document.getElementById('age-max-label');
         const highlight = document.querySelector('.range-highlight');
 
-        function updateSlider() {
+    function updateSlider() {
     const minVal = parseInt($('#ageMin').val());
     const maxVal = parseInt($('#ageMax').val());
 
