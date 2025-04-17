@@ -46,7 +46,6 @@ background-size: 40%;">
 
     <main>
        @yield('content')
-       <div id="flower-container"></div>
     </main>
 
     @include('user.layouts.footer')

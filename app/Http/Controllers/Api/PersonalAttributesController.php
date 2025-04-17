@@ -14,6 +14,7 @@ use App\Models\SkinColor;
 use App\Models\SocialMediaPresence;
 use App\Models\JobTitle;
 use App\Models\ZodiacSign;
+use App\Models\EyeColor;
 use App\Models\MarriageBudget;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,7 @@ class PersonalAttributesController extends Controller
         $MarriageBudget = MarriageBudget::all();
         $jobTitles = JobTitle::all();
         $socialMediaPresence =SocialMediaPresence::all();
-
+        $eyeColors =EyeColor::all();
        
 
 
@@ -56,6 +57,7 @@ class PersonalAttributesController extends Controller
             'marriageBudget' => $MarriageBudget,
             'socialMediaPresence' => $socialMediaPresence,
             'jobTitles' => $jobTitles,
+            'eyeColors' => $eyeColors,
         ];
 
         // Return using the aggregated resource

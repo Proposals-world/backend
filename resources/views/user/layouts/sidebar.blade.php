@@ -1,3 +1,4 @@
+<!-- resources/views/user/layouts/sidebar.blade.php -->
 <div class="menu">
     <div class="main-menu">
         <div class="scroll">
@@ -10,7 +11,7 @@
                 </li>
                 <li>
                     <a href="{{ route('user.profile') }}">
-                        <i class="iconsminds-box-with-folders"></i>Your Profile
+                        <i class="iconsminds-box-with-folders"></i> Your Profile
                     </a>
                 </li>
                 <li>
@@ -18,9 +19,11 @@
                         <i class="iconsminds-handshake"></i> Desired Partner characteristics
                     </a>
                 </li>
-                <li>
-                    <a href="#applications">
-                        <i class="iconsminds-male-female"></i> Find A Match
+                <li id="findMatchItem" class="match-item {{ request()->routeIs('find-match') ? 'active' : '' }}">
+                    <a href="{{ route('find-match') }}" class="main-menu-link">
+                        <img src="{{ asset('dashboard/logos/rings.png') }}" alt="Find A Match"
+                             style="width: auto; height: 40px; vertical-align: middle;">
+                        <span>Find A Match</span>
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('liked-me') ? 'active' : '' }}">
@@ -33,43 +36,15 @@
                         <i class="iconsminds-male-female"></i> Matches
                     </a>
                 </li>
-
-
-
-
                 <li>
                     <a href="#">
-                        <i class="iconsminds-box-with-folders"></i>Subscription Packages
+                        <i class="iconsminds-box-with-folders"></i> Subscription Packages
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 
-    <div class="sub-menu">
-        <div class="scroll">
-            <ul class="list-unstyled" data-link="applications">
-                <li>
-                    <a href="Apps.MediaLibrary.html">
-                        <i class="simple-icon-picture"></i> <span>Gallery</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="Apps.Todo.List.html">
-                        <i class="simple-icon-list"></i> <span>Tasks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="Apps.Survey.List.html">
-                        <i class="simple-icon-notebook"></i> <span>Surveys</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="Apps.Chat.html">
-                        <i class="simple-icon-speech"></i> <span>Messages</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <!-- This is where child views can inject something into the sidebar -->
+    @yield('sidebar-filters')
 </div>

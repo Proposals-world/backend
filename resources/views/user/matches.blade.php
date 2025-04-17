@@ -1,127 +1,122 @@
 @extends('user.layouts.app')
 
 @section('content')
-    <style>
-        .profile-card {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            min-height: 500px;
-            overflow: hidden;
-            cursor: pointer;
-        }
+<link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
 
-        .profile-card img.card-img-top {
-            height: 413px;
-            object-fit: cover;
-            width: 100%;
-        }
+<div class="container-fluid disable-text-selection">
+    <div class="row ">
+        <div class="col-12 mb-4">
+            <div class="match-dashboard-header">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-4">
+                    <div>
+                        <h1 class="mb-1">{{ __('userDashboard.matches.users_who_matched_with_you') }}</h1>
+                        <p class="text-dark mb-0">View mutual matches based on your preferences</p>
+                    </div>
+                    <div class="match-stats d-flex mt-3 mt-md-0">
+                        <div class="match-stat-item text-center mr-4">
+                            <span class="match-stat-number">{{ $matchesWithoutContact->count() }}</span>
+                            <span class="match-stat-label">Pending Matches</span>
+                        </div>
+                        <div class="match-stat-item text-center">
+                            <span class="match-stat-number">{{ $matchesWithContact->count() }}</span>
+                            <span class="match-stat-label">Contact Exchanged</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        .profile-card .card-body {
-            padding: 1.5rem;
-        }
-
-        .row.list>div.col-12 {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        @media (min-width: 1400px) {
-            .profile-card {
-                max-width: 50%;
-                margin: 0 auto;
-            }
-        }
-
-        @media (max-width: 767px) {
-
-            .modal.modal-left .modal-dialog,
-            .modal.modal-right .modal-dialog {
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                margin: 0 !important;
-                transform: translateY(100%) !important;
-                transition: transform 0.3s ease-out !important;
-                max-height: 75vh !important;
-                max-width: 100% !important;
-            }
-
-            .modal.modal-left.show .modal-dialog,
-            .modal.modal-right.show .modal-dialog {
-                transform: translateY(0) !important;
-            }
-
-            .modal.modal-left .modal-content,
-            .modal.modal-right .modal-content {
-                border-radius: 15px 15px 0 0 !important;
-                height: 100%;
-                overflow-y: auto;
-                padding-top: 60px;
-            }
-
-            .modal.modal-left .modal-header,
-            .modal.modal-right .modal-header {
-                position: fixed;
-                top: 0;
-                width: 100%;
-                z-index: 200;
-                cursor: grab;
-            }
-
-            .modal.modal-left .modal-body,
-            .modal.modal-right .modal-body {
-                padding-top: 50px;
-            }
-        }
-    </style>
-
-    <div class="container-fluid disable-text-selection">
-        <div class="row">
-            <div class="col-12 mb-5">
-                <h1>{{ __('userDashboard.matches.users_who_matched_with_you') }}</h1>
+    {{-- Section: Contact Not Exchanged --}}
+    @if ($matchesWithoutContact->count())
+        <div class="row px-4">
+            <div class="col-12 section-header">
+                <h5>{{ __('userDashboard.matches.contact_not_exchanged') }}</h5>
+                <span class="badge">{{ $matchesWithoutContact->count() }}</span>
             </div>
         </div>
 
-        {{-- Section: Contact Not Exchanged --}}
-        @if ($matchesWithoutContact->count())
-            <div class="row">
-                <div class="col-12">
-                    <h3>{{ __('userDashboard.matches.contact_not_exchanged') }}</h3>
+        <div class="row px-4 list disable-text-selection" id="suggestedMatchResults">
+            @foreach ($matchesWithoutContact as $match)
+                @php $profile = $match['matched_user']; @endphp
+                <div class="col-12 col-sm-6 col-md-4 mb-4">
+                    <div class="card profile-card shadow-sm h-100" data-profile='@json($match)'>
+                        <div class="position-relative">
+                            <span class="badge badge-warning position-absolute m-2">Match</span>
+                            <img class="card-img-top"
+                                src="{{ collect($profile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? asset('dashboard/logos/profile-icon.jpg') }}"
+                                alt="Profile">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-1">{{ $profile['first_name'] }} {{ $profile['last_name'] }}</h5>
+                            <p class="text-muted small mb-2">
+                                {{ $profile['profile']['country_of_residence'] ?? '' }}{{ $profile['profile']['city'] ? ', ' . $profile['profile']['city'] : '' }}
+                            </p>
+                            <div class="profile-details mt-auto">
+                                @if (!empty($profile['profile']['age']))
+                                    <span class="badge badge-light mr-2">{{ $profile['profile']['age'] }} years</span>
+                                @endif
+                                @if (!empty($profile['profile']['religion']))
+                                    <span class="badge badge-light">{{ $profile['profile']['religion'] }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
+        </div>
+    @endif
 
-            <div class="row list disable-text-selection">
-                @foreach ($matchesWithoutContact as $profile)
-                    @include('user.partials.match-card', ['profile' => $profile])
-                @endforeach
+    {{-- Section: Contact Exchanged --}}
+    @if ($matchesWithContact->count())
+        <div class="row mt-5 px-4">
+            <div class="col-12 section-header">
+                <h5>{{ __('userDashboard.matches.contact_exchanged') }}</h5>
+                <span class="badge badge-info">{{ $matchesWithContact->count() }}</span>
             </div>
-        @endif
+        </div>
 
-        {{-- Section: Contact Exchanged --}}
-        @if ($matchesWithContact->count())
-            <div class="row mt-5">
-                <div class="col-12">
-                    <h3>{{ __('userDashboard.matches.contact_exchanged') }}</h3>
+        <div class="row px-4 list disable-text-selection" id="exactMatchResults">
+            @foreach ($matchesWithContact as $match)
+                @php $profile = $match['matched_user']; @endphp
+                <div class="col-12 col-sm-6 col-md-4 mb-4">
+                    <div class="card profile-card shadow-sm h-100" data-profile='@json($match)'>
+                        <div class="position-relative">
+                            <span class="badge badge-success position-absolute m-2">Contacted</span>
+                            <img class="card-img-top"
+                                src="{{ collect($profile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? asset('dashboard/logos/profile-icon.jpg') }}"
+                                alt="Profile">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-1">{{ $profile['first_name'] }} {{ $profile['last_name'] }}</h5>
+                            <p class="text-muted small mb-2">
+                                {{ $profile['profile']['country_of_residence'] ?? '' }}{{ $profile['profile']['city'] ? ', ' . $profile['profile']['city'] : '' }}
+                            </p>
+                            <div class="profile-details mt-auto">
+                                @if (!empty($profile['profile']['age']))
+                                    <span class="badge badge-light mr-2">{{ $profile['profile']['age'] }} years</span>
+                                @endif
+                                @if (!empty($profile['profile']['religion']))
+                                    <span class="badge badge-light">{{ $profile['profile']['religion'] }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
+        </div>
+    @endif
 
-            <div class="row list disable-text-selection">
-                @foreach ($matchesWithContact as $profile)
-                    @include('user.partials.match-card', ['profile' => $profile])
-                @endforeach
+    @if ($matchesWithoutContact->isEmpty() && $matchesWithContact->isEmpty())
+        <div class="row mt-4 px-4">
+            <div class="col-12 text-center text-muted">
+                <i class="simple-icon-user font-large d-block mb-3"></i>
+                <h5>{{ __('userDashboard.matches.no_matches') }}</h5>
             </div>
-        @endif
+        </div>
+    @endif
+</div>
 
-        @if ($matchesWithoutContact->isEmpty() && $matchesWithContact->isEmpty())
-            <div class="row mt-4">
-                <div class="col-12 text-center text-muted">
-                    <h5>{{ __('userDashboard.matches.no_matches') }}</h5>
-                </div>
-            </div>
-        @endif
-    </div>
 
     {{-- Profile Modal --}}
     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
@@ -170,9 +165,11 @@
                         </div>
                     </div>
                     <div class="card mt-4 mb-3">
-                        <div class="card-header d-flex justify-content-between pt-2 align-items-center bg-primary" style="color: #fff; ">
+                        <div class="card-header d-flex justify-content-between pt-2 align-items-center bg-primary"
+                            style="color: #fff; ">
                             <h6 class="mb-0">{{ __('userDashboard.matches.contact_info') }}</h6>
-                            <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none" style="background-color: #fff;">
+                            <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none"
+                                style="background-color: #fff;">
                                 <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
                             </button>
                         </div>
@@ -299,7 +296,8 @@
             // Modal opening logic (existing)
             $('.profile-card').on('click', function(e) {
                 e.preventDefault();
-                const profile = $(this).data('profile');
+                const match = $(this).data('profile');
+                const profile = match.matched_user;
                 const mainPhoto = profile.profile.photos.find(photo => photo.is_main === 1)?.photo_url;
                 $('#modalAvatar').attr('src', mainPhoto);
                 $('#modalName').text(`${profile.first_name} ${profile.last_name}`);
@@ -315,7 +313,8 @@
                     $('#revealContactBtn').removeClass('d-none');
                     $('#revealContactBtn').on('click', function() {
                         alert(
-                            "Feature not implemented yet. You can fetch real data here if needed.");
+                            "Feature not implemented yet. You can fetch real data here if needed."
+                            );
                     });
                 } else {
                     $('#revealContactBtn').addClass('d-none');

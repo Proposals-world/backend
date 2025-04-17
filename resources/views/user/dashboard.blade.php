@@ -83,5 +83,6 @@
         </div>
     </div>
 
+    <div id="flower-container"></div>
 
 @endsection

@@ -82,5 +82,7 @@ return [
         'phone_number' => 'Phone Number',
         'email' => 'Email',
     
-],
+],'findMatch' => [
+        'title' => 'Find Your Soulmate',
+    ],
 ];

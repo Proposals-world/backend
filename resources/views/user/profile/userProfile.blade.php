@@ -52,7 +52,7 @@
                                         <i class="simple-icon-pencil"></i>
                                     </button>
                                 </div>
-                                <img src="{{ asset(optional($userProfile['profile']['photos']->firstWhere('is_main', 1))->photo_url ?? 'default-profile.png') }}"
+                                <img src="{{ collect($userProfile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? asset('default-profile.png') }}"
                                 alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
                                 class="card-img-top" />
 

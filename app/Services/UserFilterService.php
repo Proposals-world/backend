@@ -9,147 +9,259 @@ use App\Models\UserProfile;
 use App\Models\UserPreference;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserFilterService
 {
     public function filter(Request $request)
     {
-        $preferences = UserPreference::where('user_id', Auth::id())->first();
-        $isFromFilter = $request->input('isFilter', false);
+        $preferences   = UserPreference::where('user_id', Auth::id())->first();
+        $isFromFilter  = $request->input('isFilter', false);
         $hasUserProfile = UserProfile::where('id', Auth::id())->exists();
-
-        $query = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
-            ->whereHas('user', function ($query) {
-                $query->where('gender', '!=', Auth::user()->gender)
-                    ->where('role_id', '!=', 1);
+    
+        $baseQuery = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
+            ->whereHas('user', function ($subQ) {
+                $subQ->where('gender', '!=', Auth::user()->gender)
+                     ->where('role_id', '!=', 1);
             });
-
-        $likedUsers = Like::where('user_id', Auth::id())->pluck('liked_user_id');
+    
+        $likedUsers    = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
-
-        $query->whereNotIn('id', $likedUsers)
-            ->whereNotIn('id', $dislikedUsers);
-
-        $filters = [];
-        $preferencesFilters = [];
-
-        if ($preferences && !$isFromFilter) {
-            $preferencesFilters = [
-                'nationality_id' => $preferences->preferred_nationality_id,
-                'origin_id' => $preferences->preferred_origin_id,
-                'religion_id' => $preferences->preferred_religion_id,
-                'religiosity_level_id' => $preferences->preferred_religiosity_level_id,
-                'country_of_residence_id' => $preferences->preferred_country_id,
-                'city_id' => $preferences->preferred_city_id,
-                'educational_level_id' => $preferences->preferred_educational_level_id,
-                'specialization_id' => $preferences->preferred_specialization_id,
-                'employment_status' => $preferences->preferred_employment_status,
-                'job_title_id' => $preferences->preferred_job_title_id,
-                'financial_status_id' => $preferences->preferred_financial_status_id,
-                'height_id' => $preferences->preferred_height_id,
-                'weight_id' => $preferences->preferred_weight_id,
-                'marital_status_id' => $preferences->preferred_marital_status_id,
-                'smoking_status' => $preferences->preferred_smoking_status,
-                'drinking_status_id' => $preferences->preferred_drinking_status_id,
-                'sports_activity_id' => $preferences->preferred_sports_activity_id,
-                'social_media_presence_id' => $preferences->preferred_social_media_presence_id,
-                'sleep_habit_id' => $preferences->preferred_sleep_habit_id,
-                'language_id' => $preferences->preferred_language_id,
-                'marriage_budget_id' => $preferences->preferred_marriage_budget_id
-            ];
-
-            if (!is_null($preferences->preferred_age_min) && !is_null($preferences->preferred_age_max)) {
-                $preferencesFilters['age'] = [$preferences->preferred_age_min, $preferences->preferred_age_max];
-            }
+        $baseQuery->whereNotIn('id', $likedUsers)
+                  ->whereNotIn('id', $dislikedUsers);
+    
+                  if (!$isFromFilter) {
+                    // When isFilter = false, use ONLY the user's saved preferences.
+                    // We explicitly pull out only the non-null preferences and build the filters array.
+                    $filters = [];
+                    if ($preferences) {
+                        if (!is_null($preferences->preferred_nationality_id)) {
+                            $filters['nationality_id'] = $preferences->preferred_nationality_id;
+                        }
+                        if (!is_null($preferences->preferred_origin_id)) {
+                            $filters['origin_id'] = $preferences->preferred_origin_id;
+                        }
+                        if (!is_null($preferences->preferred_country_id)) {
+                            $filters['country_of_residence_id'] = $preferences->preferred_country_id;
+                        }
+                        if (!is_null($preferences->preferred_city_id)) {
+                            $filters['city_id'] = $preferences->preferred_city_id;
+                        }
+                        if (!is_null($preferences->preferred_educational_level_id)) {
+                            $filters['educational_level_id'] = $preferences->preferred_educational_level_id;
+                        }
+                        if (!is_null($preferences->preferred_specialization_id)) {
+                            $filters['specialization_id'] = $preferences->preferred_specialization_id;
+                        }
+                        if (!is_null($preferences->preferred_employment_status)) {
+                            $filters['employment_status'] = $preferences->preferred_employment_status;
+                        }
+                        if (!is_null($preferences->preferred_job_title_id)) {
+                            $filters['job_title_id'] = $preferences->preferred_job_title_id;
+                        }
+                        if (!is_null($preferences->preferred_financial_status_id)) {
+                            $filters['financial_status_id'] = $preferences->preferred_financial_status_id;
+                        }
+                        if (!is_null($preferences->preferred_height_id)) {
+                            $filters['height_id'] = $preferences->preferred_height_id;
+                        }
+                        if (!is_null($preferences->preferred_weight_id)) {
+                            $filters['weight_id'] = $preferences->preferred_weight_id;
+                        }
+                        if (!is_null($preferences->preferred_marital_status_id)) {
+                            $filters['marital_status_id'] = $preferences->preferred_marital_status_id;
+                        }
+                        if (!is_null($preferences->preferred_smoking_status)) {
+                            $filters['smoking_status'] = $preferences->preferred_smoking_status;
+                        }
+                        if (!is_null($preferences->preferred_drinking_status_id)) {
+                            $filters['drinking_status_id'] = $preferences->preferred_drinking_status_id;
+                        }
+                        if (!is_null($preferences->preferred_sports_activity_id)) {
+                            $filters['sports_activity_id'] = $preferences->preferred_sports_activity_id;
+                        }
+                        if (!is_null($preferences->preferred_social_media_presence_id)) {
+                            $filters['social_media_presence_id'] = $preferences->preferred_social_media_presence_id;
+                        }
+                        if (!is_null($preferences->preferred_sleep_habit_id)) {
+                            $filters['sleep_habit_id'] = $preferences->preferred_sleep_habit_id;
+                        }
+                        if (!is_null($preferences->preferred_language_id)) {
+                            $filters['language_id'] = $preferences->preferred_language_id;
+                        }
+                        if (!is_null($preferences->preferred_marriage_budget_id)) {
+                            $filters['marriage_budget_id'] = $preferences->preferred_marriage_budget_id;
+                        }
+                        if (!is_null($preferences->preferred_religion_id)) {
+                            $filters['religion_id'] = $preferences->preferred_religion_id;
+                        }
+                        if (!is_null($preferences->preferred_religiosity_level_id)) {
+                            $filters['religiosity_level_id'] = $preferences->preferred_religiosity_level_id;
+                        }
+                        if (!is_null($preferences->preferred_children)) {
+                            $filters['children'] = $preferences->preferred_children;
+                        }
+                
+                        // New added filters
+                        if (!is_null($preferences->preferred_sector_id)) {
+                            $filters['sector_id'] = $preferences->preferred_sector_id;
+                        }
+                        if (!is_null($preferences->preferred_position_level_id)) {
+                            $filters['position_level_id'] = $preferences->preferred_position_level_id;
+                        }
+                        if (!is_null($preferences->preferred_housing_id)) {
+                            $filters['housing_id'] = $preferences->preferred_housing_id;
+                        }
+                        if (!is_null($preferences->preferred_car_ownership)) {
+                            $filters['car_ownership'] = $preferences->preferred_car_ownership;
+                        }
+                        if (!is_null($preferences->preferred_zodiac_sign_id)) {
+                            $filters['zodiac_sign_id'] = $preferences->preferred_zodiac_sign_id;
+                        }
+                        if (!is_null($preferences->preferred_skin_color_id)) {
+                            $filters['skin_color_id'] = $preferences->preferred_skin_color_id;
+                        }
+                        if (!is_null($preferences->preferred_hair_color_id)) {
+                            $filters['hair_color_id'] = $preferences->preferred_hair_color_id;
+                        }
+                        if (!is_null($preferences->preferred_eye_color_id)) {
+                            $filters['eye_color_id'] = $preferences->preferred_eye_color_id;
+                        }
+                        if (!is_null($preferences->preferred_hijab_status)) {
+                            $filters['hijab_status'] = $preferences->preferred_hijab_status;
+                        }
+                        if (!is_null($preferences->preferred_city_location_id)) {
+                            $filters['city_location_id'] = $preferences->preferred_city_location_id;
+                        }
+                        if (!is_null($preferences->preferred_area)) {
+                            $filters['area'] = $preferences->preferred_area;
+                        }
+                    } else {
+                        $filters = [];
+                    }
+                
+                    // Use only saved preferences for age range.
+                    $ageMin = $preferences ? $preferences->preferred_age_min : null;
+                    $ageMax = $preferences ? $preferences->preferred_age_max : null;
+                } else {
+                    $filters = [];
+                
+                    // Merge logic: use request values if present, otherwise fallback to preferences
+                    $filters['nationality_id']           = $request->filled('nationality_id')           ? $request->input('nationality_id')           : $preferences?->preferred_nationality_id;
+                    $filters['origin_id']                = $request->filled('origin_id')                ? $request->input('origin_id')                : $preferences?->preferred_origin_id;
+                    $filters['religion_id']              = $request->filled('religion_id')              ? $request->input('religion_id')              : $preferences?->preferred_religion_id;
+                    $filters['religiosity_level_id']     = $request->filled('religiosity_level_id')     ? $request->input('religiosity_level_id')     : $preferences?->preferred_religiosity_level_id;
+                    $filters['country_of_residence_id']  = $request->filled('country_of_residence_id')  ? $request->input('country_of_residence_id')  : $preferences?->preferred_country_id;
+                    $filters['city_id']                  = $request->filled('city_id')                  ? $request->input('city_id')                  : $preferences?->preferred_city_id;
+                    $filters['educational_level_id']     = $request->filled('educational_level_id')     ? $request->input('educational_level_id')     : $preferences?->preferred_educational_level_id;
+                    $filters['specialization_id']        = $request->filled('specialization_id')        ? $request->input('specialization_id')        : $preferences?->preferred_specialization_id;
+                    $filters['employment_status']        = $request->filled('employment_status')        ? $request->input('employment_status')        : $preferences?->preferred_employment_status;
+                    $filters['job_title_id']             = $request->filled('job_title_id')             ? $request->input('job_title_id')             : $preferences?->preferred_job_title_id;
+                    $filters['financial_status_id']      = $request->filled('financial_status_id')      ? $request->input('financial_status_id')      : $preferences?->preferred_financial_status_id;
+                    $filters['height_id']                = $request->filled('height_id')                ? $request->input('height_id')                : $preferences?->preferred_height_id;
+                    $filters['weight_id']                = $request->filled('weight_id')                ? $request->input('weight_id')                : $preferences?->preferred_weight_id;
+                    $filters['marital_status_id']        = $request->filled('marital_status_id')        ? $request->input('marital_status_id')        : $preferences?->preferred_marital_status_id;
+                    $filters['children']                 = $request->filled('children')                 ? $request->input('children')                 : $preferences?->preferred_children;
+                    $filters['smoking_status']           = $request->filled('smoking_status')           ? $request->input('smoking_status')           : $preferences?->preferred_smoking_status;
+                    $filters['drinking_status_id']       = $request->filled('drinking_status_id')       ? $request->input('drinking_status_id')       : $preferences?->preferred_drinking_status_id;
+                    $filters['sports_activity_id']       = $request->filled('sports_activity_id')       ? $request->input('sports_activity_id')       : $preferences?->preferred_sports_activity_id;
+                    $filters['social_media_presence_id'] = $request->filled('social_media_presence_id') ? $request->input('social_media_presence_id') : $preferences?->preferred_social_media_presence_id;
+                    $filters['sleep_habit_id']           = $request->filled('sleep_habit_id')           ? $request->input('sleep_habit_id')           : $preferences?->preferred_sleep_habit_id;
+                    $filters['marriage_budget_id']       = $request->filled('marriage_budget_id')       ? $request->input('marriage_budget_id')       : $preferences?->preferred_marriage_budget_id;
+                    $filters['language_id']              = $request->filled('language_id')              ? $request->input('language_id')              : $preferences?->preferred_language_id;
+                    $filters['zodiac_sign_id']           = $request->filled('zodiac_sign_id')           ? $request->input('zodiac_sign_id')           : $preferences?->preferred_zodiac_sign_id;
+                    $filters['sector_id']                = $request->filled('sector_id')                ? $request->input('sector_id')                : $preferences?->preferred_sector_id;
+                    $filters['position_level_id']        = $request->filled('position_level_id')        ? $request->input('position_level_id')        : $preferences?->preferred_position_level_id;
+                    $filters['housing_id']               = $request->filled('housing_id')               ? $request->input('housing_id')               : $preferences?->preferred_housing_id;
+                    $filters['car_ownership']            = $request->filled('car_ownership')            ? $request->input('car_ownership')            : $preferences?->preferred_car_ownership;
+                    $filters['skin_color_id']            = $request->filled('skin_color_id')            ? $request->input('skin_color_id')            : $preferences?->preferred_skin_color_id;
+                    $filters['hair_color_id']            = $request->filled('hair_color_id')            ? $request->input('hair_color_id')            : $preferences?->preferred_hair_color_id;
+                    $filters['eye_color_id']             = $request->filled('eye_color_id')             ? $request->input('eye_color_id')             : $preferences?->preferred_eye_color_id;
+                    $filters['hijab_status']             = $request->filled('hijab_status')             ? $request->input('hijab_status')             : $preferences?->preferred_hijab_status;
+                    $filters['city_location_id']         = $request->filled('city_location_id')         ? $request->input('city_location_id')         : $preferences?->preferred_city_location_id;
+                    $filters['area']                     = $request->filled('area')                     ? $request->input('area')                     : $preferences?->preferred_area;
+                
+                    // Age range
+                    $ageMin = $request->filled('age_min') ? $request->input('age_min') : $preferences?->preferred_age_min;
+                    $ageMax = $request->filled('age_max') ? $request->input('age_max') : $preferences?->preferred_age_max;
+                }
+    
+        $exactQuery = clone $baseQuery;
+    
+        if (!is_null($ageMin) && !is_null($ageMax)) {
+            $exactQuery->whereBetween('age', [$ageMin, $ageMax]);
         }
-
-        $filters = array_merge($preferencesFilters, [
-            'nationality_id' => $request->nationality_id,
-            'origin_id' => $request->origin_id,
-            'religion_id' => $request->religion_id,
-            'religiosity_level_id' => $request->religiosity_level_id,
-            'country_of_residence_id' => $request->country_of_residence_id,
-            'city_id' => $request->city_id,
-            'educational_level_id' => $request->educational_level_id,
-            'specialization_id' => $request->specialization_id,
-            'employment_status' => $request->employment_status,
-            'job_title_id' => $request->job_title_id,
-            'financial_status_id' => $request->financial_status_id,
-            'height_id' => $request->height_id,
-            'weight_id' => $request->weight_id,
-            'marital_status_id' => $request->marital_status_id,
-            'children' => $request->children,
-            'smoking_status' => $request->smoking_status,
-            'drinking_status_id' => $request->drinking_status_id,
-            'sports_activity_id' => $request->sports_activity_id,
-            'social_media_presence_id' => $request->social_media_presence_id,
-            'sleep_habit_id' => $request->sleep_habit_id,
-            'marriage_budget_id' => $request->marriage_budget_id,
-            'language_id' => $request->language_id
-        ]);
-
-        if ($request->has('age_min') && $request->has('age_max')) {
-            $query->whereBetween('age', [$request->age_min, $request->age_max]);
-        }
-
+    
         foreach ($filters as $key => $value) {
             if (!is_null($value)) {
-                $query->where($key, $value);
+                $exactQuery->where($key, $value);
             }
         }
-
-        $exactMatches = $query->get();
-        $suggestedUsers = collect();
-        $suggestedPercentage = 100;
-
-        if (!$hasUserProfile && !$isFromFilter) {
-            $suggestedUsers = $exactMatches;
-            $exactMatches = collect();
-        } else {
-            $suggestedQuery = clone $query;
-            $exactMatchIds = $exactMatches->pluck('id')->toArray();
-
-            $totalFilters = count(array_filter($filters, fn($value) => !is_null($value)));
-            $relaxationLevels = [90, 80, 70, 60];
-
-            foreach ($relaxationLevels as $level) {
-                if (!$suggestedUsers->isEmpty()) break;
-
-                $remainingFiltersCount = ceil($totalFilters * ($level / 100));
-                $activeFilters = array_filter($filters, fn($value) => !is_null($value));
-                $selectedFilters = array_slice($activeFilters, 0, $remainingFiltersCount, true);
-
-                $tempQuery = clone $suggestedQuery;
-
-                if ($request->has('age_min') && $request->has('age_max')) {
-                    $tempQuery->whereBetween('age', [$request->age_min, $request->age_max]);
-                }
-
-                foreach ($selectedFilters as $key => $value) {
-                    $tempQuery->where($key, $value);
-                }
-
-                $tempQuery->whereNotIn('id', $exactMatchIds);
-                $suggestedUsers = $tempQuery->get();
-
-                if (!$suggestedUsers->isEmpty()) {
-                    $suggestedPercentage = $level;
-                    break;
-                }
-            }
-
-            if ($suggestedUsers->isEmpty()) {
-                $suggestedUsers = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
-                    ->whereHas('user', function ($query) {
-                        $query->where('gender', '!=', Auth::user()->gender)
-                            ->where('role_id', '!=', 1);
-                    })
-                    ->whereNotIn('id', array_merge($likedUsers->toArray(), $dislikedUsers->toArray(), $exactMatchIds))
-                    ->get();
-                $suggestedPercentage = 0;
+    
+        Log::debug('UserFilterService - Exact Query SQL', ['sql' => $exactQuery->toSql()]);
+        Log::debug('UserFilterService - Exact Query Bindings', ['bindings' => $exactQuery->getBindings()]);
+    
+        $exactMatches = $exactQuery->get();
+    
+        $nonNullFilters = array_filter($filters, fn($v) => !is_null($v));
+        $totalFilters   = count($nonNullFilters);
+    
+        $candidateQuery = clone $baseQuery;
+    
+        if (!is_null($ageMin) && !is_null($ageMax)) {
+            $candidateQuery->whereBetween('age', [$ageMin, $ageMax]);
+        }
+    
+        // Always apply strict filtering for these keys (if provided).
+        $strictKeys = ['country_of_residence_id', 'religion_id'];
+        foreach ($strictKeys as $strictKey) {
+            if (!empty($filters[$strictKey])) {
+                $candidateQuery->where($strictKey, $filters[$strictKey]);
+                unset($nonNullFilters[$strictKey]); // Exclude from relaxed filters
+                $totalFilters--;
             }
         }
-
+        
+        // Apply relaxed OR-based conditions for remaining filters
+        if ($totalFilters > 0) {
+            $candidateQuery->where(function($q) use ($nonNullFilters) {
+                foreach ($nonNullFilters as $key => $value) {
+                    $q->orWhere($key, $value);
+                }
+            });
+        }
+    
+        $candidates = $candidateQuery->get();
+    
+        $exactIDs = $exactMatches->pluck('id')->toArray();
+        $suggestionPool = collect();
+    
+        foreach ($candidates as $candidate) {
+            if (in_array($candidate->id, $exactIDs)) {
+                continue;
+            }
+    
+            $matchCount = 0;
+            foreach ($nonNullFilters as $key => $value) {
+                if ($candidate->{$key} == $value) {
+                    $matchCount++;
+                }
+            }
+    
+            $ratio = ($totalFilters > 0) ? ($matchCount / $totalFilters) * 100 : 0;
+            if ($ratio >= 50) {
+                $candidate->suggestion_ratio = $ratio;
+                $suggestionPool->push($candidate);
+            }
+        }
+    
+        $suggestionPool = $suggestionPool->sortByDesc('suggestion_ratio')->values();
+        $suggestedUsers = $suggestionPool->take(10);
+    
+        $suggestedPercentage = $suggestionPool->isNotEmpty()
+            ? round($suggestionPool->first()->suggestion_ratio, 2)
+            : 0;
+    
         return [
             'exact_matches' => FilteredUserResource::collection($exactMatches),
             'suggested_users' => FilteredUserResource::collection($suggestedUsers),

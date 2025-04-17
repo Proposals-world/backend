@@ -27,6 +27,7 @@ class PersonalAttributesGroupResource extends JsonResource
             'zodiac_signs' => ZodiacSignResource::collection($this->zodiacSigns),
             'sleep_habits' => SleepHabitResource::collection($this->sleepHabits),
             'marriage_budget'=> MarriageBudgetResource::collection($this->marriageBudget),
+            'eye_colors'=> EyeColorResource::collection($this->eyeColors),
 
             'social_media_presence' => SocialMediaPresenceResource::collection($this->socialMediaPresence),
             'job_titles' => JobTitleResource::collection($this->jobTitles),

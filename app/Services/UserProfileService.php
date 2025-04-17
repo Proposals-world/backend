@@ -134,7 +134,7 @@ class UserProfileService
             'religiosity_level_id' => $data['religiosity_level_id'] ?? null,  //missing
             'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
             'marriage_budget_id' => $data['marriage_budget_id'] ?? null, //missing for men
-            'eye_color_id' => $data['eye_color_id'] ?? null, //missing for men
+            'eye_color_id' => $data['eye_color'] ?? null, //missing for men
             'guardian_contact_encrypted' => $data['guardian_contact'] ?? $profile->guardian_contact,
         ]);
 

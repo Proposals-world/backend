@@ -1,167 +1,69 @@
 @extends('user.layouts.app')
 
 @section('content')
-    <style>
-        .profile-card {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            min-height: 500px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .profile-card img.card-img-top {
-            height: 413px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .profile-card .card-body {
-            padding: 1.5rem;
-        }
-
-        .row.list>div.col-12 {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        @media (min-width: 1400px) {
-                    .profile-card {
-                        max-width: 40%;
-                        margin-left: 0;
-                    }
-                }
-        /* @media (min-width: 1400px) {
-            .profile-card {
-                max-width: 50%;
-                margin: 0 auto;
-            }
-        } */
-
-        @media (max-width: 767px) {
-            .modal.modal-left .modal-dialog {
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                margin: 0 !important;
-                transform: translateY(100%) !important;
-                transition: transform 0.3s ease-out !important;
-                max-height: 75vh !important;
-                max-width: 100% !important;
-            }
-
-            .modal.modal-left.show .modal-dialog {
-                transform: translateY(0) !important;
-            }
-
-            .modal.modal-left .modal-content {
-                border-radius: 15px 15px 0 0 !important;
-                height: 100%;
-                overflow-y: auto;
-                padding-top: 60px;
-            }
-
-            .modal.modal-left .modal-header {
-                position: fixed;
-                top: 0;
-                width: 100%;
-                z-index: 200;
-                cursor: grab;
-            }
-
-            .modal.modal-left .modal-body {
-                padding-top: 50px;
-            }
-
-            .modal.modal-right .modal-dialog {
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                margin: 0 !important;
-                transform: translateY(100%) !important;
-                transition: transform 0.3s ease-out !important;
-                max-height: 75vh !important;
-                max-width: 100% !important;
-            }
-
-            .modal.modal-right.show .modal-dialog {
-                transform: translateY(0) !important;
-            }
-
-            .modal.modal-right .modal-content {
-                border-radius: 15px 15px 0 0 !important;
-                height: 100%;
-                overflow-y: auto;
-                padding-top: 60px;
-            }
-
-            .modal.modal-right .modal-header {
-                position: fixed;
-                top: 0;
-                width: 100%;
-                z-index: 200;
-                cursor: grab;
-            }
-
-            .modal.modal-right .modal-body {
-                padding-top: 50px;
-            }
-        }
-        
-    </style>
+    <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
 
     <div class="container-fluid disable-text-selection">
         <div class="row">
-            <div class="col-12 mb-5">
-                <h1>{{ __('userDashboard.likeMe.users_who_liked_you') }}</h1>
-                {{-- <div class="separator mb-5"></div> --}}
+            <div class="col-12 mb-4">
+                <div class="match-dashboard-header">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-4">
+                        <div>
+                            <h1 class="mb-1">{{ __('userDashboard.likeMe.users_who_liked_you') }}</h1>
+                            <p class="text-dark mb-0">Discover who liked your profile</p>
+                        </div>
+                        <div class="match-stats d-flex mt-3 mt-md-0">
+                            <div class="match-stat-item text-center mr-4">
+                                <span class="match-stat-number">{{ count($profiles) }}</span>
+                                <span class="match-stat-label">Total Likes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        @if (session('status'))
-    <div class="col-12">
-        <div class="alert alert-info alert-dismissible fade show shadow-sm" role="alert">
-            <i class="simple-icon-info mr-2"></i> {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-@endif
 
-        <div class="row list disable-text-selection">
+        @if (session('status'))
+            <div class="col-12">
+                <div class="alert alert-info alert-dismissible fade show shadow-sm" role="alert">
+                    <i class="simple-icon-info mr-2"></i> {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        @endif
+
+        <div class="row list disable-text-selection" id="suggestedMatchResults">
             @foreach ($profiles as $profile)
-                <div class="row col-12 mb-4">
-                    <div class="card profile-card shadow-sm" data-profile='@json($profile)'>
+                <div class="col-12 col-sm-6 col-md-4 mb-4">
+                    <div class="card profile-card shadow-sm h-100" data-profile='@json($profile)'>
                         <div class="position-relative">
-                            <a href="#">
-                                <img class="card-img-top"
-                                    src="{{ collect($profile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] }}"
-                                    alt="{{ __('userDashboard.likeMe.profile_image') }}">
-                            </a>
-                            {{-- <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">
-                                {{ __('userDashboard.likeMe.new') }}
-                            </span> --}}
+                            <span class="badge badge-warning position-absolute m-2">Suggested</span>
+                            <img class="card-img-top"
+                                src="{{ collect($profile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? '/dashboard/logos/profile-icon.jpg' }}"
+                                alt="{{ $profile['first_name'] }} {{ $profile['last_name'] }}">
                         </div>
-                        <div class="card-body">
-                            <a href="#" class="profile-link">
-                                <p class="list-item-heading mb-1 font-weight-bold">
-                                    {{ $profile['first_name'] }} {{ $profile['last_name'] }}
-                                </p>
-                            </a>
-                            <footer>
-                                <p class="text-muted text-small mb-0">
-                                    {{ $profile['profile']['country_of_residence'] . ', ' . ($profile['profile']['city'] ?? __('userDashboard.likeMe.unknown_location')) }}
-                                </p>
-                            </footer>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-1">{{ $profile['first_name'] }} {{ $profile['last_name'] }}</h5>
+                            <p class="text-muted small mb-2">
+                                {{ $profile['profile']['country_of_residence'] ?? '' }}{{ isset($profile['profile']['city']) ? ', ' . $profile['profile']['city'] : ', Unknown' }}
+                            </p>
+                            <div class="profile-details mt-auto">
+                                @if (!empty($profile['profile']['age']))
+                                    <span class="badge badge-light mr-2">{{ $profile['profile']['age'] }} years</span>
+                                @endif
+                                @if (!empty($profile['profile']['religion']))
+                                    <span class="badge badge-light">{{ $profile['profile']['religion'] }}</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
+
 
     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
         tabindex="-1" role="dialog" aria-hidden="true">
@@ -222,21 +124,21 @@
                 <div class="modal-footer bg-light">
                     <button class="btn btn-outline-secondary mr-auto"
                         data-dismiss="modal">{{ __('userDashboard.likeMe.close') }}</button>
-                        <form method="POST" action="{{ route('user.like') }}" style="display:inline;">
-                            @csrf
-                            <input type="hidden" name="liked_user_id" value="">
-                            <button class="btn btn-sm btn-outline-primary" type="submit">
-                                <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like_back') }}
-                            </button>
-                        </form>
-                        
-                        <form method="POST" action="{{ route('user.dislike') }}" style="display:inline;">
-                            @csrf
-                            <input type="hidden" name="disliked_user_id" value="">
-                            <button class="btn btn-sm btn-outline-danger" type="submit">
-                                <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.dislike') }}
-                            </button>
-                        </form>
+                    <form method="POST" action="{{ route('user.like') }}" style="display:inline;">
+                        @csrf
+                        <input type="hidden" name="liked_user_id" value="">
+                        <button class="btn btn-sm btn-outline-primary" type="submit">
+                            <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like_back') }}
+                        </button>
+                    </form>
+
+                    <form method="POST" action="{{ route('user.dislike') }}" style="display:inline;">
+                        @csrf
+                        <input type="hidden" name="disliked_user_id" value="">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">
+                            <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.dislike') }}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
