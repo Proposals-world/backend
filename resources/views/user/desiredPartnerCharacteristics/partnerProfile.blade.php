@@ -563,7 +563,7 @@
             <div class="form-group">
                 <label class="form-label" for="preferred_marriage_budget">{{ __('profile.Marriage_Budget') }}</label>
                 <select class="form-control" name="preferred_marriage_budget_id" id="preferred_marriage_budget">
-                    {{-- <option value="">{{ __('profile.No_Preference') }}</option> --}}
+                    <option value="">{{ __('profile.No_Preference') }}</option>
                     @foreach($data['marriageBudget'] as $option)
                         <option value="{{ $option->id }}" {{ $userPreferences['preferred_marriage_budget'] == $option->name ? 'selected' : '' }}>
                             {{ $option->name }}
@@ -792,46 +792,38 @@
     const trackedInputsSelector = 'input:not([type="hidden"]):not([type="submit"]):not([type="radio"]), select, textarea';
     function countTotalSelected() {
     let count = 0;
-
-    const ageMinVal = parseInt($('#preferred_age_min').val());
-    const ageMaxVal = parseInt($('#preferred_age_max').val());
+    const ageMinVal = parseInt($('#preferred_age_min').val()) || 18;
+    const ageMaxVal = parseInt($('#preferred_age_max').val()) || 65;
 
     $(trackedInputsSelector).each(function () {
         const el = $(this);
         const name = el.attr('name');
         const type = el.attr('type');
         const id = el.attr('id');
-
-        // Skip hidden, submit, and radio inputs
-        if (type === 'hidden' || type === 'submit' || type === 'radio') return;
-
-        // Skip the visible range sliders (only hidden synced inputs are counted)
-        if (id === 'ageMin' || id === 'ageMax') return;
-
-        if (el.prop('disabled')) return;
-
         const value = el.val();
 
-        // ✅ Multi-selects: count once if anything is selected
+        if (type === 'hidden' || type === 'submit' || type === 'radio' || id === 'ageMin' || id === 'ageMax') return;
+        if (el.prop('disabled')) return;
+
         if (el.is('select[multiple]')) {
             if (value && value.length > 0 && value.some(v => v !== '' && v !== 'null' && v !== 'No Preference')) {
+                console.log(`Multi-select ${name} counted:`, value);
                 count += 1;
             }
-        }
-        // ✅ Regular input/selects
-        else if (value && value !== '' && value !== 'null' && value !== 'No Preference') {
+        } else if (value && value !== '' && value !== 'null' && value !== 'No Preference') {
+            console.log(`Input ${name} counted:`, value);
             count += 1;
         }
     });
 
-    // ✅ Only count age range if changed from default (18 to 65)
     if (ageMinVal !== 18 || ageMaxVal !== 65) {
+        console.log(`Age range counted: ${ageMinVal} - ${ageMaxVal}`);
         count += 1;
     }
 
+    console.log('Total count:', count);
     return count;
 }
-
 
 
 
