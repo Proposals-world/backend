@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use App\Http\Resources\MatchResource;
 use App\Http\Resources\UserProfileResource;
+use App\Models\Like;
 use App\Services\ContactMaskingService;
 
 class MatchController extends Controller
@@ -26,11 +27,11 @@ class MatchController extends Controller
     public function getMatches()
     {
         $matches = $this->likeService->getMatches();
-    
+
         if (auth()->guest()) {
             return redirect()->route('login')->with('error', 'Unauthorized');
         }
-    
+
         if ($matches->isEmpty()) {
             return view('user.matches', [
                 'matchesWithContact' => collect(),
@@ -38,16 +39,16 @@ class MatchController extends Controller
                 'noMatchesMessage' => 'Currently you do not have any matches',
             ]);
         }
-    
+
         $lang = app()->getLocale();
-    
+
         $enrichedMatches = $matches->map(function ($match) use ($lang) {
             $authUserId = auth()->id();
             $matchedUser = $match->user1_id === $authUserId ? $match->user2 : $match->user1;
-    
+
             $profileResource = new UserProfileResource($matchedUser, $lang);
             $profileArray = $profileResource->toArray(request());
-    
+
             if (!$match->contact_exchanged) {
                 $masker = app(ContactMaskingService::class);
                 $profileArray['phone_number'] = $masker->maskPhone($matchedUser->phone_number);
@@ -56,14 +57,14 @@ class MatchController extends Controller
                     $matchedUser->profile->guardian_contact_encrypted ?? null
                 );
             }
-    
+
             return [
                 'match_id' => $match->id,
                 'contact_exchanged' => $match->contact_exchanged,
                 'matched_user' => $profileArray,
             ];
         });
-    
+
         $matchesWithContact = $enrichedMatches->filter(fn($m) => $m['contact_exchanged']);
         $matchesWithoutContact = $enrichedMatches->filter(fn($m) => !$m['contact_exchanged']);
         // dd($matchesWithContact, $matchesWithoutContact);
@@ -72,5 +73,10 @@ class MatchController extends Controller
             'matchesWithoutContact' => $matchesWithoutContact,
             'noMatchesMessage' => null,
         ]);
+    }
+    public function removeMatch(Request $request)
+    {
+        // ✅ Just call the service and return its result
+        return $this->likeService->softDeleteMatch($request);
     }
 }

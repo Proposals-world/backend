@@ -120,6 +120,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
         Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
         Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
+        Route::delete('/remove-match', [MatchController::class, 'removeMatch'])->name('api.remove.match');
 
         Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');

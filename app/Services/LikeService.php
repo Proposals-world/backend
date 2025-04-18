@@ -158,4 +158,36 @@ class LikeService
             'message' => $lang === 'ar' ? 'تم الرفض بنجاح.' : 'Disliked successfully.'
         ];
     }
+
+    public function softDeleteMatch($request)
+    {
+        $matchId = $request->input('match_id');
+        $language = $request->header('Accept-Language', 'en');
+
+        if (!$matchId) {
+            $message = $language === 'ar' ? 'معرف التطابق مطلوب' : 'Match ID is required';
+            return response()->json(['message' => $message], 400);
+        }
+
+        // Fetch match without trashed
+        $match = UserMatch::where('id', $matchId)->first();
+
+        if (!$match) {
+            $message = $language === 'ar' ? 'التطابق غير موجود أو تم حذفه بالفعل' : 'Match not found or already deleted';
+            return response()->json(['message' => $message], 404);
+        }
+
+        // Perform soft delete
+        $match->delete();
+
+        // Optionally remove related likes (permanently)
+        Like::where(function ($q) use ($match) {
+            $q->where('user_id', $match->user1_id)->where('liked_user_id', $match->user2_id);
+        })->orWhere(function ($q) use ($match) {
+            $q->where('user_id', $match->user2_id)->where('liked_user_id', $match->user1_id);
+        })->delete();
+
+        $message = $language === 'ar' ? 'تمت إزالة التطابق بنجاح' : 'Match removed successfully';
+        return response()->json(['message' => $message], 200);
+    }
 }

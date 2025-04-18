@@ -72,7 +72,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile', [UserProfileController::class, 'update']);
 
 
-
     //jop-title
     //mariage-buget
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
@@ -113,7 +112,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto']);
     Route::get('/religious-levels', [ReligiousLevelController::class, 'index']);
     Route::get('/getlikes', [ApiLikeController::class, 'getlikes']);
-
+    Route::delete('/remove-match', [MatchController::class, 'removeMatch']);
     Route::get('/dynamic-data', [DynamicDataController::class, 'index']);
     Route::get('/users/filter', [FilterController::class, 'filterUsers']);
     Route::post('/like', [ApiLikeController::class, 'likeUser']);

@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
-
+   {{-- {{  dd( $matchesWithContact); }} --}}
 <div class="container-fluid disable-text-selection">
     <div class="row ">
         <div class="col-12 mb-4">
@@ -200,9 +200,10 @@
                 <div class="modal-footer bg-light">
                     <button class="btn btn-outline-secondary mr-auto"
                         data-dismiss="modal">{{ __('userDashboard.matches.close') }}</button>
-                    <button class="btn btn-outline-danger mr-2">
-                        <i class="simple-icon-dislike mr-2"></i>{{ __('userDashboard.matches.remove') }}
-                    </button>
+                   <!-- Remove old inline onclick and give it an ID -->
+<button id="removeMatchBtn" class="btn btn-outline-danger mr-2">
+    <i class="simple-icon-dislike mr-2"></i>{{ __('userDashboard.matches.remove') }}
+</button>
                 </div>
             </div>
         </div>
@@ -292,7 +293,63 @@
                 });
             }
 
+             // ✅ Global so it's accessible
+    function removeMatchFromModal(matchId) {
+        if (!confirm("{{ __('userDashboard.matches.confirm_remove') }}")) return;
 
+        fetch("{{ route('api.remove.match') }}", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept-Language": "{{ app()->getLocale() }}",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ match_id: matchId })
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(data.message);
+            $('#profileModalRight').modal('hide');
+            location.reload();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Error happen while removing the match.");
+        });
+    }
+
+    // ✅ Inside document.ready
+    $(document).ready(function () {
+        $('.profile-card').on('click', function (e) {
+            e.preventDefault();
+            const match = $(this).data('profile');
+            const profile = match.matched_user;
+
+            // Store match_id in button for reuse
+            $('#removeMatchBtn').data('matchId', match.match_id);
+
+            // Populate modal as before
+            const mainPhoto = profile.profile.photos.find(photo => photo.is_main === 1)?.photo_url;
+            $('#modalAvatar').attr('src', mainPhoto);
+            $('#modalName').text(`${profile.first_name} ${profile.last_name}`);
+            $('#modalBio').text(profile.profile.bio || 'No bio provided.');
+            $('#modalGender').text(profile.gender || 'N/A');
+            $('#modalAge').text(profile.profile.age || 'N/A');
+            $('#modalNationality').text(profile.profile.nationality || 'N/A');
+            $('#modalCity').text(profile.profile.city || 'N/A');
+            $('#modalPhone').text(profile.phone_number || 'N/A');
+
+            const details = categorizeDetails(profile);
+            populateExtraDetails(details);
+            $('#profileModalRight').modal('show');
+        });
+
+        // ✅ Trigger remove logic from button click
+        $('#removeMatchBtn').on('click', function () {
+            const matchId = $(this).data('matchId');
+            removeMatchFromModal(matchId);
+        });
+    });
             // Modal opening logic (existing)
             $('.profile-card').on('click', function(e) {
                 e.preventDefault();
