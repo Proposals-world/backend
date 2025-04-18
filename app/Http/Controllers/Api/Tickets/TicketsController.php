@@ -65,10 +65,8 @@ class TicketsController extends Controller
 
         $ticket = SupportTicket::create([
             "user_id"        => $user->id,
-            "subject_en"     => $request->subject_en,
-            "subject_ar"     => $request->subject_ar,
-            "description_en" => $request->description_en,
-            "description_ar" => $request->description_ar,
+            "subject"     => $request->subject_ar,
+            "description" => $request->description_en,
             "status"         => "open",
         ]);
 

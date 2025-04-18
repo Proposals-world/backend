@@ -39,6 +39,7 @@ use App\Http\Controllers\User\LikedMeController;
 use App\Http\Controllers\User\MatchController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\User\FindMatchController;
+use App\Http\Controllers\User\SupportController;
 use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
@@ -115,12 +116,14 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
         Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
         Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
+        Route::get('/support', [SupportController::class, 'index'])->name('user.support');
         Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
         Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
         Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
 
         Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+        Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
         Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
         Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');

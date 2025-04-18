@@ -383,7 +383,7 @@
                                     <div class="pricing-body mb-40 text-left">
                                         <ul>
                                             <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
-                                            <li>{{ __('home.duration') }}: {{ $package['duration'] ?? "N/A" }}</li>
+                                            {{-- <li>{{ __('home.duration') }}: {{ $package['duration'] ?? "N/A" }}</li> --}}
                                         </ul>
                                     </div>
                                     <div class="pricing-btn">
