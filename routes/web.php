@@ -107,16 +107,17 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
     });
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
-    ->name('user.profile.update');
+        ->name('user.profile.update');
     // Dashboard: only accessible if profile is complete.
     Route::middleware('profile.complete')->group(function () {
         Route::get('/filter', [FilterController::class, 'filterUsers'])
-        ->name('users.filter');
+            ->name('users.filter');
         Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
         Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
         Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
         Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
         Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
+        Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
 
         Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');

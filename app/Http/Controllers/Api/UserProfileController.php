@@ -61,9 +61,12 @@ class UserProfileController extends Controller
     {
         // Validate 'lang' parameter
         $lang = $request->header('Accept-Language', 'en');
-
+        // dd($lang);
         // Get the authenticated user
-        $user = User::where('id', $request->input('user_id'))->first();
+        // $user = User::where('id', $request->input('user_id'))->first();
+        $userId = $request->input('user_id') ?? $request->query('user_id');
+
+        $user = User::where('id', $userId)->first();
 
         if (!$user) {
             return response()->json([
