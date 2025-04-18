@@ -1,0 +1,276 @@
+        .match-dashboard-header h1 {
+            color: #7d2675;
+            font-weight: 600;
+        }
+
+        .match-stat-item {
+            padding: 0 10px;
+        }
+
+        .match-stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+        }
+
+        .match-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+
+        /* Simple Section Dividers */
+        .section-header {
+            padding: 10px 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header h5 {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .section-header .badge {
+            margin-left: 8px;
+            background-color: #922c88;
+            color: white;
+        }
+
+        .section-header .badge-info {
+            background-color: #17a2b8;
+        }
+
+        /* Profile Cards Styling */
+        .profile-card {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            background-color: white;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card .card-img-top {
+            height: 320px;
+            object-fit: cover;
+            border-bottom: 3px solid #f1f1f1;
+        }
+
+        .profile-card .card-body {
+            padding: 1rem;
+        }
+
+        .profile-card .card-footer {
+            background-color: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 1rem;
+        }
+
+        /* Exact Match Card Style */
+        #exactMatchResults .profile-card {
+            border-left: 4px solid #922c88;
+        }
+
+        /* Suggested Match Card Style */
+        #suggestedMatchResults .profile-card {
+            border-left: 4px solid #922c88;
+        }
+
+        /* Slider Styling for Suggested Matches */
+        .suggested-slider-container {
+            position: relative;
+            padding: 0 50px;
+        }
+
+        .suggested-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE/Edge */
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        .suggested-slider::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
+        }
+
+        .suggested-slider .card-container {
+            flex: 0 0 auto;
+            width: 300px;
+            transition: transform 0.3s;
+        }
+
+        /* Fix for slider controls to ensure they don't overlap with sidebar */
+        .suggested-slider-controls {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .suggested-slider-controls button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+        }
+
+        /* Filter Enhancement - Without Overriding Existing */
+        .filter-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background-color: #d8abab;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            margin-left: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .filter-count.active {
+            opacity: 1;
+        }
+
+        /* Filter Sections Styling */
+        .filter-section {
+            border: 1px solid #e6e6e6;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background-color: white;
+        }
+
+        .filter-section-header {
+            padding: 0.75rem 1rem;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .filter-section-header:hover {
+            background-color: #e9ecef;
+        }
+
+        .filter-section-body {
+            padding: 0 1rem 1rem;
+        }
+
+        .filter-active {
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .filter-active.show {
+            opacity: 1;
+        }
+
+        /* Repositioned filter header with reset button */
+        .filter-header {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e6e6e6;
+            position: sticky;
+            top: 0;
+        }
+
+        /* Animation for loading */
+        .spinning {
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .font-large {
+            font-size: 2rem;
+        }
+
+        /* Empty state styling */
+        .empty-state {
+            text-align: center;
+            padding: 2rem 0;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Ensure the slider navigation buttons don't overlap with sidebar */
+        @media (min-width: 992px) {
+            .suggested-slider-controls button.btn-outline-primary {
+                margin: 0 15px;
+            }
+
+            .suggested-slider-controls button:first-child {
+                margin-left: 0;
+            }
+
+            .suggested-slider-controls button:last-child {
+                margin-right: 0;
+            }
+        }
+
+        /* Ensure proper spacing in mobile view */
+        @media (max-width: 991px) {
+            .suggested-slider-container {
+                padding: 0 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .match-stat-number {
+                color: #7d2675;
+            }
+        }
+
+        /* Match type badges */
+        .badge-success {
+            background-color: #28a745;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }

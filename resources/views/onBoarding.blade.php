@@ -4,15 +4,22 @@
     @php
         $locale = app()->getLocale();
     @endphp
-<style>
-    @media (max-width: 768px) {
-    .onboarding-navigation .btn {
-        font-size: 12px; /* Smaller text size */
-        padding: 8px 16px; /* Smaller padding */
-        min-width: 80px; /* Limit the button's width */
-    }
-}
-</style>
+    <style>
+        #onboarding {
+            min-height: 116vh;
+        }
+
+        @media (max-width: 768px) {
+            .onboarding-navigation .btn {
+                font-size: 12px;
+                /* Smaller text size */
+                padding: 8px 16px;
+                /* Smaller padding */
+                min-width: 80px;
+                /* Limit the button's width */
+            }
+        }
+    </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
         style="
             @if ($locale === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
@@ -454,13 +461,13 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <select name="smoking_tools[]" class="form-control rounded-pill"
-                                                            multiple>
+                                                            id="smoking_tools" multiple>
                                                             @foreach ($data['smokingTools'] as $tool)
                                                                 <option value="{{ $tool->id }}">{{ $tool->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <span class="error-message text-danger"
+                                                        <span id="error-smoking_tools" class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
@@ -556,53 +563,54 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.pets') }}</label>
-                                                        <select name="pets[]" class="form-control rounded-pill" required
-                                                            multiple>
+                                                        <select name="pets[]" class="form-control rounded-pill"
+                                                            id="pets" required multiple>
                                                             @foreach ($data['pets'] as $pet)
                                                                 <option value="{{ $pet->id }}">{{ $pet->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <span class="error-message text-danger"
+                                                        <span id="error-pets" class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
-                                              {{--  --}}
+                                                {{--  --}}
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.hobbies') }}</label>
                                                         <select name="hobbies[]" class="form-control rounded-pill"
-                                                            required multiple>
+                                                            id="hobbies" required multiple>
                                                             @foreach ($data['hobbies'] as $hobby)
                                                                 <option value="{{ $hobby->id }}">{{ $hobby->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <span class="error-message text-danger"
+                                                        <span id="error-hobbies" class="error-message text-danger"
                                                             style="font-size:12px;"></span>
+
                                                     </div>
                                                 </div>
                                                 @if (old('gender') !== 'female')
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label
-                                                            class="form-label">{{ __('onboarding.marriage_budget') }}</label>
-                                                        <select name="marriage_budget_id"
-                                                            class="form-control rounded-pill" required>
-                                                            <option value="">
-                                                                {{ __('onboarding.select_marriage_budget') }}</option>
-                                                            @foreach ($data['marriageBudget'] as $budget)
-                                                                <option value="{{ $budget->id }}">
-                                                                    {{ $budget->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger"
-                                                            style="font-size:12px;"></span>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label
+                                                                class="form-label">{{ __('onboarding.marriage_budget') }}</label>
+                                                            <select name="marriage_budget_id"
+                                                                class="form-control rounded-pill" required>
+                                                                <option value="">
+                                                                    {{ __('onboarding.select_marriage_budget') }}</option>
+                                                                @foreach ($data['marriageBudget'] as $budget)
+                                                                    <option value="{{ $budget->id }}">
+                                                                        {{ $budget->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="error-message text-danger"
+                                                                style="font-size:12px;"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endif
+                                                @endif
 
                                             </div>
                                             @if (old('gender') == 'female')
@@ -759,26 +767,26 @@
 
                                                 {{--  --}}
                                                 @if (old('gender') !== 'male')
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">
-                                                            {{ __('onboarding.guardian_contact') }}
-                                                            <small
-                                                                class="form-text text-muted">{{ __('onboarding.guardian_contact_help') }}</small>
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i
-                                                                        class="fas fa-phone"></i></span>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">
+                                                                {{ __('onboarding.guardian_contact') }}
+                                                                <small
+                                                                    class="form-text text-muted">{{ __('onboarding.guardian_contact_help') }}</small>
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i
+                                                                            class="fas fa-phone"></i></span>
+                                                                </div>
+                                                                <input type="tel" name="guardian_contact"
+                                                                    class="form-control rounded-right" required>
                                                             </div>
-                                                            <input type="tel" name="guardian_contact"
-                                                                class="form-control rounded-right" required>
+                                                            <span class="error-message text-danger"
+                                                                style="font-size:12px;"></span>
                                                         </div>
-                                                        <span class="error-message text-danger"
-                                                            style="font-size:12px;"></span>
                                                     </div>
-                                                </div>
-                                            @endif
+                                                @endif
 
                                             </div>
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
@@ -944,114 +952,164 @@
                 });
                 // Validate individual field
                 function validateField(field) {
-                    // Skip validation if the field is hidden.
-                    if ($(field).is(':hidden')) {
-                        return true;
+                    // 0) Skip validation for fields that aren't actually part of your form
+                    //    e.g., the internal search box that Select2 creates.
+                    const fieldName = $(field).attr('name');
+                    const fieldType = $(field).attr('type');
+
+                    if (
+                        !fieldName // no name means not a real form field
+                        ||
+                        $(field).hasClass('select2-search__field') // the search box inside Select2
+                        ||
+                        fieldType === 'search' // sometimes it's type="search"
+                    ) {
+                        return true; // just skip it
                     }
 
-                    var fieldValue = $(field).val();
-                    var value = Array.isArray(fieldValue) ? fieldValue : (fieldValue ? fieldValue.trim() : '');
-                    var fieldName = $(field).attr('name');
-                    var errorSpan = $(field).closest('.form-group').find('.error-message');
-                    var touched = $(field).data('touched');
-                    var isValid = true;
+                    // 1) If the field is hidden (not visible), skip validation
+                    if ($(field).is(':hidden')) return true;
+
+                    // 2) Detect if it's a Select2 field (for styling feedback)
+                    const isSelect2 = $(field).hasClass('select2-hidden-accessible');
+
+                    // 3) Grab field ID, "touched" status, etc.
+                    const fieldId = $(field).attr('id');
+                    const touched = $(field).data('touched');
+                    let value = $(field).prop('multiple') ?
+                        ($(field).val() || []) :
+                        ($(field).val() || '').trim();
+
+                    let isValid = true;
+
+                    // 4) Decide which error span to use:
+                    //    - If there is a <span id="error-<fieldId>">, use that;
+                    //    - Otherwise use the nearest .error-message in .form-group
+                    let errorSpan = $(field).closest('.form-group').find('.error-message');
+                    const customErrorSpan = $(`#error-${fieldId}`);
+                    if (customErrorSpan.length > 0) {
+                        errorSpan = customErrorSpan;
+                    }
+
+                    // Clear old message
                     errorSpan.text('');
 
-                    if (!touched) {
-                        return true;
-                    }
+                    // If not “touched” yet, skip
+                    if (!touched) return true;
 
+                    // ------------------------------------------------------
+                    // (A) Universal "required" check
+                    // ------------------------------------------------------
                     if ($(field).prop('required')) {
                         if (Array.isArray(value) && value.length === 0) {
                             errorSpan.text("{{ __('onboarding.required') }}");
-                            return false;
-                        }
-                        if ($(field).is('select') && value === '') {
+                            isValid = false;
+                        } else if (!Array.isArray(value) && !value) {
                             errorSpan.text("{{ __('onboarding.required') }}");
-                            return false;
-                        }
-                        if (!Array.isArray(value) && !value) {
-                            errorSpan.text("{{ __('onboarding.required') }}");
-                            return false;
+                            isValid = false;
                         }
                     }
 
-                    // Explicit checks for specific selects
-                    if ((fieldName === 'specialization_id' || fieldName === 'job_title_id' || fieldName ===
-                            'drinking_status_id') && value === '') {
+                    // ------------------------------------------------------
+                    // (B) Field-specific "required" overrides
+                    // ------------------------------------------------------
+                    if (
+                        ['specialization_id', 'job_title_id', 'drinking_status_id'].includes(fieldName) &&
+                        value === ''
+                    ) {
                         errorSpan.text("{{ __('onboarding.required') }}");
-                        return false;
+                        isValid = false;
                     }
 
+                    // ------------------------------------------------------
+                    // (C) Smoking tools conditional
+                    // ------------------------------------------------------
+                    if (fieldId === 'smoking_tools') {
+                        const smokingStatus = $('select[name="smoking_status"]').val();
+                        if (smokingStatus === '1' && value.length === 0) {
+                            errorSpan.text("{{ __('onboarding.required') }}");
+                            isValid = false;
+                        }
+                    }
+
+                    // ------------------------------------------------------
+                    // (D) Other validations
+                    // ------------------------------------------------------
                     switch (fieldName) {
                         case 'email':
-                            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                             if (!emailRegex.test(value)) {
                                 errorSpan.text("{{ __('onboarding.invalid_email') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'phone_number':
-                            var phoneRegex = /^(078|077|079)\d{7}$/;
+                            const phoneRegex = /^(078|077|079)\d{7}$/;
                             if (!phoneRegex.test(value)) {
                                 errorSpan.text("{{ __('onboarding.invalid_phone') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'password':
                             if (value.length < 8) {
                                 errorSpan.text("{{ __('onboarding.password_min') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'password_confirmation':
-                            var password = $('input[name="password"]').val();
+                            const password = $('input[name="password"]').val();
                             if (value !== password) {
                                 errorSpan.text("{{ __('onboarding.password_mismatch') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'date_of_birth':
-                            var today = new Date();
-                            var birthDate = new Date(value);
-                            var age = today.getFullYear() - birthDate.getFullYear();
-                            var monthDiff = today.getMonth() - birthDate.getMonth();
+                            const today = new Date();
+                            const birthDate = new Date(value);
+                            let age = today.getFullYear() - birthDate.getFullYear();
+                            const monthDiff = today.getMonth() - birthDate.getMonth();
                             if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
                                 age--;
                             }
                             if (age < 18) {
                                 errorSpan.text("{{ __('onboarding.age_min') }}");
                                 isValid = false;
-                            }
-                            if (age > 100) {
+                            } else if (age > 100) {
                                 errorSpan.text("{{ __('onboarding.age_max') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'bio_ar':
-                            var arabicRegex = /[\u0600-\u06FF]+/;
+                            const arabicRegex = /[\u0600-\u06FF]+/;
                             if (!arabicRegex.test(value)) {
                                 errorSpan.text("{{ __('onboarding.arabic_required') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'guardian_contact':
-                            var guardianRegex = /^(078|077|079)\d{7}$/;
+                            const guardianRegex = /^(078|077|079)\d{7}$/;
                             if (!guardianRegex.test(value)) {
                                 errorSpan.text("{{ __('onboarding.invalid_guardian_contact') }}");
                                 isValid = false;
                             }
                             break;
+
                         case 'photo_url':
                             if (value) {
-                                var fileExtension = value.split('.').pop().toLowerCase();
-                                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                                const fileExtension = value.split('.').pop().toLowerCase();
+                                const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
                                 if (!allowedExtensions.includes(fileExtension)) {
                                     errorSpan.text("{{ __('onboarding.invalid_image_file') }}");
                                     isValid = false;
                                 }
                                 if ($(field)[0].files.length > 0) {
-                                    var fileSize = $(field)[0].files[0].size / 1024 / 1024;
+                                    const fileSize = $(field)[0].files[0].size / 1024 / 1024; // MB
                                     if (fileSize > 5) {
                                         errorSpan.text("{{ __('onboarding.file_size') }}");
                                         isValid = false;
@@ -1059,31 +1117,38 @@
                                 }
                             }
                             break;
+
                         case 'number_of_children':
-                            if (value && (isNaN(value) || value < 0 || value > 10)) {
+                            if (isNaN(value) || value < 0 || value > 10) {
                                 errorSpan.text("{{ __('onboarding.children_range') }}");
                                 isValid = false;
                             }
                             break;
-                        case 'smoking_tools[]':
-                            // If smoking_status is "1" (smoker), at least one smoking tool is required.
-                            var smokingStatus = $('select[name="smoking_status"]').val();
-                            if (smokingStatus === "1") {
-                                if (!value || (Array.isArray(value) && value.length === 0) || value === '') {
-                                    errorSpan.text("{{ __('onboarding.required') }}");
-                                    isValid = false;
-                                }
-                            }
-                            break;
-                        default:
-                            break;
+
+                            
                     }
 
+                    // ------------------------------------------------------
+                    // (E) Style feedback: green or red borders
+                    // ------------------------------------------------------
                     if (isValid) {
                         $(field).removeClass('is-invalid').addClass('is-valid');
+                        errorSpan.text(''); // no error
+                        if (isSelect2) {
+                            $(field).next('.select2')
+                                .find('.select2-selection')
+                                .removeClass('is-invalid')
+                                .addClass('is-valid');
+                        }
                     } else {
                         $(field).removeClass('is-valid').addClass('is-invalid');
+                        if (isSelect2) {
+                            $(field).next('.select2')
+                                .find('.select2-selection')
+                                .addClass('is-invalid');
+                        }
                     }
+
                     return isValid;
                 }
 

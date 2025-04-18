@@ -424,5 +424,6 @@ modals.forEach(modal => {
     </script>
     @endpush
 
+    <div id="flower-container"></div>
 
 @endsection

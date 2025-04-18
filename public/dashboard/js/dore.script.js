@@ -822,7 +822,131 @@ $.dore = function (element, options) {
         $question.find(".rotate-icon-click").toggleClass("rotate");
       }
     }
-
+    $(document).ready(function () {
+      const $appContainer = $('#app-container');
+      const $subMenu = $('#matchFilters');
+      const $filterTab = $('#filterTab');
+      const $filterBookmark = $('#filterBookmark');
+    
+      // Ensure filter submenu is closed initially
+      $filterTab.removeClass('active');
+      $filterBookmark.removeClass('active');
+      $subMenu.removeClass('show');
+    
+      // Filter toggle handlers for both desktop and mobile
+      $('#filterToggleDesktop, #filterToggleMobile').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        // Toggle active states for visual feedback
+        $filterTab.toggleClass('active');
+        $filterBookmark.toggleClass('active');
+    
+        // Toggle the submenu visibility
+        $subMenu.toggleClass('show');
+    
+        // For mobile: handle sidebar state properly
+        if ($(window).width() <= 767) {
+          if ($subMenu.hasClass('show')) {
+            // If submenu is now showing, make sure sidebar is open
+            $appContainer.removeClass('menu-mobile')
+              .addClass('main-show-temporary');
+          } else {
+            // If submenu is now hidden, close the sidebar too
+            $appContainer.removeClass('main-show-temporary sub-show-temporary')
+              .addClass('menu-mobile');
+          }
+        } else {
+          // Desktop behavior remains the same
+          if ($appContainer.hasClass('menu-mobile') ||
+            $appContainer.hasClass('menu-hidden') ||
+            $appContainer.hasClass('menu-sub-hidden main-hidden sub-hidden')) {
+    
+            // If sidebar is collapsed/hidden, expand it
+            if ($appContainer.hasClass('menu-sub-hidden main-hidden sub-hidden')) {
+              setMenuClassNames(0);
+            } else if ($appContainer.hasClass('menu-hidden')) {
+              setMenuClassNames(3);
+            }
+          }
+        }
+    
+        // Position the submenu properly
+        positionSubmenu();
+      });
+    
+      // Function to position the submenu based on sidebar state
+      function positionSubmenu() {
+        if ($subMenu.hasClass('show')) {
+          let leftPosition = 90; // Default position
+    
+          // Adjust based on sidebar state
+          if ($appContainer.hasClass('menu-mobile')) {
+            leftPosition = 0;
+          } else if ($appContainer.hasClass('main-hidden')) {
+            leftPosition = 90;
+          } else if ($appContainer.hasClass('menu-sub-hidden')) {
+            leftPosition = 110;
+          }
+    
+          // Apply the position
+          $subMenu.css('left', leftPosition + 'px');
+        }
+      }
+    
+      // Close submenu when clicking outside
+      $(document).on('click', function (e) {
+        if (!$(e.target).closest('#filterTab').length &&
+          !$(e.target).closest('#filterBookmark').length &&
+          !$(e.target).closest('#matchFilters').length) {
+    
+          $filterTab.removeClass('active');
+          $filterBookmark.removeClass('active');
+          $subMenu.removeClass('show');
+        }
+      });
+    
+      // Prevent submenu clicks from closing it
+      $subMenu.on('click', function (e) {
+        e.stopPropagation();
+      });
+    
+      // Position the filter tab next to "Find A Match" item
+      function positionFilterTab() {
+        const $findMatchItem = $('#findMatchItem');
+    
+        if ($findMatchItem.length && $filterTab.length) {
+          const rect = $findMatchItem[0].getBoundingClientRect();
+          $filterTab.css({
+            'top': (rect.top + rect.height / 2 - 18) + 'px',
+            'left': (rect.left + rect.width) + 'px'
+          });
+        }
+      }
+    
+      // Position elements on load, resize and scroll
+      setTimeout(positionFilterTab, 100);
+      $(window).on('resize', function () {
+        positionFilterTab();
+        positionSubmenu();
+      });
+      $(window).on('scroll', positionFilterTab);
+    
+      // Watch for changes in app-container classes
+      if ($appContainer.length) {
+        const observer = new MutationObserver(function () {
+          setTimeout(function () {
+            positionFilterTab();
+            positionSubmenu();
+          }, 10);
+        });
+    
+        observer.observe($appContainer[0], {
+          attributes: true,
+          attributeFilter: ['class']
+        });
+      }
+    });
     /* 03.08. Rotate Button */
     $(document).on("click", ".rotate-icon-click", function () {
       $(this).toggleClass("rotate");
@@ -1238,7 +1362,7 @@ $.dore = function (element, options) {
             {
               ticks: {
                 beginAtZero: true,
-                suggestedMin:-1
+                suggestedMin: -1
               },
               display: false
             }
@@ -1382,7 +1506,7 @@ $.dore = function (element, options) {
                 pointHoverRadius: 2,
                 fill: false,
                 borderWidth: 2,
-                data: [200, 452, 0, -500, -100, 85, 20,0],
+                data: [200, 452, 0, -500, -100, 85, 20, 0],
                 datalabels: {
                   align: "end",
                   anchor: "end"

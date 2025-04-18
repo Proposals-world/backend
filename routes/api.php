@@ -39,6 +39,7 @@ use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\Tickets\TicketsController;
 use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
 use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\SubscriptionCardsController;
 
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserPreferenceController;
@@ -53,6 +54,8 @@ Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
 
 // Protected Routes
+Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);

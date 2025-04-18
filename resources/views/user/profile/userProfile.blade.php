@@ -52,7 +52,7 @@
                                         <i class="simple-icon-pencil"></i>
                                     </button>
                                 </div>
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fHVzZXJ8ZW58MHx8MHx8fDA%3D"
+                                <img src="{{ collect($userProfile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? asset('default-profile.png') }}"
                                 alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
                                 class="card-img-top" />
                                 {{-- <img src="{{ asset(optional($userProfile['profile']['photos']->firstWhere('is_main', 1))->photo_url ?? 'default-profile.png') }}"
