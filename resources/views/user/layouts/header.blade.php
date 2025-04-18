@@ -30,20 +30,22 @@
     </a>
 
     <div class="navbar-right">
-
         <div class="user d-inline-block">
             <button class="btn btn-empty p-2 bg-white border border-primary shadow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="text-gray small">{{ Auth::user() ? Auth::user()->first_name : 'Guest' }}</span>
+                <span class="text-gray small">{{ Auth::user() ? Auth::user()->first_name : __('userDashboard.header.guest') }}</span>
             </button>
 
             <div class="dropdown-menu dropdown-menu-right mt-3">
-                <a class="dropdown-item" href="#">Account</a>
-                <a class="dropdown-item" href="#">Features</a>
-                <a class="dropdown-item" href="#">History</a>
-                <a class="dropdown-item" href="#">Support</a>
+                <a class="dropdown-item" href="#">{{ __('userDashboard.header.profile') }}</a>
+                <a class="dropdown-item" href="#">{{ __('userDashboard.header.support') }}</a>
+                
+                <a class="dropdown-item" href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
+                    {{ __('header.language_switcher') }}
+                </a>
+            
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Sign out
+                    {{ __('userDashboard.header.logout') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

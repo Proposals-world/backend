@@ -98,193 +98,146 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="text-primary">
-                    <i class="iconsminds-happy-face" style="font-size: 1.5em; vertical-align: middle;"></i>
-                    Welcome, {{ Auth::check() ? Auth::user()->first_name : 'Guest' }}
-                </h2> {{-- <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                    <ol class="breadcrumb pt-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav> --}}
+                    <i class="iconsminds-happy-face" style="font-size: 1.5em;"></i>
+                    {{ __('userDashboard.dashboard.welcome') }},
+                    {{ Auth::check() ? Auth::user()->first_name : __('userDashboard.header.guest') }}
+                </h2>
                 <div class="separator mb-5"></div>
             </div>
-
+    
             <div class="col-lg-12 col-xl-6">
-                <!-- Additional Cards -->
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-check" style="font-size: xx-large;"></i>
-                        <p class="card-text mb-0">Half Matchs</p>
+                        <p class="card-text mb-0">{{ __('userDashboard.dashboard.half_matches') }}</p>
                         <p class="lead text-center">42</p>
                     </div>
                 </a>
-                <!-- Existing Pending Orders Card -->
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-clock" style="font-size: xx-large;"></i>
-                        <p class="card-text mb-0">Matchs</p>
+                        <p class="card-text mb-0">{{ __('userDashboard.dashboard.matches') }}</p>
                         <p class="lead text-center">16</p>
                     </div>
                 </a>
-
-
-
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
-                        <p class="card-text mb-0">Remaining Contacts</p>
+                        <p class="card-text mb-0">{{ __('userDashboard.dashboard.remaining_contacts') }}</p>
                         <p class="lead text-center">5</p>
                     </div>
                 </a>
             </div>
-
+    
             <div class="col-xl-6 col-lg-12 mb-4">
                 <div class="card">
-
                     <div class="card-body">
-                        <h5 class="card-title">Recent Feedback</h5>
+                        <h5 class="card-title">{{ __('userDashboard.dashboard.recent_feedback') }}</h5>
                         <div class="scroll dashboard-list-with-thumbs">
-                            <!-- Recent orders remain unchanged -->
                             @if(count($matches))
-                        @foreach ($matches as $match)
-                        {{-- Card wrapper --}}
-                        <div class="d-flex flex-row mb-3 position-relative">
-
-                            {{-- Matched user image --}}
-                            <a class="d-block" href="#">
-                                <img src="{{ $match['matched_user_photo'] ?? asset('dashboard/img/users/default-user.jpg') }}"
-                                    alt="{{ $match['matched_user_name'] }}"
-                                    class="list-thumbnail border-0" />
-                            </a>
-
-
-                            {{-- Match info --}}
-                            <div class="pl-3 pt-2 pr-2 pb-2 w-100">
-                                <p class="list-item-heading mb-1">
-                                    {{ $match['matched_user_name'] }}
-                                </p>
-                                <div class="pr-4 d-none d-sm-block">
-                                    <p class="text-muted mb-1 text-small">
-                                        {{ __('City') }}: {{ $match['matched_user_city'] ?? __('Unknown') }}
-                                    </p>
-
-                                    <p class="text-muted mb-1 text-small">
-                                        {{ __('Phone') }}: {{ $match['matched_user_phone'] }}
-                                    </p>
-                                </div>
-                                <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                    {{ $match['created_at'] }}
-                                </div>
-                            </div>
-                            {{-- 💬 Feedback icon triggers modal --}}
-                            <div class="d-flex justify-content-end align-items-center mb-2 ">
-                                <button type="button"
-                                        class="badge badge-pill badge-primary feedback-btn"
-                                        data-toggle="modal"
-                                        data-target="#feedbackModal_{{ $match['id'] }}"
-                                        title="{{ __('Give Feedback') }}">
-                                    <i class="fas fa-comment"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        {{-- 🔽 Modal (one per card) --}}
-                    <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}"
-                        id="feedbackModal_{{ $match['id'] }}"
-                        tabindex="-1" role="dialog"
-                        aria-labelledby="feedbackModalLabel_{{ $match['id'] }}"
-                        aria-hidden="true">
-
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary" >
-                                        <div class="modal-drag-handle d-block d-sm-none">
-
+                                @foreach ($matches as $match)
+                                    <div class="d-flex flex-row mb-3 position-relative">
+                                        <a class="d-block" href="#">
+                                            <img src="{{ $match['matched_user_photo'] ?? asset('dashboard/img/users/default-user.jpg') }}"
+                                                alt="{{ $match['matched_user_name'] }}"
+                                                class="list-thumbnail border-0" />
+                                        </a>
+                                        <div class="pl-3 pt-2 pr-2 pb-2 w-100">
+                                            <p class="list-item-heading mb-1">
+                                                {{ $match['matched_user_name'] }}
+                                            </p>
+                                            <div class="pr-4 d-none d-sm-block">
+                                                <p class="text-muted mb-1 text-small">
+                                                    {{ __('userDashboard.dashboard.city') }}: {{ $match['matched_user_city'] ?? __('Unknown') }}
+                                                </p>
+                                                <p class="text-muted mb-1 text-small">
+                                                    {{ __('userDashboard.dashboard.phone') }}: {{ $match['matched_user_phone'] }}
+                                                </p>
+                                            </div>
+                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
+                                                {{ $match['created_at'] }}
+                                            </div>
                                         </div>
-                                        <h5 class="modal-title" id="feedbackModalLabel_{{ $match['id'] }}">
-                                            <i class="fas fa-comment-dots"></i> {{ __('Give Feedback for') }}<b> {{ $match['matched_user_name'] }}</b>
-                                        </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" class="text-white">&times;</span>
-                                        </button>
+                                        <div class="d-flex justify-content-end align-items-center mb-2">
+                                            <button type="button"
+                                                    class="badge badge-pill badge-primary feedback-btn"
+                                                    data-toggle="modal"
+                                                    data-target="#feedbackModal_{{ $match['id'] }}"
+                                                    title="{{ __('userDashboard.dashboard.give_feedback_for') }}">
+                                                <i class="fas fa-comment"></i>
+                                            </button>
+                                        </div>
                                     </div>
-
-                                    {{-- Modal Body --}}
-                                    <div class="modal-body">
-                                        <div id="feedback-form-container">
-                                            <form class="feedback-form" data-match-id="{{ $match['id'] }}">
-                                                @csrf
-                                                <input type="hidden" name="match_id" value="{{ $match['id'] }}">
-                                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-
-                                                @if(app()->getLocale() === 'ar')
-                                                    <div class="form-group">
-                                                        <label><label>{{ __('feedback.Feedback') }}</label>
-                                                    </label>
-                                                        <textarea name="feedback_text_ar" class="form-control" rows="2"></textarea>
-                                                    </div>
-                                                @else
-                                                    <div class="form-group">
-                                                        <label><label>{{ __('feedback.Feedback') }}</label>
-                                                    </label>
-                                                        <textarea name="feedback_text_en" class="form-control" rows="2"></textarea>
-                                                    </div>
-                                                @endif
-
-                                                <div class="form-group">
-                                                    <label>{{ __('feedback.Outcome') }}</label>
-                                                    <input type="text" class="form-control" name="outcome">
+    
+                                    <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}"
+                                        id="feedbackModal_{{ $match['id'] }}"
+                                        tabindex="-1" role="dialog"
+                                        aria-labelledby="feedbackModalLabel_{{ $match['id'] }}"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-primary">
+                                                    <h5 class="modal-title" id="feedbackModalLabel_{{ $match['id'] }}">
+                                                        <i class="fas fa-comment-dots"></i>
+                                                        {{ __('userDashboard.dashboard.give_feedback_for') }}
+                                                        <b>{{ $match['matched_user_name'] }}</b>
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true" class="text-white">&times;</span>
+                                                    </button>
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label class="mb-2 d-block">{{ __('feedback.Is_Profile_Accurate') }}</label>
-                                                    <div class="custom-switch custom-switch-primary-inverse custom-switch-large switch-wrapper">
-                                                        <input class="custom-switch-input" id="isProfileAccurate_{{ $match['id'] }}"
-                                                               type="checkbox" name="is_profile_accurate" value="1">
-                                                        <label class="custom-switch-btn" for="isProfileAccurate_{{ $match['id'] }}"></label>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="feedback-success alert alert-success mt-3 d-none">
-                                                    {{ __('feedback.Feedback submitted successfully.') }}
+                                                <div class="modal-body">
+                                                    <form class="feedback-form" data-match-id="{{ $match['id'] }}">
+                                                        @csrf
+                                                        <input type="hidden" name="match_id" value="{{ $match['id'] }}">
+                                                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+    
+                                                        <div class="form-group">
+                                                            <label>{{ __('userDashboard.dashboard.feedback_label') }}</label>
+                                                            <textarea name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}" class="form-control" rows="2"></textarea>
+                                                        </div>
+    
+                                                        <div class="form-group">
+                                                            <label>{{ __('userDashboard.dashboard.outcome') }}</label>
+                                                            <input type="text" class="form-control" name="outcome">
+                                                        </div>
+    
+                                                        <div class="form-group">
+                                                            <label class="mb-2 d-block">{{ __('userDashboard.dashboard.is_profile_accurate') }}</label>
+                                                            <div class="custom-switch custom-switch-primary-inverse custom-switch-large switch-wrapper">
+                                                                <input class="custom-switch-input"
+                                                                    id="isProfileAccurate_{{ $match['id'] }}"
+                                                                    type="checkbox" name="is_profile_accurate" value="1">
+                                                                <label class="custom-switch-btn"
+                                                                    for="isProfileAccurate_{{ $match['id'] }}"></label>
+                                                            </div>
+                                                        </div>
+    
+                                                        <div class="feedback-success alert alert-success mt-3 d-none">
+                                                            {{ __('userDashboard.dashboard.feedback_success') }}
+                                                        </div>
+    
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                {{ __('userDashboard.dashboard.submit') }}
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">
+                                                                {{ __('userDashboard.dashboard.cancel') }}
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-
                                         </div>
-                                        {{-- Footer --}}
-                                        <div class="modal-footer justify-content-between">
-
-                                                <button type="submit" class="btn btn-primary">{{ __('feedback.Submit') }}</button>
-                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">{{ __('feedback.Cancel') }}</button>
-
-                                        </div>
-
-
-
-                                            </form>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
-
-                        @else
-                            <p class="text-muted text-small">{{ __('No recent matches found.') }}</p>
-                        @endif
-
-
-                            <!-- Add additional recent orders here -->
-
+                                    </div>
+                                @endforeach
+                            @else
+                                <p class="text-muted text-small">{{ __('userDashboard.dashboard.no_recent_matches') }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     @push('scripts')
