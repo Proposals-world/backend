@@ -73,7 +73,7 @@
                 <h1>{{ ucfirst(auth()->user()->first_name) .' '. ucfirst(auth()->user()->last_name) }}</h1>
                 <div class="text-zero top-right-button-container">
                     <button type="submit"
-                        class="btn btn-lg btn-primary mt-1   top-right-button top-right-button-single"
+                        class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"
                        >
                         {{ __('profile.Desired_Partner_characteristics') }}
                     </button>

@@ -11,7 +11,7 @@
                 <h1>{{ ucfirst($userProfile['first_name']) .' '. ucfirst($userProfile['last_name']) }}</h1>
                 <div class="text-zero top-right-button-container">
                     <a href="{{ route('updateProfile') }}"
-                        class="btn btn-lg btn-primary mt-1   top-right-button top-right-button-single"
+                        class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"
                        >
                         {{ __('profile.Update_Profile') }}
                     </a>
@@ -647,7 +647,7 @@
                                                     <p class="mb-2 text-muted text-small">
                                                         {{ $like['liked_user']['email'] ?? '' }}
                                                     </p>
-                                                    <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a>
+                                                    {{-- <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a> --}}
                                                 </div>
                                             </div>
                                         </div>

@@ -86,6 +86,7 @@ class UserProfileResource extends JsonResource
                 'children' => $this->profile ? $this->profile->children : null,
                 'skin_color' => $getLocalized($this->profile->skinColor, 'name'),
                 'hair_color' => $getLocalized($this->profile->hairColor, 'name'),
+                'eye_color' => $getLocalized($this->profile->eyeColor, 'name'),
                 'hijab_status' => $this->profile ? (bool) $this->profile->hijab_status : null,
                 'smoking_status' => $this->profile ? (bool) $this->profile->smoking_status : null,
                 'drinking_status' => $getLocalized($this->profile->drinkingStatus, 'name'),
