@@ -91,16 +91,16 @@
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-4">
                         <div>
                             <h1 class="mb-1">{{ __('userDashboard.findMatch.title') }}</h1>
-                            <p class="text-dark mb-0">Find your perfect match based on compatibility and preferences</p>
+                            <p class="text-dark mb-0">{{ __('userDashboard.dashboard.Find_your_perfect_match_based_on_compatibility_and_preferences') }}</p>
                         </div>
                         <div class="match-stats d-flex mt-3 mt-md-0">
                             <div class="match-stat-item text-center mr-4">
                                 <span class="match-stat-number" id="exactMatchCount">0</span>
-                                <span class="match-stat-label">Exact Matches</span>
+                                <span class="match-stat-label">{{ __('userDashboard.dashboard.Exact_Matches') }}</span>
                             </div>
                             <div class="match-stat-item text-center">
                                 <span class="match-stat-number" id="suggestedMatchCount">0</span>
-                                <span class="match-stat-label">Suggestions</span>
+                                <span class="match-stat-label">{{ __('userDashboard.dashboard.Suggestions') }}</span>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
             <div class="col-12">
                 <div class="section-header">
                     <h5 class="mb-0">
-                        <i class="simple-icon-check mr-2"></i>Exact Matches
+                        <i class="simple-icon-check mr-2"></i>{{ __('userDashboard.dashboard.Exact_Matches') }}
                         <span class="badge badge-light ml-2" id="exactMatchBadge">0</span>
                     </h5>
                 </div>
@@ -128,9 +128,9 @@
             <div class="col-12">
                 <div class="section-header">
                     <h5 class="mb-0">
-                        <i class="simple-icon-star mr-2"></i>Suggested Matches
+                        <i class="simple-icon-star mr-2"></i>{{ __('userDashboard.dashboard.Suggested_Matches') }}
                         <span class="badge badge-light ml-2" id="suggestedMatchBadge">0</span>
-                        <span class="badge badge-info ml-2" id="matchPercentage">0% Match</span>
+                        <span class="badge badge-info ml-2" id="matchPercentage">{{ __('userDashboard.dashboard.% Match') }}</span>
                     </h5>
                 </div>
                 <div class="suggested-slider-container mt-3">
@@ -565,7 +565,7 @@ $(document).on('click', '.profile-card', function () {
                     <div class="card shadow-sm">
                         <div class="card-header bg-primary text-white">
                             <h5 class="mb-0">
-                                <i class="simple-icon-check mr-2"></i>Exact Matches
+                                <i class="simple-icon-check mr-2"></i>{{ __('userDashboard.dashboard.Exact_Matches') }}
                                 <span class="badge badge-light ml-2" id="exactMatchBadge">0</span>
                             </h5>
                         </div>
@@ -574,7 +574,7 @@ $(document).on('click', '.profile-card', function () {
                                 <!-- Will be populated via JavaScript -->
                                 <div class="col-12 text-center py-5">
                                     <i class="simple-icon-refresh spinning font-large"></i>
-                                    <p class="mt-3">Loading matches...</p>
+                                    <p class="mt-3">{{ __('userDashboard.dashboard.Loading_matches') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -588,7 +588,7 @@ $(document).on('click', '.profile-card', function () {
                             <h5 class="mb-0">
                                 <i class="simple-icon-star mr-2"></i>Suggested Matches
                                 <span class="badge badge-light ml-2" id="suggestedMatchBadge">0</span>
-                                <span class="badge badge-info ml-2" id="matchPercentage">0% Match</span>
+                                <span class="badge badge-info ml-2" id="matchPercentage">{{ __('userDashboard.dashboard.% Match') }}</span>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -605,7 +605,7 @@ $(document).on('click', '.profile-card', function () {
                                     <!-- Will be populated via JavaScript -->
                                     <div class="col-12 text-center py-5">
                                         <i class="simple-icon-refresh spinning font-large"></i>
-                                        <p class="mt-3">Loading suggestions...</p>
+                                        <p class="mt-3">{{ __('userDashboard.dashboard.Loading_suggestions...') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -727,7 +727,7 @@ $(document).on('click', '.profile-card', function () {
             function loadDefaultMatches() {
                 // Show loading indicators
                 $('#exactMatchResults, #suggestedMatchResults').html(
-                    '<div class="col-12 text-center py-5"><i class="simple-icon-refresh spinning font-large"></i><p class="mt-3">Loading matches...</p></div>'
+                    `<div class="col-12 text-center py-5"><i class="simple-icon-refresh spinning font-large"></i><p class="mt-3">{{ __('userDashboard.dashboard.Loading_matches') }}</p></div>`
                 );
 
                 // Send a request with isFilter = false
@@ -751,7 +751,7 @@ $(document).on('click', '.profile-card', function () {
                 // Update badge counters
                 $('#exactMatchBadge').text(exactMatches ? exactMatches.length : 0);
                 $('#suggestedMatchBadge').text(suggestedUsers ? suggestedUsers.length : 0);
-                $('#matchPercentage').text(suggestionPercentage + '% Match');
+                $('#matchPercentage').text(suggestionPercentage + `%{{ __('userDashboard.dashboard.% Match') }}`);
                 $('#exactMatchCount').text(exactMatches ? exactMatches.length : 0);
                 $('#suggestedMatchCount').text(suggestedUsers ? suggestedUsers.length : 0);
                 // Render exact matches
@@ -763,7 +763,7 @@ $(document).on('click', '.profile-card', function () {
                         exactContainer.append(matchCard(userProfile, 'exact'));
                     });
                 } else {
-                    exactContainer.html('<div class="col-12 text-center py-4"><p class="text-dark">No exact matches found based on your criteria.</p></div>');
+                    exactContainer.html(`<div class="col-12 text-center py-4"><p class="text-dark">{{ __('userDashboard.dashboard.No_exact_matches_found_based_on_your_criteria') }}</p></div>`);
                 }
 
                 // Render suggested matches in the slider
@@ -775,7 +775,7 @@ $(document).on('click', '.profile-card', function () {
                         suggestedContainer.append(matchCard(userProfile, 'suggested'));
                     });
                 } else {
-                    suggestedContainer.html('<div class="text-center py-4 w-100"><p class="text-dark">No suggested matches found based on your criteria.</p></div>');
+                    suggestedContainer.html(`<div class="text-center py-4 w-100"><p class="text-dark">{{ __('userDashboard.dashboard.No_suggested_matches_found_based_on_your_criteria') }}</p></div>`);
                 }
             }
 
@@ -791,7 +791,7 @@ $(document).on('click', '.profile-card', function () {
 
                 // Process location information
                 let country = (userProfile.profile && userProfile.profile.country_of_residence) ? userProfile.profile.country_of_residence : '';
-                let city = (userProfile.profile && userProfile.profile.city) ? userProfile.profile.city : 'Unknown Location';
+                let city = (userProfile.profile && userProfile.profile.city) ? userProfile.profile.city : `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
 
                 // Extract additional user info if available
                 let age = userProfile.profile && userProfile.profile.age ? userProfile.profile.age : '';
@@ -803,7 +803,7 @@ $(document).on('click', '.profile-card', function () {
                         <div class="col-12 col-sm-6 col-md-4 mb-4">
                             <div class="card profile-card shadow-sm h-100" data-profile='${JSON.stringify(userProfile)}'>
                                 <div class="position-relative">
-                                    <span class="badge badge-success position-absolute m-2">Exact Match</span>
+                                    <span class="badge badge-success position-absolute m-2">{{ __('userDashboard.dashboard.Exact_Match') }}</span>
                                     <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
                                 </div>
                                 <div class="card-body d-flex flex-column">
@@ -825,7 +825,7 @@ $(document).on('click', '.profile-card', function () {
                         <div class="card-container">
                             <div class="card profile-card shadow-sm h-100" data-profile='${JSON.stringify(userProfile)}'>
                                 <div class="position-relative">
-                                    <span class="badge badge-warning position-absolute m-2">Suggested</span>
+                                    <span class="badge badge-warning position-absolute m-2">{{ __('userDashboard.dashboard.Suggested') }}</span>
                                     <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
                                 </div>
                                 <div class="card-body d-flex flex-column">
