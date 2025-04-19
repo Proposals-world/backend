@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\UserProfile;
-
+use App\Models\UserPhoto;
 class UserSeeder extends Seeder
 {
     /**
@@ -111,9 +111,17 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ],
         ]);
-        User::factory(100)->create()->each(function ($user) {
+        User::factory(1000)->create()->each(function ($user) {
             UserProfile::factory()->create([
                 'id' => $user->id,
+            ]);
+        });
+
+
+
+        User::all()->each(function ($user) {
+            UserPhoto::factory()->create([
+                'user_id' => $user->id,
             ]);
         });
     }

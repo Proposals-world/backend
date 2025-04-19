@@ -611,8 +611,23 @@
                                                         </div>
                                                     </div>
                                                 @endif
-
                                             </div>
+                                            @if (old('gender') !== 'female')
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.housing_status') }}</label>
+                                                        <select name="housing_status_id" class="form-control rounded-pill" required>
+                                                            <option value="">{{ __('onboarding.select_housing_status') }}</option>
+                                                            @foreach ($data['housingStatuses'] as $housing)
+                                                                <option value="{{ $housing->id }}">{{ $housing->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger" style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                             @if (old('gender') == 'female')
                                                 <div class="form-group">
                                                     <label class="form-label">{{ __('onboarding.hijab_status') }}</label>
@@ -643,7 +658,7 @@
                                                 {{ __('onboarding.final_details') }}</h2>
                                             <div class="row">
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.country_of_residence') }}</label>
@@ -661,12 +676,24 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.city') }}</label>
                                                         <select name="city_id" id="city_id"
                                                             class="form-control rounded-pill" required>
                                                             <option value="">{{ __('onboarding.select_city') }}
+                                                            </option>
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.city_location') }}</label>
+                                                        <select name="city_location_id" id="city_location_id"
+                                                            class="form-control rounded-pill" required>
+                                                            <option value="">{{ __('onboarding.city_location') }}
                                                             </option>
                                                         </select>
                                                         <span class="error-message text-danger"
@@ -1276,6 +1303,31 @@
                         });
                     }
                 });
+            });
+            /* --------------------------------------------------
+             * Fetch city locations when a city is chosen
+             * -------------------------------------------------- */
+            $('#city_id').on('change', function () {
+                var cityId = $(this).val();
+ 
+                // reset the select first
+                $('#city_location_id')
+                    .empty()
+                    .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+ 
+                if (cityId) {
+                    $.ajax({
+                        url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+                        type: 'GET',
+                        success: function (data) {
+                            $.each(data, function (index, location) {
+                                $('#city_location_id').append(
+                                    '<option value="' + location.id + '">' + location.name + '</option>'
+                                );
+                            });
+                        },
+                    });
+                }
             });
         </script>
     @endpush

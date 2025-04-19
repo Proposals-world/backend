@@ -57,6 +57,10 @@ Route::get('/about-us', function () {
 
 
 Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
+Route::get(
+    '/city-locations/{cityId}',
+    [OnBoardingController::class, 'getCityLocationsByCity']
+)->name('cityLocations.by.city');
 
 Route::get('/blog-details/{id}', [BlogController::class, 'show'])->name('blog-details');
 Route::get('/lang/{locale}', [LocalizationController::class, 'switchLang'])->name('locale.switch');

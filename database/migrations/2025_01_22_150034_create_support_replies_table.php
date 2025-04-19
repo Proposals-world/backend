@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ticket_id')->constrained('support_tickets');
             $table->foreignId('user_id')->constrained('users');
-            $table->text('message_en');
-            $table->text('message_ar');
+            $table->text('message');
             $table->timestamps();
         });
     }
