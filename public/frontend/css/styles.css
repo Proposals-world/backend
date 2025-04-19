@@ -352,10 +352,10 @@ label {
 }
 
 @media (max-width: 768px) {
-    .matchmaking-form-wrapper {
+    /* .matchmaking-form-wrapper {
         padding: 25px;
         max-width: 90%;
-    }
+    } */
 
     .slider-area {
         min-height: auto;

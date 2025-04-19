@@ -5,5 +5,6 @@ return [
     'blog' => 'Blog',
     'pricing' => 'Pricing',
     'contact' => 'Contact',
-    'language_switcher' => 'العربية', // Display Arabic text to switch to Arabic
+    'language_switcher' => 'العربية',
+    'login' =>'login' // Display Arabic text to switch to Arabic
 ];
