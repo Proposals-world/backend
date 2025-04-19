@@ -4,6 +4,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
 {{-- Match Profile Modal --}}
+
 <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
     tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -93,6 +94,7 @@
                             <h1 class="mb-1">{{ __('userDashboard.findMatch.title') }}</h1>
                             <p class="text-dark mb-0">{{ __('userDashboard.dashboard.Find_your_perfect_match_based_on_compatibility_and_preferences') }}</p>
                         </div>
+
                         <div class="match-stats d-flex mt-3 mt-md-0">
                             <div class="match-stat-item text-center mr-4">
                                 <span class="match-stat-number" id="exactMatchCount">0</span>
@@ -107,6 +109,7 @@
                 </div>
             </div>
         </div>
+        @if($filledPreferenceCount >2)
 
         <!-- Clear Section Division for Exact Matches -->
         <div class="row mb-4 px-4">
@@ -419,7 +422,13 @@
         </div>
     </div>
 </div>
-
+@else
+    <div class="container py-5 text-center">
+        <h3 class="text-danger mb-3">{{ __('Please complete your preferences') }}</h3>
+        <p class="mb-4">{{ __('You need to fill at least two fields in your preferences to view match suggestions.') }}</p>
+        <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('Complete Preferences') }}</a>
+    </div>
+@endif
 
 <!-- Dependent City Loading -->
 @push('scripts')

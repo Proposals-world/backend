@@ -19,11 +19,13 @@
                              <nav id="mobile-menu">
                                 <ul id="header-ul">
                                     <div></div>
-                                    <li ><a href="{{ route('about-us') }}">{{ __('header.about_us') }}</a></li>
-                                    <li><a href="#features">{{ __('header.features') }}</a></li>
-                                    <li><a href="#blog">{{ __('header.blog') }}</a></li>
-                                    <li><a href="#pricing">{{ __('header.pricing') }}</a></li>
-                                    <li><a href="#contact">{{ __('header.contact') }}</a></li>
+                                    <li class="{{ request()->routeIs('about-us') ? 'active' : '' }}">
+                                        <a href="{{ route('about-us') }}">{{ __('header.about_us') }}</a>
+                                    </li>
+                                    <li><a href="{{ route('welcome') }}#features">{{ __('header.features') }}</a></li>
+                                    <li><a href="{{ route('welcome') }}#blog">{{ __('header.blog') }}</a></li>
+                                    <li><a href="{{ route('welcome') }}#pricing">{{ __('header.pricing') }}</a></li>
+                                    <li><a href="{{ route('welcome') }}#contact">{{ __('header.contact') }}</a></li>
                                     <li class="d-lg-none"><a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
                                         style="color: gray; font-size: 16px; text-decoration: none;">
                                         {{ __('header.language_switcher') }}
@@ -45,3 +47,4 @@
         </div>
     </div>
 </header>
+
