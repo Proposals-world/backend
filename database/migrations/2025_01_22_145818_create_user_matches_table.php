@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('match_status')->default('pending');
             $table->boolean('contact_exchanged')->default(false);
             $table->timestamps();
-
+            $table->softDeletes();
             $table->unique(['user1_id', 'user2_id']);
         });
     }

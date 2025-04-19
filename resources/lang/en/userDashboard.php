@@ -75,12 +75,13 @@ return [
         'city' => 'City',
         'unknown_location' => 'Unknown Location',
         'close' => 'Close',
-        'remove' => 'Demove Match',
+        'remove' => 'Remove Match',
         'like_back' => 'Like Back',
         'contact_info' => 'Contact Information',
         'reveal_info' => 'Reveal Info',
         'phone_number' => 'Phone Number',
         'email' => 'Email',
+        'confirm_remove' => 'Are you sure you want to remove this match?',
 
     ],
     'findMatch' => [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MatchResource;
+use App\Models\Like;
 use App\Models\UserMatch;
 use App\Services\LikeService;
 use Illuminate\Http\Request;
@@ -29,5 +30,10 @@ class MatchController extends Controller
             'message' => 'Matches fetched successfully',
             'matches' => $matches
         ], 200);
+    }
+    public function removeMatch(Request $request)
+    {
+        // ✅ Just call the service and return its result
+        return $this->likeService->softDeleteMatch($request);
     }
 }
