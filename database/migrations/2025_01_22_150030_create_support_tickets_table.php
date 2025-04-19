@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('support_tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('subject_en');
-            $table->string('subject_ar');
-            $table->text('description_en');
-            $table->text('description_ar');
+            $table->string('subject');
+            $table->text('description');
             $table->enum('status', ['open', 'in_progress', 'resolved', 'closed'])->default('open');
             $table->timestamps();
         });

@@ -127,7 +127,7 @@
         </div>
 
         <!-- Suggestion Slider Section with Clear Visual Distinction -->
-        <div class="row  px-4">
+        <div id="Suggested_Matches_section" class="row  px-4">
             <div class="col-12">
                 <div class="section-header">
                     <h5 class="mb-0">
@@ -246,7 +246,7 @@
                     <select name="height_id" class="form-control">
                         <option value="">-- Any --</option>
                         @foreach ($data['heights'] as $item)
-                            <option value="{{ $item->id }}">{{ $item->value }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -256,7 +256,7 @@
                     <select name="weight_id" class="form-control">
                         <option value="">-- Any --</option>
                         @foreach ($data['weights'] as $item)
-                            <option value="{{ $item->id }}">{{ $item->value }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -732,7 +732,6 @@ $(document).on('click', '.profile-card', function () {
             $('#filterForm').find('select, input[type="number"]').on('change', function() {
                 updateFilterCounters();
             });
-
             function loadDefaultMatches() {
                 // Show loading indicators
                 $('#exactMatchResults, #suggestedMatchResults').html(
@@ -745,6 +744,11 @@ $(document).on('click', '.profile-card', function () {
                     method: 'GET',
                     success: function(response) {
                         renderMatches(response.exact_matches, response.suggested_users, response.suggestion_percentage);
+
+                        // Remove Suggested Matches section if no suggested users
+                        if (!response.suggested_users || response.suggested_users.length === 0) {
+                            $('#Suggested_Matches_section').remove();
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error(error);

@@ -6,4 +6,5 @@ return [
     'pricing' => 'الأسعار',
     'contact' => 'اتصل بنا',
     'language_switcher' => 'English',
+    'login' => 'تسجيل الدخول',
 ];

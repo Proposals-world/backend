@@ -65,5 +65,17 @@ class OnBoardingController extends Controller
         return redirect()->back()->with('success', __('onboarding.profile_updated_successfully'));
     }
 
-    
+    public function getCityLocationsByCity($cityId)
+    {
+        $locale    = app()->getLocale();
+        $nameField = $locale === 'ar' ? 'name_ar' : 'name_en';
+
+        $locations = DB::table('city_locations')
+            ->select('id', DB::raw("$nameField as name"))
+            ->where('city_id', $cityId)
+            ->orderBy($nameField)
+            ->get();
+
+        return response()->json($locations);
+    }
 }

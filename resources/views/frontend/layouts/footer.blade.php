@@ -27,12 +27,11 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="#">{{ __('footer.home') }}</a></li>
-                                <li><a href="#">{{ __('footer.about_us') }}</a></li>
-                                <li><a href="#">{{ __('footer.services') }}</a></li>
-                                <li><a href="#">{{ __('footer.project') }}</a></li>
-                                <li><a href="#">{{ __('footer.careers') }}</a></li>
-                                <li><a href="#">{{ __('footer.our_team') }}</a></li>
+                                <li><a href="{{ route('welcome') }}">{{ __('footer.home') }}</a></li>
+                                <li><a href="{{ route('about-us') }}">{{ __('footer.about_us') }}</a></li>
+                                <li><a href="{{ url('/') }}#pricing">{{ __('header.pricing') }}</a></li>
+                                <li><a href="{{ url('/') }}#contact">{{ __('header.contact') }}</a></li>
+                                <li><a href="{{ url('/') }}#blog">{{ __('header.blog') }}</a></li>
                             </ul>
                         </div>
                     </div>

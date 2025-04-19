@@ -12,8 +12,7 @@ class SupportReply extends Model
     protected $fillable = [
         'ticket_id',
         'user_id',
-        'message_en',
-        'message_ar',
+        'message',
     ];
 
     public function ticket()

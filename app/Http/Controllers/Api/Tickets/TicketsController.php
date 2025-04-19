@@ -102,8 +102,7 @@ class TicketsController extends Controller
         $reply = SupportReply::create([
             "ticket_id"  => $request->ticket_id,
             "user_id"    => Auth::user()->id,
-            "message_en" => $request->message_en,
-            "message_ar" => $request->message_ar,
+            "message" => $request->message_en,
         ]);
 
         return response()->json([
