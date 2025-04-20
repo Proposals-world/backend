@@ -99,20 +99,24 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('faqs', FaqsController::class);
         Route::resource('reports', ReportController::class);
         Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
+        Route::put('/deactivate/{id}', [AdminsController::class, 'deactivate'])->name('deactivate');
+        Route::put('/active/{id}', [AdminsController::class, 'active'])->name('active');
     });
 
     // Route::resource('blogs', BlogController::class);
 });
-
-
-
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
-    // On-boarding page: only accessible if profile is not complete.
+
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
     });
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
+});
+
+
+Route::middleware(['auth', 'verified', 'check.status'])->prefix('user')->group(function () {
+    // On-boarding page: only accessible if profile is not complete.
     // Dashboard: only accessible if profile is complete.
     Route::middleware('profile.complete')->group(function () {
         Route::get('/filter', [FilterController::class, 'filterUsers'])
@@ -132,7 +136,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
         Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
         Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');
-        Route::get('/profile/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
+        Route::get('/profileUser/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
         Route::post('/user-preferences', [UserPreferenceController::class, 'store'])
             ->name('api.user-preferences.store');
         Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');

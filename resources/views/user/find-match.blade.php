@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        @if($filledPreferenceCount >2)
+        @if($filledPreferenceCount >= 2)
 
         <!-- Clear Section Division for Exact Matches -->
         <div class="row mb-4 px-4">

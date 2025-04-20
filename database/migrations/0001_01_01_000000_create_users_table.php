@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('last_active')->nullable();
             $table->foreignId(column: 'role_id')->constrained('roles');
-            $table->string('status')->default('active');
+            $table->string('status')->default('inactive');
             $table->string('fcm_token')->nullable();
         });
 
