@@ -83,6 +83,10 @@ class MatchController extends Controller
     }
     public function revealContact(Request $request)
     {
+        // fix it
+        // the revealContact method should first check if the user is subscribed to be able to reveal the contact redirct if not subscribed to the page
+        // if revealed should minus the contacts
+        // check if the user has remaining contacts to reveal
         $matchedUserId = $request->input('matched_user_id');
         // dd($request->all());
         $result = $this->contactMaskingService->getContactInfo(auth()->id(), $matchedUserId);

@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
-   {{-- {{  dd( $matchesWithoutContact); }} --}}
+   {{-- {{  dd( $matchesWithContact); }} --}}
    {{-- {{  dd( $match['matched_user']['id']); }} --}}
 <div class="container-fluid disable-text-selection">
     <div class="row ">
@@ -165,6 +165,15 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Inline Success Alert (hidden by default) -->
+                    <div id="reveal-success-alert" class="alert alert-success alert-dismissible fade shadow-sm d-none" role="alert">
+                        <i class="simple-icon-info mr-2"></i>
+                        <span id="preference-success-message">Contact info revealed successfully.</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
                     <div class="card mt-4 mb-3">
                         <div class="card-header d-flex justify-content-between pt-2 align-items-center bg-primary"
                             style="color: #fff; ">
@@ -186,7 +195,7 @@
                                 <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.phone_number') }}:</strong>
                                     <span id="guardianPhone"></span>
-                                    {{-- <span id="modalPhone"></span> --}}
+                                    <span id="modalPhone"></span>
                                 </div>
                                 {{-- <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.email') }}:</strong>
@@ -217,6 +226,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @push('scripts')
     <script>
@@ -329,6 +339,9 @@
         });
     }
     function revealContact(matchedUserId) {
+        if (!confirm("Are you sure you want to reveal this user's contact information? This action cannot be undone.")) {
+        return; // User cancelled the confirmation
+    }
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         console.log("Revealing contact for user ID:", matchedUserId);
     fetch(`{{ route('reveal.contact') }}`, {
@@ -351,7 +364,19 @@
         if (data.error) {
             alert('Error: ' + data.error);
         } else {
-            alert('Contact revealed: ' + JSON.stringify(data));
+            $('#guardianPhone').text(data.guardian_contact || 'N/A');
+
+            // ✅ Show the success alert
+            const $alert = $('#reveal-success-alert');
+            $alert.removeClass('d-none').addClass('show');
+            $('#revealContactBtn').addClass('d-none');
+            // Optional: auto-hide after 3 seconds
+            setTimeout(() => {
+                $alert.removeClass('show').addClass('d-none');
+            }, 10000);
+            setTimeout(() => {
+                location.reload();
+            }, 20000);
         }
     })
     .catch(error => {
@@ -366,115 +391,56 @@
     // ✅ Inside document.ready
     $(document).ready(function () {
         $('.profile-card').on('click', function (e) {
-            e.preventDefault();
-            const match = $(this).data('profile');
-            const profile = match.matched_user;
+        e.preventDefault();
+        const match = $(this).data('profile');
+        const profile = match.matched_user;
 
-            // Store match_id in button for reuse
-            $('#removeMatchBtn').data('matchId', match.match_id);
+        // Correct matched user ID
+        const matchedUserId = profile.id;
+        $('#revealContactBtn').data('matchedUserId', matchedUserId);
+        $('#removeMatchBtn').data('matchId', match.match_id);
 
-            // Populate modal as before
-            const mainPhoto = profile.profile.photos.find(photo => photo.is_main === 1)?.photo_url;
-            $('#modalAvatar').attr('src', mainPhoto);
-            $('#modalName').text(`${profile.first_name} ${profile.last_name}`);
-            $('#modalBio').text(profile.profile.bio || 'No bio provided.');
-            $('#modalGender').text(profile.gender || 'N/A');
-            $('#modalAge').text(profile.profile.age || 'N/A');
-            $('#modalNationality').text(profile.profile.nationality || 'N/A');
-            $('#modalCity').text(profile.profile.city || 'N/A');
-            $('#guardianPhone').text(profile.phone_number || 'N/A');
+        // Populate modal
+        const mainPhoto = profile.profile.photos.find(photo => photo.is_main === 1)?.photo_url || '{{ asset("dashboard/logos/profile-icon.jpg") }}';
+        $('#modalAvatar').attr('src', mainPhoto);
+        $('#modalName').text(`${profile.first_name} ${profile.last_name}`);
+        $('#modalBio').text(profile.profile.bio || 'No bio provided.');
+        $('#modalGender').text(profile.gender || 'N/A');
+        $('#modalAge').text(profile.profile.age || 'N/A');
+        $('#modalNationality').text(profile.profile.nationality || 'N/A');
+        $('#modalCity').text(profile.profile.city || 'N/A');
+        // $('#modalPhone').text(profile.phone_number || 'N/A');
+        $('#guardianPhone').text(profile.profile.guardian_contact || 'N/A');
+        console.log(match)
+        if (!match.contact_exchanged) {
+    $('#revealContactBtn').removeClass('d-none');
+    $('#removeMatchBtn').removeClass('d-none');
+} else {
+    $('#revealContactBtn').addClass('d-none');
+    $('#removeMatchBtn').addClass('d-none');
+}
 
-            const details = categorizeDetails(profile);
-            populateExtraDetails(details);
-            $('#profileModalRight').modal('show');
-        });
 
-        // ✅ Trigger remove logic from button click
-        $('#removeMatchBtn').on('click', function () {
-            const matchId = $(this).data('matchId');
-            removeMatchFromModal(matchId);
-        });
+
+
+        const details = categorizeDetails(profile);
+        populateExtraDetails(details);
+
+        $('#profileModalRight').modal('show');
     });
-            // Modal opening logic (existing)
-            $('.profile-card').on('click', function(e) {
-                e.preventDefault();
-                const match = $(this).data('profile');
-                const profile = match.matched_user;
-                const mainPhoto = profile.profile.photos.find(photo => photo.is_main === 1)?.photo_url;
-                $('#modalAvatar').attr('src', mainPhoto);
-                $('#modalName').text(`${profile.first_name} ${profile.last_name}`);
-                $('#modalBio').text(profile.profile.bio || 'No bio provided.');
-                $('#modalGender').text(profile.gender || 'N/A');
-                $('#modalAge').text(profile.profile.age || 'N/A');
-                $('#modalNationality').text(profile.profile.nationality || 'N/A');
-                $('#modalCity').text(profile.profile.city || 'N/A');
-                $('#modalPhone').text(profile.phone_number || 'N/A');
-                $('#modalEmail').text(profile.email || 'N/A');
 
-                if (!profile.contact_exchanged) {
-            $('#revealContactBtn').removeClass('d-none');
-            // Bind the revealContact function to the button click
-            $('#revealContactBtn').off('click').on('click', function() {
-                revealContact(match.match_id);  // Call revealContact with the match_id
-            });
-        } else {
-            $('#revealContactBtn').addClass('d-none');
-        }
+    // ✅ Reveal Contact Button Click Handler
+    $('#revealContactBtn').off('click').on('click', function () {
+        const matchedUserId = $(this).data('matchedUserId');
+        revealContact(matchedUserId);
+    });
 
-                // if (!profile.contact_exchanged) {
-                //     $('#revealContactBtn').removeClass('d-none');
-                //     // $('#revealContactBtn').on('click', function() {
-                //     //     alert(
-                //     //         "Feature not implemented yet. You can fetch real data here if needed."
-                //     //         );
-                //     // });
-                // } else {
-                //     $('#revealContactBtn').addClass('d-none');
-                // }
-                const details = categorizeDetails(profile);
-                populateExtraDetails(details);
-                $('#profileModalRight').modal('show');
-            });
-
-            // Mobile-specific modal drag-down-to-close logic
-            if ($(window).width() <= 767) {
-                let startY = 0,
-                    currentY = 0,
-                    isDragging = false;
-                const threshold = 100; // drag threshold in pixels
-
-                const modal = $('#profileModalRight');
-                const modalDialog = modal.find('.modal-dialog');
-                const modalHeader = modal.find('.modal-header');
-
-                modalHeader.addClass('draggable');
-
-                modalHeader.on('touchstart', function(e) {
-                    startY = e.originalEvent.touches[0].clientY;
-                    isDragging = true;
-                });
-
-                modalHeader.on('touchmove', function(e) {
-                    if (!isDragging) return;
-                    currentY = e.originalEvent.touches[0].clientY;
-                    const translateY = Math.max(0, currentY - startY);
-                    modalDialog.css('transform', `translateY(${translateY}px)`);
-                });
-
-                modalHeader.on('touchend', function() {
-                    isDragging = false;
-                    if ((currentY - startY) > threshold) {
-                        modal.modal('hide');
-                    } else {
-                        modalDialog.css('transform', 'translateY(0)');
-                    }
-                });
-
-                // Reset position after modal closes
-                modal.on('hidden.bs.modal', function() {
-                    modalDialog.css('transform', '');
-                });
-            }
+    // ✅ Remove Match Button Handler (no changes)
+    $('#removeMatchBtn').on('click', function () {
+        const matchId = $(this).data('matchId');
+        removeMatchFromModal(matchId);
+    });
+    });
 
         });
     </script>
