@@ -2,6 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use App\Models\UserMatch;
+use App\Models\UserProfile;
+use Illuminate\Support\Facades\Request;
+
 class ContactMaskingService
 {
     public function maskPhone(?string $phone): string
@@ -30,5 +35,31 @@ class ContactMaskingService
     public function maskGuardianContact(?string $contact): string
     {
         return $contact ? '**********' : 'N/A';
+    }
+    public function getContactInfo(int $authUserId, int $matchedUserId): array
+    {
+        $match = UserMatch::where(function ($q) use ($authUserId, $matchedUserId) {
+            $q->where('user1_id', $authUserId)->where('user2_id', $matchedUserId);
+        })->orWhere(function ($q) use ($authUserId, $matchedUserId) {
+            $q->where('user1_id', $matchedUserId)->where('user2_id', $authUserId);
+        })->first();
+        if (!$match) {
+            return ['error' => 'Match not found.'];
+        }
+        // dd($match)
+        $user = UserProfile::select('guardian_contact_encrypted')->find($matchedUserId);
+
+        if (!$user) {
+            return ['error' => 'User not found.'];
+        }
+
+        if (!$match->contact_exchanged) {
+            $match->update(['contact_exchanged' => true]);
+        }
+        // dd($user);
+
+        return [
+            'guardian_contact' => $user->guardian_contact_encrypted ?? 'N/A',
+        ];
     }
 }

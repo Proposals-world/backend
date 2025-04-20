@@ -11,18 +11,20 @@ use Illuminate\Support\Facades\App;
 use App\Http\Resources\MatchResource;
 use App\Http\Resources\UserProfileResource;
 use App\Models\Like;
+use App\Models\User;
 use App\Services\ContactMaskingService;
 
 class MatchController extends Controller
 {
     protected $likeService;
     protected $maskingService;
-
-    public function __construct(LikeService $likeService, ContactMaskingService $maskingService)
+    protected $contactMaskingService;
+    public function __construct(LikeService $likeService, ContactMaskingService $contactMaskingService)
     {
         $this->likeService = $likeService;
-        $this->maskingService = $maskingService;
+        $this->contactMaskingService = $contactMaskingService;
     }
+
 
     public function getMatches()
     {
@@ -78,5 +80,13 @@ class MatchController extends Controller
     {
         // ✅ Just call the service and return its result
         return $this->likeService->softDeleteMatch($request);
+    }
+    public function revealContact(Request $request)
+    {
+        $matchedUserId = $request->input('matched_user_id');
+        // dd($request->all());
+        $result = $this->contactMaskingService->getContactInfo(auth()->id(), $matchedUserId);
+
+        return response()->json($result, isset($result['error']) ? 404 : 200);
     }
 }

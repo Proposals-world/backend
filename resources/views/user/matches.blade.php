@@ -2,7 +2,8 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
-   {{-- {{  dd( $matchesWithContact); }} --}}
+   {{-- {{  dd( $matchesWithoutContact); }} --}}
+   {{-- {{  dd( $match['matched_user']['id']); }} --}}
 <div class="container-fluid disable-text-selection">
     <div class="row ">
         <div class="col-12 mb-4">
@@ -168,16 +169,24 @@
                         <div class="card-header d-flex justify-content-between pt-2 align-items-center bg-primary"
                             style="color: #fff; ">
                             <h6 class="mb-0">{{ __('userDashboard.matches.contact_info') }}</h6>
-                            <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none"
-                                style="background-color: #fff;">
-                                <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
-                            </button>
+                            {{-- fix the user pass id  --}}
+                            {{-- {{ dd( $match['matched_user']['id']) }} --}}
+                            <button id="revealContactBtn" onclick="revealContact('{{ $match['matched_user']['id'] }}')"
+                            class="btn btn-sm btn-outline-primary d-none" style="background-color: #fff;">
+                            <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
+                        </button>
+
+
+
+
+
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.phone_number') }}:</strong>
-                                    <span id="modalPhone"></span>
+                                    <span id="guardianPhone"></span>
+                                    {{-- <span id="modalPhone"></span> --}}
                                 </div>
                                 {{-- <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.email') }}:</strong>
@@ -212,6 +221,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+           // Initialize the modal
             function categorizeDetails(profile) {
                 return {
                     "{{ __('userDashboard.likeMe.personal') }}": {
@@ -295,6 +305,7 @@
 
              // ✅ Global so it's accessible
     function removeMatchFromModal(matchId) {
+        console.log("Removing match with ID:", matchId);
         if (!confirm("{{ __('userDashboard.matches.confirm_remove') }}")) return;
 
         fetch("{{ route('api.remove.match') }}", {
@@ -317,6 +328,40 @@
             alert("Error happen while removing the match.");
         });
     }
+    function revealContact(matchedUserId) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        console.log("Revealing contact for user ID:", matchedUserId);
+    fetch(`{{ route('reveal.contact') }}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({
+            matched_user_id: matchedUserId  // Use matchedUserId instead of match_id
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error);
+        } else {
+            alert('Contact revealed: ' + JSON.stringify(data));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // alert('Error: ' + error.message);
+    });
+}
+
+
+
 
     // ✅ Inside document.ready
     $(document).ready(function () {
@@ -337,7 +382,7 @@
             $('#modalAge').text(profile.profile.age || 'N/A');
             $('#modalNationality').text(profile.profile.nationality || 'N/A');
             $('#modalCity').text(profile.profile.city || 'N/A');
-            $('#modalPhone').text(profile.phone_number || 'N/A');
+            $('#guardianPhone').text(profile.phone_number || 'N/A');
 
             const details = categorizeDetails(profile);
             populateExtraDetails(details);
@@ -367,15 +412,25 @@
                 $('#modalEmail').text(profile.email || 'N/A');
 
                 if (!profile.contact_exchanged) {
-                    $('#revealContactBtn').removeClass('d-none');
-                    $('#revealContactBtn').on('click', function() {
-                        alert(
-                            "Feature not implemented yet. You can fetch real data here if needed."
-                            );
-                    });
-                } else {
-                    $('#revealContactBtn').addClass('d-none');
-                }
+            $('#revealContactBtn').removeClass('d-none');
+            // Bind the revealContact function to the button click
+            $('#revealContactBtn').off('click').on('click', function() {
+                revealContact(match.match_id);  // Call revealContact with the match_id
+            });
+        } else {
+            $('#revealContactBtn').addClass('d-none');
+        }
+
+                // if (!profile.contact_exchanged) {
+                //     $('#revealContactBtn').removeClass('d-none');
+                //     // $('#revealContactBtn').on('click', function() {
+                //     //     alert(
+                //     //         "Feature not implemented yet. You can fetch real data here if needed."
+                //     //         );
+                //     // });
+                // } else {
+                //     $('#revealContactBtn').addClass('d-none');
+                // }
                 const details = categorizeDetails(profile);
                 populateExtraDetails(details);
                 $('#profileModalRight').modal('show');
@@ -420,6 +475,7 @@
                     modalDialog.css('transform', '');
                 });
             }
+
         });
     </script>
 @endpush

@@ -137,6 +137,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
             ->name('api.user-preferences.store');
         Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
         Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
+        Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
 
         // Add other routes that require complete profile here.
     });

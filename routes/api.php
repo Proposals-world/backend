@@ -120,4 +120,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/dislike', [ApiLikeController::class, 'dislikeUser']);
     Route::get('/matches', [MatchController::class, 'getMatches']);
     Route::post('/report-user', [ReportController::class, 'store']);
+    Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
 });
