@@ -521,6 +521,8 @@ $(document).on('click', '.profile-card', function () {
     $('#modalAvatar').attr('src', mainPhoto || '/dashboard/logos/profile-icon.jpg');
     $('#modalName').text(`${user.first_name} ${user.last_name}`);
     $('#modalBio').text(user.profile?.bio || 'No bio provided.');
+    $('input[name="liked_user_id"]').val(userId);
+    $('input[name="disliked_user_id"]').val(userId);
     $('#modalGender').text(user.gender || 'N/A');
     $('#modalAge').text(user.profile?.age || 'N/A');
     $('#modalNationality').text(user.profile?.nationality || 'N/A');
@@ -537,6 +539,7 @@ $(document).on('click', '.profile-card', function () {
 
     const details = categorizeDetails(user);
     populateExtraDetails(details);
+    console.log(details)
     $('#profileModalRight').modal('show');
 }
     });
@@ -803,8 +806,9 @@ $(document).on('click', '.profile-card', function () {
                 }
 
                 // Process location information
-                let country = (userProfile.profile && userProfile.profile.country_of_residence) ? userProfile.profile.country_of_residence : '';
-                let city = (userProfile.profile && userProfile.profile.city) ? userProfile.profile.city : `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
+                let country = (userProfile && userProfile.country) ? userProfile.country : `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
+                let city = (userProfile && userProfile.city) ? userProfile.city : `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
+                console.log(userProfile);
 
                 // Extract additional user info if available
                 let age = userProfile.profile && userProfile.profile.age ? userProfile.profile.age : '';

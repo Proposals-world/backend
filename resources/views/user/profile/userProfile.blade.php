@@ -378,7 +378,7 @@
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             <strong>{{ __('profile.Religiosity_Level') }}:</strong> {{ $userProfile['profile']['religiosity_level'] ?? 'N/A' }}
                                                         </div>
-                                                    </div>
+                                                    </div
 
                                                     <!-- Marriage Budget -->
                                                     <div class="d-flex flex-row mb-3">

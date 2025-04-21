@@ -37,20 +37,8 @@ class FilteredUserResource extends JsonResource
                     'is_main' => $photo->is_main,
                 ];
             }),
-            // // Pets
-            // 'pets' => $this->user->pets ? $this->user->pets->map(function ($pet) {
-            //     return [
-            //         'id' => $pet->id,
-            //         'name' => $this->lang === 'ar' ? $pet->name_ar : $pet->name_en,
-            //     ];
-            // }) : [],
-            // 'smooking_tools' => $this->smokingTools->map(function ($tool) {
-            //     return [
-            //         'id' => $tool->id,
-            //         'name' => $tool->name_en,
-            //     ];
-            // }),
-
+            'city' => $this->city ? ($this->lang === 'ar' ? $this->city->name_ar : $this->city->name_en) : ($this->lang === 'ar' ? 'مدينة غير معروفة' : 'Unknown City'),
+            'country' => $this->countryOfResidence ? ($this->lang === 'ar' ? $this->countryOfResidence->name_ar : $this->countryOfResidence->name_en) : ($this->lang === 'ar' ? 'دولة غير معروفة' : 'Unknown Country'),
 
         ];
     }
