@@ -315,7 +315,7 @@
 
              // ✅ Global so it's accessible
     function removeMatchFromModal(matchId) {
-        console.log("Removing match with ID:", matchId);
+        // console.log("Removing match with ID:", matchId);
         if (!confirm("{{ __('userDashboard.matches.confirm_remove') }}")) return;
 
         fetch("{{ route('api.remove.match') }}", {
@@ -334,7 +334,7 @@
             location.reload();
         })
         .catch(err => {
-            console.error(err);
+            // console.error(err);
             alert("Error happen while removing the match.");
         });
     }
@@ -396,7 +396,7 @@
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        // console.error('Error:', error);
         const $alert = $('#reveal-success-alert');
         const $message = $('#preference-success-message');
 
@@ -437,7 +437,7 @@
         $('#modalCity').text(profile.profile.city || 'N/A');
         // $('#modalPhone').text(profile.phone_number || 'N/A');
         $('#guardianPhone').text(profile.profile.guardian_contact || 'N/A');
-        console.log(match)
+        // console.log(match)
         if (!match.contact_exchanged) {
     $('#revealContactBtn').removeClass('d-none');
     $('#removeMatchBtn').removeClass('d-none');

@@ -808,7 +808,7 @@ $(document).on('click', '.profile-card', function () {
                 // Process location information
                 let country = (userProfile && userProfile.country) ? userProfile.country : `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
                 let city = (userProfile && userProfile.city) ? userProfile.city : `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
-                console.log(userProfile);
+                // console.log(userProfile);
 
                 // Extract additional user info if available
                 let age = userProfile.profile && userProfile.profile.age ? userProfile.profile.age : '';

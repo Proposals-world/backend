@@ -654,7 +654,7 @@ style="
                                         {{ __('onboarding.final_details') }}</h2>
                                     <div class="row">
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.country_of_residence') }}</label>
@@ -672,7 +672,7 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.city') }}</label>
                                                 <select name="city_id" id="city_id"
@@ -684,7 +684,18 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">{{ __('onboarding.city_location') }}</label>
+                                                <select name="city_location_id" id="city_location_id"
+                                                    class="form-control rounded-pill" required>
+                                                    <option value="">{{ __('onboarding.city_location') }}
+                                                    </option>
+                                                </select>
+                                                <span class="error-message text-danger"
+                                                    style="font-size:12px;"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -903,7 +914,7 @@ style="
 
             // Redirect to the user profile page after a short delay
             setTimeout(function() {
-                window.location.href = '{{ route("user.profile") }}';
+                // window.location.href = '{{ route("user.profile") }}';
             }, 2000);  // Wait 2 seconds before redirecting
         })
         .catch((error) => {
@@ -1336,7 +1347,31 @@ $(document).ready(function() {
         $('#country_id').val(userCountryId).trigger('change'); // Set the selected country and trigger the change event
     }
 });
+ /* --------------------------------------------------
+             * Fetch city locations when a city is chosen
+             * -------------------------------------------------- */
+             $('#city_id').on('change', function () {
+                var cityId = $(this).val();
 
+                // reset the select first
+                $('#city_location_id')
+                    .empty()
+                    .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+
+                if (cityId) {
+                    $.ajax({
+                        url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+                        type: 'GET',
+                        success: function (data) {
+                            $.each(data, function (index, location) {
+                                $('#city_location_id').append(
+                                    '<option value="' + location.id + '">' + location.name + '</option>'
+                                );
+                            });
+                        },
+                    });
+                }
+            });
 
 
 </script>

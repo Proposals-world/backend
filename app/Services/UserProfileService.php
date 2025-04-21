@@ -114,6 +114,7 @@ class UserProfileService
             'hair_color_id' => $data['hair_color_id'] ?? null, //
             'country_of_residence_id' => $data['country_of_residence_id'], //
             'city_id' => $data['city_id'], //
+            'city_location_id' => $data['city_location_id'] ?? null, //
             'educational_level_id' => $data['educational_level_id'], //
             'specialization_id' => $data['specialization_id'] ?? null, //
             'employment_status' => $data['employment_status'] ?? null, //
