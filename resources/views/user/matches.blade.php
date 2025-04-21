@@ -339,11 +339,13 @@
         });
     }
     function revealContact(matchedUserId) {
-        if (!confirm("Are you sure you want to reveal this user's contact information? This action cannot be undone.")) {
+    if (!confirm("Are you sure you want to reveal this user's contact information? This action cannot be undone.")) {
         return; // User cancelled the confirmation
     }
+
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        console.log("Revealing contact for user ID:", matchedUserId);
+    console.log("Revealing contact for user ID:", matchedUserId);
+
     fetch(`{{ route('reveal.contact') }}`, {
         method: 'POST',
         headers: {
@@ -351,29 +353,42 @@
             'X-CSRF-TOKEN': csrfToken,
         },
         body: JSON.stringify({
-            matched_user_id: matchedUserId  // Use matchedUserId instead of match_id
+            matched_user_id: matchedUserId
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.error) {
-            alert('Error: ' + data.error);
-        } else {
-            $('#guardianPhone').text(data.guardian_contact || 'N/A');
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(({ status, body }) => {
+        const $alert = $('#reveal-success-alert');
+        const $message = $('#preference-success-message');
 
-            // ✅ Show the success alert
+        if (status !== 200 || body.error) {
             const $alert = $('#reveal-success-alert');
-            $alert.removeClass('d-none').addClass('show');
+    const $message = $('#preference-success-message');
+
+    let errorMessage = body.error || 'An unknown error occurred.';
+
+    // 👇 Add pricing link for subscription error
+    if (errorMessage.includes('subscribed')) {
+        errorMessage += ` <a href="{{ route('user.pricing') }}" style="text-decoration: underline;" class="fw-bold text-danger">View subscription plans</a>`;
+    }
+
+    $alert
+        .removeClass('d-none alert-success')
+        .addClass('show alert-danger');
+    $message.html(errorMessage); // Use .html() to render link properly
+        } else {
+            // ✅ Show success alert
+            $('#guardianPhone').text(body.guardian_contact || 'N/A');
+            $alert
+                .removeClass('d-none alert-danger')
+                .addClass('show alert-success');
+            $message.text('Contact info revealed successfully.');
             $('#revealContactBtn').addClass('d-none');
-            // Optional: auto-hide after 3 seconds
+
             setTimeout(() => {
                 $alert.removeClass('show').addClass('d-none');
             }, 10000);
+
             setTimeout(() => {
                 location.reload();
             }, 20000);
@@ -381,7 +396,17 @@
     })
     .catch(error => {
         console.error('Error:', error);
-        // alert('Error: ' + error.message);
+        const $alert = $('#reveal-success-alert');
+        const $message = $('#preference-success-message');
+
+        $alert
+            .removeClass('d-none alert-success')
+            .addClass('show alert-danger');
+        $message.text('Network error. Please try again later.');
+
+        setTimeout(() => {
+            $alert.removeClass('show').addClass('d-none');
+        }, 10000);
     });
 }
 

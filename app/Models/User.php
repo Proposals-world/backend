@@ -223,4 +223,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserMatch::class, 'user1_id');
     }
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
 }

@@ -83,13 +83,28 @@ class MatchController extends Controller
     }
     public function revealContact(Request $request)
     {
-        // fix it
-        // the revealContact method should first check if the user is subscribed to be able to reveal the contact redirct if not subscribed to the page
-        // if revealed should minus the contacts
-        // check if the user has remaining contacts to reveal
+        $user = auth()->user();
+
+        // Check if the user has a subscription
+        $subscription = $user->subscription;
+
+        if (!$subscription || $subscription->status !== 'active') {
+            return response()->json(['error' => 'You must be subscribed to reveal contact info.'], 403);
+        }
+
+        // Check if user has remaining contacts
+        if ($subscription->contacts_remaining <= 0) {
+            return response()->json(['error' => 'You have no remaining contact reveals.'], 403);
+        }
+
         $matchedUserId = $request->input('matched_user_id');
-        // dd($request->all());
-        $result = $this->contactMaskingService->getContactInfo(auth()->id(), $matchedUserId);
+
+        // Get contact info
+        $result = $this->contactMaskingService->getContactInfo($user->id, $matchedUserId);
+        // If contact info revealed successfully, reduce contacts
+        if (!isset($result['error'])) {
+            $subscription->decrement('contacts_remaining');
+        }
 
         return response()->json($result, isset($result['error']) ? 404 : 200);
     }
