@@ -139,5 +139,8 @@ return [
         'Loading_matches' => 'جارٍ تحميل التطابقات...',
         'No_exact_matches_found_based_on_your_criteria' => 'لم يتم العثور على تطابقات دقيقة بناءً على معاييرك',
         'Unknown_Location' => 'موقع غير معروف',
+        'Are you sure you want to reveal this user contact information? This action cannot be undone' => 'هل أنت متأكد أنك تريد الكشف عن معلومات الاتصال بهذا المستخدم؟ هذه العملية لا يمكن التراجع عنها',
+        'Subscription_Now' => 'اشترك الآن',
+        'Contact info revealed successfully' => 'تم الكشف عن معلومات الاتصال بنجاح',
     ],
 ];

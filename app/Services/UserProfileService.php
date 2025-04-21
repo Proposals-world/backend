@@ -50,6 +50,7 @@ class UserProfileService
                 'hobbies', // Many-to-many relationship
                 'pets', // Many-to-many relationship
                 'profile.smokingTools', // Many-to-many relationship
+                'cityLocation'
             ]);
         });
     }

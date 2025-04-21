@@ -84,17 +84,19 @@ class MatchController extends Controller
     public function revealContact(Request $request)
     {
         $user = auth()->user();
+        $lang = request()->header('Accept-Language', app()->getLocale());
 
         // Check if the user has a subscription
         $subscription = $user->subscription;
-
         if (!$subscription || $subscription->status !== 'active') {
-            return response()->json(['error' => 'You must be subscribed to reveal contact info.'], 403);
+            $errorMessage = $lang === 'ar' ? 'يجب أن تكون مشتركًا لكشف معلومات الاتصال.' : 'You must be subscribed to reveal contact info.';
+            return response()->json(['error' => $errorMessage], 403);
         }
 
         // Check if user has remaining contacts
         if ($subscription->contacts_remaining <= 0) {
-            return response()->json(['error' => 'You have no remaining contact reveals.'], 403);
+            $errorMessage = $lang === 'ar' ? 'ليس لديك أي اظهارات متبقية لجهات الاتصال.' : 'You have no remaining contact reveals.';
+            return response()->json(['error' => $errorMessage], 403);
         }
 
         $matchedUserId = $request->input('matched_user_id');

@@ -138,5 +138,9 @@ return [
         'Loading_matches' => 'Loading matches...',
         'No_exact_matches_found_based_on_your_criteria' => 'No exact matches found based on your criteria',
         'Unknown_Location' => 'Unknown Location',
+        'Are you sure you want to reveal this user contact information? This action cannot be undone' => 'Are you sure you want to reveal this user contact information? This action cannot be undone',
+        'Subscription_Now' => 'Subscription Now',
+        'Contact info revealed successfully' => 'Contact info revealed successfully',
+        ''
     ],
 ];

@@ -168,7 +168,7 @@
                     <!-- Inline Success Alert (hidden by default) -->
                     <div id="reveal-success-alert" class="alert alert-success alert-dismissible fade shadow-sm d-none" role="alert">
                         <i class="simple-icon-info mr-2"></i>
-                        <span id="preference-success-message">Contact info revealed successfully.</span>
+                        <span id="preference-success-message">{{ __('userDashboard.dashboard.Contact info revealed successfully') }}.</span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -339,18 +339,19 @@
         });
     }
     function revealContact(matchedUserId) {
-    if (!confirm("Are you sure you want to reveal this user's contact information? This action cannot be undone.")) {
+    if (!confirm(`{{ __('userDashboard.dashboard.Are you sure you want to reveal this user contact information? This action cannot be undone') }}.`)) {
         return; // User cancelled the confirmation
     }
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    console.log("Revealing contact for user ID:", matchedUserId);
+    // console.log("Revealing contact for user ID:", matchedUserId);
 
     fetch(`{{ route('reveal.contact') }}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
+            'Accept-Language': '{{ app()->getLocale() }}',
         },
         body: JSON.stringify({
             matched_user_id: matchedUserId
@@ -369,7 +370,7 @@
 
     // 👇 Add pricing link for subscription error
     if (errorMessage.includes('subscribed')) {
-        errorMessage += ` <a href="{{ route('user.pricing') }}" style="text-decoration: underline;" class="fw-bold text-danger">View subscription plans</a>`;
+        errorMessage += ` <a href="{{ route('user.pricing') }}" style="text-decoration: underline;" class="fw-bold text-danger">{{ __('userDashboard.dashboard.Subscription_Now') }}</a>`;
     }
 
     $alert
@@ -382,7 +383,7 @@
             $alert
                 .removeClass('d-none alert-danger')
                 .addClass('show alert-success');
-            $message.text('Contact info revealed successfully.');
+            $message.text(`{{ __('userDashboard.dashboard.Contact info revealed successfully') }}.`);
             $('#revealContactBtn').addClass('d-none');
 
             setTimeout(() => {

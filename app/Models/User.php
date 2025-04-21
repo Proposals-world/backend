@@ -227,4 +227,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Subscription::class);
     }
+    public function cityLocation()
+    {
+        return $this->belongsTo(City::class, 'city_location_id'); // Adjust the foreign key name if different
+    }
 }

@@ -105,6 +105,7 @@ class UserProfile extends Model
         return $this->belongsTo(CityLocation::class, 'city_location_id');
     }
 
+
     public function zodiacSign()
     {
         return $this->belongsTo(ZodiacSign::class);

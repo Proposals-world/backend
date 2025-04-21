@@ -23,4 +23,8 @@ class CityLocation extends Model
     {
         return $this->hasMany(User::class, 'city_location_id');
     }
+    public function userProfiles()
+    {
+        return $this->hasMany(UserProfile::class, 'city_location_id');
+    }
 }
