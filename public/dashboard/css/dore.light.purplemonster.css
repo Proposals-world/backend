@@ -2257,6 +2257,7 @@ Main menu link styling .main-menu-link {
     border-radius: 0 18px 18px 0;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     /* by default, hidden */
+    width: 50px;
     display: none;
     border: 2px solid #922c88;
     border-left: none;
@@ -2266,6 +2267,7 @@ Main menu link styling .main-menu-link {
 /* When .filter-tab has "show", make it visible */
 .filter-tab.show {
     display: block;
+    width: 52px;
     /* <-- changed from "none" to "block" */
 }
 
@@ -2286,7 +2288,7 @@ Main menu link styling .main-menu-link {
 /* Hover effect */
 .filter-tab:hover {
     background-color: #7d2675;
-    width: 40px;
+    width: 52px;
 }
 
 /* Active state when submenu is open */
