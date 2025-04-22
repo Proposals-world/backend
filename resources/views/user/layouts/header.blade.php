@@ -37,7 +37,7 @@
 
             <div class="dropdown-menu dropdown-menu-right mt-3">
                 <a class="dropdown-item" href="#">{{ __('userDashboard.header.profile') }}</a>
-                <a class="dropdown-item" href="#">{{ __('userDashboard.header.support') }}</a>
+                <a class="dropdown-item" href="{{ route('user.support') }}">{{ __('userDashboard.header.support') }}</a>
                 
                 <a class="dropdown-item" href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
                     {{ __('header.language_switcher') }}
