@@ -231,4 +231,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(City::class, 'city_location_id'); // Adjust the foreign key name if different
     }
+    public function guardianOtps()
+    {
+        return $this->hasMany(GuardianOtp::class);
+    }
 }
