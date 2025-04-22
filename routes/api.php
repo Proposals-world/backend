@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\PetController;
 use App\Http\Controllers\Api\HeightController;
 use App\Http\Controllers\Api\ProfessionalEducationalController;
 use App\Http\Controllers\Api\ReligiousLevelController;
+use App\Http\Controllers\Api\SupportTicketController;
 use App\Http\Controllers\Api\WeightController;
 use App\Http\Controllers\Api\HairColorController;
 use App\Http\Controllers\Api\ReligionController;
@@ -62,12 +63,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     // tickets routes
-    Route::get('/tickets', [TicketsController::class, 'getTickets']);
-    Route::post('/ticket/create', [TicketsController::class, 'createTicket']);
-    Route::post('/ticket/reply', [TicketsController::class, 'ticketsReply']);
-    Route::get('/ticket/with-replies', [TicketsController::class, 'getTicketWithReplys']);
-    // Route::post('/update-ticket-status', [TicketsController::class, 'updateTicketStatus']);
-
+    Route::get ( 'tickets',                [SupportTicketController::class,'index']);
+    Route::post( 'tickets',                [SupportTicketController::class,'store']);
+    Route::get ( 'tickets/{ticket}',       [SupportTicketController::class,'show']);
+    Route::post( 'tickets/{ticket}/reply', [SupportTicketController::class,'reply']);
+    Route::post('tickets/{ticket}/close', [SupportTicketController::class, 'close'])
+    ->name('api.tickets.close');
 
     Route::post('/profile', [UserProfileController::class, 'update']);
 

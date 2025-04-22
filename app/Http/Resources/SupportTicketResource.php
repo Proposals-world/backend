@@ -13,8 +13,8 @@ class SupportTicketResource extends JsonResource
 
         return [
             'id'          => $this->id,
-            'subject'     => $this->{"subject_{$lang}"} ?? null,
-            'description' => $this->{"description_{$lang}"} ?? null,
+            'subject'     => $this->subject, 
+            'description' => $this->description,
             'status'      => $this->status,
             'created_at'  => $this->created_at->format('Y/m/d h:i A'),
             'updated_at'  => $this->updated_at->format('Y/m/d h:i A'),

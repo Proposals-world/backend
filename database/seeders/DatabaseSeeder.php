@@ -68,6 +68,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BlogSeeder::class,
             CityLocationSeeder::class,
+            SupportTicketsAndRepliesSeeder::class,
         ]);
     }
 }

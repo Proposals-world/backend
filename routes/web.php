@@ -8,13 +8,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\DrinkingStatusesController;
 use App\Http\Controllers\Admin\EducationalLevelsController;
-use App\Http\Controllers\Admin\FeatureController as AdminFeatureController;
-use App\Http\Controllers\Admin\LocationsController;
 use App\Http\Controllers\Admin\OriginController;
 use App\Http\Controllers\Admin\SportsActivitiesController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\MessageSubscriptionController;
 // use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\SupportTicketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HairColorsController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -25,7 +24,6 @@ use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\MarriageBudgetsController;
 use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\SubscriptionPackageController;
-use App\Http\Controllers\Admin\ReligionsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\ReportController;
@@ -39,8 +37,6 @@ use App\Http\Controllers\User\LikedMeController;
 use App\Http\Controllers\User\MatchController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\User\FindMatchController;
-use App\Http\Controllers\User\SupportController;
-use App\Models\MarriageBudget;
 use App\Http\Controllers\HomeController;
 
 // users dashboard routes
@@ -120,7 +116,15 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
         Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
         Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
-        Route::get('/support', [SupportController::class, 'index'])->name('user.support');
+        // Support ticket routes
+        Route::get('/support-tickets', [SupportTicketController::class, 'index'])->name('user.support');
+        Route::post('support-tickets', [SupportTicketController::class, 'store'])->name('user.support.store');
+        Route::get('support-tickets/{ticket}', [SupportTicketController::class, 'show'])->name('user.support.show');
+        Route::get('support-tickets/create', [SupportTicketController::class, 'create'])->name('user.support.create');
+        Route::post('/{ticket}/reply', [SupportTicketController::class, 'reply'])
+        ->name('user.support.reply');
+        Route::post('/{ticket}/close',    [SupportTicketController::class, 'close'])->name('user.support.close');
+        //
         Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
         Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
         Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);

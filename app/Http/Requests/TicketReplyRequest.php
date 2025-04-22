@@ -10,27 +10,22 @@ class TicketReplyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ticket_id' => 'required|exists:support_tickets,id',
-            'message'   => 'required|string',
+            'message' => 'required|string',
         ];
     }
-
+    
     public function messages(): array
     {
         $locale = $this->header('Accept-Language', app()->getLocale());
-
+    
         if ($locale === 'ar') {
             return [
-                'ticket_id.required' => 'رقم التذكرة مطلوب.',
-                'ticket_id.exists'   => 'رقم التذكرة غير موجود.',
-                'message.required'   => 'الرسالة مطلوبة.',
+                'message.required' => 'الرسالة مطلوبة.',
             ];
         }
-
+    
         return [
-            'ticket_id.required' => 'Ticket ID is required.',
-            'ticket_id.exists'   => 'Ticket ID does not exist.',
-            'message.required'   => 'The message is required.',
+            'message.required' => 'The message is required.',
         ];
     }
 }

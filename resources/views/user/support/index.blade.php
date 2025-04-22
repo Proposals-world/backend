@@ -2,317 +2,176 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row app-row">
+    <!-- Header Section with Stats -->
+    <div class="row mb-4 pt-4 ">
         <div class="col-12">
-            <div class="mb-2">
-                <h1>Surveys</h1>
-                <div class="top-right-button-container">
-                    <button type="button" class="btn btn-primary btn-lg top-right-button mr-1"
-                        data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">ADD
-                        NEW</button>
+            <div class="card shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="mb-0">{{ __('Support Tickets') }}</h1>
+                        <p class="text-muted">{{ __('Manage your support requests') }}</p>
+                    </div>
+                    <a href="{{ route('user.support.create') }}" class="btn btn-primary btn-lg">
+                        <i class="simple-icon-plus mr-2"></i>{{ __('Create Ticket') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalRight" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Add New</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Details</label>
-                                            <textarea placeholder="" class="form-control" rows="2"></textarea>
-                                        </div>
+    <!-- Ticket Status Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        <a href="#" class="btn btn-outline-primary active">
+                            <span class="badge badge-pill badge-primary mr-2">{{ $tickets->where('status', 'open')->count() }}</span>
+                            {{ __('Open') }}
+                        </a>
+                        <a href="#" class="btn btn-outline-warning">
+                            <span class="badge badge-pill badge-warning mr-2">{{ $tickets->where('status', 'in_progress')->count() }}</span>
+                            {{ __('In Progress') }}
+                        </a>
+                        <a href="#" class="btn btn-outline-success">
+                            <span class="badge badge-pill badge-success mr-2">{{ $tickets->where('status', 'resolved')->count() }}</span>
+                            {{ __('Resolved') }}
+                        </a>
+                        <a href="#" class="btn btn-outline-secondary">
+                            <span class="badge badge-pill badge-secondary mr-2">{{ $tickets->where('status', 'closed')->count() }}</span>
+                            {{ __('Closed') }}
+                        </a>
+                        <a href="#" class="btn btn-outline-dark">
+                            <span class="badge badge-pill badge-dark mr-2">{{ $tickets->count() }}</span>
+                            {{ __('All Tickets') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                        <div class="form-group">
-                                            <label>Category</label>
-                                            <select class="form-control">
-                                                <option label="&nbsp;">&nbsp;</option>
-                                                <option value="Flexbox">Flexbox</option>
-                                                <option value="Sass">Sass</option>
-                                                <option value="React">React</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck1">
-                                                <label class="custom-control-label"
-                                                    for="customCheck1">Completed</label>
+    <!-- Tickets List -->
+    <div class="row">
+        <div class="col-12">
+            @if($tickets->isEmpty())
+                <div class="card shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <img src="{{ asset('img/empty-state.svg') }}" alt="No tickets" class="img-fluid mb-4" style="max-height: 150px;">
+                        <h3>{{ __('No Support Tickets') }}</h3>
+                        <p class="text-muted mb-4">{{ __('You haven\'t created any support tickets yet.') }}</p>
+                        <a href="{{ route('user.support.create') }}" class="btn btn-primary">
+                            <i class="simple-icon-plus mr-2"></i>{{ __('Create Your First Ticket') }}
+                        </a>
+                    </div>
+                </div>
+            @else
+                <div class="ticket-list">
+                    @foreach($tickets as $ticket)
+                        <div class="card ticket-card shadow-sm mb-3 hover-card">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <!-- Status Indicator -->
+                                    <div class="col-1">
+                                        @php
+                                            $statusColor = match($ticket->status) {
+                                                'open'        => 'primary',
+                                                'in_progress' => 'warning',
+                                                'resolved'    => 'success',
+                                                'closed'      => 'secondary',
+                                                default       => 'light',
+                                            };
+                                        @endphp
+                                        <div class="ticket-status-indicator bg-{{ $statusColor }} h-100"></div>
+                                    </div>
+                                    
+                                    <!-- Ticket Info -->
+                                    <div class="col-11">
+                                        <div class="d-flex p-3 align-items-center">
+                                            <!-- Ticket Icon Column -->
+                                            <div class="ticket-icon mr-3">
+                                                <span class="ticket-icon-circle bg-light">
+                                                    <i class="simple-icon-bubbles text-{{ $statusColor }}"></i>
+                                                </span>
+                                            </div>
+                                            
+                                            <!-- Ticket Details Column -->
+                                            <div class="ticket-details flex-grow-1">
+                                                <h5 class="mb-1">
+                                                    <a href="{{ route('user.support.show', $ticket->id) }}" class="text-body stretched-link">
+                                                        #{{ $ticket->id }}: {{ $ticket->subject }}
+                                                    </a>
+                                                </h5>
+                                                <p class="text-muted mb-0 small">
+                                                    {{ \Illuminate\Support\Str::limit($ticket->description, 100) }}
+                                                </p>
+                                            </div>
+                                            
+                                            <!-- Ticket Meta Column -->
+                                            <div class="ticket-meta text-right">
+                                                <div class="d-flex flex-column">
+                                                    <span class="badge badge-pill badge-{{ $statusColor }} mb-2">
+                                                        {{ __(ucfirst(str_replace('_', ' ', $ticket->status))) }}
+                                                    </span>
+                                                    <span class="text-muted small">
+                                                        <i class="simple-icon-clock mr-1"></i>{{ $ticket->created_at->diffForHumans() }}
+                                                    </span>
+                                                    <span class="text-muted small">
+                                                        <i class="simple-icon-bubbles mr-1"></i>{{ $ticket->replies_count }} {{ __('Replies') }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-primary"
-                                        data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
-                            <label class="custom-control custom-checkbox mb-0 d-inline-block">
-                                <input type="checkbox" class="custom-control-input" id="checkAll">
-                                <span class="custom-control-label">&nbsp;</span>
-                            </label>
-                        </div>
-                        <button type="button"
-                            class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-
-                <div class="modal fade modal-right" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Title</label>
-                                        <input type="text" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Details</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Category</label>
-                                        <select class="form-control select2-single" data-width="100%">
-                                            <option label="&nbsp;">&nbsp;</option>
-                                            <option value="Flexbox">Flexbox</option>
-                                            <option value="Sass">Sass</option>
-                                            <option value="React">React</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Labels</label>
-                                        <select class="form-control select2-multiple" multiple="multiple" data-width="100%">
-                                            <option value="New Framework">New Framework</option>
-                                            <option value="Education">Education</option>
-                                            <option value="Personal">Personal</option>
-                                        </select>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                id="customCheck1">
-                                            <label class="custom-control-label"
-                                                for="customCheck1">Completed</label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-primary"
-                                    data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-2">
-                <a class="btn pt-0 pl-0 d-inline-block d-md-none" data-toggle="collapse" href="#displayOptions"
-                    role="button" aria-expanded="true" aria-controls="displayOptions">
-                    Display Options
-                    <i class="simple-icon-arrow-down align-middle"></i>
-                </a>
-                <div class="collapse d-md-block" id="displayOptions">
-                    <div class="d-block d-md-inline-block">
-                        <div class="btn-group float-md-left mr-1 mb-1">
-                            <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Order By
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                        </div>
-                        <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-                            <input placeholder="Search...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="separator mb-5"></div>
-
-            <div class="list disable-text-selection" data-check-all="checkAll">
-                <div class="card d-flex flex-row mb-3">
-                    <div class="d-flex flex-grow-1 min-width-zero">
-                        <div
-                            class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                            <a class="list-item-heading mb-0 truncate w-40 w-xs-100 mt-0"
-                                href="Apps.Survey.html">
-                                <i class="simple-icon-refresh heading-icon"></i>
-                                <span class="align-middle d-inline-block">Developer Survey</span>
-                            </a>
-                            <p class="mb-0 text-muted text-small w-15 w-xs-100">Personal</p>
-                            <p class="mb-0 text-muted text-small w-15 w-xs-100">11.08.2018</p>
-                            <div class="w-15 w-xs-100">
-                                <span class="badge badge-pill badge-secondary">ON HOLD</span>
-                            </div>
-                        </div>
-                        <label class="custom-control custom-checkbox mb-1 align-self-center mr-4">
-                            <input type="checkbox" class="custom-control-input">
-                            <span class="custom-control-label">&nbsp;</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="card d-flex flex-row mb-3">
-                    <div class="d-flex flex-grow-1 min-width-zero">
-                        <div
-                            class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                            <a class="list-item-heading mb-0 truncate w-40 w-xs-100 mt-0"
-                                href="Apps.Survey.html">
-                                <i class="simple-icon-refresh heading-icon"></i>
-                                <span class="align-middle d-inline-block">Designer Survey</span>
-                            </a>
-                            <p class="mb-0 text-muted text-small w-15 w-xs-100">Store</p>
-                            <p class="mb-0 text-muted text-small w-15 w-xs-100">14.07.2018</p>
-                            <div class="w-15 w-xs-100">
-                                <span class="badge badge-pill badge-secondary">PROCESSED</span>
-                            </div>
-                        </div>
-                        <label class="custom-control custom-checkbox mb-1 align-self-center mr-4">
-                            <input type="checkbox" class="custom-control-input">
-                            <span class="custom-control-label">&nbsp;</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="card d-flex flex-row mb-3">
-                    <div class="d-flex flex-grow-1 min-width-zero">
-                        <div
-                            class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                            <a class="list-item-heading mb-0 truncate w-40 w-xs-100 mt-0"
-                                href="Apps.Survey.html">
-                                <i class="simple-icon-check heading-icon"></i>
-
-                                <span class="align-middle d-inline-block">Backend Survey</span>
-                            </a>
-                            <p class="mb-0 text-muted text-small w-15 w-xs-100">Store</p>
-                            <p class="mb-0 text-muted text-small w-15 w-xs-100">09.04.2018</p>
-                            <div class="w-15 w-xs-100">
-                                <span class="badge badge-pill badge-secondary">ON HOLD</span>
-                            </div>
-                        </div>
-                        <label class="custom-control custom-checkbox mb-1 align-self-center mr-4">
-                            <input type="checkbox" class="custom-control-input">
-                            <span class="custom-control-label">&nbsp;</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
 
-
-<div class="app-menu">
-    <div class="p-4 h-100">
-        <div class="scroll">
-            <p class="text-muted text-small">Status</p>
-            <ul class="list-unstyled mb-5">
-                <li class="active">
-                    <a href="#">
-                        <i class="simple-icon-refresh"></i>
-                        Active Surveys
-                        <span class="float-right">12</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="simple-icon-check"></i>
-                        Completed Surveys
-                        <span class="float-right">24</span>
-
-                    </a>
-                </li>
-            </ul>
-
-            <p class="text-muted text-small">Categories</p>
-            <ul class="list-unstyled mb-5">
-                <li>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="category1">
-                        <label class="custom-control-label" for="category1">Development</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="category2">
-                        <label class="custom-control-label" for="category2">Workplace</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="custom-control custom-checkbox ">
-                        <input type="checkbox" class="custom-control-input" id="category3">
-                        <label class="custom-control-label" for="category3">Hardware</label>
-                    </div>
-                </li>
-            </ul>
-
-
-
-
-            <p class="text-muted text-small">Labels</p>
-            <div>
-                <p class="d-sm-inline-block mb-1">
-                    <a href="#">
-                        <span class="badge badge-pill badge-outline-primary mb-1">NEW FRAMEWORK</span>
-                    </a>
-                </p>
-
-                <p class="d-sm-inline-block mb-1">
-                    <a href="#">
-                        <span class="badge badge-pill badge-outline-theme-3 mb-1">EDUCATION</span>
-                    </a>
-                </p>
-                <p class="d-sm-inline-block  mb-1">
-                    <a href="#">
-                        <span class="badge badge-pill badge-outline-secondary mb-1">PERSONAL</span>
-                    </a>
-                </p>
-            </div>
-
-        </div>
-    </div>
-    <a class="app-menu-button d-inline-block d-xl-none" href="#">
-        <i class="simple-icon-options"></i>
-    </a>
-</div>
-
+<style>
+    .ticket-list .ticket-card {
+        transition: all 0.2s ease;
+        border-left: none;
+    }
+    
+    .ticket-list .hover-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .ticket-status-indicator {
+        width: 6px;
+        border-radius: 3px 0 0 3px;
+    }
+    
+    .ticket-icon-circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+    }
+    
+    .ticket-icon-circle i {
+        font-size: 20px;
+    }
+    
+    .stretched-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: auto;
+        content: "";
+        background-color: rgba(0,0,0,0);
+    }
+</style>
 @endsection
