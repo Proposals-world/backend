@@ -51,7 +51,7 @@ class SupportTicketController extends Controller
     {
         $this->svc->createTicket(auth()->user(), $request->validated());
         return redirect()
-            ->route('user.support.index')
+            ->route('user.support')
             ->with('success', __('Support ticket created.'));
     }
 

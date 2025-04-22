@@ -164,7 +164,7 @@
                             {{ __('userDashboard.support.status') }}:
                         </span>
                         <span class="badge badge-pill badge-{{ $badge }} ml-2">
-                            {{ __(ucfirst(str_replace('_',' ',$ticket->status))) }}
+                            {{ __('userDashboard.support.' . $ticket->status) }}
                         </span>
                     </div>
                     <div class="ticket-info-item mb-3">
