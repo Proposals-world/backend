@@ -1865,11 +1865,11 @@ button {
 }
 
 .navbar .navbar-left {
-    flex-basis: 40%;
+    flex-basis: 30%;
 }
 
 .navbar .navbar-right {
-    flex-basis: 40%;
+    flex-basis: 30%;
     text-align: right;
 }
 

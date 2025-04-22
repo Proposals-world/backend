@@ -30,6 +30,9 @@
 
     <link rel="stylesheet" href="{{ asset('dashboard/css/dore.light.purplemonster.css') }}" />
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/css/dore.dark.bluenavy.min.css') }}" /> --}}
+    @if (app()->getLocale() === 'ar')
+        <link rel="stylesheet" href="{{ asset('dashboard/css/rtl.css') }}" />
+    @endif
 </head>
 
 <body id="app-container" class="menu-default" style="

@@ -827,6 +827,7 @@ $.dore = function (element, options) {
       const $subMenu = $('#matchFilters');
       const $filterTab = $('#filterTab');
       const $filterBookmark = $('#filterBookmark');
+      const isRtl = $('html').attr('dir') === 'rtl';
     
       // Ensure filter submenu is closed initially
       $filterTab.removeClass('active');
@@ -878,18 +879,18 @@ $.dore = function (element, options) {
       // Function to position the submenu based on sidebar state
       function positionSubmenu() {
         if ($subMenu.hasClass('show')) {
-          let leftPosition = 90; // Default position
+            let leftPosition = 90; // Default position
     
-          // Adjust based on sidebar state
-          if ($appContainer.hasClass('menu-mobile')) {
-            leftPosition = 0;
-          } else if ($appContainer.hasClass('main-hidden')) {
-            leftPosition = 90;
-          } else if ($appContainer.hasClass('menu-sub-hidden')) {
-            leftPosition = 110;
-          }
+            // Adjust based on sidebar state
+            if ($appContainer.hasClass('menu-mobile')) {
+              leftPosition = 0;
+            } else if ($appContainer.hasClass('main-hidden')) {
+              leftPosition = 90;
+            } else if ($appContainer.hasClass('menu-sub-hidden')) {
+              leftPosition = 110;
+            }
     
-          // Apply the position
+            // Apply the position
           $subMenu.css('left', leftPosition + 'px');
         }
       }
@@ -917,10 +918,42 @@ $.dore = function (element, options) {
     
         if ($findMatchItem.length && $filterTab.length) {
           const rect = $findMatchItem[0].getBoundingClientRect();
-          $filterTab.css({
-            'top': (rect.top + rect.height / 2 - 18) + 'px',
-            'left': (rect.left + rect.width) + 'px'
-          });
+          
+          if (isRtl) {
+            // RTL positioning
+            let rightPosition = 0;
+            
+            // Determine horizontal position based on sidebar state
+            if ($appContainer.hasClass('menu-mobile')) {
+              rightPosition = 90;
+            } else if ($appContainer.hasClass('main-hidden')) {
+              rightPosition = 0;
+            } else if ($appContainer.hasClass('menu-sub-hidden') && 
+                      !$appContainer.hasClass('menu-hidden') &&
+                      !$appContainer.hasClass('sub-show-temporary')) {
+              rightPosition = 100;
+            } else if ($appContainer.hasClass('sub-show-temporary')) {
+              // When submenu is showing
+              rightPosition = 110;
+            } else {
+              // Default open state
+              rightPosition = $(window).width() > 1200 ? 110 : 100;
+            }
+            
+            // Apply RTL position
+            $filterTab.css({
+              'top': (rect.top + rect.height / 2 - 18) + 'px',
+              'right': rightPosition + 'px',
+              'left': 'auto'
+            });
+          } else {
+            // Original LTR positioning
+            $filterTab.css({
+              'top': (rect.top + rect.height / 2 - 18) + 'px',
+              'left': (rect.left + rect.width) + 'px',
+              'right': 'auto'
+            });
+          }
         }
       }
     
@@ -946,6 +979,14 @@ $.dore = function (element, options) {
           attributeFilter: ['class']
         });
       }
+      
+      // Add additional handlers for menu state changes
+      $('.menu-button, .menu-button-mobile').on('click', function() {
+        setTimeout(function() {
+          positionFilterTab();
+          positionSubmenu();
+        }, 300);
+      });
     });
     /* 03.08. Rotate Button */
     $(document).on("click", ".rotate-icon-click", function () {

@@ -7,6 +7,7 @@ use App\Http\Requests\SupportTicketRequest;
 use App\Http\Requests\TicketReplyRequest;
 use App\Services\SupportTicketService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -20,10 +21,23 @@ class SupportTicketController extends Controller
     }
 
     /** Show all tickets */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $tickets = $this->svc->getUserTickets(auth()->user());
-        return view('user.support.index', compact('tickets'));
+        // 1) Fetch *all* tickets via your existing service
+        $allTickets = $this->svc->getUserTickets($request->user());
+
+        // 2) If a status filter was provided, narrow it down
+        if ($status = $request->query('status')) {
+            $tickets = $allTickets->where('status', $status);
+        } else {
+            $tickets = $allTickets;
+        }
+
+        // 3) Pass both the full list (for your badges) and the filtered list to the view
+        return view('user.support.index', [
+            'tickets'    => $tickets,
+            'allTickets' => $allTickets,
+        ]);
     }
 
     /** Show “new ticket” form */

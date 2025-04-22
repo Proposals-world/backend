@@ -1,0 +1,82 @@
+/* Dynamic RTL Filter Tab Position - JavaScript Based */
+
+/* Base styling for RTL filter tab */
+html[dir="rtl"] .filter-tab {
+    border-radius: 18px 0 0 18px !important;
+    border-right: 2px solid #922c88 !important;
+    border-left: none !important;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1) !important;
+    transition: right 0.3s ease !important;
+    z-index: 1001 !important;
+}
+
+/* Mobile view */
+@media (max-width: 767px) {
+    html[dir="rtl"] .filter-tab.show {
+        display: none !important;
+    }
+}
+
+/* RTL Filter Bookmark Styles */
+
+/* Filter bookmark position for RTL */
+html[dir="rtl"] .filter-bookmark {
+    left: -160px !important;
+    right: auto !important;
+    border-radius: 0 24px 24px 0 !important;
+    border-left: 2px solid #922c88 !important;
+    border-right: none !important;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Shown state for RTL filter bookmark */
+html[dir="rtl"] .filter-bookmark.show {
+    left: 0 !important;
+    right: auto !important;
+}
+
+/* RTL filter bookmark content alignment */
+html[dir="rtl"] .filter-bookmark a {
+    padding: 0 0px !important;
+    text-align: right !important;
+}
+
+/* Fix for the filter count badge in RTL */
+html[dir="rtl"] .filter-bookmark .filter-count {
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+}
+
+/* RTL hover effect */
+html[dir="rtl"] .filter-bookmark:hover {
+    background-color: #7d2675 !important;
+    width: 64px !important;
+    left: 0 !important;
+    right: auto !important;
+}
+
+/* RTL active state */
+html[dir="rtl"] .filter-bookmark.active {
+    background-color: #7d2675 !important;
+    width: 65px !important;
+    left: 0 !important;
+    right: auto !important;
+}
+
+/* RTL icon direction fixes */
+html[dir="rtl"] .filter-bookmark i {
+    margin-right: 0 !important;
+    margin-left: 0px !important;
+}
+
+/* Mobile-specific RTL adjustments */
+@media (max-width: 767px) {
+    html[dir="rtl"] .filter-bookmark.show {
+        left: 0 !important;
+        right: auto !important;
+    }
+    
+    html[dir="rtl"] .filter-bookmark a {
+        justify-content: flex-end !important;
+    }
+}
