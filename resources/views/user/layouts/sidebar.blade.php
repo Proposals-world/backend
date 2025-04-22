@@ -4,17 +4,17 @@
             <ul class="list-unstyled">
                 <li class="{{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
                     <a href="{{ route('user.dashboard') }}">
-                        <i class="iconsminds-shop-2"></i>
+                        <img src="{{ asset('dashboard/logos/menu-button.png') }}" alt="Menu Button" style="width: auto; height: 25px; margin-bottom: 8px; vertical-align: middle;">
                         <span>{{ __('userDashboard.sidebar.main_menu') }}</span>
                     </a>
                 </li>
-                <li>
+                <li class="{{ request()->routeIs('user.profile') ? 'active' : '' }}">
                     <a href="{{ route('user.profile') }}">
                         <i class="iconsminds-box-with-folders"></i>
                         {{ __('userDashboard.sidebar.profile') }}
                     </a>
                 </li>
-                <li>
+                <li class="{{ request()->routeIs('desired') ? 'active' : '' }}">
                     <a href="{{ route('desired') }}">
                         <i class="iconsminds-handshake"></i>
                         {{ __('userDashboard.sidebar.desired_partner') }}
@@ -29,7 +29,7 @@
                 </li>
                 <li class="{{ request()->routeIs('liked-me') ? 'active' : '' }}">
                     <a href="{{ route('liked-me') }}">
-                        <i class="iconsminds-heart"></i>
+                        <img src="{{ asset('dashboard/logos/heart-half-stroke.png') }}" alt="Half Match" style="width: auto; height: 25px; margin-bottom: 8px; vertical-align: middle;">
                         {{ __('userDashboard.sidebar.half_match') }}
                     </a>
                 </li>
