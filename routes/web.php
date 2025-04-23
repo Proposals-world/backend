@@ -33,7 +33,7 @@ use App\Http\Controllers\Admin\UserFeedbackController;
 use App\Http\Controllers\Api\UserPreferenceController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\Api\FilterController;
-
+use App\Http\Controllers\Api\GuardianContactVerificationController;
 // users web routes
 use App\Http\Controllers\User\LikedMeController;
 use App\Http\Controllers\User\MatchController;
@@ -109,6 +109,10 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
 
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+        Route::prefix('guardian-contact')->group(function () {
+            Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+            Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+        });
     });
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
@@ -146,7 +150,9 @@ Route::middleware(['auth', 'verified', 'check.status'])->prefix('user')->group(f
         // Add other routes that require complete profile here.
     });
 });
-
+Route::get('/verify-guardian-otp', function () {
+    return view('verify-guardian-otp');
+})->name('verify.guardian.otp');
 
 
 // Route to handle message subscriptions

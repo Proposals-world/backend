@@ -12,6 +12,7 @@ use Throwable;
 
 class GuardianContactVerificationController extends Controller
 {
+    // fix it edit to take the last send or resent the same code
     public function send(Request $request, GuardianContactVerificationService $service)
     {
         try {
