@@ -38,6 +38,13 @@
             @foreach ($profiles as $profile)
                 <div class="col-12 col-sm-6 col-md-4 mb-4">
                     <div class="card profile-card shadow-sm h-100" data-profile='@json($profile)'>
+                        <button type="button"
+                        class="btn btn-outline-danger position-absolute d-flex align-items-center justify-content-center"
+                        style="top: 10px; {{ app()->getLocale() == 'ar' ? 'left' : 'right' }}: 10px; width: 40px; height: 40px; border-radius: 50%; padding: 0; z-index: 10;"
+                        onclick="event.stopPropagation(); openReportModal({{ $profile['id'] }})">
+                        <i class="fas fa-flag"></i>
+                    </button>
+
                         <div class="position-relative">
                             <span class="badge badge-warning position-absolute m-2">Suggested</span>
                             <img class="card-img-top"
@@ -143,9 +150,130 @@
             </div>
         </div>
     </div>
+    {{-- report modal --}}
+    <div class="modal fade modal-top"
+    id="reportModalMain" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title">
+                    <i class="fas fa-flag"></i> {{ __('userDashboard.dashboard.report_user') }}
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="{{ __('userDashboard.likeMe.close') }}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="reportForm">
+                    @csrf
+                    <div id="report-success" class="alert alert-success mt-3 d-none">
+                        {{ __('userDashboard.dashboard.report_success') }}
+                    </div>
+                    <input type="hidden" id="reportModal_user_id" name="reported_id" value="">
+
+                    <div class="form-group">
+                        <label for="reasonSelect">{{ __('userDashboard.dashboard.reason') }}</label>
+                        <select id="reasonSelect" name="reason_en" class="form-control" required>
+                            <option value="Inappropriate Photos">{{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
+                            <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
+                            <option value="Disrespectful Behavior">{{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
+                            <option value="Asking for Haram (Forbidden)">{{ __('userDashboard.dashboard.asking_for_haram') }}</option>
+                            <option value="Fake Profile">{{ __('userDashboard.dashboard.fake_profile') }}</option>
+                            <option value="Spam or Advertising">{{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
+                            <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}</option>
+                            <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}</option>
+                            <option value="Misleading Information">{{ __('userDashboard.dashboard.misleading_information') }}</option>
+                            <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group d-none" id="otherReasonGroup">
+                        <label>{{ __('userDashboard.dashboard.other_reason') }}</label>
+                        <textarea name="other_reason_en" class="form-control" rows="2"></textarea>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-primary feedback-btn" onclick="submitReport()">
+                    {{ __('userDashboard.dashboard.submit') }}
+                </button>
+
+                <button type="button" class="btn btn-outline-danger feedback-btn" data-dismiss="modal">
+                    {{ __('userDashboard.dashboard.cancel') }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 @push('scripts')
     <script>
+          function openReportModal(userId) {
+    // Set the hidden input inside the report modal
+    document.getElementById('reportModal_user_id').value = userId;
+
+    // Reset any previous success message or form fields
+    document.getElementById('reportForm').reset();
+    document.getElementById('report-success').classList.add('d-none');
+    document.getElementById('otherReasonGroup').classList.add('d-none');
+
+    // Show the report modal with correct options
+    $('#reportModalMain').modal({
+        backdrop: 'static', // ❌ no backdrop
+        keyboard: false,
+        focus: true
+    });
+
+    // Force modal styling if needed
+    $('#reportModalMain .modal-dialog').addClass('modal-dialog-centered'); // Center it vertically
+}
+function submitReport() {
+    const form = document.getElementById('reportForm');
+
+    const reportedId = document.getElementById('reportModal_user_id').value;
+    const reasonEn = document.getElementById('reasonSelect').value;
+    const otherReasonEnInput = form.querySelector('textarea[name="other_reason_en"]');
+    const otherReasonEn = otherReasonEnInput ? otherReasonEnInput.value : null;
+
+    // Prepare form data
+    const formData = {
+        reported_id: reportedId,
+        reason_en: reasonEn,
+        other_reason_en: reasonEn === 'other' ? otherReasonEn : null
+    };
+
+    // Ajax call
+    $.ajax({
+        url: '/user/report-user', // <-- Your API endpoint route
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), // CSRF for Laravel
+            'Accept': 'application/json',
+            'Accept-Language': '{{ app()->getLocale() }}',
+        },
+        success: function(response) {
+            $('#report-success').removeClass('d-none').text(` {{ __('userDashboard.dashboard.report_success') }}`);
+            setTimeout(() => {
+                $('#reportModalMain').modal('hide');
+            }, 1500);
+        },
+        error: function(xhr) {
+            console.error('Error submitting report:', xhr.responseText);
+            alert('Something went wrong, please try again.');
+        }
+    });
+}
+
         $(document).ready(function() {
             function categorizeDetails(profile) {
                 return {
@@ -231,6 +359,8 @@
 
             // Modal opening logic (existing)
             $('.profile-card').on('click', function(e) {
+                if ($(e.target).closest('button, a').length) return;
+
                 e.preventDefault();
                 const profile = $(this).data('profile');
                 const mainPhoto = profile.profile.photos.find(photo => photo.is_main === 1)?.photo_url;

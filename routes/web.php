@@ -98,6 +98,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ]);
         Route::resource('faqs', FaqsController::class);
         Route::resource('reports', ReportController::class);
+
         Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
         Route::put('/deactivate/{id}', [AdminsController::class, 'deactivate'])->name('deactivate');
         Route::put('/active/{id}', [AdminsController::class, 'active'])->name('active');
@@ -121,7 +122,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
         ->name('user.profile.update');
 });
 
-Route::middleware(['auth', 'verified', 'check.status'])->prefix('user')->group(function () {
+Route::middleware(['auth', 'verified',  'guardian.verified', 'check.status'])->prefix('user')->group(function () {
     // On-boarding page: only accessible if profile is not complete.
     // Dashboard: only accessible if profile is complete.
     Route::middleware('profile.complete')->group(function () {
@@ -148,6 +149,7 @@ Route::middleware(['auth', 'verified', 'check.status'])->prefix('user')->group(f
         Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
         Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
         Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
+        Route::post('/report-user', [ReportController::class, 'store']);
 
         // Add other routes that require complete profile here.
     });

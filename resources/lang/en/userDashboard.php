@@ -141,6 +141,25 @@ return [
         'Are you sure you want to reveal this user contact information? This action cannot be undone' => 'Are you sure you want to reveal this user contact information? This action cannot be undone',
         'Subscription_Now' => 'Subscription Now',
         'Contact info revealed successfully' => 'Contact info revealed successfully',
-        ''
+        'report_user' => 'Report User',
+        'reason' => 'Reason',
+        'harassment' => 'Harassment',
+        'spam' => 'Spam',
+        'abuse' => 'Abuse',
+        'offensive' => 'Offensive',
+        'other' => 'Other',
+
+        'inappropriate_photos' => 'Inappropriate Photos',
+        'harassment' => 'Harassment',
+        'disrespectful_behavior' => 'Disrespectful Behavior',
+        'asking_for_haram' => 'Asking for Haram (Forbidden)',
+        'fake_profile' => 'Fake Profile',
+        'spam_or_advertising' => 'Spam or Advertising',
+        'offensive_language' => 'Offensive Language',
+        'not_serious' => 'Not Serious About Marriage',
+        'misleading_information' => 'Misleading Information',
+        'other' => 'Other',
+        'report_success' => 'Report submitted successfully.',
+
     ],
 ];

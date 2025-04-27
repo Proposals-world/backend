@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Report;
 use App\Models\UserReport;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserReportRequest;
 
 class ReportController extends Controller
 {
@@ -23,14 +24,47 @@ class ReportController extends Controller
         return view('admin.reports.create');
     }
 
-    // Store a newly created report
-    public function store(Request $request)
+    public function store(StoreUserReportRequest $request)
     {
-        // You can perform validation here or use a custom request for it
-        UserReport::create($request->all());
+        try {
+            $data = $request->validated();
+            $data['reporter_id'] = auth()->id();
 
-        return response()->json(['message' => 'Report added successfully']);
+            // Map English reason to Arabic
+            $reasonTranslations = [
+                'Inappropriate Photos'       => 'صور غير لائقة',
+                'Harassment'                 => 'تحرش',
+                'Disrespectful Behavior'      => 'سلوك غير محترم',
+                'Asking for Haram (Forbidden)' => 'طلب أمور محرمة',
+                'Fake Profile'               => 'ملف شخصي مزيف',
+                'Spam or Advertising'        => 'رسائل مزعجة أو إعلانات',
+                'Offensive Language'         => 'ألفاظ مسيئة',
+                'Not Serious About Marriage' => 'عدم الجدية في الزواج',
+                'Misleading Information'     => 'معلومات مضللة',
+                'Other'                      => 'أخرى',
+            ];
+
+            $data['reason_ar'] = $reasonTranslations[$data['reason_en']] ?? 'أخرى';
+
+            // 🔥 Count how many reports this user made for this reported user
+            $existingReportsCount = UserReport::where('reporter_id', $data['reporter_id'])
+                ->where('reported_id', $data['reported_id'])
+                ->count();
+
+            // Save the count + 1 for the new report
+            $data['report_count'] = $existingReportsCount + 1;
+
+            UserReport::create($data);
+
+            return response()->json(['message' => 'Report added successfully'], 201);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'An error occurred while submitting the report. Please try again.',
+            ], 500);
+        }
     }
+
+
 
     // Show the form for editing an existing report
     public function edit(UserReport $report)
@@ -39,14 +73,38 @@ class ReportController extends Controller
         return view('admin.reports.edit', compact('report'));
     }
 
-    // Update the specified report
-    public function update(Request $request, UserReport $report)
+    public function update(StoreUserReportRequest $request, UserReport $report)
     {
-        // Update the report with the validated data
-        $report->update($request->all());
+        try {
+            $data = $request->validated();
+            $data['reporter_id'] = auth()->id();
 
-        return response()->json(['message' => 'Report updated successfully']);
+            // Map English reason to Arabic
+            $reasonTranslations = [
+                'Inappropriate Photos'       => 'صور غير لائقة',
+                'Harassment'                 => 'تحرش',
+                'Disrespectful Behavior'      => 'سلوك غير محترم',
+                'Asking for Haram (Forbidden)' => 'طلب أمور محرمة',
+                'Fake Profile'               => 'ملف شخصي مزيف',
+                'Spam or Advertising'        => 'رسائل مزعجة أو إعلانات',
+                'Offensive Language'         => 'ألفاظ مسيئة',
+                'Not Serious About Marriage' => 'عدم الجدية في الزواج',
+                'Misleading Information'     => 'معلومات مضللة',
+                'Other'                      => 'أخرى',
+            ];
+
+            $data['reason_ar'] = $reasonTranslations[$data['reason_en']] ?? 'أخرى';
+
+            $report->update($data);
+
+            return response()->json(['message' => 'Report updated successfully'], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'An error occurred while updating the report. Please try again.',
+            ], 500);
+        }
     }
+
     // Update the specified report
     public function updateStatus(Request $request, $id)
     {

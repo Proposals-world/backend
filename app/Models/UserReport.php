@@ -17,7 +17,31 @@ class UserReport extends Model
         'status',
         'report_count',
     ];
+    const REASONS_EN = [
+        'Inappropriate Photos',
+        'Harassment',
+        'Disrespectful Behavior',
+        'Asking for Haram (Forbidden)',
+        'Fake Profile',
+        'Spam or Advertising',
+        'Offensive Language',
+        'Not Serious About Marriage',
+        'Misleading Information',
+        'Other',
+    ];
 
+    const REASONS_AR = [
+        'صور غير لائقة',
+        'تحرش',
+        'سلوك غير محترم',
+        'طلب أمور محرمة',
+        'ملف شخصي مزيف',
+        'رسائل مزعجة أو إعلانات',
+        'ألفاظ مسيئة',
+        'عدم الجدية في الزواج',
+        'معلومات مضللة',
+        'أخرى',
+    ];
     public function reporter()
     {
         return $this->belongsTo(User::class, 'reporter_id');
