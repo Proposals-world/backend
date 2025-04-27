@@ -26,15 +26,30 @@ class GuardianContactVerificationController extends Controller
                         : 'Guardian phone is not set in the profile.',
                 ], 400);
             }
+
             $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
-            $otp = rand(100000, 999999);
 
-            GuardianOtp::create([
-                'user_id'    => $user->id,
-                'code'       => $otp,
-                'expires_at' => Carbon::now()->addMinutes(5),
-            ]);
+            // 🛠 Check if existing OTP still valid
+            $existingOtp = GuardianOtp::where('user_id', $user->id)
+                ->where('expires_at', '>', now())
+                ->where('verified', false)
+                ->latest()
+                ->first();
 
+            if ($existingOtp) {
+                $otp = $existingOtp->code;  // Use existing OTP
+            } else {
+                // 🛠 Generate new OTP
+                $otp = rand(100000, 999999);
+
+                GuardianOtp::create([
+                    'user_id'    => $user->id,
+                    'code'       => $otp,
+                    'expires_at' => now()->addMinutes(15),
+                ]);
+            }
+
+            // 🛠 Always send the OTP (existing or new)
             $service->sendVerificationCode($formattedPhone, $otp);
 
             return response()->json([
@@ -52,6 +67,7 @@ class GuardianContactVerificationController extends Controller
             ], 500);
         }
     }
+
 
     public function verify(Request $request)
     {
@@ -71,14 +87,18 @@ class GuardianContactVerificationController extends Controller
                         : 'Guardian phone is not set in the profile.',
                 ], 400);
             }
+
             $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
 
+            // 🛠 Only check the newest, latest OTP
             $record = GuardianOtp::where('user_id', $user->id)
-                ->where('code', $request->code)
                 ->where('expires_at', '>', now())
+                ->where('verified', false) // Ensure it's not already verified
+                ->latest()  // <- get newest one first
                 ->first();
 
-            if (!$record) {
+            // 🛠 Now check if it matches the submitted code
+            if (!$record || $record->code !== $request->code) {
                 return response()->json([
                     'message' => $locale === 'ar'
                         ? 'الرمز غير صحيح أو منتهي الصلاحية.'
@@ -103,6 +123,7 @@ class GuardianContactVerificationController extends Controller
             ], 500);
         }
     }
+
     private function formatJordanianPhone($phone): string
     {
         $phone = preg_replace('/[^0-9]/', '', $phone); // Keep digits only

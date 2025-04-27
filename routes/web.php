@@ -109,15 +109,17 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
 
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
-        Route::prefix('guardian-contact')->group(function () {
-            Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
-            Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
-        });
+    });
+    Route::get('/verify-guardian-otp', function () {
+        return view('verify-guardian-otp');
+    })->name('verify.guardian.otp');
+    Route::prefix('/guardian-contact')->group(function () {
+        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
     });
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
 });
-
 
 Route::middleware(['auth', 'verified', 'check.status'])->prefix('user')->group(function () {
     // On-boarding page: only accessible if profile is not complete.
@@ -150,9 +152,7 @@ Route::middleware(['auth', 'verified', 'check.status'])->prefix('user')->group(f
         // Add other routes that require complete profile here.
     });
 });
-Route::get('/verify-guardian-otp', function () {
-    return view('verify-guardian-otp');
-})->name('verify.guardian.otp');
+
 
 
 // Route to handle message subscriptions

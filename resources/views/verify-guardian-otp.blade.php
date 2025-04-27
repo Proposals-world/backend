@@ -134,34 +134,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Shared function to send OTP request
     function sendVerificationRequest(button, callback) {
-        button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
-        button.disabled = true;
+    button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    button.disabled = true;
 
-        fetch('/user/guardian-contact/send-verification', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept-Language': '{{ app()->getLocale() }}',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({})
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.message) {
-                if (callback) callback();
-            } else {
-                showSuccessMessage(data.message || '{{ __("otp.otp_verified") }}');
-                button.disabled = false;
-                button.innerHTML = `{{ __('otp.Resend_Code') }}`;
+    fetch('/user/guardian-contact/send-verification', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',  // <-- important to tell Laravel to return JSON
+            'Accept-Language': '{{ app()->getLocale() }}',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({})
+    })
+    .then(response => {
+        if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+                window.location.href = '/login';
+                return;
             }
-        })
-        .catch(err => {
-            showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');
-            button.disabled = false;
-            button.innerHTML =  `{{ __('otp.Resend_Code') }}`;
-        });
-    }
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data && data.message) {
+            showSuccessMessage(data.message);  // <<< show success message here
+            if (callback) callback();
+        } else {
+            showErrorMessage('{{ __("otp.otp_invalid") }}');
+        }
+        button.disabled = false;
+        button.innerHTML = `{{ __('otp.Resend_Code') }}`;
+    })
+    .catch(err => {
+        showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');
+        button.disabled = false;
+        button.innerHTML =  `{{ __('otp.Resend_Code') }}`;
+    });
+}
+
 
     // Trigger OTP on first button
     showOtpBtn.addEventListener('click', function () {
@@ -209,27 +222,39 @@ document.addEventListener('DOMContentLoaded', function () {
         verifyBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>  {{ __('otp.Verifying') }}`;
 
         fetch('/user/guardian-contact/verify-code', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept-Language': '{{ app()->getLocale() }}',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ code: code })
-        })
-        .then(res => res.json())
-        .then(data => {
-            showSuccessMessage(data.message || '{{ __("otp.otp_verified") }}');
-            // Optional: redirect here
-            // window.location.href = '/dashboard';
-        })
-        .catch(err => {
-            showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');
-        })
-        .finally(() => {
-            verifyBtn.disabled = false;
-            verifyBtn.innerHTML = `{{ __('otp.Verify') }}`;
-        });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Accept-Language': '{{ app()->getLocale() }}',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify({ code: code })
+})
+.then(async response => {
+    if (!response.ok) {
+        const errorData = await response.json();  // << Get real Laravel error response
+        throw new Error(errorData.message || '{{ __("otp.otp_invalid") }}');
+    }
+    return response.json();
+})
+.then(data => {
+    if (data && data.message) {
+        showSuccessMessage(data.message || '{{ __("otp.otp_verified") }}');
+        // Optional redirect
+        window.setTimeout(() => window.location.href = '/dashboard', 2000);
+    } else {
+        showErrorMessage('{{ __("otp.otp_invalid") }}');
+    }
+})
+.catch(err => {
+    showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');  // <== now shows real API error
+})
+.finally(() => {
+    verifyBtn.disabled = false;
+    verifyBtn.innerHTML = `{{ __('otp.Verify') }}`;
+});
     });
 
     updateVerifyButtonState(); // initial state
