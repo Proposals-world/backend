@@ -16,9 +16,32 @@ return new class extends Migration
             $table->foreignId('match_id')->constrained('user_matches')->unique();
             $table->foreignId('user_id')->constrained('users');
             $table->boolean('is_profile_accurate')->nullable();
-            $table->text('feedback_text_en')->nullable();
-            $table->text('feedback_text_ar')->nullable();
-            $table->string('outcome')->nullable();
+
+            // ENUM instead of text
+            $table->enum('feedback_text_en', [
+                'Contacted Successfully',
+                'Guardian Was Cooperative',
+                'Guardian Was Not Cooperative',
+                'Inappropriate Behavior',
+                'No Response from Guardian',
+                'Engagement Happened',
+                'Marriage Happened',
+                'Still in Communication',
+            ])->nullable();
+
+            $table->enum('feedback_text_ar', [
+                'تم التواصل بنجاح',
+                'الولي كان متعاونًا',
+                'الولي لم يكن متعاونًا',
+                'سلوك غير لائق',
+                'لا يوجد استجابة من الولي',
+                'حدثت خطوبة',
+                'تم الزواج',
+                'ما زلنا على تواصل',
+            ])->nullable();
+
+            $table->string('outcome')->nullable(); // leave outcome as string if needed
+
             $table->timestamps();
         });
     }

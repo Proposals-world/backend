@@ -30,39 +30,51 @@ class ReportController extends Controller
             $data = $request->validated();
             $data['reporter_id'] = auth()->id();
 
-            // Map English reason to Arabic
+            $lang = $request->header('lang', app()->getLocale());
+
             $reasonTranslations = [
-                'Inappropriate Photos'       => 'صور غير لائقة',
-                'Harassment'                 => 'تحرش',
-                'Disrespectful Behavior'      => 'سلوك غير محترم',
+                'Inappropriate Photos' => 'صور غير لائقة',
+                'Harassment' => 'تحرش',
+                'Disrespectful Behavior' => 'سلوك غير محترم',
                 'Asking for Haram (Forbidden)' => 'طلب أمور محرمة',
-                'Fake Profile'               => 'ملف شخصي مزيف',
-                'Spam or Advertising'        => 'رسائل مزعجة أو إعلانات',
-                'Offensive Language'         => 'ألفاظ مسيئة',
+                'Fake Profile' => 'ملف شخصي مزيف',
+                'Spam or Advertising' => 'رسائل مزعجة أو إعلانات',
+                'Offensive Language' => 'ألفاظ مسيئة',
                 'Not Serious About Marriage' => 'عدم الجدية في الزواج',
-                'Misleading Information'     => 'معلومات مضللة',
-                'Other'                      => 'أخرى',
+                'Misleading Information' => 'معلومات مضللة',
+                'Other' => 'أخرى',
             ];
 
-            $data['reason_ar'] = $reasonTranslations[$data['reason_en']] ?? 'أخرى';
+            if ($lang === 'en') {
+                $data['reason_ar'] = $reasonTranslations[$data['reason_en']] ?? 'أخرى';
+            } else {
+                $data['reason_en'] = array_search($data['reason_ar'], $reasonTranslations) ?: 'Other';
+            }
 
-            // 🔥 Count how many reports this user made for this reported user
+            // 🛠️ احفظ نص المستخدم الذي كتب في Other Reason
+            if (strtolower($data['reason_en']) === 'other') {
+                $data['other_reason_en'] = $request->input('other_reason_en') ?? null;
+                $data['other_reason_ar'] = $request->input('other_reason_ar') ?? null;
+            }
+
             $existingReportsCount = UserReport::where('reporter_id', $data['reporter_id'])
                 ->where('reported_id', $data['reported_id'])
                 ->count();
 
-            // Save the count + 1 for the new report
             $data['report_count'] = $existingReportsCount + 1;
 
             UserReport::create($data);
 
             return response()->json(['message' => 'Report added successfully'], 201);
         } catch (\Throwable $e) {
+            \Log::error('Error in ReportController@store: ' . $e->getMessage(), ['exception' => $e]);
             return response()->json([
                 'message' => 'An error occurred while submitting the report. Please try again.',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
+
 
 
 

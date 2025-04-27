@@ -177,7 +177,7 @@
 
                     <div class="form-group">
                         <label for="reasonSelect">{{ __('userDashboard.dashboard.reason') }}</label>
-                        <select id="reasonSelect" name="reason_en" class="form-control" required>
+                        <select id="reasonSelect" name="reason_en" class="form-control" onchange="toggleOtherReason()" required>
                             <option value="Inappropriate Photos">{{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
                             <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
                             <option value="Disrespectful Behavior">{{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
@@ -190,11 +190,11 @@
                             <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
                         </select>
                     </div>
-
                     <div class="form-group d-none" id="otherReasonGroup">
-                        <label>{{ __('userDashboard.dashboard.other_reason') }}</label>
-                        <textarea name="other_reason_en" class="form-control" rows="2"></textarea>
+                        <label>{{ app()->getLocale() === 'ar' ? __('userDashboard.dashboard.other_reason_ar') : __('userDashboard.dashboard.other_reason_en') }}</label>
+                        <textarea name="other_reason_{{ app()->getLocale() }}" id="otherReasonInput" class="form-control" rows="2"></textarea>
                     </div>
+
 
 
                 </form>
@@ -241,28 +241,44 @@ function submitReport() {
 
     const reportedId = document.getElementById('reportModal_user_id').value;
     const reasonEn = document.getElementById('reasonSelect').value;
-    const otherReasonEnInput = form.querySelector('textarea[name="other_reason_en"]');
-    const otherReasonEn = otherReasonEnInput ? otherReasonEnInput.value : null;
+    const otherReasonInput = document.getElementById('otherReasonInput');
+    const lang = '{{ app()->getLocale() }}'; // Detect language
 
-    // Prepare form data
-    const formData = {
-        reported_id: reportedId,
-        reason_en: reasonEn,
-        other_reason_en: reasonEn === 'other' ? otherReasonEn : null
-    };
+    // Prepare FormData
+    const formData = new FormData();
+    formData.append('reported_id', reportedId);
+    formData.append('reason_' + lang, reasonEn); // Always keep "Other" if selected
 
-    // Ajax call
+    // If "Other" selected, also add custom reason in separate field
+    if (reasonEn.toLowerCase() === 'other') {
+        if (otherReasonInput && otherReasonInput.value.trim() !== '') {
+            formData.append('other_reason_' + lang, otherReasonInput.value.trim());
+        } else {
+            alert('Please enter your custom reason.');
+            return;
+        }
+    }
+
+    // ✅ Debug FormData
+    console.log('FormData content:');
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    // Send Ajax
     $.ajax({
-        url: '/user/report-user', // <-- Your API endpoint route
+        url: '/user/report-user',
         type: 'POST',
         data: formData,
+        processData: false,
+        contentType: false,
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), // CSRF for Laravel
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             'Accept': 'application/json',
-            'Accept-Language': '{{ app()->getLocale() }}',
+            'Accept-Language': lang,
         },
         success: function(response) {
-            $('#report-success').removeClass('d-none').text(` {{ __('userDashboard.dashboard.report_success') }}`);
+            $('#report-success').removeClass('d-none').text(`{{ __('userDashboard.dashboard.report_success') }}`);
             setTimeout(() => {
                 $('#reportModalMain').modal('hide');
             }, 1500);
@@ -273,7 +289,17 @@ function submitReport() {
         }
     });
 }
+function toggleOtherReason() {
+    const reasonSelect = document.getElementById('reasonSelect').value;
+    const otherGroup = document.getElementById('otherReasonGroup');
 
+    if (reasonSelect === 'Other') {
+        otherGroup.classList.remove('d-none');
+    } else {
+        otherGroup.classList.add('d-none');
+        document.getElementById('otherReasonInput').value = ''; // clear input
+    }
+}
         $(document).ready(function() {
             function categorizeDetails(profile) {
                 return {

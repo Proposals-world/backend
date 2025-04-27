@@ -14,6 +14,8 @@ class UserReport extends Model
         'reported_id',
         'reason_en',
         'reason_ar',
+        'other_reason_en',
+        'other_reason_ar',
         'status',
         'report_count',
     ];

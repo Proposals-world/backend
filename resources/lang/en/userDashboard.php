@@ -160,6 +160,17 @@ return [
         'misleading_information' => 'Misleading Information',
         'other' => 'Other',
         'report_success' => 'Report submitted successfully.',
-
+        'guardian_contact_feedback' => 'Feedback After Contacting Guardian',
+        'Contacted_Successfully' => 'Contacted Successfully',
+        'Guardian_Was_Cooperative' => 'Guardian Was Cooperative',
+        'Guardian_Was_Not_Cooperative' => 'Guardian Was Not Cooperative',
+        'Inappropriate_Behavior' => 'Inappropriate Behavior',
+        'No_Response_from_Guardian' => 'No Response from Guardian',
+        'Engagement_Happened' => 'Engagement Happened',
+        'Marriage_Happened' => 'Marriage Happened',
+        'Still_in_Communication' => 'Still in Communication',
+        'Other' => 'Other',
+        'other_reason_ar' => 'Other Reason (Arabic)',
+        'other_reason_en' => 'Other Reason (English)',
     ],
 ];
