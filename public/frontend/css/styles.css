@@ -827,7 +827,7 @@ label {
 
 .breadcrumb li a {
     font-size: 16px;
-    color: #190a32;
+    color: white;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -843,7 +843,7 @@ label {
     /* font-size: 70px; */
     margin-bottom: 25px;
     line-height: 1;
-    color: #190a32;
+    color: white;
 }
 
 .breadcrumb-title p {
@@ -854,7 +854,9 @@ label {
 }
 
 .breadcrumb > .active {
-    color: #ff3494;
+    color: black;
+    font-weight: bold;
+    /* color: #ff3494; */
     font-weight: 500;
 }
 
