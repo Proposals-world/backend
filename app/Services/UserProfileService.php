@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\GuardianOtp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -99,6 +100,12 @@ class UserProfileService
     {
         $profile = $user->profile ?? $user->profile()->create([]);
         // dd($data);
+        // Check if guardian_contact_encrypted has changed
+        if (isset($data['guardian_contact']) && $data['guardian_contact'] !== $profile->guardian_contact_encrypted) {
+            GuardianOtp::where('user_id', auth()->id())
+                ->where('verified', 1)
+                ->delete();
+        }
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en, //
