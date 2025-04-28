@@ -9,32 +9,48 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckUserStatus
 {
-    /**
-     * Handle an incoming request.
-     */
+    protected $requiredFields = [
+        'nationality_id',
+        'religion_id',
+        'country_of_residence_id',
+        'city_id',
+        'date_of_birth',
+        'age',
+        'zodiac_sign_id',
+        'educational_level_id',
+    ];
+
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
 
-        // If user is not logged in, just continue (or redirect to login optionally)
         if (!$user) {
             return redirect()->route('login');
         }
-        // dd('before');
-        // If user has no profile and current route is not the onboarding page, redirect to onboarding
-        if (!$user->profile && !$request->is('user/on-boarding')) {
-            return redirect()->route('onboarding');
+
+        if (!$user->profile || $this->isProfileIncomplete($user->profile)) {
+            if (!$request->is('user/on-boarding')) {
+                return redirect()->route('onboarding');
+            }
         }
-        // dd('after');
-        // If user's status is not active, logout and redirect to login
+
         if ($user->status !== 'active') {
             Auth::logout();
             return redirect()->route('login')->withErrors([
-                'email' => 'Your account is not active. Please wait for admin review of your profile or contact support for assistance.',
+                'email' => __('Your account is not active. Please wait for admin review or contact support.'),
             ]);
         }
 
-
         return $next($request);
+    }
+
+    protected function isProfileIncomplete($profile)
+    {
+        foreach ($this->requiredFields as $field) {
+            if (empty($profile->$field)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
