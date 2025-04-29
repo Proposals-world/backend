@@ -97,4 +97,27 @@ class OnboardingService
             'religiousLevels'   => $religiousLevels,
         ];
     }
+    public function getSpecificReligiousLevels($religionId, $gender)
+    {
+        $locale = app()->getLocale();
+        $nameField = $locale === 'ar' ? 'name_ar' : 'name_en';
+
+        $query = ReligiosityLevel::select('id', DB::raw("{$nameField} as name"))
+            ->where('gender', $gender);
+
+        // Apply ID filters only if gender = 2
+        if ($gender == 2) {
+            if ($religionId == 1) {
+                $query->whereBetween('id', [6, 10]);
+            } elseif ($religionId == 2) {
+                $query->whereBetween('id', [11, 14]);
+            }
+        }
+
+        $religiousLevels = $query->get();
+
+        return response()->json([
+            'religiousLevels' => $religiousLevels,
+        ]);
+    }
 }

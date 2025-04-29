@@ -105,12 +105,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
+        Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels']);
     });
 
     // Guardian verification should only happen AFTER profile is complete
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
-        
+
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');
     })->name('verify.guardian.otp');
@@ -133,7 +134,7 @@ Route::middleware([
     Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
     Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
     Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
-    
+
     // Support tickets
     Route::get('/support-tickets', [SupportTicketController::class, 'index'])->name('user.support');
     Route::post('support-tickets', [SupportTicketController::class, 'store'])->name('user.support.store');
@@ -141,7 +142,7 @@ Route::middleware([
     Route::get('support-tickets/create', [SupportTicketController::class, 'create'])->name('user.support.create');
     Route::post('/{ticket}/reply', [SupportTicketController::class, 'reply'])->name('user.support.reply');
     Route::post('/{ticket}/close', [SupportTicketController::class, 'close'])->name('user.support.close');
-    
+
     // Other protected routes
     Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
     Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');

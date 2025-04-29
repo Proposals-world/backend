@@ -78,4 +78,11 @@ class OnBoardingController extends Controller
 
         return response()->json($locations);
     }
+    public function getReligiousLevels(Request $request)
+    {
+        $religionId = $request->input('religion_id');
+        $gender = $request->input('gender');
+        // dd($gender);
+        return $this->onboardingService->getSpecificReligiousLevels($religionId, $gender);
+    }
 }

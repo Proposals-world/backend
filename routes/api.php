@@ -44,6 +44,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
 
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPreferenceController;
 
 
@@ -66,15 +67,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     // tickets routes
-    Route::get ( 'tickets',                [SupportTicketController::class,'index']);
-    Route::post( 'tickets',                [SupportTicketController::class,'store']);
-    Route::get ( 'tickets/{ticket}',       [SupportTicketController::class,'show']);
-    Route::post( 'tickets/{ticket}/reply', [SupportTicketController::class,'reply']);
+    Route::get('tickets',                [SupportTicketController::class, 'index']);
+    Route::post('tickets',                [SupportTicketController::class, 'store']);
+    Route::get('tickets/{ticket}',       [SupportTicketController::class, 'show']);
+    Route::post('tickets/{ticket}/reply', [SupportTicketController::class, 'reply']);
     Route::post('tickets/{ticket}/close', [SupportTicketController::class, 'close'])
-    ->name('api.tickets.close');
+        ->name('api.tickets.close');
 
     Route::post('/profile', [UserProfileController::class, 'update']);
 
+    Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels']);
 
     //jop-title
     //mariage-buget

@@ -64,6 +64,7 @@
 
 
 </style>
+{{-- {{ dd($userPreferences) }} --}}
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -531,6 +532,20 @@
                 <i class="simple-icon-diamond"></i> {{ __('profile.Religion_&_Marriage') }}
             </h5>
 
+            {{-- Religion --}}
+            <div class="form-group">
+                <label class="form-label" for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
+                <select class="form-control" name="preferred_religion_id">
+                    <option value="">{{ __('profile.No_Preference') }}</option>
+                    @foreach($data['religions'] as $option)
+                        <option value="{{ $option->id }}"
+                            {{ $userPreferences['preferred_religion'] == $option->name ? 'selected' : '' }}>
+                            {{ $option->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+            </div>
             {{-- Religiosity Level --}}
             <div class="form-group">
                 <label class="form-label" for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>

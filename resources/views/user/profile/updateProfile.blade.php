@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 
 @section('content')
-{{-- {{ dd( $user->profile->eye_color_id) }} --}}
+{{-- {{ dd( $data) }} --}}
 
 
 <!-- Icons css -->
@@ -176,28 +176,6 @@ style="
                                     </div>
                                 </div>
 
-                                @push('scripts')
-                                    <script>
-                                        $('#country_id').change(function() {
-                                            const countryId = $(this).val();
-                                            $('#city_id').empty().append('<option value="">{{ __('onboarding.select_city') }}</option>');
-
-                                            if (countryId) {
-                                                $.ajax({
-                                                    url: '{{ route('cities.by.country', ':countryId') }}'.replace(':countryId', countryId),
-                                                    type: 'GET',
-                                                    success: function(cities) {
-                                                        cities.forEach(function(city) {
-                                                            $('#city_id').append('<option value="' + city.id + '">' + city
-                                                                .name + '</option>');
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    </script>
-                                @endpush
-
                                 <!-- Step 1: Physical Attributes -->
                                 <div class="onboarding-step" id="step-1" style="display:none;">
                                     <h2 class="card-title text-center mb-4 section-title">
@@ -350,13 +328,11 @@ style="
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.employment_status') }}</label>
-                                                <select name="employment_status" class="form-control rounded-pill"
-                                                    required>
-                                                    <option value="1">{{ __('onboarding.employed') }}
-                                                    </option>
-                                                    <option value="0"{{ $user->profile->smoking_status == 0 ? 'selected' : '' }}>{{ __('onboarding.unemployed') }}
-                                                    </option>
-                                                </select>
+                                                    <select name="employment_status" class="form-control rounded-pill" required>
+                                                        <option value="1" {{ $user->profile->employment_status == 1 ? 'selected' : '' }}>Employed</option>
+                                                        <option value="0" {{ $user->profile->employment_status == 0 ? 'selected' : '' }}>Unemployed</option>
+                                                    </select>
+
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
@@ -366,13 +342,14 @@ style="
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.job_title') }}</label>
                                                 <select name="job_title_id" class="form-control rounded-pill">
-                                                    <option value="">{{ __('onboarding.select_job_title') }}
-                                                    </option>
+                                                    <option value="">{{ __('onboarding.select_job_title') }}</option>
                                                     @foreach ($data['jobTitles'] as $jobTitle)
-                                                        <option value="{{ $jobTitle->id }}"{{ $user->profile->job_title_id == $jobTitle->id ? 'selected' : '' }}>{{ $jobTitle->name }}
+                                                        <option value="{{ $jobTitle->id }}" {{ $user->profile->job_title_id == $jobTitle->id ? 'selected' : '' }}>
+                                                            {{ $jobTitle->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
+
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
@@ -609,16 +586,15 @@ style="
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.marriage_budget') }}</label>
-                                                <select name="marriage_budget_id"
-                                                    class="form-control rounded-pill" required>
-                                                    <option value="">
-                                                        {{ __('onboarding.select_marriage_budget') }}</option>
-                                                    @foreach ($data['marriageBudget'] as $budget)
-                                                        <option value="{{ $budget->id }}">
-                                                            {{ $budget->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="error-message text-danger"
+                                                    <select name="marriage_budget_id" class="form-control rounded-pill" required>
+                                                        <option value="">{{ __('onboarding.select_marriage_budget') }}</option>
+                                                        @foreach ($data['marriageBudget'] as $budget)
+                                                            <option value="{{ $budget->id }}" {{ $user->profile->marriage_budget_id == $budget->id ? 'selected' : '' }}>
+                                                                {{ $budget->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                                                                    <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
@@ -837,7 +813,47 @@ style="
 <script>
     // Assume user gender is available from a hidden field or global variable.
     var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
+    $('#religion_id').on('change', function () {
+    var religionId = $(this).val();
+    var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
 
+    $('#religiosity_levels')
+        .empty()
+        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+
+    if (religionId) {
+        $.ajax({
+            url: "{{ url('user/religious-levels-gender') }}",
+            type: 'GET',
+            data: {
+                religion_id: religionId,
+                gender: gender === 'male' ? 1 : 2
+            },
+            success: function (response) {
+                if (response.religiousLevels && response.religiousLevels.length > 0) {
+                    $.each(response.religiousLevels, function (index, level) {
+                        $('#religiosity_levels').append(
+                            '<option value="' + level.id + '">' + level.name + '</option>'
+                        );
+                    });
+                }
+            },
+            error: function (xhr) {
+                console.error('Error fetching religiosity levels:', xhr.responseText);
+            }
+        });
+    }
+});
+$('select[name="marital_status_id"]').on('change', function () {
+    var selectedMaritalStatus = $(this).val();
+
+    // Assuming "Single" marital status has ID = 1
+    if (selectedMaritalStatus == 1) { // adjust 1 if your "Single" ID is different
+        $('input[name="number_of_children"]').val(0).prop('readonly', true);
+    } else {
+        $('input[name="number_of_children"]').val('').prop('readonly', false);
+    }
+});
     // Save progress to localStorage and load on page load.
     const formSelector = '#onboarding-form';
     const formStorageKey = 'onboardingFormData';
@@ -923,7 +939,7 @@ style="
     if (profileResponse && (profileResponse.data || profileResponse.success || profileResponse.message)) {
         $('#profile-success-alert').removeClass('d-none').fadeIn();
         setTimeout(function() {
-            window.location.href = '{{ route("user.profile") }}';
+            // window.location.href = '{{ route("user.profile") }}';
         }, 2000);
     }
 }
@@ -1300,6 +1316,7 @@ $('#customFile').change(function(event) {
             if (!validateStep(currentStep)) {
                 return false;
             }
+
             // clear saved form data from localStorage upon successful submission.
             localStorage.removeItem(formStorageKey);
             this.submit();
@@ -1353,28 +1370,52 @@ $(document).ready(function() {
  /* --------------------------------------------------
              * Fetch city locations when a city is chosen
              * -------------------------------------------------- */
-             $('#city_id').on('change', function () {
-                var cityId = $(this).val();
+             $(document).ready(function() {
+    var savedCityId = "{{ $user->profile->city_id ?? '' }}";
+    var savedCityLocationId = "{{ $user->profile->city_location_id ?? '' }}";
 
-                // reset the select first
-                $('#city_location_id')
-                    .empty()
-                    .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+    function loadCityLocations(cityId, selectedLocationId = null) {
+        $('#city_location_id')
+            .empty()
+            .append('<option value="">{{ __("onboarding.city_location") }}</option>');
 
-                if (cityId) {
-                    $.ajax({
-                        url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
-                        type: 'GET',
-                        success: function (data) {
-                            $.each(data, function (index, location) {
-                                $('#city_location_id').append(
-                                    '<option value="' + location.id + '">' + location.name + '</option>'
-                                );
-                            });
-                        },
+        if (cityId) {
+            $.ajax({
+                url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+                type: 'GET',
+                success: function(data) {
+                    $.each(data, function(index, location) {
+                        $('#city_location_id').append(
+                            '<option value="' + location.id + '">' + location.name + '</option>'
+                        );
                     });
+
+                    if (selectedLocationId) {
+                        $('#city_location_id').val(selectedLocationId);
+                    }
                 }
             });
+        }
+    }
+
+    // On page load: if saved city exists, load locations
+    if (savedCityId) {
+        loadCityLocations(savedCityId, savedCityLocationId);
+    }
+ // After loading saved form data
+ var currentStep = $('.onboarding-step:visible');
+    markStepFieldsAsTouched(currentStep);
+    validateStep(currentStep);
+    updateNextButton(currentStep);
+    // On city change: reload city locations
+    $('#city_id').on('change', function() {
+        var cityId = $(this).val();
+        // When user changes city, reset saved location
+        loadCityLocations(cityId, null);
+
+    });
+});
+
 
 
 </script>
