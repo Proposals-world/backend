@@ -80,17 +80,7 @@
                     </button>
 
                 </div>
-                <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                    <ol class="breadcrumb pt-0">
-                        <li class="breadcrumb-item">
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">Library</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
+
             </div>
             <div id="field-limit-counter"
             class="alert alert-info py-2 px-3 mb-3 shadow-sm"
@@ -534,7 +524,7 @@
 
             {{-- Religion --}}
             <div class="form-group">
-                <label class="form-label" for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
+                <label class="form-label" for="preferred_religiosity_level">{{ __('profile.Religion') }}</label>
                 <select class="form-control" name="preferred_religion_id">
                     <option value="">{{ __('profile.No_Preference') }}</option>
                     @foreach($data['religions'] as $option)

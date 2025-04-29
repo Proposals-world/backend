@@ -110,21 +110,21 @@
                     <div class="card-body text-center">
                         <i class="iconsminds-check" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.half_matches') }}</p>
-                        <p class="lead text-center">42</p>
+                        <p class="lead text-center">{{ $countOfHalfMatches }}</p>
                     </div>
                 </a>
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-clock" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.matches') }}</p>
-                        <p class="lead text-center">16</p>
+                        <p class="lead text-center">{{ $countOfMatches }}</p>
                     </div>
                 </a>
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.remaining_contacts') }}</p>
-                        <p class="lead text-center">5</p>
+                        <p class="lead text-center">{{ $remainingContacts }}</p>
                     </div>
                 </a>
             </div>
@@ -194,21 +194,20 @@
 
                                                         <div class="form-group">
                                                             <label>{{ __('userDashboard.dashboard.feedback_label') }}</label>
-                                                                <select id="guardianFeedbackSelect"
-                                                                    name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}"
-                                                                    class="form-control"
-                                                                    required>
+                                                            <select id="guardianFeedbackSelect"
+                                                            name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}"
+                                                            class="form-control"
+                                                            required>
+                                                            <option value="Contacted Successfully">{{ __('userDashboard.dashboard.Contacted_Successfully') }}</option>
+                                                            <option value="Guardian Was Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Cooperative') }}</option>
+                                                            <option value="Guardian Was Not Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Not_Cooperative') }}</option>
+                                                            <option value="Inappropriate Behavior">{{ __('userDashboard.dashboard.Inappropriate_Behavior') }}</option>
+                                                            <option value="No Response from Guardian">{{ __('userDashboard.dashboard.No_Response_from_Guardian') }}</option>
+                                                            <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
+                                                            <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
+                                                            <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
+                                                        </select>
 
-                                                                    <option value="Contacted Successfully">{{ __('userDashboard.dashboard.Contacted_Successfully') }}</option>
-                                                                    <option value="Guardian Was Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Cooperative') }}</option>
-                                                                    <option value="Guardian Was Not Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Not_Cooperative') }}</option>
-                                                                    <option value="Inappropriate Behavior">{{ __('userDashboard.dashboard.Inappropriate_Behavior') }}</option>
-                                                                    <option value="No Response from Guardian">{{ __('userDashboard.dashboard.No_Response_from_Guardian') }}</option>
-                                                                    <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
-                                                                    <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
-                                                                    <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
-
-                                                                </select>
 
                                                                                                                     </div>
 
@@ -293,6 +292,7 @@
                     // Close modal after 1 second
                     setTimeout(() => {
                         $(form.closest('.modal')).modal('hide');
+                        location.reload();
                     }, 1000);
 
                 } else if (res.status === 422) {

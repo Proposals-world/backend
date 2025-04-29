@@ -99,4 +99,5 @@ return [
     'Lifestyle' => 'Lifestyle',
     'Children_Count' => 'Children Count',
     'city_location' => 'City Location',
+    'Religion' => 'Religion',
 ];

@@ -11,16 +11,16 @@
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-4">
                     <div>
                         <h1 class="mb-1">{{ __('userDashboard.matches.users_who_matched_with_you') }}</h1>
-                        <p class="text-dark mb-0">View mutual matches based on your preferences</p>
+                        <p class="text-dark mb-0">{{ __('userDashboard.matches.View_mutual_matches_based_on_your_preferences') }}</p>
                     </div>
                     <div class="match-stats d-flex mt-3 mt-md-0">
                         <div class="match-stat-item text-center mr-4">
                             <span class="match-stat-number">{{ $matchesWithoutContact->count() }}</span>
-                            <span class="match-stat-label">Pending Matches</span>
+                            <span class="match-stat-label">{{ __('userDashboard.matches.Pending_Matches') }}</span>
                         </div>
                         <div class="match-stat-item text-center">
                             <span class="match-stat-number">{{ $matchesWithContact->count() }}</span>
-                            <span class="match-stat-label">Contact Exchanged</span>
+                            <span class="match-stat-label">{{ __('userDashboard.matches.Contact_Exchanged') }}</span>
                         </div>
                     </div>
                 </div>

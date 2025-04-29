@@ -10,12 +10,12 @@
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-4">
                         <div>
                             <h1 class="mb-1">{{ __('userDashboard.likeMe.users_who_liked_you') }}</h1>
-                            <p class="text-dark mb-0">Discover who liked your profile</p>
+                            <p class="text-dark mb-0">{{ __('userDashboard.likeMe.Discover_who_liked_your_profile') }}</p>
                         </div>
                         <div class="match-stats d-flex mt-3 mt-md-0">
                             <div class="match-stat-item text-center mr-4">
                                 <span class="match-stat-number">{{ count($profiles) }}</span>
-                                <span class="match-stat-label">Total Likes</span>
+                                <span class="match-stat-label">{{ __('userDashboard.likeMe.Total_Likes') }}</span>
                             </div>
                         </div>
                     </div>
@@ -35,6 +35,8 @@
         @endif
 
         <div class="row list disable-text-selection" id="suggestedMatchResults">
+            @if($profiles->count() > 0)
+
             @foreach ($profiles as $profile)
                 <div class="col-12 col-sm-6 col-md-4 mb-4">
                     <div class="card profile-card shadow-sm h-100" data-profile='@json($profile)'>
@@ -68,6 +70,13 @@
                     </div>
                 </div>
             @endforeach
+            @else
+            <div class="col-12">
+                <div class="  text-center">
+                    {{ __('userDashboard.likeMe.no_likes_yet') }}
+                </div>
+            </div>
+        @endif
         </div>
     </div>
 

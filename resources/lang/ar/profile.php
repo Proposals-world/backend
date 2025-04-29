@@ -107,4 +107,5 @@ return [
     'Lifestyle' => 'نمط الحياة',
     'Children_Count' => 'عدد الأطفال',
     'city_location' => 'موقع المدينة',
+    'Religion' => 'الدين',
 ];
