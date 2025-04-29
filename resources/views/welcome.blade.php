@@ -23,7 +23,14 @@
         max-width: 100%;
     }
 }
+.contact-direction {
+    display: flex;
+    flex-wrap: wrap;
+}
 
+html[dir="rtl"] .contact-direction {
+    flex-direction: row-reverse;
+}
 
 </style>
     <div style="
@@ -466,7 +473,7 @@
 <section id="contact" class="contact-area pt-50 pb-100"
 style="background-color: #fff; position: relative;">
 <div class="container">
-    <div class="row align-items-center" style="max-width: 1140px; margin: auto;">
+    <div class="row align-items-center contact-direction" style="max-width: 1140px; margin: auto;">
         <!-- Left Image -->
         <div class="col-lg-6 d-flex justify-content-center">
             <div class="contact-img2" style="max-width: 723px; max-height: 555px;">
