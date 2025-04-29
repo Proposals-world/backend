@@ -58,6 +58,7 @@
     addModal('add_btn', '{{ route('manageUsers.create') }}', 'Add User ', 'userForm', 'users-table');
     editModal('edit_btn', 'admin/manageUsers', 'Edit User', 'userForm', 'users-table');
     remove('remove_btn', 'admin/manageUsers', 'users-table', '{{ csrf_token() }}');
+
 </script>
 @endpush
 

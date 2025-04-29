@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\GuardianOtp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -50,6 +51,7 @@ class UserProfileService
                 'hobbies', // Many-to-many relationship
                 'pets', // Many-to-many relationship
                 'profile.smokingTools', // Many-to-many relationship
+                'cityLocation'
             ]);
         });
     }
@@ -98,6 +100,12 @@ class UserProfileService
     {
         $profile = $user->profile ?? $user->profile()->create([]);
         // dd($data);
+        // Check if guardian_contact_encrypted has changed
+        if (isset($data['guardian_contact']) && $data['guardian_contact'] !== $profile->guardian_contact_encrypted) {
+            GuardianOtp::where('user_id', auth()->id())
+                ->where('verified', 1)
+                ->delete();
+        }
         // Ensure only valid fields are updated
         $profile->fill([
             'bio_en' => $data['bio_en'] ?? $profile->bio_en, //
@@ -113,6 +121,7 @@ class UserProfileService
             'hair_color_id' => $data['hair_color_id'] ?? null, //
             'country_of_residence_id' => $data['country_of_residence_id'], //
             'city_id' => $data['city_id'], //
+            'city_location_id' => $data['city_location_id'] ?? null, //
             'educational_level_id' => $data['educational_level_id'], //
             'specialization_id' => $data['specialization_id'] ?? null, //
             'employment_status' => $data['employment_status'] ?? null, //

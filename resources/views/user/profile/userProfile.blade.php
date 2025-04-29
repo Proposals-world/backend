@@ -138,8 +138,11 @@
                                             <a class="d-block position-relative" href="#">
                                                 <!-- Check if the matched user's photo is available -->
                                                 <img src="{{ asset($match['matched_user_photo'] ?? 'default-profile.png') }}"
-                                                     alt="{{ $match['matched_user_name'] }}"
-                                                     class="list-thumbnail border-0" />
+                                                alt="{{ $match['matched_user_name'] }}"
+                                                class="list-thumbnail border-0"
+                                                style="width: 100px; height: 100px; object-fit: cover;" />
+
+
                                             </a>
                                             <div class="pl-3 pt-2 pr-2 pb-2">
                                                 <a href="#">
@@ -231,6 +234,12 @@
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             <strong>{{ __('profile.City') }}:</strong> {{ $userProfile['profile']['city'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- city_location -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.city_location') }}:</strong> {{ $userProfile['profile']['city_location'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -378,7 +387,7 @@
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             <strong>{{ __('profile.Religiosity_Level') }}:</strong> {{ $userProfile['profile']['religiosity_level'] ?? 'N/A' }}
                                                         </div>
-                                                    </div>
+                                                    </div
 
                                                     <!-- Marriage Budget -->
                                                     <div class="d-flex flex-row mb-3">

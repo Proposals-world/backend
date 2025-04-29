@@ -91,11 +91,12 @@ style="
                                     <div class="form-group">
                                         <label class="form-label">{{ __('onboarding.photo_upload') }}</label>
                                         <div class="custom-file">
-                                            <input type="file" name="profile_photo" class="custom-file-input" id="customFile" accept="image/*"
+                                            <input type="file"  name="profile_photo" class="custom-file-input" id="customFile" accept="image/*"
                                                 @if (!optional($user->photos->firstWhere('is_main', 1))->photo_url) required @endif>
                                             <label class="custom-file-label" for="customFile">{{ __('onboarding.choose_photo') }}</label>
                                         </div>
                                         <img id="preview"
+                                        name="profile_photo"
                                             src="{{ optional($user->photos->firstWhere('is_main', 1))->photo_url }}"
                                             alt="{{ __('Thumbnail') }}"
                                             style="display: block; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 150px;" />
@@ -654,7 +655,7 @@ style="
                                         {{ __('onboarding.final_details') }}</h2>
                                     <div class="row">
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.country_of_residence') }}</label>
@@ -672,7 +673,7 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.city') }}</label>
                                                 <select name="city_id" id="city_id"
@@ -684,7 +685,18 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">{{ __('onboarding.city_location') }}</label>
+                                                <select name="city_location_id" id="city_location_id"
+                                                    class="form-control rounded-pill" required>
+                                                    <option value="">{{ __('onboarding.city_location') }}
+                                                    </option>
+                                                </select>
+                                                <span class="error-message text-danger"
+                                                    style="font-size:12px;"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -851,85 +863,87 @@ style="
         }
     }
     $('#profile-form').submit(function(e) {
-    e.preventDefault(); // Prevent the form from submitting normally
+    e.preventDefault(); // Prevent normal form submission
 
-    // Get the form data for profile info
-    var formData = new FormData(this); // Use FormData for file uploads
+    var formData = new FormData(this); // Get all form data
 
-    // URLs for both profile update and photo update
     var profileUrl = '{{ route("profile.update") }}';
     var photoUrl = '{{ route("user.profile.photo.update") }}';
 
-    // Make AJAX requests for both profile update and photo upload
+    // Always send profile update request
     let profileRequest = $.ajax({
-        url: profileUrl, // URL for updating profile
+        url: profileUrl,
         type: 'POST',
         data: formData,
-        processData: false,  // Necessary for FormData
-        contentType: false,  // Necessary for FormData
+        processData: false,
+        contentType: false,
     });
 
-    // Separate request for photo upload
-    let photoRequest = $.ajax({
-        url: photoUrl, // URL for updating profile photo
-        type: 'POST',
-        data: formData,
-        processData: false,  // Necessary for FormData
-        contentType: false,  // Necessary for FormData
-    });
+    // Check if a photo file was selected
+    var fileInput = $('#customFile')[0];
+    var photoRequest = null;
 
-    // Run both requests concurrently with Promise.all
-    Promise.all([profileRequest, photoRequest])
-        .then((responses) => {
-            // Both requests have completed successfully
-            console.log('Profile and photo updated successfully!');
-
-            // Log only the photo update response
-            console.log('Photo response:', responses[1]);
-
-            // Check if the photo update was successful
-            if (responses[1].success) {
-                // Update the photo preview if photo is uploaded
-                $('#preview').attr('src', responses[1].photoUrl);
-            }
-
-            // Handle success for the profile update
-            if (responses[0].success) {
-                alert('Profile updated successfully!');
-            }
-
-            // Display the success message using the custom alert
-            $('#profile-success-alert').removeClass('d-none').fadeIn();
-
-            // Redirect to the user profile page after a short delay
-            setTimeout(function() {
-                window.location.href = '{{ route("user.profile") }}';
-            }, 2000);  // Wait 2 seconds before redirecting
-        })
-        .catch((error) => {
-            // Handle any errors that occurred during the AJAX requests
-            console.error('An error occurred:', error);
-
-            // Show errors from the response if status is 422 (validation errors)
-            if (error.status === 422) {
-                var errors = error.responseJSON.errors;
-
-                // Clear previous errors
-                $('.error-message').text('');
-
-                // Loop through each field's errors and display them
-                for (var field in errors) {
-                    if (errors.hasOwnProperty(field)) {
-                        var errorMessage = errors[field].join(', '); // Concatenate multiple errors
-                        $('#' + field).closest('.form-group').find('.error-message').text(errorMessage);
-                    }
-                }
-            } else {
-                alert('There was an error submitting the form.');
-            }
+    if (fileInput.files.length > 0) {
+        // Only if there is a file, send photo update request
+        photoRequest = $.ajax({
+            url: photoUrl,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
         });
-});
+    }
 
+    // Handle both requests
+    if (photoRequest) {
+        // If there is a photo, wait for both
+        Promise.all([profileRequest, photoRequest])
+            .then((responses) => {
+                // Profile and Photo updated
+                handleSuccess(responses[0], responses[1]);
+            })
+            .catch(handleError);
+    } else {
+        // No photo, only profile request
+        profileRequest
+            .then((response) => {
+                handleSuccess(response, null);
+            })
+            .catch(handleError);
+    }
+
+    function handleSuccess(profileResponse, photoResponse) {
+    // console.log('Profile updated successfully!', profileResponse);
+    if (photoResponse) {
+        // console.log('Photo updated successfully!', photoResponse);
+        if (photoResponse.success || photoResponse.data || photoResponse.message) {
+            $('#preview').attr('src', photoResponse.photoUrl);
+        }
+    }
+    if (profileResponse && (profileResponse.data || profileResponse.success || profileResponse.message)) {
+        $('#profile-success-alert').removeClass('d-none').fadeIn();
+        setTimeout(function() {
+            window.location.href = '{{ route("user.profile") }}';
+        }, 2000);
+    }
+}
+
+    function handleError(error) {
+        console.error('An error occurred:', error);
+        if (error.status === 422) {
+            var errors = error.responseJSON.errors;
+            $('.error-message').text('');
+            for (var field in errors) {
+                if (errors.hasOwnProperty(field)) {
+                    var errorMessage = errors[field].join(', ');
+                    $('[name="' + field + '"]').closest('.form-group').find('.error-message').text(errorMessage);
+                }
+            }
+        } else {
+            alert('There was an error submitting the form.');
+        }
+    }
+});
 // Handle the file input change to show a preview image
 $('#customFile').change(function(event) {
     var reader = new FileReader();
@@ -1336,7 +1350,31 @@ $(document).ready(function() {
         $('#country_id').val(userCountryId).trigger('change'); // Set the selected country and trigger the change event
     }
 });
+ /* --------------------------------------------------
+             * Fetch city locations when a city is chosen
+             * -------------------------------------------------- */
+             $('#city_id').on('change', function () {
+                var cityId = $(this).val();
 
+                // reset the select first
+                $('#city_location_id')
+                    .empty()
+                    .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+
+                if (cityId) {
+                    $.ajax({
+                        url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+                        type: 'GET',
+                        success: function (data) {
+                            $.each(data, function (index, location) {
+                                $('#city_location_id').append(
+                                    '<option value="' + location.id + '">' + location.name + '</option>'
+                                );
+                            });
+                        },
+                    });
+                }
+            });
 
 
 </script>

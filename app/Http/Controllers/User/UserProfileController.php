@@ -46,7 +46,7 @@ class UserProfileController extends Controller
 
         // Transform the user profile using UserProfileResource
         $formattedUserProfile = new UserProfileResource($userProfile, app()->getLocale());
-
+        // dd($formattedUserProfile->resolve());
         // Pass the transformed data, likes, and matches to the view
         return view('user.profile.userProfile', [
             'userProfile' => $formattedUserProfile->resolve(),

@@ -16,12 +16,10 @@ class StoreUserFeedbackRequest extends FormRequest
             'feedback_text_en' => [
                 app()->getLocale() === 'ar' ? 'nullable' : 'required',
                 'string',
-                'regex:/^[a-zA-Z0-9\s]+$/', // Only English letters, numbers, and spaces
             ],
             'feedback_text_ar' => [
                 app()->getLocale() === 'ar' ? 'required' : 'nullable',
                 'string',
-                'regex:/^[\p{Arabic}\s]+$/u', // Only Arabic letters and spaces
             ],
             'outcome' => 'required|string|max:255',
         ];

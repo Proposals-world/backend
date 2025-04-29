@@ -40,7 +40,7 @@ class OnBoardingController extends Controller
         return response()->json($cities);
     }
 
-/**
+    /**
      * Update the user's profile data and profile image (if provided) in one request.
      *
      * @param  \App\Http\Requests\UpdateUserProfileRequest  $request

@@ -99,6 +99,7 @@
                                 {{ __('userDashboard.dashboard.Find_your_perfect_match_based_on_compatibility_and_preferences') }}
                             </p>
                         </div>
+
                         <div class="match-stats d-flex mt-3 mt-md-0">
                             <div class="match-stat-item text-center mr-4">
                                 <span class="match-stat-number" id="exactMatchCount">0</span>
@@ -113,6 +114,7 @@
                 </div>
             </div>
         </div>
+        @if($filledPreferenceCount >= 2)
 
         <!-- Clear Section Division for Exact Matches -->
         <div class="row mb-4 px-4">
@@ -153,6 +155,66 @@
                         <!-- Suggested match cards will be populated here via JavaScript -->
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-top"
+        id="reportModalMain" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title">
+                        <i class="fas fa-flag"></i> {{ __('userDashboard.dashboard.report_user') }}
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="{{ __('userDashboard.likeMe.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form id="reportForm">
+                        @csrf
+                        <div id="report-success" class="alert alert-success mt-3 d-none">
+                            {{ __('userDashboard.dashboard.report_success') }}
+                        </div>
+                        <input type="hidden" id="reportModal_user_id" name="reported_id" value="">
+
+                        <div class="form-group">
+                            <label for="reasonSelect">{{ __('userDashboard.dashboard.reason') }}</label>
+                            <select id="reasonSelect" name="reason_en" class="form-control"onchange="toggleOtherReason()" required>
+                                <option value="Inappropriate Photos">{{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
+                                <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
+                                <option value="Disrespectful Behavior">{{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
+                                <option value="Asking for Haram (Forbidden)">{{ __('userDashboard.dashboard.asking_for_haram') }}</option>
+                                <option value="Fake Profile">{{ __('userDashboard.dashboard.fake_profile') }}</option>
+                                <option value="Spam or Advertising">{{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
+                                <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}</option>
+                                <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}</option>
+                                <option value="Misleading Information">{{ __('userDashboard.dashboard.misleading_information') }}</option>
+                                <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
+                            </select>
+                        <div class="form-group d-none" id="otherReasonGroup">
+                            <label>{{ app()->getLocale() === 'ar' ? __('userDashboard.dashboard.other_reason_ar') : __('userDashboard.dashboard.other_reason_en') }}</label>
+                            <textarea name="other_reason_{{ app()->getLocale() }}" id="otherReasonInput" class="form-control" rows="2"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-primary feedback-btn" onclick="submitReport()">
+                        {{ __('userDashboard.dashboard.submit') }}
+                    </button>
+
+                    <button type="button" class="btn btn-outline-danger feedback-btn" data-dismiss="modal">
+                        {{ __('userDashboard.dashboard.cancel') }}
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -834,11 +896,18 @@
                         return `
                         <div class="col-12 col-sm-6 col-md-4 mb-4">
                             <div class="card profile-card shadow-sm h-100" data-profile='${JSON.stringify(userProfile)}'>
+                                  <div class="card-body d-flex flex-column">
+                                    <button type="button"
+                                        class="btn btn-outline-danger position-absolute d-flex align-items-center justify-content-center"
+                                        style="top: 10px; {{ app()->getLocale() == 'ar' ? 'left' : 'right' }}: 10px; width: 40px; height: 40px; border-radius: 50%; padding: 0; z-index: 10;"
+                                        onclick="event.stopPropagation(); openReportModal(${userProfile.id})">
+                                        <i class="fas fa-flag"></i>
+                                    </button>
                                 <div class="position-relative">
                                     <span class="badge badge-success position-absolute m-2">{{ __('userDashboard.dashboard.Exact_Match') }}</span>
                                     <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
                                 </div>
-                                <div class="card-body d-flex flex-column">
+
                                     <h5 class="card-title mb-1">${userProfile.first_name} ${userProfile.last_name}</h5>
                                     <p class="text-muted small mb-2">
                                         ${country}${country && city ? ', ' : ''}${city}
@@ -856,11 +925,19 @@
                         return `
                         <div class="card-container">
                             <div class="card profile-card shadow-sm h-100" data-profile='${JSON.stringify(userProfile)}'>
+                                    <button type="button"
+                                        class="btn btn-outline-danger position-absolute d-flex align-items-center justify-content-center"
+                                        style="top: 10px; {{ app()->getLocale() == 'ar' ? 'left' : 'right' }}: 10px; width: 40px; height: 40px; border-radius: 50%; padding: 0; z-index: 10;"
+                                        onclick="event.stopPropagation(); openReportModal(${userProfile.id})">
+                                        <i class="fas fa-flag"></i>
+                                    </button>
+
                                 <div class="position-relative">
                                     <span class="badge badge-warning position-absolute m-2">{{ __('userDashboard.dashboard.Suggested') }}</span>
                                     <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
                                 </div>
                                 <div class="card-body d-flex flex-column">
+
                                     <h5 class="card-title mb-1">${userProfile.first_name} ${userProfile.last_name}</h5>
                                     <p class="text-muted small mb-2">
                                         ${country}${country && city ? ', ' : ''}${city}

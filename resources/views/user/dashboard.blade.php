@@ -104,7 +104,7 @@
                 </h2>
                 <div class="separator mb-5"></div>
             </div>
-    
+
             <div class="col-lg-12 col-xl-6">
                 <a href="#" class="card mb-3">
                     <div class="card-body text-center">
@@ -128,7 +128,7 @@
                     </div>
                 </a>
             </div>
-    
+
             <div class="col-xl-6 col-lg-12 mb-4">
                 <div class="card">
                     <div class="card-body">
@@ -168,7 +168,7 @@
                                             </button>
                                         </div>
                                     </div>
-    
+
                                     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}"
                                         id="feedbackModal_{{ $match['id'] }}"
                                         tabindex="-1" role="dialog"
@@ -191,17 +191,32 @@
                                                         @csrf
                                                         <input type="hidden" name="match_id" value="{{ $match['id'] }}">
                                                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-    
+
                                                         <div class="form-group">
                                                             <label>{{ __('userDashboard.dashboard.feedback_label') }}</label>
-                                                            <textarea name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}" class="form-control" rows="2"></textarea>
-                                                        </div>
-    
+                                                                <select id="guardianFeedbackSelect"
+                                                                    name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}"
+                                                                    class="form-control"
+                                                                    required>
+
+                                                                    <option value="Contacted Successfully">{{ __('userDashboard.dashboard.Contacted_Successfully') }}</option>
+                                                                    <option value="Guardian Was Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Cooperative') }}</option>
+                                                                    <option value="Guardian Was Not Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Not_Cooperative') }}</option>
+                                                                    <option value="Inappropriate Behavior">{{ __('userDashboard.dashboard.Inappropriate_Behavior') }}</option>
+                                                                    <option value="No Response from Guardian">{{ __('userDashboard.dashboard.No_Response_from_Guardian') }}</option>
+                                                                    <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
+                                                                    <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
+                                                                    <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
+
+                                                                </select>
+
+                                                                                                                    </div>
+
                                                         <div class="form-group">
                                                             <label>{{ __('userDashboard.dashboard.outcome') }}</label>
                                                             <input type="text" class="form-control" name="outcome">
                                                         </div>
-    
+
                                                         <div class="form-group">
                                                             <label class="mb-2 d-block">{{ __('userDashboard.dashboard.is_profile_accurate') }}</label>
                                                             <div class="custom-switch custom-switch-primary-inverse custom-switch-large switch-wrapper">
@@ -212,11 +227,11 @@
                                                                     for="isProfileAccurate_{{ $match['id'] }}"></label>
                                                             </div>
                                                         </div>
-    
+
                                                         <div class="feedback-success alert alert-success mt-3 d-none">
                                                             {{ __('userDashboard.dashboard.feedback_success') }}
                                                         </div>
-    
+
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="submit" class="btn btn-primary">
                                                                 {{ __('userDashboard.dashboard.submit') }}
