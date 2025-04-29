@@ -44,7 +44,7 @@ class FindMatchController extends Controller
                 $filledPreferenceCount += 1; // ✅ Count age as one filled field
             }
         }
-        // dd($filledPreferenceCount);
-        return view('user.find-match', compact('data', 'filledPreferenceCount'));
+        // dd($prefs);
+        return view('user.find-match', compact('data', 'filledPreferenceCount','prefs'));
     }
 }

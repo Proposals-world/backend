@@ -103,62 +103,63 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::resource('blogs', BlogController::class);
 });
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
-
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
     });
+
+    // Guardian verification should only happen AFTER profile is complete
+    Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
+        ->name('user.profile.update');
+        
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');
     })->name('verify.guardian.otp');
+
     Route::prefix('/guardian-contact')->group(function () {
         Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
     });
-    Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
-        ->name('user.profile.update');
 });
 
-Route::middleware(['auth', 'verified',  'guardian.verified', 'check.status'])->prefix('user')->group(function () {
-    // On-boarding page: only accessible if profile is not complete.
-    // Dashboard: only accessible if profile is complete.
-    Route::middleware('profile.complete')->group(function () {
-        Route::get('/filter', [FilterController::class, 'filterUsers'])
-            ->name('users.filter');
-        Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
-        Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
-        Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
-        // Support ticket routes
-        Route::get('/support-tickets', [SupportTicketController::class, 'index'])->name('user.support');
-        Route::post('support-tickets', [SupportTicketController::class, 'store'])->name('user.support.store');
-        Route::get('support-tickets/{ticket}', [SupportTicketController::class, 'show'])->name('user.support.show');
-        Route::get('support-tickets/create', [SupportTicketController::class, 'create'])->name('user.support.create');
-        Route::post('/{ticket}/reply', [SupportTicketController::class, 'reply'])
-        ->name('user.support.reply');
-        Route::post('/{ticket}/close',    [SupportTicketController::class, 'close'])->name('user.support.close');
-        //
-        Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
-        Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
-        Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
-        Route::delete('/remove-match', [MatchController::class, 'removeMatch'])->name('api.remove.match');
-
-        Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
-        Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
-        Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
-        Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
-        Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
-        Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');
-        Route::get('/profileUser/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
-        Route::post('/user-preferences', [UserPreferenceController::class, 'store'])
-            ->name('api.user-preferences.store');
-        Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-        Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
-        Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
-        Route::post('/report-user', [ReportController::class, 'store']);
-
-        // Add other routes that require complete profile here.
-    });
+// User dashboard and match routes
+Route::middleware([
+    'auth',
+    'verified',
+    'check.status',
+    'profile.complete',         // First: ensure profile complete
+    'guardian.verified'         // Second: ensure guardian verified
+])->prefix('user')->group(function () {
+    Route::get('/filter', [FilterController::class, 'filterUsers'])->name('users.filter');
+    Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
+    Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
+    Route::post('/user/dislike', [LikedMeController::class, 'dislike'])->name('user.dislike');
+    
+    // Support tickets
+    Route::get('/support-tickets', [SupportTicketController::class, 'index'])->name('user.support');
+    Route::post('support-tickets', [SupportTicketController::class, 'store'])->name('user.support.store');
+    Route::get('support-tickets/{ticket}', [SupportTicketController::class, 'show'])->name('user.support.show');
+    Route::get('support-tickets/create', [SupportTicketController::class, 'create'])->name('user.support.create');
+    Route::post('/{ticket}/reply', [SupportTicketController::class, 'reply'])->name('user.support.reply');
+    Route::post('/{ticket}/close', [SupportTicketController::class, 'close'])->name('user.support.close');
+    
+    // Other protected routes
+    Route::post('/feedback/store', [UserFeedbackController::class, 'store'])->name('feedback.store');
+    Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
+    Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
+    Route::delete('/remove-match', [MatchController::class, 'removeMatch'])->name('api.remove.match');
+    Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
+    Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
+    Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
+    Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
+    Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');
+    Route::get('/profileUser/update', [UserUserProfileController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/user-preferences', [UserPreferenceController::class, 'store'])->name('api.user-preferences.store');
+    Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
+    Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
+    Route::post('/report-user', [ReportController::class, 'store']);
 });
-
 
 
 // Route to handle message subscriptions

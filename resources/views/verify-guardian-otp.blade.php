@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (data && data.message) {
         showSuccessMessage(data.message || '{{ __("otp.otp_verified") }}');
         // Optional redirect
-        window.setTimeout(() => window.location.href = '/dashboard', 2000);
+        window.setTimeout(() => window.location.href = '/user/dashboard', 2000);
     } else {
         showErrorMessage('{{ __("otp.otp_invalid") }}');
     }

@@ -3,12 +3,7 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
     {{-- Match Profile Modal --}}
-    <style>
-/* RTL Filter Tab Position - Properly aligned with sidebar states */
 
-
-
-    </style>
     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
         tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -71,7 +66,7 @@
                         @csrf
                         <input type="hidden" name="liked_user_id" value="">
                         <button class="btn btn-sm btn-outline-primary" type="submit">
-                            <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like_back') }}
+                            <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like') }}
                         </button>
                     </form>
 
@@ -79,7 +74,7 @@
                         @csrf
                         <input type="hidden" name="disliked_user_id" value="">
                         <button class="btn btn-sm btn-outline-danger" type="submit">
-                            <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.dislike') }}
+                            <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.Fdislike') }}
                         </button>
                     </form>
                 </div>
@@ -114,52 +109,51 @@
                 </div>
             </div>
         </div>
-        @if($filledPreferenceCount >= 2)
+        @if ($filledPreferenceCount >= 2)
 
-        <!-- Clear Section Division for Exact Matches -->
-        <div class="row mb-4 px-4">
-            <div class="col-12">
-                <div class="section-header">
-                    <h5 class="mb-0">
-                        <i class="simple-icon-check mr-2"></i>{{ __('userDashboard.dashboard.Exact_Matches') }}
-                        <span class="badge badge-light ml-2" id="exactMatchBadge">0</span>
-                    </h5>
-                </div>
-                <div class="row mt-3" id="exactMatchResults">
-                    <!-- Exact match cards will be populated here via JavaScript -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Suggestion Slider Section with Clear Visual Distinction -->
-        <div id="Suggested_Matches_section" class="row  px-4">
-            <div class="col-12">
-                <div class="section-header">
-                    <h5 class="mb-0">
-                        <i class="simple-icon-star mr-2"></i>{{ __('userDashboard.dashboard.Suggested_Matches') }}
-                        <span class="badge badge-light ml-2" id="suggestedMatchBadge">0</span>
-                        <span class="badge badge-info ml-2"
-                            id="matchPercentage">{{ __('userDashboard.dashboard.% Match') }}</span>
-                    </h5>
-                </div>
-                <div class="suggested-slider-container mt-3">
-                    <div class="suggested-slider-controls">
-                        <button id="prevSuggestion" class="btn btn-outline-primary btn-sm">
-                            <i class="simple-icon-arrow-left"></i>
-                        </button>
-                        <button id="nextSuggestion" class="btn btn-outline-primary btn-sm">
-                            <i class="simple-icon-arrow-right"></i>
-                        </button>
+            <!-- Clear Section Division for Exact Matches -->
+            <div class="row mb-4 px-4">
+                <div class="col-12">
+                    <div class="section-header">
+                        <h5 class="mb-0">
+                            <i class="simple-icon-check mr-2"></i>{{ __('userDashboard.dashboard.Exact_Matches') }}
+                            <span class="badge badge-light ml-2" id="exactMatchBadge">0</span>
+                        </h5>
                     </div>
-                    <div class="suggested-slider" id="suggestedMatchResults">
-                        <!-- Suggested match cards will be populated here via JavaScript -->
+                    <div class="row mt-3" id="exactMatchResults">
+                        <!-- Exact match cards will be populated here via JavaScript -->
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!-- Suggestion Slider Section with Clear Visual Distinction -->
+            <div id="Suggested_Matches_section" class="row  px-4">
+                <div class="col-12">
+                    <div class="section-header">
+                        <h5 class="mb-0">
+                            <i class="simple-icon-star mr-2"></i>{{ __('userDashboard.dashboard.Suggested_Matches') }}
+                            <span class="badge badge-light ml-2" id="suggestedMatchBadge">0</span>
+                            <span class="badge badge-info ml-2"
+                                id="matchPercentage">{{ __('userDashboard.dashboard.% Match') }}</span>
+                        </h5>
+                    </div>
+                    <div class="suggested-slider-container mt-3">
+                        <div class="suggested-slider-controls">
+                            <button id="prevSuggestion" class="btn btn-outline-primary btn-sm">
+                                <i class="simple-icon-arrow-left"></i>
+                            </button>
+                            <button id="nextSuggestion" class="btn btn-outline-primary btn-sm">
+                                <i class="simple-icon-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="suggested-slider" id="suggestedMatchResults">
+                            <!-- Suggested match cards will be populated here via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-    <div class="modal fade modal-top"
-        id="reportModalMain" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade modal-top" id="reportModalMain" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 
@@ -168,7 +162,8 @@
                     <h5 class="modal-title">
                         <i class="fas fa-flag"></i> {{ __('userDashboard.dashboard.report_user') }}
                     </h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="{{ __('userDashboard.likeMe.close') }}">
+                    <button type="button" class="close text-white" data-dismiss="modal"
+                        aria-label="{{ __('userDashboard.likeMe.close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -184,22 +179,30 @@
 
                         <div class="form-group">
                             <label for="reasonSelect">{{ __('userDashboard.dashboard.reason') }}</label>
-                            <select id="reasonSelect" name="reason_en" class="form-control"onchange="toggleOtherReason()" required>
-                                <option value="Inappropriate Photos">{{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
+                            <select id="reasonSelect" name="reason_en" class="form-control"onchange="toggleOtherReason()"
+                                required>
+                                <option value="Inappropriate Photos">
+                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
                                 <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
-                                <option value="Disrespectful Behavior">{{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
-                                <option value="Asking for Haram (Forbidden)">{{ __('userDashboard.dashboard.asking_for_haram') }}</option>
+                                <option value="Disrespectful Behavior">
+                                    {{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
+                                <option value="Asking for Haram (Forbidden)">
+                                    {{ __('userDashboard.dashboard.asking_for_haram') }}</option>
                                 <option value="Fake Profile">{{ __('userDashboard.dashboard.fake_profile') }}</option>
-                                <option value="Spam or Advertising">{{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
-                                <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}</option>
-                                <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}</option>
-                                <option value="Misleading Information">{{ __('userDashboard.dashboard.misleading_information') }}</option>
+                                <option value="Spam or Advertising">
+                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
+                                <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}
+                                </option>
+                                <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}
+                                </option>
+                                <option value="Misleading Information">
+                                    {{ __('userDashboard.dashboard.misleading_information') }}</option>
                                 <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
                             </select>
-                        <div class="form-group d-none" id="otherReasonGroup">
-                            <label>{{ app()->getLocale() === 'ar' ? __('userDashboard.dashboard.other_reason_ar') : __('userDashboard.dashboard.other_reason_en') }}</label>
-                            <textarea name="other_reason_{{ app()->getLocale() }}" id="otherReasonInput" class="form-control" rows="2"></textarea>
-                        </div>
+                            <div class="form-group d-none" id="otherReasonGroup">
+                                <label>{{ app()->getLocale() === 'ar' ? __('userDashboard.dashboard.other_reason_ar') : __('userDashboard.dashboard.other_reason_en') }}</label>
+                                <textarea name="other_reason_{{ app()->getLocale() }}" id="otherReasonInput" class="form-control" rows="2"></textarea>
+                            </div>
 
                     </form>
                 </div>
@@ -238,255 +241,308 @@
     <div class="sub-menu show" id="matchFilters">
         <div class="scroll">
             <div class="filter-header">
-                <h6 class="sub-menu-title mb-0">{{ __('userDashboard.submenu.match_filters') }}</h6>
+                <h6 class="sub-menu-title mb-0">Match Filters</h6>
                 <button id="resetAllFilters" class="btn btn-sm btn-outline-danger">
-                    <i class="simple-icon-refresh"></i> {{ __('userDashboard.submenu.reset') }}
+                    <i class="simple-icon-refresh"></i> Reset
                 </button>
             </div>
             <div class="p-3">
                 <form id="filterForm" onsubmit="return false;">
                     @csrf
                     <input type="hidden" name="isFilter" value="true">
-    
+
                     {{-- BASIC INFO --}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.age_range') }}</label>
+                        <label>Age Range</label>
                         <div class="d-flex">
-                            <input type="number" name="age_min" class="form-control mr-2" placeholder="{{ __('userDashboard.submenu.min') }}">
-                            <input type="number" name="age_max" class="form-control" placeholder="{{ __('userDashboard.submenu.max') }}">
+                            <input type="number" name="age_min" class="form-control mr-2" placeholder="Min">
+                            <input type="number" name="age_max" class="form-control" placeholder="Max">
                         </div>
                     </div>
-    
+{{-- 
+
+"id" => 7
+    "user_id" => 2
+    "preferred_nationality_id" => 1
+    "preferred_language_id" => null
+    "preferred_origin_id" => null
+    "preferred_country_id" => null
+    "preferred_city_id" => null
+    "preferred_age_min" => 18
+    "preferred_age_max" => 65
+    "preferred_educational_level_id" => null
+    "preferred_specialization_id" => null
+    "preferred_employment_status" => 0
+    "preferred_job_title_id" => null
+    "preferred_financial_status_id" => null
+    "preferred_height_id" => null
+    "preferred_weight_id" => null
+    "preferred_marital_status_id" => null
+    "preferred_smoking_status" => 0
+    "preferred_drinking_status_id" => null
+    "preferred_sports_activity_id" => null
+    "preferred_social_media_presence_id" => null
+    "preferred_religiosity_level_id" => null
+    "preferred_sleep_habit_id" => null
+    "preferred_marriage_budget_id" => null
+    "preferred_skin_color_id" => null
+    "preferred_hair_color_id" => null
+    "preferred_hijab_status" => null
+    "preferred_children_count" => null
+    "preferred_car_ownership" => null
+    "preferred_housing_status_id" => null
+    "created_at" => "2025-04-28T20:51:30.000000Z"
+    "updated_at" => "2025-04-28T20:51:30.000000Z"
+
+--}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.nationality') }}</label>
+                        <label>Nationality</label>
                         <select name="nationality_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['nationalities'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_nationality_id']) && $prefs['preferred_nationality_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.country_of_residence') }}</label>
+                        <label>Country of Residence</label>
                         <select name="country_of_residence_id" id="country_of_residence_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['countries'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_country_id']) && $prefs['preferred_country_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.city') }}</label>
+                        <label>City</label>
                         <select name="city_id" id="city_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.select_country_first') }}</option>
+                            <option value="">-- Select Country First --</option>
                         </select>
                     </div>
-    
+
                     {{-- RELIGION --}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.religion') }}</label>
+                        <label>Religion</label>
                         <select name="religion_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['religions'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.religiosity_level') }}</label>
+                        <label>Religiosity Level</label>
                         <select name="religiosity_level_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['religiousLevels'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_religiosity_level_id']) && $prefs['preferred_religiosity_level_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     {{-- APPEARANCE --}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.height') }}</label>
+                        <label>Height</label>
                         <select name="height_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['heights'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.weight') }}</label>
+                        <label>Weight</label>
                         <select name="weight_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['weights'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.skin_color') }}</label>
+                        <label>Skin Color</label>
                         <select name="skin_color_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['skinColors'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.hair_color') }}</label>
+                        <label>Hair Color</label>
                         <select name="hair_color_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['hairColors'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.eye_color') }}</label>
+                        <label>Eye Color</label>
                         <select name="eye_color_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['eyeColors'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.zodiac_sign') }}</label>
+                        <label>Zodiac Sign</label>
                         <select name="zodiac_sign_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['zodiacSigns'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     {{-- LIFESTYLE --}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.marital_status') }}</label>
+                        <label>Marital Status</label>
                         <select name="marital_status_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['maritalStatuses'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.smoking_status') }}</label>
+                        <label>Smoking Status</label>
                         <select name="smoking_status" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
-                            <option value="1">{{ __('userDashboard.submenu.yes') }}</option>
-                            <option value="0">{{ __('userDashboard.submenu.no') }}</option>
+                            <option value="any">-- Any --</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.drinking_status') }}</label>
+                        <label>Drinking Status</label>
                         <select name="drinking_status_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['drinkingStatuses'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.sleep_habit') }}</label>
+                        <label>Sleep Habit</label>
                         <select name="sleep_habit_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['sleepHabits'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     {{-- EDUCATION & WORK --}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.educational_level') }}</label>
+                        <label>Educational Level</label>
                         <select name="educational_level_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['educationalLevels'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_educational_level_id']) && $prefs['preferred_educational_level_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.specialization') }}</label>
+                        <label>Specialization</label>
                         <select name="specialization_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['specializations'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_specialization_id']) && $prefs['preferred_specialization_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.job_title') }}</label>
+                        <label>Job Title</label>
                         <select name="job_title_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['jobTitles'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.position_level') }}</label>
+                        <label>Position Level</label>
                         <select name="sector_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['positionLevels'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.marriage_budget') }}</label>
+                        <label>Marriage Budget</label>
                         <select name="marriage_budget_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['marriageBudget'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.children') }}</label>
+                        <label>Children</label>
                         <select name="children" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
-                            <option value="1">{{ __('userDashboard.submenu.yes') }}</option>
-                            <option value="0">{{ __('userDashboard.submenu.no') }}</option>
+                            <option value="any">-- Any --</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                     </div>
-    
+
                     {{-- SOCIAL --}}
                     <div class="form-group">
-                        <label>{{ __('userDashboard.submenu.social_media_presence') }}</label>
+                        <label>Social Media Presence</label>
                         <select name="social_media_presence_id" class="form-control">
-                            <option value="">{{ __('userDashboard.submenu.any') }}</option>
+                            <option value="any">-- Any --</option>
                             @foreach ($data['socialMediaPresence'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
-    
+
                     {{-- ACTION --}}
                     <div class="form-group mt-4">
                         <button type="button" id="applyFiltersBtn" class="btn btn-primary btn-block">
-                            <i class="simple-icon-magnifier mr-2"></i> {{ __('userDashboard.submenu.find_matches') }}
+                            <i class="simple-icon-magnifier mr-2"></i> Find Matches
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+@else
+    <div class="container py-5 text-center">
+        <h3 class="text-danger mb-3">{{ __('Please complete your preferences') }}</h3>
+        <p class="mb-4">{{ __('You need to fill at least two fields in your preferences to view match suggestions.') }}
+        </p>
+        <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('Complete Preferences') }}</a>
+    </div>
+    @endif
 
 
     <!-- Dependent City Loading -->
@@ -568,6 +624,18 @@
                 });
             }
 
+            function toggleOtherReason() {
+                const reasonSelect = document.getElementById('reasonSelect').value;
+                const otherGroup = document.getElementById('otherReasonGroup');
+
+                if (reasonSelect === 'Other') {
+                    otherGroup.classList.remove('d-none');
+                } else {
+                    otherGroup.classList.add('d-none');
+                    document.getElementById('otherReasonInput').value = ''; // clear input
+                }
+            }
+
             // ✅ Main modal load logic
             $(document).on('click', '.profile-card', function() {
                 const user = $(this).data('profile');
@@ -587,6 +655,8 @@
                         $('#modalAvatar').attr('src', mainPhoto || '/dashboard/logos/profile-icon.jpg');
                         $('#modalName').text(`${user.first_name} ${user.last_name}`);
                         $('#modalBio').text(user.profile?.bio || 'No bio provided.');
+                        $('input[name="liked_user_id"]').val(userId);
+                        $('input[name="disliked_user_id"]').val(userId);
                         $('#modalGender').text(user.gender || 'N/A');
                         $('#modalAge').text(user.profile?.age || 'N/A');
                         $('#modalNationality').text(user.profile?.nationality || 'N/A');
@@ -604,6 +674,7 @@
 
                         const details = categorizeDetails(user);
                         populateExtraDetails(details);
+                        console.log(details)
                         $('#profileModalRight').modal('show');
                     }
                 });
@@ -626,9 +697,84 @@
                 }
             });
 
+            function openReportModal(userId) {
+                // Set the hidden input inside the report modal
+                document.getElementById('reportModal_user_id').value = userId;
+
+                // Reset any previous success message or form fields
+                document.getElementById('reportForm').reset();
+                document.getElementById('report-success').classList.add('d-none');
+                document.getElementById('otherReasonGroup').classList.add('d-none');
+
+                // Show the report modal with correct options
+                $('#reportModalMain').modal({
+                    backdrop: 'static', // ❌ no backdrop
+                    keyboard: false,
+                    focus: true
+                });
+
+                // Force modal styling if needed
+                $('#reportModalMain .modal-dialog').addClass('modal-dialog-centered'); // Center it vertically
+            }
+
+            function submitReport() {
+                const form = document.getElementById('reportForm');
+
+                const reportedId = document.getElementById('reportModal_user_id').value;
+                const reasonEn = document.getElementById('reasonSelect').value;
+                const otherReasonInput = document.getElementById('otherReasonInput');
+                const lang = '{{ app()->getLocale() }}'; // Detect language
+
+                // Prepare FormData
+                const formData = new FormData();
+                formData.append('reported_id', reportedId);
+                formData.append('reason_' + lang, reasonEn); // Always keep "Other" if selected
+
+                // If "Other" selected, also add custom reason in separate field
+                if (reasonEn.toLowerCase() === 'other') {
+                    if (otherReasonInput && otherReasonInput.value.trim() !== '') {
+                        formData.append('other_reason_' + lang, otherReasonInput.value.trim());
+                    } else {
+                        alert('Please enter your custom reason.');
+                        return;
+                    }
+                }
+
+                // ✅ Debug FormData
+                console.log('FormData content:');
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+
+                // Send Ajax
+                $.ajax({
+                    url: '/user/report-user',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept': 'application/json',
+                        'Accept-Language': lang,
+                    },
+                    success: function(response) {
+                        $('#report-success').removeClass('d-none').text(
+                            `{{ __('userDashboard.dashboard.report_success') }}`);
+                        setTimeout(() => {
+                            $('#reportModalMain').modal('hide');
+                        }, 1500);
+                    },
+                    error: function(xhr) {
+                        console.error('Error submitting report:', xhr.responseText);
+                        alert('Something went wrong, please try again.');
+                    }
+                });
+            }
+
             $(document).ready(function() {
 
-                
+
                 // Initialize collapsible sections
                 $('.filter-section-header').on('click', function() {
                     $(this).find('i.simple-icon-arrow-down').toggleClass('simple-icon-arrow-up');
@@ -787,12 +933,12 @@
                             renderMatches(response.exact_matches, response.suggested_users, response
                                 .suggestion_percentage);
                             $('#applyFiltersBtn').html(
-                                '<i class="simple-icon-magnifier mr-2"></i> {{ __('userDashboard.submenu.find_matches') }}');
+                                '<i class="simple-icon-magnifier mr-2"></i> Find Matches');
                         },
                         error: function(xhr, status, error) {
                             console.error(error);
                             $('#applyFiltersBtn').html(
-                                '<i class="simple-icon-magnifier mr-2"></i> {{ __('userDashboard.submenu.find_matches') }}');
+                                '<i class="simple-icon-magnifier mr-2"></i> Find Matches');
                             $('#exactMatchResults, #suggestedMatchResults').html(
                                 '<div class="col-12 text-center py-4"><p class="text-muted">Error loading matches. Please try again.</p></div>'
                             );
@@ -881,10 +1027,11 @@
                     }
 
                     // Process location information
-                    let country = (userProfile.profile && userProfile.profile.country_of_residence) ? userProfile
-                        .profile.country_of_residence : '';
-                    let city = (userProfile.profile && userProfile.profile.city) ? userProfile.profile.city :
+                    let country = (userProfile && userProfile.country) ? userProfile.country :
                         `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
+                    let city = (userProfile && userProfile.city) ? userProfile.city :
+                        `{{ __('userDashboard.dashboard.Unknown_Location') }}`;
+                    // console.log(userProfile);
 
                     // Extract additional user info if available
                     let age = userProfile.profile && userProfile.profile.age ? userProfile.profile.age : '';

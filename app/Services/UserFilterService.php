@@ -26,7 +26,7 @@ class UserFilterService
                     ->where('status', 'active');  // Add this line to filter by active status in the user table
             });
 
-
+        //  dd($baseQuery->count());
         $likedUsers    = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
         $baseQuery->whereNotIn('id', $likedUsers)
@@ -188,6 +188,19 @@ class UserFilterService
             $ageMax = $request->filled('age_max') ? $request->input('age_max') : $preferences?->preferred_age_max;
         }
 
+        // Treat a submitted value of 'any' (case‑insensitive) as no preference,
+        // so it is ignored during query construction.
+        foreach ($filters as $k => $v) {
+            if (is_string($v) && strtolower($v) === 'any') {
+                $filters[$k] = null;
+            }
+        }
+        if (is_string($ageMin) && strtolower($ageMin) === 'any') {
+            $ageMin = null;
+        }
+        if (is_string($ageMax) && strtolower($ageMax) === 'any') {
+            $ageMax = null;
+        }
         $exactQuery = clone $baseQuery;
 
         if (!is_null($ageMin) && !is_null($ageMax)) {

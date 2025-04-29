@@ -16,7 +16,8 @@ return [
         'dislike' => 'عدم إعتماد',
         'like_back' => ' إعتماد',
         'profile_image' => 'صورة الملف الشخصي',
-
+        'like' => 'أعجبني',
+        'Fdislike' => 'لم يعجبني',
         // Modal Categories
         'personal' => 'المعلومات الشخصية',
         'professional' => 'المعلومات المهنية',

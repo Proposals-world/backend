@@ -639,7 +639,7 @@
                                     <div class="card d-flex flex-row mb-4">
                                         <a class="d-flex" href="#">
                                             <!-- Display the profile image -->
-                                            <img src="{{ asset(optional($like['liked_user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
+                                            <img src="{{ asset(optional($like['user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
                                                  alt="Profile"
                                                  class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
                                         </a>
@@ -649,12 +649,12 @@
                                                     <a href="#">
                                                         <!-- Use optional() to safely access liked_user properties -->
                                                         <p class="list-item-heading mb-1 truncate">
-                                                            {{ $like['liked_user']['first_name'] ?? '' }}
-                                                            {{ $like['liked_user']['last_name'] ?? '' }}
+                                                            {{ $like['user']['first_name'] ?? '' }}
+                                                            {{ $like['user']['last_name'] ?? '' }}
                                                         </p>
                                                     </a>
                                                     <p class="mb-2 text-muted text-small">
-                                                        {{ $like['liked_user']['email'] ?? '' }}
+                                                        {{ $like['user']['email'] ?? '' }}
                                                     </p>
                                                     {{-- <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a> --}}
                                                 </div>

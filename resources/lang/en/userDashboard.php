@@ -17,6 +17,9 @@ return [
         'like_back' => 'Accept',
         'profile_image' => 'Profile Image',
 
+        'like' => 'Like',
+        'Fdislike' => 'Dislike',
+
         // Modal Categories
         'personal' => 'Personal',
         'professional' => 'Professional',
