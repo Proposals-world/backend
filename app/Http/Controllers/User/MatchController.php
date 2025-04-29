@@ -29,11 +29,11 @@ class MatchController extends Controller
     public function getMatches()
     {
         $matches = $this->likeService->getMatches();
-
+// dd($matches->resolve());
         if (auth()->guest()) {
             return redirect()->route('login')->with('error', 'Unauthorized');
         }
-
+        // dd($matches->resolve());
         if ($matches->isEmpty()) {
             return view('user.matches', [
                 'matchesWithContact' => collect(),
@@ -69,7 +69,7 @@ class MatchController extends Controller
 
         $matchesWithContact = $enrichedMatches->filter(fn($m) => $m['contact_exchanged']);
         $matchesWithoutContact = $enrichedMatches->filter(fn($m) => !$m['contact_exchanged']);
-        // dd($matchesWithContact, $matchesWithoutContact);
+        
         return view('user.matches', [
             'matchesWithContact' => $matchesWithContact,
             'matchesWithoutContact' => $matchesWithoutContact,

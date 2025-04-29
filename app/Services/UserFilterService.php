@@ -7,6 +7,7 @@ use App\Models\Dislike;
 use App\Models\Like;
 use App\Models\UserProfile;
 use App\Models\UserPreference;
+use App\Models\UserReport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -19,6 +20,10 @@ class UserFilterService
         $isFromFilter  = $request->input('isFilter', false);
         $hasUserProfile = UserProfile::where('id', Auth::id())->exists();
 
+        $reportedUsers = UserReport::where('reporter_id', Auth::id())->pluck('reported_id');
+
+
+
         $baseQuery = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
             ->whereHas('user', function ($subQ) {
                 $subQ->where('gender', '!=', Auth::user()->gender)
@@ -30,7 +35,8 @@ class UserFilterService
         $likedUsers    = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
         $baseQuery->whereNotIn('id', $likedUsers)
-            ->whereNotIn('id', $dislikedUsers);
+            ->whereNotIn('id', $dislikedUsers)
+            ->whereNotIn('id', $reportedUsers);
 
         if (!$isFromFilter) {
             // When isFilter = false, use ONLY the user's saved preferences.

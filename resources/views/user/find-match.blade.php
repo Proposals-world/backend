@@ -259,48 +259,13 @@
                             <input type="number" name="age_max" class="form-control" placeholder="Max">
                         </div>
                     </div>
-{{-- 
-
-"id" => 7
-    "user_id" => 2
-    "preferred_nationality_id" => 1
-    "preferred_language_id" => null
-    "preferred_origin_id" => null
-    "preferred_country_id" => null
-    "preferred_city_id" => null
-    "preferred_age_min" => 18
-    "preferred_age_max" => 65
-    "preferred_educational_level_id" => null
-    "preferred_specialization_id" => null
-    "preferred_employment_status" => 0
-    "preferred_job_title_id" => null
-    "preferred_financial_status_id" => null
-    "preferred_height_id" => null
-    "preferred_weight_id" => null
-    "preferred_marital_status_id" => null
-    "preferred_smoking_status" => 0
-    "preferred_drinking_status_id" => null
-    "preferred_sports_activity_id" => null
-    "preferred_social_media_presence_id" => null
-    "preferred_religiosity_level_id" => null
-    "preferred_sleep_habit_id" => null
-    "preferred_marriage_budget_id" => null
-    "preferred_skin_color_id" => null
-    "preferred_hair_color_id" => null
-    "preferred_hijab_status" => null
-    "preferred_children_count" => null
-    "preferred_car_ownership" => null
-    "preferred_housing_status_id" => null
-    "created_at" => "2025-04-28T20:51:30.000000Z"
-    "updated_at" => "2025-04-28T20:51:30.000000Z"
-
---}}
                     <div class="form-group">
                         <label>Nationality</label>
                         <select name="nationality_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['nationalities'] as $item)
-                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_nationality_id']) && $prefs['preferred_nationality_id'] == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_nationality_id']) && $prefs['preferred_nationality_id'] == $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -312,7 +277,8 @@
                         <select name="country_of_residence_id" id="country_of_residence_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['countries'] as $item)
-                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_country_id']) && $prefs['preferred_country_id'] == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_country_id']) && $prefs['preferred_country_id'] == $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -342,7 +308,8 @@
                         <select name="religiosity_level_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['religiousLevels'] as $item)
-                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_religiosity_level_id']) && $prefs['preferred_religiosity_level_id'] == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_religiosity_level_id']) && $prefs['preferred_religiosity_level_id'] == $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -355,7 +322,10 @@
                         <select name="height_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['heights'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_height_id']) && $prefs['preferred_height_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -365,7 +335,10 @@
                         <select name="weight_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['weights'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_weight_id']) && $prefs['preferred_weight_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -375,7 +348,10 @@
                         <select name="skin_color_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['skinColors'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_skin_color_id']) && $prefs['preferred_skin_color_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -385,7 +361,10 @@
                         <select name="hair_color_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['hairColors'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_hair_color_id']) && $prefs['preferred_hair_color_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -456,7 +435,8 @@
                         <select name="educational_level_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['educationalLevels'] as $item)
-                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_educational_level_id']) && $prefs['preferred_educational_level_id'] == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_educational_level_id']) && $prefs['preferred_educational_level_id'] == $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -468,7 +448,8 @@
                         <select name="specialization_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['specializations'] as $item)
-                                <option value="{{ $item->id }}" {{ isset($prefs['preferred_specialization_id']) && $prefs['preferred_specialization_id'] == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_specialization_id']) && $prefs['preferred_specialization_id'] == $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -480,7 +461,10 @@
                         <select name="job_title_id" class="form-control">
                             <option value="any">-- Any --</option>
                             @foreach ($data['jobTitles'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($prefs['preferred_job_title_id']) && $prefs['preferred_job_title_id'] == $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -579,12 +563,10 @@
                     "{{ __('userDashboard.likeMe.lifestyle') }}": {
                         "{{ __('userDashboard.likeMe.hijab_status') }}": profile.profile.hijab_status !== null ?
                             (profile.profile.hijab_status ? "{{ __('userDashboard.likeMe.yes') }}" :
-                                "{{ __('userDashboard.likeMe.no') }}") :
-                            "{{ __('userDashboard.likeMe.na') }}",
+                                "{{ __('userDashboard.likeMe.no') }}") : "{{ __('userDashboard.likeMe.na') }}",
                         "{{ __('userDashboard.likeMe.smoking_status') }}": profile.profile.smoking_status !== null ?
                             (profile.profile.smoking_status ? "{{ __('userDashboard.likeMe.yes') }}" :
-                                "{{ __('userDashboard.likeMe.no') }}") :
-                            "{{ __('userDashboard.likeMe.na') }}",
+                                "{{ __('userDashboard.likeMe.no') }}") : "{{ __('userDashboard.likeMe.na') }}",
                         "{{ __('userDashboard.likeMe.drinking_status') }}": profile.profile.drinking_status,
                     },
                     "{{ __('userDashboard.likeMe.physical') }}": {
@@ -624,18 +606,6 @@
                 });
             }
 
-            function toggleOtherReason() {
-                const reasonSelect = document.getElementById('reasonSelect').value;
-                const otherGroup = document.getElementById('otherReasonGroup');
-
-                if (reasonSelect === 'Other') {
-                    otherGroup.classList.remove('d-none');
-                } else {
-                    otherGroup.classList.add('d-none');
-                    document.getElementById('otherReasonInput').value = ''; // clear input
-                }
-            }
-
             // ✅ Main modal load logic
             $(document).on('click', '.profile-card', function() {
                 const user = $(this).data('profile');
@@ -665,9 +635,9 @@
 
                         if (!user.contact_exchanged) {
                             $('#revealContactBtn').removeClass('d-none').off('click').on('click',
-                        function() {
-                                alert("This feature is not implemented.");
-                            });
+                                function() {
+                                    alert("This feature is not implemented.");
+                                });
                         } else {
                             $('#revealContactBtn').addClass('d-none');
                         }
@@ -697,80 +667,6 @@
                 }
             });
 
-            function openReportModal(userId) {
-                // Set the hidden input inside the report modal
-                document.getElementById('reportModal_user_id').value = userId;
-
-                // Reset any previous success message or form fields
-                document.getElementById('reportForm').reset();
-                document.getElementById('report-success').classList.add('d-none');
-                document.getElementById('otherReasonGroup').classList.add('d-none');
-
-                // Show the report modal with correct options
-                $('#reportModalMain').modal({
-                    backdrop: 'static', // ❌ no backdrop
-                    keyboard: false,
-                    focus: true
-                });
-
-                // Force modal styling if needed
-                $('#reportModalMain .modal-dialog').addClass('modal-dialog-centered'); // Center it vertically
-            }
-
-            function submitReport() {
-                const form = document.getElementById('reportForm');
-
-                const reportedId = document.getElementById('reportModal_user_id').value;
-                const reasonEn = document.getElementById('reasonSelect').value;
-                const otherReasonInput = document.getElementById('otherReasonInput');
-                const lang = '{{ app()->getLocale() }}'; // Detect language
-
-                // Prepare FormData
-                const formData = new FormData();
-                formData.append('reported_id', reportedId);
-                formData.append('reason_' + lang, reasonEn); // Always keep "Other" if selected
-
-                // If "Other" selected, also add custom reason in separate field
-                if (reasonEn.toLowerCase() === 'other') {
-                    if (otherReasonInput && otherReasonInput.value.trim() !== '') {
-                        formData.append('other_reason_' + lang, otherReasonInput.value.trim());
-                    } else {
-                        alert('Please enter your custom reason.');
-                        return;
-                    }
-                }
-
-                // ✅ Debug FormData
-                console.log('FormData content:');
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ': ' + pair[1]);
-                }
-
-                // Send Ajax
-                $.ajax({
-                    url: '/user/report-user',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        'Accept': 'application/json',
-                        'Accept-Language': lang,
-                    },
-                    success: function(response) {
-                        $('#report-success').removeClass('d-none').text(
-                            `{{ __('userDashboard.dashboard.report_success') }}`);
-                        setTimeout(() => {
-                            $('#reportModalMain').modal('hide');
-                        }, 1500);
-                    },
-                    error: function(xhr) {
-                        console.error('Error submitting report:', xhr.responseText);
-                        alert('Something went wrong, please try again.');
-                    }
-                });
-            }
 
             $(document).ready(function() {
 
@@ -860,7 +756,7 @@
                         const id = $this.attr('id');
                         const activeLabel = $('#' + id + 'Active');
 
-                        if (value && value !== '' && id !== '_token') {
+                        if (value && value !== '' && value !== 'any' && id !== '_token') {
                             activeFilters++;
 
                             // Show active state for this filter
@@ -998,7 +894,7 @@
                     } else {
                         exactContainer.html(
                             `<div class="col-12 text-center py-4"><p class="text-dark">{{ __('userDashboard.dashboard.No_exact_matches_found_based_on_your_criteria') }}</p></div>`
-                            );
+                        );
                     }
 
                     // Render suggested matches in the slider
@@ -1012,7 +908,7 @@
                     } else {
                         suggestedContainer.html(
                             `<div class="text-center py-4 w-100"><p class="text-dark">{{ __('userDashboard.dashboard.No_suggested_matches_found_based_on_your_criteria') }}</p></div>`
-                            );
+                        );
                     }
                 }
 
@@ -1115,5 +1011,6 @@
             `).appendTo('head');
             });
         </script>
+        @include('user.partials.report-scripts')
     @endpush
 @endsection
