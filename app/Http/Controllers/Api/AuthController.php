@@ -208,6 +208,14 @@ class AuthController extends Controller
             ], 422);
         }
 
+        $user = User::where('email', $request->email)->first();
+        if (!$user || $user->status !== 'active') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is not active. If you think this is an issue, please contact support.',
+            ], 403);
+        }
+
         // Attempt to authenticate
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
@@ -215,8 +223,6 @@ class AuthController extends Controller
                 'message' => 'Invalid credentials.',
             ], 401);
         }
-
-        $user = Auth::user();
 
         // Check if the user's role is authorized (e.g., role_id = 2 for this example)
         if ($user->role_id !== 2) {
