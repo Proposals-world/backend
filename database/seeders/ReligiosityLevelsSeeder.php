@@ -88,6 +88,35 @@ class ReligiosityLevelsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'gender'     => 2,
+                'name_en'    => 'Open',
+                'name_ar'    => 'منفتح',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'gender'     => 2,
+                'name_en'    => 'Average',
+                'name_ar'    => 'متوسط',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'gender'     => 2,
+                'name_en'    => 'Committed',
+                'name_ar'    => 'ملتزم',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'gender'     => 2,
+                'name_en'    => 'Devout',
+                'name_ar'    => 'متددين',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
         ];
 
         // Merge both arrays and insert into the table.
