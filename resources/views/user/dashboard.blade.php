@@ -187,8 +187,12 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+
                                                     <form class="feedback-form" data-match-id="{{ $match['id'] }}">
                                                         @csrf
+                                                        <div class="feedback-success alert alert-success mt-3 d-none">
+                                                            {{ __('userDashboard.dashboard.feedback_success') }}
+                                                        </div>
                                                         <input type="hidden" name="match_id" value="{{ $match['id'] }}">
                                                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
@@ -227,9 +231,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="feedback-success alert alert-success mt-3 d-none">
-                                                            {{ __('userDashboard.dashboard.feedback_success') }}
-                                                        </div>
+
 
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="submit" class="btn btn-primary">
@@ -286,13 +288,24 @@
                     if (successAlert) {
                         successAlert.classList.remove('d-none');
                     }
+                    // ✅ Hide the exact card after feedback submission
+                    $(form)
+                        .closest('.modal')                       // Go from form → modal
+                        .data('match-id', form.dataset.matchId) // Ensure match_id is available
+                        const matchId = form.dataset.matchId;
+
+                    $(`.feedback-btn[data-target="#feedbackModal_${matchId}"]`) // Find the button that triggered this modal
+                        .closest('.d-flex.flex-row.mb-3.position-relative')       // Go up to the card container
+                        .fadeOut(1500, function () {
+                            $(this).remove();
+                        });
 
                     form.reset();
 
                     // Close modal after 1 second
                     setTimeout(() => {
                         $(form.closest('.modal')).modal('hide');
-                        location.reload();
+                        // location.reload();
                     }, 1000);
 
                 } else if (res.status === 422) {
