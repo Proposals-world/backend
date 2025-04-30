@@ -866,24 +866,24 @@ $('select[name="marital_status_id"]').on('change', function () {
             const formSelector = '#onboarding-form';
             const formStorageKey = 'onboardingFormData';
 
-            function saveFormData() {
-                const formData = $(formSelector).serializeArray();
-                let dataObj = {};
-                formData.forEach(item => {
-                    dataObj[item.name] = item.value;
-                });
-                localStorage.setItem(formStorageKey, JSON.stringify(dataObj));
-            }
+            // function saveFormData() {
+            //     const formData = $(formSelector).serializeArray();
+            //     let dataObj = {};
+            //     formData.forEach(item => {
+            //         dataObj[item.name] = item.value;
+            //     });
+            //     localStorage.setItem(formStorageKey, JSON.stringify(dataObj));
+            // }
 
-            function loadFormData() {
-                const stored = localStorage.getItem(formStorageKey);
-                if (stored) {
-                    const dataObj = JSON.parse(stored);
-                    for (const [key, value] of Object.entries(dataObj)) {
-                        $(`[name="${key}"]`).val(value);
-                    }
-                }
-            }
+            // function loadFormData() {
+            //     const stored = localStorage.getItem(formStorageKey);
+            //     if (stored) {
+            //         const dataObj = JSON.parse(stored);
+            //         for (const [key, value] of Object.entries(dataObj)) {
+            //             $(`[name="${key}"]`).val(value);
+            //         }
+            //     }
+            // }
 
             $(document).ready(function() {
                 function validateReligiosityLevel() {
@@ -905,12 +905,12 @@ $('select[name="marital_status_id"]').on('change', function () {
                 $('select[name="religiosity_level_id"]').on('change', function() {
                     validateReligiosityLevel();
                 });
-                loadFormData();
+                // loadFormData();
 
                 // Save data on change
-                $('#onboarding-form').on('change', 'input, select, textarea', function() {
-                    saveFormData();
-                });
+                // $('#onboarding-form').on('change', 'input, select, textarea', function() {
+                //     // saveFormData();
+                // });
 
                 // Initialize Select2 on multi-selects
                 $('select[multiple]').select2({
