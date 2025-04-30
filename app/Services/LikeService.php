@@ -11,6 +11,7 @@ use App\Http\Resources\LikeResource;
 use App\Http\Resources\MatchResource;
 use App\Mail\LikedNotification;
 use App\Mail\MatchNotification;
+use App\Models\UserReport;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -55,9 +56,26 @@ class LikeService
             return null;
         }
 
+        // Get users you reported
+        $youReported = UserReport::where('reporter_id', $user->id)
+            ->pluck('reported_id')
+            ->toArray();
+
+        // Get users who reported you
+        $theyReportedYou = UserReport::where('reported_id', $user->id)
+            ->pluck('reporter_id')
+            ->toArray();
+
+        // Combine both arrays
+        $blockedUserIds = array_unique(array_merge($youReported, $theyReportedYou));
+
         $matches = UserMatch::with(['user1', 'user2'])
-            ->where('user1_id', $user->id)
-            ->orWhere('user2_id', $user->id)
+            ->where(function ($query) use ($user) {
+                $query->where('user1_id', $user->id)
+                    ->orWhere('user2_id', $user->id);
+            })
+            ->whereNotIn('user1_id', $blockedUserIds)
+            ->whereNotIn('user2_id', $blockedUserIds)
             ->get();
 
         return MatchResource::collection($matches);
@@ -92,9 +110,10 @@ class LikeService
             $existingDislike->delete();
         }
 
-        if (Like::where('user_id', $user->id)
-            ->where('liked_user_id', $likedUser->id)
-            ->exists()
+        if (
+            Like::where('user_id', $user->id)
+                ->where('liked_user_id', $likedUser->id)
+                ->exists()
         ) {
             return [
                 'status' => 400,
@@ -143,9 +162,10 @@ class LikeService
             ];
         }
 
-        if (Dislike::where('user_id', $user->id)
-            ->where('disliked_user_id', $dislikedUser->id)
-            ->exists()
+        if (
+            Dislike::where('user_id', $user->id)
+                ->where('disliked_user_id', $dislikedUser->id)
+                ->exists()
         ) {
             return [
                 'status' => 400,

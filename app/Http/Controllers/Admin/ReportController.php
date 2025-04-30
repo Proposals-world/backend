@@ -62,7 +62,7 @@ class ReportController extends Controller
                 ->count();
 
             $data['report_count'] = $existingReportsCount + 1;
-
+            // dd($data);
             UserReport::create($data);
 
             return response()->json(['message' => 'Report added successfully'], 201);
