@@ -24,7 +24,17 @@
                                     <li><a href="{{ url('/') }}#blog">{{ __('header.blog') }}</a></li>
                                     <li><a href="{{ url('/') }}#pricing">{{ __('header.pricing') }}</a></li>
                                     <li><a href="{{ url('/') }}#contact">{{ __('header.contact') }}</a></li>
-                                    <li><a href="{{ route('login') }}">{{ __('header.login') }}</a></li>
+                                    @auth
+                                        <li><a href="{{ route('logout') }}" 
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('header.logout') }}
+                                        </a></li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <li><a href="{{ route('login') }}">{{ __('header.login') }}</a></li>
+                                    @endauth
                                     <li class="d-lg-none"><a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
                                         style="color: gray; font-size: 16px; text-decoration: none;">
                                         {{ __('header.language_switcher') }}

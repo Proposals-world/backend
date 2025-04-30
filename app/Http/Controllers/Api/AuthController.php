@@ -47,6 +47,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
             'role_id' => 2,
+            'status' => 'active',
         ]);
     
         // Generate OTP
