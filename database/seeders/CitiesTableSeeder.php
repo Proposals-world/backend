@@ -26,39 +26,96 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Maan', 'name_ar' => 'معان', 'country_id' => 1, 'created_at' => now(), 'updated_at' => now()],
 
             //Egypt
+            // القاهرة - المناطق الرئيسية: الزمالك، المعادي، مدينة نصر، مصر الجديدة، وسط البلد، التجمع الخامس
             ['name_en' => 'Cairo', 'name_ar' => 'القاهرة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الإسكندرية - المناطق الرئيسية: المنتزه، سموحة، سيدي جابر، رشدي، العجمي، وسط البلد
             ['name_en' => 'Alexandria', 'name_ar' => 'الإسكندرية', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الجيزة - المناطق الرئيسية: الدقي، المهندسين، إمبابة، 6 أكتوبر، الشيخ زايد، الحدائق
             ['name_en' => 'Giza', 'name_ar' => 'الجيزة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Cairo', 'name_ar' => 'القاهرة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Luxor', 'name_ar' => 'الأقصر', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Aswan', 'name_ar' => 'أسوان', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // بورسعيد - المناطق الرئيسية: الشرق، المناخ، العرب، الضواحي، بورسعيد الجديدة
             ['name_en' => 'Port Said', 'name_ar' => 'بورسعيد', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // السويس - المناطق الرئيسية: السويس، الأربعين، فيصل، الجناين
             ['name_en' => 'Suez', 'name_ar' => 'السويس', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Sharm El Sheikh', 'name_ar' => 'شرم الشيخ', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Tanta', 'name_ar' => 'طنطا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Mansoura', 'name_ar' => 'المَنصورة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Faiyum', 'name_ar' => 'الفيوم', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الأقصر - المناطق الرئيسية: الكرنك، شرق النيل، غرب النيل، العوامية
+            ['name_en' => 'Luxor', 'name_ar' => 'الأقصر', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // أسوان - المناطق الرئيسية: وسط أسوان، جزيرة الفنتين، غرب سهيل، كوم أمبو
+            ['name_en' => 'Aswan', 'name_ar' => 'أسوان', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الإسماعيلية - المناطق الرئيسية: وسط الإسماعيلية، حي الشيخ زايد، حي الفيروز
             ['name_en' => 'Ismailia', 'name_ar' => 'الإسماعيلية', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Marsa Matruh', 'name_ar' => 'مرسى مطروح', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Minya', 'name_ar' => 'المنيا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Beni Suef', 'name_ar' => 'بني سويف', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Dakahlia', 'name_ar' => 'الدقهلية', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Assiut', 'name_ar' => 'أسيوط', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Sohag', 'name_ar' => 'سوهاج', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Qena', 'name_ar' => 'قنا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // دمياط - المناطق الرئيسية: وسط دمياط، رأس البر، دمياط الجديدة
             ['name_en' => 'Damietta', 'name_ar' => 'دمياط', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Kafr El Sheikh', 'name_ar' => 'كفر الشيخ', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // المنصورة - المناطق الرئيسية: وسط المنصورة، الجمرك، ميت خميس، طلخا
+            ['name_en' => 'Mansoura', 'name_ar' => 'المنصورة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الزقازيق - المناطق الرئيسية: وسط الزقازيق، حي الأحرار، حي الزهور
             ['name_en' => 'Zagazig', 'name_ar' => 'الزقازيق', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Mersa Matruh', 'name_ar' => 'مرسى مطروح', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => '6th of October City', 'name_ar' => 'مدينة 6 أكتوبر', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Helwan', 'name_ar' => 'حلوان', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Shibin El Kom', 'name_ar' => 'شبين الكوم', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Rashid', 'name_ar' => 'رشيد', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Kafr El Dawar', 'name_ar' => 'كفر الدوار', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // طنطا - المناطق الرئيسية: وسط طنطا، سيجر، المحطة، المعتصم
+            ['name_en' => 'Tanta', 'name_ar' => 'طنطا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الفيوم - المناطق الرئيسية: وسط الفيوم، سنورس، طامية، إطسا
+            ['name_en' => 'Faiyum', 'name_ar' => 'الفيوم', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // بنها - المناطق الرئيسية: وسط بنها، كفر الجزار، حي الزهور
             ['name_en' => 'Banha', 'name_ar' => 'بنها', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Damanhur', 'name_ar' => 'دمنهور', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'El Mahalla El Kubra', 'name_ar' => 'المحلة الكبرى', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // المنيا - المناطق الرئيسية: وسط المنيا، ملوي، سمالوط، بني مزار
             ['name_en' => 'Minya', 'name_ar' => 'المنيا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // أسيوط - المناطق الرئيسية: وسط أسيوط، الفتح، منفلوط، ديروط
+            ['name_en' => 'Assiut', 'name_ar' => 'أسيوط', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // سوهاج - المناطق الرئيسية: وسط سوهاج، جرجا، طهطا، أخميم
+            ['name_en' => 'Sohag', 'name_ar' => 'سوهاج', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // قنا - المناطق الرئيسية: وسط قنا، نجع حمادي، قوص، نقادة
+            ['name_en' => 'Qena', 'name_ar' => 'قنا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // كفر الشيخ - المناطق الرئيسية: وسط كفر الشيخ، دسوق، فوه، مطوبس
+            ['name_en' => 'Kafr El Sheikh', 'name_ar' => 'كفر الشيخ', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // بني سويف - المناطق الرئيسية: وسط بني سويف، الواسطى، ناصر، ببا
+            ['name_en' => 'Beni Suef', 'name_ar' => 'بني سويف', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // دمنهور - المناطق الرئيسية: وسط دمنهور، كفر الدوار، إيتاي البارود، أبو حمص
+            ['name_en' => 'Damanhur', 'name_ar' => 'دمنهور', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // شبين الكوم - المناطق الرئيسية: وسط شبين الكوم، تلا، قويسنا، بركة السبع
+            ['name_en' => 'Shibin El Kom', 'name_ar' => 'شبين الكوم', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // مرسى مطروح - المناطق الرئيسية: وسط مرسى مطروح، العلمين، الضبعة، سيوة
+            ['name_en' => 'Marsa Matruh', 'name_ar' => 'مرسى مطروح', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // العريش - المناطق الرئيسية: وسط العريش، الشيخ زويد، رفح
+            ['name_en' => 'Arish', 'name_ar' => 'العريش', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // شرم الشيخ - المناطق الرئيسية: خليج نعمة، رأس نصراني، شرم المايا
+            ['name_en' => 'Sharm El Sheikh', 'name_ar' => 'شرم الشيخ', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الغردقة - المناطق الرئيسية: السقالة، الدهار، الكوثر، مكادي
+            ['name_en' => 'Hurghada', 'name_ar' => 'الغردقة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // الخارجة - المناطق الرئيسية: وسط الخارجة، الداخلة، باريس
+            ['name_en' => 'Kharga', 'name_ar' => 'الخارجة', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // المحلة الكبرى - المناطق الرئيسية: وسط المحلة، سمنود، زفتى
+            ['name_en' => 'El Mahalla El Kubra', 'name_ar' => 'المحلة الكبرى', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // مدينة 6 أكتوبر - المناطق الرئيسية: الحي المتميز، حي الأشجار، دريم لاند
+            ['name_en' => '6th of October City', 'name_ar' => 'مدينة 6 أكتوبر', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // حلوان - المناطق الرئيسية: وسط حلوان، 15 مايو، المساكن
+            ['name_en' => 'Helwan', 'name_ar' => 'حلوان', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // رشيد - المناطق الرئيسية: وسط رشيد، إدفينا، مطوبس
+            ['name_en' => 'Rashid', 'name_ar' => 'رشيد', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // كفر الدوار - المناطق الرئيسية: وسط كفر الدوار، أبو قير، المندورة
+            ['name_en' => 'Kafr El Dawar', 'name_ar' => 'كفر الدوار', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // العاصمة الإدارية - المناطق الرئيسية: الحي الحكومي، الحي السكني R7، الحي المالي
+            ['name_en' => 'New Administrative Capital', 'name_ar' => 'العاصمة الإدارية', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // دسوق - المناطق الرئيسية: وسط دسوق، كفر مجر، بيلا
+            ['name_en' => 'Desouk', 'name_ar' => 'دسوق', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // إدفو - المناطق الرئيسية: وسط إدفو، الكلاحين، العدوة
+            ['name_en' => 'Edfu', 'name_ar' => 'إدفو', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // أبو سمبل - المناطق الرئيسية: وسط أبو سمبل، توشكى
+            ['name_en' => 'Abu Simbel', 'name_ar' => 'أبو سمبل', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // أسنا - المناطق الرئيسية: وسط أسنا، الكرنك، الكيمان
+            ['name_en' => 'Esna', 'name_ar' => 'أسنا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // زفتى - المناطق الرئيسية: وسط زفتى، كفر زفتى، الصناعية
+            ['name_en' => 'Zefta', 'name_ar' => 'زفتى', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // ميت غمر - المناطق الرئيسية: وسط ميت غمر، دكرنس، أجا
+            ['name_en' => 'Mit Ghamr', 'name_ar' => 'ميت غمر', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // السنبلاوين - المناطق الرئيسية: وسط السنبلاوين، منية النصر، تمي الأمديد
+            ['name_en' => 'Senbellawein', 'name_ar' => 'السنبلاوين', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // نجع حمادي - المناطق الرئيسية: وسط نجع حمادي، دشنا، الوقف
+            ['name_en' => 'Nag Hammadi', 'name_ar' => 'نجع حمادي', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // أخميم - المناطق الرئيسية: وسط أخميم، ساقلته، البلينا
+            ['name_en' => 'Akhmim', 'name_ar' => 'أخميم', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // طما - المناطق الرئيسية: وسط طما، المراغة، جهينة
+            ['name_en' => 'Tama', 'name_ar' => 'طما', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // جرجا - المناطق الرئيسية: وسط جرجا، البلينا، سوهاج
+            ['name_en' => 'Girga', 'name_ar' => 'جرجا', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            // ديروط - المناطق الرئيسية: وسط ديروط، القوصية، منفلوط
+            ['name_en' => 'Dayrout', 'name_ar' => 'ديروط', 'country_id' => 2, 'created_at' => now(), 'updated_at' => now()],
 
             // Lebanon
             ['name_en' => 'Beirut', 'name_ar' => 'بيروت', 'country_id' => 3, 'created_at' => now(), 'updated_at' => now()],
@@ -73,6 +130,7 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Baalbek', 'name_ar' => 'بعلبك', 'country_id' => 3, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Hermel', 'name_ar' => 'هرمل', 'country_id' => 3, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Bint Jbeil', 'name_ar' => 'بنت جبيل', 'country_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Nabatieh', 'name_ar' => 'النبطية', 'country_id' => 3, 'created_at' => now(), 'updated_at' => now()],
 
             //syria
             ['name_en' => 'Damascus', 'name_ar' => 'دمشق', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
@@ -87,6 +145,9 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Al-Hasakah', 'name_ar' => 'الحسكة', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Rural Damascus', 'name_ar' => 'ريف دمشق', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Qamishli', 'name_ar' => 'القامشلي', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Hama', 'name_ar' => 'حماة', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'As-Suwayda', 'name_ar' => 'السويداء', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Quneitra', 'name_ar' => 'القنيطرة', 'country_id' => 4, 'created_at' => now(), 'updated_at' => now()],
 
             //Palestine
             ['name_en' => 'Ramallah', 'name_ar' => 'رام الله', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
@@ -104,6 +165,9 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Ariel', 'name_ar' => 'أريئيل', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Tubas', 'name_ar' => 'طوباس', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Bani Naim', 'name_ar' => 'بني نعيم', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'East Jerusalem', 'name_ar' => 'القدس الشرقية', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Deir al-Balah', 'name_ar' => 'دير البلح', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'North Gaza', 'name_ar' => 'شمال غزة', 'country_id' => 5, 'created_at' => now(), 'updated_at' => now()],
 
             // Iraq
             ['name_en' => 'Baghdad', 'name_ar' => 'بغداد', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
@@ -117,9 +181,15 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Dohuk', 'name_ar' => 'دهوك', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Samawah', 'name_ar' => 'السماوة', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Diwaniya', 'name_ar' => 'الديوانية', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Sulaymaniyah', 'name_ar' => 'السليمانية', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Nasiriyah', 'name_ar' => 'الناصرية', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Amarah', 'name_ar' => 'العمارة', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Ramadi', 'name_ar' => 'الرمادي', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Tikrit', 'name_ar' => 'تكريت', 'country_id' => 6,  'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Baqubah', 'name_ar' => 'بعقوبة', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Kut', 'name_ar' => 'الكوت', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Halabja', 'name_ar' => 'حلبجة', 'country_id' => 6, 'created_at' => now(), 'updated_at' => now()],
 
-            // Saudi Arabia
+            //Saudi Arabia
             ['name_en' => 'Riyadh', 'name_ar' => 'الرياض', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Jeddah', 'name_ar' => 'جدة', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Mecca', 'name_ar' => 'مكة', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
@@ -138,8 +208,11 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Al Qatif', 'name_ar' => 'القطيف', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Arar', 'name_ar' => 'عرعر', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Kharj', 'name_ar' => 'الخرج', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Najran', 'name_ar' => 'نجران', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Al Khobar', 'name_ar' => 'الخبر', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Tabuk', 'name_ar' => 'تبوك', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Jazan', 'name_ar' => 'جازان', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Al Baha', 'name_ar' => 'الباحة', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Dhahran', 'name_ar' => 'الظهران', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Hafar Al Batin', 'name_ar' => 'حفر الباطن', 'country_id' => 7, 'created_at' => now(), 'updated_at' => now()],
 
             //UAE
             ['name_en' => 'Abu Dhabi', 'name_ar' => 'أبو ظبي', 'country_id' => 8, 'created_at' => now(), 'updated_at' => now()],
@@ -151,6 +224,7 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Ras Al Khaimah', 'name_ar' => 'رأس الخيمة', 'country_id' => 8, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Ain', 'name_ar' => 'العين', 'country_id' => 8, 'created_at' => now(), 'updated_at' => now()],
 
+            // reached in citylocation table seeder
             //Kuwait
             ['name_en' => 'Kuwait City', 'name_ar' => 'مدينة الكويت', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Hawalli', 'name_ar' => 'حولى', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
