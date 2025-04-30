@@ -21,7 +21,7 @@ class FindMatchController extends Controller
 
         $user = auth()->user();
         $filledPreferenceCount = 0;
-
+        $prefs = collect();
         if ($user->preference) {
             $prefs = collect($user->preference->toArray());
 
@@ -44,7 +44,7 @@ class FindMatchController extends Controller
                 $filledPreferenceCount += 1; // ✅ Count age as one filled field
             }
         }
-        // dd($prefs);
-        return view('user.find-match', compact('data', 'filledPreferenceCount','prefs'));
+
+        return view('user.find-match', compact('data', 'filledPreferenceCount', 'prefs'));
     }
 }
