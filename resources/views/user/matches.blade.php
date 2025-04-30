@@ -319,11 +319,52 @@
             </div>
         </div>
     </div>
+   {{-- Confirm Reveal Modal --}}
+<div class="modal fade" id="confirmRevealModal" tabindex="-1" role="dialog" aria-labelledby="confirmRevealModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmRevealModalLabel">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    {{ __('userDashboard.dashboard.Confirm Action') }}
+                </h5>
+                <button type="button" class="close text-dark" data-dismiss="modal" aria-label="{{ __('Close') }}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                {{ __('userDashboard.dashboard.Are you sure you want to reveal this user contact information? This action cannot be undone') }}
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    {{ __('Cancel') }}
+                </button>
+                <button type="button" id="confirmRevealBtn" data-dismiss="modal" class="btn btn-danger">
+                    {{ __('Confirm') }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endsection
 @push('scripts')
 @include('user.partials.report-scripts')
     <script>
+let selectedMatchedUserId = null;
 
+function revealContact(matchedUserId) {
+    selectedMatchedUserId = matchedUserId;
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmRevealModal'));
+    confirmModal.show();
+}
         $(document).ready(function() {
             // Initialize the modal
             function categorizeDetails(profile) {
@@ -435,91 +476,87 @@
                     });
             }
 
-            function revealContact(matchedUserId) {
-                if (!confirm(
-                        `{{ __('userDashboard.dashboard.Are you sure you want to reveal this user contact information? This action cannot be undone') }}.`
-                        )) {
-                    return; // User cancelled the confirmation
-                }
+//             let selectedMatchedUserId = null;
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                // console.log("Revealing contact for user ID:", matchedUserId);
+// function revealContact(matchedUserId) {
+//     selectedMatchedUserId = matchedUserId;
+//     const confirmModal = new bootstrap.Modal(document.getElementById('confirmRevealModal'));
+//     confirmModal.show();
+// }
 
-                fetch(`{{ route('reveal.contact') }}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept-Language': '{{ app()->getLocale() }}',
-                        },
-                        body: JSON.stringify({
-                            matched_user_id: matchedUserId
-                        })
-                    })
-                    .then(response => response.json().then(data => ({
-                        status: response.status,
-                        body: data
-                    })))
-                    .then(({
-                        status,
-                        body
-                    }) => {
-                        const $alert = $('#reveal-success-alert');
-                        const $message = $('#preference-success-message');
+document.getElementById('confirmRevealBtn').addEventListener('click', function () {
+    $('#confirmRevealModal').modal('hide');
 
-                        if (status !== 200 || body.error) {
-                            const $alert = $('#reveal-success-alert');
-                            const $message = $('#preference-success-message');
+    if (!selectedMatchedUserId) return;
 
-                            let errorMessage = body.error || 'An unknown error occurred.';
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    fetch(`{{ route('reveal.contact') }}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+        'Accept-Language': '{{ app()->getLocale() }}',
+    },
+    body: JSON.stringify({
+        matched_user_id: selectedMatchedUserId
+    })
+})
+.then(async (response) => {
+    const $alert = $('#reveal-success-alert');
+    const $message = $('#preference-success-message');
 
-                            // 👇 Add pricing link for subscription error
-                            if (errorMessage.includes('subscribed')) {
-                                errorMessage +=
-                                    ` <a href="{{ route('user.pricing') }}" style="text-decoration: underline;" class="fw-bold text-danger">{{ __('userDashboard.dashboard.Subscription_Now') }}</a>`;
-                            }
+    let data;
+    try {
+        data = await response.json();
+    } catch (e) {
+        $alert.removeClass('d-none alert-success').addClass('show alert-danger');
+        $message.text('Unexpected server response. Please contact support.');
+        return;
+    }
 
-                            $alert
-                                .removeClass('d-none alert-success')
-                                .addClass('show alert-danger');
-                            $message.html(errorMessage); // Use .html() to render link properly
-                        } else {
-                            // ✅ Show success alert
-                            $('#guardianPhone').text(body.guardian_contact || 'N/A');
-                            $alert
-                                .removeClass('d-none alert-danger')
-                                .addClass('show alert-success');
-                            $message.text(
-                                `{{ __('userDashboard.dashboard.Contact info revealed successfully') }}.`);
-                            $('#revealContactBtn').addClass('d-none');
+    if (!response.ok || data.error) {
+        let errorMessage = data.error || 'Something went wrong.';
 
-                            setTimeout(() => {
-                                $alert.removeClass('show').addClass('d-none');
-                            }, 10000);
+        if (errorMessage.includes('subscribed')) {
+            errorMessage += ` <a href="{{ route('user.pricing') }}" style="text-decoration: underline;" class="fw-bold text-danger">{{ __('userDashboard.dashboard.Subscription_Now') }}</a>`;
+        }
 
-                            setTimeout(() => {
-                                location.reload();
-                            }, 20000);
-                        }
-                    })
-                    .catch(error => {
-                        // console.error('Error:', error);
-                        const $alert = $('#reveal-success-alert');
-                        const $message = $('#preference-success-message');
+        $alert.removeClass('d-none alert-success').addClass('show alert-danger');
+        $message.html(errorMessage);
+        return;
+    }
 
-                        $alert
-                            .removeClass('d-none alert-success')
-                            .addClass('show alert-danger');
-                        $message.text('Network error. Please try again later.');
+    // ✅ All good, show phone number
+    $('#guardianPhone').text(data.guardian_contact || 'N/A');
+    $alert.removeClass('d-none alert-danger').addClass('show alert-success');
+    $message.text(`{{ __('userDashboard.dashboard.Contact info revealed successfully') }}.`);
+    $('#revealContactBtn').addClass('d-none');
 
-                        setTimeout(() => {
-                            $alert.removeClass('show').addClass('d-none');
-                        }, 10000);
-                    });
-            }
+    setTimeout(() => $alert.removeClass('show').addClass('d-none'), 10000);
+// ✅ Hide revealed match card from grid
+$('.profile-card').each(function () {
+    const cardData = $(this).data('profile');
+    const matchedUser = cardData?.matched_user;
 
+    if (matchedUser && (matchedUser.id == selectedMatchedUserId || matchedUser.user_id == selectedMatchedUserId)) {
+        $(this).closest('.col-12, .col-sm-6, .col-md-4').fadeOut(300, function () {
+            $(this).remove();
+        });
+    }
+});
+setTimeout(() => {
+    selectedMatchedUserId = null;
+    location.reload();
+}, 10000);
+})
+.catch(() => {
+    const $alert = $('#reveal-success-alert');
+    const $message = $('#preference-success-message');
+    $alert.removeClass('d-none alert-success').addClass('show alert-danger');
+    $message.text('Network error. Please try again later.');
+});
 
-
+});
 
             // ✅ Inside document.ready
             $(document).ready(function() {

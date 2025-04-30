@@ -998,7 +998,7 @@ $('#customFile').change(function(event) {
 
         // Initialize Select2 on multi-selects
         $('select[multiple]').select2({
-            placeholder: "{{ __('onboarding.select_hobbies') }}",
+            placeholder: "{{ __('profile.you_can_select_more_than_one') }}",
             allowClear: true
         });
 

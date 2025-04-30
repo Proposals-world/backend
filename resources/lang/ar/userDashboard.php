@@ -142,6 +142,7 @@ return [
         'Suggested_Matches' => 'تطابقات مقترحة',
         'Suggested' => 'مقترح',
         '% Match' => ' تطابق  ',
+        'Confirm Action ' => 'تأكيد الإجراء',
         'Loading_suggestions...' => 'جارٍ تحميل الاقتراحات...',
         'Loading_matches' => 'جارٍ تحميل التطابقات...',
         'No_exact_matches_found_based_on_your_criteria' => 'لم يتم العثور على تطابقات دقيقة بناءً على معاييرك',

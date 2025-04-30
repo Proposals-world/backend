@@ -157,7 +157,7 @@ return [
         'abuse' => 'Abuse',
         'offensive' => 'Offensive',
         'other' => 'Other',
-
+        'Confirm Action' => 'Confirm Action',
         'inappropriate_photos' => 'Inappropriate Photos',
         'harassment' => 'Harassment',
         'disrespectful_behavior' => 'Disrespectful Behavior',
