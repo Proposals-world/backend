@@ -1,7 +1,10 @@
 <td>
     <div class="d-flex justify-content-around gap-2 mb-2">
-        <a href="{{ route('userprofile' ,$user->id ) }}" class="btn btn-sm text-info edit_btn"><i class="ri-eye-line"></i></a>
-        <a class="btn btn-sm text-danger remove_btn" id="{{ $user->id }}"><i class="ri-delete-bin-2-line"></i></a>
+        {{-- <button class="btn btn-sm text-info view-user-profile" data-profile="{{ $user->id }}">
+            <i class="ri-eye-line"></i>
+        </button> --}}
+                <a href="{{ route('userprofile', $user->id) }}" class="btn btn-sm text-info" id="{{ $user->id }}"><i class="ri-eye-line"></i></a>
+                <a class="btn btn-sm text-danger remove_btn" id="{{ $user->id }}"><i class="ri-delete-bin-2-line"></i></a>
     </div>
 
     <!-- Form for activating or deactivating user -->

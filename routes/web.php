@@ -94,6 +94,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ]);
         Route::resource('faqs', FaqsController::class);
         Route::resource('reports', ReportController::class);
+        Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
 
         Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
         Route::put('/deactivate/{id}', [AdminsController::class, 'deactivate'])->name('deactivate');
@@ -154,12 +155,11 @@ Route::middleware([
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');
     })->name('verify.guardian.otp');
-
-    Route::prefix('/guardian-contact')->group(function () {
-        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
-        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
-        Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
-    });
+});
+Route::prefix('user/guardian-contact')->group(function () {
+    Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+    Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+    Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
 });
 
 
