@@ -77,7 +77,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile', [UserProfileController::class, 'update']);
 
     Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels']);
-
+    Route::prefix('/guardian-contact')->group(function () {
+        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+        Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
+    });
     //jop-title
     //mariage-buget
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);

@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use App\Models\GuardianOtp;
 use App\Services\GuardianContactVerificationService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+
 use Throwable;
 
 class GuardianContactVerificationController extends Controller
@@ -137,5 +139,68 @@ class GuardianContactVerificationController extends Controller
         }
 
         return '+' . $phone;
+    }
+
+
+
+    public function updateGuardianContact(Request $request)
+    {
+        try {
+            $locale = $request->header('Accept-Language', 'en');
+
+            $validator = Validator::make($request->all(), [
+                'guardian_contact' => [
+                    'required',
+                    'digits:10',
+                    'regex:/^07[0-9]{8}$/',
+                ],
+            ], [
+                'guardian_contact.required' => $locale === 'ar'
+                    ? 'رقم ولي الأمر مطلوب.'
+                    : 'Guardian contact is required.',
+                'guardian_contact.digits' => $locale === 'ar'
+                    ? 'رقم ولي الأمر يجب أن يكون مكوناً من 10 أرقام.'
+                    : 'Guardian contact must be exactly 10 digits.',
+                'guardian_contact.regex' => $locale === 'ar'
+                    ? 'رقم ولي الأمر يجب أن يبدأ بـ 07 ويتبعه 8 أرقام.'
+                    : 'Guardian contact must start with 07 followed by 8 digits.',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->first(),
+                ], 422);
+            }
+
+            $user = auth()->user();
+
+            if (!$user || !$user->profile) {
+                return response()->json([
+                    'message' => $locale === 'ar'
+                        ? 'الملف الشخصي غير موجود.'
+                        : 'User profile not found.',
+                ], 400);
+            }
+
+            $formattedPhone = $this->formatJordanianPhone($request->guardian_contact);
+
+            $user->profile->update([
+                'guardian_contact_encrypted' => $formattedPhone,
+            ]);
+
+            return response()->json([
+                'message' => $locale === 'ar'
+                    ? 'تم تحديث رقم ولي الأمر بنجاح.'
+                    : 'Guardian contact updated successfully.',
+            ]);
+        } catch (Throwable $e) {
+            Log::error('Guardian Contact Update Error', ['error' => $e->getMessage()]);
+
+            return response()->json([
+                'message' => $locale === 'ar'
+                    ? 'حدث خطأ، يرجى المحاولة لاحقاً.'
+                    : 'An error occurred. Please try again later.',
+            ], 500);
+        }
     }
 }

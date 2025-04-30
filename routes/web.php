@@ -111,15 +111,6 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     // Guardian verification should only happen AFTER profile is complete
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
-
-    Route::get('/verify-guardian-otp', function () {
-        return view('verify-guardian-otp');
-    })->name('verify.guardian.otp');
-
-    Route::prefix('/guardian-contact')->group(function () {
-        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
-        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
-    });
 });
 
 // User dashboard and match routes
@@ -160,6 +151,15 @@ Route::middleware([
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
     Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
     Route::post('/report-user', [ReportController::class, 'store']);
+    Route::get('/verify-guardian-otp', function () {
+        return view('verify-guardian-otp');
+    })->name('verify.guardian.otp');
+
+    Route::prefix('/guardian-contact')->group(function () {
+        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+        Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
+    });
 });
 
 

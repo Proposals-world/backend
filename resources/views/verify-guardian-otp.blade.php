@@ -40,6 +40,29 @@
     <div class="card shadow p-4 text-center" style="max-width: 400px; width: 100%;">
         {{-- Title --}}
         <h4 class="mb-4">{{ __('otp.Verify_Guardian_Contact') }}</h4>
+        <div id="otp-alert-success" class="alert alert-success d-none" role="alert"></div>
+        <div id="otp-alert-error" class="alert alert-danger d-none" role="alert"></div>
+        <div class="form-group" id="guardian-contact-row">
+            <label for="guardian_contact" class="fw-bold text-left">{{ __('otp.Guardian_Contact') }}</label>
+
+            <div class="d-flex align-items-center gap-2">
+                <input type="text" id="guardian_contact" name="guardian_contact"
+                    class="form-control" placeholder="{{ __('otp.Enter_guardian_number') }}" required
+                    style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 9px;">
+
+                <button id="update-guardian-btn" class="btn btn-transparent">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+
+
+            <small class="form-text text-muted mt-1 text-left">
+                <i class="fas fa-exclamation-circle text-warning me-2"></i>
+
+                {{ __('otp.This_is_to_confirm_your_guardian_contact._Leave_it_as_is_if_already_correct.') }}
+            </small>
+        </div>
+
 
         {{-- Step 1: Initial Button --}}
         <button id="show-otp-btn" class="btn btn-primary btn-block">
@@ -52,8 +75,6 @@
 
         {{-- Step 2: OTP Inputs (hidden at first) --}}
         <div id="otp-wrapper" style="display: none;">
-            <div id="otp-alert-success" class="alert alert-success d-none" role="alert"></div>
-            <div id="otp-alert-error" class="alert alert-danger d-none" role="alert"></div>
 
             <h5 class="mt-4 mb-3">{{ __('otp.Enter_the_6-digit_Code') }}</h5>
 
@@ -89,6 +110,84 @@
 @endsection
 @push('scripts')
 <script>
+        function showSuccessMessage(message) {
+    const successBox = document.getElementById('otp-alert-success');
+    const errorBox = document.getElementById('otp-alert-error');
+    console.log('Showing success:', message, successBox); // Debug line
+    console.log('class list:', document.getElementById('otp-alert-success').classList
+    ); // Debug line
+
+    errorBox.classList.add('d-none'); // hide error
+    successBox.textContent = message;
+    successBox.classList.remove('d-none');
+
+    setTimeout(() => {
+        successBox.classList.add('d-none');
+        successBox.textContent = '';
+    }, 5000);
+
+    // Optional: scroll into view on mobile
+    successBox.scrollIntoView({ behavior: 'smooth' });
+}
+
+function showErrorMessage(message) {
+    const errorBox = document.getElementById('otp-alert-error');
+    const successBox = document.getElementById('otp-alert-success');
+
+    successBox.classList.add('d-none'); // hide success
+    errorBox.textContent = message;
+    errorBox.classList.remove('d-none');
+
+    setTimeout(() => {
+        errorBox.classList.add('d-none');
+        errorBox.textContent = '';
+    }, 5000);
+
+    // Optional: scroll into view on mobile
+    errorBox.scrollIntoView({ behavior: 'smooth' });
+
+}
+    const updateGuardianBtn = document.getElementById('update-guardian-btn');
+const guardianContactInput = document.getElementById('guardian_contact');
+
+updateGuardianBtn.addEventListener('click', function () {
+    const contact = guardianContactInput.value.trim();
+
+    if (!contact) {
+        showErrorMessage('{{ __("otp.Please_enter_guardian_contact") }}');
+        return;
+    }
+
+    updateGuardianBtn.disabled = true;
+    updateGuardianBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> `;
+
+    const formData = new FormData();
+    formData.append('guardian_contact', contact);
+
+    fetch('guardian-contact/update-guardian-contact', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Accept-Language': '{{ app()->getLocale() }}',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        credentials: 'same-origin',
+        body: formData
+    })
+    .then(async response => {
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || '{{ __("otp.update_failed") }}');
+        showSuccessMessage(result.message);
+    })
+    .catch(err => {
+        showErrorMessage(err.message || '{{ __("otp.update_failed") }}');
+    })
+    .finally(() => {
+        updateGuardianBtn.disabled = false;
+        updateGuardianBtn.innerHTML= `<i class="fas fa-sync-alt"></i>`;
+    });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const inputs = document.querySelectorAll('.otp-input');
     const verifyBtn = document.getElementById('verify-btn');
@@ -180,6 +279,8 @@ document.addEventListener('DOMContentLoaded', function () {
     showOtpBtn.addEventListener('click', function () {
         guardianLoading.style.display = 'none';
         sendVerificationRequest(showOtpBtn, () => {
+            document.getElementById('guardian-contact-row').style.display = 'none'; // Hides input + refresh button
+
             showOtpBtn.style.display = 'none';
             otpWrapper.style.display = 'block';
             resendText.style.display = 'block';
@@ -258,35 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     updateVerifyButtonState(); // initial state
-    function showSuccessMessage(message) {
-    const successBox = document.getElementById('otp-alert-success');
-    const errorBox = document.getElementById('otp-alert-error');
 
-    errorBox.classList.add('d-none');
-    successBox.textContent = message;
-    successBox.classList.remove('d-none');
-
-    // Optional auto-hide after 5s
-    setTimeout(() => {
-        successBox.classList.add('d-none');
-        successBox.textContent = '';
-    }, 5000);
-}
-
-function showErrorMessage(message) {
-    const errorBox = document.getElementById('otp-alert-error');
-    const successBox = document.getElementById('otp-alert-success');
-
-    successBox.classList.add('d-none');
-    errorBox.textContent = message;
-    errorBox.classList.remove('d-none');
-
-    // Optional auto-hide after 5s
-    setTimeout(() => {
-        errorBox.classList.add('d-none');
-        errorBox.textContent = '';
-    }, 5000);
-}
 
 
 

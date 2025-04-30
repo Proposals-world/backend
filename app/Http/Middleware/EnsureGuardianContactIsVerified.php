@@ -20,15 +20,23 @@ class EnsureGuardianContactIsVerified
             return redirect()->route('login');
         }
 
-        // 👇 Only apply for females
+        // Only apply to females
         if (strtolower($user->gender) === 'female') {
-
             $guardianVerification = GuardianOtp::where('user_id', $user->id)
-                ->where('verified', true)
+                ->where('verified', 1) // must be integer if stored as 1/0
+                ->latest('id')
                 ->first();
 
-            if (!$guardianVerification) {
+            $isVerificationPage = $request->routeIs('verify.guardian.otp');
+
+            // ❌ If NOT verified and trying to access other pages → redirect to verification page
+            if (!$guardianVerification && !$isVerificationPage) {
                 return redirect()->route('verify.guardian.otp');
+            }
+
+            // ❌ If already verified and trying to access the verification page → redirect to dashboard
+            if ($guardianVerification && $isVerificationPage) {
+                return redirect()->route('user.dashboard');
             }
         }
 

@@ -8,4 +8,13 @@ return [
     'Verify' => 'Verify',
     'seconds' => 's',
     'Verifying' => 'Verifying...',
+    'Guardian_Contact' => 'Guardian Contact',
+    'Enter_guardian_number' => 'Enter guardian phone number',
+    'Update_Guardian_Contact' => 'Update Guardian Contact',
+    'Updating' => 'Updating...',
+    'update_failed' => 'Failed to update guardian contact.',
+    'Please_enter_guardian_contact' => 'Please enter guardian contact number.',
+    'This_is_to_confirm_your_guardian_contact._Leave_it_as_is_if_already_correct.' =>
+    'This is only to confirm your guardian contact. Leave it as it is if already correct.',
+
 ];
