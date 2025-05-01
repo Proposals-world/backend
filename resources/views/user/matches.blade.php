@@ -551,7 +551,7 @@ $('.profile-card').each(function () {
 setTimeout(() => {
     selectedMatchedUserId = null;
     location.reload();
-}, 10000);
+}, 0);
 })
 .catch(() => {
     const $alert = $('#reveal-success-alert');
