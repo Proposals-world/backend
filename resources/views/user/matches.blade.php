@@ -215,9 +215,13 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-2">
-                                    <strong>{{ __('userDashboard.matches.phone_number') }}:</strong>
-                                    <span id="guardianPhone"></span>
-                                    <span id="modalPhone"></span>
+                                    @if ($profile['gender'] === 'male')
+                                        <strong>{{ __('userDashboard.matches.phone_number') }}:</strong>
+                                        <span id="modalPhone"></span>
+                                    @else
+                                        <strong>{{ __('userDashboard.matches.guardian_phone') }}:</strong>
+                                        <span id="guardianPhone"></span>
+                                    @endif
                                 </div>
                                 {{-- <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.email') }}:</strong>
@@ -582,7 +586,7 @@ setTimeout(() => {
                     $('#modalAge').text(profile.profile.age || 'N/A');
                     $('#modalNationality').text(profile.profile.nationality || 'N/A');
                     $('#modalCity').text(profile.profile.city || 'N/A');
-                    // $('#modalPhone').text(profile.phone_number || 'N/A');
+                    $('#modalPhone').text(profile.phone_number || 'N/A');
                     $('#guardianPhone').text(profile.profile.guardian_contact || 'N/A');
                     // console.log(match)
                     if (!match.contact_exchanged) {
