@@ -278,7 +278,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.eye_color') }}</label>
-                                                        <select name="eye_color" class="form-control rounded-pill"
+                                                        <select name="eye_color_id" class="form-control rounded-pill"
                                                             required>
                                                             <option value="">{{ __('onboarding.select_eye_color') }}
                                                             </option>

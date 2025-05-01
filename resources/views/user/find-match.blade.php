@@ -255,8 +255,8 @@
                     <div class="form-group">
                         <label>Age Range</label>
                         <div class="d-flex">
-                            <input type="number" name="age_min" class="form-control mr-2" placeholder="Min">
-                            <input type="number" name="age_max" class="form-control" placeholder="Max">
+                            <input type="number" name="age_min" min="18" class="form-control mr-2" placeholder="Min">
+                            <input type="number" name="age_max" max="65" class="form-control" placeholder="Max">
                         </div>
                     </div>
                     <div class="form-group">

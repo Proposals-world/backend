@@ -939,7 +939,7 @@ $('select[name="marital_status_id"]').on('change', function () {
     if (profileResponse && (profileResponse.data || profileResponse.success || profileResponse.message)) {
         $('#profile-success-alert').removeClass('d-none').fadeIn();
         setTimeout(function() {
-            // window.location.href = '{{ route("user.profile") }}';
+            window.location.href = '{{ route("user.profile") }}';
         }, 2000);
     }
 }

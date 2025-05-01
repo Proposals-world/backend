@@ -47,7 +47,7 @@
 
             <div class="d-flex align-items-center gap-2">
                 <input type="text" id="guardian_contact" name="guardian_contact"
-                    class="form-control" placeholder="{{ __('otp.Enter_guardian_number') }}" required
+                    class="form-control" value="{{ auth()->user()->profile->guardian_contact_encrypted ?? '' }}" placeholder="{{ __('otp.Enter_guardian_number') }}" required
                     style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 9px;">
 
                 <button id="update-guardian-btn" class="btn btn-transparent">

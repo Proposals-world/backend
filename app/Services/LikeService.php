@@ -112,8 +112,8 @@ class LikeService
 
         if (
             Like::where('user_id', $user->id)
-                ->where('liked_user_id', $likedUser->id)
-                ->exists()
+            ->where('liked_user_id', $likedUser->id)
+            ->exists()
         ) {
             return [
                 'status' => 400,
@@ -164,8 +164,8 @@ class LikeService
 
         if (
             Dislike::where('user_id', $user->id)
-                ->where('disliked_user_id', $dislikedUser->id)
-                ->exists()
+            ->where('disliked_user_id', $dislikedUser->id)
+            ->exists()
         ) {
             return [
                 'status' => 400,
