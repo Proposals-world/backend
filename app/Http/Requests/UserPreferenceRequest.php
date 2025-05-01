@@ -38,6 +38,7 @@ class UserPreferenceRequest extends FormRequest
             'preferred_social_media_presence_id' => 'nullable|exists:social_media_presences,id',
             'preferred_marriage_budget_id'       => 'nullable|exists:marriage_budgets,id',
             'preferred_religiosity_level_id'     => 'nullable|exists:religiosity_levels,id',
+            'preferred_religion_id'               => 'nullable|exists:religions,id',
             'preferred_sleep_habit_id'           => 'nullable|exists:sleep_habits,id',
             'preferred_pets_id' => 'array',
             'preferred_pets_id.*' => 'exists:pets,id',

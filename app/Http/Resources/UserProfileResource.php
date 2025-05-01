@@ -50,9 +50,8 @@ class UserProfileResource extends JsonResource
             'profile_status' => $this->profile_status,
             'status' => $this->status,
             'last_active' => $this->last_active,
-            'city_location' => $this->profile && $this->profile->cityLocation
-                ? $this->profile->cityLocation->{'name_' . $this->lang}
-                : null,
+
+
             // Profile Information
             'profile' => [
                 'bio' => $this->profile ? ($this->lang === 'ar' ? $this->profile->bio_ar : $this->profile->bio_en) : null,
@@ -68,6 +67,8 @@ class UserProfileResource extends JsonResource
                 'religion' => $getLocalized($this->profile->religion, 'name'),
                 'country_of_residence' => $getLocalized($this->profile->countryOfResidence, 'name'),
                 'city' => $getLocalized($this->profile->city, 'name'),
+                'city_location' => $getLocalized($this->profile->cityLocation),
+
                 // 'area' => $this->profile ? $this->profile->area : null,
                 'date_of_birth' => $this->profile ? $this->profile->date_of_birth : null,
                 'age' => $this->profile ? $this->profile->age : null,

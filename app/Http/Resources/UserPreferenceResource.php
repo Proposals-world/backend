@@ -50,6 +50,7 @@ class UserPreferenceResource extends JsonResource
             'preferred_sports_activity' => $this->preferredSportsActivity ? $this->preferredSportsActivity->{"name_{$lang}"} : null,
             'preferred_social_media_presence' => $this->preferredSocialMediaPresence ? $this->preferredSocialMediaPresence->{"name_{$lang}"} : null,
             'preferred_marriage_budget' => $this->preferredmarriageBudget ? $this->preferredmarriageBudget->{'budget_' . $this->lang} : null,
+            'preferred_religion' => $this->preferredReligion ? $this->preferredReligion->{"name_{$lang}"} : null,
             'preferred_religiosity_level' => $this->preferredReligiosityLevel ? $this->preferredReligiosityLevel->{"name_{$lang}"} : null,
             'preferred_sleep_habit' => $this->preferredSleepHabit ? $this->preferredSleepHabit->{"name_{$lang}"} : null,
 

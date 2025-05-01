@@ -17,18 +17,6 @@
                     </a>
 
                 </div>
-                <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                    <ol class="breadcrumb pt-0">
-                        <li class="breadcrumb-item">
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">Library</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
-            </div>
 
 
             <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
@@ -138,8 +126,11 @@
                                             <a class="d-block position-relative" href="#">
                                                 <!-- Check if the matched user's photo is available -->
                                                 <img src="{{ asset($match['matched_user_photo'] ?? 'default-profile.png') }}"
-                                                     alt="{{ $match['matched_user_name'] }}"
-                                                     class="list-thumbnail border-0" />
+                                                alt="{{ $match['matched_user_name'] }}"
+                                                class="list-thumbnail border-0"
+                                                style="width: 100px; height: 100px; object-fit: cover;" />
+
+
                                             </a>
                                             <div class="pl-3 pt-2 pr-2 pb-2">
                                                 <a href="#">
@@ -231,6 +222,12 @@
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             <strong>{{ __('profile.City') }}:</strong> {{ $userProfile['profile']['city'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- city_location -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.city_location') }}:</strong> {{ $userProfile['profile']['city_location'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -378,7 +375,7 @@
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             <strong>{{ __('profile.Religiosity_Level') }}:</strong> {{ $userProfile['profile']['religiosity_level'] ?? 'N/A' }}
                                                         </div>
-                                                    </div>
+                                                    </div
 
                                                     <!-- Marriage Budget -->
                                                     <div class="d-flex flex-row mb-3">
@@ -630,7 +627,7 @@
                                     <div class="card d-flex flex-row mb-4">
                                         <a class="d-flex" href="#">
                                             <!-- Display the profile image -->
-                                            <img src="{{ asset(optional($like['liked_user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
+                                            <img src="{{ asset(optional($like['user']['photos']->firstWhere('is_main', 1))['url'] ?? 'default-profile.png') }}"
                                                  alt="Profile"
                                                  class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
                                         </a>
@@ -640,12 +637,12 @@
                                                     <a href="#">
                                                         <!-- Use optional() to safely access liked_user properties -->
                                                         <p class="list-item-heading mb-1 truncate">
-                                                            {{ $like['liked_user']['first_name'] ?? '' }}
-                                                            {{ $like['liked_user']['last_name'] ?? '' }}
+                                                            {{ $like['user']['first_name'] ?? '' }}
+                                                            {{ $like['user']['last_name'] ?? '' }}
                                                         </p>
                                                     </a>
                                                     <p class="mb-2 text-muted text-small">
-                                                        {{ $like['liked_user']['email'] ?? '' }}
+                                                        {{ $like['user']['email'] ?? '' }}
                                                     </p>
                                                     {{-- <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a> --}}
                                                 </div>

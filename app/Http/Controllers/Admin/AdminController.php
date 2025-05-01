@@ -79,7 +79,9 @@ class AdminController extends Controller
                     'weight',
                     'drinkingStatus',
                     'socialMediaPresence',
-                    'zodiacSign'
+                    'zodiacSign',
+                    'eyeColor', // 👈 added
+                    'cityLocation'
                 ]);
             },
             'photos',

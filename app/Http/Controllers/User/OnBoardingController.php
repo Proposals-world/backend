@@ -40,7 +40,7 @@ class OnBoardingController extends Controller
         return response()->json($cities);
     }
 
-/**
+    /**
      * Update the user's profile data and profile image (if provided) in one request.
      *
      * @param  \App\Http\Requests\UpdateUserProfileRequest  $request
@@ -77,5 +77,12 @@ class OnBoardingController extends Controller
             ->get();
 
         return response()->json($locations);
+    }
+    public function getReligiousLevels(Request $request)
+    {
+        $religionId = $request->input('religion_id');
+        $gender = $request->input('gender');
+        // dd($gender);
+        return $this->onboardingService->getSpecificReligiousLevels($religionId, $gender);
     }
 }

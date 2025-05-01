@@ -9,7 +9,12 @@ use App\Models\User;
 use App\Models\UserMatch;
 use App\Http\Resources\LikeResource;
 use App\Http\Resources\MatchResource;
+use App\Mail\LikedNotification;
+use App\Mail\MatchNotification;
+use App\Models\UserReport;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class LikeService
 {
@@ -51,9 +56,26 @@ class LikeService
             return null;
         }
 
+        // Get users you reported
+        $youReported = UserReport::where('reporter_id', $user->id)
+            ->pluck('reported_id')
+            ->toArray();
+
+        // Get users who reported you
+        $theyReportedYou = UserReport::where('reported_id', $user->id)
+            ->pluck('reporter_id')
+            ->toArray();
+
+        // Combine both arrays
+        $blockedUserIds = array_unique(array_merge($youReported, $theyReportedYou));
+
         $matches = UserMatch::with(['user1', 'user2'])
-            ->where('user1_id', $user->id)
-            ->orWhere('user2_id', $user->id)
+            ->where(function ($query) use ($user) {
+                $query->where('user1_id', $user->id)
+                    ->orWhere('user2_id', $user->id);
+            })
+            ->whereNotIn('user1_id', $blockedUserIds)
+            ->whereNotIn('user2_id', $blockedUserIds)
             ->get();
 
         return MatchResource::collection($matches);
@@ -61,6 +83,9 @@ class LikeService
 
     public function likeUserLogic($user, $likedUserId, $lang = 'en')
     {
+        $lang = request()->header('Accept-Language', app()->getLocale());
+        // this inforce the language to be either 'en' or 'ar' to make sure the email is sent in the correct language
+        // App::setLocale($lang); // $lang is either 'en' or 'ar'
         $likedUser = User::find($likedUserId);
 
         if (!$likedUser) {
@@ -85,9 +110,10 @@ class LikeService
             $existingDislike->delete();
         }
 
-        if (Like::where('user_id', $user->id)
-            ->where('liked_user_id', $likedUser->id)
-            ->exists()
+        if (
+            Like::where('user_id', $user->id)
+                ->where('liked_user_id', $likedUser->id)
+                ->exists()
         ) {
             return [
                 'status' => 400,
@@ -99,6 +125,8 @@ class LikeService
             'user_id' => $user->id,
             'liked_user_id' => $likedUser->id,
         ]);
+        // Send notification email to liked user
+        \Mail::to($likedUser->email)->send(new LikedNotification($user));
 
         if (Like::isMatch($likedUser->id, $user->id)) {
             UserMatch::create([
@@ -107,6 +135,10 @@ class LikeService
                 'match_status' => 'pending',
                 'contact_exchanged' => 0,
             ]);
+            // Send email to both users
+            \Mail::to($user->email)->send(new MatchNotification($user, $likedUser));
+            \Mail::to($likedUser->email)->send(new MatchNotification($likedUser, $user));
+
             return [
                 'status' => 200,
                 'message' => $lang === 'ar' ? 'إنه تطابق! 🎉' : 'It’s a match! 🎉'
@@ -130,9 +162,10 @@ class LikeService
             ];
         }
 
-        if (Dislike::where('user_id', $user->id)
-            ->where('disliked_user_id', $dislikedUser->id)
-            ->exists()
+        if (
+            Dislike::where('user_id', $user->id)
+                ->where('disliked_user_id', $dislikedUser->id)
+                ->exists()
         ) {
             return [
                 'status' => 400,

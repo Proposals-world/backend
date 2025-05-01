@@ -57,6 +57,7 @@ class UpdateUserProfileRequest extends FormRequest
             'marriage_budget_id' => 'nullable|integer|exists:marriage_budgets,id',
             'position_level_id' => 'nullable|integer|exists:position_levels,id',
             'eye_color_id' => 'nullable|integer|exists:eye_colors,id',
+            'city_location_id' => 'nullable|string|max:255',
 
         ];
 

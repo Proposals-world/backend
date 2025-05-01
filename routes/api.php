@@ -34,6 +34,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\Api\GuardianContactVerificationController;
 use App\Http\Controllers\Api\LikeController as ApiLikeController;
 use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\PasswordResetController;
@@ -43,7 +44,10 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
 
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPreferenceController;
+
+
 
 // Public Routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -63,16 +67,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     // tickets routes
-    Route::get ( 'tickets',                [SupportTicketController::class,'index']);
-    Route::post( 'tickets',                [SupportTicketController::class,'store']);
-    Route::get ( 'tickets/{ticket}',       [SupportTicketController::class,'show']);
-    Route::post( 'tickets/{ticket}/reply', [SupportTicketController::class,'reply']);
+    Route::get('tickets',                [SupportTicketController::class, 'index']);
+    Route::post('tickets',                [SupportTicketController::class, 'store']);
+    Route::get('tickets/{ticket}',       [SupportTicketController::class, 'show']);
+    Route::post('tickets/{ticket}/reply', [SupportTicketController::class, 'reply']);
     Route::post('tickets/{ticket}/close', [SupportTicketController::class, 'close'])
-    ->name('api.tickets.close');
+        ->name('api.tickets.close');
 
     Route::post('/profile', [UserProfileController::class, 'update']);
 
-
+    Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels']);
+    Route::prefix('/guardian-contact')->group(function () {
+        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+        Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
+    });
     //jop-title
     //mariage-buget
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
@@ -121,4 +130,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/dislike', [ApiLikeController::class, 'dislikeUser']);
     Route::get('/matches', [MatchController::class, 'getMatches']);
     Route::post('/report-user', [ReportController::class, 'store']);
+    Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
+    Route::prefix('guardian-contact')->group(function () {
+        Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+        Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+    });
 });

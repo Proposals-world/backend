@@ -56,17 +56,9 @@ class ReportsDataTable extends DataTable
         return $this->builder()
             ->setTableId('reports-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
             ->orderBy(1)
             ->addAction(['title' => 'Actions', 'width' => '120px'])
-            ->selectStyleSingle()
-            ->buttons([
-                Button::make('create'),
-                Button::make('export'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            ]);
+            ->selectStyleSingle();
     }
 
     /**

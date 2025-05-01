@@ -11,150 +11,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
-                        <h4 class="page-title">Profile</h4>
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Jidox</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                            <li class="breadcrumb-item active">Profile</li>
-                        </ol>
+                        <h4 class="page-title">{{ $user->first_name }} {{ $user->last_name }} Profile</h4>
+
                     </div>
                 </div>
             </div>
             <!-- end page title -->
 
             <div class="row">
-                <div class="col-xl-4 col-lg-5">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <img src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}" alt="user-image" height="42"
-                            alt="profile-image">
 
-                            <h4 class="mb-1 mt-2">{{ $user->first_name }}</h4>
-                            <p class="text-muted">
-                                @if(isset($user->profile->id_verification_status))
-                                    @if($user->profile->id_verification_status === 'verified')
-                                        <i class="ri-checkbox-circle-line text-success"></i>
-                                    @else
-                                        <i class="ri-close-circle-line text-danger"></i>
-                                    @endif
-                                @else
-                                <i class="ri-close-circle-line text-danger"></i>
-                                @endif
-                                {{-- {{ $user->profile->id_verification_status }} --}}
-                            </p>
-
-                            <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>
-                            <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>
-
-                            <div class="text-start mt-3">
-                                <h4 class="fs-13 text-uppercase">About Me :</h4>
-                                <p class="text-muted mb-3">
-                                    {{ $user->profile->bio_en ?? 'None' }}
-                                </p>
-                                <p class="text-muted mb-2"><strong>Full Name :</strong> <span class="ms-2">{{ $user->first_name ?? 'None' }}  {{ $user->last_name ?? '' }}</span></p>
-
-                                <p class="text-muted mb-2"><strong>Mobile :</strong><span class="ms-2">(962)
-                                        {{ $user->phone_number?? 'None' }}</span></p>
-
-                                <p class="text-muted mb-2"><strong>Email :</strong> <span class="ms-2 ">{{ $user->email?? 'None' }}</span></p>
-
-                                <p class="text-muted mb-1"><strong>Gender :</strong> <span class="ms-2">{{$user->gender ?? 'None'}}</span></p>
-                                <p class="text-muted mb-1"><strong>Nationality :</strong> <span class="ms-2">{{ $user->profile->nationality->name_en?? 'None'  }}</span></p>
-                            </div>
-
-                            <ul class="social-list list-inline mt-3 mb-0">
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="ri-facebook-circle-fill"></i></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="ri-google-fill"></i></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="ri-twitter-fill"></i></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="ri-github-fill"></i></a>
-                                </li>
-                            </ul>
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card -->
-
-                    <!-- Messages-->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="header-title">Messages</h4>
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-2-fill"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end">
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Settings</a>
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="inbox-widget">
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Tomaslau</p>
-                                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                                    <p class="inbox-item-date">
-                                        <a href="#" class="btn btn-sm btn-link text-info fs-13"> Reply </a>
-                                    </p>
-                                </div>
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Stillnotdavid</p>
-                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                    <p class="inbox-item-date">
-                                        <a href="#" class="btn btn-sm btn-link text-info fs-13"> Reply </a>
-                                    </p>
-                                </div>
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Kurafire</p>
-                                    <p class="inbox-item-text">Nice to meet you</p>
-                                    <p class="inbox-item-date">
-                                        <a href="#" class="btn btn-sm btn-link text-info fs-13"> Reply </a>
-                                    </p>
-                                </div>
-
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Shahedk</p>
-                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                    <p class="inbox-item-date">
-                                        <a href="#" class="btn btn-sm btn-link text-info fs-13"> Reply </a>
-                                    </p>
-                                </div>
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Adhamdannaway</p>
-                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                    <p class="inbox-item-date">
-                                        <a href="#" class="btn btn-sm btn-link text-info fs-13"> Reply </a>
-                                    </p>
-                                </div>
-                            </div> <!-- end inbox-widget -->
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-
-                </div> <!-- end col-->
-                <div class="col-xl-8 col-lg-7">
+                <div class="col-xl-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <!-- Navigation Pills -->
                             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                                 <li class="nav-item">
                                     <a href="#aboutme" data-bs-toggle="tab" class="nav-link rounded-start active">
-                                        Customer Information
+                                        <i class="ri-user-line me-1"></i> Customer Information
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="#matches" data-bs-toggle="tab" class="nav-link">
                                         Matches
                                     </a>
@@ -163,7 +39,7 @@
                                     <a href="#like_dislike" data-bs-toggle="tab" class="nav-link rounded-end">
                                         like & dislike
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
 
                             <!-- Tab Content -->
@@ -173,14 +49,27 @@
                                     <form>
                                         <h5 class="mb-4 text-uppercase"><i class="ri-contacts-book-2-line me-1"></i> Personal Info</h5>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Profile Picture</label>
-                                                    <div>
-                                                        <img src="{{ asset($user->profile->avatar_url ?? '') }}" class="img-thumbnail" alt="User Avatar" height="100px" width="200px">
-                                                    </div>
+                                            <div class="col-12">
+                                                <div class="mb-3 text-center">
+                                                    <label class="form-label text-start d-block">Profile Picture</label>
+                                                    {{-- <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D"
+                                                         class="img-thumbnail"
+                                                         alt="User Avatar"
+                                                         style="max-width: 250px; height: auto;"> --}}
+                                                    <img src="{{ optional($user->photos->firstWhere('is_main', 1))->photo_url }} }}" class="img-thumbnail" alt="User Avatar" style="max-width: 250px; height: auto; border-radius:10px">
+
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Bio</label>
+                                                    <p>{{ $user->profile->bio_en ?? 'None' }}</p>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -272,6 +161,14 @@
         <div class="mb-3">
             <label class="form-label">City</label>
             <p>{{ $user->profile->city->name_en ?? 'None' }}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Area/Neighborhood</label>
+            <p>{{ $user->profile->cityLocation->name_en ?? 'None' }}</p>
         </div>
     </div>
 </div>
@@ -463,6 +360,15 @@
               <p>{{ $user->profile->hairColor->name_en ?? 'None' }}</p>
           </div>
       </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <div class="mb-3">
+              <label class="form-label">eye Color</label>
+              <p>{{ $user->profile->eyeColor->name_en ?? 'None' }}</p>
+          </div>
+      </div>
+
   </div>
  <!-- Religion & Marriage -->
  <h5 class="mb-3 text-uppercase bg-light p-2"><i class="ri-book-3-line me-1"></i> Religion & Marriage</h5>

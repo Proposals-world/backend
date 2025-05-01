@@ -5,20 +5,45 @@
     height: 117px;
     width: 124px;
     object-fit: contain; /* Keeps image aspect ratio nicely inside */
+}@media (max-width: 767.98px) {
+    .matchmaking-form-submit {
+        display: block !important;
+        text-align: center;
+        margin-top: 20px;
+
+    }
+    .slider-btn {
+        display: block !important;
+    }
+
+
+    .matchmaking-form-submit .btn {
+        display: inline-block !important;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+.contact-direction {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+html[dir="rtl"] .contact-direction {
+    flex-direction: row-reverse;
 }
 
 </style>
-    <div>
+    <div style="
+    @if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
+        background-position: left 0;
+    @else
+        background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
+        background-position: right 0; @endif
+    background-repeat: no-repeat;
+    background-size: 65%;">
         <!-- slider-area -->
         <section id="parallax" class="slider-area slider-bg2 second-slider-bg d-flex fix"
-            style="
-                @if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
-                    background-position: left 0;
-                @else
-                    background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
-                    background-position: right 0; @endif
-                background-repeat: no-repeat;
-                background-size: 65%;">
+            >
 
             <div class="slider-shape ss-one layer" data-depth="0.10">
                 <img src="{{ asset('frontend/img/shape/header-sape.png') }}" alt="shape">
@@ -373,7 +398,7 @@
                                     <div class="pricing-head">
                                         <h4>{{ $package['package_name'] }}</h4>
                                         <div class="pricing-amount">
-                                            <sup><span class="currency">JD</span></sup>
+                                            <sup><span class="currency">$</span></sup>
                                             <span class="price">{{ $package['price'] }}</span>
                                             <br>
                                             <span class="subscription"></span>
@@ -448,7 +473,7 @@
 <section id="contact" class="contact-area pt-50 pb-100"
 style="background-color: #fff; position: relative;">
 <div class="container">
-    <div class="row align-items-center" style="max-width: 1140px; margin: auto;">
+    <div class="row align-items-center contact-direction" style="max-width: 1140px; margin: auto;">
         <!-- Left Image -->
         <div class="col-lg-6 d-flex justify-content-center">
             <div class="contact-img2" style="max-width: 723px; max-height: 555px;">

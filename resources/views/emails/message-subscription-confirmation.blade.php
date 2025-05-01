@@ -5,118 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscription Confirmation</title>
     <style>
-        /* Reset styles */
+        /* Base Styles */
         body {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            background-color: #f7f7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333333;
+            line-height: 1.6;
         }
-
-        /* Container styles */
         .email-container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 0;
             background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
         }
-
-        /* Header styles */
+        
+        /* Header Styles */
         .header {
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 0 20px;
+            background-color: #9c0c58;
+            color: white;
         }
-
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
         .logo {
-            width: 200px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
         }
-
-        /* Content styles */
+        
+        /* Content Styles */
         .content {
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
+            padding: 35px 40px;
+            text-align: center;
         }
-
         .greeting {
             font-size: 24px;
             color: #9c0c58;
             margin-bottom: 20px;
-            text-align: center;
+            font-weight: 600;
         }
-
         .message {
             font-size: 16px;
             color: #555555;
-            margin-bottom: 30px;
-            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
-
-        /* Button styles */
+        .message p {
+            margin: 0 0 15px;
+        }
+        
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .feature-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            color: #555555;
+        }
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #9c0c58;
+            font-weight: bold;
+        }
+        
+        /* Button Styles */
         .button-container {
-            text-align: center;
             margin: 30px 0;
         }
-
         .button {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 14px 32px;
             background-color: #9c0c58;
             color: #ffffff;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
             font-size: 16px;
+            transition: background-color 0.3s;
+            box-shadow: 0 3px 6px rgba(156, 12, 88, 0.2);
         }
-
-        /* Footer styles */
+        .button:hover {
+            background-color: #7c0946;
+        }
+        
+        /* Footer Styles */
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #666666;
+            padding: 25px 20px;
             font-size: 14px;
+            color: #666666;
+            background-color: #f9f9f9;
             border-top: 1px solid #eeeeee;
-            margin-top: 30px;
         }
-
+        .footer p {
+            margin: 0 0 10px 0;
+        }
+        .tagline {
+            font-style: italic;
+            color: #9c0c58;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
         .social-links {
-            margin: 20px 0;
+            margin: 15px 0;
         }
-
-        .social-links a {
+        .social-link {
             display: inline-block;
-            margin: 0 10px;
-            color: #E91E63;
+            margin: 0 8px;
+            color: #9c0c58;
             text-decoration: none;
         }
-
         .disclaimer {
             font-size: 12px;
             color: #999999;
-            margin-top: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eeeeee;
         }
-
+        .disclaimer p {
+            margin: 5px 0;
+        }
+        
         /* Responsive styles */
         @media only screen and (max-width: 600px) {
             .email-container {
                 width: 100% !important;
-                padding: 10px;
+                margin: 10px auto;
+                border-radius: 8px;
             }
-
             .content {
-                padding: 15px;
+                padding: 25px 20px;
             }
-
             .greeting {
-                font-size: 20px;
+                font-size: 22px;
             }
-
-            .message {
-                font-size: 14px;
+            .logo {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -125,8 +175,9 @@
     <div class="email-container">
         <div class="header">
             <img src="{{ asset('admin/assets/images/brands/proposals-logo.jpeg') }}" alt="Islamic Proposals" class="logo">
+            <h1>Subscription Confirmation</h1>
         </div>
-
+        
         <div class="content">
             <h1 class="greeting">Thank You for Subscribing!</h1>
             
@@ -137,22 +188,29 @@
             </div>
 
             <div class="button-container">
-                <a style="color: white" href="{{ url('/') }}" class="button">Visit Our Website</a>
+                <a href="{{ url('/') }}" class="button" style="color: white;">Visit Our Website</a>
             </div>
 
             <div class="message">
                 <p>Stay tuned for updates about:</p>
-                <ul style="list-style: none; padding: 0;">
-                    <li>✓ Our official launch date</li>
-                    <li>✓ Special early-bird offers</li>
-                    <li>✓ Exclusive features and services</li>
+                <ul class="feature-list">
+                    <li>Our official launch date</li>
+                    <li>Special early-bird offers</li>
+                    <li>Exclusive features and services</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer">
-            <p>Islamic Proposals - Finding Your Soulmate the Halal Way</p>
-
+            <p class="tagline">Finding Your Soulmate the Halal Way</p>
+            
+            <!-- Optional: Add social media links here -->
+            <!-- <div class="social-links">
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Instagram</a>
+            </div> -->
+            
             <div class="disclaimer">
                 <p>This email was sent to {{ $email }}</p>
                 <p>If you didn't subscribe to Proposals, please ignore this email.</p>

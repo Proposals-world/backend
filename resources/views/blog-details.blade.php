@@ -6,7 +6,13 @@
 }
 </style>
 <div>
-    <section class="breadcrumb-area d-flex align-items-center" style="background-image:url({{ asset('frontend/img/bg/test-bg.jpg') }})">
+    <section class="breadcrumb-area d-flex align-items-center"
+    style="
+    @if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/breadcrumb.png') }}); background-position: left 0;
+    @else background-image: url({{ asset('frontend/img/bg/breadcrumb.png') }}); background-position: right 0; @endif
+    background-repeat: no-repeat;
+    background-size: cover;
+">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">

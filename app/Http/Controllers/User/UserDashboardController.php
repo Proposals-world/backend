@@ -4,9 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MatchResource;
+use App\Models\Like;
 use App\Models\UserMatch;
 use App\Models\SubscriptionPackage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Subscription;
 
 class UserDashboardController extends Controller
 {
@@ -15,10 +17,21 @@ class UserDashboardController extends Controller
         $matches = $this->getUserMatches();
         $transformed = $this->transformMatches($matches);
         $lang = $this->getAppLocale();
+        $countOfHalfMatches = Like::where('liked_user_id', Auth::id())->count();
+        $countOfMatches = UserMatch::where(function ($query) {
+            $query->where('user1_id', Auth::id())
+                ->orWhere('user2_id', Auth::id());
+        })
+            ->count();
+        $remainingContacts = Subscription::where('user_id', Auth::id())->value('contacts_remaining');
 
+        // dd($countOfMatches);
         return view('user.dashboard', [
             'matches' => $transformed,
-            'appLocale' => $lang
+            'appLocale' => $lang,
+            'countOfHalfMatches' => $countOfHalfMatches,
+            'countOfMatches' => $countOfMatches,
+            'remainingContacts' => $remainingContacts,
         ]);
     }
 

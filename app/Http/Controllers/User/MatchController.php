@@ -11,27 +11,29 @@ use Illuminate\Support\Facades\App;
 use App\Http\Resources\MatchResource;
 use App\Http\Resources\UserProfileResource;
 use App\Models\Like;
+use App\Models\User;
 use App\Services\ContactMaskingService;
 
 class MatchController extends Controller
 {
     protected $likeService;
     protected $maskingService;
-
-    public function __construct(LikeService $likeService, ContactMaskingService $maskingService)
+    protected $contactMaskingService;
+    public function __construct(LikeService $likeService, ContactMaskingService $contactMaskingService)
     {
         $this->likeService = $likeService;
-        $this->maskingService = $maskingService;
+        $this->contactMaskingService = $contactMaskingService;
     }
+
 
     public function getMatches()
     {
         $matches = $this->likeService->getMatches();
-
+// dd($matches->resolve());
         if (auth()->guest()) {
             return redirect()->route('login')->with('error', 'Unauthorized');
         }
-
+        // dd($matches->resolve());
         if ($matches->isEmpty()) {
             return view('user.matches', [
                 'matchesWithContact' => collect(),
@@ -67,7 +69,7 @@ class MatchController extends Controller
 
         $matchesWithContact = $enrichedMatches->filter(fn($m) => $m['contact_exchanged']);
         $matchesWithoutContact = $enrichedMatches->filter(fn($m) => !$m['contact_exchanged']);
-        // dd($matchesWithContact, $matchesWithoutContact);
+        
         return view('user.matches', [
             'matchesWithContact' => $matchesWithContact,
             'matchesWithoutContact' => $matchesWithoutContact,
@@ -78,5 +80,34 @@ class MatchController extends Controller
     {
         // ✅ Just call the service and return its result
         return $this->likeService->softDeleteMatch($request);
+    }
+    public function revealContact(Request $request)
+    {
+        $user = auth()->user();
+        $lang = request()->header('Accept-Language', app()->getLocale());
+
+        // Check if the user has a subscription
+        $subscription = $user->subscription;
+        if (!$subscription || $subscription->status !== 'active') {
+            $errorMessage = $lang === 'ar' ? 'يجب أن تكون مشتركًا لكشف معلومات الاتصال.' : 'You must be subscribed to reveal contact info.';
+            return response()->json(['error' => $errorMessage], 403);
+        }
+
+        // Check if user has remaining contacts
+        if ($subscription->contacts_remaining <= 0) {
+            $errorMessage = $lang === 'ar' ? 'ليس لديك أي اظهارات متبقية لجهات الاتصال.' : 'You have no remaining contact reveals.';
+            return response()->json(['error' => $errorMessage], 403);
+        }
+
+        $matchedUserId = $request->input('matched_user_id');
+
+        // Get contact info
+        $result = $this->contactMaskingService->getContactInfo($user->id, $matchedUserId);
+        // If contact info revealed successfully, reduce contacts
+        if (!isset($result['error'])) {
+            $subscription->decrement('contacts_remaining');
+        }
+
+        return response()->json($result, isset($result['error']) ? 404 : 200);
     }
 }

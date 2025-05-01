@@ -38,7 +38,8 @@ class UserPreference extends Model
         'preferred_hijab_status',   // Added hijab status
         'preferred_children_count', // Added children count
         'preferred_car_ownership',  // Added car ownership
-        'preferred_housing_status_id' // Added housing status
+        'preferred_housing_status_id', // Added housing status
+        'preferred_religion_id', // Added religion
     ];
 
 
@@ -162,5 +163,10 @@ class UserPreference extends Model
     public function preferredhousingStatus()
     {
         return $this->belongsTo(HousingStatus::class, 'preferred_housing_status_id');
+    }
+    // app/Models/UserPreference.php
+    public function preferredReligion()
+    {
+        return $this->belongsTo(Religion::class, 'preferred_religion_id');
     }
 }

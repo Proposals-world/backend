@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 
 @section('content')
-{{-- {{ dd( $user->profile->eye_color_id) }} --}}
+{{-- {{ dd( $data) }} --}}
 
 
 <!-- Icons css -->
@@ -91,11 +91,12 @@ style="
                                     <div class="form-group">
                                         <label class="form-label">{{ __('onboarding.photo_upload') }}</label>
                                         <div class="custom-file">
-                                            <input type="file" name="profile_photo" class="custom-file-input" id="customFile" accept="image/*"
+                                            <input type="file"  name="profile_photo" class="custom-file-input" id="customFile" accept="image/*"
                                                 @if (!optional($user->photos->firstWhere('is_main', 1))->photo_url) required @endif>
                                             <label class="custom-file-label" for="customFile">{{ __('onboarding.choose_photo') }}</label>
                                         </div>
                                         <img id="preview"
+                                        name="profile_photo"
                                             src="{{ optional($user->photos->firstWhere('is_main', 1))->photo_url }}"
                                             alt="{{ __('Thumbnail') }}"
                                             style="display: block; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 150px;" />
@@ -168,34 +169,12 @@ style="
 
                                     <div class="onboarding-navigation d-flex justify-content-end mt-4">
                                         <button type="button" class="btn btn-primary rounded-pill next-step"
-                                            disabled>
+                                            >
                                             {{ __('onboarding.next') }} <i
                                                 class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
                                         </button>
                                     </div>
                                 </div>
-
-                                @push('scripts')
-                                    <script>
-                                        $('#country_id').change(function() {
-                                            const countryId = $(this).val();
-                                            $('#city_id').empty().append('<option value="">{{ __('onboarding.select_city') }}</option>');
-
-                                            if (countryId) {
-                                                $.ajax({
-                                                    url: '{{ route('cities.by.country', ':countryId') }}'.replace(':countryId', countryId),
-                                                    type: 'GET',
-                                                    success: function(cities) {
-                                                        cities.forEach(function(city) {
-                                                            $('#city_id').append('<option value="' + city.id + '">' + city
-                                                                .name + '</option>');
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    </script>
-                                @endpush
 
                                 <!-- Step 1: Physical Attributes -->
                                 <div class="onboarding-step" id="step-1" style="display:none;">
@@ -330,7 +309,7 @@ style="
                                             <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
                                         </button>
                                         <button type="button" class="btn btn-primary rounded-pill next-step"
-                                            disabled>
+                                            >
                                             {{ __('onboarding.next') }}
                                             <i
                                                 class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
@@ -349,13 +328,11 @@ style="
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.employment_status') }}</label>
-                                                <select name="employment_status" class="form-control rounded-pill"
-                                                    required>
-                                                    <option value="1">{{ __('onboarding.employed') }}
-                                                    </option>
-                                                    <option value="0"{{ $user->profile->smoking_status == 0 ? 'selected' : '' }}>{{ __('onboarding.unemployed') }}
-                                                    </option>
-                                                </select>
+                                                    <select name="employment_status" class="form-control rounded-pill" required>
+                                                        <option value="1" {{ $user->profile->employment_status == 1 ? 'selected' : '' }}>Employed</option>
+                                                        <option value="0" {{ $user->profile->employment_status == 0 ? 'selected' : '' }}>Unemployed</option>
+                                                    </select>
+
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
@@ -365,13 +342,14 @@ style="
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.job_title') }}</label>
                                                 <select name="job_title_id" class="form-control rounded-pill">
-                                                    <option value="">{{ __('onboarding.select_job_title') }}
-                                                    </option>
+                                                    <option value="">{{ __('onboarding.select_job_title') }}</option>
                                                     @foreach ($data['jobTitles'] as $jobTitle)
-                                                        <option value="{{ $jobTitle->id }}"{{ $user->profile->job_title_id == $jobTitle->id ? 'selected' : '' }}>{{ $jobTitle->name }}
+                                                        <option value="{{ $jobTitle->id }}" {{ $user->profile->job_title_id == $jobTitle->id ? 'selected' : '' }}>
+                                                            {{ $jobTitle->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
+
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
@@ -531,7 +509,7 @@ style="
                                             <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
                                         </button>
                                         <button type="button" class="btn btn-primary rounded-pill next-step"
-                                            disabled>
+                                            >
                                             {{ __('onboarding.next') }}
                                             <i
                                                 class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
@@ -608,16 +586,15 @@ style="
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.marriage_budget') }}</label>
-                                                <select name="marriage_budget_id"
-                                                    class="form-control rounded-pill" required>
-                                                    <option value="">
-                                                        {{ __('onboarding.select_marriage_budget') }}</option>
-                                                    @foreach ($data['marriageBudget'] as $budget)
-                                                        <option value="{{ $budget->id }}">
-                                                            {{ $budget->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="error-message text-danger"
+                                                    <select name="marriage_budget_id" class="form-control rounded-pill" required>
+                                                        <option value="">{{ __('onboarding.select_marriage_budget') }}</option>
+                                                        @foreach ($data['marriageBudget'] as $budget)
+                                                            <option value="{{ $budget->id }}" {{ $user->profile->marriage_budget_id == $budget->id ? 'selected' : '' }}>
+                                                                {{ $budget->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                                                                    <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
@@ -642,7 +619,7 @@ style="
                                             <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
                                         </button>
                                         <button type="button" class="btn btn-primary rounded-pill next-step"
-                                            disabled>
+                                            >
                                             {{ __('onboarding.next') }} <i
                                                 class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
                                         </button>
@@ -654,7 +631,7 @@ style="
                                         {{ __('onboarding.final_details') }}</h2>
                                     <div class="row">
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.country_of_residence') }}</label>
@@ -672,7 +649,7 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.city') }}</label>
                                                 <select name="city_id" id="city_id"
@@ -684,7 +661,18 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">{{ __('onboarding.city_location') }}</label>
+                                                <select name="city_location_id" id="city_location_id"
+                                                    class="form-control rounded-pill" required>
+                                                    <option value="">{{ __('onboarding.city_location') }}
+                                                    </option>
+                                                </select>
+                                                <span class="error-message text-danger"
+                                                    style="font-size:12px;"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -727,7 +715,7 @@ style="
                                             <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
                                         </button>
                                         <button type="button" class="btn btn-primary rounded-pill next-step"
-                                            disabled>
+                                            >
                                             {{ __('onboarding.next') }} <i
                                                 class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
                                         </button>
@@ -825,7 +813,47 @@ style="
 <script>
     // Assume user gender is available from a hidden field or global variable.
     var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
+    $('#religion_id').on('change', function () {
+    var religionId = $(this).val();
+    var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
 
+    $('#religiosity_levels')
+        .empty()
+        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+
+    if (religionId) {
+        $.ajax({
+            url: "{{ url('user/religious-levels-gender') }}",
+            type: 'GET',
+            data: {
+                religion_id: religionId,
+                gender: gender === 'male' ? 1 : 2
+            },
+            success: function (response) {
+                if (response.religiousLevels && response.religiousLevels.length > 0) {
+                    $.each(response.religiousLevels, function (index, level) {
+                        $('#religiosity_levels').append(
+                            '<option value="' + level.id + '">' + level.name + '</option>'
+                        );
+                    });
+                }
+            },
+            error: function (xhr) {
+                console.error('Error fetching religiosity levels:', xhr.responseText);
+            }
+        });
+    }
+});
+$('select[name="marital_status_id"]').on('change', function () {
+    var selectedMaritalStatus = $(this).val();
+
+    // Assuming "Single" marital status has ID = 1
+    if (selectedMaritalStatus == 1) { // adjust 1 if your "Single" ID is different
+        $('input[name="number_of_children"]').val(0).prop('readonly', true);
+    } else {
+        $('input[name="number_of_children"]').val('').prop('readonly', false);
+    }
+});
     // Save progress to localStorage and load on page load.
     const formSelector = '#onboarding-form';
     const formStorageKey = 'onboardingFormData';
@@ -851,85 +879,87 @@ style="
         }
     }
     $('#profile-form').submit(function(e) {
-    e.preventDefault(); // Prevent the form from submitting normally
+    e.preventDefault(); // Prevent normal form submission
 
-    // Get the form data for profile info
-    var formData = new FormData(this); // Use FormData for file uploads
+    var formData = new FormData(this); // Get all form data
 
-    // URLs for both profile update and photo update
     var profileUrl = '{{ route("profile.update") }}';
     var photoUrl = '{{ route("user.profile.photo.update") }}';
 
-    // Make AJAX requests for both profile update and photo upload
+    // Always send profile update request
     let profileRequest = $.ajax({
-        url: profileUrl, // URL for updating profile
+        url: profileUrl,
         type: 'POST',
         data: formData,
-        processData: false,  // Necessary for FormData
-        contentType: false,  // Necessary for FormData
+        processData: false,
+        contentType: false,
     });
 
-    // Separate request for photo upload
-    let photoRequest = $.ajax({
-        url: photoUrl, // URL for updating profile photo
-        type: 'POST',
-        data: formData,
-        processData: false,  // Necessary for FormData
-        contentType: false,  // Necessary for FormData
-    });
+    // Check if a photo file was selected
+    var fileInput = $('#customFile')[0];
+    var photoRequest = null;
 
-    // Run both requests concurrently with Promise.all
-    Promise.all([profileRequest, photoRequest])
-        .then((responses) => {
-            // Both requests have completed successfully
-            console.log('Profile and photo updated successfully!');
-
-            // Log only the photo update response
-            console.log('Photo response:', responses[1]);
-
-            // Check if the photo update was successful
-            if (responses[1].success) {
-                // Update the photo preview if photo is uploaded
-                $('#preview').attr('src', responses[1].photoUrl);
-            }
-
-            // Handle success for the profile update
-            if (responses[0].success) {
-                alert('Profile updated successfully!');
-            }
-
-            // Display the success message using the custom alert
-            $('#profile-success-alert').removeClass('d-none').fadeIn();
-
-            // Redirect to the user profile page after a short delay
-            setTimeout(function() {
-                window.location.href = '{{ route("user.profile") }}';
-            }, 2000);  // Wait 2 seconds before redirecting
-        })
-        .catch((error) => {
-            // Handle any errors that occurred during the AJAX requests
-            console.error('An error occurred:', error);
-
-            // Show errors from the response if status is 422 (validation errors)
-            if (error.status === 422) {
-                var errors = error.responseJSON.errors;
-
-                // Clear previous errors
-                $('.error-message').text('');
-
-                // Loop through each field's errors and display them
-                for (var field in errors) {
-                    if (errors.hasOwnProperty(field)) {
-                        var errorMessage = errors[field].join(', '); // Concatenate multiple errors
-                        $('#' + field).closest('.form-group').find('.error-message').text(errorMessage);
-                    }
-                }
-            } else {
-                alert('There was an error submitting the form.');
-            }
+    if (fileInput.files.length > 0) {
+        // Only if there is a file, send photo update request
+        photoRequest = $.ajax({
+            url: photoUrl,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
         });
-});
+    }
 
+    // Handle both requests
+    if (photoRequest) {
+        // If there is a photo, wait for both
+        Promise.all([profileRequest, photoRequest])
+            .then((responses) => {
+                // Profile and Photo updated
+                handleSuccess(responses[0], responses[1]);
+            })
+            .catch(handleError);
+    } else {
+        // No photo, only profile request
+        profileRequest
+            .then((response) => {
+                handleSuccess(response, null);
+            })
+            .catch(handleError);
+    }
+
+    function handleSuccess(profileResponse, photoResponse) {
+    // console.log('Profile updated successfully!', profileResponse);
+    if (photoResponse) {
+        // console.log('Photo updated successfully!', photoResponse);
+        if (photoResponse.success || photoResponse.data || photoResponse.message) {
+            $('#preview').attr('src', photoResponse.photoUrl);
+        }
+    }
+    if (profileResponse && (profileResponse.data || profileResponse.success || profileResponse.message)) {
+        $('#profile-success-alert').removeClass('d-none').fadeIn();
+        setTimeout(function() {
+            // window.location.href = '{{ route("user.profile") }}';
+        }, 2000);
+    }
+}
+
+    function handleError(error) {
+        console.error('An error occurred:', error);
+        if (error.status === 422) {
+            var errors = error.responseJSON.errors;
+            $('.error-message').text('');
+            for (var field in errors) {
+                if (errors.hasOwnProperty(field)) {
+                    var errorMessage = errors[field].join(', ');
+                    $('[name="' + field + '"]').closest('.form-group').find('.error-message').text(errorMessage);
+                }
+            }
+        } else {
+            alert('There was an error submitting the form.');
+        }
+    }
+});
 // Handle the file input change to show a preview image
 $('#customFile').change(function(event) {
     var reader = new FileReader();
@@ -968,7 +998,7 @@ $('#customFile').change(function(event) {
 
         // Initialize Select2 on multi-selects
         $('select[multiple]').select2({
-            placeholder: "{{ __('onboarding.select_hobbies') }}",
+            placeholder: "{{ __('profile.you_can_select_more_than_one') }}",
             allowClear: true
         });
 
@@ -1248,7 +1278,7 @@ $('#customFile').change(function(event) {
             }
         }
 
-        $('.next-step').prop('disabled', true);
+        $('.next-step').prop('disabled', false);
 
         $('.next-step').click(function() {
             var currentStep = $(this).closest('.onboarding-step');
@@ -1286,6 +1316,7 @@ $('#customFile').change(function(event) {
             if (!validateStep(currentStep)) {
                 return false;
             }
+
             // clear saved form data from localStorage upon successful submission.
             localStorage.removeItem(formStorageKey);
             this.submit();
@@ -1335,6 +1366,54 @@ $(document).ready(function() {
     if (userCountryId) {
         $('#country_id').val(userCountryId).trigger('change'); // Set the selected country and trigger the change event
     }
+});
+ /* --------------------------------------------------
+             * Fetch city locations when a city is chosen
+             * -------------------------------------------------- */
+             $(document).ready(function() {
+    var savedCityId = "{{ $user->profile->city_id ?? '' }}";
+    var savedCityLocationId = "{{ $user->profile->city_location_id ?? '' }}";
+
+    function loadCityLocations(cityId, selectedLocationId = null) {
+        $('#city_location_id')
+            .empty()
+            .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+
+        if (cityId) {
+            $.ajax({
+                url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+                type: 'GET',
+                success: function(data) {
+                    $.each(data, function(index, location) {
+                        $('#city_location_id').append(
+                            '<option value="' + location.id + '">' + location.name + '</option>'
+                        );
+                    });
+
+                    if (selectedLocationId) {
+                        $('#city_location_id').val(selectedLocationId);
+                    }
+                }
+            });
+        }
+    }
+
+    // On page load: if saved city exists, load locations
+    if (savedCityId) {
+        loadCityLocations(savedCityId, savedCityLocationId);
+    }
+ // After loading saved form data
+ var currentStep = $('.onboarding-step:visible');
+    markStepFieldsAsTouched(currentStep);
+    validateStep(currentStep);
+    updateNextButton(currentStep);
+    // On city change: reload city locations
+    $('#city_id').on('change', function() {
+        var cityId = $(this).val();
+        // When user changes city, reset saved location
+        loadCityLocations(cityId, null);
+
+    });
 });
 
 

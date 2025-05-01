@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\AdminsStoreRequest;
 use App\Http\Requests\Admin\AdminsUpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 
 class AdminsController extends Controller
 {
@@ -75,5 +76,36 @@ class AdminsController extends Controller
     {
         $admin->delete();
         return response()->json(['message' => 'Admin deleted successfully.']);
+    }
+    /**
+     * Deactivate the specified admin.
+     */
+    public function deactivate(Request $request, string $id)
+    {
+        // Retrieve the user by ID
+        $admin = User::findOrFail($id);
+        // dd($request->all());
+        // Get the status input from the form
+        // $newStatus = $request->input('status');  // Use $request, not the facade
+
+        // Update the user's status
+        $admin->update(['status' => 'inactive']);
+
+        // Return a redirect with a success message
+        return redirect()->back()->with('message', 'User deactivated successfully.');
+    }
+    public function active(string $id)
+    {
+        // Retrieve the user by ID
+        $admin = User::findOrFail($id);
+        // dd($request->all());
+        // Get the status input from the form
+        // $newStatus = $request->input('status');  // Use $request, not the facade
+
+        // Update the user's status
+        $admin->update(['status' => 'active']);
+
+        // Return a redirect with a success message
+        return redirect()->back()->with('message', 'User deactivated successfully.');
     }
 }
