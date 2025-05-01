@@ -95,6 +95,9 @@ return [
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',
+        'complete_preferences' => 'Please complete your preferences',
+        'complete_preferences_btn' => 'Complete Preferences',
+        'at_least_two_fields' => 'You need to fill at least two fields in your preferences to view match suggestions.',
     ],
     'pricing' => [
         'title' => 'Our Pricing Plans',
