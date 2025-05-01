@@ -210,12 +210,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-        if (!$user || $user->status !== 'active') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Your account is not active. If you think this is an issue, please contact support.',
-            ], 403);
-        }
+
 
         // Attempt to authenticate
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -238,6 +233,12 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Your email is not verified. Please verify your email before logging in.',
+            ], 403);
+        }
+        if (!$user || $user->status !== 'active') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is not active. If you think this is an issue, please contact support.',
             ], 403);
         }
 

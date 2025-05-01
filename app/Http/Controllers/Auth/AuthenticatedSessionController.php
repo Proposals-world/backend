@@ -25,15 +25,23 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
+
         $user = User::where('email', $request->email)->first();
-        
-        if (!$user || $user->status !== 'active') {
+
+        if ($user->status !== 'active') {
+            Auth::logout();
+
             return back()->withErrors([
                 'email' => 'Your account is not active. If you think this is an issue, please contact support.',
             ]);
         }
-
-        $request->authenticate();
 
         $request->session()->regenerate();
 
