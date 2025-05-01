@@ -390,7 +390,7 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Jowhar', 'name_ar' => 'جوهار', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Burao', 'name_ar' => 'بوراو', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Berbera', 'name_ar' => 'بربرة', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Merca', 'name_ar' => 'مركة', 'country_id' => now(), 'updated_at' => now()],
+            ['country_id' => 20, 'created_at' => now(), 'name_ar' => 'مركة', 'name_en' => 'Merca', 'updated_at' => now()],
             ['name_en' => 'Beledweyne', 'name_ar' => 'بلدوين', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
 
 
