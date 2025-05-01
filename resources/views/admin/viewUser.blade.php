@@ -51,12 +51,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mb-3 text-center">
-                                                    <label class="form-label text-start d-block">Profile Picture</label>
-                                                    {{-- <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D"
-                                                         class="img-thumbnail"
-                                                         alt="User Avatar"
-                                                         style="max-width: 250px; height: auto;"> --}}
-                                                    <img src="{{ optional($user->photos->firstWhere('is_main', 1))->photo_url }} }}" class="img-thumbnail" alt="User Avatar" style="max-width: 250px; height: auto; border-radius:10px">
+
+                                                    <img src="{{ asset(optional($user->photos->firstWhere('is_main', 1))->photo_url) }}" class="img-thumbnail" alt="User Avatar" style="max-width: 250px; height: auto; border-radius:10px">
 
                                                 </div>
                                             </div>

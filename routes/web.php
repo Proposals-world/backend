@@ -112,7 +112,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 });
 
