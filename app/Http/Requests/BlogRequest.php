@@ -8,7 +8,7 @@ use App\Http\Requests\DefaultRequest;
 class BlogRequest extends FormRequest
 {
 
-    use DefaultRequest;
+    // use DefaultRequest;
 
     /**
      * Validation rules for blog creation.
