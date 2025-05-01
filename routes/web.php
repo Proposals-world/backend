@@ -106,12 +106,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
-        Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels']);
     });
 
     // Guardian verification should only happen AFTER profile is complete
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 });
 
 // User dashboard and match routes

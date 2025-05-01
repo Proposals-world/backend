@@ -6,29 +6,41 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
+use App\Models\UserPreference;               //  ← add this
 
 class VerifyEmailController extends Controller
 {
     /**
-     * Mark the authenticated user's email address as verified and create an empty profile if needed.
+     * Mark the authenticated user's email address as verified,
+     * ensure an empty profile, and attach an all-NULL preferences row.
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
         $user = $request->user();
 
-        // If the email has already been verified, simply redirect.
+        // 1️⃣  Already verified?  Just get them to the dashboard.
         if ($user->hasVerifiedEmail()) {
             return redirect()->intended(route('dashboard', false) . '?verified=1');
         }
 
-        // Mark the email as verified and fire the Verified event.
+        // 2️⃣  Mark verified & fire event.
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
 
-        // If the user does not have a profile, create an empty profile.
+        // 3️⃣  Guarantee a profile row.
         if (!$user->profile) {
             $user->profile()->create([]);
+        }
+
+        // 4️⃣  Guarantee a preferences row with ALL columns = null.
+        if (!$user->preference) {                              // relation is preference() on User model
+            $user->preference()->create(
+                array_fill_keys(
+                    (new UserPreference)->getFillable(),       // every fillable column
+                    null                                       // value: null
+                ) + ['user_id' => $user->id]                   // user_id must be set
+            );
         }
 
         return redirect()->intended(route('dashboard', false) . '?verified=1');
