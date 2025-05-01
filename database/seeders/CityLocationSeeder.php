@@ -4501,31 +4501,31 @@ class CityLocationSeeder extends Seeder
 
             // دوموني (city_id: 307)
             // رئيسية
-            ['city_id' => 307, 'name_en' => 'Domoni Center', 'name_ar' => 'مركز دوموني'],
-            ['city_id' => 307, 'name_en' => 'Koni Djodjo', 'name_ar' => 'كوني جوجو'],
-            ['city_id' => 307, 'name_en' => 'Mramani', 'name_ar' => 'مراماني'],
-            ['city_id' => 307, 'name_en' => 'Lingoni', 'name_ar' => 'لينجوني'],
-            // فرعية
-            ['city_id' => 307, 'name_en' => 'Adda', 'name_ar' => 'عدا'],
-            ['city_id' => 307, 'name_en' => 'Jimilime', 'name_ar' => 'جيميليمي'],
+            // ['city_id' => 307, 'name_en' => 'Domoni Center', 'name_ar' => 'مركز دوموني'],
+            // ['city_id' => 307, 'name_en' => 'Koni Djodjo', 'name_ar' => 'كوني جوجو'],
+            // ['city_id' => 307, 'name_en' => 'Mramani', 'name_ar' => 'مراماني'],
+            // ['city_id' => 307, 'name_en' => 'Lingoni', 'name_ar' => 'لينجوني'],
+            // // فرعية
+            // ['city_id' => 307, 'name_en' => 'Adda', 'name_ar' => 'عدا'],
+            // ['city_id' => 307, 'name_en' => 'Jimilime', 'name_ar' => 'جيميليمي'],
 
-            // سيما (city_id: 308)
-            // رئيسية
-            ['city_id' => 308, 'name_en' => 'Sima Center', 'name_ar' => 'مركز سيما'],
-            ['city_id' => 308, 'name_en' => 'Moya', 'name_ar' => 'مويا'],
-            ['city_id' => 308, 'name_en' => 'Pomoni', 'name_ar' => 'بوموني'],
-            // فرعية
-            ['city_id' => 308, 'name_en' => 'Ntsaoueni', 'name_ar' => 'نتساويني'],
-            ['city_id' => 308, 'name_en' => 'Milevani', 'name_ar' => 'ميليفاني'],
+            // // سيما (city_id: 308)
+            // // رئيسية
+            // ['city_id' => 308, 'name_en' => 'Sima Center', 'name_ar' => 'مركز سيما'],
+            // ['city_id' => 308, 'name_en' => 'Moya', 'name_ar' => 'مويا'],
+            // ['city_id' => 308, 'name_en' => 'Pomoni', 'name_ar' => 'بوموني'],
+            // // فرعية
+            // ['city_id' => 308, 'name_en' => 'Ntsaoueni', 'name_ar' => 'نتساويني'],
+            // ['city_id' => 308, 'name_en' => 'Milevani', 'name_ar' => 'ميليفاني'],
 
-            // ميتساميولي (city_id: 309)
-            // رئيسية
-            ['city_id' => 309, 'name_en' => 'Mitsamiouli Center', 'name_ar' => 'مركز ميتساميولي'],
-            ['city_id' => 309, 'name_en' => 'Ntsaoueni', 'name_ar' => 'نتساويني'],
-            ['city_id' => 309, 'name_en' => 'Mboudé', 'name_ar' => 'مبودي'],
-            // فرعية
-            ['city_id' => 309, 'name_en' => 'Hambou', 'name_ar' => 'هامبو'],
-            ['city_id' => 309, 'name_en' => 'Samba Kouni', 'name_ar' => 'سامبا كوني'],
+            // // ميتساميولي (city_id: 309)
+            // // رئيسية
+            // ['city_id' => 309, 'name_en' => 'Mitsamiouli Center', 'name_ar' => 'مركز ميتساميولي'],
+            // ['city_id' => 309, 'name_en' => 'Ntsaoueni', 'name_ar' => 'نتساويني'],
+            // ['city_id' => 309, 'name_en' => 'Mboudé', 'name_ar' => 'مبودي'],
+            // // فرعية
+            // ['city_id' => 309, 'name_en' => 'Hambou', 'name_ar' => 'هامبو'],
+            // ['city_id' => 309, 'name_en' => 'Samba Kouni', 'name_ar' => 'سامبا كوني'],
 
 
         ]);
