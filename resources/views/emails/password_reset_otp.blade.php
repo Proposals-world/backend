@@ -153,7 +153,7 @@
         </div>
         
         <div class="content">
-            <p class="greeting">Assalamu Alaikum, {{ $userName }}</p>
+            <p class="greeting">Hello, {{ $userName }}</p>
             
             <div class="message">
                 <p>We received a request to reset your password. To continue with the password reset process, please use the verification code below:</p>

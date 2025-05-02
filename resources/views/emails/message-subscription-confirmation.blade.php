@@ -182,7 +182,7 @@
             <h1 class="greeting">Thank You for Subscribing!</h1>
             
             <div class="message">
-                <p>Assalamu Alaikum,</p>
+                <p>Hello,</p>
                 <p>Thank you for subscribing to Proposals. We're excited to have you join our community of individuals seeking a halal way to find their life partner.</p>
                 <p>We'll keep you updated about our launch and send you exclusive information about our services.</p>
             </div>
@@ -202,7 +202,7 @@
         </div>
 
         <div class="footer">
-            <p class="tagline">Finding Your Soulmate the Halal Way</p>
+            <p class="tagline">Finding Your Soulmate</p>
             
             <!-- Optional: Add social media links here -->
             <!-- <div class="social-links">

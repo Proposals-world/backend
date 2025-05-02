@@ -4,7 +4,7 @@
     <tr>
     <td class="content-cell" align="center">
     {{ Illuminate\Mail\Markdown::parse($slot) }}
-    <p class="tagline">{{ __('email.tagline', ['default' => 'Finding Your Soulmate the Halal Way']) }}</p>
+    <p class="tagline">{{ __('email.tagline', ['default' => 'Finding Your Soulmate']) }}</p>
     </td>
     </tr>
     </table>
