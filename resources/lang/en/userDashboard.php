@@ -91,7 +91,10 @@ return [
         'View_mutual_matches_based_on_your_preferences' => 'View mutual matches based on your preferences',
         'Pending_Matches' => 'Pending Matches',
         'Contact_Exchanged' => 'Contact Exchanged',
-
+        'years' => 'Years',
+        'Contacted' => 'Contacted',
+        'Match' => 'Match',
+        'guardian_phone' => 'Guardian Phone',
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',
@@ -265,4 +268,5 @@ return [
         'social_media_presence' => 'Social Media Presence',
         'find_matches' => 'Find Matches'
     ],
+
 ];

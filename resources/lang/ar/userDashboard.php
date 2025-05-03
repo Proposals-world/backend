@@ -89,6 +89,10 @@ return [
         'View_mutual_matches_based_on_your_preferences' => 'عرض التطابقات المتبادلة بناءً على تفضيلاتك',
         'Pending_Matches' => 'التطابقات المعلقة',
         'Contact_Exchanged' => 'تم تبادل وسائل الاتصال',
+        'years' => 'سنوات',
+        'Contacted' => 'تم التواصل',
+        'Match' => 'تطابق',
+        'guardian_phone' => 'رقم هاتف الولي',
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',
@@ -264,4 +268,5 @@ return [
         'social_media_presence' => 'التواجد على وسائل التواصل الاجتماعي',
         'find_matches' => 'البحث عن مطابقات'
     ],
+
 ];
