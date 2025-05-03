@@ -28,25 +28,25 @@ class LikeService
          | 1. build an array of all my matched user-ids
          * ------------------------------------------*/
         $matchedUserIds = UserMatch::where(function ($q) use ($user) {
-                $q->where('user1_id', $user->id)
-                  ->orWhere('user2_id', $user->id);
-            })
+            $q->where('user1_id', $user->id)
+                ->orWhere('user2_id', $user->id);
+        })
             ->get()                       // each row has user1_id & user2_id
-            ->flatMap(fn ($m) => [$m->user1_id, $m->user2_id])
+            ->flatMap(fn($m) => [$m->user1_id, $m->user2_id])
             ->unique()
-            ->reject(fn ($id) => $id == $user->id)   // toss my own id
+            ->reject(fn($id) => $id == $user->id)   // toss my own id
             ->all();                     // ->all() returns plain array
-    
+
         /* ------------------------------------------
          | 2. return likes that are NOT in that list
          * ------------------------------------------*/
         $likes = Like::where('liked_user_id', $user->id)
-                    ->whereNotIn('user_id', $matchedUserIds)
-                    ->whereNotIn('user_id', $reportedUsers)
-                    ->with('user.photos')
-                    ->get();
-    
-        return LikeResource::collection($likes);
+            ->whereNotIn('user_id', $matchedUserIds)
+            ->whereNotIn('user_id', $reportedUsers)
+            ->with('user.photos')
+            ->get();
+
+        return LikeResource::collection($likes); // default = false
     }
 
     public function getLikes()
@@ -57,11 +57,13 @@ class LikeService
             return null;
         }
 
-        return LikeResource::collection(
-            Like::where('user_id', $user->id)
-                ->with('user.photos')
-                ->get()
-        );
+        $likes = Like::where('user_id', $user->id)
+            ->with('likedUser.photos')
+            ->get();
+
+        return LikeResource::collection($likes->map(function ($like) {
+            return new LikeResource($like, true); // viewedAsLiker = true
+        }));
     }
 
     public function getMatches()
@@ -128,8 +130,8 @@ class LikeService
 
         if (
             Like::where('user_id', $user->id)
-            ->where('liked_user_id', $likedUser->id)
-            ->exists()
+                ->where('liked_user_id', $likedUser->id)
+                ->exists()
         ) {
             return [
                 'status' => 400,
@@ -180,8 +182,8 @@ class LikeService
 
         if (
             Dislike::where('user_id', $user->id)
-            ->where('disliked_user_id', $dislikedUser->id)
-            ->exists()
+                ->where('disliked_user_id', $dislikedUser->id)
+                ->exists()
         ) {
             return [
                 'status' => 400,
