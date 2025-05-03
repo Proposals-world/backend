@@ -143,6 +143,7 @@ Route::middleware([
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     Route::delete('/remove-match', [MatchController::class, 'removeMatch'])->name('api.remove.match');
     Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
+    Route::get('/get-matches', [MatchController::class, 'getMatchesApi'])->name('getMatchesApi');
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
     Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
     Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');

@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title', isset($blog) ? 'Edit Blog' : 'Create Blog')
+@section('title',  'Customer Profile')
 
 @section('content')
     <div class="content">
@@ -12,7 +12,25 @@
                 <div class="col-12">
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
                         <h4 class="page-title">{{ $user->first_name }} {{ $user->last_name }} Profile</h4>
-
+                        <div class="d-flex justify-content-end">
+                            @if ($user->status == 'active')
+                            <form action="{{ route('deactivate', $user->id) }}" method="POST" style="display: inline;" id="status-form-{{ $user->id }}">
+                                @csrf
+                                @method('PUT') <!-- This makes the request a PUT request -->
+                                <button type="submit" class="btn btn-sm text-danger bg-danger text-white" onclick="confirmStatusChange({{ $user->id }})">
+                                    <i class="ri-close-line"></i> Deactivate User
+                                </button>
+                            </form>
+                            @else
+                            <form action="{{ route('active', $user->id) }}" method="POST" style="display: inline;" id="status-form-{{ $user->id }}">
+                                @csrf
+                                @method('PUT') <!-- This makes the request a PUT request -->
+                                <button type="submit" class="btn btn-sm text-info" style="background-color: #9e086c; color: white !important;" onclick="confirmStatusChange({{ $user->id }})">
+                                    <i class="ri-check-line"></i> Activate User
+                                </button>
+                            </form>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,6 +63,8 @@
                             <!-- Tab Content -->
                             <div class="tab-content">
                                 <!-- Customer Information Tab -->
+                                  <!-- Form for activating or deactivating user -->
+
                                 <div class="tab-pane fade show active" id="aboutme">
                                     <form>
                                         <h5 class="mb-4 text-uppercase"><i class="ri-contacts-book-2-line me-1"></i> Personal Info</h5>
@@ -410,13 +430,31 @@
          </div>
      </div>
  </div>
-
+  <div class="d-flex justify-content-end">
+                            @if ($user->status == 'active')
+                            <form action="{{ route('deactivate', $user->id) }}" method="POST" style="display: inline;" id="status-form-{{ $user->id }}">
+                                @csrf
+                                @method('PUT') <!-- This makes the request a PUT request -->
+                                <button type="submit" class="btn btn-sm text-danger bg-danger text-white" onclick="confirmStatusChange({{ $user->id }})">
+                                    <i class="ri-close-line"></i> Deactivate User
+                                </button>
+                            </form>
+                            @else
+                            <form action="{{ route('active', $user->id) }}" method="POST" style="display: inline;" id="status-form-{{ $user->id }}">
+                                @csrf
+                                @method('PUT') <!-- This makes the request a PUT request -->
+                                <button type="submit" class="btn btn-sm text-info" style="background-color: #9e086c; color: white !important;" onclick="confirmStatusChange({{ $user->id }})">
+                                    <i class="ri-check-line"></i> Activate User
+                                </button>
+                            </form>
+                            @endif
+                        </div>
 
                                         <!-- Add rest of your form content here -->
                                     </form>
                                 </div>
 
-                                <!-- Matches Tab -->
+                                {{-- <!-- Matches Tab -->
                                 <div class="tab-pane fade" id="matches">
                                     <h5 class="mb-4 text-uppercase"><i class="ri-user-heart-line me-1"></i> Matches</h5>
                                     <div class="row">
@@ -441,7 +479,7 @@
 
                                     </div>
                                     <!-- Add your matches content here -->
-                                </div>
+                                </div> --}}
 
                                 <!-- Settings Tab -->
                                 <div class="tab-pane fade" id="like_dislike">
@@ -468,6 +506,24 @@
     <script src="{{ asset('admin/assets/vendor/quill/quill.min.js') }}"></script>
 
     <script>
+     function confirmStatusChange(userId) {
+        event.preventDefault(); // Prevent form submission
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to change the user's status?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#9e086c',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, change it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('status-form-' + userId).submit();
+            }
+        });
+    }
+    </script>
+
         document.addEventListener("DOMContentLoaded", function() {
             var quillEn = new Quill('#editor-en', {
                 theme: 'snow'
