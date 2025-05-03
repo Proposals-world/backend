@@ -11,6 +11,8 @@
             <option value="rejected" {{ $report->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
         </select>
     </form>
+    <a href="{{ route('userprofile', $report->reported_id) }}" class="btn btn-sm text-info w-100 mt-1 border" id="{{ $report->reported_id }}"><i class="ri-eye-line"></i></a>
+
 </td>
 
 <style>
