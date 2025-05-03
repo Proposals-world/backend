@@ -60,6 +60,7 @@ Route::post('/resend-verification-link', [AuthController::class, 'resendVerifica
 
 // Protected Routes
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
+Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
