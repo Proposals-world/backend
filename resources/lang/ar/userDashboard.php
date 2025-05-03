@@ -92,6 +92,9 @@ return [
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',
+        'complete_preferences' => 'يرجى إكمال تفضيلاتك',
+        'complete_preferences_btn' => 'إكمال التفضيلات',
+        'at_least_two_fields' => 'يجب عليك ملء حقلين على الأقل في تفضيلاتك لعرض اقتراحات التطابق.',
     ],
     'pricing' => [
         'title' => 'خطط الأسعار',

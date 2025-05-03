@@ -69,7 +69,7 @@ html[dir="rtl"] .contact-direction {
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-5">
-                        <div class="matchmaking-form-wrapper">
+                        {{-- <div class="matchmaking-form-wrapper">
                             <form class="matchmaking-form">
                                 <div class="matchmaking-form-group">
                                     <div class="matchmaking-form-label">{{ __('home.gender_label') }}</div>
@@ -146,7 +146,7 @@ html[dir="rtl"] .contact-direction {
                                     </a>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

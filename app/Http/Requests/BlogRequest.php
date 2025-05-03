@@ -8,7 +8,7 @@ use App\Http\Requests\DefaultRequest;
 class BlogRequest extends FormRequest
 {
 
-    use DefaultRequest;
+    // use DefaultRequest;
 
     /**
      * Validation rules for blog creation.
@@ -21,7 +21,7 @@ class BlogRequest extends FormRequest
             'content_en' => 'required',
             'content_ar' => 'required',
             'status' => 'required|in:draft,published',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
         ];

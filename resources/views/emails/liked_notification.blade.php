@@ -182,7 +182,7 @@
         </div>
 
         <div class="footer">
-            <p class="tagline">{{ __('email.tagline', ['default' => 'Finding Your Soulmate the Halal Way']) }}</p>
+            <p class="tagline">{{ __('email.tagline', ['default' => 'Finding Your Soulmate']) }}</p>
 
             <div class="disclaimer">
                 <p>© {{ date('Y') }} {{ config('app.name', 'Proposals') }}. {{ __('email.rights_reserved') }}</p>

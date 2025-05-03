@@ -255,7 +255,8 @@
                     <div class="form-group">
                         <label>Age Range</label>
                         <div class="d-flex">
-                            <input type="number" name="age_min" min="18" class="form-control mr-2" placeholder="Min">
+                            <input type="number" name="age_min" min="18" class="form-control mr-2"
+                                placeholder="Min">
                             <input type="number" name="age_max" max="65" class="form-control" placeholder="Max">
                         </div>
                     </div>
@@ -521,10 +522,10 @@
     </div>
 @else
     <div class="container py-5 text-center">
-        <h3 class="text-danger mb-3">{{ __('Please complete your preferences') }}</h3>
-        <p class="mb-4">{{ __('You need to fill at least two fields in your preferences to view match suggestions.') }}
+        <h3 class="text-danger mb-3">{{ __('userDashboard.findMatch.complete_preferences') }}</h3>
+        <p class="mb-4">{{ __('userDashboard.findMatch.at_least_two_fields') }}
         </p>
-        <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('Complete Preferences') }}</a>
+        <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('userDashboard.findMatch.complete_preferences_btn') }}</a>
     </div>
     @endif
 

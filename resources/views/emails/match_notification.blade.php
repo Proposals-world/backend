@@ -178,7 +178,7 @@
         </div>
 
         <div class="content">
-            <p class="greeting">Assalamu Alaikum, {{ $user1->name }}!</p>
+            <p class="greeting">Hello, {{ $user1->name }}!</p>
 
             <div class="match-container">
                 <div class="match-icon">💞</div>
@@ -188,7 +188,7 @@
                 </div>
             </div>
 
-            <p class="message">Take the next step on your journey to finding your soulmate the halal way.</p>
+            <p class="message">Take the next step on your journey to finding your soulmate.</p>
 
             <div class="button-container">
                 <a href="{{ route('matches') }}" class="button">View Your Matches</a>
@@ -196,7 +196,7 @@
         </div>
 
         <div class="footer">
-            <p class="tagline">Finding Your Soulmate the Halal Way</p>
+            <p class="tagline">Finding Your Soulmate</p>
 
             <div class="disclaimer">
                 <p>This notification was sent to keep you updated on your matching status.</p>

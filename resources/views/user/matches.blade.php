@@ -134,6 +134,7 @@
         @endif
     </div>
 
+    @if ($matchesWithContact->isNotEmpty() || $matchesWithoutContact->isNotEmpty())
 
     {{-- Profile Modal --}}
     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
@@ -252,6 +253,8 @@
             </div>
         </div>
     </div>
+
+    @endif
     {{-- report modal --}}
     <div class="modal fade modal-top" id="reportModalMain" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">

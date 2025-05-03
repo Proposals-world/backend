@@ -167,7 +167,7 @@
         </div>
         
         <div class="content">
-            <p class="greeting">Assalamu Alaikum, {{$user->name}}</p>
+            <p class="greeting">Hello, {{$user->name}}</p>
             
             <div class="message">
                 <p>Your verification code is ready to use. Please enter this code to complete your verification process.</p>
