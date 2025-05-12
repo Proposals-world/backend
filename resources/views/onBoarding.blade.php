@@ -378,7 +378,7 @@
 
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -579,7 +579,7 @@
 
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -711,7 +711,7 @@
                                             @endif
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -809,7 +809,7 @@
                                             </div>
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-left mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
