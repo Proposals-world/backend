@@ -25,26 +25,29 @@
 
             [dir="rtl"] .onboarding-card {
                 margin-left: 25px;
-
                 margin-right: 0px;
             }
         }
 
         @media (max-width: 500px) {
 
-            /* Prevent iOS zoom and ensure textareas are accessible */
+            /* Ensure all form elements are accessible on mobile */
             textarea.form-control,
             input.form-control,
-            select.form-control {
+            select.form-control,
+            .custom-file-input,
+            .select2-container {
                 font-size: 16px !important;
-                /* Critical for iOS */
                 -webkit-appearance: none;
                 -webkit-text-size-adjust: 100%;
                 touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
             }
 
-            /* Ensure textareas are on top */
-            textarea {
+            /* Ensure all form elements are on top and selectable */
+            textarea,
+            input,
+            select {
                 position: relative;
                 z-index: 10;
                 -webkit-user-select: auto;
@@ -63,6 +66,77 @@
 
             .form-group {
                 overflow: visible !important;
+                position: relative;
+            }
+
+            /* Fix for Select2 dropdowns on mobile */
+            .select2-dropdown {
+                z-index: 9999 !important;
+            }
+
+            .select2-container--open .select2-dropdown {
+                position: fixed !important;
+                top: auto !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                max-height: 50vh !important;
+                overflow-y: auto !important;
+            }
+
+            /* Fix for custom file input */
+            .custom-file {
+                position: relative;
+                z-index: 5;
+            }
+
+            .custom-file-label {
+                position: relative;
+                z-index: 1;
+            }
+
+            /* Ensure input groups are accessible */
+            .input-group {
+                position: relative;
+                z-index: 5;
+            }
+
+            .input-group-text {
+                font-size: 16px !important;
+            }
+
+            /* Fix any potential overlay issues */
+            .card-body {
+                position: relative;
+                z-index: 1;
+            }
+
+            /* Ensure form controls have proper touch areas */
+            .form-control {
+                min-height: 44px;
+                padding: 10px;
+            }
+
+            /* Fix for file input label */
+            .custom-file-label::after {
+                height: auto;
+                padding: 10px;
+            }
+        }
+
+        /* Additional mobile-specific fixes */
+        @media (max-width: 500px) and (pointer: coarse) {
+
+            /* For touch devices specifically */
+            input[type="date"],
+            input[type="tel"],
+            input[type="text"],
+            input[type="number"],
+            select,
+            textarea {
+                cursor: pointer;
+                -webkit-touch-callout: default;
             }
         }
 
