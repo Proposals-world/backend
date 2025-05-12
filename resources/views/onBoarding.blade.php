@@ -5,56 +5,7 @@
         $locale = app()->getLocale();
     @endphp
     <style>
-        #onboarding {
-            min-height: 116vh;
-        }
 
-        @media (max-width: 768px) {
-            .onboarding-navigation .btn {
-                font-size: 12px;
-                /* Smaller text size */
-                padding: 8px 16px;
-                /* Smaller padding */
-                min-width: 80px;
-                /* Limit the button's width */
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            /* Prevent iOS zoom and ensure textareas are accessible */
-            textarea.form-control,
-            input.form-control,
-            select.form-control {
-                font-size: 16px !important;
-                /* Critical for iOS */
-                -webkit-appearance: none;
-                -webkit-text-size-adjust: 100%;
-                touch-action: manipulation;
-            }
-
-            /* Ensure textareas are on top */
-            textarea {
-                position: relative;
-                z-index: 10;
-                -webkit-user-select: auto;
-                user-select: auto;
-            }
-
-            /* Fix container issues */
-            #onboarding {
-                overflow: visible;
-                min-height: auto;
-            }
-
-            .container {
-                overflow: visible;
-            }
-
-            .form-group {
-                overflow: visible !important;
-            }
-        }
     </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
         style="
