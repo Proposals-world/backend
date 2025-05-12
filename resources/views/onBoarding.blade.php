@@ -5,7 +5,30 @@
         $locale = app()->getLocale();
     @endphp
     <style>
+@media (max-width: 768px) {
+    [dir="rtl"] .onboarding-steps-indicator {
+        left: 10px;
+        right: auto;
+        align-items: flex-end;
+    }
+    
+    [dir="rtl"] .step-indicator {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    [dir="rtl"] .step-number {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+    
+    [dir="rtl"] .onboarding-card {
+        margin-left: 25px;
 
+        margin-right: 0px;
+    }
+}
     </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
         style="
