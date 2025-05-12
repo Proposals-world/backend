@@ -5,141 +5,120 @@
         $locale = app()->getLocale();
     @endphp
     <style>
-        @media (max-width: 768px) {
-            [dir="rtl"] .onboarding-steps-indicator {
-                left: 10px;
-                right: auto;
-                align-items: flex-end;
-            }
+@media (max-width: 768px) {
+    [dir="rtl"] .onboarding-steps-indicator {
+        left: 10px;
+        right: auto;
+        align-items: flex-end;
+    }
 
-            [dir="rtl"] .step-indicator {
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-            }
+    [dir="rtl"] .step-indicator {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
 
-            [dir="rtl"] .step-number {
-                margin-left: 10px;
-                margin-right: 0;
-            }
+    [dir="rtl"] .step-number {
+        margin-left: 10px;
+        margin-right: 0;
+    }
 
-            [dir="rtl"] .onboarding-card {
-                margin-left: 25px;
-                margin-right: 0px;
-            }
-        }
+    [dir="rtl"] .onboarding-card {
+        margin-left: 25px;
+        margin-right: 0px;
+    }
+}
 
-        @media (max-width: 500px) {
+@media (max-width: 500px) {
+    /* Ensure all form elements EXCEPT file inputs are accessible on mobile */
+    textarea.form-control,
+    input.form-control:not([type="file"]),
+    select.form-control,
+    .select2-container {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        -webkit-text-size-adjust: 100%;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
 
-            /* Ensure all form elements are accessible on mobile */
-            textarea.form-control,
-            input.form-control,
-            select.form-control,
-            .custom-file-input,
-            .select2-container {
-                font-size: 16px !important;
-                -webkit-appearance: none;
-                -webkit-text-size-adjust: 100%;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
-            }
+    /* Ensure all form elements EXCEPT file inputs are on top and selectable */
+    textarea,
+    input:not([type="file"]),
+    select {
+        position: relative;
+        z-index: 10;
+        -webkit-user-select: auto;
+        user-select: auto;
+    }
 
-            /* Ensure all form elements are on top and selectable */
-            textarea,
-            input,
-            select {
-                position: relative;
-                z-index: 10;
-                -webkit-user-select: auto;
-                user-select: auto;
-            }
+    /* Fix container issues */
+    #onboarding {
+        overflow: visible;
+        min-height: auto;
+    }
 
-            /* Fix container issues */
-            #onboarding {
-                overflow: visible;
-                min-height: auto;
-            }
+    .container {
+        overflow: visible;
+    }
 
-            .container {
-                overflow: visible;
-            }
+    .form-group {
+        overflow: visible !important;
+        position: relative;
+    }
 
-            .form-group {
-                overflow: visible !important;
-                position: relative;
-            }
+    /* Fix for Select2 dropdowns on mobile */
+    .select2-dropdown {
+        z-index: 9999 !important;
+    }
 
-            /* Fix for Select2 dropdowns on mobile */
-            .select2-dropdown {
-                z-index: 9999 !important;
-            }
+    .select2-container--open .select2-dropdown {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+    }
 
-            .select2-container--open .select2-dropdown {
-                position: fixed !important;
-                top: auto !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 100% !important;
-                max-height: 50vh !important;
-                overflow-y: auto !important;
-            }
+    /* Ensure input groups are accessible */
+    .input-group {
+        position: relative;
+        z-index: 5;
+    }
 
-            /* Fix for custom file input */
-            .custom-file {
-                position: relative;
-                z-index: 5;
-            }
+    .input-group-text {
+        font-size: 16px !important;
+    }
 
-            .custom-file-label {
-                position: relative;
-                z-index: 1;
-            }
+    /* Fix any potential overlay issues */
+    .card-body {
+        position: relative;
+        z-index: 1;
+    }
 
-            /* Ensure input groups are accessible */
-            .input-group {
-                position: relative;
-                z-index: 5;
-            }
+    /* Ensure form controls have proper touch areas (excluding file inputs) */
+    .form-control:not([type="file"]) {
+        min-height: 44px;
+        padding: 10px;
+    }
+}
 
-            .input-group-text {
-                font-size: 16px !important;
-            }
-
-            /* Fix any potential overlay issues */
-            .card-body {
-                position: relative;
-                z-index: 1;
-            }
-
-            /* Ensure form controls have proper touch areas */
-            .form-control {
-                min-height: 44px;
-                padding: 10px;
-            }
-
-            /* Fix for file input label */
-            .custom-file-label::after {
-                height: auto;
-                padding: 10px;
-            }
-        }
-
-        /* Additional mobile-specific fixes */
-        @media (max-width: 500px) and (pointer: coarse) {
-
-            /* For touch devices specifically */
-            input[type="date"],
-            input[type="tel"],
-            input[type="text"],
-            input[type="number"],
-            select,
-            textarea {
-                cursor: pointer;
-                -webkit-touch-callout: default;
-            }
-        }
-
+/* Additional mobile-specific fixes */
+@media (max-width: 500px) and (pointer: coarse) {
+    /* For touch devices specifically (excluding file inputs) */
+    input[type="date"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+        cursor: pointer;
+        -webkit-touch-callout: default;
+    }
+}
         /* onboarding css ends */
     </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
