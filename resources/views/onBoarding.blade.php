@@ -19,6 +19,42 @@
                 /* Limit the button's width */
             }
         }
+
+        @media (max-width: 500px) {
+
+            /* Prevent iOS zoom and ensure textareas are accessible */
+            textarea.form-control,
+            input.form-control,
+            select.form-control {
+                font-size: 16px !important;
+                /* Critical for iOS */
+                -webkit-appearance: none;
+                -webkit-text-size-adjust: 100%;
+                touch-action: manipulation;
+            }
+
+            /* Ensure textareas are on top */
+            textarea {
+                position: relative;
+                z-index: 10;
+                -webkit-user-select: auto;
+                user-select: auto;
+            }
+
+            /* Fix container issues */
+            #onboarding {
+                overflow: visible;
+                min-height: auto;
+            }
+
+            .container {
+                overflow: visible;
+            }
+
+            .form-group {
+                overflow: visible !important;
+            }
+        }
     </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
         style="
@@ -245,8 +281,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.religion') }}</label>
-                                                        <select name="religion_id" id="religion_id" class="form-control rounded-pill"
-                                                            required>
+                                                        <select name="religion_id" id="religion_id"
+                                                            class="form-control rounded-pill" required>
                                                             <option value="">{{ __('onboarding.select_religion') }}
                                                             </option>
                                                             @foreach ($data['religions'] as $religion)
@@ -593,21 +629,26 @@
                                                 @endif
                                             </div>
                                             @if (old('gender') !== 'female')
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.housing_status') }}</label>
-                                                        <select name="housing_status_id" class="form-control rounded-pill" required>
-                                                            <option value="">{{ __('onboarding.select_housing_status') }}</option>
-                                                            @foreach ($data['housingStatuses'] as $housing)
-                                                                <option value="{{ $housing->id }}">{{ $housing->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger" style="font-size:12px;"></span>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label
+                                                                class="form-label">{{ __('onboarding.housing_status') }}</label>
+                                                            <select name="housing_status_id"
+                                                                class="form-control rounded-pill" required>
+                                                                <option value="">
+                                                                    {{ __('onboarding.select_housing_status') }}</option>
+                                                                @foreach ($data['housingStatuses'] as $housing)
+                                                                    <option value="{{ $housing->id }}">
+                                                                        {{ $housing->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="error-message text-danger"
+                                                                style="font-size:12px;"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
                                             @if (old('gender') == 'female')
                                                 <div class="form-group">
                                                     <label class="form-label">{{ __('onboarding.hijab_status') }}</label>
@@ -670,7 +711,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.city_location') }}</label>
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.city_location') }}</label>
                                                         <select name="city_location_id" id="city_location_id"
                                                             class="form-control rounded-pill" required>
                                                             <option value="">{{ __('onboarding.city_location') }}
@@ -820,47 +862,48 @@
         <script>
             // Assume user gender is available from a hidden field or global variable.
             var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
-            $('#religion_id').on('change', function () {
-    var religionId = $(this).val();
-    var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
+            $('#religion_id').on('change', function() {
+                var religionId = $(this).val();
+                var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
 
-    $('#religiosity_levels')
-        .empty()
-        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+                $('#religiosity_levels')
+                    .empty()
+                    .append('<option value="">{{ __('onboarding.select_religiosity') }}</option>');
 
-    if (religionId) {
-        $.ajax({
-            url: "{{ url('user/religious-levels-gender') }}",
-            type: 'GET',
-            data: {
-                religion_id: religionId,
-                gender: gender === 'male' ? 1 : 2
-            },
-            success: function (response) {
-                if (response.religiousLevels && response.religiousLevels.length > 0) {
-                    $.each(response.religiousLevels, function (index, level) {
-                        $('#religiosity_levels').append(
-                            '<option value="' + level.id + '">' + level.name + '</option>'
-                        );
+                if (religionId) {
+                    $.ajax({
+                        url: "{{ url('user/religious-levels-gender') }}",
+                        type: 'GET',
+                        data: {
+                            religion_id: religionId,
+                            gender: gender === 'male' ? 1 : 2
+                        },
+                        success: function(response) {
+                            if (response.religiousLevels && response.religiousLevels.length > 0) {
+                                $.each(response.religiousLevels, function(index, level) {
+                                    $('#religiosity_levels').append(
+                                        '<option value="' + level.id + '">' + level.name +
+                                        '</option>'
+                                    );
+                                });
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error('Error fetching religiosity levels:', xhr.responseText);
+                        }
                     });
                 }
-            },
-            error: function (xhr) {
-                console.error('Error fetching religiosity levels:', xhr.responseText);
-            }
-        });
-    }
-});
-$('select[name="marital_status_id"]').on('change', function () {
-    var selectedMaritalStatus = $(this).val();
+            });
+            $('select[name="marital_status_id"]').on('change', function() {
+                var selectedMaritalStatus = $(this).val();
 
-    // Assuming "Single" marital status has ID = 1
-    if (selectedMaritalStatus == 1) { // adjust 1 if your "Single" ID is different
-        $('input[name="number_of_children"]').val(0).prop('readonly', true);
-    } else {
-        $('input[name="number_of_children"]').val('').prop('readonly', false);
-    }
-});
+                // Assuming "Single" marital status has ID = 1
+                if (selectedMaritalStatus == 1) { // adjust 1 if your "Single" ID is different
+                    $('input[name="number_of_children"]').val(0).prop('readonly', true);
+                } else {
+                    $('input[name="number_of_children"]').val('').prop('readonly', false);
+                }
+            });
 
             // Save progress to localStorage and load on page load.
             const formSelector = '#onboarding-form';
@@ -1307,50 +1350,52 @@ $('select[name="marital_status_id"]').on('change', function () {
                     });
                 }
 
-                $('#country_id').on('change', function () {
-    var countryId = $(this).val();
+                $('#country_id').on('change', function() {
+                    var countryId = $(this).val();
 
-    // Clear the city dropdown completely first
-    $('#city_id')
-        .empty()
-        .append('<option value="">{{ __("onboarding.select_city") }}</option>');
+                    // Clear the city dropdown completely first
+                    $('#city_id')
+                        .empty()
+                        .append('<option value="">{{ __('onboarding.select_city') }}</option>');
 
-    if (countryId) {
-        $.ajax({
-            url: "{{ route('cities.by.country', '') }}/" + countryId,
-            type: 'GET',
-            success: function (data) {
-                $.each(data, function (index, city) {
-                    $('#city_id').append('<option value="' + city.id + '">' + city.name + '</option>');
+                    if (countryId) {
+                        $.ajax({
+                            url: "{{ route('cities.by.country', '') }}/" + countryId,
+                            type: 'GET',
+                            success: function(data) {
+                                $.each(data, function(index, city) {
+                                    $('#city_id').append('<option value="' + city.id +
+                                        '">' + city.name + '</option>');
+                                });
+                            },
+                            error: function() {
+                                console.error("Error loading cities.");
+                            }
+                        });
+                    }
                 });
-            },
-            error: function () {
-                console.error("Error loading cities.");
-            }
-        });
-    }
-});
 
             });
             /* --------------------------------------------------
              * Fetch city locations when a city is chosen
              * -------------------------------------------------- */
-            $('#city_id').on('change', function () {
+            $('#city_id').on('change', function() {
                 var cityId = $(this).val();
 
                 // reset the select first
                 $('#city_location_id')
                     .empty()
-                    .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+                    .append('<option value="">{{ __('onboarding.city_location') }}</option>');
 
                 if (cityId) {
                     $.ajax({
                         url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
                         type: 'GET',
-                        success: function (data) {
-                            $.each(data, function (index, location) {
+                        success: function(data) {
+                            $.each(data, function(index, location) {
                                 $('#city_location_id').append(
-                                    '<option value="' + location.id + '">' + location.name + '</option>'
+                                    '<option value="' + location.id + '">' + location.name +
+                                    '</option>'
                                 );
                             });
                         },
@@ -1358,6 +1403,15 @@ $('select[name="marital_status_id"]').on('change', function () {
                 }
 
 
+            });
+
+            $(document).ready(function() {
+                // Fix for mobile textarea focus
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    $('textarea').on('touchstart', function() {
+                        $(this).focus();
+                    });
+                }
             });
         </script>
     @endpush
