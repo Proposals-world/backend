@@ -5,30 +5,68 @@
         $locale = app()->getLocale();
     @endphp
     <style>
-@media (max-width: 768px) {
-    [dir="rtl"] .onboarding-steps-indicator {
-        left: 10px;
-        right: auto;
-        align-items: flex-end;
-    }
-    
-    [dir="rtl"] .step-indicator {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    
-    [dir="rtl"] .step-number {
-        margin-left: 10px;
-        margin-right: 0;
-    }
-    
-    [dir="rtl"] .onboarding-card {
-        margin-left: 25px;
+        @media (max-width: 768px) {
+            [dir="rtl"] .onboarding-steps-indicator {
+                left: 10px;
+                right: auto;
+                align-items: flex-end;
+            }
 
-        margin-right: 0px;
-    }
-}
+            [dir="rtl"] .step-indicator {
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+            [dir="rtl"] .step-number {
+                margin-left: 10px;
+                margin-right: 0;
+            }
+
+            [dir="rtl"] .onboarding-card {
+                margin-left: 25px;
+
+                margin-right: 0px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            /* Prevent iOS zoom and ensure textareas are accessible */
+            textarea.form-control,
+            input.form-control,
+            select.form-control {
+                font-size: 16px !important;
+                /* Critical for iOS */
+                -webkit-appearance: none;
+                -webkit-text-size-adjust: 100%;
+                touch-action: manipulation;
+            }
+
+            /* Ensure textareas are on top */
+            textarea {
+                position: relative;
+                z-index: 10;
+                -webkit-user-select: auto;
+                user-select: auto;
+            }
+
+            /* Fix container issues */
+            #onboarding {
+                overflow: visible;
+                min-height: auto;
+            }
+
+            .container {
+                overflow: visible;
+            }
+
+            .form-group {
+                overflow: visible !important;
+            }
+        }
+
+        /* onboarding css ends */
     </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
         style="
