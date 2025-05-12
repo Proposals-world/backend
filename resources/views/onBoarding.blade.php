@@ -5,120 +5,102 @@
         $locale = app()->getLocale();
     @endphp
     <style>
-@media (max-width: 768px) {
-    [dir="rtl"] .onboarding-steps-indicator {
-        left: 10px;
-        right: auto;
-        align-items: flex-end;
-    }
+        @media (max-width: 768px) {
+            [dir="rtl"] .onboarding-steps-indicator {
+                left: 10px;
+                right: auto;
+                align-items: flex-end;
+            }
 
-    [dir="rtl"] .step-indicator {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-    }
+            [dir="rtl"] .step-indicator {
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+            }
 
-    [dir="rtl"] .step-number {
-        margin-left: 10px;
-        margin-right: 0;
-    }
+            [dir="rtl"] .step-number {
+                margin-left: 10px;
+                margin-right: 0;
+            }
 
-    [dir="rtl"] .onboarding-card {
-        margin-left: 25px;
-        margin-right: 0px;
-    }
-}
+            [dir="rtl"] .onboarding-card {
+                margin-left: 25px;
+                margin-right: 0px;
+            }
+        }
 
-@media (max-width: 500px) {
-    /* Ensure all form elements EXCEPT file inputs are accessible on mobile */
-    textarea.form-control,
-    input.form-control:not([type="file"]),
-    select.form-control,
-    .select2-container {
-        font-size: 16px !important;
-        -webkit-appearance: none;
-        -webkit-text-size-adjust: 100%;
-        touch-action: manipulation;
-        -webkit-tap-highlight-color: transparent;
-    }
+        @media (max-width: 500px) {
 
-    /* Ensure all form elements EXCEPT file inputs are on top and selectable */
-    textarea,
-    input:not([type="file"]),
-    select {
-        position: relative;
-        z-index: 10;
-        -webkit-user-select: auto;
-        user-select: auto;
-    }
+            /* Prevent iOS zoom and ensure all form elements are accessible */
+            textarea.form-control,
+            input.form-control:not([type="file"]),
+            select.form-control {
+                font-size: 16px !important;
+                /* Critical for iOS */
+                -webkit-appearance: none;
+                -webkit-text-size-adjust: 100%;
+                touch-action: manipulation;
+            }
 
-    /* Fix container issues */
-    #onboarding {
-        overflow: visible;
-        min-height: auto;
-    }
+            /* Ensure textareas are on top */
+            textarea {
+                position: relative;
+                z-index: 10;
+                -webkit-user-select: auto;
+                user-select: auto;
+            }
 
-    .container {
-        overflow: visible;
-    }
+            /* Ensure other inputs and selects are also on top and clickable */
+            input:not([type="file"]),
+            select {
+                position: relative;
+                z-index: 10;
+                -webkit-user-select: auto;
+                user-select: auto;
+            }
 
-    .form-group {
-        overflow: visible !important;
-        position: relative;
-    }
+            /* Specific fix for select elements on mobile */
+            select.form-control {
+                background-image: none;
+                /* Remove any custom arrows that might interfere */
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+            }
 
-    /* Fix for Select2 dropdowns on mobile */
-    .select2-dropdown {
-        z-index: 9999 !important;
-    }
+            /* Fix for Select2 initialized selects */
+            .select2-container {
+                z-index: 10 !important;
+            }
 
-    .select2-container--open .select2-dropdown {
-        position: fixed !important;
-        top: auto !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-        max-height: 50vh !important;
-        overflow-y: auto !important;
-    }
+            .select2-container .select2-selection {
+                font-size: 16px !important;
+                min-height: 44px;
+                cursor: pointer;
+            }
 
-    /* Ensure input groups are accessible */
-    .input-group {
-        position: relative;
-        z-index: 5;
-    }
+            /* Fix container issues */
+            #onboarding {
+                overflow: visible;
+                min-height: auto;
+            }
 
-    .input-group-text {
-        font-size: 16px !important;
-    }
+            .container {
+                overflow: visible;
+            }
 
-    /* Fix any potential overlay issues */
-    .card-body {
-        position: relative;
-        z-index: 1;
-    }
+            .form-group {
+                overflow: visible !important;
+            }
+        }
 
-    /* Ensure form controls have proper touch areas (excluding file inputs) */
-    .form-control:not([type="file"]) {
-        min-height: 44px;
-        padding: 10px;
-    }
-}
+        /* Additional fix for touch devices */
+        @media (pointer: coarse) {
+            select.form-control {
+                cursor: pointer;
+                -webkit-touch-callout: auto;
+            }
+        }
 
-/* Additional mobile-specific fixes */
-@media (max-width: 500px) and (pointer: coarse) {
-    /* For touch devices specifically (excluding file inputs) */
-    input[type="date"],
-    input[type="tel"],
-    input[type="text"],
-    input[type="number"],
-    select,
-    textarea {
-        cursor: pointer;
-        -webkit-touch-callout: default;
-    }
-}
         /* onboarding css ends */
     </style>
     <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
