@@ -10,7 +10,104 @@
 @php
 $locale = app()->getLocale();
 @endphp
+<style>
+      @media (max-width: 768px) {
+            [dir="rtl"] .onboarding-steps-indicator {
+                left: 10px;
+                right: auto;
+                align-items: flex-end;
+            }
 
+            [dir="rtl"] .step-indicator {
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+            [dir="rtl"] .step-number {
+                margin-left: 10px;
+                margin-right: 0;
+            }
+
+            [dir="rtl"] .onboarding-card {
+                margin-left: 50px;
+                margin-right: 0px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            /* Prevent iOS zoom and ensure all form elements are accessible */
+            textarea.form-control,
+            input.form-control:not([type="file"]),
+            select.form-control {
+                font-size: 16px !important;
+                /* Critical for iOS */
+                -webkit-appearance: none;
+                -webkit-text-size-adjust: 100%;
+                touch-action: manipulation;
+            }
+
+            /* Ensure textareas are on top */
+            textarea {
+                position: relative;
+                z-index: 10;
+                -webkit-user-select: auto;
+                user-select: auto;
+            }
+
+            /* Ensure other inputs and selects are also on top and clickable */
+            input:not([type="file"]),
+            select {
+                position: relative;
+                z-index: 10;
+                -webkit-user-select: auto;
+                user-select: auto;
+            }
+
+            /* Specific fix for select elements on mobile */
+            select.form-control {
+                background-image: none;
+                /* Remove any custom arrows that might interfere */
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* Fix for Select2 initialized selects */
+            .select2-container {
+                z-index: 10 !important;
+            }
+
+            .select2-container .select2-selection {
+                font-size: 16px !important;
+                min-height: 44px;
+                cursor: pointer;
+            }
+
+            /* Fix container issues */
+            #onboarding {
+                overflow: visible;
+                min-height: auto;
+            }
+
+            .container {
+                overflow: visible;
+            }
+
+            .form-group {
+                overflow: visible !important;
+            }
+        }
+
+        /* Additional fix for touch devices */
+        @media (pointer: coarse) {
+            select.form-control {
+                cursor: pointer;
+                -webkit-touch-callout: auto;
+            }
+        }
+
+</style>
 <form id="profile-form"  enctype="multipart/form-data">
 @csrf
 
