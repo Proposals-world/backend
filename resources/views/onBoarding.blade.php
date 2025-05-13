@@ -199,7 +199,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.date_of_birth') }}</label>
@@ -216,7 +216,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.zodiac_sign') }}</label>
@@ -233,6 +233,18 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.zodiac_sign') }}</label>
+                                                     <input type="text" name="nickname"
+                                                            class="form-control rounded-pill" required
+                                                            placeholder="{{ __('onboarding.nickname') }}">
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
 

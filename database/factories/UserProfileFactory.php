@@ -14,6 +14,7 @@ class UserProfileFactory extends Factory
     {
         return [
             'id' => User::inRandomOrder()->first()->id ?? User::factory(), // Randomly associate with an existing user or create a new one
+            'nickname' => $this->faker->userName,
             'city_location_id' => null,
             'bio_en' => $this->faker->paragraph,
             'bio_ar' => $this->faker->paragraph,

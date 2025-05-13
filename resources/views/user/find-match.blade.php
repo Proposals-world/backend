@@ -612,7 +612,7 @@
                 const user = $(this).data('profile');
                 const userId = user.id || user.user_id;
 
-                console.log("Fetching profile for user ID:", userId);
+                // console.log("Fetching profile for user ID:", userId);
 
                 $.ajax({
                     method: 'GET',
@@ -624,7 +624,7 @@
                         const mainPhoto = user.profile?.photos?.find(photo => photo.is_main === 1)
                             ?.photo_url;
                         $('#modalAvatar').attr('src', mainPhoto || '/dashboard/logos/profile-icon.jpg');
-                        $('#modalName').text(`${user.first_name} ${user.last_name}`);
+                        $('#modalName').text(`${user.profile.nickname} `);
                         $('#modalBio').text(user.profile?.bio || 'No bio provided.');
                         $('input[name="liked_user_id"]').val(userId);
                         $('input[name="disliked_user_id"]').val(userId);
@@ -949,10 +949,10 @@
                                     </button>
                                 <div class="position-relative">
                                     <span class="badge badge-success position-absolute m-2">{{ __('userDashboard.dashboard.Exact_Match') }}</span>
-                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
+                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.nickname}'s Profile">
                                 </div>
 
-                                    <h5 class="card-title mb-1">${userProfile.first_name} ${userProfile.last_name}</h5>
+                                    <h5 class="card-title mb-1">${userProfile.nickname} </h5>
                                     <p class="text-muted small mb-2">
                                         ${country}${country && city ? ', ' : ''}${city}
                                     </p>
@@ -978,11 +978,11 @@
 
                                 <div class="position-relative">
                                     <span class="badge badge-warning position-absolute m-2">{{ __('userDashboard.dashboard.Suggested') }}</span>
-                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
+                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.nickname}'s Profile">
                                 </div>
                                 <div class="card-body d-flex flex-column">
 
-                                    <h5 class="card-title mb-1">${userProfile.first_name} ${userProfile.last_name}</h5>
+                                    <h5 class="card-title mb-1">${userProfile.nickname} </h5>
                                     <p class="text-muted small mb-2">
                                         ${country}${country && city ? ', ' : ''}${city}
                                     </p>

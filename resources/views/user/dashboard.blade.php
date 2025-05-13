@@ -134,6 +134,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ __('userDashboard.dashboard.recent_feedback') }}</h5>
                         <div class="scroll dashboard-list-with-thumbs">
+                            {{-- {{ dd($matches) }} --}}
                             @if(count($matches))
                                 @foreach ($matches as $match)
                                     <div class="d-flex flex-row mb-3 position-relative">
@@ -144,7 +145,7 @@
                                         </a>
                                         <div class="pl-3 pt-2 pr-2 pb-2 w-100">
                                             <p class="list-item-heading mb-1">
-                                                {{ $match['matched_user_name'] }}
+                                                {{ $match['matched_user_nickname'] }}
                                             </p>
                                             <div class="pr-4 d-none d-sm-block">
                                                 <p class="text-muted mb-1 text-small">

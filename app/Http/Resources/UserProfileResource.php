@@ -42,6 +42,7 @@ class UserProfileResource extends JsonResource
 
         return [
             'id' => $this->id,
+
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
@@ -54,11 +55,11 @@ class UserProfileResource extends JsonResource
 
             // Profile Information
             'profile' => [
+                'nickname' => $this->profile->nickname,
                 'bio' => $this->profile ? ($this->lang === 'ar' ? $this->profile->bio_ar : $this->profile->bio_en) : null,
                 'avatar_url' => $this->profile ? config('app.url') . $this->profile->avatar_url : null,
                 'id_number' => $this->profile ? $this->profile->id_number : null,
                 'nationality' => $getLocalized($this->profile->nationality, 'name'),
-
                 'language' => $this->profile && $this->profile->language
                     ? $this->profile->language->{'name_' . $this->lang} // Adjust to get the language name based on the current language
                     : 'English', // Default fallback

@@ -50,10 +50,10 @@
                                 <span class="badge badge-warning position-absolute m-2">Suggested</span>
                                 <img class="card-img-top"
                                     src="{{ collect($profile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? '/dashboard/logos/profile-icon.jpg' }}"
-                                    alt="{{ $profile['first_name'] }} {{ $profile['last_name'] }}">
+                                    alt="{{ $profile['profile']['nickname'] }} ">
                             </div>
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title mb-1">{{ $profile['first_name'] }} {{ $profile['last_name'] }}</h5>
+                                <h5 class="card-title mb-1">{{ $profile['profile']['nickname'] }} </h5>
                                 <p class="text-muted small mb-2">
                                     {{ $profile['profile']['country_of_residence'] ?? '' }}{{ isset($profile['profile']['city']) ? ', ' . $profile['profile']['city'] : ', Unknown' }}
                                 </p>
@@ -327,7 +327,7 @@
                 $('#modalAvatar').attr('src', mainPhoto);
                 $('input[name="liked_user_id"]').val(profile.id);
                 $('input[name="disliked_user_id"]').val(profile.id);
-                $('#modalName').text(`${profile.first_name} ${profile.last_name}`);
+                $('#modalName').text(`${profile.profile.nickname} `);
                 $('#modalBio').text(profile.profile.bio || 'No bio provided.');
                 $('#modalGender').text(profile.gender || 'N/A');
                 $('#modalAge').text(profile.profile.age || 'N/A');

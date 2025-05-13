@@ -15,6 +15,7 @@ class UpdateUserProfileRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'nickname' => 'required|string|max:255',
             'photo_url' => 'nullable|image',
             'bio_en' => 'nullable|string|max:1000',
             'bio_ar' => 'nullable|string|max:1000',
