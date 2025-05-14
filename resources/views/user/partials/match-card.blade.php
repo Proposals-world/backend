@@ -9,9 +9,9 @@
         </div>
         <div class="card-body">
             <a href="#" class="profile-link">
-                <p class="list-item-heading mb-1 font-weight-bold">
+                {{-- <p class="list-item-heading mb-1 font-weight-bold">
                     {{ $profile['matched_user']['first_name'] }} {{ $profile['matched_user']['last_name'] }}
-                </p>
+                </p> --}}
             </a>
             <footer>
                 <p class="text-muted text-small mb-0">

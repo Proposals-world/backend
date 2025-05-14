@@ -36,11 +36,14 @@ html[dir="rtl"] .contact-direction {
     <div style="
     @if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
         background-position: left 0;
+        background-size: 70%;
     @else
         background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
-        background-position: right 0; @endif
+        background-position: right 0;
+        background-size: 65%;
+    @endif
     background-repeat: no-repeat;
-    background-size: 65%;">
+    ">
         <!-- slider-area -->
         <section id="parallax" class="slider-area slider-bg2 second-slider-bg d-flex fix"
             >
