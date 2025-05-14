@@ -21,6 +21,7 @@ class FilteredUserResource extends JsonResource
         // Return the user details along with their profile data and photos
         return [
             'id' => $this->user->id, // Get user id from the related user model
+            'nickname' => $this->user->profile->nickname, // User's nickname
             'first_name' => $this->user->first_name, // User's first name
             'last_name' => $this->user->last_name, // User's last name
             'email' => $this->user->email, // User's email

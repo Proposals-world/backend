@@ -13,7 +13,7 @@
         <div class="auth-fluid-right text-center">
             <div class="auth-user-testimonial">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-inner">
+                    {{-- <div class="carousel-inner">
                         <div class="carousel-item active">
                             <h2 class="mb-3">I love the color!</h2>
                             <p class="lead"><i class="ri-double-quotes-l"></i> Everything you need is in this template. Love the overall look and feel. Not too flashy, and still very professional and smart.</p>
@@ -29,7 +29,7 @@
                             <p class="lead"><i class="ri-double-quotes-l"></i> This is a great product, helped us a lot and very quick to work with and implement.</p>
                             <p>- Admin User</p>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

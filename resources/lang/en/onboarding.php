@@ -25,7 +25,7 @@ return [
     'height' => 'Height',
     'weight' => 'Weight',
     'nationality' => 'Nationality',
-    'origin' => 'Origin',
+    'origin' => 'Country Of Origin',
 'city_location' => 'Area / Neighborhood',
     // Location and Education Step
     'location_education' => 'Location and Education',

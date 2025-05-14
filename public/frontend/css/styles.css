@@ -5851,7 +5851,7 @@ pre cite {
         width: 30px;
         height: 30px;
         font-size: 14px;
-        margin-right: 10px;
+        /* margin-right: 10px; */
         box-shadow: none;
     }
 
@@ -5863,7 +5863,7 @@ pre cite {
     /* Adjust Form Padding */
     .onboarding-card {
         padding: 20px !important;
-        margin-right: 50px;
+        margin-right: 35px;
     }
 }
 /* Ensure form groups are flex columns */
@@ -5922,4 +5922,18 @@ pre cite {
     margin-right: 0.25rem;
     font-size: 0.875rem;
 }
-/* onboarding css ends */
+#onboarding {
+    min-height: 116vh;
+}
+
+@media (max-width: 768px) {
+    .onboarding-navigation .btn {
+        font-size: 12px;
+        /* Smaller text size */
+        padding: 8px 16px;
+        /* Smaller padding */
+        min-width: 80px;
+        /* Limit the button's width */
+    }
+}
+

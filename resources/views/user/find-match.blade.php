@@ -255,8 +255,9 @@
                     <div class="form-group">
                         <label>Age Range</label>
                         <div class="d-flex">
-                            <input type="number" name="age_min" class="form-control mr-2" placeholder="Min">
-                            <input type="number" name="age_max" class="form-control" placeholder="Max">
+                            <input type="number" name="age_min" min="18" class="form-control mr-2"
+                                placeholder="Min">
+                            <input type="number" name="age_max" max="65" class="form-control" placeholder="Max">
                         </div>
                     </div>
                     <div class="form-group">
@@ -521,10 +522,10 @@
     </div>
 @else
     <div class="container py-5 text-center">
-        <h3 class="text-danger mb-3">{{ __('Please complete your preferences') }}</h3>
-        <p class="mb-4">{{ __('You need to fill at least two fields in your preferences to view match suggestions.') }}
+        <h3 class="text-danger mb-3">{{ __('userDashboard.findMatch.complete_preferences') }}</h3>
+        <p class="mb-4">{{ __('userDashboard.findMatch.at_least_two_fields') }}
         </p>
-        <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('Complete Preferences') }}</a>
+        <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('userDashboard.findMatch.complete_preferences_btn') }}</a>
     </div>
     @endif
 
@@ -611,7 +612,7 @@
                 const user = $(this).data('profile');
                 const userId = user.id || user.user_id;
 
-                console.log("Fetching profile for user ID:", userId);
+                // console.log("Fetching profile for user ID:", userId);
 
                 $.ajax({
                     method: 'GET',
@@ -623,7 +624,7 @@
                         const mainPhoto = user.profile?.photos?.find(photo => photo.is_main === 1)
                             ?.photo_url;
                         $('#modalAvatar').attr('src', mainPhoto || '/dashboard/logos/profile-icon.jpg');
-                        $('#modalName').text(`${user.first_name} ${user.last_name}`);
+                        $('#modalName').text(`${user.profile.nickname} `);
                         $('#modalBio').text(user.profile?.bio || 'No bio provided.');
                         $('input[name="liked_user_id"]').val(userId);
                         $('input[name="disliked_user_id"]').val(userId);
@@ -948,10 +949,10 @@
                                     </button>
                                 <div class="position-relative">
                                     <span class="badge badge-success position-absolute m-2">{{ __('userDashboard.dashboard.Exact_Match') }}</span>
-                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
+                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.nickname}'s Profile">
                                 </div>
 
-                                    <h5 class="card-title mb-1">${userProfile.first_name} ${userProfile.last_name}</h5>
+                                    <h5 class="card-title mb-1">${userProfile.nickname} </h5>
                                     <p class="text-muted small mb-2">
                                         ${country}${country && city ? ', ' : ''}${city}
                                     </p>
@@ -977,11 +978,11 @@
 
                                 <div class="position-relative">
                                     <span class="badge badge-warning position-absolute m-2">{{ __('userDashboard.dashboard.Suggested') }}</span>
-                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.first_name}'s Profile">
+                                    <img class="card-img-top" src="${mainPhotoUrl}" alt="${userProfile.nickname}'s Profile">
                                 </div>
                                 <div class="card-body d-flex flex-column">
 
-                                    <h5 class="card-title mb-1">${userProfile.first_name} ${userProfile.last_name}</h5>
+                                    <h5 class="card-title mb-1">${userProfile.nickname} </h5>
                                     <p class="text-muted small mb-2">
                                         ${country}${country && city ? ', ' : ''}${city}
                                     </p>

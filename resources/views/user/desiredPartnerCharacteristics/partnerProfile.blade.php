@@ -268,18 +268,26 @@
                                                     <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_smoking_status">{{ __('profile.Smoking_Status') }}</label>
-                                                        <select class="form-control" name="preferred_smoking_status"
-                                                            id="preferred_smoking_status">
-                                                            <option
-                                                                value=""{{ $userPreferences['preferred_smoking_status'] ?? 'selected' }}>
-                                                                {{ __('profile.No_Preference') }}</option>
-                                                            <option value="1"
-                                                                {{ ($userPreferences['preferred_smoking_status'] ?? null) == 1 ? 'selected' : '' }}>
-                                                                {{ __('profile.Yes') }}</option>
-                                                            <option value="0"
-                                                                {{ ($userPreferences['preferred_smoking_status'] ?? null) == 0 ? 'selected' : '' }}>
-                                                                {{ __('profile.No') }}</option>
-                                                        </select>
+                                                            <select class="form-control" name="preferred_smoking_status" id="preferred_smoking_status">
+                                                                {{-- NULL = “No Preference” --}}
+                                                                <option value=""
+                                                                    {{ is_null($userPreferences['preferred_smoking_status'] ?? null) ? 'selected' : '' }}>
+                                                                    {{ __('profile.No_Preference') }}
+                                                                </option>
+
+                                                                {{-- 1 = Yes --}}
+                                                                <option value="1"
+                                                                    {{ ($userPreferences['preferred_smoking_status'] ?? null) == 1 ? 'selected' : '' }}>
+                                                                    {{ __('profile.Yes') }}
+                                                                </option>
+
+                                                                {{-- 0 = No --}}
+                                                                <option value="0"
+                                                                    {{ ($userPreferences['preferred_smoking_status'] ?? null) === 0 ? 'selected' : '' }}>
+                                                                    {{ __('profile.No') }}
+                                                                </option>
+                                                            </select>
+
                                                     </div>
 
                                                     {{-- Smoking Tools --}}
@@ -570,34 +578,26 @@
                                                     <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_employment_status">{{ __('profile.Employment_Status') }}</label>
-                                                        <select class="form-control" name="preferred_employment_status"
-                                                            id="preferred_employment_status">
-                                                            <option value=""
-                                                                {{ ($userPreferences['preferred_employment_status'] ?? null) == 3 ? 'selected' : '' }}>
-                                                                {{ __('profile.No_Preference') }}</option>
+                                                            <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
+                                                                {{-- NULL = No Preference --}}
+                                                                <option value=""
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === null ? 'selected' : '' }}>
+                                                                    {{ __('profile.No_Preference') }}
+                                                                </option>
 
-                                                            @if (App::getLocale() == 'ar')
-                                                                {{-- Check if the current language is Arabic --}}
+                                                                {{-- 1 = Employed --}}
                                                                 <option value="1"
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
-                                                                    موظف
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
+                                                                    {{ App::isLocale('ar') ? 'موظف' : __('profile.Employed') }}
                                                                 </option>
+
+                                                                {{-- 0 = Unemployed --}}
                                                                 <option value="0"
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) == 0 ? 'selected' : '' }}>
-                                                                    عاطل عن العمل
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
+                                                                    {{ App::isLocale('ar') ? 'عاطل عن العمل' : __('profile.Unemployed') }}
                                                                 </option>
-                                                            @else
-                                                                {{-- Default to English --}}
-                                                                <option value="1"
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) == 1 ? 'selected' : '' }}>
-                                                                    Employed
-                                                                </option>
-                                                                <option value="0"
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) == 0 ? 'selected' : '' }}>
-                                                                    Unemployed
-                                                                </option>
-                                                            @endif
-                                                        </select>
+                                                            </select>
+
                                                     </div>
 
 
@@ -622,7 +622,7 @@
                                                     <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_religiosity_level">{{ __('profile.Religion') }}</label>
-                                                        <select class="form-control" name="preferred_religion_id">
+                                                        <select class="form-control" name="preferred_religion_id" id="religion_id">
                                                             <option value="">{{ __('profile.No_Preference') }}
                                                             </option>
                                                             @foreach ($data['religions'] as $option)
@@ -642,12 +642,13 @@
                                                             id="preferred_religiosity_level">
                                                             <option value="">{{ __('profile.No_Preference') }}
                                                             </option>
-                                                            @foreach ($data['religiousLevels'] as $option)
+                                                            {{-- make it loaded when the user alerady has value --}}
+                                                            {{-- @foreach ($data['religiousLevels'] as $option)
                                                                 <option value="{{ $option->id }}"
                                                                     {{ $userPreferences['preferred_religiosity_level'] == $option->name ? 'selected' : '' }}>
                                                                     {{ $option->name }}
                                                                 </option>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </select>
                                                     </div>
 
@@ -923,6 +924,60 @@
     </main>
     @push('scripts')
         <script>
+             var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
+
+// Function to load religiosity levels
+function loadReligiosityLevels(religionId, selectedLevelId = null) {
+    $('#preferred_religiosity_level')
+        .empty()
+        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+
+    if (religionId) {
+        $.ajax({
+            url: "{{ route('religious.levels.gender') }}",
+            type: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: {
+                religion_id: religionId,
+                gender: userGender === 'male' ? 1 : 2
+            },
+            success: function (response) {
+                if (response.religiousLevels && response.religiousLevels.length > 0) {
+                    $.each(response.religiousLevels, function (index, level) {
+                        $('#preferred_religiosity_level').append(
+                            '<option value="' + level.id + '"' +
+                            (level.id == selectedLevelId ? ' selected' : '') +
+                            '>' + level.name + '</option>'
+                        );
+                    });
+                }
+            },
+            error: function (xhr) {
+                console.error('Error fetching religiosity levels:', xhr.responseText);
+            }
+        });
+    }
+}
+
+// On change
+$('#religion_id').on('change', function () {
+    var religionId = $(this).val();
+    loadReligiosityLevels(religionId);
+});
+
+// 🚀 Preload on page load if religion is already selected
+$(document).ready(function () {
+    var preselectedReligionId = $('#religion_id').val();
+    var selectedReligiosityLevelId = "{{ old('preferred_religiosity_level_id', $userPreferences['preferred_religiosity_level_id'] ?? '') }}";
+
+    if (preselectedReligionId) {
+        loadReligiosityLevels(preselectedReligionId, selectedReligiosityLevelId);
+    }
+});
+
             $(document).ready(function() {
                 const MAX_FIELDS = 10;
                 const trackedInputsSelector =

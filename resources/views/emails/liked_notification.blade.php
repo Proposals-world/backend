@@ -23,7 +23,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
-        
+
         /* RTL Support */
         [dir="rtl"] .email-container {
             text-align: right;
@@ -34,7 +34,7 @@
         [dir="ltr"] .email-container {
             text-align: left;
         }
-        
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -62,7 +62,7 @@
             position: relative;
             z-index: 2;
         }
-        
+
         /* Content Styles */
         .content {
             padding: 35px 40px;
@@ -87,7 +87,7 @@
             font-weight: 600;
             color: #9c0c58;
         }
-        
+
         /* Notification Section */
         .notification-container {
             margin: 30px auto;
@@ -97,7 +97,7 @@
             border: 1px dashed #e8c0d6;
             max-width: 400px;
         }
-        
+
         /* Button Styles */
         .button-container {
             margin: 30px 0;
@@ -117,7 +117,7 @@
         .button:hover {
             background-color: #7c0946;
         }
-        
+
         /* Footer Styles */
         .footer {
             text-align: center;
@@ -141,7 +141,7 @@
             color: #999999;
             margin-top: 15px;
         }
-        
+
         /* Responsive styles */
         @media only screen and (max-width: 600px) {
             .email-container {
@@ -166,10 +166,10 @@
         <div class="header">
             <h1>{{ __('email.title') }}</h1>
         </div>
-        
+
         <div class="content">
             <p class="greeting">{{ __('email.greeting') }}</p>
-            
+
             <div class="notification-container">
                 <div class="message">
                     <p>{{ __('email.message', ['user' => $liker->name]) }}</p>
@@ -177,13 +177,13 @@
             </div>
 
             <div class="button-container">
-                <a href="{{ url('/') }}" class="button">{{ __('email.view_my_likes') }}</a>
+                <a href="{{ route('liked-me') }}" class="button">{{ __('email.view_my_likes') }}</a>
             </div>
         </div>
 
         <div class="footer">
-            <p class="tagline">{{ __('email.tagline', ['default' => 'Finding Your Soulmate the Halal Way']) }}</p>
-            
+            <p class="tagline">{{ __('email.tagline', ['default' => 'Finding Your Soulmate']) }}</p>
+
             <div class="disclaimer">
                 <p>© {{ date('Y') }} {{ config('app.name', 'Proposals') }}. {{ __('email.rights_reserved') }}</p>
             </div>

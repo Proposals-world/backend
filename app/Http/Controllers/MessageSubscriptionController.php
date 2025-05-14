@@ -31,6 +31,6 @@ class MessageSubscriptionController extends Controller
         Mail::to($subscription->email)->send(new MessageSubscriptionConfirmation($subscription->email));
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Thank you for subscribing! Please check your email for confirmation.');
+        return redirect()->back()->with('success', app()->getLocale() === 'ar' ? 'شكراً لاشتراكك! يرجى التحقق من بريدك الإلكتروني للتأكيد.' : 'Thank you for subscribing! Please check your email for confirmation.');
     }
 }

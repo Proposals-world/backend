@@ -23,7 +23,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
-        
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -66,7 +66,7 @@
                 transform: translateY(-5px);
             }
         }
-        
+
         /* Content Styles */
         .content {
             padding: 35px 40px;
@@ -92,7 +92,7 @@
             color: #9c0c58;
             font-size: 20px;
         }
-        
+
         /* Match Notification Section */
         .match-container {
             margin: 30px auto;
@@ -106,10 +106,11 @@
             font-size: 48px;
             margin-bottom: 15px;
         }
-        
+
         /* Button Styles */
         .button-container {
             margin: 30px 0;
+            color: white
         }
         .button {
             display: inline-block;
@@ -126,7 +127,7 @@
         .button:hover {
             background-color: #7c0946;
         }
-        
+
         /* Footer Styles */
         .footer {
             text-align: center;
@@ -150,7 +151,7 @@
             color: #999999;
             margin-top: 15px;
         }
-        
+
         /* Responsive styles */
         @media only screen and (max-width: 600px) {
             .email-container {
@@ -175,10 +176,10 @@
         <div class="header">
             <h1>It's a Match!<span class="header-emoji">🎉</span></h1>
         </div>
-        
+
         <div class="content">
-            <p class="greeting">Assalamu Alaikum, {{ $user1->name }}!</p>
-            
+            <p class="greeting">Hello, {{ $user1->name }}!</p>
+
             <div class="match-container">
                 <div class="match-icon">💞</div>
                 <div class="message">
@@ -187,7 +188,7 @@
                 </div>
             </div>
 
-            <p class="message">Take the next step on your journey to finding your soulmate the halal way.</p>
+            <p class="message">Take the next step on your journey to finding your soulmate.</p>
 
             <div class="button-container">
                 <a href="{{ route('matches') }}" class="button">View Your Matches</a>
@@ -195,8 +196,8 @@
         </div>
 
         <div class="footer">
-            <p class="tagline">Finding Your Soulmate the Halal Way</p>
-            
+            <p class="tagline">Finding Your Soulmate</p>
+
             <div class="disclaimer">
                 <p>This notification was sent to keep you updated on your matching status.</p>
                 <p>© {{ date('Y') }} Proposals. All rights reserved.</p>

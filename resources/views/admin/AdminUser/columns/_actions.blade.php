@@ -33,6 +33,8 @@
             text: 'You are about to change the user status.',
             icon: 'warning',
             showCancelButton: true,
+            confirmButtonColor: '#9e086c',
+            cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, change it!',
             cancelButtonText: 'No, cancel!',
         }).then((result) => {

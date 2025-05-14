@@ -91,10 +91,16 @@ return [
         'View_mutual_matches_based_on_your_preferences' => 'View mutual matches based on your preferences',
         'Pending_Matches' => 'Pending Matches',
         'Contact_Exchanged' => 'Contact Exchanged',
-
+        'years' => 'Years',
+        'Contacted' => 'Contacted',
+        'Match' => 'Match',
+        'guardian_phone' => 'Guardian Phone',
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',
+        'complete_preferences' => 'Please complete your preferences',
+        'complete_preferences_btn' => 'Complete Preferences',
+        'at_least_two_fields' => 'You need to fill at least two fields in your preferences to view match suggestions.',
     ],
     'pricing' => [
         'title' => 'Our Pricing Plans',
@@ -158,6 +164,9 @@ return [
         'offensive' => 'Offensive',
         'other' => 'Other',
         'Confirm Action' => 'Confirm Action',
+        'Confirm' => 'Confirm',
+        'Cancel' => 'Cancel',
+        'Close' => 'Close',
         'inappropriate_photos' => 'Inappropriate Photos',
         'harassment' => 'Harassment',
         'disrespectful_behavior' => 'Disrespectful Behavior',
@@ -259,4 +268,5 @@ return [
         'social_media_presence' => 'Social Media Presence',
         'find_matches' => 'Find Matches'
     ],
+
 ];

@@ -227,23 +227,27 @@ class CitiesTableSeeder extends Seeder
             // reached in citylocation table seeder
             //Kuwait
             ['name_en' => 'Kuwait City', 'name_ar' => 'مدينة الكويت', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Hawalli', 'name_ar' => 'حولى', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Hawalli', 'name_ar' => 'حولي', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Salmiya', 'name_ar' => 'السالمية', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Mubarak Al Kabeer', 'name_ar' => 'مبارك الكبير', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Jahra', 'name_ar' => 'الجهراء', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Farwaniyah', 'name_ar' => 'الفروانية', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Ahmadi', 'name_ar' => 'الأحمدي', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Fahaheel', 'name_ar' => 'الفحيحيل', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Riqqa', 'name_ar' => 'الرقة', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Sabah Al Salem', 'name_ar' => 'صباح السالم', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Al Aqila', 'name_ar' => 'العقيلة', 'country_id' => 9, 'created_at' => now(), 'updated_at' => now()],
 
             // Qatar
             ['name_en' => 'Doha', 'name_ar' => 'الدوحة', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Rayyan', 'name_ar' => 'الريان', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Khor', 'name_ar' => 'الخور', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Wakrah', 'name_ar' => 'الوكرة', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Al Daayen', 'name_ar' => 'الدوحة', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Al Daayen', 'name_ar' => 'الدعين', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Umm Salal', 'name_ar' => 'أم صلال', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Mesaieed', 'name_ar' => 'مسعيد', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Al Shamal', 'name_ar' => 'الشمال', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Al Shahaniya', 'name_ar' => 'الشحانية', 'country_id' => 10, 'created_at' => now(), 'updated_at' => now()],
             // reached -----///------
             // Bahrain
             ['name_en' => 'Manama', 'name_ar' => 'المنامة', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
@@ -254,9 +258,9 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => "A'ali", 'name_ar' => 'عالي', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Jidhafs', 'name_ar' => 'جدحفص', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Hamad Town', 'name_ar' => 'مدينة حمد', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Budaiya', 'name_ar' => 'ال Budaiya', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Madinat Hamad', 'name_ar' => 'مدينة حمد', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
-
+            ['name_en' => 'Budaiya', 'name_ar' => 'البديع', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Al Hidd', 'name_ar' => 'الحد', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Dair Kulayb', 'name_ar' => 'دار كليب', 'country_id' => 11, 'created_at' => now(), 'updated_at' => now()],
             // Oman
             ['name_en' => 'Muscat', 'name_ar' => 'مسقط', 'country_id' => 12, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Salalah', 'name_ar' => 'صلالة', 'country_id' => 12, 'created_at' => now(), 'updated_at' => now()],
@@ -268,6 +272,7 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Rustaq', 'name_ar' => 'الرستاق', 'country_id' => 12, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Khasab', 'name_ar' => 'خصب', 'country_id' => 12, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Ibri', 'name_ar' => 'إبري', 'country_id' => 12, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Haima', 'name_ar' => 'هيماء', 'country_id' => 12, 'created_at' => now(), 'updated_at' => now()],
 
             // Yemen
             ['name_en' => 'Sana\'a', 'name_ar' => 'صنعاء', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
@@ -278,8 +283,10 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Mukalla', 'name_ar' => 'المكلا', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Dhamar', 'name_ar' => 'ذمار', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Marib', 'name_ar' => 'مأرب', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Al Hudaydah', 'name_ar' => 'الحُديدة', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Sa\'da', 'name_ar' => 'صعدة', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Hajjah', 'name_ar' => 'حجة', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Dhalie', 'name_ar' => 'الضالع', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Seiyun', 'name_ar' => 'سيئون', 'country_id' => 13, 'created_at' => now(), 'updated_at' => now()],
 
             // Sudan
             ['name_en' => 'Khartoum', 'name_ar' => 'الخرطوم', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
@@ -292,6 +299,10 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Wad Madani', 'name_ar' => 'ود مدني', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Atbara', 'name_ar' => 'عطبرة', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Sennar', 'name_ar' => 'سنار', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Gedaref', 'name_ar' => 'القضارف', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Kassala', 'name_ar' => 'كسلا', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Dongola', 'name_ar' => 'دنقلا', 'country_id' => 14, 'created_at' => now(), 'updated_at' => now()],
+
 
             // Libya
             ['name_en' => 'Tripoli', 'name_ar' => 'طرابلس', 'country_id' => 15, 'created_at' => now(), 'updated_at' => now()],
@@ -312,10 +323,14 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Kairouan', 'name_ar' => 'القيروان', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Gabes', 'name_ar' => 'قابس', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Bizerte', 'name_ar' => 'بنزرت', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Mednine', 'name_ar' => 'مدنين', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Medenine', 'name_ar' => 'مدنين', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Tataouine', 'name_ar' => 'تطاوين', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Monastir', 'name_ar' => 'المنستير', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Kasserine', 'name_ar' => 'القصرين', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Ariana', 'name_ar' => 'أريانة', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Nabeul', 'name_ar' => 'نابل', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Gafsa', 'name_ar' => 'قفصة', 'country_id' => 16, 'created_at' => now(), 'updated_at' => now()],
+
 
             // Algeria
             ['name_en' => 'Algiers', 'name_ar' => 'الجزائر', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
@@ -325,9 +340,16 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Blida', 'name_ar' => 'البليدة', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Batna', 'name_ar' => 'باتنة', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Tlemcen', 'name_ar' => 'تلمسان', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Setif', 'name_ar' => 'سعيدة', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Setif', 'name_ar' => 'سطيف', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Chlef', 'name_ar' => 'الشلف', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Sétif', 'name_ar' => 'سيتيف', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Saida', 'name_ar' => 'سعيدة', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Jijel', 'name_ar' => 'جيجل', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Bejaia', 'name_ar' => 'بجاية', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Mascara', 'name_ar' => 'معسكر', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Tiaret', 'name_ar' => 'تيارت', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'El Oued', 'name_ar' => 'وادي سوف', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Skikda', 'name_ar' => 'سكيكدة', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Ouargla', 'name_ar' => 'ورقلة', 'country_id' => 17, 'created_at' => now(), 'updated_at' => now()],
 
             // Morocco
             ['name_en' => 'Rabat', 'name_ar' => 'الرباط', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
@@ -339,17 +361,24 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Meknes', 'name_ar' => 'مكناس', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Essaouira', 'name_ar' => 'الصويرة', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Oujda', 'name_ar' => 'وجدة', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Tétouan', 'name_ar' => 'تطوان', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Tetouan', 'name_ar' => 'تطوان', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Sale', 'name_ar' => 'سلا', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Kenitra', 'name_ar' => 'القنيطرة', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Laayoune', 'name_ar' => 'العيون', 'country_id' => 18, 'created_at' => now(), 'updated_at' => now()],
+
 
             // Mauritania
             ['name_en' => 'Nouakchott', 'name_ar' => 'نواكشوط', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Nouadhibou', 'name_ar' => 'نواكشوط', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Nouadhibou', 'name_ar' => 'نواذيبو', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Kiffa', 'name_ar' => 'كيفة', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Atar', 'name_ar' => 'آتر', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'Zouérat', 'name_ar' => 'زويرات', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Zouerate', 'name_ar' => 'زويرات', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Tidjikja', 'name_ar' => 'تيديكجا', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Rosso', 'name_ar' => 'روسو', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Selibaby', 'name_ar' => 'سيلبابي', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Bogue', 'name_ar' => 'بوكي', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Kaedi', 'name_ar' => 'كيهيدي', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Aleg', 'name_ar' => 'ألاك', 'country_id' => 19, 'created_at' => now(), 'updated_at' => now()],
 
             //Somalia
             ['name_en' => 'Mogadishu', 'name_ar' => 'مقديشو', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
@@ -360,6 +389,10 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Galkayo', 'name_ar' => 'غالكيو', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Jowhar', 'name_ar' => 'جوهار', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Burao', 'name_ar' => 'بوراو', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Berbera', 'name_ar' => 'بربرة', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
+            ['country_id' => 20, 'created_at' => now(), 'name_ar' => 'مركة', 'name_en' => 'Merca', 'updated_at' => now()],
+            ['name_en' => 'Beledweyne', 'name_ar' => 'بلدوين', 'country_id' => 20, 'created_at' => now(), 'updated_at' => now()],
+
 
             // Djibouti
             ['name_en' => 'Djibouti City', 'name_ar' => 'مدينة جيبوتي', 'country_id' => 21, 'created_at' => now(), 'updated_at' => now()],
@@ -367,12 +400,15 @@ class CitiesTableSeeder extends Seeder
             ['name_en' => 'Tadjoura', 'name_ar' => 'تاجورة', 'country_id' => 21, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Obock', 'name_ar' => 'عقبة', 'country_id' => 21, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Dikhil', 'name_ar' => 'ديخل', 'country_id' => 21, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Arta', 'name_ar' => 'أرتا', 'country_id' => 21, 'created_at' => now(), 'updated_at' => now()],
             // Comoros
             ['name_en' => 'Moroni', 'name_ar' => 'موروني', 'country_id' => 22, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Mutsamudu', 'name_ar' => 'موشامودو', 'country_id' => 22, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Fomboni', 'name_ar' => 'فومبوني', 'country_id' => 22, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Domoni', 'name_ar' => 'دوموني', 'country_id' => 22, 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Sima', 'name_ar' => 'سيما', 'country_id' => 22, 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Mitsamiouli', 'name_ar' => 'ميتساميولي', 'country_id' => 22, 'created_at' => now(), 'updated_at' => now()],
+
         ]);
     }
 }

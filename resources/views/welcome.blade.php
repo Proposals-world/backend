@@ -72,7 +72,7 @@ html[dir="rtl"] .contact-direction {
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-5">
-                        <div class="matchmaking-form-wrapper">
+                        {{-- <div class="matchmaking-form-wrapper">
                             <form class="matchmaking-form">
                                 <div class="matchmaking-form-group">
                                     <div class="matchmaking-form-label">{{ __('home.gender_label') }}</div>
@@ -149,7 +149,7 @@ html[dir="rtl"] .contact-direction {
                                     </a>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -354,28 +354,34 @@ html[dir="rtl"] .contact-direction {
         <section class="newslater-area pt-90 pb-100"
             style="background-image: url({{ asset('frontend/img/bg/subscribe-bg.png') }}); background-size: cover;">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-8 col-lg-10">
-                        <div class="section-title text-center pl-40 pr-40 mb-50">
-                            <h2>{{ __('home.subscribe_title') }}</h2>
-                            <p>{{ __('home.subscribe_desc') }}</p>
-                        </div>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                <div class="section-title text-center pl-40 pr-40 mb-50">
+                    <h2>{{ __('home.subscribe_title') }}</h2>
+                    <p>{{ __('home.subscribe_desc') }}</p>
                 </div>
-                <div class="row justify-content-center" style="direction: ltr;">
-                    <div class="col-xl-6 col-lg-10">
-                        <form name="ajax-form" id="contact-form4" action="#" method="post"
-                            class="contact-form newslater">
-                            <div class="form-group">
-                                <input class="form-control" id="email2" name="email" type="email"
-                                    placeholder="{{ __('home.subscribe_placeholder') }}" value="" required>
-                                <button type="submit" class="btn btn-custom" id="send2">
-                                    {{ __('home.subscribe_button') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
+            </div>
+            <div class="row justify-content-center" style="direction: ltr;">
+                <div class="col-xl-6 col-lg-10">
+                <form name="ajax-form" id="contact-form4" action="{{ route('subscribe.message') }}" method="post"
+                    class="contact-form newslater">
+                    @csrf
+                    <div class="form-group">
+                    <input class="form-control" id="email2" name="email" type="email"
+                        placeholder="{{ __('home.subscribe_placeholder') }}" value="" required>
+                    <button type="submit" class="btn btn-custom" id="send2">
+                        {{ __('home.subscribe_button') }}
+                    </button>
+                    </div>
+                    @if (session('success'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                </form>
+                </div>
+            </div>
             </div>
         </section>
         <!-- newslater-area-end -->

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             // Instead of $table->id(), define 'id' as an unsignedBigInteger without auto-increment
             $table->unsignedBigInteger('id')->primary();
+            $table->string('nickname')->nullable();
 
             // Set 'id' as a foreign key referencing 'users.id'
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');

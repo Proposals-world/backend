@@ -15,6 +15,7 @@ class UpdateUserProfileRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'nickname' => 'required|string|max:255',
             'photo_url' => 'nullable|image',
             'bio_en' => 'nullable|string|max:1000',
             'bio_ar' => 'nullable|string|max:1000',
@@ -36,7 +37,7 @@ class UpdateUserProfileRequest extends FormRequest
             'drinking_status_id' => 'nullable|integer|exists:drinking_statuses,id',
             'sports_activity_id' => 'nullable|integer|exists:sports_activities,id',
             'social_media_presence_id' => 'nullable|integer|exists:social_media_presences,id',
-            'marital_status_id' => 'required|integer|exists:marital_statuses,id',
+            'marital_status_id' => 'nullable|integer|exists:marital_statuses,id',
             'number_of_children' => 'nullable|integer|min:0',
             'religion_id' => 'required|integer|exists:religions,id',
             'skin_color_id' => 'required|integer|exists:skin_colors,id',

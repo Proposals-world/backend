@@ -108,6 +108,7 @@ class UserProfileService
         }
         // Ensure only valid fields are updated
         $profile->fill([
+            'nickname' => $data['nickname'] ?? $profile->nickname, //
             'bio_en' => $data['bio_en'] ?? $profile->bio_en, //
             'bio_ar' => $data['bio_ar'] ?? $profile->bio_ar, //
             'date_of_birth' => $data['date_of_birth'], //

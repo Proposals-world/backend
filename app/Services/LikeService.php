@@ -21,16 +21,32 @@ class LikeService
     public function getLikedMe()
     {
         $user = Auth::user();
+        abort_unless($user, 403);
+        $reportedUsers = UserReport::where('reporter_id', Auth::id())->pluck('reported_id');
 
-        if (!$user) {
-            return abort(403);
-        }
+        /* ------------------------------------------
+         | 1. build an array of all my matched user-ids
+         * ------------------------------------------*/
+        $matchedUserIds = UserMatch::where(function ($q) use ($user) {
+            $q->where('user1_id', $user->id)
+                ->orWhere('user2_id', $user->id);
+        })
+            ->get()                       // each row has user1_id & user2_id
+            ->flatMap(fn($m) => [$m->user1_id, $m->user2_id])
+            ->unique()
+            ->reject(fn($id) => $id == $user->id)   // toss my own id
+            ->all();                     // ->all() returns plain array
 
-        return LikeResource::collection(
-            Like::where('liked_user_id', $user->id)
-                ->with('user.photos')
-                ->get()
-        );
+        /* ------------------------------------------
+         | 2. return likes that are NOT in that list
+         * ------------------------------------------*/
+        $likes = Like::where('liked_user_id', $user->id)
+            ->whereNotIn('user_id', $matchedUserIds)
+            ->whereNotIn('user_id', $reportedUsers)
+            ->with('user.photos')
+            ->get();
+
+        return LikeResource::collection($likes); // default = false
     }
 
     public function getLikes()
@@ -41,11 +57,13 @@ class LikeService
             return null;
         }
 
-        return LikeResource::collection(
-            Like::where('user_id', $user->id)
-                ->with('user.photos')
-                ->get()
-        );
+        $likes = Like::where('user_id', $user->id)
+            ->with('likedUser.photos')
+            ->get();
+
+        return LikeResource::collection($likes->map(function ($like) {
+            return new LikeResource($like, true); // viewedAsLiker = true
+        }));
     }
 
     public function getMatches()

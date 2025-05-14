@@ -89,9 +89,16 @@ return [
         'View_mutual_matches_based_on_your_preferences' => 'عرض التطابقات المتبادلة بناءً على تفضيلاتك',
         'Pending_Matches' => 'التطابقات المعلقة',
         'Contact_Exchanged' => 'تم تبادل وسائل الاتصال',
+        'years' => 'سنوات',
+        'Contacted' => 'تم التواصل',
+        'Match' => 'تطابق',
+        'guardian_phone' => 'رقم هاتف الولي',
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',
+        'complete_preferences' => 'يرجى إكمال تفضيلاتك',
+        'complete_preferences_btn' => 'إكمال التفضيلات',
+        'at_least_two_fields' => 'يجب عليك ملء حقلين على الأقل في تفضيلاتك لعرض اقتراحات التطابق.',
     ],
     'pricing' => [
         'title' => 'خطط الأسعار',
@@ -143,6 +150,9 @@ return [
         'Suggested' => 'مقترح',
         '% Match' => ' تطابق  ',
         'Confirm Action ' => 'تأكيد الإجراء',
+        'Confirm' => 'تأكيد',
+        'Cancel' => 'إلغاء',
+        'Close' => 'إغلاق',
         'Loading_suggestions...' => 'جارٍ تحميل الاقتراحات...',
         'Loading_matches' => 'جارٍ تحميل التطابقات...',
         'No_exact_matches_found_based_on_your_criteria' => 'لم يتم العثور على تطابقات دقيقة بناءً على معاييرك',
@@ -258,4 +268,5 @@ return [
         'social_media_presence' => 'التواجد على وسائل التواصل الاجتماعي',
         'find_matches' => 'البحث عن مطابقات'
     ],
+
 ];

@@ -106,12 +106,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
-        Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels']);
     });
 
     // Guardian verification should only happen AFTER profile is complete
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
+});
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 });
 
 // User dashboard and match routes
@@ -140,7 +142,8 @@ Route::middleware([
     Route::get('/find-match', [FindMatchController::class, 'index'])->name('find-match');
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
     Route::delete('/remove-match', [MatchController::class, 'removeMatch'])->name('api.remove.match');
-    Route::get('/matches', [MatchController::class, 'getMatches'])->name('matches');
+    Route::get('/matches', [MatchController::class, 'index'])->name('matches');
+    Route::get('/get-matches', [MatchController::class, 'getMatches'])->name('getMatchesApi');
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
     Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
     Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');

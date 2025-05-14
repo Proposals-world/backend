@@ -2714,6 +2714,1820 @@ class CityLocationSeeder extends Seeder
             ['city_id' => 152, 'name_en' => 'Al Sarooj', 'name_ar' => 'السروج'],
             ['city_id' => 152, 'name_en' => 'Al Falaj Hazza', 'name_ar' => 'الفلج هزاع'],
             ['city_id' => 152, 'name_en' => 'Al Ain Oasis', 'name_ar' => 'واحة العين'],
+            // مدينة الكويت (city_id: 153)
+            // رئيسية
+            ['city_id' => 153, 'name_en' => 'Sharq', 'name_ar' => 'شرق'],
+            ['city_id' => 153, 'name_en' => 'Dasman', 'name_ar' => 'دسمة'],
+            ['city_id' => 153, 'name_en' => 'Al Sawaber', 'name_ar' => 'الصوابر'],
+            ['city_id' => 153, 'name_en' => 'Al Qibla', 'name_ar' => 'القبلة'],
+            ['city_id' => 153, 'name_en' => 'Mirqab', 'name_ar' => 'مرقاب'],
+            ['city_id' => 153, 'name_en' => 'Al Mansouriya', 'name_ar' => 'المنصورية'],
+            ['city_id' => 153, 'name_en' => 'Bneid Al Gar', 'name_ar' => 'بنيد القار'],
+            // فرعية
+            ['city_id' => 153, 'name_en' => 'Al Watiah', 'name_ar' => 'الوطية'],
+            ['city_id' => 153, 'name_en' => 'Al Shamiya', 'name_ar' => 'الشامية'],
+            ['city_id' => 153, 'name_en' => 'Al Rawda', 'name_ar' => 'الروضة'],
+            ['city_id' => 153, 'name_en' => 'Al Adailiya', 'name_ar' => 'العديلية'],
+
+            // حولي (city_id: 154)
+            // رئيسية
+            ['city_id' => 154, 'name_en' => 'Hawalli Center', 'name_ar' => 'مركز حولي'],
+            ['city_id' => 154, 'name_en' => 'Al Shaab', 'name_ar' => 'الشعب'],
+            ['city_id' => 154, 'name_en' => 'Al Jabriya', 'name_ar' => 'الجابرية'],
+            ['city_id' => 154, 'name_en' => 'Al Surra', 'name_ar' => 'السرة'],
+            ['city_id' => 154, 'name_en' => 'Bayan', 'name_ar' => 'بيان'],
+            ['city_id' => 154, 'name_en' => 'Mishref', 'name_ar' => 'مشرف'],
+            // فرعية
+            ['city_id' => 154, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 154, 'name_en' => 'Hittin', 'name_ar' => 'حطين'],
+            ['city_id' => 154, 'name_en' => 'Al Shuhada', 'name_ar' => 'الشهداء'],
+            ['city_id' => 154, 'name_en' => 'Al Siddiq', 'name_ar' => 'الصديق'],
+
+            // السالمية (city_id: 155)
+            // رئيسية
+            ['city_id' => 155, 'name_en' => 'Salmiya Center', 'name_ar' => 'مركز السالمية'],
+            ['city_id' => 155, 'name_en' => 'Al Blajat', 'name_ar' => 'البلاجات'],
+            ['city_id' => 155, 'name_en' => 'Al Mughira', 'name_ar' => 'المغيرة'],
+            ['city_id' => 155, 'name_en' => 'Al Rumaythiya', 'name_ar' => 'الرميثية'],
+            ['city_id' => 155, 'name_en' => 'Al Salmiya Beach', 'name_ar' => 'شاطئ السالمية'],
+            ['city_id' => 155, 'name_en' => 'Al Bidaa', 'name_ar' => 'البدع'],
+            // فرعية
+            ['city_id' => 155, 'name_en' => 'Al Maidan', 'name_ar' => 'الميدان'],
+            ['city_id' => 155, 'name_en' => 'Al Zahra', 'name_ar' => 'الزهراء'],
+            ['city_id' => 155, 'name_en' => 'Al Shaab Al Bahri', 'name_ar' => 'الشعب البحري'],
+
+            // مبارك الكبير (city_id: 156)
+            // رئيسية
+            ['city_id' => 156, 'name_en' => 'Mubarak Al Kabeer Center', 'name_ar' => 'مركز مبارك الكبير'],
+            ['city_id' => 156, 'name_en' => 'Al Adan', 'name_ar' => 'العدان'],
+            ['city_id' => 156, 'name_en' => 'Al Qusoor', 'name_ar' => 'القصور'],
+            ['city_id' => 156, 'name_en' => 'Al Quran', 'name_ar' => 'القرين'],
+            ['city_id' => 156, 'name_en' => 'Sabhan', 'name_ar' => 'صبحان'],
+            // فرعية
+            ['city_id' => 156, 'name_en' => 'Al Masayel', 'name_ar' => 'المسايل'],
+            ['city_id' => 156, 'name_en' => 'Al Fintas', 'name_ar' => 'الفنطاس'],
+            ['city_id' => 156, 'name_en' => 'Abu Halifa', 'name_ar' => 'أبو حليفة'],
+
+            // الجهراء (city_id: 157)
+            // رئيسية
+            ['city_id' => 157, 'name_en' => 'Al Jahra Old', 'name_ar' => 'الجهراء القديمة'],
+            ['city_id' => 157, 'name_en' => 'Al Naeem', 'name_ar' => 'النعيم'],
+            ['city_id' => 157, 'name_en' => 'Al Qasr', 'name_ar' => 'القصر'],
+            ['city_id' => 157, 'name_en' => 'Al Oyoun', 'name_ar' => 'العيون'],
+            ['city_id' => 157, 'name_en' => 'Saad Al Abdullah', 'name_ar' => 'سعد العبدالله'],
+            // فرعية
+            ['city_id' => 157, 'name_en' => 'Al Waha', 'name_ar' => 'الواحة'],
+            ['city_id' => 157, 'name_en' => 'Taima', 'name_ar' => 'تيماء'],
+            ['city_id' => 157, 'name_en' => 'Al Naseem', 'name_ar' => 'النسيم'],
+
+            // الفروانية (city_id: 158)
+            // رئيسية
+            ['city_id' => 158, 'name_en' => 'Al Farwaniya Center', 'name_ar' => 'مركز الفروانية'],
+            ['city_id' => 158, 'name_en' => 'Al Omariya', 'name_ar' => 'العمرية'],
+            ['city_id' => 158, 'name_en' => 'Al Rabiya', 'name_ar' => 'الرابية'],
+            ['city_id' => 158, 'name_en' => 'Al Rai', 'name_ar' => 'الري'],
+            ['city_id' => 158, 'name_en' => 'Abdullah Al Mubarak', 'name_ar' => 'عبدالله المبارك'],
+            ['city_id' => 158, 'name_en' => 'Jleeb Al Shuyoukh', 'name_ar' => 'جليب الشيوخ'],
+            // فرعية
+            ['city_id' => 158, 'name_en' => 'Al Ardiya', 'name_ar' => 'العارضية'],
+            ['city_id' => 158, 'name_en' => 'Al Riggae', 'name_ar' => 'الرقعي'],
+            ['city_id' => 158, 'name_en' => 'Al Andalus', 'name_ar' => 'الأندلس'],
+
+            // الأحمدي (city_id: 159)
+            // رئيسية
+            ['city_id' => 159, 'name_en' => 'Al Ahmadi Center', 'name_ar' => 'مركز الأحمدي'],
+            ['city_id' => 159, 'name_en' => 'Al Mahboula', 'name_ar' => 'المهبولة'],
+            ['city_id' => 159, 'name_en' => 'Al Manqaf', 'name_ar' => 'المنقف'],
+            ['city_id' => 159, 'name_en' => 'Al Sabahiya', 'name_ar' => 'الصباحية'],
+            ['city_id' => 159, 'name_en' => 'Ali Sabah Al Salem', 'name_ar' => 'علي صباح السالم'],
+            // فرعية
+            ['city_id' => 159, 'name_en' => 'Hadiya', 'name_ar' => 'هدية'],
+            ['city_id' => 159, 'name_en' => 'Jaber Al Ali', 'name_ar' => 'جابر العلي'],
+            ['city_id' => 159, 'name_en' => 'Al Wafra', 'name_ar' => 'الوفرة'],
+
+            // الفحيحيل (city_id: 160)
+            // رئيسية
+            ['city_id' => 160, 'name_en' => 'Fahaheel Center', 'name_ar' => 'مركز الفحيحيل'],
+            ['city_id' => 160, 'name_en' => 'Al Dhaher', 'name_ar' => 'الظهر'],
+            ['city_id' => 160, 'name_en' => 'Al Sabahiya', 'name_ar' => 'الصباحية'],
+            ['city_id' => 160, 'name_en' => 'East Fahaheel', 'name_ar' => 'شرق الفحيحيل'],
+            ['city_id' => 160, 'name_en' => 'Al Khiran', 'name_ar' => 'الخيران'],
+            // فرعية
+            ['city_id' => 160, 'name_en' => 'Al Egaila', 'name_ar' => 'العقيلة'],
+            ['city_id' => 160, 'name_en' => 'Al Zour', 'name_ar' => 'الزور'],
+
+            // الرقة (city_id: 161)
+            // رئيسية
+            ['city_id' => 161, 'name_en' => 'Riqqa Center', 'name_ar' => 'مركز الرقة'],
+            ['city_id' => 161, 'name_en' => 'Al Hujjaj', 'name_ar' => 'الحجاج'],
+            ['city_id' => 161, 'name_en' => 'Al Muntazah', 'name_ar' => 'المنتزه'],
+            ['city_id' => 161, 'name_en' => 'Al Shuhada', 'name_ar' => 'الشهداء'],
+            // فرعية
+            ['city_id' => 161, 'name_en' => 'Al Subahiya', 'name_ar' => 'الصباحية'],
+            ['city_id' => 161, 'name_en' => 'Al Naseem', 'name_ar' => 'النسيم'],
+
+            // صباح السالم (city_id: 162)
+            // رئيسية
+            ['city_id' => 162, 'name_en' => 'Sabah Al Salem Center', 'name_ar' => 'مركز صباح السالم'],
+            ['city_id' => 162, 'name_en' => 'Al Maseela', 'name_ar' => 'المسيلة'],
+            ['city_id' => 162, 'name_en' => 'Al Adan', 'name_ar' => 'العدان'],
+            ['city_id' => 162, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            // فرعية
+            ['city_id' => 162, 'name_en' => 'Al Fintas', 'name_ar' => 'الفنطاس'],
+            ['city_id' => 162, 'name_en' => 'Al Quran', 'name_ar' => 'القرين'],
+
+            // العقيلة (city_id: 163)
+            // رئيسية
+            ['city_id' => 163, 'name_en' => 'Al Aqila Center', 'name_ar' => 'مركز العقيلة'],
+            ['city_id' => 163, 'name_en' => 'Al Fintas', 'name_ar' => 'الفنطاس'],
+            ['city_id' => 163, 'name_en' => 'Al Mahboula', 'name_ar' => 'المهبولة'],
+            ['city_id' => 163, 'name_en' => 'Al Sabahiya', 'name_ar' => 'الصباحية'],
+            // فرعية
+            ['city_id' => 163, 'name_en' => 'Abu Halifa', 'name_ar' => 'أبو حليفة'],
+            ['city_id' => 163, 'name_en' => 'Al Zour', 'name_ar' => 'الزور'],
+
+            // الدوحة (city_id: 164)
+            // رئيسية
+            ['city_id' => 164, 'name_en' => 'West Bay', 'name_ar' => 'الخليج الغربي'],
+            ['city_id' => 164, 'name_en' => 'Al Sadd', 'name_ar' => 'السد'],
+            ['city_id' => 164, 'name_en' => 'Al Corniche', 'name_ar' => 'الكورنيش'],
+            ['city_id' => 164, 'name_en' => 'The Pearl', 'name_ar' => 'اللؤلؤة'],
+            ['city_id' => 164, 'name_en' => 'Al Waab', 'name_ar' => 'الوعب'],
+            ['city_id' => 164, 'name_en' => 'Al Dafna', 'name_ar' => 'الدفنة'],
+            ['city_id' => 164, 'name_en' => 'Madinat Khalifa', 'name_ar' => 'مدينة خليفة'],
+            ['city_id' => 164, 'name_en' => 'Al Markhiya', 'name_ar' => 'المرخية'],
+            // فرعية
+            ['city_id' => 164, 'name_en' => 'Al Gharrafa', 'name_ar' => 'الغرافة'],
+            ['city_id' => 164, 'name_en' => 'Al Mansoura', 'name_ar' => 'المنصورة'],
+            ['city_id' => 164, 'name_en' => 'Fereej Bin Mahmoud', 'name_ar' => 'فريج بن محمود'],
+            ['city_id' => 164, 'name_en' => 'Al Najma', 'name_ar' => 'النجمة'],
+            ['city_id' => 164, 'name_en' => 'Old Airport', 'name_ar' => 'المطار القديم'],
+
+            // الريان (city_id: 165)
+            // رئيسية
+            ['city_id' => 165, 'name_en' => 'Al Rayyan Center', 'name_ar' => 'مركز الريان'],
+            ['city_id' => 165, 'name_en' => 'Al Aziziya', 'name_ar' => 'العزيزية'],
+            ['city_id' => 165, 'name_en' => 'Muaither', 'name_ar' => 'معيذر'],
+            ['city_id' => 165, 'name_en' => 'Al Wajba', 'name_ar' => 'الوجبة'],
+            ['city_id' => 165, 'name_en' => 'Al Shaqab', 'name_ar' => 'الشقب'],
+            ['city_id' => 165, 'name_en' => 'Education City', 'name_ar' => 'مدينة التعليم'],
+            ['city_id' => 165, 'name_en' => 'Al Luqta', 'name_ar' => 'اللقطة'],
+            // فرعية
+            ['city_id' => 165, 'name_en' => 'Al Sailiya', 'name_ar' => 'السيلية'],
+            ['city_id' => 165, 'name_en' => 'Al Waab', 'name_ar' => 'الوعب'],
+            ['city_id' => 165, 'name_en' => 'Fereej Al Soudan', 'name_ar' => 'فريج السودان'],
+            ['city_id' => 165, 'name_en' => 'Al Gharrafa', 'name_ar' => 'الغرافة'],
+
+            // الخور (city_id: 166)
+            // رئيسية
+            ['city_id' => 166, 'name_en' => 'Al Khor Center', 'name_ar' => 'مركز الخور'],
+            ['city_id' => 166, 'name_en' => 'Al Dhakhira', 'name_ar' => 'الذخيرة'],
+            ['city_id' => 166, 'name_en' => 'Al Thakhira', 'name_ar' => 'الثخيرة'],
+            ['city_id' => 166, 'name_en' => 'Ras Laffan', 'name_ar' => 'راس لفان'],
+            ['city_id' => 166, 'name_en' => 'Simaisma', 'name_ar' => 'سميسمة'],
+            // فرعية
+            ['city_id' => 166, 'name_en' => 'Al Ghuwairiya', 'name_ar' => 'الغويرية'],
+            ['city_id' => 166, 'name_en' => 'Al Jeryan', 'name_ar' => 'الجريان'],
+            ['city_id' => 166, 'name_en' => 'Umm Al Amad', 'name_ar' => 'أم العمد'],
+
+            // الوكرة (city_id: 167)
+            // رئيسية
+            ['city_id' => 167, 'name_en' => 'Al Wakrah Center', 'name_ar' => 'مركز الوكرة'],
+            ['city_id' => 167, 'name_en' => 'Al Wukair', 'name_ar' => 'الوكير'],
+            ['city_id' => 167, 'name_en' => 'Barwa Village', 'name_ar' => 'قرية بروة'],
+            ['city_id' => 167, 'name_en' => 'Al Mashaf', 'name_ar' => 'المشهف'],
+            ['city_id' => 167, 'name_en' => 'Al Thumama', 'name_ar' => 'الثمامة'],
+            // فرعية
+            ['city_id' => 167, 'name_en' => 'Al Ebb', 'name_ar' => 'العب'],
+            ['city_id' => 167, 'name_en' => 'Saad Al Kuwari', 'name_ar' => 'سعد الكواري'],
+            ['city_id' => 167, 'name_en' => 'Mesaimeer', 'name_ar' => 'مسيمير'],
+
+            // الدعين (city_id: 168)
+            // رئيسية
+            ['city_id' => 168, 'name_en' => 'Lusail', 'name_ar' => 'لوسيل'],
+            ['city_id' => 168, 'name_en' => 'Al Egla', 'name_ar' => 'العقلة'],
+            ['city_id' => 168, 'name_en' => 'Wadi Al Banat', 'name_ar' => 'وادي البنات'],
+            ['city_id' => 168, 'name_en' => 'Leabaib', 'name_ar' => 'لبيب'],
+            ['city_id' => 168, 'name_en' => 'Al Kharayej', 'name_ar' => 'الخرايج'],
+            // فرعية
+            ['city_id' => 168, 'name_en' => 'Jeryan Nejaima', 'name_ar' => 'جريان نجيمة'],
+            ['city_id' => 168, 'name_en' => 'Al Tarfa', 'name_ar' => 'الطرفة'],
+            ['city_id' => 168, 'name_en' => 'Umm Qarn', 'name_ar' => 'أم قرن'],
+
+            // أم صلال (city_id: 169)
+            // رئيسية
+            ['city_id' => 169, 'name_en' => 'Umm Salal Mohammed', 'name_ar' => 'أم صلال محمد'],
+            ['city_id' => 169, 'name_en' => 'Umm Salal Ali', 'name_ar' => 'أم صلال علي'],
+            ['city_id' => 169, 'name_en' => 'Bu Fasseela', 'name_ar' => 'بو فصيلة'],
+            ['city_id' => 169, 'name_en' => 'Izghawa', 'name_ar' => 'إزغاوة'],
+            ['city_id' => 169, 'name_en' => 'Kharaitiyat', 'name_ar' => 'الخريطيات'],
+            // فرعية
+            ['city_id' => 169, 'name_en' => 'Umm Al Amad', 'name_ar' => 'أم العمد'],
+            ['city_id' => 169, 'name_en' => 'Al Khraitiyat', 'name_ar' => 'الخريطيات الجنوبية'],
+
+            // مسعيد (city_id: 170)
+            // رئيسية
+            ['city_id' => 170, 'name_en' => 'Mesaieed Industrial City', 'name_ar' => 'مدينة مسعيد الصناعية'],
+            ['city_id' => 170, 'name_en' => 'Mesaieed Port', 'name_ar' => 'ميناء مسعيد'],
+            ['city_id' => 170, 'name_en' => 'Al Kirana', 'name_ar' => 'الكرعانة'],
+            ['city_id' => 170, 'name_en' => 'Mesaieed Residential', 'name_ar' => 'مسعيد السكنية'],
+            // فرعية
+            ['city_id' => 170, 'name_en' => 'Al Sailiya', 'name_ar' => 'السيلية'],
+            ['city_id' => 170, 'name_en' => 'Umm Al Houl', 'name_ar' => 'أم الحول'],
+
+            // الشمال (city_id: 171)
+            // رئيسية
+            ['city_id' => 171, 'name_en' => 'Madinat Al Shamal', 'name_ar' => 'مدينة الشمال'],
+            ['city_id' => 171, 'name_en' => 'Ruwais', 'name_ar' => 'الرويس'],
+            ['city_id' => 171, 'name_en' => 'Abu Dhalouf', 'name_ar' => 'أبو ظلوف'],
+            ['city_id' => 171, 'name_en' => 'Zubara', 'name_ar' => 'الزبارة'],
+            // فرعية
+            ['city_id' => 171, 'name_en' => 'Ar Ruwaydah', 'name_ar' => 'الرويضة'],
+            ['city_id' => 171, 'name_en' => 'Ain Sinan', 'name_ar' => 'عين سنان'],
+
+            // الشحانية (city_id: 172)
+            // رئيسية
+            ['city_id' => 172, 'name_en' => 'Al Shahaniya Center', 'name_ar' => 'مركز الشحانية'],
+            ['city_id' => 172, 'name_en' => 'Al Jemailiya', 'name_ar' => 'الجميلية'],
+            ['city_id' => 172, 'name_en' => 'Al Utouriya', 'name_ar' => 'العطورية'],
+            ['city_id' => 172, 'name_en' => 'Dukhan', 'name_ar' => 'دخان'],
+            // فرعية
+            ['city_id' => 172, 'name_en' => 'Al Khuwair', 'name_ar' => 'الخوير'],
+            ['city_id' => 172, 'name_en' => 'Rawdat Rashed', 'name_ar' => 'روضة راشد'],
+            // المنامة (city_id: 173)
+            // رئيسية
+            ['city_id' => 173, 'name_en' => 'Diplomatic Area', 'name_ar' => 'المنطقة الدبلوماسية'],
+            ['city_id' => 173, 'name_en' => 'Al Seef', 'name_ar' => 'السيف'],
+            ['city_id' => 173, 'name_en' => 'Gudaibiya', 'name_ar' => 'القضيبية'],
+            ['city_id' => 173, 'name_en' => 'Adliya', 'name_ar' => 'العدلية'],
+            ['city_id' => 173, 'name_en' => 'Manama Souq', 'name_ar' => 'سوق المنامة'],
+            ['city_id' => 173, 'name_en' => 'Juffair', 'name_ar' => 'الجفير'],
+            ['city_id' => 173, 'name_en' => 'Hoora', 'name_ar' => 'الحورة'],
+            // فرعية
+            ['city_id' => 173, 'name_en' => 'Burhama', 'name_ar' => 'برهامة'],
+            ['city_id' => 173, 'name_en' => 'Al Salmaniya', 'name_ar' => 'السلمانية'],
+            ['city_id' => 173, 'name_en' => 'Ras Rumman', 'name_ar' => 'راس رمان'],
+            ['city_id' => 173, 'name_en' => 'Umm Al Hassam', 'name_ar' => 'أم الحصم'],
+
+            // المحرق (city_id: 174)
+            // رئيسية
+            ['city_id' => 174, 'name_en' => 'Muharraq Souq', 'name_ar' => 'سوق المحرق'],
+            ['city_id' => 174, 'name_en' => 'Amwaj Islands', 'name_ar' => 'جزر أمواج'],
+            ['city_id' => 174, 'name_en' => 'Busaiteen', 'name_ar' => 'البسيتين'],
+            ['city_id' => 174, 'name_en' => 'Diyar Al Muharraq', 'name_ar' => 'ديار المحرق'],
+            ['city_id' => 174, 'name_en' => 'Al Sayh', 'name_ar' => 'السيح'],
+            ['city_id' => 174, 'name_en' => 'Galali', 'name_ar' => 'قلالي'],
+            // فرعية
+            ['city_id' => 174, 'name_en' => 'Samaheej', 'name_ar' => 'سماهيج'],
+            ['city_id' => 174, 'name_en' => 'Al Dair', 'name_ar' => 'الدير'],
+            ['city_id' => 174, 'name_en' => 'Qalali', 'name_ar' => 'قلالي الجنوبية'],
+            ['city_id' => 174, 'name_en' => 'Arad', 'name_ar' => 'عراد'],
+
+            // الرفاع (city_id: 175)
+            // رئيسية
+            ['city_id' => 175, 'name_en' => 'East Riffa', 'name_ar' => 'الرفاع الشرقي'],
+            ['city_id' => 175, 'name_en' => 'West Riffa', 'name_ar' => 'الرفاع الغربي'],
+            ['city_id' => 175, 'name_en' => 'Hajiyat', 'name_ar' => 'الحجيات'],
+            ['city_id' => 175, 'name_en' => 'Bukowara', 'name_ar' => 'بوكوارة'],
+            ['city_id' => 175, 'name_en' => 'Riffa Views', 'name_ar' => 'مشاهد الرفاع'],
+            ['city_id' => 175, 'name_en' => 'Al Sharq', 'name_ar' => 'الشرق'],
+            // فرعية
+            ['city_id' => 175, 'name_en' => 'Al Shamali', 'name_ar' => 'الشمالي'],
+            ['city_id' => 175, 'name_en' => 'Al Buhair', 'name_ar' => 'البحير'],
+            ['city_id' => 175, 'name_en' => 'Al Hunainiya', 'name_ar' => 'الهونينية'],
+
+            // سترة (city_id: 176)
+            // رئيسية
+            ['city_id' => 176, 'name_en' => 'Sitra Center', 'name_ar' => 'مركز سترة'],
+            ['city_id' => 176, 'name_en' => 'Marquban', 'name_ar' => 'مرقوبان'],
+            ['city_id' => 176, 'name_en' => 'Mahazza', 'name_ar' => 'مهزة'],
+            ['city_id' => 176, 'name_en' => 'Wadiyan', 'name_ar' => 'واديان'],
+            ['city_id' => 176, 'name_en' => 'Al Kharijiya', 'name_ar' => 'الخارجية'],
+            // فرعية
+            ['city_id' => 176, 'name_en' => 'Sufala', 'name_ar' => 'سوفالة'],
+            ['city_id' => 176, 'name_en' => 'Al Maqsha', 'name_ar' => 'المقشع'],
+            ['city_id' => 176, 'name_en' => 'Eker', 'name_ar' => 'عكر'],
+
+            // مدينة عيسى (city_id: 177)
+            // رئيسية
+            ['city_id' => 177, 'name_en' => 'Isa Town Center', 'name_ar' => 'مركز مدينة عيسى'],
+            ['city_id' => 177, 'name_en' => 'Tubli', 'name_ar' => 'توبلي'],
+            ['city_id' => 177, 'name_en' => 'Jurdab', 'name_ar' => 'جرداب'],
+            ['city_id' => 177, 'name_en' => 'Salhiya', 'name_ar' => 'الصالحية'],
+            ['city_id' => 177, 'name_en' => 'Jablat Habshi', 'name_ar' => 'جبلة حبشي'],
+            // فرعية
+            ['city_id' => 177, 'name_en' => 'Sanad', 'name_ar' => 'سند'],
+            ['city_id' => 177, 'name_en' => 'Al Qadam', 'name_ar' => 'القدم'],
+            ['city_id' => 177, 'name_en' => 'Al Musalla', 'name_ar' => 'المصلى'],
+
+            // عالي (city_id: 178)
+            // رئيسية
+            ['city_id' => 178, 'name_en' => 'A\'ali Center', 'name_ar' => 'مركز عالي'],
+            ['city_id' => 178, 'name_en' => 'Salhiya', 'name_ar' => 'الصالحية'],
+            ['city_id' => 178, 'name_en' => 'Karranah', 'name_ar' => 'كرانة'],
+            ['city_id' => 178, 'name_en' => 'Janabiya', 'name_ar' => 'الجنبية'],
+            // فرعية
+            ['city_id' => 178, 'name_en' => 'Al Musalla', 'name_ar' => 'المصلى'],
+            ['city_id' => 178, 'name_en' => 'Shahrakan', 'name_ar' => 'شهركان'],
+
+            // جدحفص (city_id: 179)
+            // رئيسية
+            ['city_id' => 179, 'name_en' => 'Jidhafs Center', 'name_ar' => 'مركز جدحفص'],
+            ['city_id' => 179, 'name_en' => 'Al Daih', 'name_ar' => 'الديه'],
+            ['city_id' => 179, 'name_en' => 'Sanabis', 'name_ar' => 'سنابس'],
+            ['city_id' => 179, 'name_en' => 'Al Qala\'a', 'name_ar' => 'القلعة'],
+            // فرعية
+            ['city_id' => 179, 'name_en' => 'Al Juffair', 'name_ar' => 'الجفير'],
+            ['city_id' => 179, 'name_en' => 'Khamis', 'name_ar' => 'خميس'],
+
+            // مدينة حمد (city_id: 180)
+            // رئيسية
+            ['city_id' => 180, 'name_en' => 'Hamad Town Center', 'name_ar' => 'مركز مدينة حمد'],
+            ['city_id' => 180, 'name_en' => 'Roundabout 1', 'name_ar' => 'الدوار الأول'],
+            ['city_id' => 180, 'name_en' => 'Roundabout 7', 'name_ar' => 'الدوار السابع'],
+            ['city_id' => 180, 'name_en' => 'Roundabout 12', 'name_ar' => 'الدوار الثاني عشر'],
+            ['city_id' => 180, 'name_en' => 'Wadi Al Sail', 'name_ar' => 'وادي السيل'],
+            // فرعية
+            ['city_id' => 180, 'name_en' => 'Dar Kulayb', 'name_ar' => 'دار كليب'],
+            ['city_id' => 180, 'name_en' => 'Lawzi', 'name_ar' => 'لوزي'],
+            ['city_id' => 180, 'name_en' => 'Al Malikiyah', 'name_ar' => 'المالكية'],
+
+            // البديع (city_id: 181)
+            // رئيسية
+            ['city_id' => 181, 'name_en' => 'Budaiya Center', 'name_ar' => 'مركز البديع'],
+            ['city_id' => 181, 'name_en' => 'Al Janabiya', 'name_ar' => 'الجنبية'],
+            ['city_id' => 181, 'name_en' => 'Al Hamala', 'name_ar' => 'الهملة'],
+            ['city_id' => 181, 'name_en' => 'Al Jasra', 'name_ar' => 'الجسرة'],
+            // فرعية
+            ['city_id' => 181, 'name_en' => 'Al Maqsha', 'name_ar' => 'المقشع'],
+            ['city_id' => 181, 'name_en' => 'Karranah', 'name_ar' => 'كرانة'],
+
+            // الحد (city_id: 182)
+            // رئيسية
+            ['city_id' => 182, 'name_en' => 'Hidd Center', 'name_ar' => 'مركز الحد'],
+            ['city_id' => 182, 'name_en' => 'Hidd Industrial Area', 'name_ar' => 'منطقة الحد الصناعية'],
+            ['city_id' => 182, 'name_en' => 'Halat Bu Maher', 'name_ar' => 'هلات بو ماهر'],
+            ['city_id' => 182, 'name_en' => 'Al Nuwaidrat', 'name_ar' => 'النويدرات'],
+            // فرعية
+            ['city_id' => 182, 'name_en' => 'Hidd Housing', 'name_ar' => 'إسكان الحد'],
+            ['city_id' => 182, 'name_en' => 'Al Duraz', 'name_ar' => 'الدراز'],
+
+            // دار كليب (city_id: 183)
+            // رئيسية
+            ['city_id' => 183, 'name_en' => 'Dair Kulayb Center', 'name_ar' => 'مركز دار كليب'],
+            ['city_id' => 183, 'name_en' => 'Shahrakan', 'name_ar' => 'شهركان'],
+            ['city_id' => 183, 'name_en' => 'Sadad', 'name_ar' => 'سداد'],
+            ['city_id' => 183, 'name_en' => 'Safra', 'name_ar' => 'صفرة'],
+            // فرعية
+            ['city_id' => 183, 'name_en' => 'Al Zallaq', 'name_ar' => 'الزلاق'],
+            ['city_id' => 183, 'name_en' => 'Al Malikiyah', 'name_ar' => 'المالكية'],
+            // مسقط (city_id: 184)
+            // رئيسية
+            ['city_id' => 184, 'name_en' => 'Al Seeb', 'name_ar' => 'السيب'],
+            ['city_id' => 184, 'name_en' => 'Muttrah', 'name_ar' => 'مطرح'],
+            ['city_id' => 184, 'name_en' => 'Bawshar', 'name_ar' => 'بوشر'],
+            ['city_id' => 184, 'name_en' => 'Al Amarat', 'name_ar' => 'العامرات'],
+            ['city_id' => 184, 'name_en' => 'Quriyat', 'name_ar' => 'قريات'],
+            ['city_id' => 184, 'name_en' => 'Madinat Al Sultan Qaboos', 'name_ar' => 'مدينة السلطان قابوس'],
+            ['city_id' => 184, 'name_en' => 'Al Khuwair', 'name_ar' => 'الخوير'],
+            // فرعية
+            ['city_id' => 184, 'name_en' => 'Ghubra', 'name_ar' => 'الغبرة'],
+            ['city_id' => 184, 'name_en' => 'Wadi Al Kabir', 'name_ar' => 'وادي الكبير'],
+            ['city_id' => 184, 'name_en' => 'Ruwi', 'name_ar' => 'روي'],
+            ['city_id' => 184, 'name_en' => 'Al Hail', 'name_ar' => 'الهيل'],
+
+            // صلالة (city_id: 185)
+            // رئيسية
+            ['city_id' => 185, 'name_en' => 'Salalah Center', 'name_ar' => 'مركز صلالة'],
+            ['city_id' => 185, 'name_en' => 'Al Haffa', 'name_ar' => 'الحافة'],
+            ['city_id' => 185, 'name_en' => 'Al Saada', 'name_ar' => 'السعادة'],
+            ['city_id' => 185, 'name_en' => 'Al Dahariz', 'name_ar' => 'الدهاريز'],
+            ['city_id' => 185, 'name_en' => 'Awqad', 'name_ar' => 'عوقد'],
+            ['city_id' => 185, 'name_en' => 'Al Qurm', 'name_ar' => 'القرم'],
+            // فرعية
+            ['city_id' => 185, 'name_en' => 'Al Rabat', 'name_ar' => 'الرباط'],
+            ['city_id' => 185, 'name_en' => 'Al Wadi', 'name_ar' => 'الوادي'],
+            ['city_id' => 185, 'name_en' => 'Ittin', 'name_ar' => 'عتين'],
+            ['city_id' => 185, 'name_en' => 'New Salalah', 'name_ar' => 'صلالة الجديدة'],
+
+            // صحار (city_id: 186)
+            // رئيسية
+            ['city_id' => 186, 'name_en' => 'Sohar Center', 'name_ar' => 'مركز صحار'],
+            ['city_id' => 186, 'name_en' => 'Al Hambar', 'name_ar' => 'الهمبار'],
+            ['city_id' => 186, 'name_en' => 'Al Suwaiq', 'name_ar' => 'السويق'],
+            ['city_id' => 186, 'name_en' => 'Falaj Al Qaba\'il', 'name_ar' => 'فلج القبائل'],
+            ['city_id' => 186, 'name_en' => 'Al Khuwairiya', 'name_ar' => 'الخويرية'],
+            ['city_id' => 186, 'name_en' => 'Sohar Industrial Area', 'name_ar' => 'منطقة صحار الصناعية'],
+            // فرعية
+            ['city_id' => 186, 'name_en' => 'Al Batinah', 'name_ar' => 'الباطنة'],
+            ['city_id' => 186, 'name_en' => 'Al Tawi', 'name_ar' => 'الطوي'],
+            ['city_id' => 186, 'name_en' => 'Al Ghuzayyil', 'name_ar' => 'الغزيل'],
+
+            // نزوى (city_id: 187)
+            // رئيسية
+            ['city_id' => 187, 'name_en' => 'Nizwa Center', 'name_ar' => 'مركز نِزوى'],
+            ['city_id' => 187, 'name_en' => 'Al Jabal Al Akhdar', 'name_ar' => 'الجبل الأخضر'],
+            ['city_id' => 187, 'name_en' => 'Birkat Al Mouz', 'name_ar' => 'بركة الموز'],
+            ['city_id' => 187, 'name_en' => 'Al Hamra', 'name_ar' => 'الحمراء'],
+            ['city_id' => 187, 'name_en' => 'Manah', 'name_ar' => 'منح'],
+            // فرعية
+            ['city_id' => 187, 'name_en' => 'Firq', 'name_ar' => 'فرق'],
+            ['city_id' => 187, 'name_en' => 'Tanuf', 'name_ar' => 'تنوف'],
+            ['city_id' => 187, 'name_en' => 'Al Hayl', 'name_ar' => 'الهيل'],
+
+            // البريمي (city_id: 188)
+            // رئيسية
+            ['city_id' => 188, 'name_en' => 'Buraimi Center', 'name_ar' => 'مركز البريمي'],
+            ['city_id' => 188, 'name_en' => 'Al Sinaina', 'name_ar' => 'السنينة'],
+            ['city_id' => 188, 'name_en' => 'Mahdah', 'name_ar' => 'مهدة'],
+            ['city_id' => 188, 'name_en' => 'Al Madinah Al Jadidah', 'name_ar' => 'المدينة الجديدة'],
+            ['city_id' => 188, 'name_en' => 'Hafeet', 'name_ar' => 'حفيت'],
+            // فرعية
+            ['city_id' => 188, 'name_en' => 'Al Khaboura', 'name_ar' => 'الخبورة'],
+            ['city_id' => 188, 'name_en' => 'Al Rawdah', 'name_ar' => 'الروضة'],
+            ['city_id' => 188, 'name_en' => 'Sa\'ara', 'name_ar' => 'سعارة'],
+
+            // صور (city_id: 189)
+            // رئيسية
+            ['city_id' => 189, 'name_en' => 'Sur Center', 'name_ar' => 'مركز صور'],
+            ['city_id' => 189, 'name_en' => 'Al Ayjah', 'name_ar' => 'العيجة'],
+            ['city_id' => 189, 'name_en' => 'Ras Al Hadd', 'name_ar' => 'رأس الحد'],
+            ['city_id' => 189, 'name_en' => 'Al Ashkharah', 'name_ar' => 'الأشخرة'],
+            ['city_id' => 189, 'name_en' => 'Jalan Bani Bu Ali', 'name_ar' => 'جعلان بني بو علي'],
+            // فرعية
+            ['city_id' => 189, 'name_en' => 'Qalhat', 'name_ar' => 'قلحات'],
+            ['city_id' => 189, 'name_en' => 'Al Kamil Wal Wafi', 'name_ar' => 'الكامل والوافي'],
+            ['city_id' => 189, 'name_en' => 'Sur Al Sahil', 'name_ar' => 'صور الساحل'],
+
+            // إبراء (city_id: 190)
+            // رئيسية
+            ['city_id' => 190, 'name_en' => 'Ibra Center', 'name_ar' => 'مركز إبراء'],
+            ['city_id' => 190, 'name_en' => 'Al Qabil', 'name_ar' => 'القابل'],
+            ['city_id' => 190, 'name_en' => 'Al Mudhaibi', 'name_ar' => 'المضيبي'],
+            ['city_id' => 190, 'name_en' => 'Sinaw', 'name_ar' => 'سناو'],
+            ['city_id' => 190, 'name_en' => 'Samad Al Shan', 'name_ar' => 'صمد الشأن'],
+            // فرعية
+            ['city_id' => 190, 'name_en' => 'Al Wasil', 'name_ar' => 'الواسل'],
+            ['city_id' => 190, 'name_en' => 'Dima Wa Tayyin', 'name_ar' => 'ديماء والطائيين'],
+
+            // الرستاق (city_id: 191)
+            // رئيسية
+            ['city_id' => 191, 'name_en' => 'Rustaq Center', 'name_ar' => 'مركز الرستاق'],
+            ['city_id' => 191, 'name_en' => 'Al Awabi', 'name_ar' => 'العوابي'],
+            ['city_id' => 191, 'name_en' => 'Nakhal', 'name_ar' => 'نخل'],
+            ['city_id' => 191, 'name_en' => 'Wadi Al Maawil', 'name_ar' => 'وادي المعاول'],
+            ['city_id' => 191, 'name_en' => 'Al Musanaah', 'name_ar' => 'المصنعة'],
+            // فرعية
+            ['city_id' => 191, 'name_en' => 'Barka', 'name_ar' => 'بركاء'],
+            ['city_id' => 191, 'name_en' => 'Al Hazm', 'name_ar' => 'الحزم'],
+
+            // خصب (city_id: 192)
+            // رئيسية
+            ['city_id' => 192, 'name_en' => 'Khasab Center', 'name_ar' => 'مركز خصب'],
+            ['city_id' => 192, 'name_en' => 'Bukha', 'name_ar' => 'بخاء'],
+            ['city_id' => 192, 'name_en' => 'Daba Al Bayah', 'name_ar' => 'دبا البيعة'],
+            ['city_id' => 192, 'name_en' => 'Madha', 'name_ar' => 'مدحاء'],
+            // فرعية
+            ['city_id' => 192, 'name_en' => 'Kumzar', 'name_ar' => 'كمزار'],
+            ['city_id' => 192, 'name_en' => 'Tibat', 'name_ar' => 'طيبة'],
+
+            // إبري (city_id: 193)
+            // رئيسية
+            ['city_id' => 193, 'name_en' => 'Ibri Center', 'name_ar' => 'مركز إبري'],
+            ['city_id' => 193, 'name_en' => 'Yanqul', 'name_ar' => 'ينقل'],
+            ['city_id' => 193, 'name_en' => 'Dank', 'name_ar' => 'ضنك'],
+            ['city_id' => 193, 'name_en' => 'Al Dhahir', 'name_ar' => 'الظاهر'],
+            // فرعية
+            ['city_id' => 193, 'name_en' => 'Al Qabil', 'name_ar' => 'القابل'],
+            ['city_id' => 193, 'name_en' => 'Al Sunaynah', 'name_ar' => 'السنينة'],
+
+            // هيماء (city_id: 194)
+            // رئيسية
+            ['city_id' => 194, 'name_en' => 'Haima Center', 'name_ar' => 'مركز هيماء'],
+            ['city_id' => 194, 'name_en' => 'Al Jazer', 'name_ar' => 'الجازر'],
+            ['city_id' => 194, 'name_en' => 'Muqshin', 'name_ar' => 'مقشن'],
+            ['city_id' => 194, 'name_en' => 'Duqm', 'name_ar' => 'الدقم'],
+            // فرعية
+            ['city_id' => 194, 'name_en' => 'Mahout', 'name_ar' => 'محوت'],
+            ['city_id' => 194, 'name_en' => 'Al Ghaftayn', 'name_ar' => 'الغافتين'],
+            // صنعاء (city_id: 195)
+            // رئيسية
+            ['city_id' => 195, 'name_en' => 'Old Sana\'a', 'name_ar' => 'صنعاء القديمة'],
+            ['city_id' => 195, 'name_en' => 'Haddah', 'name_ar' => 'الحدة'],
+            ['city_id' => 195, 'name_en' => 'Al Sabeen', 'name_ar' => 'السبعين'],
+            ['city_id' => 195, 'name_en' => 'Shu\'aib', 'name_ar' => 'شعوب'],
+            ['city_id' => 195, 'name_en' => 'Al Tahrir', 'name_ar' => 'التحرير'],
+            ['city_id' => 195, 'name_en' => 'Azal', 'name_ar' => 'أزال'],
+            ['city_id' => 195, 'name_en' => 'Bani Al Harith', 'name_ar' => 'بني الحارث'],
+            // فرعية
+            ['city_id' => 195, 'name_en' => 'Al Safiya', 'name_ar' => 'الصافية'],
+            ['city_id' => 195, 'name_en' => 'Al Wahda', 'name_ar' => 'الوحدة'],
+            ['city_id' => 195, 'name_en' => 'Hamdan', 'name_ar' => 'همدان'],
+            ['city_id' => 195, 'name_en' => 'Sawan', 'name_ar' => 'سوان'],
+
+            // عدن (city_id: 196)
+            // رئيسية
+            ['city_id' => 196, 'name_en' => 'Crater', 'name_ar' => 'كريتر'],
+            ['city_id' => 196, 'name_en' => 'Khormaksar', 'name_ar' => 'خورمكسر'],
+            ['city_id' => 196, 'name_en' => 'Mansoura', 'name_ar' => 'المنصورة'],
+            ['city_id' => 196, 'name_en' => 'Sheikh Othman', 'name_ar' => 'الشيخ عثمان'],
+            ['city_id' => 196, 'name_en' => 'Al Mualla', 'name_ar' => 'المعلا'],
+            ['city_id' => 196, 'name_en' => 'Dar Saad', 'name_ar' => 'دار سعد'],
+            ['city_id' => 196, 'name_en' => 'Al Buraiqah', 'name_ar' => 'البريقة'],
+            // فرعية
+            ['city_id' => 196, 'name_en' => 'Al Tawahi', 'name_ar' => 'الطواهي'],
+            ['city_id' => 196, 'name_en' => 'Al Haswah', 'name_ar' => 'الحسوة'],
+            ['city_id' => 196, 'name_en' => 'Little Aden', 'name_ar' => 'عدن الصغرى'],
+
+            // تعز (city_id: 197)
+            // رئيسية
+            ['city_id' => 197, 'name_en' => 'Al Qahirah', 'name_ar' => 'القاهرة'],
+            ['city_id' => 197, 'name_en' => 'Al Mudhaffar', 'name_ar' => 'المظفر'],
+            ['city_id' => 197, 'name_en' => 'Salh', 'name_ar' => 'صالة'],
+            ['city_id' => 197, 'name_en' => 'Al Ta\'iziyah', 'name_ar' => 'التعزية'],
+            ['city_id' => 197, 'name_en' => 'Al Hawban', 'name_ar' => 'الهوبان'],
+            ['city_id' => 197, 'name_en' => 'Jabal Habashy', 'name_ar' => 'جبل حبشي'],
+            // فرعية
+            ['city_id' => 197, 'name_en' => 'Al Maafer', 'name_ar' => 'المعافر'],
+            ['city_id' => 197, 'name_en' => 'Saber Al Mawadim', 'name_ar' => 'صبر الموادم'],
+            ['city_id' => 197, 'name_en' => 'Al Wazi\'iyah', 'name_ar' => 'الوازعية'],
+
+            // الحديدة (city_id: 198)
+            // رئيسية
+            ['city_id' => 198, 'name_en' => 'Al Hali', 'name_ar' => 'الحلي'],
+            ['city_id' => 198, 'name_en' => 'Al Hawak', 'name_ar' => 'الحوك'],
+            ['city_id' => 198, 'name_en' => 'Al Mina', 'name_ar' => 'الميناء'],
+            ['city_id' => 198, 'name_en' => 'Bajil', 'name_ar' => 'باجل'],
+            ['city_id' => 198, 'name_en' => 'Al Zaydiyah', 'name_ar' => 'الزيدية'],
+            // فرعية
+            ['city_id' => 198, 'name_en' => 'Al Durayhimi', 'name_ar' => 'الدريهمي'],
+            ['city_id' => 198, 'name_en' => 'Beit Al Faqih', 'name_ar' => 'بيت الفقيه'],
+            ['city_id' => 198, 'name_en' => 'Al Mansuriyah', 'name_ar' => 'المنصورية'],
+
+            // إب (city_id: 199)
+            // رئيسية
+            ['city_id' => 199, 'name_en' => 'Ibb Center', 'name_ar' => 'مركز إب'],
+            ['city_id' => 199, 'name_en' => 'Jiblah', 'name_ar' => 'جبلة'],
+            ['city_id' => 199, 'name_en' => 'Al Udayn', 'name_ar' => 'العدين'],
+            ['city_id' => 199, 'name_en' => 'Yarim', 'name_ar' => 'يريم'],
+            ['city_id' => 199, 'name_en' => 'Al Dhihar', 'name_ar' => 'الظهار'],
+            // فرعية
+            ['city_id' => 199, 'name_en' => 'Ba\'dan', 'name_ar' => 'باعدان'],
+            ['city_id' => 199, 'name_en' => 'Al Qafr', 'name_ar' => 'القفر'],
+            ['city_id' => 199, 'name_en' => 'Al Sada', 'name_ar' => 'السدة'],
+
+            // المكلا (city_id: 200)
+            // رئيسية
+            ['city_id' => 200, 'name_en' => 'Mukalla Center', 'name_ar' => 'مركز المكلا'],
+            ['city_id' => 200, 'name_en' => 'Fuwah', 'name_ar' => 'فوة'],
+            ['city_id' => 200, 'name_en' => 'Al Dis', 'name_ar' => 'الديس'],
+            ['city_id' => 200, 'name_en' => 'Al Riyan', 'name_ar' => 'الريان'],
+            ['city_id' => 200, 'name_en' => 'Al Shihr', 'name_ar' => 'الشحر'],
+            // فرعية
+            ['city_id' => 200, 'name_en' => 'Ghail Bawazir', 'name_ar' => 'غيل باوزير'],
+            ['city_id' => 200, 'name_en' => 'Al Mukalla Al Jadidah', 'name_ar' => 'المكلا الجديدة'],
+            ['city_id' => 200, 'name_en' => 'Broom', 'name_ar' => 'بروم'],
+
+            // ذمار (city_id: 201)
+            // رئيسية
+            ['city_id' => 201, 'name_en' => 'Dhamar Center', 'name_ar' => 'مركز ذمار'],
+            ['city_id' => 201, 'name_en' => 'Ma\'bar', 'name_ar' => 'معبر'],
+            ['city_id' => 201, 'name_en' => 'Dawran Anis', 'name_ar' => 'دوران عنس'],
+            ['city_id' => 201, 'name_en' => 'Jabal Ash Sharq', 'name_ar' => 'جبل الشرق'],
+            ['city_id' => 201, 'name_en' => 'Utmah', 'name_ar' => 'عتمة'],
+            // فرعية
+            ['city_id' => 201, 'name_en' => 'Al Hada', 'name_ar' => 'الحداء'],
+            ['city_id' => 201, 'name_en' => 'Wusab Al Ali', 'name_ar' => 'وصاب العالي'],
+            ['city_id' => 201, 'name_en' => 'Jahran', 'name_ar' => 'جهران'],
+
+            // مأرب (city_id: 202)
+            // رئيسية
+            ['city_id' => 202, 'name_en' => 'Marib Center', 'name_ar' => 'مركز مأرب'],
+            ['city_id' => 202, 'name_en' => 'Harib', 'name_ar' => 'هاريب'],
+            ['city_id' => 202, 'name_en' => 'Al Jubah', 'name_ar' => 'الجوبة'],
+            ['city_id' => 202, 'name_en' => 'Sirwah', 'name_ar' => 'صرواح'],
+            // فرعية
+            ['city_id' => 202, 'name_en' => 'Majzar', 'name_ar' => 'مجزر'],
+            ['city_id' => 202, 'name_en' => 'Al Abdiyah', 'name_ar' => 'العبدية'],
+
+            // صعدة (city_id: 203)
+            // رئيسية
+            ['city_id' => 203, 'name_en' => 'Sa\'da Center', 'name_ar' => 'مركز صعدة'],
+            ['city_id' => 203, 'name_en' => 'Razih', 'name_ar' => 'رازح'],
+            ['city_id' => 203, 'name_en' => 'Ghamr', 'name_ar' => 'غمر'],
+            ['city_id' => 203, 'name_en' => 'Saqayn', 'name_ar' => 'ساقين'],
+            // فرعية
+            ['city_id' => 203, 'name_en' => 'Haydan', 'name_ar' => 'حيدان'],
+            ['city_id' => 203, 'name_en' => 'Al Dhaher', 'name_ar' => 'الظاهر'],
+
+            // حجة (city_id: 204)
+            // رئيسية
+            ['city_id' => 204, 'name_en' => 'Hajjah Center', 'name_ar' => 'مركز حجة'],
+            ['city_id' => 204, 'name_en' => 'Abs', 'name_ar' => 'عبس'],
+            ['city_id' => 204, 'name_en' => 'Kuhlan Afar', 'name_ar' => 'كحلان عفار'],
+            ['city_id' => 204, 'name_en' => 'Mabyan', 'name_ar' => 'مبين'],
+            // فرعية
+            ['city_id' => 204, 'name_en' => 'Harad', 'name_ar' => 'حرض'],
+            ['city_id' => 204, 'name_en' => 'Bani Qais', 'name_ar' => 'بني قيس'],
+
+            // الضالع (city_id: 205)
+            // رئيسية
+            ['city_id' => 205, 'name_en' => 'Dhalie Center', 'name_ar' => 'مركز الضالع'],
+            ['city_id' => 205, 'name_en' => 'Al Husha', 'name_ar' => 'الحصين'],
+            ['city_id' => 205, 'name_en' => 'Qatabah', 'name_ar' => 'قطابة'],
+            ['city_id' => 205, 'name_en' => 'Juban', 'name_ar' => 'جبان'],
+            // فرعية
+            ['city_id' => 205, 'name_en' => 'Al Azariq', 'name_ar' => 'الأزارق'],
+            ['city_id' => 205, 'name_en' => 'Damt', 'name_ar' => 'دمت'],
+
+            // سيئون (city_id: 206)
+            // رئيسية
+            ['city_id' => 206, 'name_en' => 'Seiyun Center', 'name_ar' => 'مركز سيئون'],
+            ['city_id' => 206, 'name_en' => 'Tarim', 'name_ar' => 'تريم'],
+            ['city_id' => 206, 'name_en' => 'Shibam', 'name_ar' => 'شبام'],
+            ['city_id' => 206, 'name_en' => 'Al Qatn', 'name_ar' => 'القطن'],
+            // فرعية
+            ['city_id' => 206, 'name_en' => 'Al Sawm', 'name_ar' => 'الصوم'],
+            ['city_id' => 206, 'name_en' => 'Al Rudud', 'name_ar' => 'الردود'],
+
+            // الخرطوم (city_id: 207)
+            // رئيسية
+            ['city_id' => 207, 'name_en' => 'Khartoum Center', 'name_ar' => 'مركز الخرطوم'],
+            ['city_id' => 207, 'name_en' => 'Al Amarat', 'name_ar' => 'العمارات'],
+            ['city_id' => 207, 'name_en' => 'Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 207, 'name_en' => 'Al Manshiya', 'name_ar' => 'المنشية'],
+            ['city_id' => 207, 'name_en' => 'Al Sahafa', 'name_ar' => 'الصحافة'],
+            ['city_id' => 207, 'name_en' => 'Al Taif', 'name_ar' => 'الطائف'],
+            ['city_id' => 207, 'name_en' => 'Burri', 'name_ar' => 'بري'],
+            // فرعية
+            ['city_id' => 207, 'name_en' => 'Al Kalakla', 'name_ar' => 'الكلاكلة'],
+            ['city_id' => 207, 'name_en' => 'Al Azhari', 'name_ar' => 'الأزهري'],
+            ['city_id' => 207, 'name_en' => 'Al Suq Al Arabi', 'name_ar' => 'السوق العربي'],
+            ['city_id' => 207, 'name_en' => 'Al Jereif', 'name_ar' => 'الجريف'],
+
+            // أم درمان (city_id: 208)
+            // رئيسية
+            ['city_id' => 208, 'name_en' => 'Omdurman Center', 'name_ar' => 'مركز أم درمان'],
+            ['city_id' => 208, 'name_en' => 'Al Thawra', 'name_ar' => 'الثورة'],
+            ['city_id' => 208, 'name_en' => 'Al Mulazmeen', 'name_ar' => 'الملازمين'],
+            ['city_id' => 208, 'name_en' => 'Wad Nubawi', 'name_ar' => 'ود نوباوي'],
+            ['city_id' => 208, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 208, 'name_en' => 'Al Fitihab', 'name_ar' => 'الفتيحاب'],
+            // فرعية
+            ['city_id' => 208, 'name_en' => 'Bant', 'name_ar' => 'بانت'],
+            ['city_id' => 208, 'name_en' => 'Al Morada', 'name_ar' => 'المرادة'],
+            ['city_id' => 208, 'name_en' => 'Al Umda', 'name_ar' => 'الأمة'],
+            ['city_id' => 208, 'name_en' => 'Al Ardha', 'name_ar' => 'الأرضة'],
+
+            // نيالا (city_id: 209)
+            // رئيسية
+            ['city_id' => 209, 'name_en' => 'Nyala Center', 'name_ar' => 'مركز نيالا'],
+            ['city_id' => 209, 'name_en' => 'Al Jebel', 'name_ar' => 'الجبل'],
+            ['city_id' => 209, 'name_en' => 'Al Waha', 'name_ar' => 'الواحة'],
+            ['city_id' => 209, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 209, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 209, 'name_en' => 'Al Muwailih', 'name_ar' => 'المويلح'],
+            // فرعية
+            ['city_id' => 209, 'name_en' => 'Al Matar', 'name_ar' => 'المطار'],
+            ['city_id' => 209, 'name_en' => 'Al Sudan', 'name_ar' => 'السودان'],
+            ['city_id' => 209, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+
+            // بورتسودان (city_id: 210)
+            // رئيسية
+            ['city_id' => 210, 'name_en' => 'Port Sudan Center', 'name_ar' => 'مركز بورتسودان'],
+            ['city_id' => 210, 'name_en' => 'Al Thawra', 'name_ar' => 'الثورة'],
+            ['city_id' => 210, 'name_en' => 'Al Matar', 'name_ar' => 'المطار'],
+            ['city_id' => 210, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 210, 'name_en' => 'Al Bahar', 'name_ar' => 'البحر'],
+            // فرعية
+            ['city_id' => 210, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 210, 'name_en' => 'Al Marwah', 'name_ar' => 'المرة'],
+            ['city_id' => 210, 'name_en' => 'Al Um', 'name_ar' => 'الأم'],
+
+            // الفاشر (city_id: 211)
+            // رئيسية
+            ['city_id' => 211, 'name_en' => 'El Fasher Center', 'name_ar' => 'مركز الفاشر'],
+            ['city_id' => 211, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 211, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 211, 'name_en' => 'Al Jabal', 'name_ar' => 'الجبل'],
+            ['city_id' => 211, 'name_en' => 'Al Muwailih', 'name_ar' => 'المويلح'],
+            // فرعية
+            ['city_id' => 211, 'name_en' => 'Al Zahra', 'name_ar' => 'الزهراء'],
+            ['city_id' => 211, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 211, 'name_en' => 'Al Nuzha', 'name_ar' => 'النزهة'],
+
+            // كوستي (city_id: 212)
+            // رئيسية
+            ['city_id' => 212, 'name_en' => 'Kosti Center', 'name_ar' => 'مركز كوستي'],
+            ['city_id' => 212, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 212, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 212, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 212, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+            // فرعية
+            ['city_id' => 212, 'name_en' => 'Al Matar', 'name_ar' => 'المطار'],
+            ['city_id' => 212, 'name_en' => 'Al Sudan', 'name_ar' => 'السودان'],
+            ['city_id' => 212, 'name_en' => 'Al Rabwa', 'name_ar' => 'الربوة'],
+
+            // الأبيض (city_id: 213)
+            // رئيسية
+            ['city_id' => 213, 'name_en' => 'El Obeid Center', 'name_ar' => 'مركز الأبيض'],
+            ['city_id' => 213, 'name_en' => 'Al Banjadeed', 'name_ar' => 'البنجديد'],
+            ['city_id' => 213, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 213, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 213, 'name_en' => 'Al Shikan', 'name_ar' => 'الشيكان'],
+            // فرعية
+            ['city_id' => 213, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+            ['city_id' => 213, 'name_en' => 'Al Rahad', 'name_ar' => 'الرهد'],
+            ['city_id' => 213, 'name_en' => 'Al Taqwa', 'name_ar' => 'التقوى'],
+
+            // ود مدني (city_id: 214)
+            // رئيسية
+            ['city_id' => 214, 'name_en' => 'Wad Madani Center', 'name_ar' => 'مركز ود مدني'],
+            ['city_id' => 214, 'name_en' => 'Al Daraja', 'name_ar' => 'الدرجة'],
+            ['city_id' => 214, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 214, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 214, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+            // فرعية
+            ['city_id' => 214, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 214, 'name_en' => 'Al Hasaheesa', 'name_ar' => 'الحصاحيصا'],
+            ['city_id' => 214, 'name_en' => 'Al Zubair', 'name_ar' => 'الزبير'],
+
+            // عطبرة (city_id: 215)
+            // رئيسية
+            ['city_id' => 215, 'name_en' => 'Atbara Center', 'name_ar' => 'مركز عطبرة'],
+            ['city_id' => 215, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 215, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 215, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            // فرعية
+            ['city_id' => 215, 'name_en' => 'Al Matar', 'name_ar' => 'المطار'],
+            ['city_id' => 215, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+
+            // سنار (city_id: 216)
+            // رئيسية
+            ['city_id' => 216, 'name_en' => 'Sennar Center', 'name_ar' => 'مركز سنار'],
+            ['city_id' => 216, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 216, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 216, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+            // فرعية
+            ['city_id' => 216, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 216, 'name_en' => 'Al Souki', 'name_ar' => 'السوكي'],
+
+            // القضارف (city_id: 217)
+            // رئيسية
+            ['city_id' => 217, 'name_en' => 'Gedaref Center', 'name_ar' => 'مركز القضارف'],
+            ['city_id' => 217, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 217, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 217, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+            // فرعية
+            ['city_id' => 217, 'name_en' => 'Al Fau', 'name_ar' => 'الفاو'],
+            ['city_id' => 217, 'name_en' => 'Al Qureisha', 'name_ar' => 'القريشة'],
+
+            // كسلا (city_id: 218)
+            // رئيسية
+            ['city_id' => 218, 'name_en' => 'Kassala Center', 'name_ar' => 'مركز كسلا'],
+            ['city_id' => 218, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 218, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 218, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            // فرعية
+            ['city_id' => 218, 'name_en' => 'Al Girba', 'name_ar' => 'القربة'],
+            ['city_id' => 218, 'name_en' => 'Khatmiya', 'name_ar' => 'الختمية'],
+
+            // دنقلا (city_id: 219)
+            // رئيسية
+            ['city_id' => 219, 'name_en' => 'Dongola Center', 'name_ar' => 'مركز دنقلا'],
+            ['city_id' => 219, 'name_en' => 'Al Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 219, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 219, 'name_en' => 'Al Nile', 'name_ar' => 'النيل'],
+            // فرعية
+            ['city_id' => 219, 'name_en' => 'Al Goled', 'name_ar' => 'الجولد'],
+            ['city_id' => 219, 'name_en' => 'Al Dabbah', 'name_ar' => 'الدبة'],
+            // طرابلس (city_id: 220)
+            // رئيسية
+            ['city_id' => 220, 'name_en' => 'Tripoli Center', 'name_ar' => 'مركز طرابلس'],
+            ['city_id' => 220, 'name_en' => 'Ain Zara', 'name_ar' => 'عين زارة'],
+            ['city_id' => 220, 'name_en' => 'Hay Al Andalus', 'name_ar' => 'حي الأندلس'],
+            ['city_id' => 220, 'name_en' => 'Suq Al Jum\'a', 'name_ar' => 'سوق الجمعة'],
+            ['city_id' => 220, 'name_en' => 'Fashloum', 'name_ar' => 'فشلوم'],
+            ['city_id' => 220, 'name_en' => 'Abu Salim', 'name_ar' => 'أبو سليم'],
+            ['city_id' => 220, 'name_en' => 'Janzour', 'name_ar' => 'جنزور'],
+            // فرعية
+            ['city_id' => 220, 'name_en' => 'Al Hadaba Al Badri', 'name_ar' => 'الهضبة البدري'],
+            ['city_id' => 220, 'name_en' => 'Al Siyahia', 'name_ar' => 'السياحية'],
+            ['city_id' => 220, 'name_en' => 'Gurji', 'name_ar' => 'قرجي'],
+            ['city_id' => 220, 'name_en' => 'Al Madina Al Qadima', 'name_ar' => 'المدينة القديمة'],
+
+            // بنغازي (city_id: 221)
+            // رئيسية
+            ['city_id' => 221, 'name_en' => 'Benghazi Center', 'name_ar' => 'مركز بنغازي'],
+            ['city_id' => 221, 'name_en' => 'Al Sabri', 'name_ar' => 'الصابري'],
+            ['city_id' => 221, 'name_en' => 'Al Berka', 'name_ar' => 'البركة'],
+            ['city_id' => 221, 'name_en' => 'Al Salmani', 'name_ar' => 'السلماني'],
+            ['city_id' => 221, 'name_en' => 'Al Hadayeq', 'name_ar' => 'الحدائق'],
+            ['city_id' => 221, 'name_en' => 'Al Fwayhat', 'name_ar' => 'الفويهات'],
+            ['city_id' => 221, 'name_en' => 'Garyounis', 'name_ar' => 'قاريونس'],
+            // فرعية
+            ['city_id' => 221, 'name_en' => 'Al Kis', 'name_ar' => 'الكيش'],
+            ['city_id' => 221, 'name_en' => 'Al Madina Al Qadima', 'name_ar' => 'المدينة القديمة'],
+            ['city_id' => 221, 'name_en' => 'Al Maghouri', 'name_ar' => 'المقوري'],
+
+            // مصراتة (city_id: 222)
+            // رئيسية
+            ['city_id' => 222, 'name_en' => 'Misrata Center', 'name_ar' => 'مركز مصراتة'],
+            ['city_id' => 222, 'name_en' => 'Al Zarruq', 'name_ar' => 'الزروق'],
+            ['city_id' => 222, 'name_en' => 'Al Gheyran', 'name_ar' => 'الغيران'],
+            ['city_id' => 222, 'name_en' => 'Al Maghsar', 'name_ar' => 'المقصار'],
+            ['city_id' => 222, 'name_en' => 'Al Dafniya', 'name_ar' => 'الدفنية'],
+            ['city_id' => 222, 'name_en' => 'Al Zawiyah', 'name_ar' => 'الزاوية'],
+            // فرعية
+            ['city_id' => 222, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 222, 'name_en' => 'Al Karama', 'name_ar' => 'الكرامة'],
+            ['city_id' => 222, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+            ['city_id' => 222, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+
+            // الزاوية (city_id: 223)
+            // رئيسية
+            ['city_id' => 223, 'name_en' => 'Zawiya Center', 'name_ar' => 'مركز الزاوية'],
+            ['city_id' => 223, 'name_en' => 'Al Jadida', 'name_ar' => 'الجديدة'],
+            ['city_id' => 223, 'name_en' => 'Al Harsha', 'name_ar' => 'الحرشة'],
+            ['city_id' => 223, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 223, 'name_en' => 'Al Mayah', 'name_ar' => 'الماية'],
+            // فرعية
+            ['city_id' => 223, 'name_en' => 'Al Zawiya Al Gharbiya', 'name_ar' => 'الزاوية الغربية'],
+            ['city_id' => 223, 'name_en' => 'Al Nasr', 'name_ar' => 'النصر'],
+            ['city_id' => 223, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+
+            // البيضاء (city_id: 224)
+            // رئيسية
+            ['city_id' => 224, 'name_en' => 'Al Bayda Center', 'name_ar' => 'مركز البيضاء'],
+            ['city_id' => 224, 'name_en' => 'Al Rawasi', 'name_ar' => 'الرواسي'],
+            ['city_id' => 224, 'name_en' => 'Al Qasr', 'name_ar' => 'القصر'],
+            ['city_id' => 224, 'name_en' => 'Al Hadayeq', 'name_ar' => 'الحدائق'],
+            ['city_id' => 224, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            // فرعية
+            ['city_id' => 224, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+            ['city_id' => 224, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 224, 'name_en' => 'Al Madina Al Qadima', 'name_ar' => 'المدينة القديمة'],
+
+            // صبراته (city_id: 225)
+            // رئيسية
+            ['city_id' => 225, 'name_en' => 'Sabratha Center', 'name_ar' => 'مركز صبراته'],
+            ['city_id' => 225, 'name_en' => 'Al Dahra', 'name_ar' => 'الظهرة'],
+            ['city_id' => 225, 'name_en' => 'Al Qasr', 'name_ar' => 'القصر'],
+            ['city_id' => 225, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            // فرعية
+            ['city_id' => 225, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 225, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+
+            // الخمس (city_id: 226)
+            // رئيسية
+            ['city_id' => 226, 'name_en' => 'Khoms Center', 'name_ar' => 'مركز الخمس'],
+            ['city_id' => 226, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 226, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 226, 'name_en' => 'Al Hadayeq', 'name_ar' => 'الحدائق'],
+            // فرعية
+            ['city_id' => 226, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 226, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+
+            // غات (city_id: 227)
+            // رئيسية
+            ['city_id' => 227, 'name_en' => 'Ghat Center', 'name_ar' => 'مركز غات'],
+            ['city_id' => 227, 'name_en' => 'Al Barkat', 'name_ar' => 'البركات'],
+            ['city_id' => 227, 'name_en' => 'Al Qaryah', 'name_ar' => 'القرية'],
+            ['city_id' => 227, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            // فرعية
+            ['city_id' => 227, 'name_en' => 'Al Wadi', 'name_ar' => 'الوادي'],
+            ['city_id' => 227, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+
+            // سبها (city_id: 228)
+            // رئيسية
+            ['city_id' => 228, 'name_en' => 'Sebha Center', 'name_ar' => 'مركز سبها'],
+            ['city_id' => 228, 'name_en' => 'Al Jadid', 'name_ar' => 'الجديد'],
+            ['city_id' => 228, 'name_en' => 'Al Mahdia', 'name_ar' => 'المهدية'],
+            ['city_id' => 228, 'name_en' => 'Al Qaryah', 'name_ar' => 'القرية'],
+            ['city_id' => 228, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            // فرعية
+            ['city_id' => 228, 'name_en' => 'Al Manshiya', 'name_ar' => 'المنشية'],
+            ['city_id' => 228, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 228, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+
+            // طبرق (city_id: 229)
+            // رئيسية
+            ['city_id' => 229, 'name_en' => 'Tobruk Center', 'name_ar' => 'مركز طبرق'],
+            ['city_id' => 229, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 229, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 229, 'name_en' => 'Al Hadayeq', 'name_ar' => 'الحدائق'],
+            // فرعية
+            ['city_id' => 229, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 229, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+
+            // درنة (city_id: 230)
+            // رئيسية
+            ['city_id' => 230, 'name_en' => 'Derna Center', 'name_ar' => 'مركز درنة'],
+            ['city_id' => 230, 'name_en' => 'Al Sahil', 'name_ar' => 'الساحل'],
+            ['city_id' => 230, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 230, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            // فرعية
+            ['city_id' => 230, 'name_en' => 'Al Fatayeh', 'name_ar' => 'الفطايح'],
+            ['city_id' => 230, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+
+            // زليتن (city_id: 231)
+            // رئيسية
+            ['city_id' => 231, 'name_en' => 'Zliten Center', 'name_ar' => 'مركز زليتن'],
+            ['city_id' => 231, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 231, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 231, 'name_en' => 'Al Hadayeq', 'name_ar' => 'الحدائق'],
+            ['city_id' => 231, 'name_en' => 'Al Zawiyah', 'name_ar' => 'الزاوية'],
+            // فرعية
+            ['city_id' => 231, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 231, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+            ['city_id' => 231, 'name_en' => 'Al Karama', 'name_ar' => 'الكرامة'],
+
+            // اجدابيا (city_id: 232)
+            // رئيسية
+            ['city_id' => 232, 'name_en' => 'Ajdabiya Center', 'name_ar' => 'مركز اجدابيا'],
+            ['city_id' => 232, 'name_en' => 'Al Qusur', 'name_ar' => 'القصور'],
+            ['city_id' => 232, 'name_en' => 'Al Salam', 'name_ar' => 'السلام'],
+            ['city_id' => 232, 'name_en' => 'Al Hadayeq', 'name_ar' => 'الحدائق'],
+            // فرعية
+            ['city_id' => 232, 'name_en' => 'Al Shati', 'name_ar' => 'الشاطئ'],
+            ['city_id' => 232, 'name_en' => 'Al Nakheel', 'name_ar' => 'النخيل'],
+
+            // تونس (city_id: 233)
+            // رئيسية
+            ['city_id' => 233, 'name_en' => 'Tunis Center', 'name_ar' => 'مركز تونس'],
+            ['city_id' => 233, 'name_en' => 'Bab Bhar', 'name_ar' => 'باب بحر'],
+            ['city_id' => 233, 'name_en' => 'La Marsa', 'name_ar' => 'المرسى'],
+            ['city_id' => 233, 'name_en' => 'Le Bardo', 'name_ar' => 'الباردو'],
+            ['city_id' => 233, 'name_en' => 'El Menzah', 'name_ar' => 'المنزه'],
+            ['city_id' => 233, 'name_en' => 'Sidi Bou Said', 'name_ar' => 'سيدي بوسعيد'],
+            ['city_id' => 233, 'name_en' => 'Carthage', 'name_ar' => 'قرطاج'],
+            // فرعية
+            ['city_id' => 233, 'name_en' => 'El Kram', 'name_ar' => 'الكرم'],
+            ['city_id' => 233, 'name_en' => 'La Goulette', 'name_ar' => 'حلق الوادي'],
+            ['city_id' => 233, 'name_en' => 'Ezzahra', 'name_ar' => 'الزهراء'],
+            ['city_id' => 233, 'name_en' => 'Manouba', 'name_ar' => 'منوبة'],
+
+            // صفاقس (city_id: 234)
+            // رئيسية
+            ['city_id' => 234, 'name_en' => 'Sfax Center', 'name_ar' => 'مركز صفاقس'],
+            ['city_id' => 234, 'name_en' => 'Sfax El Jadida', 'name_ar' => 'صفاقس الجديدة'],
+            ['city_id' => 234, 'name_en' => 'Sakiet Ezzit', 'name_ar' => 'ساقية الزيت'],
+            ['city_id' => 234, 'name_en' => 'Sakiet Eddaier', 'name_ar' => 'ساقية الدائر'],
+            ['city_id' => 234, 'name_en' => 'Thyna', 'name_ar' => 'طينة'],
+            ['city_id' => 234, 'name_en' => 'El Ain', 'name_ar' => 'العين'],
+            // فرعية
+            ['city_id' => 234, 'name_en' => 'Sfax Medina', 'name_ar' => 'مدينة صفاقس'],
+            ['city_id' => 234, 'name_en' => 'Menzel Chaker', 'name_ar' => 'منزل شاكر'],
+            ['city_id' => 234, 'name_en' => 'Gremda', 'name_ar' => 'قرمدة'],
+            ['city_id' => 234, 'name_en' => 'El Hencha', 'name_ar' => 'الحنشة'],
+
+            // سوسة (city_id: 235)
+            // رئيسية
+            ['city_id' => 235, 'name_en' => 'Sousse Center', 'name_ar' => 'مركز سوسة'],
+            ['city_id' => 235, 'name_en' => 'Sousse Medina', 'name_ar' => 'مدينة سوسة'],
+            ['city_id' => 235, 'name_en' => 'Hammam Sousse', 'name_ar' => 'حمام سوسة'],
+            ['city_id' => 235, 'name_en' => 'Sidi Bou Ali', 'name_ar' => 'سيدي بوعلي'],
+            ['city_id' => 235, 'name_en' => 'Port El Kantaoui', 'name_ar' => 'ميناء القنطاوي'],
+            ['city_id' => 235, 'name_en' => 'Bouhsina', 'name_ar' => 'بوحسينة'],
+            // فرعية
+            ['city_id' => 235, 'name_en' => 'Akouda', 'name_ar' => 'أكودة'],
+            ['city_id' => 235, 'name_en' => 'Sidi Abdelhamid', 'name_ar' => 'سيدي عبد الحميد'],
+            ['city_id' => 235, 'name_en' => 'Zaouit Sousse', 'name_ar' => 'زاوية سوسة'],
+
+            // القيروان (city_id: 236)
+            // رئيسية
+            ['city_id' => 236, 'name_en' => 'Kairouan Center', 'name_ar' => 'مركز القيروان'],
+            ['city_id' => 236, 'name_en' => 'Kairouan Medina', 'name_ar' => 'مدينة القيروان'],
+            ['city_id' => 236, 'name_en' => 'El Mansoura', 'name_ar' => 'المنصورة'],
+            ['city_id' => 236, 'name_en' => 'Haffouz', 'name_ar' => 'حفوز'],
+            ['city_id' => 236, 'name_en' => 'Chebika', 'name_ar' => 'شبيكة'],
+            // فرعية
+            ['city_id' => 236, 'name_en' => 'Nasrallah', 'name_ar' => 'نصر الله'],
+            ['city_id' => 236, 'name_en' => 'Sbikha', 'name_ar' => 'سبيخة'],
+            ['city_id' => 236, 'name_en' => 'Oueslatia', 'name_ar' => 'وسلاتية'],
+
+            // قابس (city_id: 237)
+            // رئيسية
+            ['city_id' => 237, 'name_en' => 'Gabes Center', 'name_ar' => 'مركز قابس'],
+            ['city_id' => 237, 'name_en' => 'Gabes Medina', 'name_ar' => 'مدينة قابس'],
+            ['city_id' => 237, 'name_en' => 'Chenini Nahal', 'name_ar' => 'شنني النحال'],
+            ['city_id' => 237, 'name_en' => 'Menzel', 'name_ar' => 'منزل'],
+            ['city_id' => 237, 'name_en' => 'Ghannouch', 'name_ar' => 'غنوش'],
+            // فرعية
+            ['city_id' => 237, 'name_en' => 'Matmata', 'name_ar' => 'مطماطة'],
+            ['city_id' => 237, 'name_en' => 'Mareth', 'name_ar' => 'مارث'],
+            ['city_id' => 237, 'name_en' => 'El Hamma', 'name_ar' => 'الحامة'],
+
+            // بنزرت (city_id: 238)
+            // رئيسية
+            ['city_id' => 238, 'name_en' => 'Bizerte Center', 'name_ar' => 'مركز بنزرت'],
+            ['city_id' => 238, 'name_en' => 'Bizerte Medina', 'name_ar' => 'مدينة بنزرت'],
+            ['city_id' => 238, 'name_en' => 'Ras Jebel', 'name_ar' => 'راس الجبل'],
+            ['city_id' => 238, 'name_en' => 'Menzel Bourguiba', 'name_ar' => 'منزل بورقيبة'],
+            ['city_id' => 238, 'name_en' => 'Ghar El Melh', 'name_ar' => 'غار الملح'],
+            // فرعية
+            ['city_id' => 238, 'name_en' => 'Mateur', 'name_ar' => 'ماطر'],
+            ['city_id' => 238, 'name_en' => 'Sejnane', 'name_ar' => 'سجنان'],
+            ['city_id' => 238, 'name_en' => 'Joumine', 'name_ar' => 'جومين'],
+
+            // مدنين (city_id: 239)
+            // رئيسية
+            ['city_id' => 239, 'name_en' => 'Medenine Center', 'name_ar' => 'مركز مدنين'],
+            ['city_id' => 239, 'name_en' => 'Zarzis', 'name_ar' => 'جرجيس'],
+            ['city_id' => 239, 'name_en' => 'Ben Gardane', 'name_ar' => 'بن قردان'],
+            ['city_id' => 239, 'name_en' => 'Midoun', 'name_ar' => 'ميدون'],
+            // فرعية
+            ['city_id' => 239, 'name_en' => 'Houmt Souk', 'name_ar' => 'حومة السوق'],
+            ['city_id' => 239, 'name_en' => 'Ajim', 'name_ar' => 'أجيم'],
+
+            // تطاوين (city_id: 240)
+            // رئيسية
+            ['city_id' => 240, 'name_en' => 'Tataouine Center', 'name_ar' => 'مركز تطاوين'],
+            ['city_id' => 240, 'name_en' => 'Ghomrassen', 'name_ar' => 'غمرسن'],
+            ['city_id' => 240, 'name_en' => 'Remada', 'name_ar' => 'رمادة'],
+            ['city_id' => 240, 'name_en' => 'Dhehiba', 'name_ar' => 'ذهيبة'],
+            // فرعية
+            ['city_id' => 240, 'name_en' => 'Bir Lahmar', 'name_ar' => 'بئر الأحمر'],
+            ['city_id' => 240, 'name_en' => 'Smar', 'name_ar' => 'صمار'],
+
+            // المنستير (city_id: 241)
+            // رئيسية
+            ['city_id' => 241, 'name_en' => 'Monastir Center', 'name_ar' => 'مركز المنستير'],
+            ['city_id' => 241, 'name_en' => 'Monastir Medina', 'name_ar' => 'مدينة المنستير'],
+            ['city_id' => 241, 'name_en' => 'Skanes', 'name_ar' => 'سكانس'],
+            ['city_id' => 241, 'name_en' => 'Ksar Hellal', 'name_ar' => 'قصر هلال'],
+            ['city_id' => 241, 'name_en' => 'Jemmal', 'name_ar' => 'جمال'],
+            // فرعية
+            ['city_id' => 241, 'name_en' => 'Bekalta', 'name_ar' => 'بقالطة'],
+            ['city_id' => 241, 'name_en' => 'Sayada', 'name_ar' => 'صيادة'],
+            ['city_id' => 241, 'name_en' => 'Lamta', 'name_ar' => 'لمطة'],
+
+            // القصرين (city_id: 242)
+            // رئيسية
+            ['city_id' => 242, 'name_en' => 'Kasserine Center', 'name_ar' => 'مركز القصرين'],
+            ['city_id' => 242, 'name_en' => 'Sbeitla', 'name_ar' => 'سبيطلة'],
+            ['city_id' => 242, 'name_en' => 'Fériana', 'name_ar' => 'فريانة'],
+            ['city_id' => 242, 'name_en' => 'Thala', 'name_ar' => 'تالة'],
+            // فرعية
+            ['city_id' => 242, 'name_en' => 'Haidra', 'name_ar' => 'حيدرة'],
+            ['city_id' => 242, 'name_en' => 'Jedelienne', 'name_ar' => 'جدليان'],
+
+            // أريانة (city_id: 243)
+            // رئيسية
+            ['city_id' => 243, 'name_en' => 'Ariana Center', 'name_ar' => 'مركز أريانة'],
+            ['city_id' => 243, 'name_en' => 'Sidi Thabet', 'name_ar' => 'سيدي ثابت'],
+            ['city_id' => 243, 'name_en' => 'Raoued', 'name_ar' => 'رواد'],
+            ['city_id' => 243, 'name_en' => 'Mnihla', 'name_ar' => 'منيهلة'],
+            ['city_id' => 243, 'name_en' => 'Kalaat El Andalous', 'name_ar' => 'قلعة الأندلس'],
+            // فرعية
+            ['city_id' => 243, 'name_en' => 'Soukra', 'name_ar' => 'سكرة'],
+            ['city_id' => 243, 'name_en' => 'Borj Louzir', 'name_ar' => 'برج اللوزر'],
+            ['city_id' => 243, 'name_en' => 'Ennasr', 'name_ar' => 'النصر'],
+
+            // نابل (city_id: 244)
+            // رئيسية
+            ['city_id' => 244, 'name_en' => 'Nabeul Center', 'name_ar' => 'مركز نابل'],
+            ['city_id' => 244, 'name_en' => 'Hammamet', 'name_ar' => 'الحمامات'],
+            ['city_id' => 244, 'name_en' => 'Korba', 'name_ar' => 'قربة'],
+            ['city_id' => 244, 'name_en' => 'Menzel Temime', 'name_ar' => 'منزل تميم'],
+            // فرعية
+            ['city_id' => 244, 'name_en' => 'Kelibia', 'name_ar' => 'قليبية'],
+            ['city_id' => 244, 'name_en' => 'Dar Chaabane', 'name_ar' => 'دار شعبان'],
+
+            // قفصة (city_id: 245)
+            // رئيسية
+            ['city_id' => 245, 'name_en' => 'Gafsa Center', 'name_ar' => 'مركز قفصة'],
+            ['city_id' => 245, 'name_en' => 'Sidi Aich', 'name_ar' => 'سيدي عيش'],
+            ['city_id' => 245, 'name_en' => 'El Ksar', 'name_ar' => 'القصر'],
+            ['city_id' => 245, 'name_en' => 'Metlaoui', 'name_ar' => 'المتلوي'],
+            // فرعية
+            ['city_id' => 245, 'name_en' => 'Redeyef', 'name_ar' => 'الرديف'],
+            ['city_id' => 245, 'name_en' => 'Mdhilla', 'name_ar' => 'المظيلة'],
+            // الجزائر (city_id: 246)
+            // رئيسية
+            ['city_id' => 246, 'name_en' => 'Algiers Center', 'name_ar' => 'مركز الجزائر'],
+            ['city_id' => 246, 'name_en' => 'Bab El Oued', 'name_ar' => 'باب الوادي'],
+            ['city_id' => 246, 'name_en' => 'El Harrach', 'name_ar' => 'الحراش'],
+            ['city_id' => 246, 'name_en' => 'Hussein Dey', 'name_ar' => 'حسين داي'],
+            ['city_id' => 246, 'name_en' => 'Kouba', 'name_ar' => 'القبة'],
+            ['city_id' => 246, 'name_en' => 'Bir Mourad Rais', 'name_ar' => 'بئر مراد رايس'],
+            ['city_id' => 246, 'name_en' => 'Hydra', 'name_ar' => 'حيدرة'],
+            // فرعية
+            ['city_id' => 246, 'name_en' => 'El Biar', 'name_ar' => 'الأبيار'],
+            ['city_id' => 246, 'name_en' => 'Birkhadem', 'name_ar' => 'بئر خادم'],
+            ['city_id' => 246, 'name_en' => 'Dely Ibrahim', 'name_ar' => 'دالي إبراهيم'],
+            ['city_id' => 246, 'name_en' => 'Sidi M\'Hamed', 'name_ar' => 'سيدي محمد'],
+
+            // وهران (city_id: 247)
+            // رئيسية
+            ['city_id' => 247, 'name_en' => 'Oran Center', 'name_ar' => 'مركز وهران'],
+            ['city_id' => 247, 'name_en' => 'El Hamri', 'name_ar' => 'الحمري'],
+            ['city_id' => 247, 'name_en' => 'Sidi El Houari', 'name_ar' => 'سيدي الهواري'],
+            ['city_id' => 247, 'name_en' => 'Es Seddikia', 'name_ar' => 'الصديقية'],
+            ['city_id' => 247, 'name_en' => 'Canastel', 'name_ar' => 'كاناستال'],
+            ['city_id' => 247, 'name_en' => 'El Kerma', 'name_ar' => 'الكرمة'],
+            // فرعية
+            ['city_id' => 247, 'name_en' => 'Boutlelis', 'name_ar' => 'بوتليليس'],
+            ['city_id' => 247, 'name_en' => 'Gdyel', 'name_ar' => 'قديل'],
+            ['city_id' => 247, 'name_en' => 'Bir El Djir', 'name_ar' => 'بئر الجير'],
+            ['city_id' => 247, 'name_en' => 'Ain El Turk', 'name_ar' => 'عين الترك'],
+
+            // قسنطينة (city_id: 248)
+            // رئيسية
+            ['city_id' => 248, 'name_en' => 'Constantine Center', 'name_ar' => 'مركز قسنطينة'],
+            ['city_id' => 248, 'name_en' => 'Sidi Mabrouk', 'name_ar' => 'سيدي مبروك'],
+            ['city_id' => 248, 'name_en' => 'El Khroub', 'name_ar' => 'الخروب'],
+            ['city_id' => 248, 'name_en' => 'Zighoud Youcef', 'name_ar' => 'زيغود يوسف'],
+            ['city_id' => 248, 'name_en' => 'Belle Vue', 'name_ar' => 'بلفيو'],
+            ['city_id' => 248, 'name_en' => 'Djebel Ouahch', 'name_ar' => 'جبل وحش'],
+            // فرعية
+            ['city_id' => 248, 'name_en' => 'Ain Smara', 'name_ar' => 'عين سمارة'],
+            ['city_id' => 248, 'name_en' => 'Didouche Mourad', 'name_ar' => 'ديدوش مراد'],
+            ['city_id' => 248, 'name_en' => 'Hamma Bouziane', 'name_ar' => 'حامة بوزيان'],
+
+            // عنابة (city_id: 249)
+            // رئيسية
+            ['city_id' => 249, 'name_en' => 'Annaba Center', 'name_ar' => 'مركز عنابة'],
+            ['city_id' => 249, 'name_en' => 'Sidi Amar', 'name_ar' => 'سيدي عمار'],
+            ['city_id' => 249, 'name_en' => 'El Bouni', 'name_ar' => 'البوني'],
+            ['city_id' => 249, 'name_en' => 'Seraidi', 'name_ar' => 'سرايدي'],
+            ['city_id' => 249, 'name_en' => 'Oued El Aneb', 'name_ar' => 'وادي العنب'],
+            // فرعية
+            ['city_id' => 249, 'name_en' => 'Berrahal', 'name_ar' => 'برحال'],
+            ['city_id' => 249, 'name_en' => 'Chetaibi', 'name_ar' => 'شطايبي'],
+            ['city_id' => 249, 'name_en' => 'Ain Berda', 'name_ar' => 'عين الباردة'],
+
+            // البليدة (city_id: 250)
+            // رئيسية
+            ['city_id' => 250, 'name_en' => 'Blida Center', 'name_ar' => 'مركز البليدة'],
+            ['city_id' => 250, 'name_en' => 'Boufarik', 'name_ar' => 'بوفاريك'],
+            ['city_id' => 250, 'name_en' => 'Ouled Yaich', 'name_ar' => 'أولاد يعيش'],
+            ['city_id' => 250, 'name_en' => 'Chrea', 'name_ar' => 'الشريعة'],
+            ['city_id' => 250, 'name_en' => 'Beni Mered', 'name_ar' => 'بني مراد'],
+            // فرعية
+            ['city_id' => 250, 'name_en' => 'Larbaa', 'name_ar' => 'الأربعاء'],
+            ['city_id' => 250, 'name_en' => 'Soumaa', 'name_ar' => 'الصومعة'],
+            ['city_id' => 250, 'name_en' => 'Meftah', 'name_ar' => 'مفتاح'],
+
+            // باتنة (city_id: 251)
+            // رئيسية
+            ['city_id' => 251, 'name_en' => 'Batna Center', 'name_ar' => 'مركز باتنة'],
+            ['city_id' => 251, 'name_en' => 'Tazoult', 'name_ar' => 'تازولت'],
+            ['city_id' => 251, 'name_en' => 'Merouana', 'name_ar' => 'مروانة'],
+            ['city_id' => 251, 'name_en' => 'Ain Touta', 'name_ar' => 'عين التوتة'],
+            ['city_id' => 251, 'name_en' => 'Barika', 'name_ar' => 'بريكة'],
+            // فرعية
+            ['city_id' => 251, 'name_en' => 'N\'Gaous', 'name_ar' => 'نقاوس'],
+            ['city_id' => 251, 'name_en' => 'Arris', 'name_ar' => 'أريس'],
+            ['city_id' => 251, 'name_en' => 'Seggana', 'name_ar' => 'سقانة'],
+
+            // تلمسان (city_id: 252)
+            // رئيسية
+            ['city_id' => 252, 'name_en' => 'Tlemcen Center', 'name_ar' => 'مركز تلمسان'],
+            ['city_id' => 252, 'name_en' => 'Mansourah', 'name_ar' => 'المنصورة'],
+            ['city_id' => 252, 'name_en' => 'Chetouane', 'name_ar' => 'شتوان'],
+            ['city_id' => 252, 'name_en' => 'Hennaya', 'name_ar' => 'الحناية'],
+            // فرعية
+            ['city_id' => 252, 'name_en' => 'Nedroma', 'name_ar' => 'ندرومة'],
+            ['city_id' => 252, 'name_en' => 'Ghazaouet', 'name_ar' => 'غزوات'],
+
+            // سطيف (city_id: 253)
+            // رئيسية
+            ['city_id' => 253, 'name_en' => 'Setif Center', 'name_ar' => 'مركز سطيف'],
+            ['city_id' => 253, 'name_en' => 'Ain Oulmene', 'name_ar' => 'عين ولمان'],
+            ['city_id' => 253, 'name_en' => 'El Eulma', 'name_ar' => 'العلمة'],
+            ['city_id' => 253, 'name_en' => 'Bougaa', 'name_ar' => 'بوقاعة'],
+            ['city_id' => 253, 'name_en' => 'Ain Azel', 'name_ar' => 'عين أزال'],
+            // فرعية
+            ['city_id' => 253, 'name_en' => 'Babor', 'name_ar' => 'بابور'],
+            ['city_id' => 253, 'name_en' => 'Hammam Guergour', 'name_ar' => 'حمام قرقور'],
+            ['city_id' => 253, 'name_en' => 'Ain Arnat', 'name_ar' => 'عين أرنات'],
+
+            // الشلف (city_id: 254)
+            // رئيسية
+            ['city_id' => 254, 'name_en' => 'Chlef Center', 'name_ar' => 'مركز الشلف'],
+            ['city_id' => 254, 'name_en' => 'Tenes', 'name_ar' => 'تنس'],
+            ['city_id' => 254, 'name_en' => 'Oued Fodda', 'name_ar' => 'وادي الفضة'],
+            ['city_id' => 254, 'name_en' => 'Bou Kadir', 'name_ar' => 'بوكادير'],
+            // فرعية
+            ['city_id' => 254, 'name_en' => 'Zeboudja', 'name_ar' => 'زبوجة'],
+            ['city_id' => 254, 'name_en' => 'El Karimia', 'name_ar' => 'الكريمية'],
+
+            // سعيدة (city_id: 255)
+            // رئيسية
+            ['city_id' => 255, 'name_en' => 'Saida Center', 'name_ar' => 'مركز سعيدة'],
+            ['city_id' => 255, 'name_en' => 'Ain El Hadjar', 'name_ar' => 'عين الحجر'],
+            ['city_id' => 255, 'name_en' => 'Ouled Brahim', 'name_ar' => 'أولاد إبراهيم'],
+            ['city_id' => 255, 'name_en' => 'Sidi Boubekeur', 'name_ar' => 'سيدي بوبكر'],
+            // فرعية
+            ['city_id' => 255, 'name_en' => 'Youb', 'name_ar' => 'يوب'],
+            ['city_id' => 255, 'name_en' => 'El Hassasna', 'name_ar' => 'الحساسنة'],
+
+            // جيجل (city_id: 256)
+            // رئيسية
+            ['city_id' => 256, 'name_en' => 'Jijel Center', 'name_ar' => 'مركز جيجل'],
+            ['city_id' => 256, 'name_en' => 'El Aouana', 'name_ar' => 'العوانة'],
+            ['city_id' => 256, 'name_en' => 'Taher', 'name_ar' => 'الطاهر'],
+            ['city_id' => 256, 'name_en' => 'Ziama Mansouriah', 'name_ar' => 'زيامة منصورية'],
+            // فرعية
+            ['city_id' => 256, 'name_en' => 'El Milia', 'name_ar' => 'الميلية'],
+            ['city_id' => 256, 'name_en' => 'Sidi Marouf', 'name_ar' => 'سيدي معروف'],
+
+            // بجاية (city_id: 257)
+            // رئيسية
+            ['city_id' => 257, 'name_en' => 'Bejaia Center', 'name_ar' => 'مركز بجاية'],
+            ['city_id' => 257, 'name_en' => 'Amizour', 'name_ar' => 'أميزور'],
+            ['city_id' => 257, 'name_en' => 'Akbou', 'name_ar' => 'أقبو'],
+            ['city_id' => 257, 'name_en' => 'Kherrata', 'name_ar' => 'خراطة'],
+            ['city_id' => 257, 'name_en' => 'Sidi Aich', 'name_ar' => 'سيدي عيش'],
+            // فرعية
+            ['city_id' => 257, 'name_en' => 'Tichy', 'name_ar' => 'تيشي'],
+            ['city_id' => 257, 'name_en' => 'Aokas', 'name_ar' => 'أوقاس'],
+            ['city_id' => 257, 'name_en' => 'Barbacha', 'name_ar' => 'برباشة'],
+
+            // معسكر (city_id: 258)
+            // رئيسية
+            ['city_id' => 258, 'name_en' => 'Mascara Center', 'name_ar' => 'مركز معسكر'],
+            ['city_id' => 258, 'name_en' => 'Sig', 'name_ar' => 'سيق'],
+            ['city_id' => 258, 'name_en' => 'Mohammadia', 'name_ar' => 'المحمدية'],
+            ['city_id' => 258, 'name_en' => 'Tighennif', 'name_ar' => 'تيغنيف'],
+            // فرعية
+            ['city_id' => 258, 'name_en' => 'Ghriss', 'name_ar' => 'غريس'],
+            ['city_id' => 258, 'name_en' => 'Oued El Abtal', 'name_ar' => 'وادي الأبطال'],
+
+            // تيارت (city_id: 259)
+            // رئيسية
+            ['city_id' => 259, 'name_en' => 'Tiaret Center', 'name_ar' => 'مركز تيارت'],
+            ['city_id' => 259, 'name_en' => 'Frenda', 'name_ar' => 'فرندة'],
+            ['city_id' => 259, 'name_en' => 'Sougueur', 'name_ar' => 'سوقر'],
+            ['city_id' => 259, 'name_en' => 'Ksar Chellala', 'name_ar' => 'قصر الشلالة'],
+            // فرعية
+            ['city_id' => 259, 'name_en' => 'Mahdia', 'name_ar' => 'المهدية'],
+            ['city_id' => 259, 'name_en' => 'Ain Deheb', 'name_ar' => 'عين الذهب'],
+
+            // وادي سوف (city_id: 260)
+            // رئيسية
+            ['city_id' => 260, 'name_en' => 'El Oued Center', 'name_ar' => 'مركز وادي سوف'],
+            ['city_id' => 260, 'name_en' => 'Guemar', 'name_ar' => 'قمار'],
+            ['city_id' => 260, 'name_en' => 'Reguiba', 'name_ar' => 'الرقيبة'],
+            ['city_id' => 260, 'name_en' => 'Mih Ouensa', 'name_ar' => 'ميه وانسة'],
+            // فرعية
+            ['city_id' => 260, 'name_en' => 'Debila', 'name_ar' => 'الدبيلة'],
+            ['city_id' => 260, 'name_en' => 'Hassi Khalifa', 'name_ar' => 'حاسي خليفة'],
+
+            // سكيكدة (city_id: 261)
+            // رئيسية
+            ['city_id' => 261, 'name_en' => 'Skikda Center', 'name_ar' => 'مركز سكيكدة'],
+            ['city_id' => 261, 'name_en' => 'Azzaba', 'name_ar' => 'عزابة'],
+            ['city_id' => 261, 'name_en' => 'El Hadaik', 'name_ar' => 'الحدائق'],
+            ['city_id' => 261, 'name_en' => 'Collo', 'name_ar' => 'قل'],
+            ['city_id' => 261, 'name_en' => 'Ramdane Djamel', 'name_ar' => 'رمضان جمال'],
+            // فرعية
+            ['city_id' => 261, 'name_en' => 'Tamalous', 'name_ar' => 'تمالوس'],
+            ['city_id' => 261, 'name_en' => 'Ben Azzouz', 'name_ar' => 'بن عزوز'],
+            ['city_id' => 261, 'name_en' => 'Zitouna', 'name_ar' => 'زيتونة'],
+
+            // ورقلة (city_id: 262)
+            // رئيسية
+            ['city_id' => 262, 'name_en' => 'Ouargla Center', 'name_ar' => 'مركز ورقلة'],
+            ['city_id' => 262, 'name_en' => 'Hassi Messaoud', 'name_ar' => 'حاسي مسعود'],
+            ['city_id' => 262, 'name_en' => 'Touggourt', 'name_ar' => 'تقرت'],
+            ['city_id' => 262, 'name_en' => 'Ain Beida', 'name_ar' => 'عين البيضاء'],
+            // فرعية
+            ['city_id' => 262, 'name_en' => 'Sidi Khouiled', 'name_ar' => 'سيدي خويلد'],
+            ['city_id' => 262, 'name_en' => 'El Borma', 'name_ar' => 'البرمة'],
+
+            // الرباط (city_id: 263)
+            // رئيسية
+            ['city_id' => 263, 'name_en' => 'Rabat Center', 'name_ar' => 'مركز الرباط'],
+            ['city_id' => 263, 'name_en' => 'Hassan', 'name_ar' => 'حسان'],
+            ['city_id' => 263, 'name_en' => 'Agdal', 'name_ar' => 'أكدال'],
+            ['city_id' => 263, 'name_en' => 'Yacoub El Mansour', 'name_ar' => 'يعقوب المنصور'],
+            ['city_id' => 263, 'name_en' => 'Souissi', 'name_ar' => 'السويسي'],
+            ['city_id' => 263, 'name_en' => 'Ocean', 'name_ar' => 'المحيط'],
+            ['city_id' => 263, 'name_en' => 'Touarga', 'name_ar' => 'تواركة'],
+            // فرعية
+            ['city_id' => 263, 'name_en' => 'El Menzeh', 'name_ar' => 'المنزه'],
+            ['city_id' => 263, 'name_en' => 'Bettana', 'name_ar' => 'بطانة'],
+            ['city_id' => 263, 'name_en' => 'Hay Riad', 'name_ar' => 'حي الرياض'],
+            ['city_id' => 263, 'name_en' => 'Akkari', 'name_ar' => 'العكاري'],
+
+            // الدار البيضاء (city_id: 264)
+            // رئيسية
+            ['city_id' => 264, 'name_en' => 'Casablanca Center', 'name_ar' => 'مركز الدار البيضاء'],
+            ['city_id' => 264, 'name_en' => 'Anfa', 'name_ar' => 'أنفا'],
+            ['city_id' => 264, 'name_en' => 'Maarif', 'name_ar' => 'المعاريف'],
+            ['city_id' => 264, 'name_en' => 'Sidi Belyout', 'name_ar' => 'سيدي بليوط'],
+            ['city_id' => 264, 'name_en' => 'Ain Chock', 'name_ar' => 'عين الشق'],
+            ['city_id' => 264, 'name_en' => 'Hay Hassani', 'name_ar' => 'حي حساني'],
+            ['city_id' => 264, 'name_en' => 'Roches Noires', 'name_ar' => 'روش نوار'],
+            // فرعية
+            ['city_id' => 264, 'name_en' => 'Ain Sebaa', 'name_ar' => 'عين السبع'],
+            ['city_id' => 264, 'name_en' => 'Bernoussi', 'name_ar' => 'برنوصي'],
+            ['city_id' => 264, 'name_en' => 'Hay Mohammadi', 'name_ar' => 'حي محمدي'],
+            ['city_id' => 264, 'name_en' => 'Lissasfa', 'name_ar' => 'الساسفة'],
+
+            // مراكش (city_id: 265)
+            // رئيسية
+            ['city_id' => 265, 'name_en' => 'Marrakech Center', 'name_ar' => 'مركز مراكش'],
+            ['city_id' => 265, 'name_en' => 'Medina', 'name_ar' => 'المدينة'],
+            ['city_id' => 265, 'name_en' => 'Gueliz', 'name_ar' => 'كليز'],
+            ['city_id' => 265, 'name_en' => 'Menara', 'name_ar' => 'المنارة'],
+            ['city_id' => 265, 'name_en' => 'Sidi Youssef', 'name_ar' => 'سيدي يوسف'],
+            ['city_id' => 265, 'name_en' => 'Annakhil', 'name_ar' => 'النخيل'],
+            // فرعية
+            ['city_id' => 265, 'name_en' => 'Mhamid', 'name_ar' => 'محاميد'],
+            ['city_id' => 265, 'name_en' => 'Daoudiate', 'name_ar' => 'الداوديات'],
+            ['city_id' => 265, 'name_en' => 'Saada', 'name_ar' => 'السعادة'],
+
+            // فاس (city_id: 266)
+            // رئيسية
+            ['city_id' => 266, 'name_en' => 'Fes Center', 'name_ar' => 'مركز فاس'],
+            ['city_id' => 266, 'name_en' => 'Fes Medina', 'name_ar' => 'فاس المدينة'],
+            ['city_id' => 266, 'name_en' => 'Zouagha', 'name_ar' => 'زواغة'],
+            ['city_id' => 266, 'name_en' => 'Sais', 'name_ar' => 'سايس'],
+            ['city_id' => 266, 'name_en' => 'Jnan El Ouard', 'name_ar' => 'جنات الورد'],
+            ['city_id' => 266, 'name_en' => 'Agdal', 'name_ar' => 'أكدال'],
+            // فرعية
+            ['city_id' => 266, 'name_en' => 'Bensouda', 'name_ar' => 'بنسودة'],
+            ['city_id' => 266, 'name_en' => 'Ain Amiyer', 'name_ar' => 'عين عمير'],
+            ['city_id' => 266, 'name_en' => 'Hay Tarik', 'name_ar' => 'حي طارق'],
+
+            // طنجة (city_id: 267)
+            // رئيسية
+            ['city_id' => 267, 'name_en' => 'Tangier Center', 'name_ar' => 'مركز طنجة'],
+            ['city_id' => 267, 'name_en' => 'Beni Makada', 'name_ar' => 'بني مكادة'],
+            ['city_id' => 267, 'name_en' => 'Charf', 'name_ar' => 'الشرق'],
+            ['city_id' => 267, 'name_en' => 'Mesnana', 'name_ar' => 'مسننة'],
+            ['city_id' => 267, 'name_en' => 'Tanger Medina', 'name_ar' => 'طنجة المدينة'],
+            // فرعية
+            ['city_id' => 267, 'name_en' => 'Gueznaya', 'name_ar' => 'كزناية'],
+            ['city_id' => 267, 'name_en' => 'Boukhalf', 'name_ar' => 'بوخالف'],
+            ['city_id' => 267, 'name_en' => 'Malabata', 'name_ar' => 'مالباطا'],
+
+            // أكادير (city_id: 268)
+            // رئيسية
+            ['city_id' => 268, 'name_en' => 'Agadir Center', 'name_ar' => 'مركز أكادير'],
+            ['city_id' => 268, 'name_en' => 'Anza', 'name_ar' => 'أنزا'],
+            ['city_id' => 268, 'name_en' => 'Dcheira', 'name_ar' => 'الدشيرة'],
+            ['city_id' => 268, 'name_en' => 'Tikiouine', 'name_ar' => 'تيكوين'],
+            ['city_id' => 268, 'name_en' => 'Hay Al Mohammadi', 'name_ar' => 'حي المحمدي'],
+            // فرعية
+            ['city_id' => 268, 'name_en' => 'Bensergao', 'name_ar' => 'بنسركاو'],
+            ['city_id' => 268, 'name_en' => 'Ait Melloul', 'name_ar' => 'آيت ملول'],
+            ['city_id' => 268, 'name_en' => 'Inzegane', 'name_ar' => 'إنزكان'],
+
+            // مكناس (city_id: 269)
+            // رئيسية
+            ['city_id' => 269, 'name_en' => 'Meknes Center', 'name_ar' => 'مركز مكناس'],
+            ['city_id' => 269, 'name_en' => 'Meknes Medina', 'name_ar' => 'مكناس المدينة'],
+            ['city_id' => 269, 'name_en' => 'Hamria', 'name_ar' => 'حمرية'],
+            ['city_id' => 269, 'name_en' => 'Sidi Said', 'name_ar' => 'سيدي سعيد'],
+            ['city_id' => 269, 'name_en' => 'Wislane', 'name_ar' => 'ويسطان'],
+            // فرعية
+            ['city_id' => 269, 'name_en' => 'Toulal', 'name_ar' => 'طولال'],
+            ['city_id' => 269, 'name_en' => 'Ouislane', 'name_ar' => 'ويسطان'],
+            ['city_id' => 269, 'name_en' => 'Al Machouar', 'name_ar' => 'المشور'],
+
+            // الصويرة (city_id: 270)
+            // رئيسية
+            ['city_id' => 270, 'name_en' => 'Essaouira Center', 'name_ar' => 'مركز الصويرة'],
+            ['city_id' => 270, 'name_en' => 'Essaouira Medina', 'name_ar' => 'الصويرة المدينة'],
+            ['city_id' => 270, 'name_en' => 'Moulay Bouzerktoun', 'name_ar' => 'مولاي بوزرقطون'],
+            ['city_id' => 270, 'name_en' => 'Talmest', 'name_ar' => 'تلمست'],
+            // فرعية
+            ['city_id' => 270, 'name_en' => 'Sidi Kaouki', 'name_ar' => 'سيدي كاوكي'],
+            ['city_id' => 270, 'name_en' => 'Ait Daoud', 'name_ar' => 'آيت داود'],
+
+            // وجدة (city_id: 271)
+            // رئيسية
+            ['city_id' => 271, 'name_en' => 'Oujda Center', 'name_ar' => 'مركز وجدة'],
+            ['city_id' => 271, 'name_en' => 'Hay El Qods', 'name_ar' => 'حي القدس'],
+            ['city_id' => 271, 'name_en' => 'Lazaret', 'name_ar' => 'اللازاري'],
+            ['city_id' => 271, 'name_en' => 'Bni Drar', 'name_ar' => 'بني درار'],
+            ['city_id' => 271, 'name_en' => 'Ain Sfa', 'name_ar' => 'عين الصفا'],
+            // فرعية
+            ['city_id' => 271, 'name_en' => 'Sidi Yahya', 'name_ar' => 'سيدي يحيى'],
+            ['city_id' => 271, 'name_en' => 'Hay Essalam', 'name_ar' => 'حي السلام'],
+            ['city_id' => 271, 'name_en' => 'Berraka', 'name_ar' => 'براكة'],
+
+            // تطوان (city_id: 272)
+            // رئيسية
+            ['city_id' => 272, 'name_en' => 'Tetouan Center', 'name_ar' => 'مركز تطوان'],
+            ['city_id' => 272, 'name_en' => 'Tetouan Medina', 'name_ar' => 'تطوان المدينة'],
+            ['city_id' => 272, 'name_en' => 'Touilaa', 'name_ar' => 'طويلعة'],
+            ['city_id' => 272, 'name_en' => 'Bni Harchen', 'name_ar' => 'بني حرشن'],
+            // فرعية
+            ['city_id' => 272, 'name_en' => 'Martil', 'name_ar' => 'مرتيل'],
+            ['city_id' => 272, 'name_en' => 'Mdiq', 'name_ar' => 'المضيق'],
+
+            // سلا (city_id: 273)
+            // رئيسية
+            ['city_id' => 273, 'name_en' => 'Sale Center', 'name_ar' => 'مركز سلا'],
+            ['city_id' => 273, 'name_en' => 'Sale Medina', 'name_ar' => 'سلا المدينة'],
+            ['city_id' => 273, 'name_en' => 'Bettana', 'name_ar' => 'بطانة'],
+            ['city_id' => 273, 'name_en' => 'Tabriquet', 'name_ar' => 'تبريكت'],
+            ['city_id' => 273, 'name_en' => 'Hay Rahma', 'name_ar' => 'حي الرحمة'],
+            ['city_id' => 273, 'name_en' => 'Layayda', 'name_ar' => 'للايدا'],
+            // فرعية
+            ['city_id' => 273, 'name_en' => 'Hay Essalam', 'name_ar' => 'حي السلام'],
+            ['city_id' => 273, 'name_en' => 'Sidi Moussa', 'name_ar' => 'سيدي موسى'],
+            ['city_id' => 273, 'name_en' => 'Ain Houm', 'name_ar' => 'عين هوم'],
+
+            // القنيطرة (city_id: 274)
+            // رئيسية
+            ['city_id' => 274, 'name_en' => 'Kenitra Center', 'name_ar' => 'مركز القنيطرة'],
+            ['city_id' => 274, 'name_en' => 'Mimouna', 'name_ar' => 'ميمونة'],
+            ['city_id' => 274, 'name_en' => 'Bir Rami', 'name_ar' => 'بئر رامي'],
+            ['city_id' => 274, 'name_en' => 'Ouled Berjal', 'name_ar' => 'أولاد برجال'],
+            ['city_id' => 274, 'name_en' => 'Saknia', 'name_ar' => 'الساكنية'],
+            // فرعية
+            ['city_id' => 274, 'name_en' => 'Haddada', 'name_ar' => 'الحدادة'],
+            ['city_id' => 274, 'name_en' => 'Maamoura', 'name_ar' => 'المعمورة'],
+            ['city_id' => 274, 'name_en' => 'Ouled Slama', 'name_ar' => 'أولاد سلا'],
+
+            // العيون (city_id: 275)
+            // رئيسية
+            ['city_id' => 275, 'name_en' => 'Laayoune Center', 'name_ar' => 'مركز العيون'],
+            ['city_id' => 275, 'name_en' => 'El Marsa', 'name_ar' => 'المرسى'],
+            ['city_id' => 275, 'name_en' => 'Boujdour', 'name_ar' => 'بوجدور'],
+            ['city_id' => 275, 'name_en' => 'Foum El Oued', 'name_ar' => 'فم الواد'],
+            // فرعية
+            ['city_id' => 275, 'name_en' => 'Hagounia', 'name_ar' => 'هكونية'],
+            ['city_id' => 275, 'name_en' => 'Dcheira', 'name_ar' => 'الدشيرة'],
+
+            // نواكشوط (city_id: 276)
+            // رئيسية
+            ['city_id' => 276, 'name_en' => 'Nouakchott Center', 'name_ar' => 'مركز نواكشوط'],
+            ['city_id' => 276, 'name_en' => 'Tevragh Zeina', 'name_ar' => 'تفرغ زينة'],
+            ['city_id' => 276, 'name_en' => 'Ksar', 'name_ar' => 'الكسار'],
+            ['city_id' => 276, 'name_en' => 'Sebkha', 'name_ar' => 'السبخة'],
+            ['city_id' => 276, 'name_en' => 'El Mina', 'name_ar' => 'الميناء'],
+            ['city_id' => 276, 'name_en' => 'Arafat', 'name_ar' => 'عرفات'],
+            // فرعية
+            ['city_id' => 276, 'name_en' => 'Riyadh', 'name_ar' => 'الرياض'],
+            ['city_id' => 276, 'name_en' => 'Dar Naim', 'name_ar' => 'دار النعيم'],
+            ['city_id' => 276, 'name_en' => 'Toujounine', 'name_ar' => 'توجونين'],
+            ['city_id' => 276, 'name_en' => 'Teyarett', 'name_ar' => 'تيارت'],
+
+            // نواذيبو (city_id: 277)
+            // رئيسية
+            ['city_id' => 277, 'name_en' => 'Nouadhibou Center', 'name_ar' => 'مركز نواذيبو'],
+            ['city_id' => 277, 'name_en' => 'Port', 'name_ar' => 'الميناء'],
+            ['city_id' => 277, 'name_en' => 'Cansado', 'name_ar' => 'كانسادو'],
+            ['city_id' => 277, 'name_en' => 'Numerowatt', 'name_ar' => 'نوميروات'],
+            ['city_id' => 277, 'name_en' => 'Tachott', 'name_ar' => 'تاشوت'],
+            // فرعية
+            ['city_id' => 277, 'name_en' => 'Boulenouar', 'name_ar' => 'بولنوار'],
+            ['city_id' => 277, 'name_en' => 'Inal', 'name_ar' => 'إينال'],
+            ['city_id' => 277, 'name_en' => 'Chami', 'name_ar' => 'شامي'],
+
+            // كيفة (city_id: 278)
+            // رئيسية
+            ['city_id' => 278, 'name_en' => 'Kiffa Center', 'name_ar' => 'مركز كيفة'],
+            ['city_id' => 278, 'name_en' => 'Hay Saken', 'name_ar' => 'حي الساكن'],
+            ['city_id' => 278, 'name_en' => 'El Khatt', 'name_ar' => 'الخط'],
+            ['city_id' => 278, 'name_en' => 'Bouly', 'name_ar' => 'بولي'],
+            ['city_id' => 278, 'name_en' => 'Kankossa', 'name_ar' => 'كنكوصة'],
+            // فرعية
+            ['city_id' => 278, 'name_en' => 'Tembraka', 'name_ar' => 'تمبراكا'],
+            ['city_id' => 278, 'name_en' => 'Guerou', 'name_ar' => 'كيرو'],
+            ['city_id' => 278, 'name_en' => 'Moudjeria', 'name_ar' => 'مودجريا'],
+
+            // آتر (city_id: 279)
+            // رئيسية
+            ['city_id' => 279, 'name_en' => 'Atar Center', 'name_ar' => 'مركز آتر'],
+            ['city_id' => 279, 'name_en' => 'Medina', 'name_ar' => 'المدينة'],
+            ['city_id' => 279, 'name_en' => 'Tawaz', 'name_ar' => 'تواز'],
+            ['city_id' => 279, 'name_en' => 'Aoujeft', 'name_ar' => 'أوجفت'],
+            // فرعية
+            ['city_id' => 279, 'name_en' => 'Chinguetti', 'name_ar' => 'شنقيط'],
+            ['city_id' => 279, 'name_en' => 'Ouadane', 'name_ar' => 'وادان'],
+
+            // زويرات (city_id: 280)
+            // رئيسية
+            ['city_id' => 280, 'name_en' => 'Zouerate Center', 'name_ar' => 'مركز زويرات'],
+            ['city_id' => 280, 'name_en' => 'Fderik', 'name_ar' => 'فدريك'],
+            ['city_id' => 280, 'name_en' => 'Tmeimichatt', 'name_ar' => 'تميميشات'],
+            ['city_id' => 280, 'name_en' => 'Bir Moghrein', 'name_ar' => 'بئر مغرين'],
+            // فرعية
+            ['city_id' => 280, 'name_en' => 'Ain Ben Tili', 'name_ar' => 'عين بن تيلي'],
+            ['city_id' => 280, 'name_en' => 'Moudj', 'name_ar' => 'موج'],
+
+            // تيديكجا (city_id: 281)
+            // رئيسية
+            ['city_id' => 281, 'name_en' => 'Tidjikja Center', 'name_ar' => 'مركز تيديكجا'],
+            ['city_id' => 281, 'name_en' => 'Moudj', 'name_ar' => 'موج'],
+            ['city_id' => 281, 'name_en' => 'Tichitt', 'name_ar' => 'تيشيت'],
+            ['city_id' => 281, 'name_en' => 'Rachid', 'name_ar' => 'راشيد'],
+            // فرعية
+            ['city_id' => 281, 'name_en' => 'Ksar El Barka', 'name_ar' => 'قصر البركة'],
+            ['city_id' => 281, 'name_en' => 'Mbarek', 'name_ar' => 'مبارك'],
+
+            // روسو (city_id: 282)
+            // رئيسية
+            ['city_id' => 282, 'name_en' => 'Rosso Center', 'name_ar' => 'مركز روسو'],
+            ['city_id' => 282, 'name_en' => 'Medina', 'name_ar' => 'المدينة'],
+            ['city_id' => 282, 'name_en' => 'Jidr El Mohguen', 'name_ar' => 'جدر المحكن'],
+            ['city_id' => 282, 'name_en' => 'Tekane', 'name_ar' => 'تكان'],
+            ['city_id' => 282, 'name_en' => 'Boutilimit', 'name_ar' => 'بوتلميت'],
+            // فرعية
+            ['city_id' => 282, 'name_en' => 'Maghama', 'name_ar' => 'مغامة'],
+            ['city_id' => 282, 'name_en' => 'Dar El Barka', 'name_ar' => 'دار البركة'],
+
+            // سيلبابي (city_id: 283)
+            // رئيسية
+            ['city_id' => 283, 'name_en' => 'Selibaby Center', 'name_ar' => 'مركز سيلبابي'],
+            ['city_id' => 283, 'name_en' => 'Ghabou', 'name_ar' => 'غابو'],
+            ['city_id' => 283, 'name_en' => 'Ould Yenge', 'name_ar' => 'ولد ينج'],
+            ['city_id' => 283, 'name_en' => 'Wompou', 'name_ar' => 'وومبو'],
+            // فرعية
+            ['city_id' => 283, 'name_en' => 'Bokhol', 'name_ar' => 'بوخول'],
+            ['city_id' => 283, 'name_en' => 'Hassi Cheggar', 'name_ar' => 'حاسي شكار'],
+
+            // بوكي (city_id: 284)
+            // رئيسية
+            ['city_id' => 284, 'name_en' => 'Bogue Center', 'name_ar' => 'مركز بوكي'],
+            ['city_id' => 284, 'name_en' => 'Bababe', 'name_ar' => 'بابابي'],
+            [' actress_id' => 284, 'name_en' => 'Mbagne', 'name_ar' => 'مباني'],
+            ['city_id' => 284, 'name_en' => 'Diogountourou', 'name_ar' => 'ديوغونتورو'],
+            // فرعية
+            ['city_id' => 284, 'name_en' => 'Toulde', 'name_ar' => 'تولدي'],
+            ['city_id' => 284, 'name_en' => 'Aere Mbar', 'name_ar' => 'عير مبار'],
+
+            // كيهيدي (city_id: 285)
+            // رئيسية
+            ['city_id' => 285, 'name_en' => 'Kaedi Center', 'name_ar' => 'مركز كيهيدي'],
+            ['city_id' => 285, 'name_en' => 'Djiguenni', 'name_ar' => 'دجيغني'],
+            ['city_id' => 285, 'name_en' => 'Mbout', 'name_ar' => 'مبوت'],
+            ['city_id' => 285, 'name_en' => 'Tokomadji', 'name_ar' => 'توكومادجي'],
+            ['city_id' => 285, 'name_en' => 'Gouraye', 'name_ar' => 'غوراي'],
+            // فرعية
+            ['city_id' => 285, 'name_en' => 'Lexeiba', 'name_ar' => 'لكسيبا'],
+            ['city_id' => 285, 'name_en' => 'Monguel', 'name_ar' => 'مونغيل'],
+
+            // ألاك (city_id: 286)
+            // رئيسية
+            ['city_id' => 286, 'name_en' => 'Aleg Center', 'name_ar' => 'مركز ألاك'],
+            ['city_id' => 286, 'name_en' => 'Male', 'name_ar' => 'مال'],
+            ['city_id' => 286, 'name_en' => 'Cheggar', 'name_ar' => 'شكار'],
+            ['city_id' => 286, 'name_en' => 'Boumdeid', 'name_ar' => 'بومديد'],
+            // فرعية
+            ['city_id' => 286, 'name_en' => 'Guerou', 'name_ar' => 'كيرو'],
+            ['city_id' => 286, 'name_en' => 'Djajibine', 'name_ar' => 'جاجيبين'],
+            // مقديشو (city_id: 287)
+            // رئيسية
+            ['city_id' => 287, 'name_en' => 'Mogadishu Center', 'name_ar' => 'مركز مقديشو'],
+            ['city_id' => 287, 'name_en' => 'Wadajir', 'name_ar' => 'وداجير'],
+            ['city_id' => 287, 'name_en' => 'Dharkenley', 'name_ar' => 'داركينلي'],
+            ['city_id' => 287, 'name_en' => 'Hodan', 'name_ar' => 'هودان'],
+            ['city_id' => 287, 'name_en' => 'Waberi', 'name_ar' => 'وابيري'],
+            ['city_id' => 287, 'name_en' => 'Hamarmajajab', 'name_ar' => 'حمرمجاجب'],
+            ['city_id' => 287, 'name_en' => 'Bondhere', 'name_ar' => 'بونديري'],
+            // فرعية
+            ['city_id' => 287, 'name_en' => 'Yaaqshid', 'name_ar' => 'ياقشيد'],
+            ['city_id' => 287, 'name_en' => 'Karan', 'name_ar' => 'كاران'],
+            ['city_id' => 287, 'name_en' => 'Shibis', 'name_ar' => 'شيبس'],
+            ['city_id' => 287, 'name_en' => 'Daynile', 'name_ar' => 'داينيل'],
+
+            // هرجيسا (city_id: 288)
+            // رئيسية
+            ['city_id' => 288, 'name_en' => 'Hargeisa Center', 'name_ar' => 'مركز هرجيسا'],
+            ['city_id' => 288, 'name_en' => '26 June', 'name_ar' => '26 يونيو'],
+            ['city_id' => 288, 'name_en' => 'Ibrahim Koodbuur', 'name_ar' => 'إبراهيم كودبور'],
+            ['city_id' => 288, 'name_en' => 'Ahmed Dhagah', 'name_ar' => 'أحمد ضغاه'],
+            ['city_id' => 288, 'name_en' => 'Mohamed Haji Ibrahim', 'name_ar' => 'محمد حاجي إبراهيم'],
+            ['city_id' => 288, 'name_en' => 'Ga’an Libah', 'name_ar' => 'جعان ليباه'],
+            // فرعية
+            ['city_id' => 288, 'name_en' => 'New Hargeisa', 'name_ar' => 'هرجيسا الجديدة'],
+            ['city_id' => 288, 'name_en' => 'Dami', 'name_ar' => 'دامي'],
+            ['city_id' => 288, 'name_en' => 'Gol Jano', 'name_ar' => 'جول جانو'],
+
+            // بوساسو (city_id: 289)
+            // رئيسية
+            ['city_id' => 289, 'name_en' => 'Bosaso Center', 'name_ar' => 'مركز بوساسو'],
+            ['city_id' => 289, 'name_en' => 'Airport Area', 'name_ar' => 'منطقة المطار'],
+            ['city_id' => 289, 'name_en' => 'Port Area', 'name_ar' => 'منطقة الميناء'],
+            ['city_id' => 289, 'name_en' => 'Hormud', 'name_ar' => 'هرمود'],
+            ['city_id' => 289, 'name_en' => 'Biyo Kulule', 'name_ar' => 'بيو كلول'],
+            // فرعية
+            ['city_id' => 289, 'name_en' => 'Laag', 'name_ar' => 'لاغ'],
+            ['city_id' => 289, 'name_en' => 'Qandala', 'name_ar' => 'قندالا'],
+            ['city_id' => 289, 'name_en' => 'Kaptin', 'name_ar' => 'كابتين'],
+
+            // كيسمايو (city_id: 290)
+            // رئيسية
+            ['city_id' => 290, 'name_en' => 'Kismayo Center', 'name_ar' => 'مركز كيسمايو'],
+            ['city_id' => 290, 'name_en' => 'Farjano', 'name_ar' => 'فرجانو'],
+            ['city_id' => 290, 'name_en' => 'Shaqaalaha', 'name_ar' => 'شقالحة'],
+            ['city_id' => 290, 'name_en' => 'Calanley', 'name_ar' => 'كالانلي'],
+            ['city_id' => 290, 'name_en' => 'Guulwade', 'name_ar' => 'غول وادي'],
+            // فرعية
+            ['city_id' => 290, 'name_en' => 'Dalxiiska', 'name_ar' => 'دلخيسكا'],
+            ['city_id' => 290, 'name_en' => 'Fanoole', 'name_ar' => 'فانول'],
+            ['city_id' => 290, 'name_en' => 'Bulo Haji', 'name_ar' => 'بولو حاجي'],
+
+            // بايدوا (city_id: 291)
+            // رئيسية
+            ['city_id' => 291, 'name_en' => 'Baidoa Center', 'name_ar' => 'مركز بايدوا'],
+            ['city_id' => 291, 'name_en' => 'Isha', 'name_ar' => 'عيشة'],
+            ['city_id' => 291, 'name_en' => 'Horseed', 'name_ar' => 'حرسيد'],
+            ['city_id' => 291, 'name_en' => 'Berdale', 'name_ar' => 'بردالي'],
+            ['city_id' => 291, 'name_en' => 'Salbala', 'name_ar' => 'سالبالا'],
+            // فرعية
+            ['city_id' => 291, 'name_en' => 'Wanlaweyn', 'name_ar' => 'وانلاوين'],
+            ['city_id' => 291, 'name_en' => 'Doynuuna', 'name_ar' => 'دوينونا'],
+            ['city_id' => 291, 'name_en' => 'Misriyo', 'name_ar' => 'مسريو'],
+
+            // غالكيو (city_id: 292)
+            // رئيسية
+            ['city_id' => 292, 'name_en' => 'Galkayo Center', 'name_ar' => 'مركز غالكيو'],
+            ['city_id' => 292, 'name_en' => 'Israac', 'name_ar' => 'إسراق'],
+            ['city_id' => 292, 'name_en' => 'Garsoor', 'name_ar' => 'غارسور'],
+            ['city_id' => 292, 'name_en' => 'Baraxley', 'name_ar' => 'براخلي'],
+            ['city_id' => 292, 'name_en' => 'Hormar', 'name_ar' => 'هرمر'],
+            // فرعية
+            ['city_id' => 292, 'name_en' => 'Bursalah', 'name_ar' => 'برصالح'],
+            ['city_id' => 292, 'name_en' => 'Godod', 'name_ar' => 'غودود'],
+            ['city_id' => 292, 'name_en' => 'Wadajir', 'name_ar' => 'وداجير'],
+
+            // جوهار (city_id: 293)
+            // رئيسية
+            ['city_id' => 293, 'name_en' => 'Jowhar Center', 'name_ar' => 'مركز جوهار'],
+            ['city_id' => 293, 'name_en' => 'Bulo Marer', 'name_ar' => 'بولو مارير'],
+            ['city_id' => 293, 'name_en' => 'Mahaday', 'name_ar' => 'محداي'],
+            ['city_id' => 293, 'name_en' => 'Jameeco', 'name_ar' => 'جاميكو'],
+            // فرعية
+            ['city_id' => 293, 'name_en' => 'Adale', 'name_ar' => 'عدالي'],
+            ['city_id' => 293, 'name_en' => 'Warshiikh', 'name_ar' => 'ورشيخ'],
+
+            // بوراو (city_id: 294)
+            // رئيسية
+            ['city_id' => 294, 'name_en' => 'Burao Center', 'name_ar' => 'مركز بوراو'],
+            ['city_id' => 294, 'name_en' => 'Qoryale', 'name_ar' => 'قوريالي'],
+            ['city_id' => 294, 'name_en' => 'Sheikh Bashiir', 'name_ar' => 'شيخ بشير'],
+            ['city_id' => 294, 'name_en' => 'Maxamed Cali', 'name_ar' => 'محمد علي'],
+            // فرعية
+            ['city_id' => 294, 'name_en' => 'Odwayne', 'name_ar' => 'أودوين'],
+            ['city_id' => 294, 'name_en' => 'Qaloocan', 'name_ar' => 'قلوقان'],
+
+            // بربرة (city_id: 295)
+            // رئيسية
+            ['city_id' => 295, 'name_en' => 'Berbera Center', 'name_ar' => 'مركز بربرة'],
+            ['city_id' => 295, 'name_en' => 'Port Area', 'name_ar' => 'منطقة الميناء'],
+            ['city_id' => 295, 'name_en' => 'Darole', 'name_ar' => 'دارولي'],
+            ['city_id' => 295, 'name_en' => 'Hafun', 'name_ar' => 'حافون'],
+            // فرعية
+            ['city_id' => 295, 'name_en' => 'Sheikh', 'name_ar' => 'شيخ'],
+            ['city_id' => 295, 'name_en' => 'Bulahar', 'name_ar' => 'بولاهار'],
+
+            // مركة (city_id: 296)
+            // رئيسية
+            ['city_id' => 296, 'name_en' => 'Merca Center', 'name_ar' => 'مركز مركة'],
+            ['city_id' => 296, 'name_en' => 'Jilib', 'name_ar' => 'جيليب'],
+            ['city_id' => 296, 'name_en' => 'Qoryooley', 'name_ar' => 'قوريولي'],
+            ['city_id' => 296, 'name_en' => 'Afgoye', 'name_ar' => 'أفغوي'],
+            // فرعية
+            ['city_id' => 296, 'name_en' => 'Barawe', 'name_ar' => 'براوي'],
+            ['city_id' => 296, 'name_en' => 'Kurtunwarey', 'name_ar' => 'كرتونواري'],
+
+            // بلدوين (city_id: 297)
+            // رئيسية
+            ['city_id' => 297, 'name_en' => 'Beledweyne Center', 'name_ar' => 'مركز بلدوين'],
+            ['city_id' => 297, 'name_en' => 'Bulo Burte', 'name_ar' => 'بولو بورتي'],
+            ['city_id' => 297, 'name_en' => 'Jalalaqsi', 'name_ar' => 'جلالقسي'],
+            ['city_id' => 297, 'name_en' => 'Mataban', 'name_ar' => 'مطبان'],
+            // فرعية
+            ['city_id' => 297, 'name_en' => 'Maxaas', 'name_ar' => 'مخاس'],
+            ['city_id' => 297, 'name_en' => 'Tiyeglow', 'name_ar' => 'تييغلو'],
+            // مدينة جيبوتي (city_id: 298)
+            // رئيسية
+            ['city_id' => 298, 'name_en' => 'Djibouti Center', 'name_ar' => 'مركز مدينة جيبوتي'],
+            ['city_id' => 298, 'name_en' => 'Plateau', 'name_ar' => 'بلاتو'],
+            ['city_id' => 298, 'name_en' => 'Boulous', 'name_ar' => 'بولو'],
+            ['city_id' => 298, 'name_en' => 'Ambouli', 'name_ar' => 'أمبولي'],
+            ['city_id' => 298, 'name_en' => 'Salam', 'name_ar' => 'سلام'],
+            ['city_id' => 298, 'name_en' => 'Balbala', 'name_ar' => 'بلبالا'],
+            // فرعية
+            ['city_id' => 298, 'name_en' => 'Nagad', 'name_ar' => 'ناجاد'],
+            ['city_id' => 298, 'name_en' => 'Hayyabley', 'name_ar' => 'هيابلي'],
+            ['city_id' => 298, 'name_en' => 'Gabode', 'name_ar' => 'جابود'],
+            ['city_id' => 298, 'name_en' => 'Wahle Daba', 'name_ar' => 'وهلي دابا'],
+
+            // علي صبيح (city_id: 299)
+            // رئيسية
+            ['city_id' => 299, 'name_en' => 'Ali Sabieh Center', 'name_ar' => 'مركز علي صبيح'],
+            ['city_id' => 299, 'name_en' => 'Ali Adde', 'name_ar' => 'علي عدة'],
+            ['city_id' => 299, 'name_en' => 'Holhol', 'name_ar' => 'هولهول'],
+            ['city_id' => 299, 'name_en' => 'Goubetto', 'name_ar' => 'غوبيتو'],
+            // فرعية
+            ['city_id' => 299, 'name_en' => 'Danane', 'name_ar' => 'دنان'],
+            ['city_id' => 299, 'name_en' => 'Guisti', 'name_ar' => 'جويستي'],
+            ['city_id' => 299, 'name_en' => 'Assamo', 'name_ar' => 'أسامو'],
+
+            // تاجورة (city_id: 300)
+            // رئيسية
+            ['city_id' => 300, 'name_en' => 'Tadjoura Center', 'name_ar' => 'مركز تاجورة'],
+            ['city_id' => 300, 'name_en' => 'Port Area', 'name_ar' => 'منطقة الميناء'],
+            ['city_id' => 300, 'name_en' => 'Day', 'name_ar' => 'داي'],
+            ['city_id' => 300, 'name_en' => 'Randa', 'name_ar' => 'راندا'],
+            // فرعية
+            ['city_id' => 300, 'name_en' => 'Adailou', 'name_ar' => 'أدايلو'],
+            ['city_id' => 300, 'name_en' => 'Bankouale', 'name_ar' => 'بانكوالي'],
+            ['city_id' => 300, 'name_en' => 'Doraleh', 'name_ar' => 'دورالي'],
+
+            // عقبة (city_id: 301)
+            // رئيسية
+            ['city_id' => 301, 'name_en' => 'Obock Center', 'name_ar' => 'مركز عقبة'],
+            ['city_id' => 301, 'name_en' => 'Port Area', 'name_ar' => 'منطقة الميناء'],
+            ['city_id' => 301, 'name_en' => 'Khor Angar', 'name_ar' => 'خور أنغار'],
+            ['city_id' => 301, 'name_en' => 'Moulhoule', 'name_ar' => 'مولهولي'],
+            // فرعية
+            ['city_id' => 301, 'name_en' => 'Alaili Dadda', 'name_ar' => 'علايلي دادا'],
+            ['city_id' => 301, 'name_en' => 'Medho', 'name_ar' => 'ميدو'],
+
+            // ديخل (city_id: 302)
+            // رئيسية
+            ['city_id' => 302, 'name_en' => 'Dikhil Center', 'name_ar' => 'مركز ديخل'],
+            ['city_id' => 302, 'name_en' => 'Yoboki', 'name_ar' => 'يوبوكي'],
+            ['city_id' => 302, 'name_en' => 'Galafi', 'name_ar' => 'غالافي'],
+            ['city_id' => 302, 'name_en' => 'As Eyla', 'name_ar' => 'آس إيلا'],
+            // فرعية
+            ['city_id' => 302, 'name_en' => 'Bondara', 'name_ar' => 'بوندارا'],
+            ['city_id' => 302, 'name_en' => 'Mouloud', 'name_ar' => 'مولود'],
+            ['city_id' => 302, 'name_en' => 'Hanle', 'name_ar' => 'هانلي'],
+
+            // أرتا (city_id: 303)
+            // رئيسية
+            ['city_id' => 303, 'name_en' => 'Arta Center', 'name_ar' => 'مركز أرتا'],
+            ['city_id' => 303, 'name_en' => 'We’a', 'name_ar' => 'ويعة'],
+            ['city_id' => 303, 'name_en' => 'Damerjog', 'name_ar' => 'دامرجوغ'],
+            ['city_id' => 303, 'name_en' => 'Loyada', 'name_ar' => 'لويادا'],
+            // فرعية
+            ['city_id' => 303, 'name_en' => 'Chabelley', 'name_ar' => 'شابلي'],
+            ['city_id' => 303, 'name_en' => 'Gouboul', 'name_ar' => 'غوبول'],
+            // موروني (city_id: 304)
+            // رئيسية
+            ['city_id' => 304, 'name_en' => 'Moroni Center', 'name_ar' => 'مركز موروني'],
+            ['city_id' => 304, 'name_en' => 'Badjanani', 'name_ar' => 'باجناني'],
+            ['city_id' => 304, 'name_en' => 'Hadjambou', 'name_ar' => 'هدجمبو'],
+            ['city_id' => 304, 'name_en' => 'Mtsangani', 'name_ar' => 'متسانجاني'],
+            ['city_id' => 304, 'name_en' => 'Port Area', 'name_ar' => 'منطقة الميناء'],
+            // فرعية
+            ['city_id' => 304, 'name_en' => 'Itsandra', 'name_ar' => 'إتسندرا'],
+            ['city_id' => 304, 'name_en' => 'Ntsoudjini', 'name_ar' => 'نتسوجيني'],
+            ['city_id' => 304, 'name_en' => 'Salimani', 'name_ar' => 'سليماني'],
+
+            // موشامودو (city_id: 305)
+            // رئيسية
+            ['city_id' => 305, 'name_en' => 'Mutsamudu Center', 'name_ar' => 'مركز موشامودو'],
+            ['city_id' => 305, 'name_en' => 'Patsy', 'name_ar' => 'باتسي'],
+            ['city_id' => 305, 'name_en' => 'Mirontsi', 'name_ar' => 'ميرونتسي'],
+            ['city_id' => 305, 'name_en' => 'Ouani', 'name_ar' => 'أويني'],
+            // فرعية
+            ['city_id' => 305, 'name_en' => 'Bambao', 'name_ar' => 'بامباو'],
+            ['city_id' => 305, 'name_en' => 'Mjimandra', 'name_ar' => 'مجيماندرا'],
+            ['city_id' => 305, 'name_en' => 'Hombo', 'name_ar' => 'هومبو'],
+
+            // فومبوني (city_id: 306)
+            // رئيسية
+            ['city_id' => 306, 'name_en' => 'Fomboni Center', 'name_ar' => 'مركز فومبوني'],
+            ['city_id' => 306, 'name_en' => 'Djoiezi', 'name_ar' => 'جوييزي'],
+            ['city_id' => 306, 'name_en' => 'Hoani', 'name_ar' => 'هواني'],
+            ['city_id' => 306, 'name_en' => 'Mtakoudja', 'name_ar' => 'متاكودجا'],
+            // فرعية
+            ['city_id' => 306, 'name_en' => 'Nioumachoua', 'name_ar' => 'نيوماشوا'],
+            ['city_id' => 306, 'name_en' => 'Wanani', 'name_ar' => 'واناني'],
+
+            // دوموني (city_id: 307)
+            // رئيسية
+            // ['city_id' => 307, 'name_en' => 'Domoni Center', 'name_ar' => 'مركز دوموني'],
+            // ['city_id' => 307, 'name_en' => 'Koni Djodjo', 'name_ar' => 'كوني جوجو'],
+            // ['city_id' => 307, 'name_en' => 'Mramani', 'name_ar' => 'مراماني'],
+            // ['city_id' => 307, 'name_en' => 'Lingoni', 'name_ar' => 'لينجوني'],
+            // // فرعية
+            // ['city_id' => 307, 'name_en' => 'Adda', 'name_ar' => 'عدا'],
+            // ['city_id' => 307, 'name_en' => 'Jimilime', 'name_ar' => 'جيميليمي'],
+
+            // // سيما (city_id: 308)
+            // // رئيسية
+            // ['city_id' => 308, 'name_en' => 'Sima Center', 'name_ar' => 'مركز سيما'],
+            // ['city_id' => 308, 'name_en' => 'Moya', 'name_ar' => 'مويا'],
+            // ['city_id' => 308, 'name_en' => 'Pomoni', 'name_ar' => 'بوموني'],
+            // // فرعية
+            // ['city_id' => 308, 'name_en' => 'Ntsaoueni', 'name_ar' => 'نتساويني'],
+            // ['city_id' => 308, 'name_en' => 'Milevani', 'name_ar' => 'ميليفاني'],
+
+            // // ميتساميولي (city_id: 309)
+            // // رئيسية
+            // ['city_id' => 309, 'name_en' => 'Mitsamiouli Center', 'name_ar' => 'مركز ميتساميولي'],
+            // ['city_id' => 309, 'name_en' => 'Ntsaoueni', 'name_ar' => 'نتساويني'],
+            // ['city_id' => 309, 'name_en' => 'Mboudé', 'name_ar' => 'مبودي'],
+            // // فرعية
+            // ['city_id' => 309, 'name_en' => 'Hambou', 'name_ar' => 'هامبو'],
+            // ['city_id' => 309, 'name_en' => 'Samba Kouni', 'name_ar' => 'سامبا كوني'],
+
+
         ]);
     }
 }
