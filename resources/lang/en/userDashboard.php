@@ -60,11 +60,13 @@ return [
         'smoking_tools' => 'Smoking Tools',
         'hobbies' => 'Hobbies',
         'pets' => 'Pets',
-
+        'religiosity_level' => 'Religiosity Level',
         'na' => 'N/A',
         'Discover_who_liked_your_profile' => 'Discover who liked your profile',
         'Total_Likes' => 'Total Likes',
         'no_likes_yet' => 'No likes yet',
+        'housing_status' => 'Housing Status',
+        'car_ownership' => 'Car Ownership',
     ],
     'matches' => [
         'users_who_matched_with_you' => 'Users Who Matched With You',
@@ -78,7 +80,7 @@ return [
         'gender' => 'Gender',
         'age' => 'Age',
         'nationality' => 'Nationality',
-        'city' => 'City',
+        'city_of_Residence' => 'City Of Residence',
         'unknown_location' => 'Unknown Location',
         'close' => 'Close',
         'remove' => 'Remove Match',
@@ -95,6 +97,8 @@ return [
         'Contacted' => 'Contacted',
         'Match' => 'Match',
         'guardian_phone' => 'Guardian Phone',
+        'country_of_residence' => 'Country of Residence',
+        'country_of_origin' => 'Country of Origin',
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',

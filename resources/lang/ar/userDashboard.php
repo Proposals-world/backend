@@ -48,7 +48,7 @@ return [
         'no' => 'لا',
         'smoking_status' => 'التدخين',
         'drinking_status' => 'شرب الكحول',
-
+        'religiosity_level' => 'مستوى التدين',
         'height' => 'الطول',
         'weight' => 'الوزن',
         'sports_activity' => 'النشاط الرياضي',
@@ -63,6 +63,8 @@ return [
         'Discover_who_liked_your_profile' => 'اكتشف من أعجب بملفك الشخصي',
         'Total_Likes' => 'إجمالي الإعجابات',
         'no_likes_yet' => 'لا توجد إعجابات حتى الآن',
+        'car_ownership' => 'امتلاك سيارة',
+        'housing_status' => 'حالة السكن',
     ],
     'matches' => [
         'users_who_matched_with_you' => 'الأشخاص الذين تطابقت معهم',
@@ -77,6 +79,7 @@ return [
         'age' => 'العمر',
         'nationality' => 'الجنسية',
         'city' => 'المدينة',
+        'city_of_Residence' => 'مدينة الإقامة',
         'unknown_location' => 'الموقع غير معروف',
         'close' => 'إغلاق',
         'remove' => 'إزالة التطابق',
@@ -93,6 +96,8 @@ return [
         'Contacted' => 'تم التواصل',
         'Match' => 'تطابق',
         'guardian_phone' => 'رقم هاتف الولي',
+        'country_of_origin' => 'بلد الأصل',
+        'country_of_residence' => 'بلد الإقامة',
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',

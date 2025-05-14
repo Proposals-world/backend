@@ -78,7 +78,7 @@ class MatchController extends Controller
 
             $matchesWithContact = $enrichedMatches->filter(fn($match) => $match['contact_exchanged'])->values();
             $matchesWithoutContact = $enrichedMatches->filter(fn($match) => !$match['contact_exchanged'])->values();
-
+            // dd($matchesWithContact, $matchesWithoutContact);
             return response()->json([
                 'matchesWithContact' => $matchesWithContact,
                 'matchesWithoutContact' => $matchesWithoutContact,

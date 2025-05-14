@@ -93,7 +93,13 @@
                                         id="modalNationality"></span>
                                 </div>
                                 <div class="col-md-6 mb-2">
-                                    <strong>{{ __('userDashboard.matches.city') }}:</strong> <span id="modalCity"></span>
+                                    <strong>{{ __('userDashboard.matches.country_of_origin') }}:</strong> <span id="modalCountryOfOrigin"></span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.country_of_residence') }}:</strong> <span id="modalCountryOfResidence"></span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
                             </div>
                         </div>
@@ -328,16 +334,19 @@ function renderMatches(matches, containerId, badgeClass) {
         const card = `
             <div class="col-12 col-sm-6 col-md-4 mb-4">
                 <div class="card profile-card shadow-sm h-100" data-profile='${JSON.stringify(match)}'>
-                    <button type="button" class="btn btn-outline-danger position-absolute report-btn"
-                        onclick="event.stopPropagation(); openReportModal(${profile.id})">
-                        <i class="fas fa-flag"></i>
-                    </button>
+
+                     <button type="button"
+                                        class="btn btn-outline-danger position-absolute d-flex align-items-center justify-content-center"
+                                        style="top: 10px; {{ app()->getLocale() == 'ar' ? 'left' : 'right' }}: 10px; width: 40px; height: 40px; border-radius: 50%; padding: 0; z-index: 10;"
+                                        onclick="event.stopPropagation(); openReportModal(${profile.id})">
+                                        <i class="fas fa-flag"></i>
+                                    </button>
                     <div class="position-relative">
                         <span class="badge ${badgeClass} position-absolute m-2">${badgeText}</span>
                         <img class="card-img-top" src="${safeMainPhoto}" alt="Profile"
-                             onerror="this.onerror=null;this.src='{{ asset('dashboard/logos/profile-icon.jpg') }}'">
-                    </div>
-                    <div class="card-body d-flex flex-column">
+                        onerror="this.onerror=null;this.src='{{ asset('dashboard/logos/profile-icon.jpg') }}'">
+                        </div>
+                        <div class="card-body d-flex flex-column">
                         <h5 class="card-title mb-1">${profile.profile.nickname} </h5>
                         <p class="text-muted small mb-2">
                             ${[profile.profile.country_of_residence, profile.profile.city].filter(Boolean).join(', ')}
@@ -400,11 +409,17 @@ async function initializeMatches() {
                 "{{ __('userDashboard.likeMe.personal') }}": {
                     "{{ __('userDashboard.likeMe.date_of_birth') }}": profile.profile.date_of_birth,
                     "{{ __('userDashboard.likeMe.religion') }}": profile.profile.religion,
+                    "{{ __('userDashboard.likeMe.religiosity_level') }}": profile.profile.religiosity_level,
+
                     "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,
+                    "{{ __('userDashboard.likeMe.marriage_budget') }}": profile.profile.marriage_budget,
+                    "{{ __('userDashboard.likeMe.car_ownership') }}": profile.profile.car_ownership ?
+                        "{{ __('userDashboard.likeMe.yes') }}" :
+                        "{{ __('userDashboard.likeMe.no') }}",
+                    "{{ __('userDashboard.likeMe.housing_status') }}": profile.profile.housing_status,
                     "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
                         "{{ __('userDashboard.likeMe.na') }}",
-                    "{{ __('userDashboard.likeMe.skin_color') }}": profile.profile.skin_color,
-                    "{{ __('userDashboard.likeMe.hair_color') }}": profile.profile.hair_color,
+
                 },
                 "{{ __('userDashboard.likeMe.professional') }}": {
                     "{{ __('userDashboard.likeMe.educational_level') }}": profile.profile.educational_level,
@@ -417,29 +432,32 @@ async function initializeMatches() {
                     "{{ __('userDashboard.likeMe.financial_status') }}": profile.profile.financial_status,
                 },
                 "{{ __('userDashboard.likeMe.lifestyle') }}": {
-                    "{{ __('userDashboard.likeMe.hijab_status') }}": profile.profile.hijab_status !== null ?
-                        (profile.profile.hijab_status ? "{{ __('userDashboard.likeMe.yes') }}" :
-                            "{{ __('userDashboard.likeMe.no') }}") : "{{ __('userDashboard.likeMe.na') }}",
+
+
+                    "{{ __('userDashboard.likeMe.drinking_status') }}": profile.profile.drinking_status,
                     "{{ __('userDashboard.likeMe.smoking_status') }}": profile.profile.smoking_status !==
                         null ?
                         (profile.profile.smoking_status ? "{{ __('userDashboard.likeMe.yes') }}" :
                             "{{ __('userDashboard.likeMe.no') }}") : "{{ __('userDashboard.likeMe.na') }}",
-                    "{{ __('userDashboard.likeMe.drinking_status') }}": profile.profile.drinking_status,
+                            "{{ __('userDashboard.likeMe.smoking_tools') }}": profile.profile.smoking_tools,
+
+                    "{{ __('userDashboard.likeMe.hobbies') }}": profile.profile.hobbies,
+                    "{{ __('userDashboard.likeMe.pets') }}": profile.profile.pets,
                 },
                 "{{ __('userDashboard.likeMe.physical') }}": {
                     "{{ __('userDashboard.likeMe.height') }}": profile.profile.height,
                     "{{ __('userDashboard.likeMe.weight') }}": profile.profile.weight,
                     "{{ __('userDashboard.likeMe.sports_activity') }}": profile.profile.sports_activity,
+                    "{{ __('userDashboard.likeMe.skin_color') }}": profile.profile.skin_color,
+                    "{{ __('userDashboard.likeMe.hair_color') }}": profile.profile.hair_color,
                 },
                 "{{ __('userDashboard.likeMe.social') }}": {
                     "{{ __('userDashboard.likeMe.social_media_presence') }}": profile.profile
                         .social_media_presence,
                 },
-                "{{ __('userDashboard.likeMe.interests') }}": {
-                    "{{ __('userDashboard.likeMe.smoking_tools') }}": profile.profile.smoking_tools,
-                    "{{ __('userDashboard.likeMe.hobbies') }}": profile.profile.hobbies,
-                    "{{ __('userDashboard.likeMe.pets') }}": profile.profile.pets,
-                }
+                // "{{ __('userDashboard.likeMe.interests') }}": {
+
+                // }
             };
         }
 
@@ -484,7 +502,7 @@ async function initializeMatches() {
                 e.preventDefault();
                 const match = $(this).data('profile');
                 const profile = match.matched_user;
-
+                // console.log('Profile data:', profile.profile.country_of_residence);
                 const matchedUserId = profile.id;
                 $('#revealContactBtn').data('matchedUserId', matchedUserId);
                 $('#removeMatchBtn').data('matchId', match.match_id);
@@ -498,6 +516,8 @@ async function initializeMatches() {
                 $('#modalAge').text(profile.profile.age || 'N/A');
                 $('#modalNationality').text(profile.profile.nationality || 'N/A');
                 $('#modalCity').text(profile.profile.city || 'N/A');
+                $('#modalCountryOfResidence').text(profile.profile.country_of_residence || 'N/A');
+                $('#modalCountryOfOrigin ').text(profile.profile.origin || 'N/A');
                 $('#modalPhone').text(profile.profile.guardian_contact || profile.phone_number || 'N/A');
                 $('#contactLabel').text(profile.gender === 'male' ?
                     "{{ __('userDashboard.matches.phone_number') }}:" :
