@@ -624,7 +624,7 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                {{-- <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.number_of_children') }}</label>
@@ -634,7 +634,7 @@
                                                         <span class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.pets') }}</label>

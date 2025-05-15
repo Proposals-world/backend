@@ -257,9 +257,9 @@
                         "{{ __('userDashboard.likeMe.financial_status') }}": profile.profile.financial_status,
                     },
                     "{{ __('userDashboard.likeMe.lifestyle') }}": {
-                        "{{ __('userDashboard.likeMe.hijab_status') }}": profile.profile.hijab_status !== null ?
-                            (profile.profile.hijab_status ? "{{ __('userDashboard.likeMe.yes') }}" :
-                                "{{ __('userDashboard.likeMe.no') }}") : "{{ __('userDashboard.likeMe.na') }}",
+                        // "{{ __('userDashboard.likeMe.hijab_status') }}": profile.profile.hijab_status !== null ?
+                        //     (profile.profile.hijab_status ? "{{ __('userDashboard.likeMe.yes') }}" :
+                        //         "{{ __('userDashboard.likeMe.no') }}") : "{{ __('userDashboard.likeMe.na') }}",
                         "{{ __('userDashboard.likeMe.smoking_status') }}": profile.profile.smoking_status !==
                             null ?
                             (profile.profile.smoking_status ? "{{ __('userDashboard.likeMe.yes') }}" :

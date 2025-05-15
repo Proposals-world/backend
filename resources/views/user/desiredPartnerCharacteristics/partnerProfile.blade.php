@@ -72,7 +72,8 @@
                         <h1>{{ ucfirst(auth()->user()->first_name) . ' ' . ucfirst(auth()->user()->last_name) }}</h1>
                         <div class="text-zero top-right-button-container">
                             <button type="submit"
-                                class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single">
+                                class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"
+                                >
                                 {{ __('profile.Desired_Partner_characteristics') }}
                             </button>
 
@@ -169,41 +170,7 @@
                                                                 </select>
                                                             </div>
                                                         @endif
-                                                        <!-- Height -->
-                                                        @if (!empty($data['heights']))
-                                                            <div class="form-group">
-                                                                <label class="form-label"
-                                                                    for="preferred_height">{{ __('profile.height') }}</label>
-                                                                <select class="form-control" name="preferred_height_id">
-                                                                    <option value="">
-                                                                        {{ __('profile.No_Preference') }}</option>
-                                                                    @foreach ($data['heights'] as $option)
-                                                                        <option value="{{ $option->id }}"
-                                                                            {{ $userPreferences['preferred_height'] == $option->name ? 'selected' : '' }}>
-                                                                            {{ $option->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        @endif
 
-                                                        <!-- Weight -->
-                                                        @if (!empty($data['weights']))
-                                                            <div class="form-group">
-                                                                <label class="form-label"
-                                                                    for="preferred_weight">{{ __('profile.weight') }}</label>
-                                                                <select class="form-control" name="preferred_weight_id">
-                                                                    <option value="">
-                                                                        {{ __('profile.No_Preference') }}</option>
-                                                                    @foreach ($data['weights'] as $option)
-                                                                        <option value="{{ $option->id }}"
-                                                                            {{ $userPreferences['preferred_weight'] == $option->name ? 'selected' : '' }}>
-                                                                            {{ $option->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        @endif
                                                         {{-- Age Range --}}
                                                         <div class="form-group">
                                                             <label
@@ -253,7 +220,372 @@
                                             </div>
                                         </div>
 
-                                        <!-- Lifestyle & Habits -->
+                                        {{-- Skin Color & Hair Color --}}
+                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="fas fa-user"></i> {{ __('profile.Appearance') }}
+                                                    </h5>
+
+                                                    {{-- Skin Color --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('profile.Skin_Color') }}</label>
+                                                        <select class="form-control" name="preferred_skin_color_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['skinColors'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_skin_color'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    {{-- Hair Color --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('profile.Hair_Color') }}</label>
+                                                        <select class="form-control" name="preferred_hair_color_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['hairColors'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_hair_color'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                         <!-- Height -->
+                                                        @if (!empty($data['heights']))
+                                                            <div class="form-group">
+                                                                <label class="form-label"
+                                                                    for="preferred_height">{{ __('profile.height') }}</label>
+                                                                <select class="form-control" name="preferred_height_id">
+                                                                    <option value="">
+                                                                        {{ __('profile.No_Preference') }}</option>
+                                                                    @foreach ($data['heights'] as $option)
+                                                                        <option value="{{ $option->id }}"
+                                                                            {{ $userPreferences['preferred_height'] == $option->name ? 'selected' : '' }}>
+                                                                            {{ $option->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        @endif
+
+                                                        <!-- Weight -->
+                                                        @if (!empty($data['weights']))
+                                                            <div class="form-group">
+                                                                <label class="form-label"
+                                                                    for="preferred_weight">{{ __('profile.weight') }}</label>
+                                                                <select class="form-control" name="preferred_weight_id">
+                                                                    <option value="">
+                                                                        {{ __('profile.No_Preference') }}</option>
+                                                                    @foreach ($data['weights'] as $option)
+                                                                        <option value="{{ $option->id }}"
+                                                                            {{ $userPreferences['preferred_weight'] == $option->name ? 'selected' : '' }}>
+                                                                            {{ $option->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        @endif
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Location Info Card -->
+                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="card">
+
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="simple-icon-location-pin"></i>
+                                                        {{ __('profile.Location_Info') }}
+                                                    </h5>
+
+
+                                                    {{-- Country of Residence --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="country_id">{{ __('profile.Country_of_Residence') }}</label>
+                                                        <select class="form-control" name="preferred_country_id"
+                                                            id="country_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['countries'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ old('country_of_residence', $userPreferences['preferred_country'] ?? '') == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+
+
+                                                    {{-- City --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="city_id">{{ __('profile.City') }}</label>
+                                                        <select class="form-control" name="preferred_city_id"
+                                                            id="city_id">
+                                                            <option value="">{{ __('onboarding.select_city') }}
+                                                            </option>
+                                                            @if (!empty($cities))
+                                                                @foreach ($cities as $city)
+                                                                    <option value="{{ $city->id }}"
+                                                                        {{ $userPreferences['preferred_city'] == $city->name ? 'selected' : '' }}>
+                                                                        {{ $city->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @elseif(!empty($userPreferences['preferred_city']))
+                                                                <option selected
+                                                                    value="{{ $userPreferences['preferred_city'] }}">
+                                                                    {{ $userPreferences['preferred_city'] }}</option>
+                                                            @endif
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--  Education -->
+                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="card">
+
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="simple-icon-graduation"></i>
+                                                        {{ __('profile.Education') }}
+                                                    </h5>
+
+                                                    {{-- Educational Level --}}
+                                                    <div class="form-group ">
+                                                        <label class="form-label"
+                                                            for="preferred_educational_level">{{ __('profile.Educational_Level') }}</label>
+                                                        <select class="form-control"
+                                                            name="preferred_educational_level_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['educationalLevels'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_educational_level'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    {{-- Specialization --}}
+                                                    <div class="form-group ">
+                                                        <label class="form-label"
+                                                            for="preferred_specialization">{{ __('profile.Specialization') }}</label>
+                                                        <select class="form-control" name="preferred_specialization_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['specializations'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_specialization'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <!--  Hobbies && Pets -->
+                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="card">
+
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="fas fa-paw"></i> {{ __('profile.Hobbies_&_Pets') }}
+                                                    </h5>
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div> --}}
+
+                                        {{-- Religion & Marriage --}}
+                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="simple-icon-diamond"></i>
+                                                        {{ __('profile.Religion_&_Marriage') }}
+                                                    </h5>
+
+                                                    {{-- Religion --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_religiosity_level">{{ __('profile.Religion') }}</label>
+                                                        <select class="form-control" name="preferred_religion_id" id="religion_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['religions'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_religion'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+
+                                                    </div>
+                                                    {{-- Religiosity Level --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
+                                                        <select class="form-control" name="preferred_religiosity_level_id"
+                                                            id="preferred_religiosity_level">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            {{-- make it loaded when the user alerady has value --}}
+                                                            {{-- @foreach ($data['religiousLevels'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_religiosity_level'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach --}}
+                                                        </select>
+                                                    </div>
+
+                                                    {{-- Children Count --}}
+                                                    {{-- <div class="form-group">
+                                                        <label
+                                                            class="form-label">{{ __('profile.Children_Count') }}</label>
+                                                        <input type="number" class="form-control"
+                                                            name="preferred_children_count" min="0"
+                                                            value="{{ $userPreferences['preferred_children_count'] }}">
+                                                    </div> --}}
+                                                    {{-- Marriage Budget --}}
+                                                    @if (Auth::check() && Auth::user()->gender == 'female')
+                                                        {{-- Hijab Status --}}
+                                                        <div class="form-group">
+                                                            <label
+                                                                class="form-label">{{ __('profile.Hijab_Status') }}</label>
+                                                            <select class="form-control" name="preferred_hijab_status">
+                                                                <option value=""
+                                                                    {{ is_null($userPreferences['preferred_hijab_status']) || $userPreferences['preferred_hijab_status'] == 3 ? 'selected' : '' }}>
+                                                                    {{ __('profile.No_Preference') }}</option>
+                                                                <option value="1"
+                                                                    {{ $userPreferences['preferred_hijab_status'] == 1 ? 'selected' : '' }}>
+                                                                    {{ __('profile.Yes') }}</option>
+                                                                <option value="0"
+                                                                    {{ $userPreferences['preferred_hijab_status'] == 0 ? 'selected' : '' }}>
+                                                                    {{ __('profile.No') }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label"
+                                                                for="preferred_marriage_budget">{{ __('profile.Marriage_Budget') }}</label>
+                                                            <select class="form-control"
+                                                                name="preferred_marriage_budget_id"
+                                                                id="preferred_marriage_budget">
+                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                </option>
+                                                                @foreach ($data['marriageBudget'] as $option)
+                                                                    <option value="{{ $option->id }}"
+                                                                        {{ $userPreferences['preferred_marriage_budget'] == $option->name ? 'selected' : '' }}>
+                                                                        {{ $option->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    @endif
+                                                              {{-- Marital Status --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_marital_status">{{ __('profile.Marital_Status') }}</label>
+                                                        <select class="form-control" name="preferred_marital_status_id">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['maritalStatuses'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_marital_status'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    {{-- (اختياري) Religion و Hijab Status إذا كنت تستخدمهم مستقبلاً --}}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Employment Card -->
+                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="card">
+
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="simple-icon-briefcase"></i>
+                                                        {{ __('profile.Employment') }}
+                                                    </h5>
+
+                                                    {{-- Job Title --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_job_title">{{ __('profile.Job_Title') }}</label>
+                                                        <select class="form-control" name="preferred_job_title_id"
+                                                            id="preferred_job_title">
+                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            </option>
+                                                            @foreach ($data['jobTitles'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_job_title'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    {{-- Employment Status --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_employment_status">{{ __('profile.Employment_Status') }}</label>
+                                                            <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
+                                                                {{-- NULL = No Preference --}}
+                                                                <option value=""
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === null ? 'selected' : '' }}>
+                                                                    {{ __('profile.No_Preference') }}
+                                                                </option>
+
+                                                                {{-- 1 = Employed --}}
+                                                                <option value="1"
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
+                                                                    {{ App::isLocale('ar') ? 'موظف' : __('profile.Employed') }}
+                                                                </option>
+
+                                                                {{-- 0 = Unemployed --}}
+                                                                <option value="0"
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
+                                                                    {{ App::isLocale('ar') ? 'عاطل عن العمل' : __('profile.Unemployed') }}
+                                                                </option>
+                                                            </select>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                             <!-- Lifestyle & Habits -->
                                         <div class="col-lg-6 col-12 mb-4">
                                             <div class="card">
 
@@ -391,120 +723,7 @@
                                                             </select>
                                                         </div>
                                                     @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Location Info Card -->
-                                        <div class="col-lg-6 col-12 mb-4">
-                                            <div class="card">
-
-
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <i class="simple-icon-location-pin"></i>
-                                                        {{ __('profile.Location_Info') }}
-                                                    </h5>
-
-
-                                                    {{-- Country of Residence --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="country_id">{{ __('profile.Country_of_Residence') }}</label>
-                                                        <select class="form-control" name="preferred_country_id"
-                                                            id="country_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['countries'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ old('country_of_residence', $userPreferences['preferred_country'] ?? '') == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-
-
-                                                    {{-- City --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="city_id">{{ __('profile.City') }}</label>
-                                                        <select class="form-control" name="preferred_city_id"
-                                                            id="city_id">
-                                                            <option value="">{{ __('onboarding.select_city') }}
-                                                            </option>
-                                                            @if (!empty($cities))
-                                                                @foreach ($cities as $city)
-                                                                    <option value="{{ $city->id }}"
-                                                                        {{ $userPreferences['preferred_city'] == $city->name ? 'selected' : '' }}>
-                                                                        {{ $city->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @elseif(!empty($userPreferences['preferred_city']))
-                                                                <option selected
-                                                                    value="{{ $userPreferences['preferred_city'] }}">
-                                                                    {{ $userPreferences['preferred_city'] }}</option>
-                                                            @endif
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--  Education -->
-                                        <div class="col-lg-6 col-12 mb-4">
-                                            <div class="card">
-
-
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <i class="simple-icon-graduation"></i>
-                                                        {{ __('profile.Education') }}
-                                                    </h5>
-
-                                                    {{-- Educational Level --}}
-                                                    <div class="form-group ">
-                                                        <label class="form-label"
-                                                            for="preferred_educational_level">{{ __('profile.Educational_Level') }}</label>
-                                                        <select class="form-control"
-                                                            name="preferred_educational_level_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['educationalLevels'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_educational_level'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                    {{-- Specialization --}}
-                                                    <div class="form-group ">
-                                                        <label class="form-label"
-                                                            for="preferred_specialization">{{ __('profile.Specialization') }}</label>
-                                                        <select class="form-control" name="preferred_specialization_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['specializations'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_specialization'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--  Hobbies && Pets -->
-                                        <div class="col-lg-6 col-12 mb-4">
-                                            <div class="card">
-
-
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <i class="fas fa-paw"></i> {{ __('profile.Hobbies_&_Pets') }}
-                                                    </h5>
-                                                    {{-- Hobbies --}}
+                                                      {{-- Hobbies --}}
 
                                                     <div class="form-group w-100">
                                                         <label class="form-label">
@@ -540,170 +759,11 @@
                                                         <span class="error-message text-danger"
                                                             style="font-size:12px;"></span>
                                                     </div>
-
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Employment Card -->
-                                        <div class="col-lg-6 col-12 mb-4">
-                                            <div class="card">
-
-
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <i class="simple-icon-briefcase"></i>
-                                                        {{ __('profile.Employment') }}
-                                                    </h5>
-
-                                                    {{-- Job Title --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="preferred_job_title">{{ __('profile.Job_Title') }}</label>
-                                                        <select class="form-control" name="preferred_job_title_id"
-                                                            id="preferred_job_title">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['jobTitles'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_job_title'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                    {{-- Employment Status --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="preferred_employment_status">{{ __('profile.Employment_Status') }}</label>
-                                                            <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
-                                                                {{-- NULL = No Preference --}}
-                                                                <option value=""
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === null ? 'selected' : '' }}>
-                                                                    {{ __('profile.No_Preference') }}
-                                                                </option>
-
-                                                                {{-- 1 = Employed --}}
-                                                                <option value="1"
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
-                                                                    {{ App::isLocale('ar') ? 'موظف' : __('profile.Employed') }}
-                                                                </option>
-
-                                                                {{-- 0 = Unemployed --}}
-                                                                <option value="0"
-                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
-                                                                    {{ App::isLocale('ar') ? 'عاطل عن العمل' : __('profile.Unemployed') }}
-                                                                </option>
-                                                            </select>
-
-                                                    </div>
-
-
-
                                                 </div>
                                             </div>
                                         </div>
 
-
-
-                                        {{-- Religion & Marriage --}}
-                                        <div class="col-lg-6 col-12 mb-4">
-                                            <div class="card">
-
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <i class="simple-icon-diamond"></i>
-                                                        {{ __('profile.Religion_&_Marriage') }}
-                                                    </h5>
-
-                                                    {{-- Religion --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="preferred_religiosity_level">{{ __('profile.Religion') }}</label>
-                                                        <select class="form-control" name="preferred_religion_id" id="religion_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['religions'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_religion'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-
-                                                    </div>
-                                                    {{-- Religiosity Level --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
-                                                        <select class="form-control" name="preferred_religiosity_level_id"
-                                                            id="preferred_religiosity_level">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            {{-- make it loaded when the user alerady has value --}}
-                                                            {{-- @foreach ($data['religiousLevels'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_religiosity_level'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach --}}
-                                                        </select>
-                                                    </div>
-
-                                                    {{-- Children Count --}}
-                                                    <div class="form-group">
-                                                        <label
-                                                            class="form-label">{{ __('profile.Children_Count') }}</label>
-                                                        <input type="number" class="form-control"
-                                                            name="preferred_children_count" min="0"
-                                                            value="{{ $userPreferences['preferred_children_count'] }}">
-                                                    </div>
-                                                    {{-- Marriage Budget --}}
-                                                    @if (Auth::check() && Auth::user()->gender == 'female')
-                                                        {{-- Hijab Status --}}
-                                                        <div class="form-group">
-                                                            <label
-                                                                class="form-label">{{ __('profile.Hijab_Status') }}</label>
-                                                            <select class="form-control" name="preferred_hijab_status">
-                                                                <option value=""
-                                                                    {{ is_null($userPreferences['preferred_hijab_status']) || $userPreferences['preferred_hijab_status'] == 3 ? 'selected' : '' }}>
-                                                                    {{ __('profile.No_Preference') }}</option>
-                                                                <option value="1"
-                                                                    {{ $userPreferences['preferred_hijab_status'] == 1 ? 'selected' : '' }}>
-                                                                    {{ __('profile.Yes') }}</option>
-                                                                <option value="0"
-                                                                    {{ $userPreferences['preferred_hijab_status'] == 0 ? 'selected' : '' }}>
-                                                                    {{ __('profile.No') }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="form-label"
-                                                                for="preferred_marriage_budget">{{ __('profile.Marriage_Budget') }}</label>
-                                                            <select class="form-control"
-                                                                name="preferred_marriage_budget_id"
-                                                                id="preferred_marriage_budget">
-                                                                <option value="">{{ __('profile.No_Preference') }}
-                                                                </option>
-                                                                @foreach ($data['marriageBudget'] as $option)
-                                                                    <option value="{{ $option->id }}"
-                                                                        {{ $userPreferences['preferred_marriage_budget'] == $option->name ? 'selected' : '' }}>
-                                                                        {{ $option->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    @endif
-
-                                                    {{-- (اختياري) Religion و Hijab Status إذا كنت تستخدمهم مستقبلاً --}}
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-6 col-12 mb-4">
+                                            <div class="col-lg-6 col-12 mb-4">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">
@@ -711,21 +771,7 @@
                                                         {{ __('profile.Housing_&_Financial_Info') }}
                                                     </h5>
 
-                                                    {{-- Marital Status --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label"
-                                                            for="preferred_marital_status">{{ __('profile.Marital_Status') }}</label>
-                                                        <select class="form-control" name="preferred_marital_status_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['maritalStatuses'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_marital_status'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+
 
                                                     {{-- Financial Status --}}
                                                     <div class="form-group ">
@@ -766,47 +812,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- Skin Color & Hair Color --}}
-                                        <div class="col-lg-6 col-12 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <i class="fas fa-user"></i> {{ __('profile.Appearance') }}
-                                                    </h5>
-
-                                                    {{-- Skin Color --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('profile.Skin_Color') }}</label>
-                                                        <select class="form-control" name="preferred_skin_color_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['skinColors'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_skin_color'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                    {{-- Hair Color --}}
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('profile.Hair_Color') }}</label>
-                                                        <select class="form-control" name="preferred_hair_color_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
-                                                            </option>
-                                                            @foreach ($data['hairColors'] as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ $userPreferences['preferred_hair_color'] == $option->name ? 'selected' : '' }}>
-                                                                    {{ $option->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
 
 
                                         {{-- <div class="col-lg-6 col-12 mb-4">
@@ -903,16 +908,23 @@
                                 </div>
                                     @endif --}}
 
-
                                     </div>
 
 
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
 
+                <div class="d-flex justify-content-end"
+                >
+                    <button type="submit"
+                        class="btn btn-lg btn-primary mt-3 top-right-button top-right-button-single">
+                        {{ __('profile.Desired_Partner_characteristics') }}
+                    </button>
+                </div>
 
                 </form>
             </div>
