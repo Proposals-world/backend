@@ -19,7 +19,8 @@ return [
     'bio_en' => 'نبذة تعريفية (باللغة الإنجليزية)',
     'bio_ar' => 'نبذة تعريفية (باللغة العربية)',
     'date_of_birth' => 'تاريخ الميلاد',
-
+    'nicknamePlaceholder' => 'الاسم المستعار',
+    'nickname' => 'الاسم المستعار',
     // Physical Attributes Step
     'physical_attributes' => 'الصفات الجسدية',
     'height' => 'الطول',
@@ -149,12 +150,12 @@ return [
     'own_car'    => 'يمتلك سيارة',
     'select_social_media_presence'  => 'اختر التواجد على وسائل التواصل الاجتماعي',
     'no_car' => 'لا يمتلك سيارة',
-'nationality_city_residence' => 'الجنسية، المدينة، والإقامة',
+    'nationality_city_residence' => 'الجنسية، المدينة، والإقامة',
 
     'valid_email_message' => 'يرجى إدخال بريد إلكتروني صالح للتحقق.',
     'select_sports_activity' => 'اختر نشاط رياضي',
-'select_religion' => 'اختر الدين', 
-'select_origin' => 'اختر الأصل',
+    'select_religion' => 'اختر الدين',
+    'select_origin' => 'اختر الأصل',
     'required'                 => 'هذا الحقل مطلوب.',
     'invalid_email'            => 'يرجى إدخال عنوان بريد إلكتروني صالح.',
     'password_min'             => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.',

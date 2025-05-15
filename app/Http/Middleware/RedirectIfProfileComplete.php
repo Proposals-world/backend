@@ -41,6 +41,7 @@ class RedirectIfProfileComplete
     {
         $user = $request->user();
 
+
         if ($user && $user->profile) {
             $attributes = $user->profile->getAttributes();
             $isComplete = true;
