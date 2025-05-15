@@ -129,7 +129,7 @@
 
                                                 <div class="card-body">
                                                     <h5 class="card-title">
-                                                        <i class="simple-icon-user"></i> {{ __('profile.Personal_Info') }}
+                                                        <i class="simple-icon-user"></i> {{ __('profile.Partner_Personal_Info') }}
                                                     </h5>
                                                     <div>
 
@@ -137,10 +137,10 @@
                                                         @if (!empty($data['nationalities']))
                                                             <div class="form-group">
                                                                 <label class="form-label"
-                                                                    for="preferred_nationality">{{ __('profile.Nationality') }}</label>
+                                                                    for="preferred_nationality">{{ __('profile.Partner_Nationality') }}</label>
                                                                 <select class="form-control"
                                                                     name="preferred_nationality_id">
-                                                                    <option value="">{{ __('profile.No_Preference') }}
+                                                                    <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                     </option>
                                                                     @foreach ($data['nationalities'] as $option)
                                                                         <option value="{{ $option->id }}"
@@ -157,10 +157,10 @@
                                                         @if (!empty($data['origins']))
                                                             <div class="form-group">
                                                                 <label class="form-label"
-                                                                    for="preferred_origin">{{ __('profile.Origin') }}</label>
+                                                                    for="preferred_origin">{{ __('profile.Partner_Origin') }}</label>
                                                                 <select class="form-control" name="preferred_origin_id">
                                                                     <option value="">
-                                                                        {{ __('profile.No_Preference') }}</option>
+                                                                        {{ __('profile.Partner_No_Preference') }}</option>
                                                                     @foreach ($data['origins'] as $option)
                                                                         <option value="{{ $option->id }}"
                                                                             {{ $userPreferences['preferred_origin'] == $option->name ? 'selected' : '' }}>
@@ -174,7 +174,7 @@
                                                         {{-- Age Range --}}
                                                         <div class="form-group">
                                                             <label
-                                                                class="form-label d-block mb-2">{{ __('profile.Age') }}</label>
+                                                                class="form-label d-block mb-2">{{ __('profile.Partner_Age') }}</label>
 
                                                             {{-- Top Labels --}}
                                                             <div class="d-flex justify-content-between px-2 mt-2">
@@ -225,14 +225,14 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">
-                                                        <i class="fas fa-user"></i> {{ __('profile.Appearance') }}
+                                                        <i class="fas fa-user"></i> {{ __('profile.Partner_Appearance') }}
                                                     </h5>
 
                                                     {{-- Skin Color --}}
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('profile.Skin_Color') }}</label>
+                                                        <label class="form-label">{{ __('profile.Partner_Skin_Color') }}</label>
                                                         <select class="form-control" name="preferred_skin_color_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['skinColors'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -245,9 +245,9 @@
 
                                                     {{-- Hair Color --}}
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('profile.Hair_Color') }}</label>
+                                                        <label class="form-label">{{ __('profile.Partner_Hair_Color') }}</label>
                                                         <select class="form-control" name="preferred_hair_color_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['hairColors'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -261,10 +261,10 @@
                                                         @if (!empty($data['heights']))
                                                             <div class="form-group">
                                                                 <label class="form-label"
-                                                                    for="preferred_height">{{ __('profile.height') }}</label>
+                                                                    for="preferred_height">{{ __('profile.Partner_height') }}</label>
                                                                 <select class="form-control" name="preferred_height_id">
                                                                     <option value="">
-                                                                        {{ __('profile.No_Preference') }}</option>
+                                                                        {{ __('profile.Partner_No_Preference') }}</option>
                                                                     @foreach ($data['heights'] as $option)
                                                                         <option value="{{ $option->id }}"
                                                                             {{ $userPreferences['preferred_height'] == $option->name ? 'selected' : '' }}>
@@ -279,10 +279,10 @@
                                                         @if (!empty($data['weights']))
                                                             <div class="form-group">
                                                                 <label class="form-label"
-                                                                    for="preferred_weight">{{ __('profile.weight') }}</label>
+                                                                    for="preferred_weight">{{ __('profile.Partner_weight') }}</label>
                                                                 <select class="form-control" name="preferred_weight_id">
                                                                     <option value="">
-                                                                        {{ __('profile.No_Preference') }}</option>
+                                                                        {{ __('profile.Partner_No_Preference') }}</option>
                                                                     @foreach ($data['weights'] as $option)
                                                                         <option value="{{ $option->id }}"
                                                                             {{ $userPreferences['preferred_weight'] == $option->name ? 'selected' : '' }}>
@@ -313,10 +313,10 @@
                                                     {{-- Country of Residence --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="country_id">{{ __('profile.Country_of_Residence') }}</label>
+                                                            for="country_id">{{ __('profile.Partner_Country_of_Residence') }}</label>
                                                         <select class="form-control" name="preferred_country_id"
                                                             id="country_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['countries'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -332,7 +332,7 @@
                                                     {{-- City --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="city_id">{{ __('profile.City') }}</label>
+                                                            for="city_id">{{ __('profile.Partner_City') }}</label>
                                                         <select class="form-control" name="preferred_city_id"
                                                             id="city_id">
                                                             <option value="">{{ __('onboarding.select_city') }}
@@ -363,16 +363,16 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">
                                                         <i class="simple-icon-graduation"></i>
-                                                        {{ __('profile.Education') }}
+                                                        {{ __('profile.Partner_Education') }}
                                                     </h5>
 
                                                     {{-- Educational Level --}}
                                                     <div class="form-group ">
                                                         <label class="form-label"
-                                                            for="preferred_educational_level">{{ __('profile.Educational_Level') }}</label>
+                                                            for="preferred_educational_level">{{ __('profile.Partner_Educational_Level') }}</label>
                                                         <select class="form-control"
                                                             name="preferred_educational_level_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['educationalLevels'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -385,9 +385,9 @@
                                                     {{-- Specialization --}}
                                                     <div class="form-group ">
                                                         <label class="form-label"
-                                                            for="preferred_specialization">{{ __('profile.Specialization') }}</label>
+                                                            for="preferred_specialization">{{ __('profile.Partner_Specialization') }}</label>
                                                         <select class="form-control" name="preferred_specialization_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['specializations'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -423,15 +423,15 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">
                                                         <i class="simple-icon-diamond"></i>
-                                                        {{ __('profile.Religion_&_Marriage') }}
+                                                        {{ __('profile.Partner_Religion_&_Marriage') }}
                                                     </h5>
 
                                                     {{-- Religion --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="preferred_religiosity_level">{{ __('profile.Religion') }}</label>
+                                                            for="preferred_religiosity_level">{{ __('profile.Partner_Religion') }}</label>
                                                         <select class="form-control" name="preferred_religion_id" id="religion_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['religions'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -445,10 +445,10 @@
                                                     {{-- Religiosity Level --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="preferred_religiosity_level">{{ __('profile.Religiosity_Level') }}</label>
+                                                            for="preferred_religiosity_level">{{ __('profile.Partner_Religiosity_Level') }}</label>
                                                         <select class="form-control" name="preferred_religiosity_level_id"
                                                             id="preferred_religiosity_level">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             {{-- make it loaded when the user alerady has value --}}
                                                             {{-- @foreach ($data['religiousLevels'] as $option)
@@ -473,11 +473,11 @@
                                                         {{-- Hijab Status --}}
                                                         <div class="form-group">
                                                             <label
-                                                                class="form-label">{{ __('profile.Hijab_Status') }}</label>
+                                                                class="form-label">{{ __('profile.Partner_Hijab_Status') }}</label>
                                                             <select class="form-control" name="preferred_hijab_status">
                                                                 <option value=""
                                                                     {{ is_null($userPreferences['preferred_hijab_status']) || $userPreferences['preferred_hijab_status'] == 3 ? 'selected' : '' }}>
-                                                                    {{ __('profile.No_Preference') }}</option>
+                                                                    {{ __('profile.Partner_No_Preference') }}</option>
                                                                 <option value="1"
                                                                     {{ $userPreferences['preferred_hijab_status'] == 1 ? 'selected' : '' }}>
                                                                     {{ __('profile.Yes') }}</option>
@@ -488,11 +488,11 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="form-label"
-                                                                for="preferred_marriage_budget">{{ __('profile.Marriage_Budget') }}</label>
+                                                                for="preferred_marriage_budget">{{ __('profile.Partner_Marriage_Budget') }}</label>
                                                             <select class="form-control"
                                                                 name="preferred_marriage_budget_id"
                                                                 id="preferred_marriage_budget">
-                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 @foreach ($data['marriageBudget'] as $option)
                                                                     <option value="{{ $option->id }}"
@@ -506,9 +506,9 @@
                                                               {{-- Marital Status --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="preferred_marital_status">{{ __('profile.Marital_Status') }}</label>
+                                                            for="preferred_marital_status">{{ __('profile.Partner_Marital_Status') }}</label>
                                                         <select class="form-control" name="preferred_marital_status_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['maritalStatuses'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -531,16 +531,16 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">
                                                         <i class="simple-icon-briefcase"></i>
-                                                        {{ __('profile.Employment') }}
+                                                        {{ __('profile.Partner_Employment') }}
                                                     </h5>
 
                                                     {{-- Job Title --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="preferred_job_title">{{ __('profile.Job_Title') }}</label>
+                                                            for="preferred_job_title">{{ __('profile.Partner_Job_Title') }}</label>
                                                         <select class="form-control" name="preferred_job_title_id"
                                                             id="preferred_job_title">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['jobTitles'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -554,12 +554,12 @@
                                                     {{-- Employment Status --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="preferred_employment_status">{{ __('profile.Employment_Status') }}</label>
+                                                            for="preferred_employment_status">{{ __('profile.Partner_Employment_Status') }}</label>
                                                             <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
                                                                 {{-- NULL = No Preference --}}
                                                                 <option value=""
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === null ? 'selected' : '' }}>
-                                                                    {{ __('profile.No_Preference') }}
+                                                                    {{ __('profile.Partner_No_Preference') }}
                                                                 </option>
 
                                                                 {{-- 1 = Employed --}}
@@ -593,18 +593,18 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">
                                                         <i class="simple-icon-heart"></i>
-                                                        {{ __('profile.Lifestyle_&_Habits') }}
+                                                        {{ __('profile.Partner_Lifestyle_&_Habits') }}
                                                     </h5>
 
                                                     {{-- Smoking Status --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
-                                                            for="preferred_smoking_status">{{ __('profile.Smoking_Status') }}</label>
+                                                            for="preferred_smoking_status">{{ __('profile.Partner_Smoking_Status') }}</label>
                                                             <select class="form-control" name="preferred_smoking_status" id="preferred_smoking_status">
                                                                 {{-- NULL = “No Preference” --}}
                                                                 <option value=""
                                                                     {{ is_null($userPreferences['preferred_smoking_status'] ?? null) ? 'selected' : '' }}>
-                                                                    {{ __('profile.No_Preference') }}
+                                                                    {{ __('profile.Partner_No_Preference') }}
                                                                 </option>
 
                                                                 {{-- 1 = Yes --}}
@@ -627,12 +627,12 @@
                                                         <div class="form-group smoking-tools-wrapper"
                                                             style="display: none;">
                                                             <label class="form-label">
-                                                                {{ __('onboarding.smoking_tools') }}
+                                                                {{ __('profile.Partner_smoking_tools') }}
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <select name="preferred_smoking_tools[]"
                                                                 class="form-control rounded-pill" multiple>
-                                                                <option value="null"> {{ __('profile.No_Preference') }}
+                                                                <option value="null"> {{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 @foreach ($data['smokingTools'] as $tool)
                                                                     <option value="{{ $tool->id }}"
@@ -652,9 +652,9 @@
                                                         {{-- Car Ownership --}}
                                                         <div class="form-group">
                                                             <label
-                                                                class="form-label">{{ __('profile.Car_Ownership') }}</label>
+                                                                class="form-label">{{ __('profile.Partner_Car_Ownership') }}</label>
                                                             <select class="form-control" name="preferred_car_ownership">
-                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 <option value="1"
                                                                     {{ $userPreferences['preferred_car_ownership'] ? 'selected' : '' }}>
@@ -670,11 +670,11 @@
                                                     @if (!empty($data['drinkingStatuses']))
                                                         <div class="form-group">
                                                             <label class="form-label"
-                                                                for="preferred_drinking_status">{{ __('profile.Drinking_Status') }}</label>
+                                                                for="preferred_drinking_status">{{ __('profile.Partner_Drinking_Status') }}</label>
                                                             <select class="form-control"
                                                                 name="preferred_drinking_status_id"
                                                                 id="preferred_drinking_status">
-                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 @foreach ($data['drinkingStatuses'] as $status)
                                                                     <option value="{{ $status->id }}"
@@ -690,9 +690,9 @@
                                                     @if (!empty($data['sleepHabits']))
                                                         <div class="form-group">
                                                             <label class="form-label"
-                                                                for="preferred_sleep_habit">{{ __('profile.Sleep_Habit') }}</label>
+                                                                for="preferred_sleep_habit">{{ __('profile.Partner_Sleep_Habit') }}</label>
                                                             <select class="form-control" name="preferred_sleep_habit_id">
-                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 @foreach ($data['sleepHabits'] as $option)
                                                                     <option value="{{ $option->id }}"
@@ -708,11 +708,11 @@
                                                     @if (!empty($data['sportsActivities']))
                                                         <div class="form-group">
                                                             <label class="form-label"
-                                                                for="preferred_sports_activity">{{ __('profile.Sports_Activity') }}</label>
+                                                                for="preferred_sports_activity">{{ __('profile.Partner_Sports_Activity') }}</label>
                                                             <select class="form-control"
                                                                 name="preferred_sports_activity_id"
                                                                 id="preferred_sports_activity">
-                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 @foreach ($data['sportsActivities'] as $option)
                                                                     <option value="{{ $option->id }}"
@@ -727,7 +727,7 @@
 
                                                     <div class="form-group w-100">
                                                         <label class="form-label">
-                                                            {{ __('profile.Hobbies') }}
+                                                            {{ __('profile.Partner_Hobbies') }}
                                                         </label>
                                                         <select name="preferred_hobbies_id[]"
                                                             class="form-control rounded-pill w-100" multiple>
@@ -745,7 +745,7 @@
                                                     {{-- Pets --}}
                                                     <div class="form-group w-100">
                                                         <label class="form-label">
-                                                            {{ __('profile.Pets') }}
+                                                            {{ __('profile.Partner_Pets') }}
                                                         </label>
                                                         <select name="preferred_pets_id[]"
                                                             class="form-control rounded-pill w-100" multiple>
@@ -768,7 +768,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">
                                                         <i class="simple-icon-home"></i>
-                                                        {{ __('profile.Housing_&_Financial_Info') }}
+                                                        {{ __('profile.Partner_Housing_&_Financial_Info') }}
                                                     </h5>
 
 
@@ -776,9 +776,9 @@
                                                     {{-- Financial Status --}}
                                                     <div class="form-group ">
                                                         <label class="form-label"
-                                                            for="preferred_financial_status">{{ __('profile.Financial_Status') }}</label>
+                                                            for="preferred_financial_status">{{ __('profile.Partner_Financial_Status') }}</label>
                                                         <select class="form-control" name="preferred_financial_status_id">
-                                                            <option value="">{{ __('profile.No_Preference') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @foreach ($data['financialStatuses'] as $option)
                                                                 <option value="{{ $option->id }}"
@@ -796,7 +796,7 @@
                                                                 class="form-label">{{ __('profile.Housing_Status') }}</label>
                                                             <select class="form-control"
                                                                 name="preferred_housing_status_id">
-                                                                <option value="">{{ __('profile.No_Preference') }}
+                                                                <option value="">{{ __('profile.Partner_No_Preference') }}
                                                                 </option>
                                                                 @foreach ($data['housingStatuses'] as $option)
                                                                     <option value="{{ $option->id }}"
@@ -1014,21 +1014,21 @@ $(document).ready(function () {
                         if (el.is('select[multiple]')) {
                             if (value && value.length > 0 && value.some(v => v !== '' && v !== 'null' && v !==
                                     'No Preference')) {
-                                console.log(`Multi-select ${name} counted:`, value);
+                                // console.log(`Multi-select ${name} counted:`, value);
                                 count += 1;
                             }
                         } else if (value && value !== '' && value !== 'null' && value !== 'No Preference') {
-                            console.log(`Input ${name} counted:`, value);
+                            // console.log(`Input ${name} counted:`, value);
                             count += 1;
                         }
                     });
 
                     if (ageMinVal !== 18 || ageMaxVal !== 65) {
-                        console.log(`Age range counted: ${ageMinVal} - ${ageMaxVal}`);
+                        // console.log(`Age range counted: ${ageMinVal} - ${ageMaxVal}`);
                         count += 1;
                     }
 
-                    console.log('Total count:', count);
+                    // console.log('Total count:', count);
                     return count;
                 }
 

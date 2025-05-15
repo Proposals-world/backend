@@ -607,7 +607,7 @@
                                             <h2 class="card-title text-center mb-4 section-title">
                                                 {{ __('onboarding.family_housing') }}</h2>
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.marital_status') }}</label>
@@ -635,7 +635,7 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div> --}}
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.pets') }}</label>
                                                         <select name="pets[]" class="form-control rounded-pill"
