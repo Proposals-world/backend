@@ -65,6 +65,7 @@ return [
         'no_likes_yet' => 'لا توجد إعجابات حتى الآن',
         'car_ownership' => 'امتلاك سيارة',
         'housing_status' => 'حالة السكن',
+        'marriage_budget' => 'ميزانية الزواج',
     ],
     'matches' => [
         'users_who_matched_with_you' => 'الأشخاص الذين تطابقت معهم',
@@ -195,6 +196,8 @@ return [
         'Other' => 'أخرى',
         'other_reason_en' => 'Other Reason (English)',
         'other_reason_ar' => 'Other Reason (Arabic)',
+        'review' => 'مراجعة',
+        'Not_Serious' => 'غير جاد',
     ],
     'support' => [
         'title' => 'تذاكر الدعم',
@@ -271,7 +274,11 @@ return [
         'marriage_budget' => 'ميزانية الزواج',
         'children' => 'الأطفال',
         'social_media_presence' => 'التواجد على وسائل التواصل الاجتماعي',
-        'find_matches' => 'البحث عن مطابقات'
+        'find_matches' => 'البحث عن مطابقات',
+        'job_domain' => 'مجال العمل',
+        'any' => '-- أي --',
+        'Select Country First' => '-- اختر البلد أولاً --',
+        'Find Matches' => 'البحث عن مطابقات',
     ],
 
 ];

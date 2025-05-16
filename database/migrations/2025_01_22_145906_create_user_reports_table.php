@@ -20,28 +20,16 @@ return new class extends Migration
             // Updated Enum for reasons (EN & AR)
             $table->enum('reason_en', [
                 'Inappropriate Photos',
-                'Harassment',
-                'Disrespectful Behavior',
-                'Asking for Haram (Forbidden)',
-                'Fake Profile',
-                'Spam or Advertising',
                 'Offensive Language',
-                'Not Serious About Marriage',
-                'Misleading Information',
+                'Spam or Advertising',
                 'Other',
             ])->default('Other');
 
             $table->enum('reason_ar', [
-                'صور غير لائقة',
-                'تحرش',
-                'سلوك غير محترم',
-                'طلب أمور محرمة',
-                'ملف شخصي مزيف',
-                'رسائل مزعجة أو إعلانات',
-                'ألفاظ مسيئة',
-                'عدم الجدية في الزواج',
-                'معلومات مضللة',
-                'أخرى',
+                'صور غير لائقة', // Inappropriate Photos
+                'ألفاظ مسيئة',   // Offensive Language
+                'رسائل مزعجة أو إعلانات', // Spam or Advertising
+                'أخرى',          // Other
             ])->default('أخرى');
             // Column for other reason (if 'other' is selected)
             $table->text('other_reason_en')->nullable(); // other reason in English

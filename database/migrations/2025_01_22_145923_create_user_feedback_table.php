@@ -27,6 +27,7 @@ return new class extends Migration
                 'Engagement Happened',
                 'Marriage Happened',
                 'Still in Communication',
+                'Not Serious',
             ])->nullable();
 
             $table->enum('feedback_text_ar', [
@@ -38,6 +39,7 @@ return new class extends Migration
                 'حدثت خطوبة',
                 'تم الزواج',
                 'ما زلنا على تواصل',
+                'غير جاد',
             ])->nullable();
 
             $table->string('outcome')->nullable(); // leave outcome as string if needed

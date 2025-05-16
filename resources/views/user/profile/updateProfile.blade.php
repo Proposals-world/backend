@@ -448,9 +448,9 @@ style="
 
                                         <div class="col-md-4 job-title-wrapper" style="display:none;">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.job_title') }}</label>
+                                                <label class="form-label">{{ __('onboarding.Job_Domain') }}</label>
                                                 <select name="job_title_id" class="form-control rounded-pill">
-                                                    <option value="">{{ __('onboarding.select_job_title') }}</option>
+                                                    <option value="">{{ __('onboarding.select_job_domain') }}</option>
                                                     @foreach ($data['jobTitles'] as $jobTitle)
                                                         <option value="{{ $jobTitle->id }}" {{ $user->profile->job_title_id == $jobTitle->id ? 'selected' : '' }}>
                                                             {{ $jobTitle->name }}
@@ -887,7 +887,7 @@ style="
                                                                 class="fas fa-phone"></i></span>
                                                     </div>
                                                     <input type="tel" name="guardian_contact"
-                                                        class="form-control rounded-right" required value="{{ $user->profile->guardian_contact_encrypted }}">
+                                                        class="form-control rounded-right" required value="{{ $user->profile->guardian_contact_encrypted }}" placeholder="07XXXXXXXX" pattern="[0-9]{10}" title="Phone number must be 10 digits starting with 07">
                                                 </div>
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>

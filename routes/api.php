@@ -46,8 +46,7 @@ use App\Http\Controllers\Api\SubscriptionCardsController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPreferenceController;
-
-
+use App\Http\Controllers\WhatsAppController;
 
 // Public Routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -135,5 +134,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('guardian-contact')->group(function () {
         Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
+        Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
     });
 });

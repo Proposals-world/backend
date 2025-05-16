@@ -165,7 +165,7 @@
                                                     data-toggle="modal"
                                                     data-target="#feedbackModal_{{ $match['id'] }}"
                                                     title="{{ __('userDashboard.dashboard.give_feedback_for') }}">
-                                                <i class="fas fa-comment"></i>
+                                                {{ __('userDashboard.dashboard.review') }}
                                             </button>
                                         </div>
                                     </div>
@@ -211,6 +211,7 @@
                                                             <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
                                                             <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
                                                             <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
+                                                            <option value="Not Serious">{{ __('userDashboard.dashboard.Not_Serious') }}</option>
                                                         </select>
 
 

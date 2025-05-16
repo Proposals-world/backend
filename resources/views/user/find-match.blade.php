@@ -182,21 +182,14 @@
                             <select id="reasonSelect" name="reason_en" class="form-control"onchange="toggleOtherReason()"
                                 required>
                                 <option value="Inappropriate Photos">
-                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
-                                <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
-                                <option value="Disrespectful Behavior">
-                                    {{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
-                                <option value="Asking for Haram (Forbidden)">
-                                    {{ __('userDashboard.dashboard.asking_for_haram') }}</option>
-                                <option value="Fake Profile">{{ __('userDashboard.dashboard.fake_profile') }}</option>
+                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}
+                                </option>
+                                <option value="Offensive Language">
+                                    {{ __('userDashboard.dashboard.offensive_language') }}
+                                </option>
                                 <option value="Spam or Advertising">
-                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
-                                <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}
+                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}
                                 </option>
-                                <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}
-                                </option>
-                                <option value="Misleading Information">
-                                    {{ __('userDashboard.dashboard.misleading_information') }}</option>
                                 <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
                             </select>
                             <div class="form-group d-none" id="otherReasonGroup">
@@ -241,9 +234,9 @@
     <div class="sub-menu show" id="matchFilters">
         <div class="scroll">
             <div class="filter-header">
-                <h6 class="sub-menu-title mb-0">Match Filters</h6>
+                <h6 class="sub-menu-title mb-0">{{ __('userDashboard.submenu.match_filters') }}</h6>
                 <button id="resetAllFilters" class="btn btn-sm btn-outline-danger">
-                    <i class="simple-icon-refresh"></i> Reset
+                    <i class="simple-icon-refresh"></i> {{ __('userDashboard.submenu.reset') }}
                 </button>
             </div>
             <div class="p-3">
@@ -253,7 +246,7 @@
 
                     {{-- BASIC INFO --}}
                     <div class="form-group">
-                        <label>Age Range</label>
+                        <label>{{ __('userDashboard.submenu.age_range') }}</label>
                         <div class="d-flex">
                             <input type="number" name="age_min" min="18" class="form-control mr-2"
                                 placeholder="Min">
@@ -261,9 +254,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Nationality</label>
+                        <label>{{ __('userDashboard.submenu.nationality') }}</label>
                         <select name="nationality_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['nationalities'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_nationality_id']) && $prefs['preferred_nationality_id'] == $item->id ? 'selected' : '' }}>
@@ -274,9 +267,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Country of Residence</label>
+                        <label>{{ __('userDashboard.submenu.country_of_residence') }}</label>
                         <select name="country_of_residence_id" id="country_of_residence_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['countries'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_country_id']) && $prefs['preferred_country_id'] == $item->id ? 'selected' : '' }}>
@@ -287,17 +280,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label>City</label>
+                        <label>{{ __('userDashboard.submenu.city') }}</label>
                         <select name="city_id" id="city_id" class="form-control">
-                            <option value="">-- Select Country First --</option>
+                            <option value="">{{ __('userDashboard.submenu.Select Country First') }}</option>
                         </select>
                     </div>
 
                     {{-- RELIGION --}}
                     <div class="form-group">
-                        <label>Religion</label>
+                        <label>{{ __('userDashboard.submenu.religion') }}</label>
                         <select name="religion_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['religions'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -305,9 +298,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Religiosity Level</label>
+                        <label>{{ __('userDashboard.submenu.religiosity_level') }}</label>
                         <select name="religiosity_level_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['religiousLevels'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_religiosity_level_id']) && $prefs['preferred_religiosity_level_id'] == $item->id ? 'selected' : '' }}>
@@ -319,9 +312,9 @@
 
                     {{-- APPEARANCE --}}
                     <div class="form-group">
-                        <label>Height</label>
+                        <label>{{ __('userDashboard.submenu.height') }}</label>
                         <select name="height_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['heights'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_height_id']) && $prefs['preferred_height_id'] == $item->id ? 'selected' : '' }}>
@@ -332,9 +325,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Weight</label>
+                        <label>{{ __('userDashboard.submenu.weight') }}</label>
                         <select name="weight_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['weights'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_weight_id']) && $prefs['preferred_weight_id'] == $item->id ? 'selected' : '' }}>
@@ -345,9 +338,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Skin Color</label>
+                        <label>{{ __('userDashboard.submenu.skin_color') }}</label>
                         <select name="skin_color_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['skinColors'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_skin_color_id']) && $prefs['preferred_skin_color_id'] == $item->id ? 'selected' : '' }}>
@@ -358,9 +351,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Hair Color</label>
+                        <label>{{ __('userDashboard.submenu.hair_color') }}</label>
                         <select name="hair_color_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['hairColors'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_hair_color_id']) && $prefs['preferred_hair_color_id'] == $item->id ? 'selected' : '' }}>
@@ -371,9 +364,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Eye Color</label>
+                        <label>{{ __('userDashboard.submenu.eye_color') }}</label>
                         <select name="eye_color_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['eyeColors'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -381,9 +374,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Zodiac Sign</label>
+                        <label>{{ __('userDashboard.submenu.zodiac_sign') }}</label>
                         <select name="zodiac_sign_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['zodiacSigns'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -392,9 +385,9 @@
 
                     {{-- LIFESTYLE --}}
                     <div class="form-group">
-                        <label>Marital Status</label>
+                        <label>{{ __('userDashboard.submenu.marital_status') }}</label>
                         <select name="marital_status_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['maritalStatuses'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -402,18 +395,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Smoking Status</label>
+                        <label>{{ __('userDashboard.submenu.smoking_status') }}</label>
                         <select name="smoking_status" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Drinking Status</label>
+                        <label>{{ __('userDashboard.submenu.drinking_status') }}</label>
                         <select name="drinking_status_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['drinkingStatuses'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -421,9 +414,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Sleep Habit</label>
+                        <label>{{ __('userDashboard.submenu.sleep_habit') }}</label>
                         <select name="sleep_habit_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['sleepHabits'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -432,9 +425,9 @@
 
                     {{-- EDUCATION & WORK --}}
                     <div class="form-group">
-                        <label>Educational Level</label>
+                        <label>{{ __('userDashboard.submenu.educational_level') }}</label>
                         <select name="educational_level_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['educationalLevels'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_educational_level_id']) && $prefs['preferred_educational_level_id'] == $item->id ? 'selected' : '' }}>
@@ -445,9 +438,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Specialization</label>
+                        <label>{{ __('userDashboard.submenu.specialization') }}</label>
                         <select name="specialization_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['specializations'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_specialization_id']) && $prefs['preferred_specialization_id'] == $item->id ? 'selected' : '' }}>
@@ -458,9 +451,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Job Title</label>
+                        <label>{{ __('userDashboard.submenu.job_domain') }}</label>
                         <select name="job_title_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['jobTitles'] as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($prefs['preferred_job_title_id']) && $prefs['preferred_job_title_id'] == $item->id ? 'selected' : '' }}>
@@ -471,9 +464,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Position Level</label>
+                        <label>{{ __('userDashboard.submenu.position_level') }}</label>
                         <select name="sector_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['positionLevels'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -481,29 +474,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Marriage Budget</label>
+                        <label>{{ __('userDashboard.submenu.marriage_budget') }}</label>
                         <select name="marriage_budget_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['marriageBudget'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Children</label>
+                    {{-- <div class="form-group">
+                        <label>{{ __('userDashboard.submenu.children') }}</label>
                         <select name="children" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                     {{-- SOCIAL --}}
                     <div class="form-group">
-                        <label>Social Media Presence</label>
+                        <label>{{ __('userDashboard.submenu.social_media_presence') }}</label>
                         <select name="social_media_presence_id" class="form-control">
-                            <option value="any">-- Any --</option>
+                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
                             @foreach ($data['socialMediaPresence'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -513,7 +506,7 @@
                     {{-- ACTION --}}
                     <div class="form-group mt-4">
                         <button type="button" id="applyFiltersBtn" class="btn btn-primary btn-block">
-                            <i class="simple-icon-magnifier mr-2"></i> Find Matches
+                            <i class="simple-icon-magnifier mr-2"></i> {{ __('userDashboard.submenu.Find Matches') }}
                         </button>
                     </div>
                 </form>
@@ -557,7 +550,7 @@
                         "{{ __('userDashboard.likeMe.specialization') }}": profile.profile.specialization,
                         "{{ __('userDashboard.likeMe.employment_status') }}": profile.profile.employment_status ?
                             "{{ __('userDashboard.likeMe.employed') }}" : "{{ __('userDashboard.likeMe.unemployed') }}",
-                        "{{ __('userDashboard.likeMe.job_title') }}": profile.profile.job_title,
+                        "{{ __('userDashboard.likeMe.Job_Domain') }}": profile.profile.job_title,
                         "{{ __('userDashboard.likeMe.position_level') }}": profile.profile.position_level,
                         "{{ __('userDashboard.likeMe.financial_status') }}": profile.profile.financial_status,
                     },
@@ -830,12 +823,12 @@
                             renderMatches(response.exact_matches, response.suggested_users, response
                                 .suggestion_percentage);
                             $('#applyFiltersBtn').html(
-                                '<i class="simple-icon-magnifier mr-2"></i> Find Matches');
+                                '<i class="simple-icon-magnifier mr-2"></i> {{ __('userDashboard.submenu.Find Matches') }}');
                         },
                         error: function(xhr, status, error) {
                             console.error(error);
                             $('#applyFiltersBtn').html(
-                                '<i class="simple-icon-magnifier mr-2"></i> Find Matches');
+                                '<i class="simple-icon-magnifier mr-2"></i> {{ __('userDashboard.submenu.Find Matches') }}');
                             $('#exactMatchResults, #suggestedMatchResults').html(
                                 '<div class="col-12 text-center py-4"><p class="text-muted">Error loading matches. Please try again.</p></div>'
                             );

@@ -888,7 +888,7 @@
                                                                             class="fas fa-phone"></i></span>
                                                                 </div>
                                                                 <input type="tel" name="guardian_contact"
-                                                                    class="form-control rounded-right" required>
+                                                                    class="form-control rounded-right" required placeholder="07XXXXXXXX" pattern="[0-9]{10}" title="Phone number must be 10 digits starting with 07">
                                                             </div>
                                                             <span class="error-message text-danger"
                                                                 style="font-size:12px;"></span>

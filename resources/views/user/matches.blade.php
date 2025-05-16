@@ -175,22 +175,15 @@
                             <label for="reasonSelect">{{ __('userDashboard.dashboard.reason') }}</label>
                             <select id="reasonSelect" name="reason_en" class="form-control" onchange="toggleOtherReason()"
                                     required>
-                                <option value="Inappropriate Photos">
-                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
-                                <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
-                                <option value="Disrespectful Behavior">
-                                    {{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
-                                <option value="Asking for Haram (Forbidden)">
-                                    {{ __('userDashboard.dashboard.asking_for_haram') }}</option>
-                                <option value="Fake Profile">{{ __('userDashboard.dashboard.fake_profile') }}</option>
+                               <option value="Inappropriate Photos">
+                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}
+                                </option>
+                                <option value="Offensive Language">
+                                    {{ __('userDashboard.dashboard.offensive_language') }}
+                                </option>
                                 <option value="Spam or Advertising">
-                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
-                                <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}
+                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}
                                 </option>
-                                <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}
-                                </option>
-                                <option value="Misleading Information">
-                                    {{ __('userDashboard.dashboard.misleading_information') }}</option>
                                 <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
                             </select>
                         </div>
@@ -427,7 +420,7 @@ async function initializeMatches() {
                     "{{ __('userDashboard.likeMe.employment_status') }}": profile.profile.employment_status ?
                         "{{ __('userDashboard.likeMe.employed') }}" :
                         "{{ __('userDashboard.likeMe.unemployed') }}",
-                    "{{ __('userDashboard.likeMe.job_title') }}": profile.profile.job_title,
+                    "{{ __('userDashboard.likeMe.Job_Domain') }}": profile.profile.job_title,
                     "{{ __('userDashboard.likeMe.position_level') }}": profile.profile.position_level,
                     "{{ __('userDashboard.likeMe.financial_status') }}": profile.profile.financial_status,
                 },

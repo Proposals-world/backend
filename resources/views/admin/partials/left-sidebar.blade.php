@@ -183,6 +183,12 @@
                                 <span> Specializations </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('job-titles.index') }}" class="side-nav-link">
+                                <i class="ri-briefcase-4-line"></i>
+                                <span> Job Domain </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>

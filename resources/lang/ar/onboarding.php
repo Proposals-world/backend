@@ -38,7 +38,7 @@ return [
     // Employment and Lifestyle Step
     'employment_lifestyle' => 'العمل ونمط الحياة',
     'employment_status' => 'الحالة الوظيفية',
-    'job_title' => 'المسمى الوظيفي',
+    'Job_Domain' => 'المسمى الوظيفي',
     'smoking_status' => 'حالة التدخين',
     'smoking_tools' => 'أدوات التدخين',
     'drinking_status' => 'حالة شرب الكحول',
@@ -102,7 +102,7 @@ return [
     'select_city' => 'اختر المدينة',
     'select_educational_level' => 'اختر المستوى التعليمي',
     'select_specialization' => 'اختر التخصص',
-    'select_job_title' => 'اختر المسمى الوظيفي',
+    'select_job_domain' => 'اختر المسمى الوظيفي',
     'select_drinking_status' => 'اختر حالة شرب الكحول',
     'select_marital_status' => 'اختر الحالة الاجتماعية',
     'select_housing_status' => 'اختر حالة السكن',

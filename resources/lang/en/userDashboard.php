@@ -41,7 +41,7 @@ return [
         'employment_status' => 'Employment Status',
         'employed' => 'Employed',
         'unemployed' => 'Unemployed',
-        'job_title' => 'Job Title',
+        'Job_Domain' => 'Job Domain',
         'position_level' => 'Position Level',
         'financial_status' => 'Financial Status',
 
@@ -67,6 +67,7 @@ return [
         'no_likes_yet' => 'No likes yet',
         'housing_status' => 'Housing Status',
         'car_ownership' => 'Car Ownership',
+        'marriage_budget' => 'Marriage Budget',
     ],
     'matches' => [
         'users_who_matched_with_you' => 'Users Who Matched With You',
@@ -194,6 +195,8 @@ return [
         'Other' => 'Other',
         'other_reason_ar' => 'Other Reason (Arabic)',
         'other_reason_en' => 'Other Reason (English)',
+        'review' => 'Review',
+        'Not_Serious' => 'Not Serious',
     ],
     'support' => [
         'title' => 'Support Tickets',
@@ -265,12 +268,16 @@ return [
         'sleep_habit' => 'Sleep Habit',
         'educational_level' => 'Educational Level',
         'specialization' => 'Specialization',
-        'job_title' => 'Job Title',
+        'Job_Domain' => 'Job Domain',
         'position_level' => 'Position Level',
         'marriage_budget' => 'Marriage Budget',
         'children' => 'Children',
         'social_media_presence' => 'Social Media Presence',
-        'find_matches' => 'Find Matches'
+        'find_matches' => 'Find Matches',
+        'job_domain' => 'Job Domain',
+        'any' => '-- Any--',
+        'Select Country First' => '-- Select Country First --',
+        'Find Matches' => 'Find Matches',
     ],
 
 ];

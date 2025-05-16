@@ -38,7 +38,7 @@ return [
     // Employment and Lifestyle Step
     'employment_lifestyle' => 'Employment and Lifestyle',
     'employment_status' => 'Employment Status',
-    'job_title' => 'Job Title',
+    'Job_Domain' => 'Job Domain',
     'smoking_status' => 'Smoking Status',
     'smoking_tools' => 'Smoking Tools',
     'drinking_status' => 'Drinking Status',
@@ -100,7 +100,7 @@ return [
     'select_city' => 'Select City',
     'select_educational_level' => 'Select Educational Level',
     'select_specialization' => 'Select Specialization',
-    'select_job_title' => 'Select Job Title',
+    'select_job_domain' => 'Select Job Domain',
     'select_drinking_status' => 'Select Drinking Status',
     'select_marital_status' => 'Select Marital Status',
     'select_housing_status' => 'Select Housing Status',

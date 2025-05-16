@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\JobTitlesController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserFeedbackController;
 use App\Http\Controllers\Api\UserPreferenceController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\HomeController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
+use App\Http\Controllers\WhatsAppController;
 use App\Models\UserProfile;
 
 Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -92,6 +94,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('manageUsers', AdminController::class)->parameters([
             'manageUsers' => 'user'
         ]);
+        Route::resource('job-titles', JobTitlesController::class);
         Route::resource('faqs', FaqsController::class);
         Route::resource('reports', ReportController::class);
         Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);
@@ -161,6 +164,8 @@ Route::middleware([
 });
 Route::prefix('user/guardian-contact')->group(function () {
     Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
+    Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
+
     Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
     Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
 });

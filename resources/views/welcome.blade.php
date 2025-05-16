@@ -157,7 +157,7 @@ html[dir="rtl"] .contact-direction {
         <!-- slider-area-end -->
 
         <!-- features-area (Our Features) -->
-        <section id="about" class="services-area services-bg pt-25 pb-20"
+        <section id="features" class="services-area services-bg pt-25 pb-20"
             style="background-image: url({{ asset('frontend/img/shape/header-sape2.png') }}); background-position: right top; background-size: auto; background-repeat: no-repeat;">
             <div class="container">
                 <div class="row justify-content-center">

@@ -55,6 +55,10 @@ class UserFeedbackController extends Controller
                 'en' => 'Still in Communication',
                 'ar' => 'ما زلنا على تواصل',
             ],
+            'Not Serious' => [
+                'en' => 'Not Serious',
+                'ar' => 'غير جاد',
+            ],
         ];
 
         // Detect locale
