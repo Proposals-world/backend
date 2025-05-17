@@ -40,6 +40,8 @@ use App\Http\Controllers\User\MatchController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\User\FindMatchController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\DeleteAccountController;
 
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
@@ -129,6 +131,23 @@ Route::middleware([
     'profile.complete',         // First: ensure profile complete
     'guardian.verified'         // Second: ensure guardian verified
 ])->prefix('user')->group(function () {
+
+
+    Route::get('change-password', [ChangePasswordController::class, 'edit'])
+        ->name('password.change');
+
+    Route::put('change-password', [ChangePasswordController::class, 'update'])
+        ->name('password.change.update');
+
+    Route::middleware('auth')->group(function () {
+        // ...
+        Route::get('delete-account', [DeleteAccountController::class, 'confirm'])
+            ->name('account.delete.confirm');
+
+        Route::delete('delete-account', [DeleteAccountController::class, 'destroy'])
+            ->name('account.delete');
+    });
+
     Route::get('/filter', [FilterController::class, 'filterUsers'])->name('users.filter');
     Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
     Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
@@ -160,6 +179,7 @@ Route::middleware([
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
     Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
     Route::post('/report-user', [ReportController::class, 'store']);
+
 
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');

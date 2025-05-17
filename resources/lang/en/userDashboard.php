@@ -129,6 +129,8 @@ return [
         'support' => 'Support',
         'logout' => 'Sign out',
         'guest' => 'Guest',
+        'Change Password' => 'Change Password',
+        'delete_account' => 'Delete Account',
     ],
     'dashboard' => [
         'welcome' => 'Welcome',

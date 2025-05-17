@@ -130,6 +130,8 @@ return [
         'support' => 'الدعم',
         'logout' => 'تسجيل الخروج',
         'guest' => 'زائر',
+        'Change Password' => 'تغيير كلمة المرور',
+        'delete_account' => 'حذف الحساب',
     ],
     'dashboard' => [
         'welcome' => 'أهلاً',
