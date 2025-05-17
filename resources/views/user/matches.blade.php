@@ -221,14 +221,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{ __('userDashboard.dashboard.Are you sure you want to reveal this user contact information? This action cannot be undone') }}
+                    {{-- {{ __('userDashboard.dashboard.Are you sure you want to reveal this user contact information? This action cannot be undone') }} --}}
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        {{ __('Cancel') }}
+                        {{ __('userDashboard.dashboard.Cancel') }}
                     </button>
                     <button type="button" id="confirmRevealBtn" data-dismiss="modal" class="btn btn-danger">
-                        {{ __('Confirm') }}
+                        {{ __('userDashboard.dashboard.Confirm') }}
                     </button>
                 </div>
             </div>
@@ -491,15 +491,17 @@ async function initializeMatches() {
         function attachProfileCardListeners() {
             $('.profile-card').off('click').on('click', function (e) {
                 if ($(e.target).closest('button, a').length) return;
-
                 e.preventDefault();
                 const match = $(this).data('profile');
                 const profile = match.matched_user;
+                console.log('Profile card clicked', profile);
                 // console.log('Profile data:', profile.profile.country_of_residence);
                 const matchedUserId = profile.id;
-                $('#revealContactBtn').data('matchedUserId', matchedUserId);
+                // $('#revealContactBtn').data('matchedUserId', matchedUserId);
                 $('#removeMatchBtn').data('matchId', match.match_id);
-
+$('#revealContactBtn')
+       .data('matchedUserId', matchedUserId)
+       .data('matchedUserGender', profile.gender);
                 const mainPhoto = profile.profile.photos?.find(photo => photo.is_main === 1)?.photo_url ||
                     '{{ asset('dashboard/logos/profile-icon.jpg') }}';
                 $('#modalAvatar').attr('src', mainPhoto);
@@ -511,7 +513,11 @@ async function initializeMatches() {
                 $('#modalCity').text(profile.profile.city || 'N/A');
                 $('#modalCountryOfResidence').text(profile.profile.country_of_residence || 'N/A');
                 $('#modalCountryOfOrigin ').text(profile.profile.origin || 'N/A');
-                $('#modalPhone').text(profile.profile.guardian_contact || profile.phone_number || 'N/A');
+                if (profile.gender === 'male') {
+                    $('#modalPhone').text(profile.profile.guardian_contact || profile.phone_number || 'N/A');
+                } else {
+                    $('#modalPhone').text(profile.profile.guardian_contact || 'N/A');
+                }
                 $('#contactLabel').text(profile.gender === 'male' ?
                     "{{ __('userDashboard.matches.phone_number') }}:" :
                     "{{ __('userDashboard.matches.guardian_phone') }}:");
@@ -532,11 +538,23 @@ async function initializeMatches() {
         }
 
         // Reveal contact
-        function revealContact(matchedUserId) {
-            selectedMatchedUserId = matchedUserId;
-            const confirmModal = new bootstrap.Modal(document.getElementById('confirmRevealModal'));
-            confirmModal.show();
+    function revealContact(matchedUserId) {
+        selectedMatchedUserId = matchedUserId;
+
+        const gender = $('#revealContactBtn').data('matchedUserGender');
+
+        // Inject the confirmation message into the modal body
+        const bodyEl = document.querySelector('#confirmRevealModal .modal-body');
+        if (bodyEl) {
+            bodyEl.textContent = gender === 'male'
+                ? "{{ __('userDashboard.dashboard.Confirm Action male') }}"
+             : "{{ __('userDashboard.dashboard.Confirm Action female') }}";
         }
+
+        $('#confirmRevealModal').modal('show');
+    }
+
+
 
         // Confirm reveal contact
         document.getElementById('confirmRevealBtn').addEventListener('click', async function () {
@@ -580,7 +598,7 @@ async function initializeMatches() {
                     return;
                 }
 
-                $('#modalPhone').text(data.guardian_contact || 'N/A');
+                $('#modalPhone').text(data.contact || 'N/A');
                 $alert.removeClass('d-none alert-danger').addClass('show alert-success');
                 $message.text("{{ __('userDashboard.dashboard.Contact info revealed successfully') }}.");
                 $('#revealContactBtn').addClass('d-none');

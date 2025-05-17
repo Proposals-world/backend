@@ -112,6 +112,12 @@
                                 <span> Customer Reports </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('feedback.index')}}" class="side-nav-link">
+                                <i class="ri-feedback-line"></i>
+                                <span> Customer Feedback </span>
+                            </a>
+                        </li>
                         {{-- <li class="side-nav-item">
                             <a href="" class="side-nav-link">
                                 <span> Cities </span>

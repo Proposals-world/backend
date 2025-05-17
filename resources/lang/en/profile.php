@@ -84,6 +84,7 @@ return [
     'partner_height' => 'Partner Height',
     'partner_weight' => 'Partner Weight',
     'eye_color' => 'Eye Color',
+    'Partner_Age' => 'Partner Age',
     'To' => 'To',
     'From' => 'From',
     'Yes' => 'Yes',

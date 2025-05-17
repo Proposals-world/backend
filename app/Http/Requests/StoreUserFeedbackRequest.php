@@ -13,7 +13,7 @@ class StoreUserFeedbackRequest extends FormRequest
         return [
             'match_id' => ['required', 'exists:user_matches,id'],
             'user_id' => ['required', 'exists:users,id'],
-            'is_profile_accurate' => ['required', 'boolean'],
+            'is_profile_accurate' => ['nullable', 'boolean'],
             'feedback_text_en' => $locale === 'ar' ? ['nullable'] : ['required', 'string'],
             'feedback_text_ar' => $locale === 'ar' ? ['required', 'string'] : ['nullable'],
             'outcome' => ['required', 'string', 'max:255'],

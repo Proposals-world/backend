@@ -112,7 +112,7 @@ return [
     'Profile_saved_successfully' => 'تم حفظ ملف الشريك بنجاح',
     'Preferences_saved_successfully' => 'تم حفظ تفضيلات الشريك بنجاح',
     'Partner_No_Preference' => 'لا توجد تفضيلات للشريك',
-
+    'Partner_Age' => 'عمر الشريك',
     'You can select up to 10 fields. Remaining:' => 'يمكنك اختيار ما يصل إلى 10 مجالات. المتبقي:',
     'you_can_select_more_than_one' => 'يمكنك اختيار أكثر من واحد',
     'Appearance' => 'مظهر الشريك',

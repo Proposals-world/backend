@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\JobTitlesController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserFeedbackController;
@@ -102,6 +103,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
         Route::put('/deactivate/{id}', [AdminsController::class, 'deactivate'])->name('deactivate');
         Route::put('/active/{id}', [AdminsController::class, 'active'])->name('active');
+        Route::resource('feedback', FeedbackController::class);
     });
 
     // Route::resource('blogs', BlogController::class);
@@ -158,6 +160,7 @@ Route::middleware([
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
     Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
     Route::post('/report-user', [ReportController::class, 'store']);
+
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');
     })->name('verify.guardian.otp');

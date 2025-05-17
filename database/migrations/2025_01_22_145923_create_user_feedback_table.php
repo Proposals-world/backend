@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('match_id')->constrained('user_matches')->unique();
             $table->foreignId('user_id')->constrained('users');
-            $table->boolean('is_profile_accurate')->nullable();
+            $table->boolean('is_profile_accurate')->default(0)->nullable();
 
             // ENUM instead of text
             $table->enum('feedback_text_en', [

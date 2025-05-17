@@ -145,7 +145,7 @@
                                         </a>
                                         <div class="pl-3 pt-2 pr-2 pb-2 w-100">
                                             <p class="list-item-heading mb-1">
-                                                {{ $match['matched_user_nickname'] }}
+                                                {{ $match['matched_user_name'] }}
                                             </p>
                                             <div class="pr-4 d-none d-sm-block">
                                                 <p class="text-muted mb-1 text-small">

@@ -19,11 +19,32 @@ class UserPreferenceController extends Controller
     {
         // dd($request->validated());
 
+        $data = $request->validated();
+
+        // count only the “filled” preference fields
+        $nonEmpty = collect($data)
+            ->reject(function ($value) {
+                // drop nulls, empty strings, empty arrays
+                if (is_null($value) || $value === '') {
+                    return true;
+                }
+                if (is_array($value) && count(array_filter($value, fn($v) => $v !== null && $v !== '' && $v !== 'null')) === 0) {
+                    return true;
+                }
+                return false;
+            })
+            ->count();
+
+        if ($nonEmpty > 10) {
+            return response()->json([
+                'message' => __('profile.You can select up to 10 fields.'),
+            ], 422);
+        }
 
         // Create or update the user preference
         $userPreference = UserPreference::updateOrCreate(
-            ['user_id' => $request->user()->id], // Search condition
-            $request->validated()               // Data to insert or update
+            ['user_id' => $request->user()->id],
+            $data
         );
         // dd($request->validated(), $userPreference->getFillable());
         // dd($userPreference);

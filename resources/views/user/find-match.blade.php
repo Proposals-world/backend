@@ -372,7 +372,7 @@
                             @endforeach
                         </select>
                     </div>
-
+{{--
                     <div class="form-group">
                         <label>{{ __('userDashboard.submenu.zodiac_sign') }}</label>
                         <select name="zodiac_sign_id" class="form-control">
@@ -381,7 +381,7 @@
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
                     {{-- LIFESTYLE --}}
                     <div class="form-group">
