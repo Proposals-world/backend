@@ -426,9 +426,9 @@
 
                                                 <div class="col-md-4 job-title-wrapper" style="display:none;">
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.job_title') }}</label>
+                                                        <label class="form-label">{{ __('onboarding.Job_Domain') }}</label>
                                                         <select name="job_title_id" class="form-control rounded-pill">
-                                                            <option value="">{{ __('onboarding.select_job_title') }}
+                                                            <option value="">{{ __('onboarding.select_job_domain') }}
                                                             </option>
                                                             @foreach ($data['jobTitles'] as $jobTitle)
                                                                 <option value="{{ $jobTitle->id }}">{{ $jobTitle->name }}

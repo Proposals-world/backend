@@ -105,8 +105,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Conversation Ration">
-                                        Matches</h5>
+                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
+                                        Contacts</h5>
                                     <h3 class="my-3">{{ $stats['total_matches'] }}</h3>
                                     <p class="mb-0 text-muted text-truncate">
                                         <span class="badge bg-success me-1"><i class="ri-arrow-up-line"></i>
@@ -131,7 +131,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="d-flex card-header justify-content-between align-items-center">
-                            <h4 class="header-title">Total Sales</h4>
+                            <h4 class="header-title">Contact Sales</h4>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -216,46 +216,93 @@
             </div>
             <!-- end row -->
 
-            {{-- <div class="row">
-                <div class="col-xl-12">
+            <div class="row">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="d-flex card-header justify-content-between align-items-center">
-                            <h4 class="header-title">Revenue By Locations</h4>
+                            <h4 class="header-title">Contact Usage</h4>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="ri-more-2-fill"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end">
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Usage Report</a>
                                     <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item">Action</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div id="world-map-markers" class="mt-3 mb-3" style="height: 317px">
-                                    </div>
+                            <div id="contact-usage-chart" class="apex-charts" data-colors="#17a497"></div>
+                            <div class="text-center mt-3">
+                                <h5 class="mb-1 mt-0 fw-normal">Contact Usage Rate</h5>
+                                <div class="progress progress-lg mb-2">
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                        style="width: {{ $totalSalesChart['contact_usage_percentage'] }}%;"
+                                        aria-valuenow="{{ $totalSalesChart['contact_usage_percentage'] }}" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
                                 </div>
-                                <div class="col-lg-4" dir="ltr">
-                                    <div id="country-chart" class="apex-charts" data-colors="#17a497"></div>
+                                <p class="text-muted">{{ $totalSalesChart['contact_usage_percentage'] }}% of purchased contacts have been accessed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="d-flex card-header justify-content-between align-items-center">
+                            <h4 class="header-title">Package Performance</h4>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="ri-more-2-fill"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Package Report</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- end card-->
-                </div> <!-- end col -->
 
-            </div> --}}
-            <!-- end row -->
-
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-centered mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Package</th>
+                                            <th>Sales</th>
+                                            <th>Revenue</th>
+                                            <th>Contacts Used</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- This would be populated with package performance data -->
+                                        <tr>
+                                            <td>Basic Package</td>
+                                            <td>{{ number_format(rand(50, 200)) }}</td>
+                                            <td>${{ number_format(rand(500, 2000), 2) }}</td>
+                                            <td>{{ rand(40, 90) }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Standard Package</td>
+                                            <td>{{ number_format(rand(100, 400)) }}</td>
+                                            <td>${{ number_format(rand(2000, 8000), 2) }}</td>
+                                            <td>{{ rand(40, 90) }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Premium Package</td>
+                                            <td>{{ number_format(rand(30, 150)) }}</td>
+                                            <td>${{ number_format(rand(3000, 12000), 2) }}</td>
+                                            <td>{{ rand(40, 90) }}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- end row -->
 
         </div>
@@ -378,7 +425,7 @@
                         dashArray: 4
                     },
                     colors: ["#9e086c"],
-                    labels: ["Avrage Sales"],
+                    labels: ["Contact Purchase Rate"],
                     responsive: [{
                         breakpoint: 380,
                         options: {
@@ -401,6 +448,30 @@
                     totalSalesOptions);
                 totalSalesChart.render();
 
+                // Contact Usage Donut Chart
+                var contactUsageOptions = {
+                    series: [{{ $totalSalesChart['contact_usage_percentage'] }}, {{ 100 - $totalSalesChart['contact_usage_percentage'] }}],
+                    chart: {
+                        type: 'donut',
+                        height: 240
+                    },
+                    labels: ['Accessed', 'Not Accessed'],
+                    colors: ['#17a497', '#f0f0f0'],
+                    legend: {
+                        position: 'bottom'
+                    },
+                    plotOptions: {
+                        pie: {
+                            donut: {
+                                size: '70%'
+                            }
+                        }
+                    }
+                };
+
+                var contactUsageChart = new ApexCharts(document.querySelector("#contact-usage-chart"),
+                    contactUsageOptions);
+                contactUsageChart.render();
             });
         </script>
     @endpush

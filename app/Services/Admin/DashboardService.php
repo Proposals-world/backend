@@ -5,8 +5,11 @@ namespace App\Services\Admin;
 use App\Models\User;
 use App\Models\UserMatch;
 use App\Models\Subscription;
+use App\Models\SubscriptionContact;
+use App\Models\PaymentTransaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 class DashboardService
 {
     public function getDashboardStats()
@@ -33,14 +36,14 @@ class DashboardService
         // Calculate growth percentage for this month
         $growthPercentage = $lastMonthUsers > 0 ? (($thisMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
 
-        // Get total revenue from all subscriptions
-        $totalRevenue = Subscription::join('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')
-            ->sum('subscription_packages.price');
+        // Get total revenue from all payment transactions (using transaction_status instead of status)
+        $totalRevenue = PaymentTransaction::where('transaction_status', 'success')
+            ->sum('amount');
 
         // Get this month's revenue
-        $thisMonthRevenue = Subscription::join('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')
-            ->whereBetween('subscriptions.start_date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
-            ->sum('subscription_packages.price');
+        $thisMonthRevenue = PaymentTransaction::where('transaction_status', 'success')
+            ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+            ->sum('amount');
 
         return [
             'total_users' => $totalUsers,
@@ -63,17 +66,18 @@ class DashboardService
             return Carbon::now()->subMonths($i)->format('Y-m');
         })->reverse();
 
-        // Fetch Revenue Data
-        $revenueData = Subscription::join('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')
-            ->selectRaw('DATE_FORMAT(subscriptions.start_date, "%Y-%m") as month, SUM(subscription_packages.price) as total_revenue')
-            ->whereBetween('subscriptions.start_date', [Carbon::now()->subYear(), Carbon::now()])
+        // Fetch Revenue Data (using transaction_status instead of status)
+        $revenueData = PaymentTransaction::where('transaction_status', 'success')
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, SUM(amount) as total_revenue')
+            ->whereBetween('created_at', [Carbon::now()->subYear(), Carbon::now()])
             ->groupBy('month')
             ->orderBy('month', 'asc')
             ->pluck('total_revenue', 'month');
 
-        // Fetch Sales Data (Total Subscription Purchases Per Month)
-        $salesData = Subscription::selectRaw('DATE_FORMAT(start_date, "%Y-%m") as month, COUNT(id) as total_sales')
-            ->whereBetween('start_date', [Carbon::now()->subYear(), Carbon::now()])
+        // Fetch Sales Data (using transaction_status instead of status)
+        $salesData = PaymentTransaction::where('transaction_status', 'success')
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(id) as total_sales')
+            ->whereBetween('created_at', [Carbon::now()->subYear(), Carbon::now()])
             ->groupBy('month')
             ->orderBy('month', 'asc')
             ->pluck('total_sales', 'month');
@@ -82,12 +86,12 @@ class DashboardService
         $formattedRevenueData = $months->mapWithKeys(fn ($month) => [$month => $revenueData[$month] ?? 0]);
         $formattedSalesData = $months->mapWithKeys(fn ($month) => [$month => $salesData[$month] ?? 0]);
 
-        // Get total revenue and current month revenue
-        $totalRevenue = Subscription::join('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')->sum('subscription_packages.price');
+        // Get total revenue and current month revenue (using transaction_status instead of status)
+        $totalRevenue = PaymentTransaction::where('transaction_status', 'success')->sum('amount');
 
-        $currentMonthRevenue = Subscription::join('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')
-            ->whereBetween('subscriptions.start_date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
-            ->sum('subscription_packages.price');
+        $currentMonthRevenue = PaymentTransaction::where('transaction_status', 'success')
+            ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+            ->sum('amount');
 
         return [
             'months' => $months->values(),
@@ -106,16 +110,17 @@ class DashboardService
         // Total Users with role_id = 2
         $totalUsers = User::where('role_id', 2)->count();
     
-        // Total Sales (Total subscriptions where users have role_id = 2)
-        $totalSales = Subscription::
-            count();
+        // Total Sales (using transaction_status instead of status)
+        $totalSales = PaymentTransaction::where('transaction_status', 'success')->count();
     
-        // Sales by city (for users with role_id = 2)
-        $salesByCity = Subscription::join('users', 'subscriptions.user_id', '=', 'users.id')
+        // Sales by city (using transaction_status instead of status)
+        $salesByCity = PaymentTransaction::join('subscriptions', 'payment_transactions.subscription_id', '=', 'subscriptions.id')
+            ->join('users', 'subscriptions.user_id', '=', 'users.id')
             ->join('user_profiles', 'users.id', '=', 'user_profiles.id')
             ->join('cities', 'user_profiles.city_id', '=', 'cities.id')
             ->where('users.role_id', 2)
-            ->select('cities.name_en as city', DB::raw('COUNT(subscriptions.id) as total_sales'))
+            ->where('payment_transactions.transaction_status', 'success')
+            ->select('cities.name_en as city', DB::raw('COUNT(payment_transactions.id) as total_sales'))
             ->groupBy('cities.name_en')
             ->orderBy('total_sales', 'desc')
             ->get();
@@ -124,15 +129,20 @@ class DashboardService
         $cityNames = $salesByCity->pluck('city');
         $citySales = $salesByCity->pluck('total_sales');
     
-        // Correct Sales Percentage Calculation
+        // Calculate Sales Percentage based on total contacts purchased vs total possible contacts
         $salesPercentage = $totalUsers > 0 ? round(($totalSales / $totalUsers) * 100) : 0;
+        
+        // Get contact usage percentage
+        $totalContacts = SubscriptionContact::count();
+        $accessedContacts = SubscriptionContact::whereNotNull('accessed_at')->count();
+        $contactUsagePercentage = $totalContacts > 0 ? round(($accessedContacts / $totalContacts) * 100) : 0;
     
         return [
             'total_sales' => $totalSales,
             'city_names' => $cityNames,
             'city_sales' => $citySales,
             'sales_percentage' => $salesPercentage, // Used for radial chart
+            'contact_usage_percentage' => $contactUsagePercentage, // Contact usage metric
         ];
     }
-
 }

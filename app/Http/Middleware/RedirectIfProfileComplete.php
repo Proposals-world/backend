@@ -14,17 +14,12 @@ class RedirectIfProfileComplete
      */
     protected $requiredFields = [
         'nationality_id',
-        // 'origin_id',
         'religion_id',
         'country_of_residence_id',
         'city_id',
-        // 'city_location_id',
-        // 'area',
         'date_of_birth',
         'age',
-        'zodiac_sign_id',
         'educational_level_id',
-        // 'specialization_id',
     ];
 
     /**
