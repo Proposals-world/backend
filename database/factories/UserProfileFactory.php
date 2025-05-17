@@ -58,7 +58,7 @@ class UserProfileFactory extends Factory
             'religiosity_level_id' => rand(1, 5), // Based on available religiosity levels
             'sleep_habit_id' => rand(1, 3), // Based on available sleep habits
             'marriage_budget_id' => rand(1, 5), // Based on available marriage budgets
-            'eye_color_id' => rand(1, 20), // Based on available eye colors
+            'eye_color_id' => rand(1, 6), // Based on available eye colors
         ];
     }
 }

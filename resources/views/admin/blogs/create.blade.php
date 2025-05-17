@@ -98,7 +98,7 @@
 
                             <div class="mb-3">
                                 <label for="content_ar" class="form-label">Content (Arabic)</label>
-                                <div id="editor-ar" style="height: 200px;">{!! old('content_ar', $blog->content_ar ?? '') !!}</div>
+                                <div id="editor-ar" style="height: 200px; direction: rtl;" dir="rtl">{!! old('content_ar', $blog->content_ar ?? '') !!}</div>
                                 <input type="hidden" name="content_ar" id="content_ar">
                                 @error('content_ar')
                                     <span class="text-danger">{{ $message }}</span>
@@ -137,14 +137,58 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // English Editor
             var quillEn = new Quill('#editor-en', {
-                theme: 'snow'
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'header': 1 }, { 'header': 2 }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'script': 'sub' }, { 'script': 'super' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'direction': 'ltr' }],
+                        [{ 'size': ['small', false, 'large', 'huge'] }],
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'font': [] }],
+                        [{ 'align': [] }],
+                        ['clean'],
+                        ['link', 'image', 'video']
+                    ]
+                }
             });
 
+            // Arabic Editor with RTL configuration
             var quillAr = new Quill('#editor-ar', {
-                theme: 'snow'
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'header': 1 }, { 'header': 2 }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'script': 'sub' }, { 'script': 'super' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'direction': 'rtl' }],
+                        [{ 'size': ['small', false, 'large', 'huge'] }],
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'font': [] }],
+                        [{ 'align': [] }],
+                        ['clean'],
+                    ]
+                }
             });
-
+            
+            // Set default direction for Arabic editor
+            quillAr.format('direction', 'rtl');
+            quillAr.format('align', 'right');
+            
+            // Apply RTL to the Quill container elements
+            document.querySelector('#editor-ar .ql-editor').setAttribute('dir', 'rtl');
+            
             document.getElementById("blogForm").addEventListener("submit", function() {
                 document.getElementById("content_en").value = quillEn.root.innerHTML;
                 document.getElementById("content_ar").value = quillAr.root.innerHTML;
@@ -152,7 +196,6 @@
 
             // Initialize Select2
             $('#categories').select2();
-
         });
     </script>
 @endpush
