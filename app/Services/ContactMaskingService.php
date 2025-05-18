@@ -36,6 +36,7 @@ class ContactMaskingService
     {
         return $contact ? '**********' : 'N/A';
     }
+
     public function getContactInfo(int $authUserId, int $matchedUserId): array
     {
         $match = UserMatch::where(function ($q) use ($authUserId, $matchedUserId) {
@@ -43,23 +44,33 @@ class ContactMaskingService
         })->orWhere(function ($q) use ($authUserId, $matchedUserId) {
             $q->where('user1_id', $matchedUserId)->where('user2_id', $authUserId);
         })->first();
-        if (!$match) {
+
+        if (! $match) {
             return ['error' => 'Match not found.'];
         }
-        // dd($match)
-        $user = UserProfile::select('guardian_contact_encrypted')->find($matchedUserId);
 
-        if (!$user) {
+        // Fetch both user and profile
+        $user    = User::select('gender', 'phone_number')->find($matchedUserId);
+        $profile = UserProfile::select('guardian_contact_encrypted')->find($matchedUserId);
+
+        if (! $user) {
             return ['error' => 'User not found.'];
         }
 
-        if (!$match->contact_exchanged) {
+        // Mark as exchanged if not already
+        if (! $match->contact_exchanged) {
             $match->update(['contact_exchanged' => true]);
         }
-        // dd($user);
 
-        return [
-            'guardian_contact' => $user->guardian_contact_encrypted ?? 'N/A',
-        ];
+        // Decide which contact to return
+        $contact = 'N/A';
+        if (strtolower($user->gender) === 'female') {
+            $contact = $profile->guardian_contact_encrypted ?? 'N/A';
+        } else {
+            $contact = $user->phone_number ?? 'N/A';
+        }
+
+        // Return under the same key your front-end expects
+        return ['contact' => $contact];
     }
 }

@@ -38,11 +38,19 @@
             <div class="dropdown-menu dropdown-menu-right mt-3">
                 <a class="dropdown-item" href="#">{{ __('userDashboard.header.profile') }}</a>
                 <a class="dropdown-item" href="{{ route('user.support') }}">{{ __('userDashboard.header.support') }}</a>
-                
+
                 <a class="dropdown-item" href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
                     {{ __('header.language_switcher') }}
                 </a>
-            
+          @auth
+            <a class="dropdown-item" href="{{ route('password.change') }}">
+                {{ __('userDashboard.header.Change Password') }}
+            </a>
+            @endauth
+            <a class="dropdown-item" href="{{ route('account.delete.confirm') }}">
+                {{ __('userDashboard.header.delete_account') }}
+            </a>
+
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     {{ __('userDashboard.header.logout') }}

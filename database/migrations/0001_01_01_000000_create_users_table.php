@@ -24,9 +24,10 @@ return new class extends Migration
             $table->timestamp('otp_expires_at')->nullable();
             $table->timestamps();
             $table->timestamp('last_active')->nullable();
-            $table->foreignId(column: 'role_id')->constrained('roles');
+            $table->foreignId('role_id')->constrained('roles');
             $table->string('status')->default('inactive');
             $table->string('fcm_token')->nullable();
+            $table->softDeletes(); // Add soft deletes to users table
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -177,12 +177,14 @@
                                                                 class="form-label d-block mb-2">{{ __('profile.Partner_Age') }}</label>
 
                                                             {{-- Top Labels --}}
-                                                            <div class="d-flex justify-content-between px-2 mt-2">
+<div class="d-flex justify-content-between px-2 mt-2 @if(app()->getLocale()==='ar') flex-row-reverse @endif">
 
                                                                 <div class="bg-light rounded px-3 py-1 border"
+                                                                    @if(app()->getLocale()==='ar') style="padding-left: 1rem !important;" @endif
                                                                     id="age-min-label">
                                                                     {{ $userPreferences['preferred_age_min'] ?? 18 }}</div>
                                                                 <div class="bg-light rounded px-3 py-1 border"
+                                                                    @if(app()->getLocale()==='ar') style="padding-left: 1rem !important;" @endif
                                                                     id="age-max-label">
                                                                     {{ $userPreferences['preferred_age_max'] ?? 65 }}</div>
                                                             </div>
@@ -1522,30 +1524,29 @@ $(document).ready(function () {
                 const maxLabel = document.getElementById('age-max-label');
                 const highlight = document.querySelector('.range-highlight');
 
-                function updateSlider() {
-                    const minVal = parseInt($('#ageMin').val());
-                    const maxVal = parseInt($('#ageMax').val());
+            function updateSlider() {
+  const min = parseInt(minRange.min); // 18
+  const max = parseInt(minRange.max); // 65
 
-                    if (minVal > maxVal) $('#ageMin').val(maxVal);
-                    if (maxVal < minVal) $('#ageMax').val(minVal);
+  // get raw percentages
+  const rawMinPct = ((minRange.value - min) / (max - min)) * 100;
+  const rawMaxPct = ((maxRange.value - min) / (max - min)) * 100;
 
-                    $('#preferred_age_min').val($('#ageMin').val());
-                    $('#preferred_age_max').val($('#ageMax').val());
+  const isRTL = "{{ app()->getLocale() }}" === 'ar';
 
-                    // Optional label update if visible
-                    $('#age-min-label').text($('#ageMin').val());
-                    $('#age-max-label').text($('#ageMax').val());
+  // if RTL, invert those percentages
+  const minPct = isRTL ? 100 - rawMinPct : rawMinPct;
+  const maxPct = isRTL ? 100 - rawMaxPct : rawMaxPct;
 
-                    // Update range highlight
-                    const min = parseInt(minRange.min); // should be 18
-                    const max = parseInt(minRange.max); // now correctly 65
-                    const minPercent = ((minRange.value - min) / (max - min)) * 100;
-                    const maxPercent = ((maxRange.value - min) / (max - min)) * 100;
-                    $('.range-highlight').css({
-                        left: `${minPercent}%`,
-                        width: `${maxPercent - minPercent}%`
-                    });
-                }
+  // compute left & width regardless of order
+  const left  = Math.min(minPct, maxPct);
+  const width = Math.abs(maxPct - minPct);
+
+  $('.range-highlight').css({
+    left:  `${left}%`,
+    width: `${width}%`
+  });
+}
 
 
                 function updateFromInputs() {

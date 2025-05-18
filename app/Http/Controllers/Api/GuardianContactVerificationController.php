@@ -28,6 +28,13 @@ class GuardianContactVerificationController extends Controller
                         : 'Guardian phone is not set in the profile.',
                 ], 400);
             }
+            if ($user->profile->guardian_contact_encrypted === $user->phone) {
+                return response()->json([
+                    'message' => $locale === 'ar'
+                        ? 'رقم ولي الأمر لا يمكن أن يكون نفس رقم المستخدم.'
+                        : 'Guardian phone cannot be the same as the user phone.',
+                ], 400);
+            }
 
             $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
 
@@ -182,11 +189,11 @@ class GuardianContactVerificationController extends Controller
                 ], 400);
             }
 
-            $formattedPhone = $this->formatJordanianPhone($request->guardian_contact);
 
             $user->profile->update([
                 'guardian_contact_encrypted' => $formattedPhone,
             ]);
+            $formattedPhone = $this->formatJordanianPhone($request->guardian_contact);
 
             return response()->json([
                 'message' => $locale === 'ar'

@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\JobTitlesController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserFeedbackController;
@@ -40,6 +41,8 @@ use App\Http\Controllers\User\MatchController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\User\FindMatchController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\DeleteAccountController;
 
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
@@ -109,6 +112,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('/updateStatus/{id}', [ReportController::class, 'updateStatus'])->name('updateStatus');
         Route::put('/deactivate/{id}', [AdminsController::class, 'deactivate'])->name('deactivate');
         Route::put('/active/{id}', [AdminsController::class, 'active'])->name('active');
+        Route::resource('feedback', FeedbackController::class);
     });
 
     // Route::resource('blogs', BlogController::class);
@@ -134,6 +138,23 @@ Route::middleware([
     'profile.complete',         // First: ensure profile complete
     'guardian.verified'         // Second: ensure guardian verified
 ])->prefix('user')->group(function () {
+
+
+    Route::get('change-password', [ChangePasswordController::class, 'edit'])
+        ->name('password.change');
+
+    Route::put('change-password', [ChangePasswordController::class, 'update'])
+        ->name('password.update');
+
+    Route::middleware('auth')->group(function () {
+        // ...
+        Route::get('delete-account', [DeleteAccountController::class, 'confirm'])
+            ->name('account.delete.confirm');
+
+        Route::delete('delete-account', [DeleteAccountController::class, 'destroy'])
+            ->name('account.delete');
+    });
+
     Route::get('/filter', [FilterController::class, 'filterUsers'])->name('users.filter');
     Route::get('/liked-me', [LikedMeController::class, 'index'])->name('liked-me');
     Route::post('/user/like', [LikedMeController::class, 'like'])->name('user.like');
@@ -165,6 +186,8 @@ Route::middleware([
     Route::post('/user/profile/photo', [UserProfileController::class, 'updateProfilePhoto'])->name('user.profile.photo.update');
     Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
     Route::post('/report-user', [ReportController::class, 'store']);
+
+
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');
     })->name('verify.guardian.otp');

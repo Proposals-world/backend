@@ -129,6 +129,8 @@ return [
         'support' => 'Support',
         'logout' => 'Sign out',
         'guest' => 'Guest',
+        'Change Password' => 'Change Password',
+        'delete_account' => 'Delete Account',
     ],
     'dashboard' => [
         'welcome' => 'Welcome',
@@ -168,6 +170,8 @@ return [
         'abuse' => 'Abuse',
         'offensive' => 'Offensive',
         'other' => 'Other',
+        'Confirm Action female' => 'This will take credit from your account and will share your first name and your info Mother’s phone number with this user',
+        'Confirm Action male' => 'This will take credit from your account and will share your first name and your info with this user',
         'Confirm Action' => 'Confirm Action',
         'Confirm' => 'Confirm',
         'Cancel' => 'Cancel',
