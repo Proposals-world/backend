@@ -171,4 +171,13 @@ return [
     'Confirm with Password' => 'Confirm with Password',
     'Delete Account' => 'Delete Account',
     'Delete My Account' => 'Delete My Account',
+    'Deleting...' => 'Deleting...',
+    'Changing password...' => 'Changing password...',
+    'Changing...' => 'Changing password...',
+
+    'Change Password' => 'Change Password',
+    'Current Password' => 'Current Password',
+    'New Password' => 'New Password',
+    'Confirm New Password' => 'Confirm New Password',
+    'Save New Password' => 'Save New Password',
 ];

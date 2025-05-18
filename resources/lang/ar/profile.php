@@ -181,4 +181,12 @@ return [
     'Confirm with Password' => 'تأكيد مع كلمة المرور',
     'Delete Account' => 'حذف الحساب',
     'Delete My Account' => 'حذف حسابي',
+    'Deleting...' => 'جارٍ الحذف...',
+    'Change Password' => 'تغيير كلمة المرور',
+    'Changing...' => 'جارٍ تغيير كلمة المرور...',
+    'Changing password...' => 'جارٍ تغيير كلمة المرور...',
+    'Save New Password' => 'حفظ كلمة المرور الجديدة',
+    'Current Password' => 'كلمة المرور الحالية',
+    'New Password' => 'كلمة المرور الجديدة',
+    'Confirm New Password' => 'تأكيد كلمة المرور الجديدة',
 ];

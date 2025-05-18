@@ -137,7 +137,7 @@ Route::middleware([
         ->name('password.change');
 
     Route::put('change-password', [ChangePasswordController::class, 'update'])
-        ->name('password.change.update');
+        ->name('password.update');
 
     Route::middleware('auth')->group(function () {
         // ...

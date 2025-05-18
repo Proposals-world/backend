@@ -42,7 +42,8 @@ use App\Http\Controllers\Api\Tickets\TicketsController;
 use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
-
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPreferenceController;
@@ -131,6 +132,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/matches', [MatchController::class, 'getMatches']);
     Route::post('/report-user', [ReportController::class, 'store']);
     Route::post('/reveal-contact', [MatchController::class, 'revealContact'])->name('reveal.contact');
+
+    Route::delete('delete-account', [DeleteAccountController::class, 'destroy'])
+        ->name('account.delete');
+
+    Route::put('change-password', [ChangePasswordController::class, 'update'])
+        ->name('password.change.update');
     Route::prefix('guardian-contact')->group(function () {
         Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);

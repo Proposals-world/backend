@@ -4,11 +4,20 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UserDeletionService;
 
 class DeleteAccountController extends Controller
 {
+    protected $userDeletionService;
+
+    /**
+     * Constructor to inject the UserDeletionService.
+     */
+    public function __construct(UserDeletionService $userDeletionService)
+    {
+        $this->userDeletionService = $userDeletionService;
+    }
+
     /**
      * Show the delete-account confirmation form.
      */
@@ -22,28 +31,6 @@ class DeleteAccountController extends Controller
      */
     public function destroy(Request $request)
     {
-        $request->validate([
-            'current_password' => ['required'],
-        ]);
-
-        $user = $request->user();
-
-        if (! Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors([
-                'current_password' => __('The provided password does not match our records.'),
-            ]);
-        }
-
-        Auth::logout();
-
-        // Delete the user
-        $user->delete();
-
-        // Invalidate session & regenerate token
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/')
-            ->with('status', __('Your account has been deleted.'));
+        return $this->userDeletionService->deleteUser($request);
     }
 }
