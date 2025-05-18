@@ -177,4 +177,8 @@ return [
     'specialization' => 'التخصص',
     'height' => 'الطول',
     'weight' => 'الوزن',
+    'delete confirm' => 'بمجرد حذف حسابك، سيتم إزالة  بياناتك. لا يمكن التراجع عن هذا الإجراء.',
+    'Confirm with Password' => 'تأكيد مع كلمة المرور',
+    'Delete Account' => 'حذف الحساب',
+    'Delete My Account' => 'حذف حسابي',
 ];

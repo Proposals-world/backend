@@ -167,4 +167,8 @@ return [
     'city_location' => 'City Location',
     'height' => 'Height',
     'weight' => 'Weight',
+    'delete confirm' => 'Once you delete your account, all of your data will be removed. This action cannot be undone.',
+    'Confirm with Password' => 'Confirm with Password',
+    'Delete Account' => 'Delete Account',
+    'Delete My Account' => 'Delete My Account',
 ];

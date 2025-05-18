@@ -15,10 +15,11 @@ use App\Enums\MatchStatus;
 use App\Enums\ReportStatus;
 use App\Enums\SubscriptionStatus;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
     /** @use HasFactory<\Database\Factories\UserFactory>
      * The attributes that are mass assignable.
      *

@@ -31,9 +31,9 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card shadow p-4 text-center" style="max-width: 400px; width: 100%;">
 
-            <h4 class="mb-4 text-danger">{{ __('Delete Account') }}</h4>
+            <h4 class="mb-4 text-danger">{{ __('profile.Delete Account') }}</h4>
             <p class="text-left text-danger">
-                {{ __('Once you delete your account, all of your data will be permanently removed. This action cannot be undone.') }}
+                {{ __('profile.delete confirm') }}
             </p>
 
             @if(session('status'))
@@ -49,7 +49,7 @@
                 @method('DELETE')
 
                 <div class="form-group text-left mb-4">
-                    <label for="current_password">{{ __('Confirm with Password') }}</label>
+                    <label for="current_password">{{ __('profile.Confirm with Password') }}</label>
                     <input id="current_password" type="password"
                            class="form-control @error('current_password') is-invalid @enderror"
                            name="current_password" required>
@@ -57,7 +57,7 @@
 
                 <button type="submit"
                         class="btn btn-danger btn-block matchmaking-form-submit">
-                    {{ __('Delete My Account') }}
+                    {{ __('profile.Delete My Account') }}
                 </button>
             </form>
 
