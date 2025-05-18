@@ -76,9 +76,7 @@ class SupportTicketController extends Controller
         );
 
         return redirect()
-            ->route('user.support.show', $ticket)
-            ->with('success', __('Your reply was posted.'));
-    }
+            ->route('user.support.show', $ticket);    }
 
     /** Close the ticket */
     public function close(int $ticket): RedirectResponse

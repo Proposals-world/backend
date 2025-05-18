@@ -135,5 +135,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
         Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
+        Route::post('/send-template', [WhatsAppController::class, 'sendTemplateMessage']); // Added new template route
     });
+
 });

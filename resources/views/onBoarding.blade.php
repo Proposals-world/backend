@@ -5,6 +5,11 @@
         $locale = app()->getLocale();
     @endphp
     <style>
+        [dir="rtl"] .disclaimer-section .form-check-label strong {
+            margin-right: 20px;
+            display: inline-block;
+        }
+
         @media (max-width: 768px) {
             [dir="rtl"] .onboarding-steps-indicator {
                 left: 10px;
@@ -26,6 +31,101 @@
             [dir="rtl"] .onboarding-card {
                 margin-left: 25px;
                 margin-right: 0px;
+            }
+        }
+
+        .disclaimer-section .card {
+            border-radius: 10px;
+            background-color: #fffbf0;
+            border-width: 1px;
+        }
+
+        .disclaimer-section .card-title {
+            font-size: 1.1rem;
+            color: #856404;
+        }
+
+        .disclaimer-section .disclaimer-content {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .disclaimer-section .form-check-input {
+            width: 18px;
+            height: 18px;
+            margin-top: 0.2rem;
+        }
+
+        .disclaimer-section .form-check-label {
+            font-size: 0.95rem;
+            padding-left: 5px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .disclaimer-section .card-body {
+                padding: 1rem;
+            }
+
+            .disclaimer-section .disclaimer-content {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* RTL support for disclaimer section */
+        [dir="rtl"] .disclaimer-section .card {
+            border-radius: 10px;
+            background-color: #fffbf0;
+            border-width: 1px;
+        }
+
+        [dir="rtl"] .disclaimer-section .card-title {
+            text-align: right;
+        }
+
+        [dir="rtl"] .disclaimer-section .card-title i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+
+        [dir="rtl"] .disclaimer-section .disclaimer-content {
+            text-align: right;
+        }
+
+        [dir="rtl"] .disclaimer-section .form-check {
+            padding-right: 1.5rem;
+            padding-left: 0;
+        }
+
+        [dir="rtl"] .disclaimer-section .form-check-input {
+            margin-right: -1.5rem;
+            margin-left: 0;
+            position: absolute;
+        }
+
+        [dir="rtl"] .disclaimer-section .form-check-label {
+            margin-right: 0.5rem;
+            margin-left: 0;
+            text-align: right;
+        }
+
+        [dir="rtl"] .disclaimer-section .error-message {
+            text-align: right;
+        }
+
+        [dir="rtl"] .btn i.fas.fa-check {
+            margin-right: 0.5rem;
+            margin-left: 0;
+        }
+
+        /* Fix for RTL form elements */
+        @media (max-width: 768px) {
+            [dir="rtl"] .disclaimer-section .card-body {
+                padding: 1rem;
+            }
+
+            [dir="rtl"] .disclaimer-section .form-check-input {
+                margin-right: -1.25rem;
             }
         }
 
@@ -140,6 +240,7 @@
                                         __('onboarding.family_housing'),
                                         __('onboarding.nationality_city_residence'),
                                         __('onboarding.final_details'),
+                                        __('onboarding.terms_conditions'),
                                     ];
                                 @endphp
                                 @foreach ($steps as $index => $step)
@@ -215,7 +316,7 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
-{{--
+                                                {{--
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label
@@ -235,9 +336,8 @@
                                                 </div> --}}
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label
-                                                            class="form-label">{{ __('onboarding.nickname') }}</label>
-                                                     <input type="text" name="nickname"
+                                                        <label class="form-label">{{ __('onboarding.nickname') }}</label>
+                                                        <input type="text" name="nickname"
                                                             class="form-control rounded-pill" required
                                                             placeholder="{{ __('onboarding.nicknamePlaceholder') }}">
                                                         <span class="error-message text-danger"
@@ -390,7 +490,8 @@
 
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i
+                                                        class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -426,9 +527,11 @@
 
                                                 <div class="col-md-4 job-title-wrapper" style="display:none;">
                                                     <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.Job_Domain') }}</label>
+                                                        <label
+                                                            class="form-label">{{ __('onboarding.Job_Domain') }}</label>
                                                         <select name="job_title_id" class="form-control rounded-pill">
-                                                            <option value="">{{ __('onboarding.select_job_domain') }}
+                                                            <option value="">
+                                                                {{ __('onboarding.select_job_domain') }}
                                                             </option>
                                                             @foreach ($data['jobTitles'] as $jobTitle)
                                                                 <option value="{{ $jobTitle->id }}">{{ $jobTitle->name }}
@@ -591,7 +694,8 @@
 
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i
+                                                        class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -723,7 +827,8 @@
                                             @endif
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i
+                                                        class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -821,7 +926,8 @@
                                             </div>
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                                 <button type="button" class="btn btn-secondary rounded-pill prev-step">
-                                                    <i class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
+                                                    <i
+                                                        class="fas fa-arrow-{{ $locale === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
                                                 <button type="button" class="btn btn-primary rounded-pill next-step"
                                                     disabled>
@@ -830,7 +936,9 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <!-- Step 4: Final Details -->
+
+                                        <!-- Step 4: Final Details end -->
+
                                         <div class="onboarding-step" id="step-5" style="display:none;">
                                             <h2 class="card-title text-center mb-4 section-title">
                                                 {{ __('onboarding.final_details') }}</h2>
@@ -888,7 +996,9 @@
                                                                             class="fas fa-phone"></i></span>
                                                                 </div>
                                                                 <input type="tel" name="guardian_contact"
-                                                                    class="form-control rounded-right" required placeholder="07XXXXXXXX" pattern="[0-9]{10}" title="Phone number must be 10 digits starting with 07">
+                                                                    class="form-control rounded-right" required
+                                                                    placeholder="07XXXXXXXX" pattern="[0-9]{10}"
+                                                                    title="Phone number must be 10 digits starting with 07">
                                                             </div>
                                                             <span class="error-message text-danger"
                                                                 style="font-size:12px;"></span>
@@ -902,7 +1012,53 @@
                                                     <i
                                                         class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
                                                 </button>
-                                                <button type="submit" class="btn btn-success rounded-pill">
+                                                <button type="button" class="btn btn-primary rounded-pill next-step">
+                                                    {{ __('onboarding.next') }} <i
+                                                        class="fas fa-arrow-{{ $locale === 'ar' ? 'left' : 'right' }} ml-2"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Step 6: Terms and Conditions -->
+                                        <div class="onboarding-step" id="step-6" style="display:none;">
+                                            <h2 class="card-title text-center mb-4 section-title">
+                                                {{ __('onboarding.terms_conditions') }}</h2>
+
+                                            <!-- Disclaimer Section -->
+                                            <div class="disclaimer-section mb-4">
+                                                <div class="card border-warning">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-warning mb-3">
+                                                            <i
+                                                                class="fas fa-exclamation-triangle mr-2"></i>{{ __('onboarding.disclaimer_title') }}
+                                                        </h5>
+                                                        <div class="disclaimer-content">
+                                                            <p class="mb-2">{{ __('onboarding.disclaimer_p1') }}</p>
+                                                            <p class="mb-2">{{ __('onboarding.disclaimer_p2') }}</p>
+                                                            <p class="mb-0">{{ __('onboarding.disclaimer_p3') }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mt-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="disclaimerAgreement" name="disclaimer_agreement" required>
+                                                    <label class="form-check-label" for="disclaimerAgreement">
+                                                        <strong>{{ __('onboarding.disclaimer_agreement') }}</strong>
+                                                    </label>
+                                                    <span class="error-message text-danger"
+                                                        style="font-size:12px;"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="onboarding-navigation d-flex justify-content-between mt-4">
+                                                <button type="button" class="btn btn-secondary rounded-pill prev-step">
+                                                    <i
+                                                        class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }} mr-2"></i>{{ __('onboarding.previous') }}
+                                                </button>
+                                                <button type="submit" class="btn btn-success rounded-pill"
+                                                    id="final-submit-button" disabled>
                                                     {{ __('onboarding.submit') }} <i class="fas fa-check ml-2"></i>
                                                 </button>
                                             </div>
@@ -1383,12 +1539,30 @@
                         scrollTop: 0
                     }, 'fast');
                 });
+                // Replace your existing disclaimerAgreement change handler with this
+                $('#disclaimerAgreement').on('change', function() {
+                    $(this).data('touched', true);
+                    validateField(this);
 
+                    // Directly enable/disable the submit button based on checkbox state
+                    if ($(this).is(':checked')) {
+                        $('#final-submit-button').prop('disabled', false);
+                    } else {
+                        $('#final-submit-button').prop('disabled', true);
+                    }
+                });
                 $('#onboarding-form').on('submit', function(e) {
                     e.preventDefault();
                     var currentStep = $('.onboarding-step:visible');
                     markStepFieldsAsTouched(currentStep);
                     if (!validateStep(currentStep)) {
+                        return false;
+                    }
+                    if (!$('#disclaimerAgreement').prop('checked')) {
+                        $('#disclaimerAgreement').addClass('is-invalid');
+                        $('#disclaimerAgreement').closest('.form-check').find('.error-message').text(
+                            "{{ __('onboarding.consent_required') }}");
+                        e.preventDefault();
                         return false;
                     }
                     // clear saved form data from localStorage upon successful submission.

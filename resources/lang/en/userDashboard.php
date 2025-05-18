@@ -275,9 +275,10 @@ return [
         'social_media_presence' => 'Social Media Presence',
         'find_matches' => 'Find Matches',
         'job_domain' => 'Job Domain',
-        'any' => '-- Any--',
         'Select Country First' => '-- Select Country First --',
         'Find Matches' => 'Find Matches',
     ],
+
+
 
 ];

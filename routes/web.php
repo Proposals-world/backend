@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminSupportTicketController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\CountriesController;
@@ -73,6 +74,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // admins route
     Route::prefix('admin')->group(function () {
+        Route::get('/support', [AdminSupportTicketController::class, 'index'])->name('admin.support');
+        Route::get('/support/{ticket}', [AdminSupportTicketController::class, 'show'])->name('admin.support.show');
+        Route::post('/support/{ticket}/reply', [AdminSupportTicketController::class, 'reply'])->name('admin.support.reply');
+        Route::post('/support/{ticket}/status', [AdminSupportTicketController::class, 'updateStatus'])->name('admin.support.update-status');
+
+
         Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
         Route::resource('countries', CountriesController::class);
         Route::resource('origins', OriginController::class);
