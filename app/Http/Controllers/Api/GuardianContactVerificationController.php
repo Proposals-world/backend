@@ -190,10 +190,10 @@ class GuardianContactVerificationController extends Controller
             }
 
 
+            $formattedPhone = $this->formatJordanianPhone($request->guardian_contact);
             $user->profile->update([
                 'guardian_contact_encrypted' => $formattedPhone,
             ]);
-            $formattedPhone = $this->formatJordanianPhone($request->guardian_contact);
 
             return response()->json([
                 'message' => $locale === 'ar'
