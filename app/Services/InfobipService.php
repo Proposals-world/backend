@@ -5,6 +5,7 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Http;
 use Illuminate\Support\Facades\Log;
 
 class InfobipService
@@ -36,56 +37,51 @@ class InfobipService
      * @param  array   $parameters   Template parameters (if any)
      * @return array
      */
-    public function sendWhatsAppTemplate(string $to, string $templateName, string $language = "en_GB", array $parameters = []): array
+    public function sendWhatsAppTemplate($to, $templateName, $language = 'en_GB', $parameters = [])
     {
-        // Strip any leading "+"
-        $to = ltrim($to, '+');
-
-        // Important: Ensure parameters is an array, even if it's empty
-        if (!is_array($parameters)) {
-            $parameters = [];
+        // expects: ['123456'] if just body, or ['123456', 'urlParam'] if has button
+    
+        $bodyPlaceholder = $parameters[0] ?? '';
+        $buttonParameter = $parameters[1] ?? null;
+    
+        $templateData = [
+            'body' => [
+                'placeholders' => [$bodyPlaceholder]
+            ]
+        ];
+    
+        if ($buttonParameter) {
+            $templateData['buttons'] = [
+                [
+                    'type' => 'URL',
+                    'parameter' => $buttonParameter
+                ]
+            ];
         }
-
-        // Create the payload according to Infobip API specifications
+    
         $payload = [
             'messages' => [
                 [
                     'from' => $this->from,
                     'to' => $to,
-                    'type'=>"text",
                     'content' => [
                         'templateName' => $templateName,
-                        'language' => $language,
-                        'templateData' => [
-                            'body' => [
-                                'placeholders' => array_values($parameters) // Ensure it's a flat array
-                            ]
-                        ]
+                        'templateData' => $templateData,
+                        'language' => $language
                     ]
                 ]
             ]
         ];
-
-        // Log the payload for debugging
-        Log::debug('Infobip WhatsApp Template Payload', ['payload' => $payload]);
-
-        try {
-            $resp = $this->client->post('/whatsapp/1/message/template', [
-                'json' => $payload
-            ]);
-
-            return json_decode($resp->getBody()->getContents(), true);
-        } catch (RequestException $e) {
-            if ($e->hasResponse()) {
-                $errorResponse = json_decode($e->getResponse()->getBody(), true);
-                Log::error('Infobip Template Error', ['error' => $errorResponse]);
-                return ['error' => true, 'details' => $errorResponse];
-            }
-            Log::error('Infobip Connection Error', ['error' => $e->getMessage()]);
-            return ['error' => true, 'details' => $e->getMessage()];
-        }
+    
+        Log::debug('Infobip payload', ['payload' => $payload]);
+    
+        $response = Http::withHeaders([
+            'Authorization' => 'App ' . env('INFOBIP_API_KEY'),
+            'Content-Type' => 'application/json'
+        ])->post(env('INFOBIP_BASE_URL') . '/whatsapp/1/message/template', $payload);
+    
+        return $response->json();
     }
-
     /**
      * Send a plain-text WhatsApp message.
      * NOTE: This can only be used within the 24-hour customer service window.
