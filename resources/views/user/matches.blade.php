@@ -340,7 +340,11 @@ function renderMatches(matches, containerId, badgeClass) {
                         onerror="this.onerror=null;this.src='{{ asset('dashboard/logos/profile-icon.jpg') }}'">
                         </div>
                         <div class="card-body d-flex flex-column">
-                        <h5 class="card-title mb-1">${profile.profile.nickname} </h5>
+                        <h5 class="card-title mb-1">${
+                          match.contact_exchanged
+                            ? `${profile.first_name || ''} ${profile.last_name || ''}`.trim()
+                            : profile.profile.nickname
+                        }</h5>
                         <p class="text-muted small mb-2">
                             ${[profile.profile.country_of_residence, profile.profile.city].filter(Boolean).join(', ')}
                         </p>
@@ -505,7 +509,7 @@ $('#revealContactBtn')
                 const mainPhoto = profile.profile.photos?.find(photo => photo.is_main === 1)?.photo_url ||
                     '{{ asset('dashboard/logos/profile-icon.jpg') }}';
                 $('#modalAvatar').attr('src', mainPhoto);
-                $('#modalName').text(`${profile.profile.nickname}`);
+                $('#modalName').text(match.contact_exchanged ? `${profile.first_name || ''} ${profile.last_name || ''}`.trim() : profile.profile.nickname);
                 $('#modalBio').text(profile.profile.bio || 'No bio provided.');
                 $('#modalGender').text(profile.gender || 'N/A');
                 $('#modalAge').text(profile.profile.age || 'N/A');
