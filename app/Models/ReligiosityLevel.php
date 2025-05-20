@@ -32,5 +32,4 @@ class ReligiosityLevel extends Model
     {
         return $this->hasMany(UserPreference::class, 'preferred_religiosity_level_id');
     }
-
 }

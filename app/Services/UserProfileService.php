@@ -29,6 +29,7 @@ class UserProfileService
                 'profile.nationality',
                 'profile.origin',
                 'profile.religion',
+                'profile.religiosityLevel',
                 'profile.countryOfResidence',
                 'profile.city',
                 'profile.zodiacSign',

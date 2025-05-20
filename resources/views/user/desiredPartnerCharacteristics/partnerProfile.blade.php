@@ -471,9 +471,9 @@
                                                             value="{{ $userPreferences['preferred_children_count'] }}">
                                                     </div> --}}
                                                     {{-- Marriage Budget --}}
-                                                    @if (Auth::check() && Auth::user()->gender == 'female')
+                                                    {{-- @if (Auth::check() && Auth::user()->gender == 'female') --}}
                                                         {{-- Hijab Status --}}
-                                                        <div class="form-group">
+                                                        {{-- <div class="form-group">
                                                             <label
                                                                 class="form-label">{{ __('profile.Partner_Hijab_Status') }}</label>
                                                             <select class="form-control" name="preferred_hijab_status">
@@ -503,8 +503,8 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
-                                                        </div>
-                                                    @endif
+                                                        </div> --}}
+                                                    {{-- @endif --}}
                                                               {{-- Marital Status --}}
                                                     <div class="form-group">
                                                         <label class="form-label"

@@ -406,6 +406,8 @@ async function initializeMatches() {
                 "{{ __('userDashboard.likeMe.personal') }}": {
                     "{{ __('userDashboard.likeMe.date_of_birth') }}": profile.profile.date_of_birth,
                     "{{ __('userDashboard.likeMe.religion') }}": profile.profile.religion,
+                                            "{{ __('userDashboard.likeMe.religion_level') }}": profile.profile.religion_level ,
+
                     "{{ __('userDashboard.likeMe.religiosity_level') }}": profile.profile.religiosity_level,
 
                     "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,

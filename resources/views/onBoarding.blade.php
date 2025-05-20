@@ -1033,8 +1033,8 @@
                                                         </h5>
                                                         <div class="disclaimer-content">
                                                             <p class="mb-2">{{ __('onboarding.disclaimer_p1') }}</p>
-                                                            <p class="mb-2">{{ __('onboarding.disclaimer_p2') }}</p>
-                                                            <p class="mb-0">{{ __('onboarding.disclaimer_p3') }}</p>
+                                                            {{-- <p class="mb-2">{{ __('onboarding.disclaimer_p2') }}</p> --}}
+                                                            {{-- <p class="mb-0">{{ __('onboarding.disclaimer_p3') }}</p> --}}
                                                         </div>
                                                     </div>
                                                 </div>

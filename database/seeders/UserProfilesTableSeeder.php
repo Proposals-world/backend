@@ -198,7 +198,7 @@ class UserProfilesTableSeeder extends Seeder
                 'housing_id' => 1, // Owned
                 'car_ownership' => true,
                 'height_id' => 3, // 170 cm
-                'weight_id' => 5, // 90 kg
+                'weight_id' => 1, // 90 kg
                 'health_issues_en' => null,
                 'health_issues_ar' => null,
                 'marital_status_id' => 2, // Married

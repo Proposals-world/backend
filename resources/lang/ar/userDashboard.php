@@ -25,7 +25,7 @@ return [
         'physical' => 'المواصفات الجسدية',
         'social' => 'الحالة الاجتماعية',
         'interests' => 'الاهتمامات',
-
+        'religion_level' => 'مستوى التدين',
         // Modal Fields
         'date_of_birth' => 'تاريخ الميلاد',
         'religion' => 'الديانة',

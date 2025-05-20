@@ -99,7 +99,7 @@ class UserPreferencesTableSeeder extends Seeder
                 'preferred_job_title_id' => 5, // Business Analyst
                 'preferred_financial_status_id' => 1, // Stable
                 'preferred_height_id' => 3, // 170 cm
-                'preferred_weight_id' => 5, // 90 kg
+                'preferred_weight_id' => 2, // 90 kg
                 'preferred_marital_status_id' => 1, // Single
                 'preferred_smoking_status' => 0, // Does not smoke
                 'preferred_drinking_status_id' => 2, // Does not drink Alcohol
