@@ -12,6 +12,9 @@ class UsersDataTable extends DataTable
     public function dataTable($query)
     {
         return (new EloquentDataTable($query))
+            ->editColumn('created_at', function (User $user) {
+                return $user->created_at->format('d/m/Y');
+            })
             ->addColumn('action', function (User $user) {
                 return view('admin.AdminUser.columns._actions', compact('user'));
             })
@@ -22,7 +25,7 @@ class UsersDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()
-            ->where('role_id', '!=', 1);  // Exclude users with role_id 1
+            ->where('role_id', '!=', 1);
     }
 
     public function html()
@@ -33,7 +36,7 @@ class UsersDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['title' => 'Actions', 'width' => '80px'])
             ->parameters([
-                'dom' => 'Bfrtip',
+                'dom'     => 'Bfrtip',
                 'buttons' => ['create', 'export', 'print', 'reset', 'reload'],
             ]);
     }
@@ -49,6 +52,7 @@ class UsersDataTable extends DataTable
             'profile_status',
             'gender',
             'status',
+            'created_at',
         ];
     }
 

@@ -123,20 +123,21 @@
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
-                                    @error('password')
-                                        <div class="text-danger mt-2">{{ $message }}</div>
-                                    @enderror
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="password_confirmation" class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
-                                    @error('password_confirmation')
-                                        <div class="text-danger mt-2">{{ $message }}</div>
-                                    @enderror
                                 </div>
                             </div>
+                            @error('password_confirmation')
+                                <div class="text-danger mb-2">{{ $message }}</div>
+                            @enderror
+                            @error('password')
+                              <div class="text-danger mb-2">{{ $message }}</div>
+                          @enderror
                         </div>
 
                         <!-- Gender Selection -->
