@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     @include("admin.partials.title-meta")
     @include('admin.partials.head-css')
+    @if (app()->getLocale() === 'ar')
+        
+    <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
+    @endif
 </head>
 
 <body class="authentication-bg pb-0">
@@ -52,23 +56,23 @@
 
                 <div class="my-auto">
                     <!-- title-->
-                    <h4 class="mt-0">Sign In</h4>
-                    <p class="text-muted mb-4">Enter your email address and password to access your account.</p>
+                    <h4 class="mt-0">{{ __('auth.login') }}</h4>
+                    <p class="text-muted mb-4">{{ __('auth.check_email_verification') }}</p>
 
                     <!-- Laravel Form -->
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="Enter your email">
+                            <label for="email" class="form-label">{{ __('auth.email') }}</label>
+                            <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="{{ __('auth.email') }}">
                             @error('email')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <a href="{{ route('password.request') }}" class="text-muted float-end"><small>Forgot your password?</small></a>
-                            <label for="password" class="form-label">Password</label>
-                            <input class="form-control" type="password" name="password" id="password" required placeholder="Enter your password">
+                            <a href="{{ route('password.request') }}" class="text-muted float-end"><small>{{ __('auth.forgot_password') }}</small></a>
+                            <label for="password" class="form-label">{{ __('auth.password_label') }}</label>
+                            <input class="form-control" type="password" name="password" id="password" required placeholder="{{ __('auth.password_label') }}">
                             @error('password')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -76,11 +80,11 @@
                         <div class="mb-3">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="checkbox-signin" name="remember">
-                                <label class="form-check-label" for="checkbox-signin">Remember me</label>
+                                <label class="form-check-label" for="checkbox-signin">{{ __('auth.remember_me') }}</label>
                             </div>
                         </div>
                         <div class="d-grid mb-0 text-center">
-                            <button class="btn btn-primary" type="submit"><i class="ri-login-box-line"></i> Log In </button>
+                            <button class="btn btn-primary" type="submit"><i class="ri-login-box-line"></i> {{ __('auth.login') }} </button>
                         </div>
                     </form>
                     <!-- end form-->
@@ -88,7 +92,7 @@
 
                 <!-- Footer-->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">Don't have an account? <a href="{{ route('register') }}" class="text-muted ms-1"><b>Sign Up</b></a></p>
+                    <p class="text-muted">{{ __('auth.not_receive_email') }} <a href="{{ route('register') }}" class="text-muted ms-1"><b>{{ __('auth.register') }}</b></a></p>
                 </footer>
             </div>
         </div>

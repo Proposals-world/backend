@@ -16,7 +16,6 @@ class CheckUserStatus
         'city_id',
         'date_of_birth',
         'age',
-        'zodiac_sign_id',
         'educational_level_id',
     ];
 

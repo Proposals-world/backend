@@ -42,7 +42,7 @@ class UserProfileFactory extends Factory
             'housing_id' => rand(1, 4), // Based on available housing statuses
             'car_ownership' => $this->faker->boolean(),
             'height_id' => rand(1, 3), // Based on available heights
-            'weight_id' => rand(1, 5), // Based on available weights
+            'weight_id' => rand(1, 4), // Based on available weights
             'health_issues_en' => $this->faker->text(),
             'health_issues_ar' => $this->faker->text(),
             'marital_status_id' => rand(1, 4), // Based on available marital statuses
@@ -58,7 +58,7 @@ class UserProfileFactory extends Factory
             'religiosity_level_id' => rand(1, 5), // Based on available religiosity levels
             'sleep_habit_id' => rand(1, 3), // Based on available sleep habits
             'marriage_budget_id' => rand(1, 5), // Based on available marriage budgets
-            'eye_color_id' => rand(1, 20), // Based on available eye colors
+            'eye_color_id' => rand(1, 6), // Based on available eye colors
         ];
     }
 }

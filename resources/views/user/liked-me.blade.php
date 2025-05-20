@@ -2,7 +2,6 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
-
     <div class="container-fluid disable-text-selection">
         <div class="row">
             <div class="col-12 mb-4">
@@ -119,8 +118,14 @@
                                     <strong>{{ __('userDashboard.likeMe.nationality') }}:</strong> <span
                                         id="modalNationality"></span>
                                 </div>
+                                     <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.country_of_origin') }}:</strong> <span id="modalCountryOfOrigin"></span>
+                                </div>
                                 <div class="col-md-6 mb-2">
-                                    <strong>{{ __('userDashboard.likeMe.city') }}:</strong> <span id="modalCity"></span>
+                                    <strong>{{ __('userDashboard.matches.country_of_residence') }}:</strong> <span id="modalCountryOfResidence"></span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
                             </div>
                         </div>
@@ -187,22 +192,15 @@
                             <label for="reasonSelect">{{ __('userDashboard.dashboard.reason') }}</label>
                             <select id="reasonSelect" name="reason_en" class="form-control"
                                 onchange="toggleOtherReason()" required>
-                                <option value="Inappropriate Photos">
-                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}</option>
-                                <option value="Harassment">{{ __('userDashboard.dashboard.harassment') }}</option>
-                                <option value="Disrespectful Behavior">
-                                    {{ __('userDashboard.dashboard.disrespectful_behavior') }}</option>
-                                <option value="Asking for Haram (Forbidden)">
-                                    {{ __('userDashboard.dashboard.asking_for_haram') }}</option>
-                                <option value="Fake Profile">{{ __('userDashboard.dashboard.fake_profile') }}</option>
+                               <option value="Inappropriate Photos">
+                                    {{ __('userDashboard.dashboard.inappropriate_photos') }}
+                                </option>
+                                <option value="Offensive Language">
+                                    {{ __('userDashboard.dashboard.offensive_language') }}
+                                </option>
                                 <option value="Spam or Advertising">
-                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}</option>
-                                <option value="Offensive Language">{{ __('userDashboard.dashboard.offensive_language') }}
+                                    {{ __('userDashboard.dashboard.spam_or_advertising') }}
                                 </option>
-                                <option value="Not Serious About Marriage">{{ __('userDashboard.dashboard.not_serious') }}
-                                </option>
-                                <option value="Misleading Information">
-                                    {{ __('userDashboard.dashboard.misleading_information') }}</option>
                                 <option value="Other">{{ __('userDashboard.dashboard.other') }}</option>
                             </select>
                         </div>
@@ -240,6 +238,7 @@
                     "{{ __('userDashboard.likeMe.personal') }}": {
                         "{{ __('userDashboard.likeMe.date_of_birth') }}": profile.profile.date_of_birth,
                         "{{ __('userDashboard.likeMe.religion') }}": profile.profile.religion,
+                        "{{ __('userDashboard.likeMe.religion_level') }}": profile.profile.religion_level ,
                         "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,
                         "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
                             "{{ __('userDashboard.likeMe.na') }}",
@@ -252,7 +251,7 @@
                         "{{ __('userDashboard.likeMe.employment_status') }}": profile.profile.employment_status ?
                             "{{ __('userDashboard.likeMe.employed') }}" :
                             "{{ __('userDashboard.likeMe.unemployed') }}",
-                        "{{ __('userDashboard.likeMe.job_title') }}": profile.profile.job_title,
+                        "{{ __('userDashboard.likeMe.Job_Domain') }}": profile.profile.job_title,
                         "{{ __('userDashboard.likeMe.position_level') }}": profile.profile.position_level,
                         "{{ __('userDashboard.likeMe.financial_status') }}": profile.profile.financial_status,
                     },
@@ -333,6 +332,9 @@
                 $('#modalAge').text(profile.profile.age || 'N/A');
                 $('#modalNationality').text(profile.profile.nationality || 'N/A');
                 $('#modalCity').text(profile.profile.city || 'N/A');
+                                $('#modalCountryOfResidence').text(profile.profile.country_of_residence || 'N/A');
+                $('#modalCountryOfOrigin ').text(profile.profile.origin || 'N/A');
+
                 const details = categorizeDetails(profile);
                 populateExtraDetails(details);
                 $('#profileModalRight').modal('show');

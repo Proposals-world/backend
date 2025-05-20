@@ -112,6 +112,12 @@
                                 <span> Customer Reports </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('feedback.index')}}" class="side-nav-link">
+                                <i class="ri-feedback-line"></i>
+                                <span> Customer Feedback </span>
+                            </a>
+                        </li>
                         {{-- <li class="side-nav-item">
                             <a href="" class="side-nav-link">
                                 <span> Cities </span>
@@ -183,6 +189,12 @@
                                 <span> Specializations </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('job-titles.index') }}" class="side-nav-link">
+                                <i class="ri-briefcase-4-line"></i>
+                                <span> Job Domain </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -219,6 +231,7 @@
                                 <span> Religions </span>
                             </a>
                         </li>
+                       
                         <li class="side-nav-item">
                             <a href="{{ route('pets.index') }}" class="side-nav-link d-flex align-items-center">
                                 <img width="16px" style="margin-left: 7px;" class="me-2"
@@ -271,7 +284,12 @@
                 </div>
             </li>
 
-
+            <li class="side-nav-item">
+                <a href="{{ route('admin.support') }}" class="side-nav-link">
+                    <i class="ri-heart-2-line"></i>
+                    <span> Support </span>
+                </a>
+            </li>
 
         </ul>
         <!--- End Sidemenu -->

@@ -5741,8 +5741,8 @@ pre cite {
 }
 
 .step-number {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: #f1f1f1;
     display: flex;
@@ -5762,7 +5762,7 @@ pre cite {
 
 .step-name {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #666;
 }
 

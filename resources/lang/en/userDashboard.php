@@ -16,7 +16,7 @@ return [
         'dislike' => 'Reject',
         'like_back' => 'Accept',
         'profile_image' => 'Profile Image',
-
+        'religion_level' => 'Religion Level',
         'like' => 'Like',
         'Fdislike' => 'Dislike',
 
@@ -41,7 +41,7 @@ return [
         'employment_status' => 'Employment Status',
         'employed' => 'Employed',
         'unemployed' => 'Unemployed',
-        'job_title' => 'Job Title',
+        'Job_Domain' => 'Job Domain',
         'position_level' => 'Position Level',
         'financial_status' => 'Financial Status',
 
@@ -60,11 +60,14 @@ return [
         'smoking_tools' => 'Smoking Tools',
         'hobbies' => 'Hobbies',
         'pets' => 'Pets',
-
+        'religiosity_level' => 'Religiosity Level',
         'na' => 'N/A',
         'Discover_who_liked_your_profile' => 'Discover who liked your profile',
         'Total_Likes' => 'Total Likes',
         'no_likes_yet' => 'No likes yet',
+        'housing_status' => 'Housing Status',
+        'car_ownership' => 'Car Ownership',
+        'marriage_budget' => 'Marriage Budget',
     ],
     'matches' => [
         'users_who_matched_with_you' => 'Users Who Matched With You',
@@ -78,7 +81,7 @@ return [
         'gender' => 'Gender',
         'age' => 'Age',
         'nationality' => 'Nationality',
-        'city' => 'City',
+        'city_of_Residence' => 'City Of Residence',
         'unknown_location' => 'Unknown Location',
         'close' => 'Close',
         'remove' => 'Remove Match',
@@ -95,6 +98,8 @@ return [
         'Contacted' => 'Contacted',
         'Match' => 'Match',
         'guardian_phone' => 'Guardian Phone',
+        'country_of_residence' => 'Country of Residence',
+        'country_of_origin' => 'Country of Origin',
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',
@@ -124,6 +129,8 @@ return [
         'support' => 'Support',
         'logout' => 'Sign out',
         'guest' => 'Guest',
+        'Change Password' => 'Change Password',
+        'delete_account' => 'Delete Account',
     ],
     'dashboard' => [
         'welcome' => 'Welcome',
@@ -163,6 +170,8 @@ return [
         'abuse' => 'Abuse',
         'offensive' => 'Offensive',
         'other' => 'Other',
+        'Confirm Action female' => 'This will take credit from your account and will share your first name and your info Mother’s phone number with this user',
+        'Confirm Action male' => 'This will take credit from your account and will share your first name and your info with this user',
         'Confirm Action' => 'Confirm Action',
         'Confirm' => 'Confirm',
         'Cancel' => 'Cancel',
@@ -190,6 +199,8 @@ return [
         'Other' => 'Other',
         'other_reason_ar' => 'Other Reason (Arabic)',
         'other_reason_en' => 'Other Reason (English)',
+        'review' => 'Review',
+        'Not_Serious' => 'Not Serious',
     ],
     'support' => [
         'title' => 'Support Tickets',
@@ -261,12 +272,17 @@ return [
         'sleep_habit' => 'Sleep Habit',
         'educational_level' => 'Educational Level',
         'specialization' => 'Specialization',
-        'job_title' => 'Job Title',
+        'Job_Domain' => 'Job Domain',
         'position_level' => 'Position Level',
         'marriage_budget' => 'Marriage Budget',
         'children' => 'Children',
         'social_media_presence' => 'Social Media Presence',
-        'find_matches' => 'Find Matches'
+        'find_matches' => 'Find Matches',
+        'job_domain' => 'Job Domain',
+        'Select Country First' => '-- Select Country First --',
+        'Find Matches' => 'Find Matches',
     ],
+
+
 
 ];

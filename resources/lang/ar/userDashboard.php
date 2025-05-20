@@ -25,7 +25,7 @@ return [
         'physical' => 'المواصفات الجسدية',
         'social' => 'الحالة الاجتماعية',
         'interests' => 'الاهتمامات',
-
+        'religion_level' => 'مستوى التدين',
         // Modal Fields
         'date_of_birth' => 'تاريخ الميلاد',
         'religion' => 'الديانة',
@@ -48,7 +48,7 @@ return [
         'no' => 'لا',
         'smoking_status' => 'التدخين',
         'drinking_status' => 'شرب الكحول',
-
+        'religiosity_level' => 'مستوى التدين',
         'height' => 'الطول',
         'weight' => 'الوزن',
         'sports_activity' => 'النشاط الرياضي',
@@ -63,6 +63,9 @@ return [
         'Discover_who_liked_your_profile' => 'اكتشف من أعجب بملفك الشخصي',
         'Total_Likes' => 'إجمالي الإعجابات',
         'no_likes_yet' => 'لا توجد إعجابات حتى الآن',
+        'car_ownership' => 'امتلاك سيارة',
+        'housing_status' => 'حالة السكن',
+        'marriage_budget' => 'ميزانية الزواج',
     ],
     'matches' => [
         'users_who_matched_with_you' => 'الأشخاص الذين تطابقت معهم',
@@ -77,6 +80,7 @@ return [
         'age' => 'العمر',
         'nationality' => 'الجنسية',
         'city' => 'المدينة',
+        'city_of_Residence' => 'مدينة الإقامة',
         'unknown_location' => 'الموقع غير معروف',
         'close' => 'إغلاق',
         'remove' => 'إزالة التطابق',
@@ -93,6 +97,8 @@ return [
         'Contacted' => 'تم التواصل',
         'Match' => 'تطابق',
         'guardian_phone' => 'رقم هاتف الولي',
+        'country_of_origin' => 'بلد الأصل',
+        'country_of_residence' => 'بلد الإقامة',
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',
@@ -124,6 +130,8 @@ return [
         'support' => 'الدعم',
         'logout' => 'تسجيل الخروج',
         'guest' => 'زائر',
+        'Change Password' => 'تغيير كلمة المرور',
+        'delete_account' => 'حذف الحساب',
     ],
     'dashboard' => [
         'welcome' => 'أهلاً',
@@ -149,7 +157,9 @@ return [
         'Suggested_Matches' => 'تطابقات مقترحة',
         'Suggested' => 'مقترح',
         '% Match' => ' تطابق  ',
-        'Confirm Action ' => 'تأكيد الإجراء',
+        'Confirm Action female' => 'سيتم خصم رصيد من حسابك ومشاركة اسمك الأول ومعلومات رقم هاتف والدتك مع هذا المستخدم',
+        'Confirm Action male' => 'سيتم خصم رصيد من حسابك ومشاركة اسمك الأول ومعلوماتك مع هذا المستخدم',
+        'Confirm Action' => ' تأكيد الإجراء',
         'Confirm' => 'تأكيد',
         'Cancel' => 'إلغاء',
         'Close' => 'إغلاق',
@@ -190,6 +200,8 @@ return [
         'Other' => 'أخرى',
         'other_reason_en' => 'Other Reason (English)',
         'other_reason_ar' => 'Other Reason (Arabic)',
+        'review' => 'مراجعة',
+        'Not_Serious' => 'غير جاد',
     ],
     'support' => [
         'title' => 'تذاكر الدعم',
@@ -266,7 +278,11 @@ return [
         'marriage_budget' => 'ميزانية الزواج',
         'children' => 'الأطفال',
         'social_media_presence' => 'التواجد على وسائل التواصل الاجتماعي',
-        'find_matches' => 'البحث عن مطابقات'
+        'find_matches' => 'البحث عن مطابقات',
+        'job_domain' => 'مجال العمل',
+        'any' => '-- أي --',
+        'Select Country First' => '-- اختر البلد أولاً --',
+        'Find Matches' => 'البحث عن مطابقات',
     ],
 
 ];

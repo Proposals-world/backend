@@ -13,6 +13,7 @@ class SkinColorsTableSeeder extends Seeder
             ['name_en' => 'Fair', 'name_ar' => 'بيضاء', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Medium', 'name_ar' => 'حنطية', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Dark', 'name_ar' => 'سمراء', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Very Dark', 'name_ar' => 'داكنة جداً', 'created_at' => now(), 'updated_at' => now()]
         ]);
     }
 }

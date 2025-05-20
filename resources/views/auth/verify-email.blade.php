@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
+    @if (app()->getLocale() === 'ar')
+        
+    <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
+    @endif
     @include("admin.partials.title-meta")
     @include('admin.partials.head-css')
 </head>
@@ -51,15 +55,15 @@
 
                 <div class="my-auto">
                     <!-- Title -->
-                    <h4 class="text-center">Verify Your Email</h4>
+                    <h4 class="text-center">{{ __('auth.verify_email') }}</h4>
                     <p class="text-muted text-center mb-4">
-                        Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+                        {{ __('auth.check_email_verification') }}
                     </p>
 
                     <!-- Status Message -->
                     @if (session('status') == 'verification-link-sent')
                         <div class="alert alert-success text-center">
-                            A new verification link has been sent to the email address you provided during registration.
+                            {{ __('auth.verification_link_sent') }}
                         </div>
                     @endif
 
@@ -67,7 +71,7 @@
                     <form method="POST" action="{{ route('verification.send') }}" class="mb-3">
                         @csrf
                         <div class="d-grid text-center">
-                            <button type="submit" class="btn btn-primary">Resend Verification Email</button>
+                            <button type="submit" class="btn btn-primary">{{ __('auth.send_password_reset_link') }}</button>
                         </div>
                     </form>
 
@@ -75,7 +79,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="text-center">
                         @csrf
                         <button type="submit" class="btn btn-link text-decoration-none text-muted">
-                            Log Out
+                            {{ __('auth.logout') }}
                         </button>
                     </form>
                 </div>

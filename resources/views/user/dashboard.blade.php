@@ -124,7 +124,7 @@
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.remaining_contacts') }}</p>
-                        <p class="lead text-center">{{ $remainingContacts }}</p>
+                        <p class="lead text-center">{{ $remainingContacts  ?? 0}}</p>
                     </div>
                 </a>
             </div>
@@ -145,7 +145,7 @@
                                         </a>
                                         <div class="pl-3 pt-2 pr-2 pb-2 w-100">
                                             <p class="list-item-heading mb-1">
-                                                {{ $match['matched_user_nickname'] }}
+                                                {{ $match['matched_user_name'] }}
                                             </p>
                                             <div class="pr-4 d-none d-sm-block">
                                                 <p class="text-muted mb-1 text-small">
@@ -165,7 +165,7 @@
                                                     data-toggle="modal"
                                                     data-target="#feedbackModal_{{ $match['id'] }}"
                                                     title="{{ __('userDashboard.dashboard.give_feedback_for') }}">
-                                                <i class="fas fa-comment"></i>
+                                                {{ __('userDashboard.dashboard.review') }}
                                             </button>
                                         </div>
                                     </div>
@@ -211,6 +211,7 @@
                                                             <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
                                                             <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
                                                             <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
+                                                            <option value="Not Serious">{{ __('userDashboard.dashboard.Not_Serious') }}</option>
                                                         </select>
 
 

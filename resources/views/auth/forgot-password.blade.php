@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
-    @include("admin.partials.title-meta")
+    @include('admin.partials.title-meta')
     @include('admin.partials.head-css')
 </head>
+@if (app()->getLocale() === 'ar')
+    <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
+@endif
 
 <body class="authentication-bg pb-0">
 
@@ -42,26 +45,33 @@
                 <!-- Logo -->
                 <div class="auth-brand text-center text-lg-start">
                     <a href="{{ url('/') }}" class="logo-dark">
-                        <span><img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo" class="auth-logo"></span>
+                        <span><img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="dark logo"
+                                class="auth-logo"></span>
                     </a>
                     <a href="{{ url('/') }}" class="logo-light">
-                        <span><img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="logo" height="24"></span>
+                        <span><img src="{{ asset('admin/assets/images/proposals-logo.jpeg') }}" alt="logo"
+                                height="24"></span>
                     </a>
                 </div>
 
                 <div class="my-auto">
                     <!-- Title -->
-                    <h4>Reset Password</h4>
-                    <p class="text-muted mb-4">Enter your email address, and we'll send you instructions to reset your password.</p>
-
+                    <h4>{{ __('auth.reset_password') }}</h4>
+                    <p class="text-muted mb-4">{{ __('auth.check_email_verification') }}</p>
+                    @if (session('status'))
+                        <div class="alert alert-success mb-4">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <!-- Laravel Form -->
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <!-- Email Input -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required placeholder="Enter your email">
+                            <label for="email" class="form-label">{{ __('auth.email') }}</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ old('email') }}" required placeholder="{{ __('auth.email') }}">
                             @error('email')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -69,7 +79,8 @@
 
                         <!-- Submit Button -->
                         <div class="mb-0 text-center d-grid">
-                            <button class="btn btn-primary" type="submit">Reset Password</button>
+                            <button class="btn btn-primary"
+                                type="submit">{{ __('auth.send_password_reset_link') }}</button>
                         </div>
                     </form>
                     <!-- end form -->
@@ -77,7 +88,8 @@
 
                 <!-- Footer -->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">Back to <a href="{{ route('login') }}" class="text-muted ms-1"><b>Log In</b></a></p>
+                    <p class="text-muted">{{ __('auth.already_registered') }} <a href="{{ route('login') }}"
+                            class="text-muted ms-1"><b>{{ __('auth.login') }}</b></a></p>
                 </footer>
 
             </div> <!-- end .card-body -->

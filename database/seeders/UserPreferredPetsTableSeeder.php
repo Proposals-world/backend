@@ -12,10 +12,7 @@ class UserPreferredPetsTableSeeder extends Seeder
         DB::table('user_preferred_pets')->insert([
             ['user_id' => 1, 'pet_id' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['user_id' => 2, 'pet_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['user_id' => 3, 'pet_id' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['user_id' => 4, 'pet_id' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['user_id' => 5, 'pet_id' => 5, 'created_at' => now(), 'updated_at' => now()],
-            ['user_id' => 6, 'pet_id' => 1, 'created_at' => now(), 'updated_at' => now()],
+
         ]);
     }
 }

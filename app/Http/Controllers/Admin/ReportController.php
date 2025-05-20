@@ -34,14 +34,8 @@ class ReportController extends Controller
 
             $reasonTranslations = [
                 'Inappropriate Photos' => 'صور غير لائقة',
-                'Harassment' => 'تحرش',
-                'Disrespectful Behavior' => 'سلوك غير محترم',
-                'Asking for Haram (Forbidden)' => 'طلب أمور محرمة',
-                'Fake Profile' => 'ملف شخصي مزيف',
-                'Spam or Advertising' => 'رسائل مزعجة أو إعلانات',
                 'Offensive Language' => 'ألفاظ مسيئة',
-                'Not Serious About Marriage' => 'عدم الجدية في الزواج',
-                'Misleading Information' => 'معلومات مضللة',
+                'Spam or Advertising' => 'رسائل مزعجة أو إعلانات',
                 'Other' => 'أخرى',
             ];
 

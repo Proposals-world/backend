@@ -20,12 +20,12 @@
                         <div class="breadcrumb-title mt-60 mb-30">
                             <h2>{{ $formattedBlog['title'] }}</h2>
                         </div>
-                        <nav aria-label="breadcrumb">
+                        {{-- <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $formattedBlog['title'] }}</li>
                             </ol>
-                        </nav>
+                        </nav> --}}
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                             </div>
                         </div> --}}
 
-                        <div class="widget mb-40">
+                        {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>{{ __('blog.Follow_Us') }}</h4>
                             </div>
@@ -139,8 +139,8 @@
                                 <a href="#"><i class="fab fa-instagram"></i></a>
                                 <a href="#"><i class="fab fa-wordpress"></i></a>
                             </div>
-                        </div>
-                        <div class="widget mb-40">
+                        </div> --}}
+                        {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>{{ __('blog.Categories') }}</h4>
                             </div>
@@ -149,7 +149,7 @@
                                     <li><a>{{ $category['name'] }}</a></li>
                                 @endforeach
                             </ul>
-                        </div>
+                        </div> --}}
 
                         {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">

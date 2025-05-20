@@ -83,12 +83,12 @@
                         <div class="breadcrumb-title mt-60 mb-30">
                             <h2>{{ __('home.about-us') }}</h2>
                         </div>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('/') }}">{{ __('home.home') }}</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ __('home.about-us') }}</li>
-                            </ol>
-                        </nav>
+                            {{-- <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ url('/') }}">{{ __('home.home') }}</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('home.about-us') }}</li>
+                                </ol>
+                            </nav> --}}
                     </div>
                 </div>
             </div>
