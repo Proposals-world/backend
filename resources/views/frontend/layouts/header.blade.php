@@ -20,12 +20,12 @@
                                 <ul id="header-ul">
                                     <div></div>
                                     <li ><a href="{{ route('about-us') }}">{{ __('header.about_us') }}</a></li>
-                                    <li><a href="#features">{{ __('header.features') }}</a></li>
+                                    <li><a href="{{ url('/') }}#features">{{ __('header.features') }}</a></li>
                                     <li><a href="{{ url('/') }}#blog">{{ __('header.blog') }}</a></li>
                                     <li><a href="{{ url('/') }}#pricing">{{ __('header.pricing') }}</a></li>
                                     <li><a href="{{ url('/') }}#contact">{{ __('header.contact') }}</a></li>
                                     @auth
-                                        <li><a href="{{ route('logout') }}" 
+                                        <li><a href="{{ route('logout') }}"
                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ __('header.logout') }}
                                         </a></li>

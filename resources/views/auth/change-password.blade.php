@@ -39,7 +39,7 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card shadow p-4 text-center" style="max-width: 400px; width: 100%;">
 
-            <h4 class="mb-4">{{ __('profile.Change Password') }}</h4>
+            <h4 class="mb-4">{{ __('auth.reset_password') }}</h4>
 
             <!-- Success and error message containers -->
             <div id="status-message" class="alert d-none"></div>
@@ -49,28 +49,28 @@
                 @method('PUT')
 
                 <div class="form-group mb-3 text-left">
-                    <label for="current_password">{{ __('profile.Current Password') }}</label>
+                    <label for="current_password">{{ __('auth.current_password') }}</label>
                     <input id="current_password" type="password"
                         class="form-control"
                         name="current_password" required autofocus>
                 </div>
 
                 <div class="form-group mb-3 text-left">
-                    <label for="password">{{ __('profile.New Password') }}</label>
+                    <label for="password">{{ __('auth.new_password') }}</label>
                     <input id="password" type="password"
                         class="form-control"
                         name="password" required>
                 </div>
 
                 <div class="form-group mb-4 text-left">
-                    <label for="password_confirmation">{{ __('profile.Confirm New Password') }}</label>
+                    <label for="password_confirmation">{{ __('auth.confirm_new_password') }}</label>
                     <input id="password_confirmation" type="password"
                         class="form-control"
                         name="password_confirmation" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block matchmaking-form-submit">
-                    {{ __('profile.Save New Password') }}
+                    {{ __('auth.save_new_password') }}
                 </button>
             </form>
 
@@ -109,7 +109,7 @@ $(document).ready(function() {
                 'Accept-Language': locale
             },
             beforeSend: function() {
-                $('#status-message').removeClass('alert-success alert-danger').addClass('alert-info').text('{{ __("profile.Changing password...") }}').removeClass('d-none');
+                $('#status-message').removeClass('alert-success alert-danger').addClass('alert-info').text('{{ __("auth.changing_password") }}').removeClass('d-none');
             },
             success: function(response) {
                     $('#status-message').removeClass('alert-info alert-danger').addClass('alert-success').text(response.message).removeClass('d-none');

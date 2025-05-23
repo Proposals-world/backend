@@ -177,7 +177,7 @@
                                                                 class="form-label d-block mb-2">{{ __('profile.Partner_Age') }}</label>
 
                                                             {{-- Top Labels --}}
-<div class="d-flex justify-content-between px-2 mt-2 @if(app()->getLocale()==='ar') flex-row-reverse @endif">
+                                                                <div class="d-flex justify-content-between px-2 mt-2 @if(app()->getLocale()==='ar') flex-row-reverse @endif">
 
                                                                 <div class="bg-light rounded px-3 py-1 border"
                                                                     @if(app()->getLocale()==='ar') style="padding-left: 1rem !important;" @endif
@@ -205,7 +205,7 @@
                                                                     placeholder="Min Age" min="18" max="100">
                                                                 <input type="hidden" class="form-control form-control-sm"
                                                                     name="preferred_age_max" id="preferred_age_max"
-                                                                    value="{{ $userPreferences['preferred_age_max'] ?? 60 }}"
+                                                                    value="{{ $userPreferences['preferred_age_max'] ?? 65 }}"
                                                                     placeholder="Max Age" min="18" max="100">
                                                             </div>
 
@@ -471,9 +471,9 @@
                                                             value="{{ $userPreferences['preferred_children_count'] }}">
                                                     </div> --}}
                                                     {{-- Marriage Budget --}}
-                                                    @if (Auth::check() && Auth::user()->gender == 'female')
+                                                    {{-- @if (Auth::check() && Auth::user()->gender == 'female') --}}
                                                         {{-- Hijab Status --}}
-                                                        <div class="form-group">
+                                                        {{-- <div class="form-group">
                                                             <label
                                                                 class="form-label">{{ __('profile.Partner_Hijab_Status') }}</label>
                                                             <select class="form-control" name="preferred_hijab_status">
@@ -503,8 +503,8 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
-                                                        </div>
-                                                    @endif
+                                                        </div> --}}
+                                                    {{-- @endif --}}
                                                               {{-- Marital Status --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
@@ -1515,57 +1515,56 @@ $(document).ready(function () {
 
             });
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const minRange = document.getElementById('ageMin');
-                const maxRange = document.getElementById('ageMax');
-                const minInput = document.getElementById('preferred_age_min');
-                const maxInput = document.getElementById('preferred_age_max');
-                const minLabel = document.getElementById('age-min-label');
-                const maxLabel = document.getElementById('age-max-label');
-                const highlight = document.querySelector('.range-highlight');
+          document.addEventListener('DOMContentLoaded', function() {
+    const minRange  = document.getElementById('ageMin');
+    const maxRange  = document.getElementById('ageMax');
+    const minLabel  = document.getElementById('age-min-label');
+    const maxLabel  = document.getElementById('age-max-label');
+    const highlight = document.querySelector('.range-highlight');
 
-            function updateSlider() {
-  const min = parseInt(minRange.min); // 18
-  const max = parseInt(minRange.max); // 65
+    function updateSlider() {
+        const min = +minRange.min, max = +minRange.max;
+        const rawMinPct = ((+minRange.value - min) / (max - min)) * 100;
+        const rawMaxPct = ((+maxRange.value - min) / (max - min)) * 100;
+        const isRTL = "{{ app()->getLocale() }}" === 'ar';
 
-  // get raw percentages
-  const rawMinPct = ((minRange.value - min) / (max - min)) * 100;
-  const rawMaxPct = ((maxRange.value - min) / (max - min)) * 100;
+        const minPct = isRTL ? 100 - rawMinPct : rawMinPct;
+        const maxPct = isRTL ? 100 - rawMaxPct : rawMaxPct;
+        const left  = Math.min(minPct, maxPct);
+        const width = Math.abs(maxPct - minPct);
 
-  const isRTL = "{{ app()->getLocale() }}" === 'ar';
+        // move the colored bar
+        highlight.style.left  = left  + '%';
+        highlight.style.width = width + '%';
 
-  // if RTL, invert those percentages
-  const minPct = isRTL ? 100 - rawMinPct : rawMinPct;
-  const maxPct = isRTL ? 100 - rawMaxPct : rawMaxPct;
+        // ** update your labels here **
+        minLabel.textContent = minRange.value;
+        maxLabel.textContent = maxRange.value;
+        document.getElementById('preferred_age_min').value = minRange.value;
+  document.getElementById('preferred_age_max').value = maxRange.value;
 
-  // compute left & width regardless of order
-  const left  = Math.min(minPct, maxPct);
-  const width = Math.abs(maxPct - minPct);
+    }
 
-  $('.range-highlight').css({
-    left:  `${left}%`,
-    width: `${width}%`
-  });
-}
+    // keep hidden inputs in sync if you have them:
+    function updateFromInputs() {
+        const minVal = Math.max(18, Math.min(+minLabel.textContent, +maxLabel.textContent));
+        const maxVal = Math.min(65, Math.max(+minLabel.textContent, +maxLabel.textContent));
+        minRange.value = minVal;
+        maxRange.value = maxVal;
+        updateSlider();
+    }
 
+    // wire up the events
+    minRange.addEventListener('input', updateSlider);
+    maxRange.addEventListener('input', updateSlider);
+    // if you also allow typing in text inputs:
+    document.getElementById('preferred_age_min').addEventListener('change', updateFromInputs);
+    document.getElementById('preferred_age_max').addEventListener('change', updateFromInputs);
 
-                function updateFromInputs() {
-                    let minVal = parseInt(minInput.value) || 18;
-                    let maxVal = parseInt(maxInput.value) || 100;
-                    minVal = Math.max(18, Math.min(minVal, maxVal));
-                    maxVal = Math.min(100, Math.max(minVal, maxVal));
-                    minRange.value = minVal;
-                    maxRange.value = maxVal;
-                    updateSlider();
-                }
+    // initial draw
+    updateSlider();
+});
 
-                minRange.addEventListener('input', updateSlider);
-                maxRange.addEventListener('input', updateSlider);
-                minInput.addEventListener('change', updateFromInputs);
-                maxInput.addEventListener('change', updateFromInputs);
-
-                updateSlider();
-            });
         </script>
     @endpush
     {{--

@@ -2,7 +2,6 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
-
     <div class="container-fluid disable-text-selection">
         <div class="row">
             <div class="col-12 mb-4">
@@ -119,8 +118,14 @@
                                     <strong>{{ __('userDashboard.likeMe.nationality') }}:</strong> <span
                                         id="modalNationality"></span>
                                 </div>
+                                     <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.country_of_origin') }}:</strong> <span id="modalCountryOfOrigin"></span>
+                                </div>
                                 <div class="col-md-6 mb-2">
-                                    <strong>{{ __('userDashboard.likeMe.city') }}:</strong> <span id="modalCity"></span>
+                                    <strong>{{ __('userDashboard.matches.country_of_residence') }}:</strong> <span id="modalCountryOfResidence"></span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
                             </div>
                         </div>
@@ -233,6 +238,7 @@
                     "{{ __('userDashboard.likeMe.personal') }}": {
                         "{{ __('userDashboard.likeMe.date_of_birth') }}": profile.profile.date_of_birth,
                         "{{ __('userDashboard.likeMe.religion') }}": profile.profile.religion,
+                        "{{ __('userDashboard.likeMe.religion_level') }}": profile.profile.religion_level ,
                         "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,
                         "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
                             "{{ __('userDashboard.likeMe.na') }}",
@@ -326,6 +332,9 @@
                 $('#modalAge').text(profile.profile.age || 'N/A');
                 $('#modalNationality').text(profile.profile.nationality || 'N/A');
                 $('#modalCity').text(profile.profile.city || 'N/A');
+                                $('#modalCountryOfResidence').text(profile.profile.country_of_residence || 'N/A');
+                $('#modalCountryOfOrigin ').text(profile.profile.origin || 'N/A');
+
                 const details = categorizeDetails(profile);
                 populateExtraDetails(details);
                 $('#profileModalRight').modal('show');

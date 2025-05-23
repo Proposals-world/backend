@@ -42,8 +42,15 @@
                                     <strong>{{ __('userDashboard.likeMe.nationality') }}:</strong> <span
                                         id="modalNationality"></span>
                                 </div>
+                                  <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.country_of_origin') }}:</strong> <span id="modalCountryOfOrigin"></span>
+                                </div>
                                 <div class="col-md-6 mb-2">
-                                    <strong>{{ __('userDashboard.likeMe.city') }}:</strong> <span id="modalCity"></span>
+                                    <strong>{{ __('userDashboard.matches.country_of_residence') }}:</strong> <span id="modalCountryOfResidence"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-2">
+                                    <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
                             </div>
                         </div>
@@ -539,6 +546,7 @@
                     "{{ __('userDashboard.likeMe.personal') }}": {
                         "{{ __('userDashboard.likeMe.date_of_birth') }}": profile.profile.date_of_birth,
                         "{{ __('userDashboard.likeMe.religion') }}": profile.profile.religion,
+                        "{{ __('userDashboard.likeMe.religion_level') }}": profile.profile.religion_level ,
                         "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,
                         "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
                             "{{ __('userDashboard.likeMe.na') }}",
@@ -626,6 +634,9 @@
                         $('#modalNationality').text(user.profile?.nationality || 'N/A');
                         $('#modalCity').text(user.profile?.city || 'N/A');
                         $('#modalPhone').text(user.phone_number || 'N/A');
+                        $('#modalCountryOfResidence').text(user.profile?.country_of_residence || 'N/A');
+$('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');
+
 
                         if (!user.contact_exchanged) {
                             $('#revealContactBtn').removeClass('d-none').off('click').on('click',

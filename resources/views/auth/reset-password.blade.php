@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     @include("admin.partials.title-meta")
     @include('admin.partials.head-css')
+    @if (app()->getLocale() === 'ar')
+        
+    <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
+    @endif
 </head>
 
 <body class="authentication-bg pb-0">
@@ -51,8 +55,8 @@
 
                 <div class="my-auto">
                     <!-- Title -->
-                    <h4 class="text-center">Reset Your Password</h4>
-                    <p class="text-muted text-center mb-4">Enter your new password below to reset it.</p>
+                    <h4 class="text-center">{{ __('auth.reset_password') }}</h4>
+                    <p class="text-muted text-center mb-4">{{ __('auth.check_email_verification') }}</p>
 
                     <!-- Laravel Form -->
                     <form method="POST" action="{{ route('password.store') }}">
@@ -63,8 +67,8 @@
 
                         <!-- Email Address -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $request->email) }}" required autofocus placeholder="Enter your email">
+                            <label for="email" class="form-label">{{ __('auth.email') }}</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $request->email) }}" required autofocus placeholder="{{ __('auth.email') }}">
                             @error('email')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -72,8 +76,8 @@
 
                         <!-- Password -->
                         <div class="mb-3">
-                            <label for="password" class="form-label">New Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your new password">
+                            <label for="password" class="form-label">{{ __('auth.new_password') }}</label>
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="{{ __('auth.new_password') }}">
                             @error('password')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -81,8 +85,8 @@
 
                         <!-- Confirm Password -->
                         <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your new password">
+                            <label for="password_confirmation" class="form-label">{{ __('auth.confirm_new_password') }}</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="{{ __('auth.confirm_new_password') }}">
                             @error('password_confirmation')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -90,7 +94,7 @@
 
                         <!-- Submit Button -->
                         <div class="d-grid mb-0 text-center">
-                            <button class="btn btn-primary" type="submit">Reset Password</button>
+                            <button class="btn btn-primary" type="submit">{{ __('auth.reset_password') }}</button>
                         </div>
                     </form>
                 </div>

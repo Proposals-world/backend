@@ -66,6 +66,7 @@ class UserProfileResource extends JsonResource
 
                 'origin' => $getLocalized($this->profile->origin, 'name'),
                 'religion' => $getLocalized($this->profile->religion, 'name'),
+                'religion_level' => $getLocalized($this->profile->religiosityLevel),
                 'country_of_residence' => $getLocalized($this->profile->countryOfResidence, 'name'),
                 'city' => $getLocalized($this->profile->city, 'name'),
                 'city_location' => $getLocalized($this->profile->cityLocation),

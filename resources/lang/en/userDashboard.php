@@ -16,7 +16,7 @@ return [
         'dislike' => 'Reject',
         'like_back' => 'Accept',
         'profile_image' => 'Profile Image',
-
+        'religion_level' => 'Religion Level',
         'like' => 'Like',
         'Fdislike' => 'Dislike',
 

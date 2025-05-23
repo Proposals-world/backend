@@ -124,7 +124,7 @@
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.remaining_contacts') }}</p>
-                        <p class="lead text-center">{{ $remainingContacts }}</p>
+                        <p class="lead text-center">{{ $remainingContacts  ?? 0}}</p>
                     </div>
                 </a>
             </div>

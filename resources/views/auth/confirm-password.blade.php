@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     @include("admin.partials.title-meta")
     @include('admin.partials.head-css')
+    @if (app()->getLocale() === 'ar')
+        
+    <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
+    @endif
 </head>
 
 <body class="authentication-bg pb-0">
@@ -51,8 +55,8 @@
 
                 <div class="my-auto">
                     <!-- Title -->
-                    <h4 class="text-center">Confirm Your Password</h4>
-                    <p class="text-muted text-center mb-4">This is a secure area of the application. Please confirm your password before continuing.</p>
+                    <h4 class="text-center">{{ __('auth.confirm') }}</h4>
+                    <p class="text-muted text-center mb-4">{{ __('auth.delete_confirm') }}</p>
 
                     <!-- Laravel Form -->
                     <form method="POST" action="{{ route('password.confirm') }}">
@@ -60,8 +64,8 @@
 
                         <!-- Password -->
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                            <label for="password" class="form-label">{{ __('auth.password_label') }}</label>
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="{{ __('auth.password_label') }}">
                             @error('password')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -69,7 +73,7 @@
 
                         <!-- Submit Button -->
                         <div class="d-grid mb-0 text-center">
-                            <button class="btn btn-primary" type="submit">Confirm</button>
+                            <button class="btn btn-primary" type="submit">{{ __('auth.confirm') }}</button>
                         </div>
                     </form>
                 </div>

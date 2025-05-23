@@ -42,7 +42,7 @@ class UserProfileFactory extends Factory
             'housing_id' => rand(1, 4), // Based on available housing statuses
             'car_ownership' => $this->faker->boolean(),
             'height_id' => rand(1, 3), // Based on available heights
-            'weight_id' => rand(1, 5), // Based on available weights
+            'weight_id' => rand(1, 4), // Based on available weights
             'health_issues_en' => $this->faker->text(),
             'health_issues_ar' => $this->faker->text(),
             'marital_status_id' => rand(1, 4), // Based on available marital statuses

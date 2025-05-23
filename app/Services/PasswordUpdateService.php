@@ -13,40 +13,66 @@ class PasswordUpdateService
      */
     public function updatePassword(Request $request)
     {
+        // Determine and set locale from header (default to app locale)
+        $locale = $this->getLocale($request);
+        app()->setLocale($locale);
+
+        // Define user-friendly, localized validation messages
+        $messages = [
+            'current_password.required' => $locale === 'ar'
+                ? 'يرجى إدخال كلمة المرور الحالية.'
+                : 'Please enter your current password.',
+
+            'password.required'         => $locale === 'ar'
+                ? 'يرجى إدخال كلمة المرور الجديدة.'
+                : 'Please enter your new password.',
+
+            'password.min'              => $locale === 'ar'
+                ? 'يجب أن تحتوي كلمة المرور على الأقل على :min أحرف.'
+                : 'The password must be at least :min characters.',
+
+            'password.confirmed'        => $locale === 'ar'
+                ? 'تأكيد كلمة المرور غير متطابق.'
+                : 'Password confirmation does not match.',
+
+            // <-- new complexity message:
+            'password.regex'            => $locale === 'ar'
+                ? 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، حرف صغير واحد، رقم واحد ورمز واحد.'
+                : 'The password must contain at least one uppercase letter, one lowercase letter, one number and one symbol.',
+
+            // If you also localize this key in validation.custom.phone_number.regex:
+            'phone_number.regex'        => __('validation.custom.phone_number.regex'),
+        ];
+
         try {
-            // Set the application locale based on the header
-            $locale = $this->getLocale($request);
-            app()->setLocale($locale);
-
-            // Define user-friendly and localized validation messages
-            $messages = [
-                'current_password.required' => $locale === 'ar' ? 'يرجى إدخال كلمة المرور الحالية.' : 'Please enter your current password.',
-                'password.required' => $locale === 'ar' ? 'يرجى إدخال كلمة المرور الجديدة.' : 'Please enter your new password.',
-                'password.confirmed' => $locale === 'ar' ? 'تأكيد كلمة المرور غير متطابق.' : 'Password confirmation does not match.',
-                'password.min' => $locale === 'ar' ? 'يجب أن تحتوي كلمة المرور على الأقل على :min أحرف.' : 'The password must be at least :min characters.',
-                'password.different' => $locale === 'ar' ? 'يجب أن تختلف كلمة المرور الجديدة عن كلمة المرور الحالية.' : 'The new password must be different from the current password.',
-            ];
-
-            // Validate the request with user-friendly messages
+            // Validate with the regex rule for complexity
             $request->validate([
                 'current_password' => 'required',
-                'password' => [
+                'password'         => [
                     'required',
-                    'confirmed',
+                    'string',
                     'min:8',
-                    // Custom rule to ensure the new password is not the same as the current one
+                    // complexity regex:
+                    'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).+$/',
+                    'confirmed',
+                    // ensure new ≠ old:
                     function ($attribute, $value, $fail) use ($request, $locale) {
                         if (Hash::check($value, $request->user()->password)) {
-                            $message = $locale === 'ar'
+                            $fail($locale === 'ar'
                                 ? 'كلمة المرور الجديدة لا يمكن أن تكون نفسها الحالية.'
-                                : 'The new password cannot be the same as the current password.';
-                            $fail($message);
+                                : 'The new password cannot be the same as the current password.');
                         }
                     },
                 ],
+                'phone_number'     => [
+                    'nullable',
+                    'string',
+                    'max:255',
+                    'regex:/^(078|077|079)\d{7}$/',
+                ],
             ], $messages);
         } catch (ValidationException $e) {
-            // Return JSON response with localized errors (no generic message)
+            // Return only the specific field errors, localized
             return response()->json([
                 'errors' => $e->errors(),
             ], 422);
@@ -54,30 +80,34 @@ class PasswordUpdateService
 
         $user = $request->user();
 
-        // Check if the current password is correct
-        if (!Hash::check($request->current_password, $user->password)) {
+        // Verify current password before changing
+        if (! Hash::check($request->current_password, $user->password)) {
             return response()->json([
                 'errors' => [
                     'current_password' => [
-                        $locale === 'ar' ? 'كلمة المرور الحالية غير صحيحة.' : 'The current password is incorrect.'
-                    ]
-                ]
+                        $locale === 'ar'
+                            ? 'كلمة المرور الحالية غير صحيحة.'
+                            : 'The current password is incorrect.',
+                    ],
+                ],
             ], 422);
         }
 
-        // Update the user's password
+        // Everything’s good – update!
         $user->password = Hash::make($request->password);
         $user->save();
 
         return response()->json([
-            'message' => $locale === 'ar' ? 'تم تغيير كلمة المرور بنجاح.' : 'Your password has been successfully changed.',
+            'message' => $locale === 'ar'
+                ? 'تم تغيير كلمة المرور بنجاح.'
+                : 'Your password has been successfully changed.',
         ], 200);
     }
 
     /**
-     * Get the locale from the request or default to 'en'.
+     * Pull locale from `Accept-Language` header or fallback.
      */
-    private function getLocale(Request $request)
+    private function getLocale(Request $request): string
     {
         $locale = $request->header('Accept-Language', app()->getLocale());
         return in_array($locale, ['en', 'ar']) ? $locale : 'en';
