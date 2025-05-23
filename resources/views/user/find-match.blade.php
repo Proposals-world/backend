@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        @if ($filledPreferenceCount >= 2)
+        {{-- @if ($filledPreferenceCount >= 2) --}}
 
             <!-- Clear Section Division for Exact Matches -->
             <div class="row mb-4 px-4">
@@ -513,14 +513,14 @@
             </div>
         </div>
     </div>
-@else
+{{-- @else
     <div class="container py-5 text-center">
         <h3 class="text-danger mb-3">{{ __('userDashboard.findMatch.complete_preferences') }}</h3>
         <p class="mb-4">{{ __('userDashboard.findMatch.at_least_two_fields') }}
         </p>
         <a href="{{ route('desired') }}" class="btn btn-primary">{{ __('userDashboard.findMatch.complete_preferences_btn') }}</a>
     </div>
-    @endif
+    @endif --}}
 
 
     <!-- Dependent City Loading -->
