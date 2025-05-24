@@ -31,6 +31,7 @@ class LikeResource extends JsonResource
                 'id' => $relatedUser->id,
                 'first_name' => $relatedUser->first_name,
                 'last_name' => $relatedUser->last_name,
+                'nickname'=>$relatedUser->profile->nickname,
                 'country_of_residence' => optional($relatedUser->profile->countryOfResidence)["name_$locale"],
                 'city_of_residence' => optional($relatedUser->profile->city)["name_$locale"],
                 'email' => $this->contactMaskingService->maskEmail($relatedUser->email),

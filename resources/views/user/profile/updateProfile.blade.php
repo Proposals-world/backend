@@ -263,7 +263,7 @@ style="
                                         <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label
-                                                            class="form-label">{{ __('onboarding.zodiac_sign') }}</label>
+                                                            class="form-label">{{ __('onboarding.nickname') }}</label>
                                                      <input type="text" name="nickname"
                                                             class="form-control rounded-pill" required
                                                             placeholder="{{ __('onboarding.nickname') }}">

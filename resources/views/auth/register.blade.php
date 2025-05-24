@@ -74,7 +74,7 @@
                 <div class="my-auto">
                     <!-- Title -->
                     <h4 class="mt-3">{{ __('auth.register') }}</h4>
-                    <p class="text-muted mb-4">{{ __('auth.not_receive_email') }}</p>
+                    {{-- <p class="text-muted mb-4">{{ __('auth.not_receive_email') }}</p> --}}
 
                     <!-- Registration Form -->
                     <form method="POST" action="{{ route('register') }}">

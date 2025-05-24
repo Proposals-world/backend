@@ -57,7 +57,7 @@
                 <div class="my-auto">
                     <!-- title-->
                     <h4 class="mt-0">{{ __('auth.login') }}</h4>
-                    <p class="text-muted mb-4">{{ __('auth.check_email_verification') }}</p>
+                    {{-- <p class="text-muted mb-4">{{ __('auth.check_email_verification') }}</p> --}}
 
                     <!-- Laravel Form -->
                     <form method="POST" action="{{ route('login') }}">

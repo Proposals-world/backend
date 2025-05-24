@@ -567,13 +567,13 @@
                                                                 {{-- 1 = Employed --}}
                                                                 <option value="1"
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
-                                                                    {{ App::isLocale('ar') ? 'موظف' : __('profile.Employed') }}
+                                                                     @lang('profile.employed') 
                                                                 </option>
 
                                                                 {{-- 0 = Unemployed --}}
                                                                 <option value="0"
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
-                                                                    {{ App::isLocale('ar') ? 'عاطل عن العمل' : __('profile.Unemployed') }}
+                                                                    @lang('profile.unemployed')
                                                                 </option>
                                                             </select>
 
