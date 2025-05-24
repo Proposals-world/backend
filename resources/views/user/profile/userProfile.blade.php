@@ -89,7 +89,7 @@
                                             <a class="d-block position-relative" href="#">
                                                 <!-- Check if the matched user's photo is available -->
                                                 <img src="{{ asset($match['matched_user_photo'] ?? 'default-profile.png') }}"
-                                                alt="{{ $match['matched_user_name'] }}"
+                                                alt="{{ $match['matched_user_nickname'] }}"
                                                 class="list-thumbnail border-0"
                                                 style="width: 100px; height: 100px; object-fit: cover;" />
 
@@ -97,7 +97,7 @@
                                             </a>
                                             <div class="pl-3 pt-2 pr-2 pb-2">
                                                 <a href="#">
-                                                    <p class="list-item-heading">{{ $match['matched_user_name'] }}</p>
+                                                    <p class="list-item-heading">{{ $match['matched_user_nickname'] }}</p>
                                                     <p class="text-muted">{{ __('profile.Age') }}: {{ $match['matched_user_age'] }} | {{ __('profile.City') }}: {{ $match['matched_user_city'] }}</p>
                                                     <p>{{ __('profile.Phone') }}: {{ $match['matched_user_phone'] }}</p>
                                                 </a>
@@ -633,8 +633,7 @@
                                                     <a href="#">
                                                         <!-- Use optional() to safely access liked_user properties -->
                                                         <p class="list-item-heading mb-1 truncate">
-                                                            {{ $like['user']['first_name'] ?? '' }}
-                                                            {{ $like['user']['last_name'] ?? '' }}
+                                                            {{ $like['user']['nickname'] ?? '' }}
                                                         </p>
                                                     </a>
                                                     <p class="mb-2 text-muted text-small">

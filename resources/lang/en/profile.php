@@ -76,6 +76,9 @@ return [
     'Partner_Contact_&_Social_Media' => 'Partner Contact & Social Media',
     'Partner_Contact' => 'Partner Contact',
     // Hobbies & Pets
+    'employed' => 'Employed',
+    'unemployed' => 'Unemployed',
+
     'Partner_Hobbies_&_Pets' => 'Partner Hobbies & Pets',
     'Partner_Hobbies' => 'Partner Hobbies',
     'Partner_Pets' => 'Partner Pets',

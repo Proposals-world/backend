@@ -1,6 +1,15 @@
 @extends('user.layouts.app')
 
 @section('content')
+<style>
+    #revealContactBtn{
+        background-color: #fff !important;
+    }
+    #revealContactBtn:hover {
+    background-color: #922c88 !important;
+    border: 1px solid white;
+}
+</style>
     <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
     <div class="container-fluid disable-text-selection">
         <div class="row">
@@ -118,7 +127,7 @@
                              style="color: #fff;">
                             <h6 class="mb-0">{{ __('userDashboard.matches.contact_info') }}</h6>
                             <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none"
-                                    style="background-color: #fff;">
+                                   >
                                 <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
                             </button>
                         </div>
