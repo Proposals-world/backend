@@ -103,19 +103,39 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="confirmVerifyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ __('otp.Confirm_Action') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        This will take your mother’s approval to share her number on this website.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          {{ __('Cancel') }}
+        </button>
+        <button type="button" class="btn btn-primary" id="confirmVerifyBtn">
+          {{ __('Confirm') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
     </div>
+
 @endsection
+
 @push('scripts')
 <script>
         function showSuccessMessage(message) {
     const successBox = document.getElementById('otp-alert-success');
     const errorBox = document.getElementById('otp-alert-error');
-    console.log('Showing success:', message, successBox); // Debug line
-    console.log('class list:', document.getElementById('otp-alert-success').classList
-    ); // Debug line
+
 
     errorBox.classList.add('d-none'); // hide error
     successBox.textContent = message;
@@ -197,6 +217,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const showOtpBtn = document.getElementById('show-otp-btn');
     const guardianLoading = document.getElementById('guardian-loading');
     const resendLink = resendText.querySelector('a');
+ // 1) Create the Bootstrap 5 modal instance
+  const confirmModal = new bootstrap.Modal(
+    document.getElementById('confirmVerifyModal')
+  );
+
+  // 2) When “Verify” is clicked, show the modal instead of submitting
+  verifyBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    confirmModal.show();
+  });
+
+  // 3) When they click “Confirm” in the modal → hide it & dispatch the real submit
+  document.getElementById('confirmVerifyBtn')
+    .addEventListener('click', function() {
+      confirmModal.hide();
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    });
 
     // Enable/disable verify button based on input completion
     function updateVerifyButtonState() {
@@ -232,47 +269,50 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Shared function to send OTP request
-    function sendVerificationRequest(button, callback) {
-    button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
-    button.disabled = true;
+  function sendVerificationRequest(button, callback) {
+  button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+  button.disabled = true;
 
-    fetch('/user/guardian-contact/send-verification', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',  // <-- important to tell Laravel to return JSON
-            'Accept-Language': '{{ app()->getLocale() }}',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify({})
-    })
-    .then(response => {
-        if (!response.ok) {
-            if (response.status === 401 || response.status === 403) {
-                window.location.href = '/login';
-                return;
-            }
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data && data.message) {
-            showSuccessMessage(data.message);  // <<< show success message here
-            if (callback) callback();
-        } else {
-            showErrorMessage('{{ __("otp.otp_invalid") }}');
-        }
-        button.disabled = false;
-        button.innerHTML = `{{ __('otp.Resend_Code') }}`;
-    })
-    .catch(err => {
-        showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');
-        button.disabled = false;
-        button.innerHTML =  `{{ __('otp.Resend_Code') }}`;
-    });
+  fetch('/user/guardian-contact/send-verification', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Accept-Language': '{{ app()->getLocale() }}',
+      'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify({})
+  })
+  .then(async response => {
+    // try to parse JSON (might fail if non-JSON)
+    let data = null;
+    try { data = await response.json(); } catch {}
+
+    if (!response.ok) {
+      // pick the best error message
+      const message = data?.message
+        || (data?.errors && Object.values(data.errors)[0][0])
+        || response.statusText;
+      showErrorMessage(message);
+      throw new Error(message);
+    }
+
+    // success
+    if (data?.message) showSuccessMessage(data.message);
+    if (callback) callback();
+    return data;
+  })
+  .catch(err => {
+    // err.message is already shown above, but in case fetch itself failed:
+    showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');
+  })
+  .finally(() => {
+    button.disabled = false;
+    button.innerHTML = `{{ __('otp.Resend_Code') }}`;
+  });
 }
+
 
 
     // Trigger OTP on first button
@@ -310,53 +350,51 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Submit OTP
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+    form.addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-        const code = Array.from(inputs).map(input => input.value.trim()).join('');
-        if (code.length !== 6) {
-            alert('Please fill in all 6 digits of the OTP.');
-            return;
-        }
+  const code = Array.from(inputs).map(i => i.value.trim()).join('');
+  if (code.length !== 6) {
+    showErrorMessage('Please fill in all 6 digits of the OTP.');
+    return;
+  }
 
-        verifyBtn.disabled = true;
-        verifyBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>  {{ __('otp.Verifying') }}`;
+  verifyBtn.disabled = true;
+  verifyBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>  {{ __('otp.Verifying') }}`;
 
-        fetch('/user/guardian-contact/verify-code', {
-    method: 'POST',
-    headers: {
+  try {
+    const response = await fetch('/user/guardian-contact/verify-code', {
+      method: 'POST',
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Accept-Language': '{{ app()->getLocale() }}',
         'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    },
-    credentials: 'same-origin',
-    body: JSON.stringify({ code: code })
-})
-.then(async response => {
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify({ code })
+    });
+
+    let result = null;
+    try { result = await response.json(); } catch {}
+
     if (!response.ok) {
-        const errorData = await response.json();  // << Get real Laravel error response
-        throw new Error(errorData.message || '{{ __("otp.otp_invalid") }}');
+      const message = result?.message
+        || (result?.errors && Object.values(result.errors)[0][0])
+        || response.statusText;
+      throw new Error(message);
     }
-    return response.json();
-})
-.then(data => {
-    if (data && data.message) {
-        showSuccessMessage(data.message || '{{ __("otp.otp_verified") }}');
-        // Optional redirect
-        window.setTimeout(() => window.location.href = '/user/dashboard', 2000);
-    } else {
-        showErrorMessage('{{ __("otp.otp_invalid") }}');
-    }
-})
-.catch(err => {
-    showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');  // <== now shows real API error
-})
-.finally(() => {
+
+    showSuccessMessage(result.message || '{{ __("otp.otp_verified") }}');
+    setTimeout(() => window.location.href = '/user/dashboard', 2000);
+  } catch (err) {
+    showErrorMessage(err.message || '{{ __("otp.otp_invalid") }}');
+  } finally {
     verifyBtn.disabled = false;
     verifyBtn.innerHTML = `{{ __('otp.Verify') }}`;
+  }
 });
-    });
+
 
     updateVerifyButtonState(); // initial state
 

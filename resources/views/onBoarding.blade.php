@@ -515,6 +515,9 @@
                                                             class="form-label">{{ __('onboarding.employment_status') }}</label>
                                                         <select name="employment_status" class="form-control rounded-pill"
                                                             required>
+                                                              <option value="">
+                                                                {{ __('onboarding.select_employment') }}
+                                                            </option>
                                                             <option value="1">{{ __('onboarding.employed') }}
                                                             </option>
                                                             <option value="0">{{ __('onboarding.unemployed') }}

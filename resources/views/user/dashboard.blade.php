@@ -106,14 +106,14 @@
             </div>
 
             <div class="col-lg-12 col-xl-6">
-                <a href="#" class="card mb-3">
+                <a href="{{ route('liked-me') }}" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-check" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.half_matches') }}</p>
                         <p class="lead text-center">{{ $countOfHalfMatches }}</p>
                     </div>
                 </a>
-                <a href="#" class="card mb-3">
+                <a href="{{ route('matches') }}" class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-clock" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.matches') }}</p>

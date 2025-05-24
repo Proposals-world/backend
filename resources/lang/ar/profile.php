@@ -88,7 +88,7 @@ return [
     'Partner_Contact_&_Social_Media' => 'اتصال الشريك ومواقع التواصل',
     'Partner_Contact' => 'اتصال الشريك',
     'Partner_Social_Media_Presence' => 'حضور الشريك على مواقع التواصل',
-'employed' => 'موظف',
+    'employed' => 'موظف',
     'unemployed' => 'عاطل عن العمل',
     'No_like_yet' => 'لا توجد إعجابات حتى الآن',
 
@@ -112,7 +112,7 @@ return [
     'Partner_Housing_&_Marital_Status' => 'معلومات السكن والحالة الاجتماعية للشريك',
     'Profile_saved_successfully' => 'تم حفظ ملف الشريك بنجاح',
     'Preferences_saved_successfully' => 'تم حفظ تفضيلات الشريك بنجاح',
-    'Partner_No_Preference' => 'لا توجد تفضيلات للشريك',
+    'Partner_No_Preference' => 'لا توجد تفضيلات ',
     'Partner_Age' => 'عمر الشريك',
     'You can select up to 10 fields. Remaining:' => 'يمكنك اختيار ما يصل إلى 10 مجالات. المتبقي:',
     'you_can_select_more_than_one' => 'يمكنك اختيار أكثر من واحد',
