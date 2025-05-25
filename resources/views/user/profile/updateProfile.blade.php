@@ -224,7 +224,7 @@ style="
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.date_of_birth') }}</label>
@@ -241,7 +241,7 @@ style="
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.zodiac_sign') }}</label>
@@ -259,13 +259,14 @@ style="
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                        </div> --}}
+                                        <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.nickname') }}</label>
                                                      <input type="text" name="nickname"
                                                             class="form-control rounded-pill" required
+                                                            value="{{ $user->profile->nickname }}"
                                                             placeholder="{{ __('onboarding.nickname') }}">
                                                         <span class="error-message text-danger"
                                                             style="font-size:12px;"></span>
@@ -630,21 +631,19 @@ style="
                                     <h2 class="card-title text-center mb-4 section-title">
                                         {{ __('onboarding.family_housing') }}</h2>
                                     <div class="row">
-                                        <div class="col-md-4">
+
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label
-                                                    class="form-label">{{ __('onboarding.marital_status') }}</label>
-                                                <select name="marital_status_id" class="form-control rounded-pill"
-                                                    required>
-                                                    <option value="">
-                                                        {{ __('onboarding.select_marital_status') }}</option>
+                                                <label class="form-label">{{ __('onboarding.marital_status') }}</label>
+                                                <select name="marital_status_id" class="form-control rounded-pill" required>
+                                                    <option value="">{{ __('onboarding.select_marital_status') }}</option>
                                                     @foreach ($data['maritalStatuses'] as $maritalStatus)
                                                         <option value="{{ $maritalStatus->id }}"{{ $user->profile->marital_status_id == $maritalStatus->id ? 'selected' : '' }}>
-                                                            {{ $maritalStatus->name }}</option>
+                                                            {{ $maritalStatus->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
-                                                <span class="error-message text-danger"
-                                                    style="font-size:12px;"></span>
+                                                <span class="error-message text-danger" style="font-size:12px;"></span>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-4">
@@ -658,7 +657,7 @@ style="
                                                     style="font-size:12px;"></span>
                                             </div>
                                         </div> --}}
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.pets') }}</label>
                                                 <select name="pets[]" class="form-control rounded-pill" required

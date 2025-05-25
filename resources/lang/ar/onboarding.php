@@ -43,6 +43,7 @@ return [
     'smoking_tools' => 'أدوات التدخين',
     'drinking_status' => 'حالة شرب الكحول',
     'sports_activity' => 'النشاط الرياضي',
+    'select_employment' => 'اختر الحالة الوظيفية',
 
     // Personal Preferences Step
     'personal_preferences' => 'التفضيلات الشخصية',

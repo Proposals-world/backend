@@ -231,6 +231,7 @@
                 </div>
                 <div class="modal-body">
                     {{-- {{ __('userDashboard.dashboard.Are you sure you want to reveal this user contact information? This action cannot be undone') }} --}}
+
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -509,7 +510,7 @@ async function initializeMatches() {
                 e.preventDefault();
                 const match = $(this).data('profile');
                 const profile = match.matched_user;
-                console.log('Profile card clicked', profile);
+                // console.log('Profile card clicked', profile);
                 // console.log('Profile data:', profile.profile.country_of_residence);
                 const matchedUserId = profile.id;
                 // $('#revealContactBtn').data('matchedUserId', matchedUserId);
@@ -529,7 +530,7 @@ $('#revealContactBtn')
                 $('#modalCountryOfResidence').text(profile.profile.country_of_residence || 'N/A');
                 $('#modalCountryOfOrigin ').text(profile.profile.origin || 'N/A');
                 if (profile.gender === 'male') {
-                    $('#modalPhone').text(profile.profile.guardian_contact || profile.phone_number || 'N/A');
+                    $('#modalPhone').text( profile.phone_number || 'N/A');
                 } else {
                     $('#modalPhone').text(profile.profile.guardian_contact || 'N/A');
                 }
@@ -555,15 +556,17 @@ $('#revealContactBtn')
         // Reveal contact
     function revealContact(matchedUserId) {
         selectedMatchedUserId = matchedUserId;
-
         const gender = $('#revealContactBtn').data('matchedUserGender');
 
         // Inject the confirmation message into the modal body
         const bodyEl = document.querySelector('#confirmRevealModal .modal-body');
         if (bodyEl) {
-            bodyEl.textContent = gender === 'male'
-                ? "{{ __('userDashboard.dashboard.Confirm Action male') }}"
-             : "{{ __('userDashboard.dashboard.Confirm Action female') }}";
+            const authGender = "{{ Auth::user()->gender }}".trim().toLowerCase();
+bodyEl.textContent =
+  authGender === 'male'
+    ? "{{ __('userDashboard.dashboard.Confirm Action male') }}"
+    : "{{ __('userDashboard.dashboard.Confirm Action female') }}";
+
         }
 
         $('#confirmRevealModal').modal('show');

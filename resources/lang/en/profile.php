@@ -103,7 +103,7 @@ return [
     'Partner_Housing_&_Marital_Status' => 'Partner Housing & Marital Status',
     'Profile_saved_successfully' => ' Partner Profile saved successfully.',
     'Preferences saved successfully' => 'Partner Preferences saved successfully.',
-    'Partner_No_Preference' => 'No Partner Preference',
+    'Partner_No_Preference' => 'No Preference',
     'You can select up to 10 fields. Remaining:' => 'You can select up to 10 fields. Remaining:',
     'you_can_select_more_than_one' => 'You can select more than one',
     'Appearance' => 'Appearance',

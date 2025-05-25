@@ -567,13 +567,14 @@
                                                                 {{-- 1 = Employed --}}
                                                                 <option value="1"
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
-                                                                     @lang('profile.employed') 
+                                                                     @lang('profile.employed')
                                                                 </option>
 
                                                                 {{-- 0 = Unemployed --}}
                                                                 <option value="0"
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
                                                                     @lang('profile.unemployed')
+
                                                                 </option>
                                                             </select>
 
@@ -956,7 +957,8 @@ function loadReligiosityLevels(religionId, selectedLevelId = null) {
             },
             data: {
                 religion_id: religionId,
-                gender: userGender === 'male' ? 1 : 2
+                // send  opposite gender to get the right levels from the api
+                gender: userGender === 'male' ? 2 : 1
             },
             success: function (response) {
                 if (response.religiousLevels && response.religiousLevels.length > 0) {

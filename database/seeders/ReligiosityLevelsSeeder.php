@@ -31,7 +31,7 @@ class ReligiosityLevelsSeeder extends Seeder
             [
                 'gender'     => 1,
                 'name_en'    => 'Moderately Devout',
-                'name_ar'    => 'معتل',
+                'name_ar'    => 'معتدل',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

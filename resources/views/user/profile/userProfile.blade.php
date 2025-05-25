@@ -7,7 +7,7 @@
         <div class="col-12">
 
             <div class="mb-2">
-                <h1>{{ ucfirst($userProfile['first_name']) .' '. ucfirst($userProfile['last_name']) }}</h1>
+                <h1>{{ ucfirst($userProfile['profile']['nickname'])  }}</h1>
                 <div class="text-zero top-right-button-container">
                     <a href="{{ route('updateProfile') }}"
                         class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"
@@ -75,7 +75,7 @@
                                     </div> --}}
                                 </div>
                             </div>
-                            <div class="card mb-4 d-none d-lg-block">
+                            {{-- <div class="card mb-4 d-none d-lg-block">
                                 <div class="position-absolute card-top-buttons">
                                     <button class="btn btn-header-light icon-button">
                                     </button>
@@ -106,7 +106,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="col-12 col-lg-7 col-xl-8 col-right">
@@ -240,11 +240,7 @@
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             <strong>{{ __('profile.Drinking_Status') }}:</strong>
-                                                            @if ($userProfile['profile']['drinking_status'] ?? false)
-                                                                <i class="simple-icon-check text-success"></i>
-                                                            @else
-                                                                <i class="simple-icon-close text-danger"></i>
-                                                            @endif
+                                                            {{ $userProfile['profile']['drinking_status'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
                                                     {{-- <!-- Sleep Habit -->
@@ -270,12 +266,13 @@
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             @if (!empty($userProfile['profile']['hobbies']))
+                                                              <a >
+                                                                        <strong>{{ __('profile.Hobbies') }}: </strong>
                                                                 @foreach ($userProfile['profile']['hobbies'] as $hobby)
-                                                                    <a >
-                                                                        <strong>{{ __('profile.Hobbies') }}: </strong><span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $hobby }}</span>
-                                                                    </a>
-                                                                @endforeach
-                                                            @else
+                                                                  <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $hobby }}</span>
+                                                                  @endforeach
+                                                                </a>
+                                                                  @else
                                                                 <span class="text-muted">{{ __('profile.No_hobbies_available') }}</span>
                                                             @endif
                                                         </div>
@@ -284,11 +281,12 @@
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                             @if (!empty($userProfile['profile']['pets']))
+                                                            <a >
+                                                                         <strong>{{ __('profile.Pets') }}: </strong>
                                                                 @foreach ($userProfile['profile']['pets'] as $pet)
-                                                                    <a >
-                                                                         <strong>{{ __('profile.Pets') }}: </strong><span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $pet }}</span>
-                                                                    </a>
+                                                                    <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $pet }}</span>
                                                                 @endforeach
+                                                            </a>
                                                             @else
                                                                 <span class="text-muted">{{ __('profile.No_pets_available') }}</span>
                                                             @endif
@@ -298,12 +296,12 @@
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                               @if ($userProfile['profile']['smoking_status'] == true)
-
+    <a >
+                                                                             <strong> {{ __('profile.Smoking_Tools') }}:
                                                                     @foreach ($userProfile['profile']['smoking_tools'] ?? [] as $tool)
-                                                                        <a >
-                                                                             <strong> {{ __('profile.Smoking_Tools') }}: </strong><span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
-                                                                        </a>
+                                                                    </strong><span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
                                                                     @endforeach
+                                                                </a>
                                                             @endif
                                                         </div>
                                                     </div>

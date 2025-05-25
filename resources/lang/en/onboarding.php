@@ -43,6 +43,7 @@ return [
     'smoking_tools' => 'Smoking Tools',
     'drinking_status' => 'Drinking Status',
     'sports_activity' => 'Sports Activity',
+    'select_employment' => 'Select Employment',
 
     // Personal Preferences Step
     'personal_preferences' => 'Personal Preferences',

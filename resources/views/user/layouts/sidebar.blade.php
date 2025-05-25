@@ -8,12 +8,7 @@
                         <span>{{ __('userDashboard.sidebar.main_menu') }}</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('user.profile') ? 'active' : '' }}">
-                    <a href="{{ route('user.profile') }}">
-                        <i class="iconsminds-box-with-folders"></i>
-                        {{ __('userDashboard.sidebar.profile') }}
-                    </a>
-                </li>
+
                 <li class="{{ request()->routeIs('desired') ? 'active' : '' }}">
                     <a href="{{ route('desired') }}">
                         <i class="iconsminds-handshake"></i>
@@ -35,7 +30,7 @@
                 </li>
                 <li class="{{ request()->routeIs('matches') ? 'active' : '' }}">
                     <a href="{{ route('matches') }}">
-                        <i class="iconsminds-male-female"></i>
+                        <img src="{{ asset('dashboard/logos/full-heart.png') }}" alt="Full Heart" style="width: auto; height: 35px; margin-bottom: 8px; vertical-align: middle;">
                         {{ __('userDashboard.sidebar.matches') }}
                     </a>
                 </li>
@@ -43,6 +38,12 @@
                     <a href="{{ route('user.pricing') }}">
                         <i class="iconsminds-box-with-folders"></i>
                         {{ __('userDashboard.sidebar.subscription') }}
+                    </a>
+                </li>
+                  <li class="{{ request()->routeIs('user.profile') ? 'active' : '' }}">
+                    <a href="{{ route('user.profile') }}">
+                        <i class="iconsminds-box-with-folders"></i>
+                        {{ __('userDashboard.sidebar.profile') }}
                     </a>
                 </li>
             </ul>

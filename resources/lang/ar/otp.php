@@ -16,5 +16,16 @@ return [
     'Please_enter_guardian_contact' => 'يرجى إدخال رقم ولي الأمر.',
     'This_is_to_confirm_your_guardian_contact._Leave_it_as_is_if_already_correct.' =>
     'هذا فقط للتأكد من رقم ولي الأمر. اتركه كما هو إذا كان صحيحًا.',
-
+    'Guardian_Approval' => 'موافقة ولي الأمر',
+    'Important_Notice' => 'إشعار مهم',
+    'I_Understand_Proceed' => 'أفهم وأريد المتابعة',
+    'Go_Back' => 'العودة',
+    'Click_to_proceed' => 'انقر للمتابعة',
+    'Back_to_confirmation' => 'العودة للتأكيد',
+    'Verification_form' => 'نموذج التحقق',
+    'Confirm_Action' => 'تأكيد الإجراء',
+    'Ready_to_verify_guardian_contact' => 'هل أنت مستعد للتحقق من رقم ولي الأمر؟',
+    'otp_verified' => 'تم التحقق من الرمز بنجاح',
+    'otp_invalid' => 'رمز التحقق غير صحيح',
+    'mother_approval_message' => 'هذا سيتطلب موافقة والدتك لمشاركة رقمها على هذا الموقع.',
 ];
