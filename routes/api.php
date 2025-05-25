@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\HousingStatusController;
 use App\Http\Controllers\Api\LifestyleInterestsController;
 use App\Http\Controllers\Api\MaritalStatusController;
 use App\Http\Controllers\Api\OriginController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PersonalAttributesController;
 use App\Http\Controllers\Api\PetController;
 
@@ -143,6 +144,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
         Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
         Route::post('/send-template', [WhatsAppController::class, 'sendTemplateMessage']); // Added new template route
+    });
+
+
+    Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+        Route::post('payment/initiate', [PaymentController::class, 'initiatePayment']);
+        Route::post('payment/process', [PaymentController::class, 'processPayment']);
+        Route::get('payment/{payment}/status', [PaymentController::class, 'getPaymentStatus']);
     });
 
 });

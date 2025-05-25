@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\SportsActivitiesController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\MessageSubscriptionController;
 // use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymentWebhookController;
+use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\PricingController;
 use App\Http\Controllers\User\SupportTicketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HairColorsController;
@@ -175,8 +178,22 @@ Route::middleware([
     Route::delete('/remove-match', [MatchController::class, 'removeMatch'])->name('api.remove.match');
     Route::get('/matches', [MatchController::class, 'index'])->name('matches');
     Route::get('/get-matches', [MatchController::class, 'getMatches'])->name('getMatchesApi');
+
+
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
+
+    // Payment routes start
+    Route::get('pricing', [PricingController::class, 'index'])->name('user.pricing');
+    Route::post('payment/checkout', [PaymentController::class, 'checkout'])
+        ->name('user.payment.checkout');               // use POST, form already has method="POST"
+    Route::get('payment/return/{payment}', [PaymentController::class, 'returnFromGateway'])
+        ->name('user.payment.return');
+    Route::get('payment/success/{payment}', [PaymentController::class, 'success'])
+        ->name('user.payment.success');
+    Route::get('payment/failed/{payment}', [PaymentController::class, 'failed'])
+        ->name('user.payment.failed');
+    //  Payment routes ends
+
     Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
     Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
     Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');
@@ -204,4 +221,7 @@ Route::prefix('user/guardian-contact')->group(function () {
 // Route to handle message subscriptions
 Route::post('/subscribe-message', [MessageSubscriptionController::class, 'subscribe'])->name('subscribe.message');
 
+// Webhook route (no auth required)
+Route::post('webhook/payment', [PaymentWebhookController::class, 'handle'])
+    ->name('payment.webhook');
 require __DIR__ . '/auth.php';

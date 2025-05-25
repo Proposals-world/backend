@@ -17,7 +17,13 @@ return [
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
-
+    'payment_gateway' => [
+        'base_url'     => env('PAYMENT_GATEWAY_BASE_URL'),   // https://example.gateway.mastercard.com
+        'merchant_id'  => env('PAYMENT_GATEWAY_MERCHANT_ID'),// e.g. TESTMERCHANT123
+        'api_username' => env('PAYMENT_GATEWAY_API_USERNAME'),// value *without* “merchant.” prefix
+        'api_password' => env('PAYMENT_GATEWAY_API_PASSWORD'),
+        'callback_url' => env('PAYMENT_GATEWAY_CALLBACK_URL'),
+    ],
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
