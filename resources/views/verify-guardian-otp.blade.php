@@ -31,7 +31,7 @@
             perspective: 1000px;
             max-width: 343px;
             width: 100%;
-            height: 400px;
+            height: 425px;
         }
 
         .card-flipper {

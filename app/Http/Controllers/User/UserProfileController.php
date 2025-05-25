@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserProfileResource;
 use App\Http\Resources\LikeResource;
-use App\Http\Resources\MatchResource; // Import MatchResource
+use App\Http\Resources\MatchResource;
 use App\Http\Resources\UserPreferenceResource;
 use App\Models\User;
 use App\Services\UserProfileService;

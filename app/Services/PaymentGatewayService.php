@@ -11,6 +11,7 @@ class PaymentGatewayService
     private string $merchantId;
     private string $apiUsername;
     private string $apiPassword;
+    private const API_VERSION = 100;
 
     public function __construct()
     {
@@ -21,21 +22,19 @@ class PaymentGatewayService
     }
 
     /* -----------------------------------------------------------------
-     | HOSTED CHECKOUT  (recommended – mirrors “INITIATE CHECKOUT” in the
-     | Postman collection)                                                  |
+     | HOSTED CHECKOUT (apiOperation INITIATE_CHECKOUT)                  |
      * ----------------------------------------------------------------- */
 
     public function createCheckoutSession(
         string  $orderId,
         float   $amount,
-        string  $currency      = 'USD',
-        ?string $returnUrl     = null,
-        string  $operation     = 'PURCHASE',   // PURCHASE | AUTHORIZE | VERIFY
-        string  $description   = 'Subscription Package Purchase'
+        string  $currency    = 'USD',
+        string  $returnUrl,
+        string  $operation   = 'PURCHASE',   // PURCHASE | AUTHORIZE | VERIFY
+        string  $description = 'Subscription package purchase'
     ): array {
-        $url  = "{$this->baseUrl}/api/rest/version/100/merchant/{$this->merchantId}/session";
-
-        $payload = [
+        $url      = "{$this->baseUrl}/api/rest/version/".self::API_VERSION."/merchant/{$this->merchantId}/session";
+        $payload  = [
             'apiOperation' => 'INITIATE_CHECKOUT',
             'checkoutMode' => 'WEBSITE',
             'interaction'  => [
@@ -44,39 +43,34 @@ class PaymentGatewayService
                     'name' => config('app.name'),
                     'url'  => config('app.url'),
                 ],
-                'returnUrl' => $returnUrl ?? config('app.url'),
+                'returnUrl' => $returnUrl,
             ],
             'order'       => [
                 'amount'      => number_format($amount, 2, '.', ''),
                 'currency'    => $currency,
-                'id'          => (string) $orderId,
+                'id'          => $orderId,
                 'description' => $description,
             ],
         ];
 
-        return $this->request('POST', $url, $payload);
+        return $this->request('POST', $url, $payload); // POST is correct per MPGS collection  [oai_citation:0‡GatewayAPIPostmanCollection.json](file-service://file-B1SVnox1qheBUVZxtsgtSE)
     }
 
-    /** Build the full-page redirect URL that sends the customer to the hosted page. */
+    /** Hosted checkout **page** URL that is loaded inside the iframe. */
     public function getCheckoutUrl(string $sessionId): string
     {
-        // Same pattern used in the docs & Postman collection
-        return "{$this->baseUrl}/checkout/version/100/merchant/{$this->merchantId}/session/{$sessionId}";
+        return "{$this->baseUrl}/checkout/version/".self::API_VERSION."/merchant/{$this->merchantId}/session/{$sessionId}";
     }
 
     /* -----------------------------------------------------------------
-     |  MISC OPERATIONS                                                   |
+     | Helpers                                                           |
      * ----------------------------------------------------------------- */
 
     public function retrieveOrder(string $orderId): array
     {
-        $url = "{$this->baseUrl}/api/rest/version/100/merchant/{$this->merchantId}/order/{$orderId}";
+        $url = "{$this->baseUrl}/api/rest/version/".self::API_VERSION."/merchant/{$this->merchantId}/order/{$orderId}";
         return $this->request('GET', $url);
     }
-
-    /* -----------------------------------------------------------------
-     |  LOW-LEVEL HELPER                                                  |
-     * ----------------------------------------------------------------- */
 
     private function request(string $method, string $url, array $body = []): array
     {
@@ -84,11 +78,9 @@ class PaymentGatewayService
                     ->acceptJson()
                     ->contentType('application/json');
 
-        $response = $method === 'GET'
-            ? $http->get($url)
-            : $http->{$method}($url, $body);
+        $response = $method === 'GET' ? $http->get($url) : $http->{$method}($url, $body);
 
-        Log::channel('payment')->info('Gateway call', [
+        Log::channel('payment')->info('MPGS call', [
             'method'   => $method,
             'url'      => $url,
             'payload'  => $body,
@@ -96,7 +88,6 @@ class PaymentGatewayService
             'response' => $response->json(),
         ]);
 
-        // we always return a unified structure – caller decides what to do
         return [
             'success' => $response->successful(),
             'status'  => $response->status(),
