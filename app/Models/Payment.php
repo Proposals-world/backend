@@ -27,6 +27,16 @@ class Payment extends Model
         'paid_at' => 'datetime'
     ];
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'order_id';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -1,0 +1,15 @@
+{
+    "Payment Cancelled": "تم إلغاء الدفع",
+    "Your payment process was cancelled. This could be due to:": "تم إلغاء عملية الدفع الخاصة بك. قد يكون ذلك بسبب:",
+    "You cancelled the payment process": "قمت بإلغاء عملية الدفع",
+    "The payment session expired": "انتهت صلاحية جلسة الدفع",
+    "There was an issue with the payment gateway": "حدثت مشكلة في بوابة الدفع",
+    "Try Again": "حاول مرة أخرى",
+    "Go to Dashboard": "الذهاب إلى لوحة التحكم",
+    "Payment Successful": "تم الدفع بنجاح",
+    "Thank you! Your subscription has been activated successfully.": "شكراً لك! تم تفعيل اشتراكك بنجاح.",
+    "View Other Packages": "عرض الباقات الأخرى",
+    "Redirecting to Payment Gateway": "جاري التوجيه إلى بوابة الدفع",
+    "Please wait while we redirect you to the secure payment page...": "يرجى الانتظار بينما نقوم بتوجيهك إلى صفحة الدفع الآمنة...",
+    "Loading...": "جاري التحميل..."
+}

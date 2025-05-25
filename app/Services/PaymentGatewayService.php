@@ -42,8 +42,10 @@ class PaymentGatewayService
                 'merchant'  => [
                     'name' => config('app.name'),
                     'url'  => config('app.url'),
+                    'logo' => secure_asset('frontend/img/logo/proposals-logo-removebg-preview.png'),
                 ],
                 'returnUrl' => $returnUrl,
+                'cancelUrl' => route('user.payment.failed', ['payment' => $orderId]),
             ],
             'order'       => [
                 'amount'      => number_format($amount, 2, '.', ''),
@@ -53,13 +55,13 @@ class PaymentGatewayService
             ],
         ];
 
-        return $this->request('POST', $url, $payload); // POST is correct per MPGS collection  [oai_citation:0‡GatewayAPIPostmanCollection.json](file-service://file-B1SVnox1qheBUVZxtsgtSE)
+        return $this->request('POST', $url, $payload);
     }
 
     /** Hosted checkout **page** URL that is loaded inside the iframe. */
     public function getCheckoutUrl(string $sessionId): string
     {
-        return "{$this->baseUrl}/checkout/version/".self::API_VERSION."/merchant/{$this->merchantId}/session/{$sessionId}";
+        return "{$this->baseUrl}/api/page/version/".self::API_VERSION."/pay";
     }
 
     /* -----------------------------------------------------------------
@@ -94,5 +96,10 @@ class PaymentGatewayService
             'data'    => $response->json(),
             'raw'     => $response->body(),
         ];
+    }
+
+    public function getMerchantId(): string
+    {
+        return $this->merchantId;
     }
 }

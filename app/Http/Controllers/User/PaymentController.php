@@ -14,7 +14,7 @@ class PaymentController extends Controller
 {
     public function __construct(private readonly PaymentGatewayService $gateway) {}
 
-    /** Step 1-3 — Start checkout and show the MPGS page inside an iframe. */
+    /** Step 1-3 — Start checkout and redirect to MPGS page. */
     public function checkout(Request $request)
     {
         $request->validate(['package_id' => 'required|exists:subscription_packages,id']);
@@ -50,9 +50,16 @@ class PaymentController extends Controller
         // store whole response for audit
         $payment->update(['gateway_response' => $res['data']]);
 
-        // Step 3 — show MPGS inside iframe
+        // Step 3 — show redirect form
         $checkoutUrl = $this->gateway->getCheckoutUrl($sessionId);
-        return view('user.payment.hosted', compact('payment', 'checkoutUrl'));
+        return view('user.payment.redirect', [
+            'checkoutUrl' => $checkoutUrl,
+            'sessionId'   => $sessionId,
+            'merchantId'  => $this->gateway->getMerchantId(),
+            'orderId'     => $orderId,
+            'amount'      => number_format($package->price, 2, '.', ''),
+            'currency'    => 'USD',
+        ]);
     }
 
     /** Step 6-9 — Return URL hits here; confirm result with MPGS API. */
