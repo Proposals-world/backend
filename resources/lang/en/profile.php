@@ -183,4 +183,5 @@ return [
     'New Password' => 'New Password',
     'Confirm New Password' => 'Confirm New Password',
     'Save New Password' => 'Save New Password',
+    'update_Available_in' => 'Update Available in',
 ];

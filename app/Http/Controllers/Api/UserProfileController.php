@@ -103,7 +103,16 @@ class UserProfileController extends Controller
                 'message' => 'Unauthorized.'
             ], 401);
         }
+        if (! $user->profile->canBeUpdated()) {
+            $next = $user->profile->nextAllowedUpdateAt()
+                ->format('d/m/Y H:i:s');
 
+            return response()->json([
+                'success'                => false,
+                'message'                => 'You cannot update your profile until 14 days have passed.',
+                'next_update_available'  => $next,
+            ], 403);
+        }
         $validated = $request->validated();
 
         $lang = $request->header('Accept-Language', 'en');

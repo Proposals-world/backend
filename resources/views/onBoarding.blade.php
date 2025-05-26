@@ -1393,13 +1393,30 @@
                             }
                             break;
 
-                        case 'bio_ar':
-                            const arabicRegex = /[\u0600-\u06FF]+/;
-                            if (!arabicRegex.test(value)) {
-                                errorSpan.text("{{ __('onboarding.arabic_required') }}");
-                                isValid = false;
-                            }
-                            break;
+                       case 'bio_en':
+                    var englishRegex = /^[A-Za-z0-9\s.,'"\-?!()]+$/;
+                    if (!englishRegex.test(value)) {
+                        errorSpan.text("{{ __('onboarding.english_required') }}");
+                        isValid = false;
+                    }
+                    if (/\d/.test(value)) {
+                        errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
+                        isValid = false;
+                    }
+                    break;
+                case 'bio_ar':
+                    // only Arabic letters, spaces & basic punctuation
+                    var arabicRegex = /^[\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]+$/u;
+                    if (!arabicRegex.test(value)) {
+                    errorSpan.text("{{ __('onboarding.arabic_required') }}");
+                    isValid = false;
+                    }
+                    else if (/\d/.test(value)) {
+                    // now we forbid digits in Arabic
+                    errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
+                    isValid = false;
+                    }
+                break;
 
                         case 'guardian_contact':
                             const guardianRegex = /^(078|077|079)\d{7}$/;

@@ -190,4 +190,5 @@ return [
     'Current Password' => 'كلمة المرور الحالية',
     'New Password' => 'كلمة المرور الجديدة',
     'Confirm New Password' => 'تأكيد كلمة المرور الجديدة',
+    'update_Available_in' => 'التحديث متاح في',
 ];

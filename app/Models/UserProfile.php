@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;    // <<— import this
 
 class UserProfile extends Model
 {
@@ -223,5 +224,23 @@ class UserProfile extends Model
     public function hobbies()
     {
         return $this->belongsToMany(Hobby::class, 'user_hobby_pivots', 'user_profile_id', 'hobby_id');
+    }
+    /**
+     * Can this profile be updated now?
+     */
+    public function canBeUpdated(): bool
+    {
+        return $this->updated_at
+            ->copy()
+            ->addDays(14)
+            ->isPast();
+    }
+
+    /**
+     * When will the next update window open?
+     */
+    public function nextAllowedUpdateAt(): Carbon
+    {
+        return $this->updated_at->copy()->addDays(14);
     }
 }

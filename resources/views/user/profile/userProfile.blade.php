@@ -9,11 +9,9 @@
             <div class="mb-2">
                 <h1>{{ ucfirst($userProfile['profile']['nickname'])  }}</h1>
                 <div class="text-zero top-right-button-container">
-                    <a href="{{ route('updateProfile') }}"
-                        class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"
-                       >
-                        {{ __('profile.Update_Profile') }}
-                    </a>
+
+                      <div id="update-container"></div>
+
 
                 </div>
 
@@ -661,3 +659,70 @@
 
 
 @endsection
+@push('scripts')
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('update-container');
+    const target    = new Date("{{ auth()->user()->profile->nextAllowedUpdateAt()->toIso8601String() }}").getTime();
+
+    // HTML for your active link
+    const linkHtml = `
+      <a href="{{ route('updateProfile') }}"
+         class="btn btn-lg btn-primary mt-3 top-right-button top-right-button-single">
+        {{ __('profile.Update_Profile') }}
+      </a>
+    `;
+
+    // HTML for the locked state
+    function lockedHtml() {
+      return `
+        <button id="update-btn"
+                class="btn btn-lg btn-primary mt-3 top-right-button top-right-button-single"
+                disabled>
+           {{ __('profile.update_Available_in') }}
+          <span id="countdown"></span>
+        </button>
+
+        </small>
+      `;
+    }
+
+    // Render either link or locked UI immediately
+    function renderInitial() {
+      if (Date.now() >= target) {
+        container.innerHTML = linkHtml;
+      } else {
+        container.innerHTML = lockedHtml();
+        startCountdown();
+      }
+    }
+
+    // Kick off the ticking countdown
+    function startCountdown() {
+      const cdEl      = document.getElementById('countdown');
+      const cdSmallEl = document.getElementById('countdown-small');
+
+      function pad(n){ return String(n).padStart(2,'0'); }
+
+      const interval = setInterval(() => {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          clearInterval(interval);
+          return container.innerHTML = linkHtml;
+        }
+        const days = Math.floor(diff/(1000*60*60*24));
+        const hrs  = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+        const mins = Math.floor((diff%(1000*60*60))/(1000*60));
+        const secs = Math.floor((diff%(1000*60))/1000);
+        const human = (days>0 ? days+'d ' : '')
+                    + pad(hrs)+'h '+pad(mins)+'m '+pad(secs)+'s';
+
+        cdEl.textContent      = human;
+        cdSmallEl.textContent = human;
+      }, 1000);
+    }
+
+    renderInitial();
+});
+    </script>
+@endpush

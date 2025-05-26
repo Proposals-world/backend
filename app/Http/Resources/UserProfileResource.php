@@ -52,7 +52,6 @@ class UserProfileResource extends JsonResource
             'status' => $this->status,
             'last_active' => $this->last_active,
 
-
             // Profile Information
             'profile' => [
                 'nickname' => $this->profile->nickname,
@@ -100,6 +99,7 @@ class UserProfileResource extends JsonResource
                 'guardian_contact' => $this->profile && $this->profile->guardian_contact_encrypted ? $this->profile->guardian_contact_encrypted : null,
                 // Smoking Tools
                 'marriage_budget' => $this->profile && $this->profile->marriageBudget ? $this->profile->marriageBudget->{'budget_' . $this->lang} : null,
+                'updated_at' => $this->profile->updated_at ? $this->profile->updated_at->format('d/m/Y') : null,
 
                 'smoking_tools' => $this->profile && $this->profile->smokingTools ? $this->profile->smokingTools->map(function ($tool) use ($getLocalized) {
                     return $getLocalized($tool, 'name');
@@ -113,13 +113,16 @@ class UserProfileResource extends JsonResource
                     return $getLocalized($pet, 'name');
                 }) : [],
                 // Photos
-                'photos' => $this->photos->map(function ($photo) {
-                    return [
-                        'photo_url' => config('app.url') . $photo->photo_url,
-                        'caption' => $this->lang === 'ar' ? $photo->caption_ar : $photo->caption_en,
-                        'is_main' => $photo->is_main,
-                    ];
-                }),
+                'photos' => $this->photos->map(
+                    function ($photo) {
+                        return [
+                            'photo_url' => config('app.url') . $photo->photo_url,
+                            'caption' => $this->lang === 'ar' ? $photo->caption_ar : $photo->caption_en,
+                            'is_main' => $photo->is_main,
+                        ];
+                    }
+
+                ),
             ],
         ];
     }
