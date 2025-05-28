@@ -15,8 +15,8 @@ class PaymentGatewayService
 
     public function __construct()
     {
-        $this->baseUrl     = rtrim(config('services.payment_gateway.base_url'), '/');
-        $this->merchantId  = config('services.payment_gateway.merchant_id');
+        $this->baseUrl = rtrim(config('services.payment_gateway.base_url'), '/');
+        $this->merchantId = config('services.payment_gateway.merchant_id');
         $this->apiUsername = config('services.payment_gateway.api_username');
         $this->apiPassword = config('services.payment_gateway.api_password');
     }
@@ -26,31 +26,29 @@ class PaymentGatewayService
      * ----------------------------------------------------------------- */
 
     public function createCheckoutSession(
-        string  $orderId,
-        float   $amount,
-        string  $currency    = 'USD',
-        string  $returnUrl,
-        string  $operation   = 'PURCHASE',   // PURCHASE | AUTHORIZE | VERIFY
-        string  $description = 'Subscription package purchase'
+        string $orderId,
+        float $amount,
+        string $currency = 'USD',
+        string $returnUrl,
+        string $description = 'Subscription package purchase'
     ): array {
-        $url      = "{$this->baseUrl}/api/rest/version/".self::API_VERSION."/merchant/{$this->merchantId}/session";
-        $payload  = [
+        $url = "{$this->baseUrl}/api/rest/version/" . self::API_VERSION . "/merchant/{$this->merchantId}/session";
+        $payload = [
             'apiOperation' => 'INITIATE_CHECKOUT',
-            'checkoutMode' => 'WEBSITE',
-            'interaction'  => [
-                'operation' => strtoupper($operation),
-                'merchant'  => [
-                    'name' => config('app.name'),
-                    'url'  => config('app.url'),
-                    'logo' => secure_asset('frontend/img/logo/proposals-logo-removebg-preview.png'),
-                ],
+            'interaction' => [
+                'operation' => 'PURCHASE',
                 'returnUrl' => $returnUrl,
                 'cancelUrl' => route('user.payment.failed', ['payment' => $orderId]),
+                'merchant' => [
+                    'name' => config('app.name'),
+                    'url' => config('app.url'),
+                    'logo' => secure_asset('frontend/img/logo/proposals-logo-removebg-preview.png'),
+                ],
             ],
-            'order'       => [
-                'amount'      => number_format($amount, 2, '.', ''),
-                'currency'    => $currency,
-                'id'          => $orderId,
+            'order' => [
+                'id' => $orderId,
+                'amount' => number_format($amount, 2, '.', ''),
+                'currency' => $currency,
                 'description' => $description,
             ],
         ];
@@ -61,7 +59,7 @@ class PaymentGatewayService
     /** Hosted checkout **page** URL that is loaded inside the iframe. */
     public function getCheckoutUrl(string $sessionId): string
     {
-        return "{$this->baseUrl}/api/page/version/".self::API_VERSION."/pay";
+        return "{$this->baseUrl}/checkout/pay/{$sessionId}";
     }
 
     /* -----------------------------------------------------------------
@@ -70,31 +68,31 @@ class PaymentGatewayService
 
     public function retrieveOrder(string $orderId): array
     {
-        $url = "{$this->baseUrl}/api/rest/version/".self::API_VERSION."/merchant/{$this->merchantId}/order/{$orderId}";
+        $url = "{$this->baseUrl}/api/rest/version/" . self::API_VERSION . "/merchant/{$this->merchantId}/order/{$orderId}";
         return $this->request('GET', $url);
     }
 
     private function request(string $method, string $url, array $body = []): array
     {
-        $http = Http::withBasicAuth("merchant.{$this->apiUsername}", $this->apiPassword)
-                    ->acceptJson()
-                    ->contentType('application/json');
+        $http = Http::withBasicAuth("merchant.{$this->merchantId}", $this->apiPassword)
+            ->acceptJson()
+            ->contentType('application/json');
 
         $response = $method === 'GET' ? $http->get($url) : $http->{$method}($url, $body);
 
         Log::channel('payment')->info('MPGS call', [
-            'method'   => $method,
-            'url'      => $url,
-            'payload'  => $body,
-            'status'   => $response->status(),
+            'method' => $method,
+            'url' => $url,
+            'payload' => $body,
+            'status' => $response->status(),
             'response' => $response->json(),
         ]);
 
         return [
             'success' => $response->successful(),
-            'status'  => $response->status(),
-            'data'    => $response->json(),
-            'raw'     => $response->body(),
+            'status' => $response->status(),
+            'data' => $response->json(),
+            'raw' => $response->body(),
         ];
     }
 

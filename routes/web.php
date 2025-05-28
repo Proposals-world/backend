@@ -200,6 +200,9 @@ Route::middleware([
     Route::get('/verify-guardian-otp', function () {
         return view('verify-guardian-otp');
     })->name('verify.guardian.otp');
+
+    Route::post('/user/payment/{payment}/email-receipt', [PaymentController::class, 'emailReceipt'])
+        ->name('user.payment.email-receipt');
 });
 Route::prefix('user/guardian-contact')->group(function () {
     Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
@@ -226,7 +229,5 @@ Route::middleware('auth')
         Route::get('/success/{payment}', [PaymentController::class, 'success'])->name('success');
         Route::get('/failed/{payment}',  [PaymentController::class, 'failed'])->name('failed');
     });
-// Webhook route (no auth required)
-Route::post('webhook/payment', [PaymentWebhookController::class, 'handle'])
-    ->name('payment.webhook');
+
 require __DIR__ . '/auth.php';

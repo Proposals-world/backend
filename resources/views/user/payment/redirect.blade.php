@@ -10,7 +10,7 @@
                     <p class="text-muted">{{ __('Please wait while we redirect you to the secure payment page...') }}</p>
                     <div class="d-flex align-items-center justify-content-center">
                         <div class="spinner-border text-primary me-2" role="status">
-                            <span class="visually-hidden">{{ __('') }}</span>
+                            <span class="visually-hidden">{{ __('Loading...') }}</span>
                         </div>
                         <span class="text-muted">{{ __('Loading...') }}</span>
                     </div>
@@ -20,14 +20,31 @@
     </div>
 </div>
 
-<form id="paymentForm" method="POST" action="{{ $checkoutUrl }}">
-    <input type="hidden" name="session.id" value="{{ $sessionId }}">
-    <input type="hidden" name="merchant" value="{{ $merchantId }}">
-</form>
+<!-- Load MPGS Checkout JS -->
+<script src="{{ $baseUrl }}/static/checkout/checkout.min.js" 
+    data-error="errorCallback"
+    data-cancel="cancelCallback"
+></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('paymentForm').submit();
+<script type="text/javascript">
+    function errorCallback(error) {
+        window.location.href = "{{ route('user.payment.failed', ['payment' => $orderId]) }}";
+    }
+
+    function cancelCallback() {
+        window.location.href = "{{ route('user.payment.failed', ['payment' => $orderId]) }}";
+    }
+
+    // Configure and start checkout
+    Checkout.configure({
+        session: {
+            id: '{{ $sessionId }}'
+        }
+    });
+
+    // Start the payment process automatically
+    window.addEventListener('load', function() {
+        Checkout.showPaymentPage();
     });
 </script>
 @endsection 

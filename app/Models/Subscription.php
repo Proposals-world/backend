@@ -12,11 +12,35 @@ class Subscription extends Model
     protected $fillable = [
         'user_id',
         'package_id',
-        'start_date',
-        'end_date',
         'contacts_remaining',
         'status',
     ];
+
+    /**
+     * Create or update subscription from a successful payment
+     */
+    public static function createFromPayment(Payment $payment): self
+    {
+        // Try to find existing active subscription for the user
+        $subscription = static::where('user_id', $payment->user_id)
+            ->first();
+
+        if ($subscription) {
+            // Update existing subscription
+            $subscription->update([
+                'contacts_remaining' => $subscription->contacts_remaining + $payment->package->contact_limit,
+            ]);
+            return $subscription;
+        }
+
+        // Create new subscription if none exists
+        return static::create([
+            'user_id'           => $payment->user_id,
+            'package_id'        => $payment->package_id,
+            'contacts_remaining' => $payment->package->contact_limit,
+            'status'            => 'active',
+        ]);
+    }
 
     public function user()
     {
