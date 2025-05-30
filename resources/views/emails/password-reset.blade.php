@@ -68,15 +68,11 @@
             display: inline-block;
             padding: 14px 32px;
             background-color: #9c0c58;
-            color: #ffffff;
+            color: #ffffff !important;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
             font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #7c0946;
         }
         
         /* Instructions Box */
@@ -128,7 +124,7 @@
             </div>
             
             <div class="button-container">
-                <a href="{{ $resetUrl }}" class="button">Reset Password</a>
+                <a href="{{ $resetUrl }}" class="button" style="color: #ffffff !important; background-color: #9c0c58; text-decoration: none; display: inline-block; padding: 14px 32px; border-radius: 50px; font-weight: bold; font-size: 16px;">Reset Password</a>
             </div>
             
             <div class="instructions">
