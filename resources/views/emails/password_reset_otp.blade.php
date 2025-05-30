@@ -180,13 +180,6 @@
         <div class="footer">
             <p>Thanks,<br><strong>{{ config('app.name') }}</strong></p>
             
-            <!-- Optional: Add social media links here -->
-            <!-- <div class="social-links">
-                <a href="#" class="social-link">Facebook</a>
-                <a href="#" class="social-link">Twitter</a>
-                <a href="#" class="social-link">Instagram</a>
-            </div> -->
-            
             <div class="disclaimer">
                 This is an automated message, please do not reply to this email.
             </div>
