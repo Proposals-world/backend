@@ -23,7 +23,7 @@
                                     </h5>
                                     <p class="text-large mb-2 text-default">${{ $card['price'] }}</p>
                                     <p class="text-muted text-small">
-                                        {{ __('userDashboard.pricing.contact_limit') }}: {{ $card['contact_limit'] }}
+                                         {{-- {{ __('userDashboard.pricing.contact_limit') }}: {{ $card['contact_limit'] }} --}}
                                     </p>
                                 </div>
 
@@ -39,6 +39,12 @@
                                         <a href="#" class="btn btn-link btn-empty btn-lg">
                                             {{ __('userDashboard.pricing.button') }} <i class="simple-icon-arrow-right"></i>
                                         </a>
+                                    </div>
+                                    
+                                    <!-- Payment Method Logos -->
+                                    <div class="text-right mt-auto">
+                                        <img src="{{ asset('frontend/img/mastercard.png') }}" alt="Mastercard" height="20" class="ml-1">
+                                        <img src="{{ asset('frontend/img/VISA-logo.png') }}" alt="VISA" height="20" class="ml-1">
                                     </div>
                                 </div>
                             </div>
