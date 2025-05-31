@@ -1,4 +1,4 @@
-<footer class="footer-bg footer-p pt-60" style="background-image: url({{ asset('frontend/img/bg/f-bg.png') }}); background-position: center top; background-size: auto; background-repeat: no-repeat;">
+<footer class="footer-bg footer-p" style="background-image: url({{ asset('frontend/img/bg/f-bg.png') }}); background-position: center top; background-size: auto; background-repeat: no-repeat;">
     <div class="footer-top">
         <div class="container">
             <div class="row justify-content-between">
@@ -63,8 +63,19 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Payment Methods -->
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="payment-logos text-center mb-20">
+                        <img src="{{ asset('frontend/img/mastercard.png') }}" alt="Mastercard" height="40" class="mx-2">
+                        <img src="{{ asset('frontend/img/VISA-logo.png') }}" alt="VISA" height="40" class="mx-2">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
     <!-- Copyright -->
     <div class="copyright-wrap text-center">
         <div class="container">
