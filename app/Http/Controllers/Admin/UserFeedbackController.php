@@ -92,7 +92,7 @@ class UserFeedbackController extends Controller
             ->whereIn('feedback_text_en', $negativeTypes)
             ->count();
 
-        if ($negCount >= 2 && $validated['match_id']) {
+        if ($negCount >= 3 && $validated['match_id']) {
             // fetch the match record
             $match = \App\Models\UserMatch::find($validated['match_id']);
             if ($match) {

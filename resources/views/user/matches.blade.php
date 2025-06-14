@@ -126,10 +126,11 @@
                         <div class="card-header d-flex justify-content-between pt-2 align-items-center bg-primary"
                              style="color: #fff;">
                             <h6 class="mb-0">{{ __('userDashboard.matches.contact_info') }}</h6>
-                            <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none"
-                                   >
-                                <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
-                            </button>
+                            @if(Auth::user()->gender === 'male')
+                                <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none">
+                                    <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
+                                </button>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
