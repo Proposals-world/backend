@@ -1465,9 +1465,22 @@ $('#customFile').change(function(event) {
                 }
             });
         }
+        function toggleCityLocationRequirement(countryId) {
+  const $loc = $('#city_location_id');
+  if (parseInt(countryId, 10) >= 23) {
+    $loc.prop('required', false);
+    // clear any existing error message
+    $loc.closest('.form-group')
+        .find('.error-message').text('');
+  } else {
+    $loc.prop('required', true);
+  }
+}
 // When the country changes, update the cities dropdown
 $('#country_id').on('change', function() {
     var countryId = $(this).val();
+      toggleCityLocationRequirement(countryId);
+
     $('#city_id').empty().append('<option value="">{{ __('onboarding.select_city') }}</option>'); // Clear existing cities
 
     if (countryId) {

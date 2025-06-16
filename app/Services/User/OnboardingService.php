@@ -50,7 +50,7 @@ class OnboardingService
         // Optionally, a specific field can be provided.
         $getData = function ($model, $field = null) use ($nameField) {
             $column = $field ?: $nameField;
-            return $model::select('id', DB::raw("{$column} as name"))->get();
+            return $model::select('id', DB::raw("{$column} as name"))->orderBy('name')->get();
         };
 
         // Get the authenticated user's gender (if available).

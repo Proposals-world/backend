@@ -1602,9 +1602,20 @@
                         }
                     });
                 }
-
+                function toggleCityLocationRequirement(countryId) {
+                const $loc = $('#city_location_id');
+                if (parseInt(countryId, 10) >= 23) {
+                    $loc.prop('required', false);
+                    // clear any existing error message
+                    $loc.closest('.form-group')
+                        .find('.error-message').text('');
+                } else {
+                    $loc.prop('required', true);
+                }
+                }
                 $('#country_id').on('change', function() {
                     var countryId = $(this).val();
+                    toggleCityLocationRequirement(countryId);
 
                     // Clear the city dropdown completely first
                     $('#city_id')

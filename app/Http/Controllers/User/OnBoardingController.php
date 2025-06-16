@@ -35,6 +35,7 @@ class OnBoardingController extends Controller
         $cities = DB::table('cities')
             ->select('id', DB::raw("{$nameField} as name"))
             ->where('country_id', $countryId)
+            ->orderBy($nameField, 'asc')
             ->get();
 
         return response()->json($cities);
