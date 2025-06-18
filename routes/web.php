@@ -43,7 +43,7 @@ use App\Http\Controllers\User\FindMatchController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
-
+use App\Http\Controllers\Admin\ContactMessageController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
@@ -73,6 +73,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // routes/web.php
+
+
 
 
     // admins route
@@ -81,7 +84,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/support/{ticket}', [AdminSupportTicketController::class, 'show'])->name('admin.support.show');
         Route::post('/support/{ticket}/reply', [AdminSupportTicketController::class, 'reply'])->name('admin.support.reply');
         Route::post('/support/{ticket}/status', [AdminSupportTicketController::class, 'updateStatus'])->name('admin.support.update-status');
-
+        Route::get(
+            'contact-messages',
+            [ContactMessageController::class, 'index']
+        )->name('admin.contact-messages.index');
 
         Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
         Route::resource('countries', CountriesController::class);

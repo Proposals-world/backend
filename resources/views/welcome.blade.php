@@ -497,33 +497,66 @@ style="background-color: #fff; position: relative;">
                 <h2>{{ __('home.contact_title') }}</h2>
                 <p>{{ __('home.contact_desc') }}</p>
             </div>
-            <form action="#" class="contact-form">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-name mb-20">
-                            <input type="text" placeholder="{{ __('home.contact_placeholder_name') }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-email mb-20">
-                            <input type="email" placeholder="{{ __('home.contact_placeholder_email') }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-subject mb-20">
-                            <input type="text" placeholder="{{ __('home.contact_placeholder_phone') }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-message mb-45">
-                            <textarea name="message" id="message" cols="10" rows="10"
-                                placeholder="{{ __('home.contact_placeholder_message') }}"></textarea>
-                        </div>
-                        <button class="btn">{{ __('home.contact_button') }}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<form id="contactForm" class="contact-form">
+  @csrf
+
+  {{-- Alert placeholder --}}
+  <div id="formAlert"></div>
+
+  <div class="row">
+    <div class="col-12 mb-20">
+      <input
+        type="text"
+        name="name"
+        value="{{ old('name') }}"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_name') }}"
+      >
+      {{-- Inline error placeholder --}}
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12 mb-20">
+      <input
+        type="email"
+        name="email"
+        value="{{ old('email') }}"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_email') }}"
+      >
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12 mb-20">
+      <input
+        type="text"
+        name="phone"
+        value="{{ old('phone') }}"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_phone') }}"
+      >
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12 mb-30">
+      <textarea
+        name="message"
+        rows="5"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_message') }}"
+      >{{ old('message') }}</textarea>
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">
+        {{ __('home.contact_button') }}
+      </button>
+    </div>
+  </div>
+</form>
+
+            </div>
     </div>
 </div>
 </section>
@@ -532,3 +565,89 @@ style="background-color: #fff; position: relative;">
 
     </div>
 @endsection
+@push('scripts')
+<script>
+document
+  .getElementById('contactForm')
+  .addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form   = this;
+    const url    = '/api/contact';
+    const data   = new FormData(form);
+    const alertContainer = document.getElementById('formAlert');
+
+    // Clear previous alerts + field errors
+    alertContainer.innerHTML = '';
+    form.querySelectorAll('.is-invalid').forEach(el => {
+      el.classList.remove('is-invalid');
+    });
+    form.querySelectorAll('.invalid-feedback').forEach(feedback => {
+      feedback.textContent = '';
+    });
+
+    // Grab CSRF token from hidden input
+    const token = form.querySelector('input[name="_token"]').value;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': token,
+          'Accept': 'application/json'
+        , 'lang': '{{ app()->getLocale() }}'
+        },
+        body: data
+      });
+
+      const json = await response.json();
+
+      if (response.ok) {
+        // Success alert
+        alertContainer.innerHTML = `
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ${ json.message }
+          </div>
+        `;
+        form.reset();
+      }
+      else if (response.status === 422) {
+        // Validation errors
+            // alertContainer.innerHTML = `
+            //   <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            //     Please fix the errors below.
+            //     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            //   </div>
+            // `;
+        for (const [field, messages] of Object.entries(json.errors)) {
+          const input = form.querySelector(`[name="${field}"]`);
+          const feedback = input.nextElementSibling; // the .invalid-feedback div
+          input.classList.add('is-invalid');
+          feedback.textContent = messages.join(' ');
+        }
+      }
+      else {
+        // Other errors
+        alertContainer.innerHTML = `
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Something went wrong. Please try again later.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        `;
+        console.error(json);
+      }
+    }
+    catch (err) {
+      alertContainer.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Network error. Please check your connection.
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+      console.error(err);
+    }
+  });
+</script>
+
+
+@endpush

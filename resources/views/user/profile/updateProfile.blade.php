@@ -464,7 +464,7 @@ style="
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 job-title-wrapper" style="display:none;">
                                             <div class="form-group">
                                                 <label
                                                     class="form-label">{{ __('onboarding.position_level') }}</label>
@@ -782,6 +782,23 @@ style="
                                         </div>
                                     </div>
                                     <div class="row">
+                                            <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label
+                                                    class="form-label">{{ __('onboarding.nationality') }}</label>
+                                                <select name="nationality_id" class="form-control rounded-pill"
+                                                    required>
+                                                    <option value="">
+                                                        {{ __('onboarding.select_nationality') }}</option>
+                                                    @foreach ($data['nationalities'] as $nationality)
+                                                        <option value="{{ $nationality->id }}"{{ $user->profile->nationality_id == $nationality->id ? 'selected' : '' }}>
+                                                            {{ $nationality->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span class="error-message text-danger"
+                                                    style="font-size:12px;"></span>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.origin') }}</label>
@@ -799,23 +816,7 @@ style="
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label
-                                                    class="form-label">{{ __('onboarding.nationality') }}</label>
-                                                <select name="nationality_id" class="form-control rounded-pill"
-                                                    required>
-                                                    <option value="">
-                                                        {{ __('onboarding.select_nationality') }}</option>
-                                                    @foreach ($data['nationalities'] as $nationality)
-                                                        <option value="{{ $nationality->id }}"{{ $user->profile->nationality_id == $nationality->id ? 'selected' : '' }}>
-                                                            {{ $nationality->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="error-message text-danger"
-                                                    style="font-size:12px;"></span>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <div class="onboarding-navigation d-flex justify-content-between mt-4">
                                         <button type="button" class="btn btn-secondary rounded-pill prev-step">
@@ -1150,19 +1151,26 @@ $('#customFile').change(function(event) {
         }
 
         // Toggle Job Title based on Employment Status
-        function toggleJobTitle() {
-            var employmentStatus = $('select[name="employment_status"]').val();
-            var $jobTitleWrapper = $('.job-title-wrapper');
-            if (employmentStatus === "1") {
-                $jobTitleWrapper.show();
-                $jobTitleWrapper.find('select').prop('required', true);
-            } else {
-                $jobTitleWrapper.hide();
-                $jobTitleWrapper.find('select').prop('required', false).val('').trigger('change');
-                $jobTitleWrapper.find('select').removeClass('is-valid is-invalid');
-                $jobTitleWrapper.find('.error-message').text('');
-            }
-        }
+       function toggleJobTitle() {
+                    var employmentStatus = $('select[name="employment_status"]').val();
+                    var $jobTitleWrapper = $('.job-title-wrapper');
+                    var $positionLevelWrapper = $('.position-level-wrapper');
+                    if (employmentStatus === "1") {
+                        $jobTitleWrapper.show();
+                        $jobTitleWrapper.find('select').prop('required', true);
+                        $positionLevelWrapper.show();
+                        $positionLevelWrapper.find('select').prop('required', true);
+                    } else {
+                        $jobTitleWrapper.hide();
+                        $jobTitleWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $jobTitleWrapper.find('select').removeClass('is-valid is-invalid');
+                        $jobTitleWrapper.find('.error-message').text('');
+                        $positionLevelWrapper.hide();
+                        $positionLevelWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $positionLevelWrapper.find('select').removeClass('is-valid is-invalid');
+                        $positionLevelWrapper.find('.error-message').text('');
+                    }
+                }
 
         // Run toggles on page load
         toggleSmokingTools();

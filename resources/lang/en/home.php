@@ -5,7 +5,7 @@ return [
     'slider_title' => 'Find your dream match & reach out with a serious step',
     'slider_subtitle' => 'As the best outcomes are often hidden behind doors',
     'call_to_action' => 'Get Started Today',
-
+    'contact_success' => 'Your message has been sent successfully!',
     // Features Section
     'features_title' => 'Our Features',
     'features_desc' => 'Experience a seamless way to find your ideal match with our innovative tools and trusted verification.',

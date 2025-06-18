@@ -162,6 +162,7 @@ return [
     'age_min' => 'You must be at least 18 years old.',
     'age_max' => 'Please enter a valid date of birth.',
     'arabic_required_no_numbers' => 'Please write in Arabic and do not use numbers in this field.',
+    'arabic_required' => 'Please write in Arabic.',
     'invalid_guardian_contact' => 'Please enter a valid guardian contact in the format 078#######, 077####### or 079#######.',
     'invalid_image_file' => 'Please upload a valid image file (JPG, JPEG, PNG, GIF).',
     'file_size' => 'File size should not exceed 5MB.',
@@ -182,5 +183,6 @@ return [
     // 'disclaimer_p3' => 'We encourage you to exercise caution when sharing personal information and to report any suspicious activity immediately. You are fully responsible for any legal actions that may arise from your use of this platform or interactions with other users.',
     'disclaimer_agreement' => 'I confirm that the information I have provided is accurate and truthful, and I understand that I am legally responsible for my interactions on this platform and bear any legal consequences resulting from them.',
     'english_required_no_numbers' => 'Please write in English and do not use numbers in this field.',
+    'english_required' => 'Please write in English.',
     'no_numbers_allowed' => 'Numbers are not allowed in this field.',
 ];

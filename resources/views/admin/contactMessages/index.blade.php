@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title', 'Hair Color')
+@section('title', 'Contact Messages')
 
-@section('page-title', 'Admin Dashboard - Hair Color')
+@section('page-title', 'Admin Dashboard - Contact Messages')
 
-@section('subtitle', 'Hair Color')
+@section('subtitle', 'Contact Messages')
 
 @section('content')
     <div class="content">
@@ -12,9 +12,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
-                        <h4 class="page-title">Hair Color List</h4>
+                        <h4 class="page-title">Contact Messages List</h4>
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item active">Hair Color List</li>
+                            <li class="breadcrumb-item active">Contact Messages List</li>
                         </ol>
                     </div>
                 </div>
@@ -23,8 +23,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Hair Color List</h4>
-                            <a class="btn btn-primary mb-3" id="add_btn">Add Hair Color</a>
                             <div class="table-responsive">
                                 {{ $dataTable->table([
                                     'class' => 'table table-bordered table-hover  w-100',
@@ -55,9 +53,9 @@
 {{ $dataTable->scripts() }}
 
 <script>
-    addModal('add_btn', '{{ route('hair-colors.create') }}', 'Add Hair Color ', 'hairColorForm', 'hair-colors-table');
-    editModal('edit_btn', 'admin/hair-colors', 'Edit Country', 'hairColorForm', 'hair-colors-table');
-    remove('remove_btn', 'admin/hair-colors', 'hair-colors-table', '{{ csrf_token() }}');
+    // addModal('add_btn', '{{ route('hobbies.create') }}', 'Add Hobby ', 'hobbyForm', 'hobbies-table');
+    // editModal('edit_btn', 'admin/hobbies', 'Edit Hobby', 'hobbyForm', 'hobbies-table');
+    // remove('remove_btn', 'admin/hobbies', 'hobbies-table', '{{ csrf_token() }}');
 </script>
 @endpush
 

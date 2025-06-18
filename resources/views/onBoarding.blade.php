@@ -546,7 +546,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 position-level-wrapper "style="display:none;">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.position_level') }}</label>
@@ -892,22 +892,7 @@
 
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.origin') }}</label>
-                                                        <select name="origin_id" class="form-control rounded-pill"
-                                                            required>
-                                                            <option value="">{{ __('onboarding.select_origin') }}
-                                                            </option>
-                                                            @foreach ($data['origins'] as $origin)
-                                                                <option value="{{ $origin->id }}">{{ $origin->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger"
-                                                            style="font-size:12px;"></span>
-                                                    </div>
-                                                </div>
+
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -920,6 +905,22 @@
                                                             @foreach ($data['nationalities'] as $nationality)
                                                                 <option value="{{ $nationality->id }}">
                                                                     {{ $nationality->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.origin') }}</label>
+                                                        <select name="origin_id" class="form-control rounded-pill"
+                                                            required>
+                                                            <option value="">{{ __('onboarding.select_origin') }}
+                                                            </option>
+                                                            @foreach ($data['origins'] as $origin)
+                                                                <option value="{{ $origin->id }}">{{ $origin->name }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                         <span class="error-message text-danger"
@@ -1219,14 +1220,21 @@
                 function toggleJobTitle() {
                     var employmentStatus = $('select[name="employment_status"]').val();
                     var $jobTitleWrapper = $('.job-title-wrapper');
+                    var $positionLevelWrapper = $('.position-level-wrapper');
                     if (employmentStatus === "1") {
                         $jobTitleWrapper.show();
                         $jobTitleWrapper.find('select').prop('required', true);
+                        $positionLevelWrapper.show();
+                        $positionLevelWrapper.find('select').prop('required', true);
                     } else {
                         $jobTitleWrapper.hide();
                         $jobTitleWrapper.find('select').prop('required', false).val('').trigger('change');
                         $jobTitleWrapper.find('select').removeClass('is-valid is-invalid');
                         $jobTitleWrapper.find('.error-message').text('');
+                        $positionLevelWrapper.hide();
+                        $positionLevelWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $positionLevelWrapper.find('select').removeClass('is-valid is-invalid');
+                        $positionLevelWrapper.find('.error-message').text('');
                     }
                 }
 
@@ -1408,7 +1416,7 @@
                     // only Arabic letters, spaces & basic punctuation
                     var arabicRegex = /^[\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]+$/u;
                     if (!arabicRegex.test(value)) {
-                    errorSpan.text("{{ __('onboarding.arabic_required') }}");
+                    errorSpan.text("{{ __('onboarding.arabic_required_no_numbers') }}");
                     isValid = false;
                     }
                     else if (/\d/.test(value)) {

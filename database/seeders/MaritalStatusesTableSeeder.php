@@ -14,6 +14,8 @@ class MaritalStatusesTableSeeder extends Seeder
             ['name_en' => 'Widowed', 'name_ar' => 'أرمل', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Divorced Single', 'name_ar' => 'مطلق أعزب', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Divorced', 'name_ar' => 'مطلق', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Divorced with Kids', 'name_ar' => 'مطلق مع أطفال', 'created_at' => now(), 'updated_at' => now()],
+            ['name_en' => 'Widowed with Kids', 'name_ar' => 'أرمل مع أطفال', 'created_at' => now(), 'updated_at' => now()]
         ]);
     }
 }

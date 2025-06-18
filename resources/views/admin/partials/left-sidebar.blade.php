@@ -231,7 +231,7 @@
                                 <span> Religions </span>
                             </a>
                         </li>
-                       
+
                         <li class="side-nav-item">
                             <a href="{{ route('pets.index') }}" class="side-nav-link d-flex align-items-center">
                                 <img width="16px" style="margin-left: 7px;" class="me-2"
@@ -288,6 +288,13 @@
                 <a href="{{ route('admin.support') }}" class="side-nav-link">
                     <i class="ri-heart-2-line"></i>
                     <span> Support </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{{ route('admin.contact-messages.index') }}" class="side-nav-link">
+                    <i class="ri-mail-line"></i>
+                    <span> Contact Messages </span>
                 </a>
             </li>
 

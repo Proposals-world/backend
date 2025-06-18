@@ -44,6 +44,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPreferenceController;
@@ -57,6 +58,7 @@ Route::post('/password/email', [PasswordResetController::class, 'sendResetOTP'])
 Route::post('/password/verify-otp', [PasswordResetController::class, 'verifyOTP']);
 Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Protected Routes
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
@@ -144,5 +146,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
         Route::post('/send-template', [WhatsAppController::class, 'sendTemplateMessage']); // Added new template route
     });
-
 });

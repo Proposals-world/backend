@@ -92,6 +92,12 @@ class AdminController extends Controller
             'dislikedBy.user.profile',
 
         ])->findOrFail($userid);
-        return view('admin.viewUser', compact('user')); // Ensure this view exists
+        $previous = User::where('id', '<', $user->id)
+            ->orderBy('id', 'desc')
+            ->first();
+        $next     = User::where('id', '>', $user->id)
+            ->orderBy('id', 'asc')
+            ->first();
+        return view('admin.viewUser', compact('user', 'previous', 'next')); // Ensure this view exists
     }
 }
