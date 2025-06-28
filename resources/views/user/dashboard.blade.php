@@ -100,7 +100,7 @@
                 <h2 class="text-primary">
                     <i class="iconsminds-happy-face" style="font-size: 1.5em;"></i>
                     {{ __('userDashboard.dashboard.welcome') }},
-                    {{ Auth::check() ? Auth::user()->first_name : __('userDashboard.header.guest') }}
+                    {{  Auth::user()->profile->nickname  }}
                 </h2>
                 <div class="separator mb-5"></div>
             </div>

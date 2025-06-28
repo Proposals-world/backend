@@ -16,6 +16,7 @@
                 </div>
 
 
+
             <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="first-tab" data-toggle="tab" href="#first" role="tab"
@@ -38,7 +39,7 @@
                                         </button> --}}
                                 </div>
                                 <img src="{{ collect($userProfile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? asset('default-profile.png') }}"
-                                alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
+                                alt="{{ $userProfile['profile']['nickname']  }}"
                                 class="card-img-top" />
                                 {{-- <img src="{{ asset(optional($userProfile['profile']['photos']->firstWhere('is_main', 1))->photo_url ?? 'default-profile.png') }}"
                                 alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
@@ -109,7 +110,7 @@
                         </div>
                         <div class="col-12 col-lg-7 col-xl-8 col-right">
                             <div class="row listing-card-container">
-                                <div class="row">
+                                {{-- <div class="row"> --}}
                                     <!-- Personal Info & Location Info Card -->
                                     <div class="col-lg-6 col-12 mb-4">
                                         <div class="card">
@@ -295,9 +296,9 @@
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                               @if ($userProfile['profile']['smoking_status'] == true)
     <a >
-                                                                             <strong> {{ __('profile.Smoking_Tools') }}:
+                                                                             <strong> {{ __('profile.Smoking_Tools') }}:</strong>
                                                                     @foreach ($userProfile['profile']['smoking_tools'] ?? [] as $tool)
-                                                                    </strong><span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
+                                                                    <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
                                                                     @endforeach
                                                                 </a>
                                                             @endif
@@ -312,6 +313,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
 
 
                                     <div class="col-lg-6 col-12 mb-4">
@@ -598,7 +601,7 @@
 
 
 
-                                </div>
+
 
 
 
@@ -608,7 +611,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab">
-                    <div class="row">
+                       <div class="row">
                         @if(empty($likes))
                             <div class="col-12">
                                 <p class="text-center text-muted">{{ __('profile.No_like_yet') }}</p>
@@ -632,9 +635,9 @@
                                                             {{ $like['user']['nickname'] ?? '' }}
                                                         </p>
                                                     </a>
-                                                    <p class="mb-2 text-muted text-small">
-                                                        {{ $like['user']['email'] ?? '' }}
-                                                    </p>
+                                                        {{-- <p class="mb-2 text-muted text-small">
+                                                            {{ $like['user']['email'] ?? '' }}
+                                                        </p> --}}
                                                     {{-- <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a> --}}
                                                 </div>
                                             </div>
@@ -644,7 +647,6 @@
                             @endforeach
                         @endif
                     </div>
-
 
 
 

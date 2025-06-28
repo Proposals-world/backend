@@ -183,6 +183,7 @@ return [
     // 'disclaimer_p3' => 'We encourage you to exercise caution when sharing personal information and to report any suspicious activity immediately. You are fully responsible for any legal actions that may arise from your use of this platform or interactions with other users.',
     'disclaimer_agreement' => 'I confirm that the information I have provided is accurate and truthful, and I understand that I am legally responsible for my interactions on this platform and bear any legal consequences resulting from them.',
     'english_required_no_numbers' => 'Please write in English and do not use numbers in this field.',
-    'english_required' => 'Please write in English.',
+    'english_required' => 'Please write in English. Special characters are not allowed in this field.',
+    'no_special_characters' => 'Special characters are not allowed in this field.',
     'no_numbers_allowed' => 'Numbers are not allowed in this field.',
 ];

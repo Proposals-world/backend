@@ -1401,7 +1401,7 @@
                             }
                             break;
 
-                       case 'bio_en':
+                          case 'bio_en':
                     var englishRegex = /^[A-Za-z0-9\s.,'"\-?!()]+$/;
                     if (!englishRegex.test(value)) {
                         errorSpan.text("{{ __('onboarding.english_required') }}");
@@ -1411,21 +1411,37 @@
                         errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
                         isValid = false;
                     }
-                    break;
-                case 'bio_ar':
-                    // only Arabic letters, spaces & basic punctuation
-                    var arabicRegex = /^[\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]+$/u;
-                    if (!arabicRegex.test(value)) {
-                    errorSpan.text("{{ __('onboarding.arabic_required_no_numbers') }}");
-                    isValid = false;
+                    // Check for special characters (allow only basic punctuation)
+                    var specialCharRegex = /[^A-Za-z0-9\s.,'"\-?!()]/;
+                    if (specialCharRegex.test(value)) {
+                        errorSpan.text("{{ __('onboarding.no_special_characters') }}");
+                        isValid = false;
                     }
-                    else if (/\d/.test(value)) {
-                    // now we forbid digits in Arabic
+                    break;
+              case 'bio_ar':
+                // 1) If there are any digits, show the no‐numbers error and stop
+                if (/\d/.test(value)) {
                     errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
                     isValid = false;
-                    }
-                break;
+                    break;
+                }
 
+                // 2) If there are any characters outside Arabic letters, spaces, and our basic punctuation,
+                //    show the special‐characters error and stop
+                var specialCharRegexAr = /[^\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]/u;
+                if (specialCharRegexAr.test(value)) {
+                    errorSpan.text("{{ __('onboarding.no_special_characters') }}");
+                    isValid = false;
+                    break;
+                }
+
+                // 3) Finally, ensure it’s at least Arabic letters (with allowed punctuation)
+                var arabicLettersAndPunc = /^[\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]+$/u;
+                if (!arabicLettersAndPunc.test(value)) {
+                    errorSpan.text("{{ __('onboarding.arabic_required_no_numbers') }}");
+                    isValid = false;
+                }
+                break;
                         case 'guardian_contact':
                             const guardianRegex = /^(078|077|079)\d{7}$/;
                             if (!guardianRegex.test(value)) {

@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             [
                 'first_name' => 'Abod',
                 'last_name' => 'Ahmad',
-          
+
                 'email' => 'Abod@proposals.world',
                 'phone_number' => '1111111111',
                 'password' => Hash::make('password'),
