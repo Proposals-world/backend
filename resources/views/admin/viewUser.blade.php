@@ -551,23 +551,6 @@
     }
     </script>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            var quillEn = new Quill('#editor-en', {
-                theme: 'snow'
-            });
 
-            var quillAr = new Quill('#editor-ar', {
-                theme: 'snow'
-            });
 
-            document.getElementById("blogForm").addEventListener("submit", function() {
-                document.getElementById("content_en").value = quillEn.root.innerHTML;
-                document.getElementById("content_ar").value = quillAr.root.innerHTML;
-            });
-
-            // Initialize Select2
-            $('#categories').select2();
-
-        });
-    </script>
 @endpush
