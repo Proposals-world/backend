@@ -112,14 +112,16 @@ $locale = app()->getLocale();
 @csrf
 
 <section id="onboarding" class="slider-area slider-bg2 second-slider-bg d-flex fix"
-style="
+{{-- style="
     @if ($locale === 'ar') background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
         background-position: left 0;
     @else
         background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
         background-position: right 0; @endif
     background-repeat: no-repeat;
-    background-size: 65%;">
+    background-size: 65%;"
+     --}}
+    >
 <div id="container" class="container">
     <!-- Step Indicators -->
 
@@ -174,8 +176,8 @@ style="
                 <div class="card rounded-lg shadow-lg onboarding-card mb-4">
 
                     <div class="card-body p-lg-5">
-                        <form id="onboarding-form"
-                         >
+                        {{-- <form id="onboarding-form"
+                         > --}}
 
                             <input type="hidden" value="true" name="FromUpdateProfile">
                             <div class="onboarding-steps">
@@ -907,7 +909,7 @@ style="
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </div>
