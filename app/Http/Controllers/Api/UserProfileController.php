@@ -97,21 +97,25 @@ class UserProfileController extends Controller
     public function update(UpdateUserProfileRequest $request)
     {
         $user = $request->user();
-
+        // put if stament to to check param sent from the postman to handle it
         if (!$user) {
             return response()->json([
                 'message' => 'Unauthorized.'
             ], 401);
         }
-        if (! $user->profile->canBeUpdated()) {
-            $next = $user->profile->nextAllowedUpdateAt()
-                ->format('d/m/Y H:i:s');
+        $isFirstUpdate = $request->boolean('isFirstUpdate');
+        if (!$isFirstUpdate) {
 
-            return response()->json([
-                'success'                => false,
-                'message'                => 'You cannot update your profile until 14 days have passed.',
-                'next_update_available'  => $next,
-            ], 403);
+            if (! $user->profile->canBeUpdated()) {
+                $next = $user->profile->nextAllowedUpdateAt()
+                    ->format('d/m/Y H:i:s');
+
+                return response()->json([
+                    'success'                => false,
+                    'message'                => 'You cannot update your profile until 14 days have passed.',
+                    'next_update_available'  => $next,
+                ], 403);
+            }
         }
         $validated = $request->validated();
 
