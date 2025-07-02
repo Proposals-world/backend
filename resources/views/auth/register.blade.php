@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     @if (app()->getLocale() === 'ar')
-        
+
     <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
     @endif
     @include("admin.partials.title-meta", ["title" => "Register"])
@@ -169,7 +169,7 @@
                         <div class="mb-3">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                <label class="form-check-label" for="terms">{{ __('auth.terms') }}</label>
+                                <label class="form-check-label" for="terms">{{ __('auth.terms') }} <a href="{{ route('terms-and-conditions') }}" class="active"> {{ __('Terms and Conditions') }}</a> {{ __('and') }} <a href="{{ route('privacy-policy') }}">{{ __('privacy policy') }}</a></label>
                             </div>
                             @error('terms')
                                 <div class="text-danger mt-2">{{ $message }}</div>

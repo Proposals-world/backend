@@ -1,9 +1,9 @@
 @extends('frontend.layouts.app')
 @section('section')
 <style>
-    .row {
+    /* .row {
         align-items: unset;
-    }
+    } */
 
     .about-us-section {
         font-size: 18px;
@@ -25,13 +25,7 @@
         font-weight: bold;
     }
 
-    .highlight {
-        background-color: #e8a5d3;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 500;
-        color: #fff;
-    }
+
 
     .about-center-text {
         text-align: center;

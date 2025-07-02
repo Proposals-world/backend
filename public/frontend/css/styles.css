@@ -5937,3 +5937,14 @@ pre cite {
     }
 }
 
+.blog-image {
+    height: 465px;
+    object-fit: cover;
+    width: 100%;
+}
+/*
+@media (max-width: 768px) {
+    .blog-image {
+        height: 340px;
+    }
+} */

@@ -18,7 +18,7 @@ return [
     'phone'        => '1800-121-3637<br>+91 555 234-8765',
     'email'        => '<a href="mailto:info@proposals.world">info@proposals.world</a><br><a href="mailto:sale@proposals.world">sale@proposals.world</a>',
     'address'      => 'Amman - Jordan',
-
+    'privacy_policy' => 'Privacy Policy',
     // Copyright
     'copyright'    => '&copy; Proposals.world. All rights reserved.',
 ];

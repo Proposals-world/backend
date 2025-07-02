@@ -57,7 +57,12 @@ Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us');
 
-
+Route::get('/terms-and-conditions', function () {
+    return view('TermsAndConditions');
+})->name('terms-and-conditions');
+Route::get('/privacy-policy', function () {
+    return view('privacyPolicy');
+})->name('privacy-policy');
 Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
 Route::get(
     '/city-locations/{cityId}',

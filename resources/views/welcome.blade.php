@@ -455,7 +455,8 @@ html[dir="rtl"] .contact-direction {
                             <div class="single-post mb-30">
                                 <div class="blog-thumb">
                                     @if (isset($blog['image']))
-                                        <a href="{{ route('blog-details', $blog['id']) }}"><img
+                                        <a href="{{ route('blog-details', $blog['id']) }}"  >
+                                            <img class="blog-image"
                                                 src="{{ asset('storage/' . $blog['image']) }}" alt="blog"></a>
                                     @endif
                                 </div>

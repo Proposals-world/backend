@@ -5,7 +5,7 @@
     @include("admin.partials.title-meta")
     @include('admin.partials.head-css')
     @if (app()->getLocale() === 'ar')
-        
+
     <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
     @endif
 </head>
@@ -13,7 +13,7 @@
 <body class="authentication-bg pb-0">
 
     <div class="auth-fluid">
-        
+
         <!-- Auth fluid right content -->
         <div class="auth-fluid-right text-center">
             <div class="auth-user-testimonial">
@@ -92,7 +92,7 @@
 
                 <!-- Footer-->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">{{ __('auth.not_receive_email') }} <a href="{{ route('register') }}" class="text-muted ms-1"><b>{{ __('auth.register') }}</b></a></p>
+                    <p class="text-muted">{{ __('auth.not_receive_email') }} <a href="{{ route('register') }}" class=" ms-1"><b>{{ __('auth.register') }}</b></a></p>
                 </footer>
             </div>
         </div>

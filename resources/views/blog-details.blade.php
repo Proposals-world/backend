@@ -4,6 +4,16 @@
    .row {
     align-items:unset;
 }
+.blog-details-image{
+        max-height: 548px;
+    object-fit: cover;
+}
+@if (app()->getLocale() === 'ar')
+.offset-xl-3 {
+    margin-right: 25%;
+    margin-left: 0 !important;
+}
+@endif
 </style>
 <div>
     <section class="breadcrumb-area d-flex align-items-center"
@@ -36,16 +46,16 @@
     <section class="inner-blog b-details-p pt-120 pb-80">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="blog-details-wrap">
                     <div class="bsingle__post-thumb mb-30">
-                        <img src="{{asset('storage/' . $formattedBlog['image']) }}" alt="">
+                        <img src="{{asset('storage/' . $formattedBlog['image']) }}" class="blog-details-image" alt="">
                     </div>
                         <div class="details__content pb-50">
                             {{-- blog title --}}
                             <h2>{{ $formattedBlog['title'] }}</h2>
 
-                            <p>{!! $formattedBlog['content'] !!}</p>
+                            <p style="text-align: {{ app()->getLocale() === 'ar' ? 'right' : 'left' }};">{!! $formattedBlog['content'] !!}</p>
                             {{-- .details__content blockquote {
  --}}
 
@@ -114,8 +124,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <aside>
+                {{-- <div class="col-lg-4">
+                    <aside> --}}
                         {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>Search</h4>
@@ -172,8 +182,8 @@
                                 </ul>
                             </div>
                         </div> --}}
-                    </aside>
-                </div>
+                    {{-- </aside>
+                </div> --}}
             </div>
         </div>
     </section>
