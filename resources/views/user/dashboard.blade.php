@@ -151,9 +151,11 @@
                                                 <p class="text-muted mb-1 text-small">
                                                     {{ __('userDashboard.dashboard.city') }}: {{ $match['matched_user_city'] ?? __('Unknown') }}
                                                 </p>
-                                                <p class="text-muted mb-1 text-small">
-                                                    {{ __('userDashboard.dashboard.phone') }}: {{ $match['matched_user_phone'] }}
-                                                </p>
+                                                @if ($match['matched_user_gender'] === 'male')
+                                                    <p class="text-muted mb-1 text-small">
+                                                        {{ __('userDashboard.dashboard.phone') }}: {{ $match['matched_user_phone'] }}
+                                                    </p>
+                                                @endif
                                             </div>
                                             <div class="text-primary text-small font-weight-medium d-none d-sm-block">
                                                 {{ $match['created_at'] }}
