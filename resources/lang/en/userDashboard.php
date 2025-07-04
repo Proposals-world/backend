@@ -171,7 +171,7 @@ return [
         'offensive' => 'Offensive',
         'other' => 'Other',
         'Confirm Action female' => 'This will take credit from your account and will share your first name and your info Mother’s phone number with this user. Don’t worry, your credit won’t be used unless your match reveals the contact information of your guardian.',
-        'Confirm Action male' => 'This will take credit from your account and will share your first name and your info with this user.',
+        'Confirm Action male' => 'This will take credit from your account and will share with you the first name of this user and her mother’s phone number.',
         'Confirm Action' => 'Confirm Action',
         'Confirm' => 'Confirm',
         'Cancel' => 'Cancel',

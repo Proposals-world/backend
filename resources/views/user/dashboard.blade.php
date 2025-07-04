@@ -151,7 +151,7 @@
                                                 <p class="text-muted mb-1 text-small">
                                                     {{ __('userDashboard.dashboard.city') }}: {{ $match['matched_user_city'] ?? __('Unknown') }}
                                                 </p>
-                                                @if ($match['matched_user_gender'] === 'male')
+                                                @if (Auth::user()->gender === 'male')
                                                     <p class="text-muted mb-1 text-small">
                                                         {{ __('userDashboard.dashboard.phone') }}: {{ $match['matched_user_phone'] }}
                                                     </p>

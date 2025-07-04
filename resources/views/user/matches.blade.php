@@ -576,6 +576,7 @@
                         "{{ __('userDashboard.matches.guardian_phone') }}:");
                     // Reveal contact logic…
                     const revealBtn = document.getElementById('revealContactBtn');
+                    console.log('Reveal button:', revealBtn);
                     if (revealBtn) {
                         if (!match.contact_exchanged && profile.gender === 'male') {
                             revealBtn.classList.remove('d-none');
