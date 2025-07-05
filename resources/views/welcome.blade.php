@@ -6,6 +6,13 @@
     object-fit: cover;
     width: 100%;
 }
+.blog-content {
+    background: #fff;
+    padding: 40px 30px;
+    position: relative;
+    z-index: 1;
+    height: 300px;
+}
    @media (max-width: 576px) {
   /* stack input + button */
   #contact-form4 .form-group {
