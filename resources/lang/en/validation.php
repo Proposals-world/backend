@@ -33,6 +33,14 @@ return [
     ],
 
     'custom' => [
+         'first_name' => [
+            'min' => 'The first name must be at least :min characters.',
+            'max' => 'The first name may not be greater than :max characters.',
+        ],
+        'last_name' => [
+            'min' => 'The last name must be at least :min characters.',
+            'max' => 'The last name may not be greater than :max characters.',
+        ],
         'email' => [
             'lowercase' => 'The email must be entirely lowercase.',
         ],

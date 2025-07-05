@@ -47,7 +47,7 @@
     </div>
     <div class="row px-4 list disable-text-selection" id="suggestedMatchResults"></div>
 
-    <!-- Section: Contact Exchanged -->
+    <!-- Section: card-header d-flex justify-content-between pt-2 align-items-center bg-primaryExchanged -->
     <div class="row mt-5 px-4" id="contactExchangedSection" style="display: none;">
         <div class="col-12 section-header">
             <h5>{{ __('userDashboard.matches.contact_exchanged') }}</h5>
@@ -124,15 +124,14 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                @if(Auth::user()->gender === 'male')
                 <div class="card mt-4 mb-3">
                     <div class="card-header d-flex justify-content-between pt-2 align-items-center bg-primary"
                         style="color: #fff;">
                         <h6 class="mb-0">{{ __('userDashboard.matches.contact_info') }}</h6>
-                        @if(Auth::user()->gender === 'male')
                         <button id="revealContactBtn" class="btn btn-sm btn-outline-primary d-none">
                             <i class="simple-icon-eye"></i> {{ __('userDashboard.matches.reveal_info') }}
                         </button>
-                        @endif
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -143,6 +142,8 @@
                         </div>
                     </div>
                 </div>
+                                        @endif
+
                 <div class="card">
                     <div class="card-header bg-light pt-2">
                         <h6 class="mb-0">{{ __('userDashboard.matches.additional_details') }}</h6>
@@ -576,9 +577,9 @@
                         "{{ __('userDashboard.matches.guardian_phone') }}:");
                     // Reveal contact logic…
                     const revealBtn = document.getElementById('revealContactBtn');
-                    console.log('Reveal button:', revealBtn);
+                    // console.log('Reveal button:', revealBtn);
                     if (revealBtn) {
-                        if (!match.contact_exchanged && profile.gender === 'male') {
+                        if (!match.contact_exchanged && '{{ Auth::user()->gender }}' == 'male') {
                             revealBtn.classList.remove('d-none');
                             revealBtn.onclick = () => revealContact(profile.id);
                         } else {
@@ -729,10 +730,7 @@
             revealContact(matchedUserId);
         });
 
-        $('#removeMatchBtn').on('click', function() {
-            const matchId = $(this).data('matchId');
-            removeMatchFromModal(matchId);
-        });
+        //
     });
 </script>
 @endpush

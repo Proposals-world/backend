@@ -33,8 +33,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $rules = [
-            'first_name'   => ['required', 'string', 'max:255'],
-            'last_name'    => ['required', 'string', 'max:255'],
+              'first_name' => ['required', 'string', 'min:3', 'max:15'],
+              'last_name'  => ['required', 'string', 'min:3', 'max:15'],
             'email'        => [
                 'required',
                 'string',
@@ -64,8 +64,9 @@ class RegisteredUserController extends Controller
             // first_name
             'first_name.required' => __('validation.required', ['attribute' => __('validation.attributes.first_name')]),
             'first_name.string'   => __('validation.string',   ['attribute' => __('validation.attributes.first_name')]),
-            'first_name.max'      => __('validation.max.string', ['attribute' => __('validation.attributes.first_name'), 'max' => 255]),
-
+            // 'first_name.max'      => __('validation.max.string', ['attribute' => __('validation.attributes.first_name'), 'max' => 255]),
+            'first_name.min'      => __('validation.min.string', ['attribute' => __('validation.attributes.first_name'), 'min' => 3]),
+    'first_name.max'      => __('validation.max.string', ['attribute' => __('validation.attributes.first_name'), 'max' => 15]),
             // last_name
             'last_name.required'  => __('validation.required', ['attribute' => __('validation.attributes.last_name')]),
             'last_name.string'    => __('validation.string',   ['attribute' => __('validation.attributes.last_name')]),

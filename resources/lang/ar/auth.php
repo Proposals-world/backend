@@ -32,7 +32,10 @@ return [
     'male' => 'ذكر',
     'female' => 'أنثى',
     'terms' => 'أوافق على ',
-    'Terms and Conditions ' => 'الشروط والأحكام',
+    'Terms and Conditions' => 'الشروط والأحكام',
+    'Privacy Policy' => 'سياسة الخصوصية',
+    'passwordInsturction' => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، حرف صغير واحد، رقم واحد ورمز خاص واحد.',
+
     'and' => ' و',
     'privacy_policy' => 'سياسة الخصوصية',
     'current_password' => 'كلمة المرور الحالية',

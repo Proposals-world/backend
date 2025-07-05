@@ -1,6 +1,26 @@
 @extends('frontend.layouts.app')
 @section('section')
 <style>
+   @media (max-width: 576px) {
+  /* stack input + button */
+  #contact-form4 .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* make each take full width and give a bit of vertical spacing */
+  #contact-form4 .form-control,
+  #contact-form4 .btn-custom {
+    width: 100%;
+    margin-top: 3.5rem;
+  }
+
+  /* remove the extra top margin on the first child */
+  #contact-form4 .form-control {
+    margin-top: 0;
+  }
+}
+
     .icon-size {
     height: 117px;
     width: 124px;
