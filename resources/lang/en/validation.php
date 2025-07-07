@@ -38,6 +38,11 @@ return [
         ],
         'phone_number' => [
             'regex' => 'Your phone number must be exactly 10 digits and start with 078, 077, or 079.',
+            'phone' => 'The :attribute is not a valid phone number for the selected country.',
+        ],
+        'country_code' => [
+            'required' => 'Please select a country.',
+            'size'     => 'The selected country is invalid.',
         ],
     ],
 
@@ -54,6 +59,7 @@ return [
         'phone_number' => 'phone number',
         'gender'       => 'gender',
         'password'     => 'password',
+        'country_code' => 'Country',
     ],
 
 ];

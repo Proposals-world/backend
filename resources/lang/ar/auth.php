@@ -45,4 +45,6 @@ return [
     'confirm_with_password' => 'تأكيد باستخدام كلمة المرور',
     'delete_my_account' => 'حذف حسابي',
     'deleting' => 'جاري الحذف...',
+    'Country_code' => 'الدولة',
+    'select_country' => 'اختر الدولة',
 ];

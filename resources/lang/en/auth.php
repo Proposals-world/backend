@@ -42,4 +42,6 @@ return [
     'confirm_with_password' => 'Confirm with Password',
     'delete_my_account' => 'Delete My Account',
     'deleting' => 'Deleting...',
+    'Country_code' => 'Country',
+    'select_country' => 'Select Country',
 ];

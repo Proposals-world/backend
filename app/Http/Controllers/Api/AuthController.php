@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterUserRequest;
 use App\Mail\OTPVerificationMail;
 use App\Models\User;
 use App\Models\VerificationToken;
@@ -18,25 +19,18 @@ class AuthController extends Controller
     /**
      * Register a new user and send OTP for verification.
      */
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         // Validate incoming request
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'phone_number' => 'nullable|string|unique:users,phone_number',
-            'password' => 'required|string|min:6|confirmed',
-            'gender' => 'required|in:male,female',
-        ]);
+        $validator = $request->validated();
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors(),
-            ], 422);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Validation errors',
+        //         'errors' => $validator->errors(),
+        //     ], 422);
+        // }
 
         // Create user
         $user = User::create([
