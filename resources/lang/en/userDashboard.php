@@ -100,6 +100,7 @@ return [
         'guardian_phone' => 'Guardian Phone',
         'country_of_residence' => 'Country of Residence',
         'country_of_origin' => 'Country of Origin',
+        'city_location' => 'Area of Residence',
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',
@@ -201,6 +202,8 @@ return [
         'other_reason_en' => 'Other Reason (English)',
         'review' => 'Review',
         'Not_Serious' => 'Not Serious',
+        'Provided_Guardian_number_is_not_for_a_real_guardian' => 'Provided Guardian number is not for a real guardian',
+
     ],
     'support' => [
         'title' => 'Support Tickets',

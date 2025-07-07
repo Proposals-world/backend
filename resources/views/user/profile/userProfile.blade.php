@@ -161,6 +161,7 @@
                                                             <strong>{{ __('profile.City') }}:</strong> {{ $userProfile['profile']['city'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
+                                                    {{-- {{ dd($userProfile['profile']   ) }} --}}
                                                     <!-- city_location -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
@@ -356,7 +357,7 @@
                                                     @endif
 
 
-                                                    @if ($userProfile['gender'] === 'female')
+                                                    {{-- @if ($userProfile['gender'] === 'female')
                                                     <!-- Hijab Status -->
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
@@ -368,7 +369,7 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        @endif
+                                                        @endif --}}
                                                 </div>
                                             </div>
                                         </div>

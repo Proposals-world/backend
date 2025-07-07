@@ -35,8 +35,8 @@ class RegisterUserRequest extends FormRequest
         $country = $this->input('country_code') ?: 'ANY';
 
         return [
-            'first_name'   => ['required', 'string', 'max:255'],
-            'last_name'    => ['required', 'string', 'max:255'],
+            'first_name'   => ['required', 'string', 'min:3', 'max:15'],
+            'last_name'    => ['required', 'string', 'min:3', 'max:15'],
             'email'        => [
                 'required',
                 'string',

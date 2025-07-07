@@ -205,15 +205,12 @@
                                                             name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}"
                                                             class="form-control"
                                                             required>
-                                                            <option value="Contacted Successfully">{{ __('userDashboard.dashboard.Contacted_Successfully') }}</option>
-                                                            <option value="Guardian Was Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Cooperative') }}</option>
-                                                            <option value="Guardian Was Not Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Not_Cooperative') }}</option>
-                                                            <option value="Inappropriate Behavior">{{ __('userDashboard.dashboard.Inappropriate_Behavior') }}</option>
-                                                            <option value="No Response from Guardian">{{ __('userDashboard.dashboard.No_Response_from_Guardian') }}</option>
-                                                            <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
-                                                            <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
-                                                            <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
-                                                            <option value="Not Serious">{{ __('userDashboard.dashboard.Not_Serious') }}</option>
+                                                                @foreach($feedbackOptions as $key => $labels)
+                                                                    <option value="{{ $key }}"
+                                                                    {{ old('feedback_text_en') == $labels['en'] ? 'selected' : '' }}>
+                                                                    {{ $labels['en'] }}
+                                                                    </option>
+                                                                @endforeach
                                                         </select>
 
 
@@ -285,7 +282,6 @@
             })
             .then(async res => {
                 const data = await res.json();
-
                 if (res.status === 201) {
                     // ✅ Success
                     const successAlert = form.querySelector('.feedback-success');
@@ -304,13 +300,14 @@
                             $(this).remove();
                         });
 
-                    form.reset();
+
 
                     // Close modal after 1 second
                     setTimeout(() => {
                         $(form.closest('.modal')).modal('hide');
                         // location.reload();
                     }, 1000);
+                    form.reset();
 
                 } else if (res.status === 422) {
                     // ❌ Validation error

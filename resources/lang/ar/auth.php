@@ -50,4 +50,5 @@ return [
     'deleting' => 'جاري الحذف...',
     'Country_code' => 'الدولة',
     'select_country' => 'اختر الدولة',
+    'phone_placeholder' => 'أدخل رقم هاتفك بناءً على دولتك',
 ];

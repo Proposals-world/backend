@@ -21,6 +21,7 @@ class UserFeedbackController extends Controller
 
     public function store(StoreUserFeedbackRequest $request): JsonResponse
     {
+        //dd($request->all());
         $validated = $request->validated();
 
         // 1) Normalize your feedback_text_en / feedback_text_ar as before…
@@ -61,6 +62,10 @@ class UserFeedbackController extends Controller
             'Not Serious' => [
                 'en' => 'Not Serious',
                 'ar' => 'غير جاد',
+            ],
+            'Provided Guardian Number Invalid' => [
+                'en' => 'Provided guardian number is not for a real guardian',
+                'ar' => 'الرقم المقدم للولي ليس لولي أمر حقيقي',
             ],
         ];
 

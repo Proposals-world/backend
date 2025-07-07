@@ -52,6 +52,9 @@
                                 <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
+                                 <div class="col-md-6 mb-2">
+                                <strong>{{ __('userDashboard.matches.city_location') }}:</strong> <span id="city_location"></span>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -633,6 +636,7 @@
                         $('#modalAge').text(user.profile?.age || 'N/A');
                         $('#modalNationality').text(user.profile?.nationality || 'N/A');
                         $('#modalCity').text(user.profile?.city || 'N/A');
+                        $('#modalCity').text(user.profile?.city_location || 'N/A');
                         $('#modalPhone').text(user.phone_number || 'N/A');
                         $('#modalCountryOfResidence').text(user.profile?.country_of_residence || 'N/A');
 $('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');

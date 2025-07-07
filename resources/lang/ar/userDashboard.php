@@ -99,6 +99,7 @@ return [
         'guardian_phone' => 'رقم هاتف الولي',
         'country_of_origin' => 'بلد الأصل',
         'country_of_residence' => 'بلد الإقامة',
+        'city_location' => 'منطقة الإقامة',
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',
@@ -202,6 +203,7 @@ return [
         'other_reason_ar' => 'Other Reason (Arabic)',
         'review' => 'مراجعة',
         'Not_Serious' => 'غير جاد',
+        'Provided_Guardian_number_is_not_for_a_real_guardian' => 'رقم الولي المقدم ليس لولي حقيقي',
     ],
     'support' => [
         'title' => 'تذاكر الدعم',

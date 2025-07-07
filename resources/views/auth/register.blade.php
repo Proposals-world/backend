@@ -46,16 +46,7 @@
                                     .form-check.rtl-gender {
                                         flex-direction: row-reverse;
                                     }
-                                    /* Terms checkbox styling */
-                                    .terms-container {
-                                        display: flex;
-                                        align-items: center;
-                                        flex-direction: {{ app()->getLocale() === 'ar' ? 'row-reverse' : 'row' }};
-                                    }
-                                    .terms-container .form-check-input {
-                                        margin-{{ app()->getLocale() === 'ar' ? 'left' : 'right' }}: 0.5rem;
-                                        margin-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}: 0;
-                                    }
+
         .auth-fluid {
             display: flex;
             min-height: 100vh;
@@ -180,9 +171,9 @@
                         <!-- Phone Number -->
                         <div class="mb-3">
                             <label for="phone_number" class="form-label">{{ __('auth.phone_number') }}</label>
-                            <input type="tel" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="07XXXXXXXX"  title="Phone number must be 10 digits starting with 07">
+                            <input type="tel" class="form-control {{ app()->getLocale() === 'ar' ? ' text-end' : '' }}" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="{{ __('auth.phone_placeholder') }}">
                             @error('phone_number')
-                                <div class="text-danger mt-2">{{ $message }}</div>
+                            <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 

@@ -112,6 +112,9 @@
                             <div class="col-md-6 mb-2">
                                 <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                             </div>
+                            <div class="col-md-6 mb-2">
+                                <strong>{{ __('userDashboard.matches.city_location') }}:</strong> <span id="city_location"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -535,7 +538,6 @@
                 card.onclick = function(e) {
                     // ignore clicks on inner buttons
                     if (e.target.closest('button, a')) return;
-
                     const id = Number(this.dataset.matchId);
                     const match = allMatches.find(m => m.match_id === id);
                     if (!match) return console.error('No match for', id);
@@ -544,10 +546,11 @@
 
                     // fill modal fields
                     const mainPhoto = profile.profile.photos?.find(p => p.is_main)
-                        ?.photo_url ||
-                        "{{ asset('dashboard/logos/profile-icon.jpg') }}";
+                    ?.photo_url ||
+                    "{{ asset('dashboard/logos/profile-icon.jpg') }}";
                     document.getElementById('modalAvatar')
-                        .src = mainPhoto;
+                    .src = mainPhoto;
+                    console.log('Card clicked:', profile);
                     document.getElementById('modalName')
                         .textContent = match.contact_exchanged ?
                         (profile.first_name || '').trim() :
@@ -562,6 +565,8 @@
                         .textContent = profile.profile.nationality || 'N/A';
                     document.getElementById('modalCountryOfResidence')
                         .textContent = profile.profile.country_of_residence || 'N/A';
+                    document.getElementById('city_location')
+                        .textContent = profile.profile.city_location || 'N/A';
                     document.getElementById('modalCountryOfOrigin')
                         .textContent = profile.profile.origin || 'N/A';
 

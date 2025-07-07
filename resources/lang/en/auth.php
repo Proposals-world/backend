@@ -21,7 +21,7 @@ return [
     'verification_link_sent' => 'A new verification link has been sent to your email address.',
     'check_email_verification' => 'Before proceeding, please check your email for a verification link.',
     'not_receive_email' => 'If you did not receive the email',
-    // 'passwordInsturction' =>'the password must contain at least one uppercase letter, one lowercase letter, one number and one symbol.',
+    'passwordInsturction' => 'the password must contain at least one uppercase letter, one lowercase letter, one number and one symbol.',
     'request_another' => 'click here to request another',
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
@@ -46,4 +46,5 @@ return [
     'deleting' => 'Deleting...',
     'Country_code' => 'Country',
     'select_country' => 'Select Country',
+    'phone_placeholder' => 'Enter your phone number based on your country',
 ];

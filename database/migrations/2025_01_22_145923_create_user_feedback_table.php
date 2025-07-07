@@ -28,6 +28,7 @@ return new class extends Migration
                 'Marriage Happened',
                 'Still in Communication',
                 'Not Serious',
+                // 'Provided guardian number is not for a real guardian',
             ])->nullable();
 
             $table->enum('feedback_text_ar', [
