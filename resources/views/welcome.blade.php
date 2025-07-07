@@ -1,6 +1,38 @@
 @extends('frontend.layouts.app')
 @section('section')
 <style>
+    .blog-image {
+    height: 500px;
+    object-fit: cover;
+    width: 100%;
+}
+.blog-content {
+    background: #fff;
+    padding: 40px 30px;
+    position: relative;
+    z-index: 1;
+    height: 300px;
+}
+   @media (max-width: 576px) {
+  /* stack input + button */
+  #contact-form4 .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* make each take full width and give a bit of vertical spacing */
+  #contact-form4 .form-control,
+  #contact-form4 .btn-custom {
+    width: 100%;
+    margin-top: 3.5rem;
+  }
+
+  /* remove the extra top margin on the first child */
+  #contact-form4 .form-control {
+    margin-top: 0;
+  }
+}
+
     .icon-size {
     height: 117px;
     width: 124px;
@@ -449,7 +481,7 @@ html[dir="rtl"] .contact-direction {
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="align-items: unset;">
                     @foreach ($blogs as $blog)
                         <div class="col-lg-4 col-md-12">
                             <div class="single-post mb-30">

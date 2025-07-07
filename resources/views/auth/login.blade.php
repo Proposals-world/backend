@@ -78,8 +78,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="checkbox-signin" name="remember">
+                            <div class="form-check @if(app()->getLocale() === 'ar') d-flex flex-row-reverse justify-content-end align-items-center @endif">
+                                <input type="checkbox" class="form-check-input" id="checkbox-signin" name="remember" @if(app()->getLocale() === 'ar') style="margin-left: 0.5em; margin-right: 0;" @endif>
                                 <label class="form-check-label" for="checkbox-signin">{{ __('auth.remember_me') }}</label>
                             </div>
                         </div>

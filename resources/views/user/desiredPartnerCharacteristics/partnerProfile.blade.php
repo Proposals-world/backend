@@ -81,7 +81,7 @@
 
                     </div>
                     <div id="field-limit-counter" class="alert alert-info py-2 px-3 mb-3 shadow-sm"
-                        style="font-size: 16px; position: sticky; top: 105px; left: 0; z-index: 1000;">
+                        style="font-size: 16px; position: sticky; top: 105px; left: 0; z-index: 1;">
                         {{ __('profile.You can select up to 10 fields. Remaining:') }}
                         <strong id="remaining-count">10</strong>
                     </div>
