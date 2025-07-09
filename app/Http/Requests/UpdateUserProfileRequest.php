@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests\DefaultRequest;
 
@@ -11,9 +12,23 @@ class UpdateUserProfileRequest extends FormRequest
 
     use DefaultRequest;
 
+    protected function prepareForValidation(): void
+    {
+        if ($this->filled('country_code') && $this->filled('guardian_contact')) {
+            $countries = config('countries');
+            $iso       = $this->input('country_code');
+            $dial      = $countries[$iso]['dial_code'] ?? '';
+            $national  = preg_replace('/\D+/', '', $this->input('guardian_contact'));
+
+            // merge a full E.164 number for validation & use
+            $this->merge(['_guardian_full' => $dial . $national]);
+        }
+    }
 
     public function rules()
     {
+        $country = $this->input('country_code') ?: 'ANY';
+
         $rules = [
             'nickname' => 'required|string|max:255',
             'photo_url' => 'nullable|image',
@@ -59,6 +74,7 @@ class UpdateUserProfileRequest extends FormRequest
             'position_level_id' => 'nullable|integer|exists:position_levels,id',
             'eye_color_id' => 'nullable|integer|exists:eye_colors,id',
             'city_location_id' => 'nullable|string|max:255',
+            'country_code'      => 'required|string|size:2',
 
         ];
 
@@ -75,5 +91,24 @@ class UpdateUserProfileRequest extends FormRequest
         }
 
         return $rules;
+    }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($v) {
+            if ($this->filled('_guardian_full')) {
+                // apply country‐specific phone rule
+                $rule  = 'phone:' . $this->input('country_code');
+                $check = Validator::make(
+                    ['full' => $this->input('_guardian_full')],
+                    ['full' => $rule]
+                );
+                if (! $check->passes()) {
+                    $v->errors()->add(
+                        'guardian_contact',
+                        __('validation.custom.phone_number.phone')
+                    );
+                }
+            }
+        });
     }
 }

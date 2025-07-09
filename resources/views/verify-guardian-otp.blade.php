@@ -124,11 +124,22 @@
                         <div id="otp-alert-error" class="alert alert-danger d-none" role="alert"></div>
 
                         <div class="form-group" id="guardian-contact-row">
+
                             <label for="guardian_contact" class="fw-bold text-left">{{ __('otp.Guardian_Contact') }}</label>
 
                             <div class="d-flex align-items-center gap-2">
+                                 <select name="country_code"
+                                                                        class="form-select form-control @error('country_code') is-invalid @enderror"
+                                                                        style="max-width:110px">
+                                                                    @foreach(config('countries') as $iso => $info)
+                                                                    <option value="{{ $iso }}"
+                                                                        {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
+                                                                            {{ $iso }} {{ $info['dial_code'] }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
                                 <input type="text" id="guardian_contact" name="guardian_contact" class="form-control"
-                                    value="{{ auth()->user()->profile->guardian_contact_encrypted ?? '' }}"
+                                    value="{{ old('guardian_contact', auth()->user()->profile->guardian_contact_local) }}"
                                     placeholder="{{ __('otp.Enter_guardian_number') }}" required
                                     style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 9px;">
 
@@ -248,10 +259,12 @@
             // Update Guardian Contact functionality
             const updateGuardianBtn = document.getElementById('update-guardian-btn');
             const guardianContactInput = document.getElementById('guardian_contact');
+             const countryCodeSelect   = document.querySelector('select[name="country_code"]');
 
             if (updateGuardianBtn && guardianContactInput) {
                 updateGuardianBtn.addEventListener('click', function() {
                     const contact = guardianContactInput.value.trim();
+                    const country = countryCodeSelect.value;
 
                     if (!contact) {
                         showErrorMessage('{{ __('otp.Please_enter_guardian_contact') }}');
@@ -263,6 +276,7 @@
 
                     const formData = new FormData();
                     formData.append('guardian_contact', contact);
+                    formData.append('country_code', country);
 
                     fetch('guardian-contact/update-guardian-contact', {
                             method: 'POST',
@@ -304,7 +318,7 @@
             const confirmModalElement = document.getElementById('confirmVerifyModal');
             if (confirmModalElement && typeof bootstrap !== 'undefined') {
                 confirmModal = new bootstrap.Modal(confirmModalElement);
-                
+
                 // When "Verify" is clicked, show the modal instead of submitting
                 if (verifyBtn) {
                     verifyBtn.addEventListener('click', function(e) {

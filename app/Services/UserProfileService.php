@@ -146,7 +146,7 @@ class UserProfileService
             'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
             'marriage_budget_id' => $data['marriage_budget_id'] ?? null, //missing for men
             'eye_color_id' => $data['eye_color_id'] ?? null, //missing for men
-            'guardian_contact_encrypted' => $data['guardian_contact'] ?? $profile->guardian_contact,
+            'guardian_contact_encrypted' => $data['_guardian_full'] ?? $profile->guardian_contact_encrypted,
         ]);
 
         $profile->save();

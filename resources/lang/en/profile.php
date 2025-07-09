@@ -167,7 +167,7 @@ return [
     'No_like_yet' => 'No likes yet',
     'Origin' => 'Origin',
     'Country_of_Residence' => 'Country of Residence',
-    'city_location' => 'City Location',
+    'city_location' => 'Area of Residence',
     'height' => 'Height',
     'weight' => 'Weight',
     'delete confirm' => 'Once you delete your account, all of your data will be removed. This action cannot be undone.',

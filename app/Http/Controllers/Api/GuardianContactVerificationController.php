@@ -9,6 +9,7 @@ use App\Models\GuardianOtp;
 use App\Services\GuardianContactVerificationService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UpdateGuardianContactRequest;
 
 use Throwable;
 
@@ -36,7 +37,7 @@ class GuardianContactVerificationController extends Controller
                 ], 400);
             }
 
-            $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
+            $formattedPhone = ($user->profile->guardian_contact_encrypted);
 
             // 🛠 Check if existing OTP still valid
             $existingOtp = GuardianOtp::where('user_id', $user->id)
@@ -133,90 +134,50 @@ class GuardianContactVerificationController extends Controller
         }
     }
 
-    private function formatJordanianPhone($phone): string
+    // private function formatJordanianPhone($phone): string
+    // {
+    //     $phone = preg_replace('/[^0-9]/', '', $phone); // Keep digits only
+
+    //     if (str_starts_with($phone, '0')) {
+    //         $phone = substr($phone, 1); // Remove leading 0
+    //     }
+
+    //     if (!str_starts_with($phone, '962')) {
+    //         $phone = '962' . $phone;
+    //     }
+
+    //     return '+' . $phone;
+    // }
+
+
+
+
+    public function updateGuardianContact(UpdateGuardianContactRequest $request)
     {
-        $phone = preg_replace('/[^0-9]/', '', $phone); // Keep digits only
+        $locale = $request->header('Accept-Language', 'en');
+        $user   = auth()->user();
 
-        if (str_starts_with($phone, '0')) {
-            $phone = substr($phone, 1); // Remove leading 0
-        }
+        // Grab the validated E.164 number
+        $e164 = $request->input('_guardian_full');
 
-        if (!str_starts_with($phone, '962')) {
-            $phone = '962' . $phone;
-        }
-
-        return '+' . $phone;
-    }
-
-
-
-    public function updateGuardianContact(Request $request)
-    {
-        try {
-            $locale = $request->header('Accept-Language', 'en');
-
-            $validator = Validator::make($request->all(), [
-                'guardian_contact' => [
-                    'required',
-                    'digits:10',
-                    'regex:/^07[0-9]{8}$/',
-                ],
-            ], [
-                'guardian_contact.required' => $locale === 'ar'
-                    ? 'رقم ولي الأمر مطلوب.'
-                    : 'Guardian contact is required.',
-                'guardian_contact.digits' => $locale === 'ar'
-                    ? 'رقم ولي الأمر يجب أن يكون مكوناً من 10 أرقام.'
-                    : 'Guardian contact must be exactly 10 digits.',
-                'guardian_contact.regex' => $locale === 'ar'
-                    ? 'رقم ولي الأمر يجب أن يبدأ بـ 07 ويتبعه 8 أرقام.'
-                    : 'Guardian contact must start with 07 followed by 8 digits.',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => $validator->errors()->first(),
-                ], 422);
-            }
-
-            $user = auth()->user();
-
-            if (!$user || !$user->profile) {
-                return response()->json([
-                    'message' => $locale === 'ar'
-                        ? 'الملف الشخصي غير موجود.'
-                        : 'User profile not found.',
-                ], 400);
-            }
-
-            // Check if guardian contact is the same as user's phone
-            if ($request->guardian_contact === $user->phone_number) {
-                return response()->json([
-                    'message' => $locale === 'ar'
-                        ? 'رقم ولي الأمر لا يمكن أن يكون نفس رقم المستخدم.'
-                        : 'Guardian contact cannot be the same as the user phone.',
-                ], 400);
-            }
-
-            // $formattedPhone = $this->formatJordanianPhone($request->guardian_contact);
-            $formattedPhone = ($request->guardian_contact);
-            $user->profile->update([
-                'guardian_contact_encrypted' => $formattedPhone,
-            ]);
-
+        // Prevent saving user’s own number
+        if ($e164 === $user->phone_number) {
             return response()->json([
                 'message' => $locale === 'ar'
-                    ? 'تم تحديث رقم ولي الأمر بنجاح.'
-                    : 'Guardian contact updated successfully.',
-            ]);
-        } catch (Throwable $e) {
-            Log::error('Guardian Contact Update Error', ['error' => $e->getMessage()]);
-
-            return response()->json([
-                'message' => $locale === 'ar'
-                    ? 'حدث خطأ، يرجى المحاولة لاحقاً.'
-                    : 'An error occurred. Please try again later.',
-            ], 500);
+                    ? 'رقم ولي الأمر لا يمكن أن يكون نفس رقم المستخدم.'
+                    : 'Guardian contact cannot be the same as the user phone.',
+            ], 400);
         }
+
+        // Save
+        $user->profile()->update([
+            'guardian_contact_encrypted' => $e164,
+        ]);
+
+        return response()->json([
+            'message' => $locale === 'ar'
+                ? 'تم تحديث رقم ولي الأمر بنجاح.'
+                : 'Guardian contact updated successfully.',
+        ]);
     }
 }

@@ -999,9 +999,19 @@
                                                                     <span class="input-group-text"><i
                                                                             class="fas fa-phone"></i></span>
                                                                 </div>
+                                                                 <select name="country_code"
+                                                                        class="form-select form-control @error('country_code') is-invalid @enderror"
+                                                                        style="max-width:110px">
+                                                                    @foreach(config('countries') as $iso => $info)
+                                                                    <option value="{{ $iso }}"
+                                                                        {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
+                                                                            {{ $iso }} {{ $info['dial_code'] }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="tel" name="guardian_contact"
                                                                     class="form-control rounded-right" required
-                                                                    placeholder="07XXXXXXXX" pattern="[0-9]{10}"
+                                                                    placeholder="07XXXXXXXX"
                                                                     title="Phone number must be 10 digits starting with 07">
                                                             </div>
                                                             <span class="error-message text-danger"
