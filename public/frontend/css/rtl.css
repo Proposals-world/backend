@@ -4,6 +4,7 @@
 .s-img {
     transform: rotate(-14deg) !important;
 }
+
 /* rtl.css */
 html[dir="rtl"] body {
     direction: rtl;

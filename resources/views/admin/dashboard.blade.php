@@ -125,6 +125,31 @@
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
                 </div> <!-- end col-->
+                <div class="col">
+                    <div class="card widget-icon-box">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
+                                        subscriptions</h5>
+                                    <h3 class="my-3">{{ $stats['total_subscriptions'] }}</h3>
+                                    <p class="mb-0 text-muted text-truncate">
+                                        <span class="badge bg-success me-1"><i class="ri-arrow-up-line"></i>
+                                            {{ $stats['subscriptions_since_last_month'] }}</span>
+                                        <span>Since last month</span>
+                                    </p>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span
+                                        class="avatar-title text-bg-warning rounded rounded-3 fs-3 widget-icon-box-avatar">
+                                        <i class="ri-bank-card-line"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
             </div> <!-- end row -->
 
             <div class="row">

@@ -131,7 +131,7 @@ $locale = app()->getLocale();
             <div class="onboarding-wrapper mt-5">
 
                 <div class="onboarding-steps-indicator mb-4">
-                    @if ($errors->any())
+                    {{-- @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul style="margin: 0; padding-left: 20px;">
                                 @foreach ($errors->all() as $error)
@@ -139,7 +139,7 @@ $locale = app()->getLocale();
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="row no-gutters">
                         @php
                             // Define step titles as per logical grouping.
@@ -171,6 +171,15 @@ $locale = app()->getLocale();
                             </button>
                         </div>
                     </div>
+                    {{-- <div id="profile-danger-alert" class="d-none">
+                        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                            <i class="simple-icon-info mr-2"></i>
+                            <span id="preference-danger-message">{{ __('profile.Profile_saved_failed') }}!</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div> --}}
                 </div>
                 <!-- Onboarding Form -->
                 <div class="card rounded-lg shadow-lg onboarding-card mb-4">

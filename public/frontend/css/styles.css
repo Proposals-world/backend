@@ -804,7 +804,7 @@ label {
 
 /* breadcrumb */
 .breadcrumb-area {
-    min-height: 500px;
+    min-height: 400px;
     background-position: center;
     background-size: cover;
     margin-top: -100px;
@@ -883,7 +883,8 @@ label {
 }
 
 .slider-bg2 {
-    min-height: 900px;
+    min-height: 825px;
+    /* min-height: 900px; */
     background-position: center;
     background-size: cover;
     position: relative;

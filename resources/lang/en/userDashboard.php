@@ -120,7 +120,7 @@ return [
         'main_menu' => 'Main Menu',
         'profile' => 'Your Profile',
         'desired_partner' => 'Desired Partner Characteristics',
-        'find_match' => 'Find A Match',
+        'find_match' => 'Explore Matches',
         'half_match' => 'Half Match',
         'matches' => 'Matches',
         'subscription' => 'Subscription Packages',

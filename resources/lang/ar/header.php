@@ -8,4 +8,5 @@ return [
     'language_switcher' => 'English',
     'login' => 'تسجيل الدخول',
     'logout' => 'تسجيل الخروج',
+    'home' => 'الصفحة الرئيسية',
 ];

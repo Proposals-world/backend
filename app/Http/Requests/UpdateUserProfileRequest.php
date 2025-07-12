@@ -74,10 +74,13 @@ class UpdateUserProfileRequest extends FormRequest
             'position_level_id' => 'nullable|integer|exists:position_levels,id',
             'eye_color_id' => 'nullable|integer|exists:eye_colors,id',
             'city_location_id' => 'nullable|string|max:255',
-            'country_code'      => 'required|string|size:2',
+            // 'country_code'      => 'required|string|size:2',
 
         ];
-
+        // 👇 Apply only if authenticated user is female
+        if (auth()->user()?->gender === 'female') {
+            $rules['country_code'] = 'required|string|size:2';
+        }
         if ($this->input('smoking_status') == 1) {
             $rules['smoking_tools'] = [
                 'required',
