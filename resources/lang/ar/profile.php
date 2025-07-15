@@ -191,4 +191,6 @@ return [
     'New Password' => 'كلمة المرور الجديدة',
     'Confirm New Password' => 'تأكيد كلمة المرور الجديدة',
     'update_Available_in' => 'التحديث متاح في',
+    'update_restriction' => 'لا يمكنك تحديث ملفك الشخصي حتى تمر 14 يومًا. التحديث التالي متاح في: ',
+    'guardian_contact_same_as_phone' => 'رقم ولية الأمر لا يمكن أن يكون نفس رقم هاتفك.',
 ];

@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a class="btn btn-primary mb-3" id="add_btn">Add Feedback</a>
+                            {{-- <a class="btn btn-primary mb-3" id="add_btn">Add Feedback</a> --}}
                             <div class="table-responsive">
                                 {{ $dataTable->table([
                                     'class' => 'table table-bordered table-hover  w-100',

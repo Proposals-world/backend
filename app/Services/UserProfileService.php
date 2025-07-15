@@ -107,6 +107,14 @@ class UserProfileService
                 ->where('verified', 1)
                 ->delete();
         }
+        // Check if guardian_contact is the same as user's phone number
+        if ($user->phone_number == $data['_guardian_full']) {
+            return [
+                'error' => __('profile.guardian_contact_same_as_phone'),
+            ];
+        }
+
+        dd($user->phone_number, $data['_guardian_full']);
         // Ensure only valid fields are updated
         $profile->fill([
             'nickname' => $data['nickname'] ?? $profile->nickname, //

@@ -93,9 +93,11 @@ class UserProfileController extends Controller
                 ->format('d/m/Y H:i:s');
 
             return redirect()->route('user.profile')->with([
-                'error' => 'You cannot update your profile until 14 days have passed. Next update available: ' . $next,
+                'error' => __('profile.update_restriction') . $next,
             ]);
         }
+
+        // dd($user->phone_number, $user->profile->guardian_contact);
         $data = $this->onboardingService->getOnboardingData();
         // dd($profile);
         return view('user.profile.updateProfile', compact('user', 'profile', 'data', 'locale'));

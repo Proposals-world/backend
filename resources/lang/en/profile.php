@@ -177,11 +177,12 @@ return [
     'Deleting...' => 'Deleting...',
     'Changing password...' => 'Changing password...',
     'Changing...' => 'Changing password...',
-
+    'update_restriction' => 'You cannot update your profile until 14 days have passed. Next update available: ',
     'Change Password' => 'Change Password',
     'Current Password' => 'Current Password',
     'New Password' => 'New Password',
     'Confirm New Password' => 'Confirm New Password',
     'Save New Password' => 'Save New Password',
     'update_Available_in' => 'Update Available in',
+    'guardian_contact_same_as_phone' => 'Guardian contact cannot be the same as your phone number.',
 ];

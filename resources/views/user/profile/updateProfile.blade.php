@@ -171,6 +171,7 @@ $locale = app()->getLocale();
                             </button>
                         </div>
                     </div>
+
                     {{-- <div id="profile-danger-alert" class="d-none">
                         <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
                             <i class="simple-icon-info mr-2"></i>
