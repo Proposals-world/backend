@@ -65,7 +65,7 @@ return [
     'health_issues' => 'المشاكل الصحية',
     'zodiac_sign' => 'البرج',
     'car_ownership' => 'امتلاك السيارة',
-    'guardian_contact' => 'جهة اتصال الوصي',
+    'guardian_contact' => 'جهة اتصال ولية الأمر',
     'hijab_status' => 'حالة الحجاب',
     'financial_status' => 'الحالة المالية',
 
