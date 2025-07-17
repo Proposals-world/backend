@@ -35,7 +35,7 @@
     <div class="h-100" id="leftside-menu-container" data-simplebar>
         <!-- Leftbar User -->
         <div class="leftbar-user p-3 text-white">
-            <a href="pages-profile.html" class="d-flex align-items-center text-reset">
+            <a  class="d-flex align-items-center text-reset">
                 <div class="flex-shrink-0">
                     <img src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}" alt="user-image" height="42"
                         class="rounded-circle shadow">
