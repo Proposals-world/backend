@@ -207,8 +207,8 @@
                                                             required>
                                                                 @foreach($feedbackOptions as $key => $labels)
                                                                     <option value="{{ $key }}"
-                                                                    {{ old('feedback_text_en') == $labels['en'] ? 'selected' : '' }}>
-                                                                    {{ $labels['en'] }}
+                                                                    {{ old(app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en') == $key ? 'selected' : '' }}>
+                                                                    {{ app()->getLocale() === 'ar' ? $labels['ar'] : $labels['en'] }}
                                                                     </option>
                                                                 @endforeach
                                                         </select>

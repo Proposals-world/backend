@@ -253,19 +253,20 @@
                             </div>
                         </div>
                         <!-- Onboarding Form -->
-                        @if(session('error'))
-       <div id="profile-danger-alert">
-           <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="display:block;">
-               <i class="simple-icon-info mr-2"></i>
-               <span id="preference-danger-message">
-                   {{ session('error') }}
-               </span>
-               <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-           </div>
-       </div>
-       @endif
+                      @if(session('error'))
+                        <div id="profile-danger-alert" class="mb-4">
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="display:block;">
+                                <i class="simple-icon-info mr-2"></i>
+                                <span id="preference-danger-message">
+                                    {{ session('error') }}
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="card rounded-lg shadow-lg onboarding-card">
                             <div class="card-body p-lg-5">
                                 <form id="onboarding-form" method="POST" action="{{ route('user.profile.update') }}"

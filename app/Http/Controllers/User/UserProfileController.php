@@ -88,14 +88,15 @@ class UserProfileController extends Controller
 
         // Pass the locale to the service to load localized profile data
         $profile = $this->userProfileService->getAuthenticatedUserProfile($user, $locale);
-        if (! $user->profile->canBeUpdated()) {
-            $next = $user->profile->nextAllowedUpdateAt()
-                ->format('d/m/Y H:i:s');
 
-            return redirect()->route('user.profile')->with([
-                'error' => __('profile.update_restriction') . $next,
-            ]);
-        }
+        // if (! $user->profile->canBeUpdated()) {
+        //     $next = $user->profile->nextAllowedUpdateAt()
+        //         ->format('d/m/Y H:i:s');
+
+        //     return redirect()->route('user.profile')->with([
+        //         'error' => __('profile.update_restriction') . $next,
+        //     ]);
+        // }
 
         // dd($user->phone_number, $user->profile->guardian_contact);
         $data = $this->onboardingService->getOnboardingData();

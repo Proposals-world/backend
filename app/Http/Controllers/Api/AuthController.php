@@ -236,6 +236,7 @@ class AuthController extends Controller
             ], 403);
         }
 
+
         // Issue an access token
         $accessToken = $user->createToken('auth_token')->plainTextToken;
 

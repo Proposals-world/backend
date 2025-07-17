@@ -18,8 +18,10 @@ class UpdateUserProfileRequest extends FormRequest
             $countries = config('countries');
             $iso       = $this->input('country_code');
             $dial      = $countries[$iso]['dial_code'] ?? '';
-            $national  = preg_replace('/\D+/', '', $this->input('guardian_contact'));
 
+            $national  = preg_replace('/\D+/', '', $this->input('guardian_contact'));
+            // Remove leading zero if present
+            $national = ltrim($national, '0');
             // merge a full E.164 number for validation & use
             $this->merge(['_guardian_full' => $dial . $national]);
         }
@@ -66,7 +68,7 @@ class UpdateUserProfileRequest extends FormRequest
             'pets.*' => 'integer|exists:pets,id',
             'health_issues_en' => 'nullable|string|max:2000',
             'health_issues_ar' => 'nullable|string|max:2000',
-            'guardian_contact' => 'nullable|string|regex:/^\+?[0-9]{10,20}$/',
+            'guardian_contact' => 'nullable|string',
             'car_ownership' => 'required|boolean',
             'religiosity_level_id' => 'required|integer|exists:religiosity_levels,id',
             'sleep_habit_id' => 'nullable|integer|exists:sleep_habits,id',

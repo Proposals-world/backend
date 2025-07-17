@@ -912,6 +912,8 @@ $locale = app()->getLocale();
                                                         class="form-control rounded-right" required value="{{ old('guardian_contact', auth()->user()->profile->guardian_contact_local) }}"
   >
                                                 </div>
+                                                 <small
+                                                        class="form-text text-muted">{{ __('onboarding.guardian_contact_number_help') }}</small>
                                                 <span class="error-message text-danger"
                                                     style="font-size:12px;"></span>
                                             </div>
@@ -1352,13 +1354,13 @@ $('#customFile').change(function(event) {
                     isValid = false;
                 }
                 break;
-                case 'guardian_contact':
-                    var guardianRegex = /^(078|077|079)\d{7}$/;
-                    if (!guardianRegex.test(value)) {
-                        errorSpan.text("{{ __('onboarding.invalid_guardian_contact') }}");
-                        isValid = false;
-                    }
-                    break;
+                // case 'guardian_contact':
+                //     // var guardianRegex = /^(078|077|079)\d{7}$/;
+                //     // if (!guardianRegex.test(value)) {
+                //     //     errorSpan.text("{{ __('onboarding.invalid_guardian_contact') }}");
+                //     //     isValid = false;
+                //     // }
+                //     break;
                 case 'photo_url':
                     if (value) {
                         var fileExtension = value.split('.').pop().toLowerCase();

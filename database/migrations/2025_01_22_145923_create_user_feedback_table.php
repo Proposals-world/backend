@@ -30,18 +30,19 @@ return new class extends Migration
                 'Not Serious',
                 // 'Provided guardian number is not for a real guardian',
             ])->nullable();
-
             $table->enum('feedback_text_ar', [
                 'تم التواصل بنجاح',
-                'الولي كان متعاونًا',
-                'الولي لم يكن متعاونًا',
+                'الولية كانت متعاونة',
+                'الولية لم تكن متعاونة',
                 'سلوك غير لائق',
-                'لا يوجد استجابة من الولي',
+                'لا يوجد استجابة من الولية',
                 'حدثت خطوبة',
                 'تم الزواج',
                 'ما زلنا على تواصل',
                 'غير جاد',
+                'الرقم المقدم للولية ليس حقيقي',
             ])->nullable();
+
 
             $table->string('outcome')->nullable(); // leave outcome as string if needed
 

@@ -23,6 +23,8 @@ class UpdateGuardianContactRequest extends FormRequest
             $iso       = $this->input('country_code');
             $dial      = $countries[$iso]['dial_code'] ?? '';
             $national  = preg_replace('/\D+/', '', $this->input('guardian_contact'));
+            // Remove leading zero if present
+            $national = ltrim($national, '0');
 
             // Build the E.164 string
             $this->merge(['_guardian_full' => $dial . $national]);

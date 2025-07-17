@@ -106,23 +106,29 @@ class UserProfileController extends Controller
         $isFirstUpdate = $request->boolean('isFirstUpdate');
         if (!$isFirstUpdate) {
 
-            if (! $user->profile->canBeUpdated()) {
-                $next = $user->profile->nextAllowedUpdateAt()
-                    ->format('d/m/Y H:i:s');
+            // if (! $user->profile->canBeUpdated()) {
+            //     $next = $user->profile->nextAllowedUpdateAt()
+            //         ->format('d/m/Y H:i:s');
 
-                return response()->json([
-                    'success'                => false,
-                    'message'                => 'You cannot update your profile until 14 days have passed.',
-                    'next_update_available'  => $next,
-                ], 403);
-            }
+            //     return response()->json([
+            //         'success'                => false,
+            //         'message'                => 'You cannot update your profile until 14 days have passed.',
+            //         'next_update_available'  => $next,
+            //     ], 403);
+            // }
         }
         $validated = $request->validated();
+        $validated['_guardian_full'] = $request->input('_guardian_full');
 
+        // dd($validated);
         $lang = $request->header('Accept-Language', 'en');
-
+        // dd($lang);
         $userProfile = $this->userProfileService->updateProfile($user, $validated, $lang);
-
+        if (isset($userProfile['error'])) {
+            return response()->json([
+                'message' => $userProfile['error']
+            ], 400);
+        }
         return new UserProfileResource($userProfile, $lang);
     }
     /**

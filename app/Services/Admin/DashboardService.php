@@ -7,6 +7,7 @@ use App\Models\UserMatch;
 use App\Models\Subscription;
 use App\Models\SubscriptionContact;
 use App\Models\PaymentTransaction;
+use App\Models\UserFeedback;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +22,12 @@ class DashboardService
         $totalMatches = UserMatch::count();
         // Get the total number of subscriptions
         $totalSubscriptions = Subscription::count();
+        $totalSubscriptionsMale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'male');
+        })->count();
+        $totalSubscriptionsFemale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female');
+        })->count();
         // Get the number of users last month
         $lastMonthUsers = User::where('role_id', 2)
             ->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
@@ -35,6 +42,17 @@ class DashboardService
         $matchesSinceLastMonth = UserMatch::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
         $subscriptionsSinceLastMonth = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
 
+        $subscriptionsSinceLastMonthMale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->whereHas('user', function ($query) {
+                $query->where('gender', 'male');
+            })
+            ->count();
+        $subscriptionsSinceLastMonthFemale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->whereHas('user', function ($query) {
+                $query->where('gender', 'female');
+            })
+            ->count();
+
         // Calculate growth percentage for this month
         $growthPercentage = $lastMonthUsers > 0 ? (($thisMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
 
@@ -46,6 +64,13 @@ class DashboardService
         $thisMonthRevenue = PaymentTransaction::where('transaction_status', 'success')
             ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
             ->sum('amount');
+        // Count feedbacks where feedback_text_en contains 'Engagement Happened'
+        $engagementFeedbackCount = UserFeedback::where('feedback_text_en', 'like', '%Engagement Happened%')
+            ->count();
+
+        // Count feedbacks where feedback_text_en contains 'Marriage happened'
+        $marriageFeedbackCount = UserFeedback::where('feedback_text_en', 'like', '%Marriage Happened%')
+            ->count();
 
         return [
             'total_users' => $totalUsers,
@@ -57,6 +82,13 @@ class DashboardService
             'this_month_revenue' => $thisMonthRevenue,
             'total_subscriptions' => $totalSubscriptions,
             'subscriptions_since_last_month' => $subscriptionsSinceLastMonth,
+            'subscriptionsSinceLastMonthMale' => $subscriptionsSinceLastMonthMale,
+            'subscriptionsSinceLastMonthFemale' => $subscriptionsSinceLastMonthFemale,
+            'totalSubscriptionsMale' => $totalSubscriptionsMale,
+            'totalSubscriptionsFemale' => $totalSubscriptionsFemale,
+            'engagement_feedback_count' => $engagementFeedbackCount,
+            'marriage_feedback_count' => $marriageFeedbackCount,
+
         ];
     }
 

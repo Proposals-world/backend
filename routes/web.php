@@ -44,6 +44,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\PaymentTransactionController;
+use App\Http\Controllers\Admin\RedeemController;
+use App\Http\Controllers\Admin\SuccessStoryController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
@@ -93,7 +96,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
             'contact-messages',
             [ContactMessageController::class, 'index']
         )->name('admin.contact-messages.index');
+        Route::get(
+            'success-stories',
+            [SuccessStoryController::class, 'index']
+        )->name('admin.success-stories.index');
+        Route::get('/payments', [PaymentTransactionController::class, 'index'])->name('admin.payments.index');
 
+        Route::get('/redeem', [RedeemController::class, 'index'])->name('admin.redeem.index');
+        Route::post('redeem/{user}', [RedeemController::class, 'redeem'])->name('admin.redeem');
         Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
         Route::resource('countries', CountriesController::class);
         Route::resource('origins', OriginController::class);

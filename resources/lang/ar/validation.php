@@ -33,7 +33,7 @@ return [
     ],
 
     'custom' => [
-          'first_name' => [
+        'first_name' => [
             'min' => 'يجب أن يكون الاسم الأول على الأقل :min حرفاً.',
             'max' => 'لا يجوز أن يكون الاسم الأول أكبر من :max حرفاً.',
         ],
@@ -70,5 +70,5 @@ return [
         'password'     => 'كلمة المرور',
         'country_code' => 'الدولة',
     ],
-
+    'account_not_active' => 'حسابك غير مفعل. إذا كنت تعتقد أن هناك مشكلة، يرجى التواصل مع support@proposals.world.',
 ];

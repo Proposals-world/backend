@@ -33,11 +33,11 @@ class UserFeedbackController extends Controller
             ],
             'Guardian Was Cooperative' => [
                 'en' => 'Guardian Was Cooperative',
-                'ar' => 'الولي كان متعاونًا',
+                'ar' => 'الولية كانت متعاونة',
             ],
             'Guardian Was Not Cooperative' => [
                 'en' => 'Guardian Was Not Cooperative',
-                'ar' => 'الولي لم يكن متعاونًا',
+                'ar' => 'الولية لم تكن متعاونة',
             ],
             'Inappropriate Behavior' => [
                 'en' => 'Inappropriate Behavior',
@@ -45,7 +45,7 @@ class UserFeedbackController extends Controller
             ],
             'No Response from Guardian' => [
                 'en' => 'No Response from Guardian',
-                'ar' => 'لا يوجد استجابة من الولي',
+                'ar' => 'لا يوجد استجابة من الولية',
             ],
             'Engagement Happened' => [
                 'en' => 'Engagement Happened',
@@ -65,7 +65,7 @@ class UserFeedbackController extends Controller
             ],
             'Provided Guardian Number Invalid' => [
                 'en' => 'Provided guardian number is not for a real guardian',
-                'ar' => 'الرقم المقدم للولي ليس لولي أمر حقيقي',
+                'ar' => 'الرقم المقدم للولية ليس حقيقي',
             ],
         ];
 

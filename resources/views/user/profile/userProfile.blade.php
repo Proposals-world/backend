@@ -708,7 +708,9 @@
       function pad(n){ return String(n).padStart(2,'0'); }
 
       const interval = setInterval(() => {
-        const diff = target - Date.now();
+        // uncomment the next line to use a specific target time
+        // const diff = target - Date.now();
+        const diff = 0;
         if (diff <= 0) {
           clearInterval(interval);
           return container.innerHTML = linkHtml;

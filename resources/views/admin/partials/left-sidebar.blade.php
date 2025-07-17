@@ -297,6 +297,24 @@
                     <span> Contact Messages </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.success-stories.index') }}" class="side-nav-link">
+                    <i class="ri-trophy-line"></i>
+                    <span> Success Stories </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.redeem.index') }}" class="side-nav-link">
+                    <i class="ri-gift-line"></i>
+                    <span> Redeems </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.payments.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Payments Transactions </span>
+                </a>
+            </li>
 
         </ul>
         <!--- End Sidemenu -->

@@ -33,7 +33,7 @@ return [
     ],
 
     'custom' => [
-         'first_name' => [
+        'first_name' => [
             'min' => 'The first name must be at least :min characters.',
             'max' => 'The first name may not be greater than :max characters.',
         ],
@@ -69,5 +69,5 @@ return [
         'password'     => 'password',
         'country_code' => 'Country',
     ],
-
+    'account_not_active' => 'Your account is not active. If you think this is an issue, please contact support@proposals.world.'
 ];

@@ -16,6 +16,16 @@
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
                         <h4 class="page-title">{{ $user->first_name }} {{ $user->last_name }} Profile</h4>
                         <div class="d-flex justify-content-end">
+                            @if ($substatus === 'active')
+                                <button type="submit" class="btn btn-sm text-success bg- text-white" style="margin-right: 10px; background-color: green; ">
+                                   <i class="ri-checkbox-circle-line"></i> Subscribed
+                                </button>
+                                @else
+                                <button type="submit" class="btn btn-sm text-danger bg-danger text-white" style="margin-right: 10px;">
+                                    <i class="ri-close-line"></i> Not Subscribed
+                                </button>
+
+                           @endif
                             @if ($user->status == 'active')
                             <form action="{{ route('deactivate', $user->id) }}" method="POST" style="display: inline;" id="status-form-{{ $user->id }}">
                                 @csrf
@@ -33,6 +43,7 @@
                                 </button>
                             </form>
                             @endif
+                            {{-- {{ dd($substatus) }} --}}
 
                         </div>
                     </div>
@@ -475,6 +486,7 @@
                                 </button>
                             </form>
                             @endif
+
                         </div>
 
                                         <!-- Add rest of your form content here -->
