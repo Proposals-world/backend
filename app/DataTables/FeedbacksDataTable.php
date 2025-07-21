@@ -13,33 +13,37 @@ class FeedbacksDataTable extends DataTable
     public function dataTable($query): EloquentDataTable
     {
         return (new EloquentDataTable(
-            // eager‐load user + both sides of the match
-            $query->with(['user', 'match.user1', 'match.user2'])
+            $query->with([
+                'user',
+                'match.user1',
+                'match.user2'
+            ])
         ))
-            // flat column for who submitted
             ->addColumn('given_by', function (UserFeedback $fb) {
-                return optional($fb->user)->first_name
-                    . ' ' . optional($fb->user)->last_name;
+                return optional($fb->user)->full_name ?? 'N/A';
             })
-            // flat column for the *other* user in that match
             ->addColumn('matched_with', function (UserFeedback $fb) {
-                $match = $fb->match;
-                if (! $match) {
-                    return '';
-                }
-                // whichever side is not the feedback->user_id
-                $other = $match->user1_id === $fb->user_id
-                    ? $match->user2
-                    : $match->user1;
-                return $other
-                    ? ($other->first_name . ' ' . $other->last_name)
-                    : '';
+                if (!$fb->match) return 'N/A';
+
+                $other = $fb->match->user1_id === $fb->user_id
+                    ? $fb->match->user2
+                    : $fb->match->user1;
+
+                return optional($other)->full_name ?? 'N/A';
             })
-            ->addColumn(
-                'action',
-                fn(UserFeedback $fb) =>
-                view('admin.feedback.columns._actions', compact('fb'))
-            )
+            ->addColumn('action', function (UserFeedback $fb) {
+                $matchedUserId = null;
+                if ($fb->match) {
+                    $matchedUserId = $fb->match->user1_id === $fb->user_id
+                        ? $fb->match->user2_id
+                        : $fb->match->user1_id;
+                }
+
+                return view('admin.feedback.columns._actions', [
+                    'fb' => $fb,
+                    'matchedUserId' => $matchedUserId
+                ]);
+            })
             ->setRowId('id');
     }
 
@@ -65,8 +69,8 @@ class FeedbacksDataTable extends DataTable
         return [
             Column::make('id')->title('ID')->width('5%'),
             Column::make('match_id')->title('Match ID')->width('8%'),
-            Column::make('given_by')->title('Given By')->width('15%'),
-            Column::make('matched_with')->title('Matched With')->width('15%'),
+            Column::make('given_by')->title('Given By')->width('10%'),
+            Column::make('matched_with')->title('Matched With')->width('10%'),
             Column::make('is_profile_accurate')->title('Accurate?')->width('8%'),
             Column::make('feedback_text_en')->title('Feedback (EN)')->width('15%'),
             Column::make('feedback_text_ar')->title('Feedback (AR)')->width('15%'),
@@ -75,7 +79,7 @@ class FeedbacksDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width('9%')
+                ->width('12%')
                 ->addClass('text-center'),
         ];
     }

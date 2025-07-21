@@ -26,6 +26,15 @@ class RedeemDataTable extends DataTable
                     ($user->subscription->package->contact_limit ?? 'N/A') :
                     'N/A';
             })
+            ->addColumn('contacts_remaining', function (User $user) {
+                if (!$user->subscription) {
+                    return 0;
+                }
+
+                return $user->subscription->contacts_remaining === 0 ?
+                    0 :
+                    $user->subscription->contacts_remaining;
+            })
             ->addColumn('status_badge', function (User $user) {
                 $status = $user->subscription->status ?? 'inactive';
                 $badgeClass = $status === 'active' ? 'badge bg-success' : 'badge bg-danger';
@@ -34,14 +43,16 @@ class RedeemDataTable extends DataTable
             ->addColumn('action', function (User $user) {
                 return view('admin.redeem.columns._actions', compact('user'));
             })
-            ->rawColumns(['status_badge', 'action'])
+            ->rawColumns(['status_badge', 'action', 'contacts_remaining'])
             ->setRowId('id');
     }
 
     public function query(User $model)
     {
         return $model->newQuery()
-            ->where('gender', 'male')
+            ->whereHas('subscription', function ($query) {
+                $query->where('status', 'active');
+            })
             ->with([
                 'subscription',
                 'subscription.package' => function ($query) {
@@ -56,7 +67,6 @@ class RedeemDataTable extends DataTable
                 'users.gender'
             ]);
     }
-
     public function html(): HtmlBuilder
     {
         return $this->builder()
@@ -77,7 +87,7 @@ class RedeemDataTable extends DataTable
             Column::make('email')->title('Email')->width('20%'),
             Column::make('package_name')->title('Package Name')->width('15%'),
             Column::make('contact_limit')->title('Contact Limit')->width('10%'),
-            Column::make('subscription.contacts_remaining')->title('Contacts Remaining')->width('10%'),
+            Column::make('contacts_remaining')->title('Contacts Remaining')->width('10%'),
             Column::make('status_badge')->title('Status')->width('10%'),
             Column::computed('action')
                 ->exportable(false)

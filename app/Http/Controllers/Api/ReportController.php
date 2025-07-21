@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReportRequest;
 use App\Http\Resources\ReportResource;
+use App\Models\User;
 use App\Models\UserReport;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +35,20 @@ class ReportController extends Controller
             $request->validated(),
             ['reporter_id' => Auth::id()]
         ));
+        // Count all reports for this user (including this new one)
+        $reportCount = UserReport::where('reported_id', $request->reported_id)
+            ->count();
 
+        // Check if report count reached threshold (3)
+        if ($reportCount >= 3) {
+            $reportedUser = User::find($request->reported_id);
+
+            if ($reportedUser) {
+                // Suspend the user
+                $reportedUser->status = 'suspended';
+                $reportedUser->save();
+            }
+        }
         // Return a success message along with the report data
         return response()->json([
             'message' => 'Report created successfully.',

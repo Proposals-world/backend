@@ -2,22 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Report;
 use App\Models\UserReport;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 
 class ReportsDataTable extends DataTable
 {
-    /**
-     * Build the DataTable class.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return EloquentDataTable
-     */
     public function dataTable($query)
     {
         return (new EloquentDataTable($query))
@@ -28,29 +20,31 @@ class ReportsDataTable extends DataTable
                 return $report->reported->first_name . ' ' . $report->reported->last_name;
             })
             ->editColumn('reason', function ($report) {
-                return $report->reason_en; // Format this field based on the language if needed
+                return $report->reason_en;
             })
-            ->editColumn('status', function ($report) {
-                return ucfirst($report->status); // Capitalize the first letter of the status
+            ->addColumn('status_badge', function ($report) {
+                $status = strtolower($report->status);
+                $badgeClass = match ($status) {
+                    'pending' => 'badge bg-warning',
+                    'reviewed' => 'badge bg-info',
+                    'resolved' => 'badge bg-success',
+                    'rejected' => 'badge bg-danger',
+                    default => 'badge bg-secondary'
+                };
+                return '<span class="' . $badgeClass . '">' . ucfirst($report->status) . '</span>';
             })
             ->addColumn('action', function (UserReport $report) {
                 return view('admin.reports.columns._actions', compact('report'));
             })
             ->setRowId('id')
-            ->rawColumns(['action']); // Ensure raw HTML is handled properly for action column
+            ->rawColumns(['status_badge', 'action']);
     }
 
-    /**
-     * Get the query source of dataTable.
-     */
     public function query(UserReport $model)
     {
-        return $model->newQuery()->with(['reporter', 'reported']); // Eager load the reporter and reported relationships
+        return $model->newQuery()->with(['reporter', 'reported']);
     }
 
-    /**
-     * Optional method if you want to use the HTML builder.
-     */
     public function html(): HtmlBuilder
     {
         return $this->builder()
@@ -61,9 +55,6 @@ class ReportsDataTable extends DataTable
             ->selectStyleSingle();
     }
 
-    /**
-     * Get the DataTable columns definition.
-     */
     public function getColumns(): array
     {
         return [
@@ -71,13 +62,15 @@ class ReportsDataTable extends DataTable
             Column::make('reporter_id')->title('Reporter'),
             Column::make('reported_id')->title('Reported'),
             Column::make('reason_en')->title('Reason'),
-            Column::make('status')->title('Status'),
+            Column::computed('status_badge')
+                ->title('Status')
+                ->exportable(false)
+                ->printable(false)
+                ->width(120)
+                ->addClass('text-center'),
         ];
     }
 
-    /**
-     * Get the filename for export.
-     */
     protected function filename(): string
     {
         return 'Reports_' . date('YmdHis');

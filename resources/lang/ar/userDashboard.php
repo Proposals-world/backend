@@ -144,7 +144,7 @@ return [
         'city' => 'المدينة',
         'phone' => 'رقم الهاتف',
         'feedback_label' => 'ملاحظاتك',
-        'outcome' => 'النتيجة',
+        'outcome' => 'التعليق',
         'is_profile_accurate' => 'هل الملف يعكس الحقيقة؟',
         'submit' => 'إرسال',
         'cancel' => 'إلغاء',

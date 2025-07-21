@@ -108,7 +108,7 @@
                         </li>
                         <li class="side-nav-item">
                             <a href="{{route('reports.index')}}" class="side-nav-link">
-                                <i class="ri-user-3-line"></i>
+<i class="ri-file-chart-line"></i>
                                 <span> Customer Reports </span>
                             </a>
                         </li>
@@ -116,6 +116,12 @@
                             <a href="{{route('feedback.index')}}" class="side-nav-link">
                                 <i class="ri-feedback-line"></i>
                                 <span> Customer Feedback </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('admin.suspended-users.index')}}" class="side-nav-link">
+                            <i class="ri-user-unfollow-line"></i>
+                                <span> Suspended Users </span>
                             </a>
                         </li>
                         {{-- <li class="side-nav-item">
@@ -165,6 +171,18 @@
                                 <span> Subscription Packages </span>
                             </a>
                         </li>
+                           <li class="side-nav-item">
+                <a href="{{ route('admin.redeem.index') }}" class="side-nav-link">
+                    <i class="ri-gift-line"></i>
+                    <span> Redeems </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.payments.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Payments Transactions </span>
+                </a>
+            </li>
                     </ul>
                 </div>
             </li>
@@ -303,18 +321,7 @@
                     <span> Success Stories </span>
                 </a>
             </li>
-            <li class="side-nav-item">
-                <a href="{{ route('admin.redeem.index') }}" class="side-nav-link">
-                    <i class="ri-gift-line"></i>
-                    <span> Redeems </span>
-                </a>
-            </li>
-            <li class="side-nav-item">
-                <a href="{{ route('admin.payments.index') }}" class="side-nav-link">
-                    <i class="ri-bank-card-line"></i>
-                    <span> Payments Transactions </span>
-                </a>
-            </li>
+
 
         </ul>
         <!--- End Sidemenu -->

@@ -47,6 +47,7 @@ use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\PaymentTransactionController;
 use App\Http\Controllers\Admin\RedeemController;
 use App\Http\Controllers\Admin\SuccessStoryController;
+use App\Http\Controllers\Admin\SuspendedUserController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
@@ -101,7 +102,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
             [SuccessStoryController::class, 'index']
         )->name('admin.success-stories.index');
         Route::get('/payments', [PaymentTransactionController::class, 'index'])->name('admin.payments.index');
-
+        Route::get('suspended-users', [SuspendedUserController::class, 'index'])
+            ->name('admin.suspended-users.index');
         Route::get('/redeem', [RedeemController::class, 'index'])->name('admin.redeem.index');
         Route::post('redeem/{user}', [RedeemController::class, 'redeem'])->name('admin.redeem');
         Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');

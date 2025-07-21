@@ -21,8 +21,8 @@ class ReportRequest extends FormRequest
         return [
             // 'reporter_id' => 'required|exists:users,id', // Ensure the reporter exists
             'reported_id' => 'required|exists:users,id', // Ensure the reported user exists
-            'reason_en' => $acceptLanguage === 'en' ? 'required|in:harassment,spam,abuse,offensive,other' : 'nullable', // Valid English reason
-            'reason_ar' => $acceptLanguage === 'ar' ? 'required|in:تحرش,رسائل مزعجة,إساءة,محتوى مسيء,أخرى' : 'nullable', // Valid Arabic reason
+            'reason_en' => $acceptLanguage === 'en' ? 'required|in:Inappropriate Photos,Offensive Language,Spam or Advertising,Other' : 'nullable', // Valid English reason
+            'reason_ar' => $acceptLanguage === 'ar' ? 'required|in:صور غير لائقة,ألفاظ مسيئة,رسائل مزعجة أو إعلانات,أخرى' : 'nullable', // Valid Arabic reason
             'other_reason_en' => $acceptLanguage === 'en' ? 'nullable|string|max:255|required_if:reason_en,other' : 'nullable', // Custom reason in English, required if 'other' is selected
             'other_reason_ar' => $acceptLanguage === 'ar' ? 'nullable|string|max:255|required_if:reason_ar,أخرى' : 'nullable', // Custom reason in Arabic, required if 'أخرى' is selected
             'status' => 'required|in:pending,reviewed,resolved,rejected', // Valid status
@@ -42,8 +42,9 @@ class ReportRequest extends FormRequest
             'reported_id.required' => 'The reported user is required.',
             'reason_en.required' => 'The reason in English is required.',
             'reason_ar.required' => 'The reason in Arabic is required.',
-            'reason_en.in' => 'The reason in English must be one of the following: harassment, spam, abuse, offensive, or other.',
-            'reason_ar.in' => 'The reason in Arabic must be one of the following: تحرش, رسائل مزعجة, إساءة, محتوى مسيء, or أخرى.',
+            'reason_en.in' => 'The reason in English must be one of the following: Inappropriate Photos, Offensive Language, Spam or Advertising, or Other.',
+            'reason_ar.in' => 'The reason in Arabic must be one of the following: صور غير لائقة, ألفاظ مسيئة, رسائل مزعجة أو إعلانات, or أخرى.',
+
             'other_reason_en.string' => 'The other reason in English must be a string.',
             'other_reason_ar.string' => 'The other reason in Arabic must be a string.',
             'other_reason_en.max' => 'The other reason in English must not be greater than 255 characters.',

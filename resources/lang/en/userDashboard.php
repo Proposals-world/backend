@@ -143,7 +143,7 @@ return [
         'city' => 'City',
         'phone' => 'Phone',
         'feedback_label' => 'Feedback',
-        'outcome' => 'Outcome',
+        'outcome' => 'Comment',
         'is_profile_accurate' => 'Is the profile accurate?',
         'submit' => 'Submit',
         'cancel' => 'Cancel',

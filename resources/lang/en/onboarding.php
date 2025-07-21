@@ -18,6 +18,7 @@ return [
     'photo_upload' => 'Upload Profile Photo (only real image and avatar are allowed)',
     'guardian_contact_number_help' => 'The guardian contact number must not match your personal phone number.',
     'bio_ar' => 'Bio (Arabic)',
+    'bio_en' => 'Bio (English)',
     'date_of_birth' => 'Date of Birth',
     'nicknamePlaceholder' => 'Enter your nickname',
     'nickname' => 'Nickname',
