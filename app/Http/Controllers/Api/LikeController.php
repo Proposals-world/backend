@@ -27,14 +27,17 @@ class LikeController extends Controller
     public function likeUser(Request $request)
     {
         $user = Auth::user();
-        $result = $this->likeService->likeUserLogic($user, $request->liked_user_id);
+        $lang = $request->header('Accept-Language', 'en');
+        $result = $this->likeService->likeUserLogic($user, $request->liked_user_id, $lang);
         return response()->json(['message' => $result['message']], $result['status']);
     }
-    
+
     public function dislikeUser(Request $request)
     {
         $user = Auth::user();
-        $result = $this->likeService->dislikeUserLogic($user, $request->disliked_user_id);
+        $lang = $request->header('Accept-Language', 'en');
+
+        $result = $this->likeService->dislikeUserLogic($user, $request->disliked_user_id, $lang);
         return response()->json(['message' => $result['message']], $result['status']);
     }
 

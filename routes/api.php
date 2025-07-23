@@ -42,6 +42,7 @@ use App\Http\Controllers\Api\Tickets\TicketsController;
 use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
+use App\Http\Controllers\Api\SubscriptionContactController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\ContactController;
@@ -85,7 +86,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
         Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
     });
-    //jop-title
+    // Record a contact for the user 
+    Route::post('/subscription', [SubscriptionContactController::class, 'store']);
+
+    // Get subscription contact info for the user
+    Route::get('/show-subscription', [SubscriptionContactController::class, 'show']);
     //mariage-buget
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
     Route::get('/hair-colors', [HairColorController::class, 'index']);

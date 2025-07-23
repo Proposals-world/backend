@@ -1,7 +1,9 @@
 @extends('user.layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
+<link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
+
+
     {{-- Match Profile Modal --}}
 
     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
@@ -119,6 +121,24 @@
                 </div>
             </div>
         </div>
+        {{-- {{ dd(session('status')) }} --}}
+        @if ( (session('status')) &&(session('alert-type')  == 'no_subscription'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        {{-- {{ session('alert-type') }} --}}
+            <a href="{{ route('user.pricing') }}" style="text-decoration: underline;" class="fw-bold text-danger">{{ __('userDashboard.dashboard.Subscription_Now') }}</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>    </div>
+        @endif
+        @if (session('status') &&(session('alert-type')  != 'no_subscription'))
+    <div class="alert alert-{{ session('alert-type', 'info') }} alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
         {{-- @if ($filledPreferenceCount >= 2) --}}
 
             <!-- Clear Section Division for Exact Matches -->

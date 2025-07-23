@@ -25,11 +25,13 @@ class UserFilterService
 
 
         $baseQuery = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
+            ->whereNotNull('nickname') // Exclude profiles without nickname
             ->whereHas('user', function ($subQ) {
                 $subQ->where('gender', '!=', Auth::user()->gender)
                     ->where('role_id', '!=', 1)
-                    ->where('status', 'active');  // Add this line to filter by active status in the user table
+                    ->where('status', 'active');
             });
+
 
         //  dd($baseQuery->count());
         $likedUsers    = Like::where('user_id', Auth::id())->pluck('liked_user_id');
@@ -222,7 +224,7 @@ class UserFilterService
         Log::debug('UserFilterService - Exact Query SQL', ['sql' => $exactQuery->toSql()]);
         Log::debug('UserFilterService - Exact Query Bindings', ['bindings' => $exactQuery->getBindings()]);
 
-        $exactMatches = $exactQuery->get();
+        $exactMatches = $exactQuery->inRandomOrder()->get();
 
         $nonNullFilters = array_filter($filters, fn($v) => !is_null($v));
         $totalFilters   = count($nonNullFilters);
@@ -277,7 +279,7 @@ class UserFilterService
         }
 
         $suggestionPool = $suggestionPool->sortByDesc('suggestion_ratio')->values();
-        $suggestedUsers = $suggestionPool->take(10);
+        $suggestedUsers = $suggestionPool->shuffle()->take(10);
 
         $suggestedPercentage = $suggestionPool->isNotEmpty()
             ? round($suggestionPool->first()->suggestion_ratio, 2)

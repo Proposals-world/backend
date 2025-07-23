@@ -55,16 +55,23 @@ class LikedMeController extends Controller
     public function like(Request $request)
     {
         $user = Auth::user();
-        $response = $this->likeService->likeUserLogic($user, $request->liked_user_id, $this->lang);
+        // dd($user->gender);
+        $lang = app()->getLocale();
+        $response = $this->likeService->likeUserLogic($user, $request->liked_user_id, $lang);
 
-        return redirect()->back()->with('status', $response['message']);
+        return redirect()->back()->with('status', $response['message'])
+            ->with('alert-type', $response['type']);
     }
 
     public function dislike(Request $request)
     {
         $user = Auth::user();
-        $response = $this->likeService->dislikeUserLogic($user, $request->disliked_user_id, $this->lang);
+        $lang = app()->getLocale();
 
-        return redirect()->back()->with('status', $response['message']);
+        $response = $this->likeService->dislikeUserLogic($user, $request->disliked_user_id, $lang);
+
+        return redirect()->back()->with('status', $response['message'])
+            ->with('alert-type', $response['type']);
+        // ->with('alert-type', $response['type'])
     }
 }
