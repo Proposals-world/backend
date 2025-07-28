@@ -101,7 +101,7 @@ return [
     'Partner_Employment_&_Financial_Info' => 'Partner Employment & Financial Info',
     'Housing_&_Marital_Status' => 'Partner Housing & Marital Status',
     'Partner_Housing_&_Marital_Status' => 'Partner Housing & Marital Status',
-    'Profile_saved_successfully' => ' Partner Profile saved successfully.',
+    'Profile_saved_successfully' => ' Profile saved successfully.',
     'Preferences saved successfully' => 'Partner Preferences saved successfully.',
     'Partner_No_Preference' => 'No Preference',
     'You can select up to 10 fields. Remaining:' => 'You can select up to 10 fields. Remaining:',

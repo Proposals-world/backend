@@ -1,4 +1,4 @@
-@if (isset($origin))
+{{-- @if (isset($origin))
     <form action="{{ route('origins.update', $origin) }}" id="originsForm" method="POST">
         @method('PUT')
     @else
@@ -14,4 +14,4 @@
     <input type="text" name="name_ar" id="name_ar" class="form-control" value="{{ $origin->name_ar ?? '' }}">
 </div>
 <button type="submit" class="btn btn-success">Submit</button>
-</form>
+</form> --}}

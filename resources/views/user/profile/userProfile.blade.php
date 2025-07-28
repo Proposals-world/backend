@@ -106,8 +106,62 @@
                                     </div>
                                 </div>
                             </div> --}}
+                             {{-- <div class="col-lg-6 col-12 mb-4"> --}}
+                                        <div class="card">
+                                            <div class="position-absolute card-top-buttons">
+                                                <button class="btn btn-header-light icon-button">
+                                                </button>
+                                            </div>
 
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <i class="simple-icon-heart"></i> {{ __('profile.Physical_&_Health_Info') }}
+                                                </h5>
+                                                <div>
+                                                    <!-- weight -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.weight') }}:</strong> {{ $userProfile['profile']['weight'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- height -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.height') }}:</strong> {{ $userProfile['profile']['height'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Skin Color -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.Skin_Color') }}:</strong> {{ $userProfile['profile']['skin_color'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Hair Color -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.Hair_Color') }}:</strong> {{ $userProfile['profile']['hair_color'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Hair Color -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.eye_color') }}:</strong> {{ $userProfile['profile']['eye_color'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    {{-- <!-- Health Status -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.Health_Status') }}:</strong> {{ $userProfile['profile']['health_status'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {{-- </div> --}}
                         </div>
+
                         <div class="col-12 col-lg-7 col-xl-8 col-right">
                             <div class="row listing-card-container">
                                 {{-- <div class="row"> --}}
@@ -514,60 +568,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="col-lg-6 col-12 mb-4">
-                                        <div class="card">
-                                            <div class="position-absolute card-top-buttons">
-                                                <button class="btn btn-header-light icon-button">
-                                                </button>
-                                            </div>
 
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <i class="simple-icon-heart"></i> {{ __('profile.Physical_&_Health_Info') }}
-                                                </h5>
-                                                <div>
-                                                    <!-- weight -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.weight') }}:</strong> {{ $userProfile['profile']['weight'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <!-- height -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.height') }}:</strong> {{ $userProfile['profile']['height'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <!-- Skin Color -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.Skin_Color') }}:</strong> {{ $userProfile['profile']['skin_color'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Hair Color -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.Hair_Color') }}:</strong> {{ $userProfile['profile']['hair_color'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <!-- Hair Color -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.eye_color') }}:</strong> {{ $userProfile['profile']['eye_color'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    {{-- <!-- Health Status -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.Health_Status') }}:</strong> {{ $userProfile['profile']['health_status'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                     {{-- <div class="col-lg-6 col-12 mb-4">
                                         <div class="card">
                                             <div class="position-absolute card-top-buttons">

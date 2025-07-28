@@ -433,31 +433,49 @@ html[dir="rtl"] .contact-direction {
                 </div>
                 <div class="row justify-content-center" id="pricing-plan-cards">
                     @if (isset($subscriptionPackage) && count($subscriptionPackage) > 0)
-                        @foreach ($subscriptionPackage as $package)
-                            <div class="col-lg-3 col-md-6">
-                                <div class="pricing-box text-center mb-60">
-                                    <div class="pricing-head">
-                                        <h4>{{ $package['package_name'] }}</h4>
-                                        <div class="pricing-amount">
-                                            <sup><span class="currency">$</span></sup>
-                                            <span class="price">{{ $package['price'] }}</span>
-                                            <br>
-                                            <span class="subscription"></span>
-                                        </div>
-                                        <h5></h5>
-                                    </div>
-                                    <div class="pricing-body mb-40 text-left">
-                                        <ul>
-                                            <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
-                                            {{-- <li>{{ __('home.duration') }}: {{ $package['duration'] ?? "N/A" }}</li> --}}
-                                        </ul>
-                                    </div>
-                                    <div class="pricing-btn">
-                                        <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
-                                    </div>
+                       @php
+                            $chunks = $subscriptionPackage->chunk(3);
+                        @endphp
+
+                        @foreach ($chunks as $index => $group)
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h3 class="text- text-left mb-4">
+                                        {{ $index === 0 ? __('home.For_Males') : __('home.For_Females') }}
+                                    </h3>
                                 </div>
+
+                                @foreach ($group as $package)
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="pricing-box text-center mb-60">
+                                            <div class="pricing-head">
+                                                <h4>{{ $package['package_name'] }}</h4>
+                                                <div class="pricing-amount">
+                                                    <sup><span class="currency">$</span></sup>
+                                                    <span class="price">{{ $package['price'] }}</span>
+                                                    <br>
+                                                    <span class="subscription"></span>
+                                                </div>
+                                                <h5></h5>
+                                            </div>
+                                            <div class="pricing-body mb-40 text-left">
+                                                <ul>
+                                                    @if ($index !== 0)
+                                                    <li>{{ __('home.duration') }}: {{ $package['duration'] ?? 'N/A' }} {{ __('home.in_days') }} </li>
+                                                    @else
+                                                    <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
+
+                                                    @endif                                                </ul>
+                                            </div>
+                                            <div class="pricing-btn">
+                                                <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         @endforeach
+
                     @else
                         <div class="col-12 text-center">
                             <p>{{ __('home.no_packages_available') }}</p>

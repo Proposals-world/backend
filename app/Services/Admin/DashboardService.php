@@ -71,7 +71,25 @@ class DashboardService
         // Count feedbacks where feedback_text_en contains 'Marriage happened'
         $marriageFeedbackCount = UserFeedback::where('feedback_text_en', 'like', '%Marriage Happened%')
             ->count();
+        // Get Currently Active Subscriptions
+        $now = Carbon::now();
 
+        // Male subscriptions: contacts_remaining > 0
+        $maleSubsCount = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'male');
+        })
+            ->where('contacts_remaining', '>', 0)
+            ->count();
+
+        // Female subscriptions: end_date >= now (not expired)
+        $femaleSubsCount = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female');
+        })
+            ->where('end_date', '>=', $now)
+            ->count();
+
+        // Total sum of these two counts
+        $totalContactsCurrentlySubed = $maleSubsCount + $femaleSubsCount;
         return [
             'total_users' => $totalUsers,
             'total_matches' => $totalMatches,
@@ -88,7 +106,7 @@ class DashboardService
             'totalSubscriptionsFemale' => $totalSubscriptionsFemale,
             'engagement_feedback_count' => $engagementFeedbackCount,
             'marriage_feedback_count' => $marriageFeedbackCount,
-
+            'totalContactsCurrentlySubed' => $totalContactsCurrentlySubed,
         ];
     }
 

@@ -139,5 +139,27 @@ return [
             'title' => 'Acceptance of Terms and Conditions',
             'content' => 'By using any of Proposals’ services, the user (member, user, or visitor) fully and completely agrees to the Terms and Conditions of the Proposals platform, including full consent to receive emails and notifications from the system on their registered personal email. The user (member, user, or visitor) is fully responsible for regularly reviewing the Terms and Conditions. If they do not agree with the Terms and Conditions, they must not use the Proposals platform. These terms are subject to change without prior notice or notification to users or members, and you should review them periodically.',
         ],
+        'cancellation_refund' => [
+            'title' => 'Cancellation and Refund Policy',
+            'content' => [
+                'cancellation' => [
+                    'title' => 'Cancellation Policy',
+                    'items' => [
+                        'Subscriptions can be canceled anytime through the user profile settings. No refunds are given.',
+                        'The platform may cancel accounts for misuse or violation of terms. In such cases, refunds are not guaranteed.',
+                    ],
+                ],
+                'refund' => [
+                    'title' => 'Refund Policy',
+                    'items' => [
+                        'We do not offer cash refunds for any services or subscriptions.',
+                        'Services bought under promotions or discounts are non-refundable.',
+                        'All credits are non-transferable and must be used within their issuance time limit.',
+                        'In case of special circumstances stated to the admin through the support ticketing system or the review system, the admin can refund the male user with one call credit after studying case by case.',
+                    ],
+                ],
+                'contact' => 'Questions? Contact us at [info@proposals.world]',
+            ],
+        ],
     ],
 ];

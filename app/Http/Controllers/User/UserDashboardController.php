@@ -10,6 +10,7 @@ use App\Models\SubscriptionPackage;
 use App\Models\UserReport;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subscription;
+use Carbon\Carbon;
 
 class UserDashboardController extends Controller
 {
@@ -111,6 +112,13 @@ class UserDashboardController extends Controller
                 array_flip($remove)
             );
         }
+        // Get the subscription end date
+
+        $subscriptionEndsAt = Subscription::where('user_id', Auth::id())
+            ->whereDate('end_date', '>=', Carbon::today()) // only future or today
+            ->value('end_date'); // returns null if none
+
+
         return view('user.dashboard', [
             'matches'            => $transformed,
             'appLocale'          => $lang,
@@ -118,6 +126,7 @@ class UserDashboardController extends Controller
             'countOfMatches'     => $countOfMatches,
             'remainingContacts'  => $remainingContacts,
             'feedbackOptions'    => $feedbackOptions,
+            'subscriptionEndsAt' => $subscriptionEndsAt,
         ]);
     }
 
@@ -162,6 +171,7 @@ class UserDashboardController extends Controller
                 'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
                 'price'          => $package->price,
                 'contact_limit'  => $package->contact_limit,
+                'duration'  => $package->duration,
             ];
         });
     }

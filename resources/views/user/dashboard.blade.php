@@ -120,13 +120,32 @@
                         <p class="lead text-center">{{ $countOfMatches }}</p>
                     </div>
                 </a>
-                <a href="#" class="card mb-3">
+                @if (Auth::user()->gender === 'male')
+
+                <a  class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.remaining_contacts') }}</p>
                         <p class="lead text-center">{{ $remainingContacts  ?? 0}}</p>
                     </div>
                 </a>
+                @else
+                <a  class="card mb-3">
+                    <div class="card-body text-center">
+                        <i class="iconsminds-remove" style="font-size: xx-large;"></i>
+                        <p class="card-text mb-0">{{ __('userDashboard.dashboard.subscription') }}</p>
+                        @if ($subscriptionEndsAt)
+                            <p class="card-text mb-0">
+                                {{ __('userDashboard.dashboard.Your_subscription_ends_on') }}: {{ \Carbon\Carbon::parse($subscriptionEndsAt)->format('F j, Y') }}
+                            </p>
+                        @else
+                            <p class="text-danger">
+                                {{ __('userDashboard.dashboard.You_have_no_active_subscription') }}
+                            </p>
+                        @endif
+                    </div>
+                </a>
+                @endif
             </div>
 
             <div class="col-xl-6 col-lg-12 mb-4">

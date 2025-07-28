@@ -183,6 +183,18 @@
                     <span> Payments Transactions </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.monthly-subscription-sales.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Monthly Sales Report </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.yearly-subscription-sales.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Yearly Sales Report </span>
+                </a>
+            </li>
                     </ul>
                 </div>
             </li>

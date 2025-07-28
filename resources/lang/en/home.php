@@ -17,7 +17,9 @@ return [
     'feature_3_desc' => 'Our Application respects your time and is straight forward.',
     'feature_4' => 'Aligned with Values',
     'feature_4_desc' => 'We connect you with your dream partner in a way that respects our society values.',
-
+    'For_Females' => 'For Females',
+    'For_Males' => 'For Males',
+    'in_days' => 'Days',
     // Choose Area
     'choose_title' => 'Find Your Ideal Match',
     'choose_desc_1' => 'Discover partners that adapt with your needs & meet your aspirations.',

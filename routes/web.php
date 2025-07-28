@@ -46,6 +46,8 @@ use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\PaymentTransactionController;
 use App\Http\Controllers\Admin\RedeemController;
+use App\Http\Controllers\Admin\SalesReportController;
+use App\Http\Controllers\Admin\MonthlySubscriptionSalesController;
 use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\SuspendedUserController;
 // users dashboard routes
@@ -85,8 +87,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // routes/web.php
 
 
-
-
+    Route::get('monthly-subscription-sales', [MonthlySubscriptionSalesController::class, 'index'])
+        ->name('admin.monthly-subscription-sales.index');
+    Route::get('yearly-subscription-sales', [\App\Http\Controllers\Admin\YearlySubscriptionSalesController::class, 'index'])
+        ->name('admin.yearly-subscription-sales.index');
     // admins route
     Route::prefix('admin')->group(function () {
         Route::get('/support', [AdminSupportTicketController::class, 'index'])->name('admin.support');

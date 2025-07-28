@@ -19,7 +19,7 @@ return [
         'religion_level' => 'Religion Level',
         'like' => 'Like',
         'Fdislike' => 'Dislike',
-
+        'onlyForSubscribedFemales' => 'This action is only available for subscribed females.',
         // Modal Categories
         'personal' => 'Personal',
         'professional' => 'Professional',
@@ -134,6 +134,9 @@ return [
         'delete_account' => 'Delete Account',
     ],
     'dashboard' => [
+        'You_have_no_active_subscription' => 'You have no active subscription',
+        'Your_subscription_ends_on' => 'Your subscription ends on',
+        'subscription' => 'Subscription',
         'welcome' => 'Welcome',
         'half_matches' => 'Half Matches',
         'matches' => 'Matches',

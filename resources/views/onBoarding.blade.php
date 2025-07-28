@@ -1005,8 +1005,8 @@
                                                         <div class="form-group">
                                                             <label class="form-label">
                                                                 {{ __('onboarding.guardian_contact') }}
-                                                                <small
-                                                                    class="form-text text-muted">{{ __('onboarding.guardian_contact_help') }}</small>
+                                                                <p
+                                                                    class="form-text text-muted mb-0">{{ __('onboarding.guardian_contact_help') }}</p>
                                                             </label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
@@ -1025,9 +1025,11 @@
                                                                 </select>
                                                                 <input type="tel" name="guardian_contact"
                                                                     class="form-control rounded-right" required
-                                                                    placeholder="07XXXXXXXX"
-                                                                    title="Phone number must be 10 digits starting with 07">
+
+                                                                    >
                                                             </div>
+                                                            <p
+                                                        class="form-text text-muted">{{ __('onboarding.guardian_contact_number_help') }}</p>
                                                             <span class="error-message text-danger"
                                                                 style="font-size:12px;"></span>
                                                         </div>

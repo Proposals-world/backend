@@ -42,7 +42,7 @@ return [
         'job_title' => 'المسمى الوظيفي',
         'position_level' => 'المستوى الوظيفي',
         'financial_status' => 'الوضع المالي',
-
+        'onlyForSubscribedFemales' => 'هذا الإجراء متاح فقط للإناث المشتركين.',
         'hijab_status' => 'الحجاب',
         'yes' => 'نعم',
         'no' => 'لا',
@@ -135,6 +135,9 @@ return [
         'delete_account' => 'حذف الحساب',
     ],
     'dashboard' => [
+        'subscription' => 'الاشتراك',
+        'Your_subscription_ends_on' => 'تنتهي اشتراكك في',
+        'You_have_no_active_subscription' => 'ليس لديك اشتراك نشط',
         'welcome' => 'أهلاً',
         'half_matches' => 'تطابق جزئي',
         'matches' => 'التطابقات',
