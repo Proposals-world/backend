@@ -100,13 +100,25 @@ class UserProfileService
     public function updateProfile(User $user, array $data, string $lang)
     {
         $profile = $user->profile ?? $user->profile()->create([]);
-        // dd($data);
         // Check if guardian_contact_encrypted has changed
-        if (isset($data['guardian_contact']) && $data['guardian_contact'] !== $profile->guardian_contact_encrypted) {
+        // Handle guardian contact safely
+        $guardianContact = $data['_guardian_full'] ?? $profile->guardian_contact_encrypted ?? null;
+        if ($guardianContact && $user->phone_number == $guardianContact) {
+            return [
+                'error' => __('profile.guardian_contact_same_as_phone'),
+            ];
+        }
+        if (isset($data['guardian_contact']) && $guardianContact !== $profile->guardian_contact_encrypted) {
             GuardianOtp::where('user_id', auth()->id())
                 ->where('verified', 1)
                 ->delete();
         }
+        // Check if guardian_contact is the same as user's phone number
+
+        // dd($user->phone_number, $data['_guardian_full']);
+        // dd($data['guardian_contact']);
+        // dd($user->phone_number, $data['_guardian_full']);
+
         // Ensure only valid fields are updated
         $profile->fill([
             'nickname' => $data['nickname'] ?? $profile->nickname, //
@@ -146,8 +158,10 @@ class UserProfileService
             'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
             'marriage_budget_id' => $data['marriage_budget_id'] ?? null, //missing for men
             'eye_color_id' => $data['eye_color_id'] ?? null, //missing for men
-            'guardian_contact_encrypted' => $data['guardian_contact'] ?? $profile->guardian_contact,
+            // 'guardian_contact_encrypted' => $data['_guardian_full'] ?? $profile->guardian_contact_encrypted,
+            'guardian_contact_encrypted' => $guardianContact,
         ]);
+
 
         $profile->save();
         // Handle Smoking Tools based on Smoking Status

@@ -1,6 +1,38 @@
 @extends('frontend.layouts.app')
 @section('section')
 <style>
+    .blog-image {
+    height: 500px;
+    object-fit: cover;
+    width: 100%;
+}
+.blog-content {
+    background: #fff;
+    padding: 40px 30px;
+    position: relative;
+    z-index: 1;
+    height: 300px;
+}
+   @media (max-width: 576px) {
+  /* stack input + button */
+  #contact-form4 .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* make each take full width and give a bit of vertical spacing */
+  #contact-form4 .form-control,
+  #contact-form4 .btn-custom {
+    width: 100%;
+    margin-top: 3.5rem;
+  }
+
+  /* remove the extra top margin on the first child */
+  #contact-form4 .form-control {
+    margin-top: 0;
+  }
+}
+
     .icon-size {
     height: 117px;
     width: 124px;
@@ -401,31 +433,49 @@ html[dir="rtl"] .contact-direction {
                 </div>
                 <div class="row justify-content-center" id="pricing-plan-cards">
                     @if (isset($subscriptionPackage) && count($subscriptionPackage) > 0)
-                        @foreach ($subscriptionPackage as $package)
-                            <div class="col-lg-3 col-md-6">
-                                <div class="pricing-box text-center mb-60">
-                                    <div class="pricing-head">
-                                        <h4>{{ $package['package_name'] }}</h4>
-                                        <div class="pricing-amount">
-                                            <sup><span class="currency">$</span></sup>
-                                            <span class="price">{{ $package['price'] }}</span>
-                                            <br>
-                                            <span class="subscription"></span>
-                                        </div>
-                                        <h5></h5>
-                                    </div>
-                                    <div class="pricing-body mb-40 text-left">
-                                        <ul>
-                                            <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
-                                            {{-- <li>{{ __('home.duration') }}: {{ $package['duration'] ?? "N/A" }}</li> --}}
-                                        </ul>
-                                    </div>
-                                    <div class="pricing-btn">
-                                        <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
-                                    </div>
+                       @php
+                            $chunks = $subscriptionPackage->chunk(3);
+                        @endphp
+
+                        @foreach ($chunks as $index => $group)
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h3 class="text- text-left mb-4">
+                                        {{ $index === 0 ? __('home.For_Males') : __('home.For_Females') }}
+                                    </h3>
                                 </div>
+
+                                @foreach ($group as $package)
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="pricing-box text-center mb-60">
+                                            <div class="pricing-head">
+                                                <h4>{{ $package['package_name'] }}</h4>
+                                                <div class="pricing-amount">
+                                                    <sup><span class="currency">$</span></sup>
+                                                    <span class="price">{{ $package['price'] }}</span>
+                                                    <br>
+                                                    <span class="subscription"></span>
+                                                </div>
+                                                <h5></h5>
+                                            </div>
+                                            <div class="pricing-body mb-40 text-left">
+                                                <ul>
+                                                    @if ($index !== 0)
+                                                    <li>{{ __('home.duration') }}: {{ $package['duration'] ?? 'N/A' }} {{ __('home.in_days') }} </li>
+                                                    @else
+                                                    <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
+
+                                                    @endif                                                </ul>
+                                            </div>
+                                            <div class="pricing-btn">
+                                                <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         @endforeach
+
                     @else
                         <div class="col-12 text-center">
                             <p>{{ __('home.no_packages_available') }}</p>
@@ -449,13 +499,14 @@ html[dir="rtl"] .contact-direction {
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="align-items: unset;">
                     @foreach ($blogs as $blog)
                         <div class="col-lg-4 col-md-12">
                             <div class="single-post mb-30">
                                 <div class="blog-thumb">
                                     @if (isset($blog['image']))
-                                        <a href="{{ route('blog-details', $blog['id']) }}"><img
+                                        <a href="{{ route('blog-details', $blog['id']) }}"  >
+                                            <img class="blog-image"
                                                 src="{{ asset('storage/' . $blog['image']) }}" alt="blog"></a>
                                     @endif
                                 </div>
@@ -497,33 +548,66 @@ style="background-color: #fff; position: relative;">
                 <h2>{{ __('home.contact_title') }}</h2>
                 <p>{{ __('home.contact_desc') }}</p>
             </div>
-            <form action="#" class="contact-form">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-name mb-20">
-                            <input type="text" placeholder="{{ __('home.contact_placeholder_name') }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-email mb-20">
-                            <input type="email" placeholder="{{ __('home.contact_placeholder_email') }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-subject mb-20">
-                            <input type="text" placeholder="{{ __('home.contact_placeholder_phone') }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-field p-relative c-message mb-45">
-                            <textarea name="message" id="message" cols="10" rows="10"
-                                placeholder="{{ __('home.contact_placeholder_message') }}"></textarea>
-                        </div>
-                        <button class="btn">{{ __('home.contact_button') }}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<form id="contactForm" class="contact-form">
+  @csrf
+
+  {{-- Alert placeholder --}}
+  <div id="formAlert"></div>
+
+  <div class="row">
+    <div class="col-12 mb-20">
+      <input
+        type="text"
+        name="name"
+        value="{{ old('name') }}"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_name') }}"
+      >
+      {{-- Inline error placeholder --}}
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12 mb-20">
+      <input
+        type="email"
+        name="email"
+        value="{{ old('email') }}"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_email') }}"
+      >
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12 mb-20">
+      <input
+        type="text"
+        name="phone"
+        value="{{ old('phone') }}"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_phone') }}"
+      >
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12 mb-30">
+      <textarea
+        name="message"
+        rows="5"
+        class="form-control"
+        placeholder="{{ __('home.contact_placeholder_message') }}"
+      >{{ old('message') }}</textarea>
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">
+        {{ __('home.contact_button') }}
+      </button>
+    </div>
+  </div>
+</form>
+
+            </div>
     </div>
 </div>
 </section>
@@ -532,3 +616,89 @@ style="background-color: #fff; position: relative;">
 
     </div>
 @endsection
+@push('scripts')
+<script>
+document
+  .getElementById('contactForm')
+  .addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form   = this;
+    const url    = '/api/contact';
+    const data   = new FormData(form);
+    const alertContainer = document.getElementById('formAlert');
+
+    // Clear previous alerts + field errors
+    alertContainer.innerHTML = '';
+    form.querySelectorAll('.is-invalid').forEach(el => {
+      el.classList.remove('is-invalid');
+    });
+    form.querySelectorAll('.invalid-feedback').forEach(feedback => {
+      feedback.textContent = '';
+    });
+
+    // Grab CSRF token from hidden input
+    const token = form.querySelector('input[name="_token"]').value;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': token,
+          'Accept': 'application/json'
+        , 'lang': '{{ app()->getLocale() }}'
+        },
+        body: data
+      });
+
+      const json = await response.json();
+
+      if (response.ok) {
+        // Success alert
+        alertContainer.innerHTML = `
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ${ json.message }
+          </div>
+        `;
+        form.reset();
+      }
+      else if (response.status === 422) {
+        // Validation errors
+            // alertContainer.innerHTML = `
+            //   <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            //     Please fix the errors below.
+            //     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            //   </div>
+            // `;
+        for (const [field, messages] of Object.entries(json.errors)) {
+          const input = form.querySelector(`[name="${field}"]`);
+          const feedback = input.nextElementSibling; // the .invalid-feedback div
+          input.classList.add('is-invalid');
+          feedback.textContent = messages.join(' ');
+        }
+      }
+      else {
+        // Other errors
+        alertContainer.innerHTML = `
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Something went wrong. Please try again later.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        `;
+        console.error(json);
+      }
+    }
+    catch (err) {
+      alertContainer.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Network error. Please check your connection.
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+      console.error(err);
+    }
+  });
+</script>
+
+
+@endpush

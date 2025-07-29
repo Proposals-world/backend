@@ -4,6 +4,51 @@
    .row {
     align-items:unset;
 }
+.blog-details-image{
+        max-height: 548px;
+    object-fit: cover;
+}
+.offset-xl-3 {
+    @if (app()->getLocale() === 'ar')
+    margin-right: 25%;
+    margin-left: 0 !important;
+    @endif
+}
+/* 1. Base reset for lists inside .blog-content */
+.blog-content ul {
+  list-style: none;      /* remove default bullets */
+  margin: 1em 0;         /* space above/below the list */
+  padding-left: 1.2em;   /* indent for our custom bullets */
+}
+
+/* 2. Inject a dash before each list item */
+.blog-content ul li::before {
+  content: "–";          /* dash character */
+  display: inline-block; /* allow spacing */
+  width: 1em;            /* reserve room */
+  margin-left: -1em;     /* shift bullet into left margin */
+}
+
+/* 3. Align paragraphs and list-items according to text direction */
+.blog-content[dir="ltr"] p,
+.blog-content[dir="ltr"] ul li {
+  text-align: left;
+}
+
+.blog-content[dir="rtl"] p,
+.blog-content[dir="rtl"] ul li {
+  text-align: right;
+}
+
+/* 4. (Optional) Ensure the overall flow direction is honoured */
+.blog-content[dir="ltr"] {
+  direction: ltr;
+}
+
+.blog-content[dir="rtl"] {
+  direction: rtl;
+}
+
 </style>
 <div>
     <section class="breadcrumb-area d-flex align-items-center"
@@ -36,16 +81,18 @@
     <section class="inner-blog b-details-p pt-120 pb-80">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="blog-details-wrap">
                     <div class="bsingle__post-thumb mb-30">
-                        <img src="{{asset('storage/' . $formattedBlog['image']) }}" alt="">
+                        <img src="{{asset('storage/' . $formattedBlog['image']) }}" class="blog-details-image" alt="">
                     </div>
                         <div class="details__content pb-50">
                             {{-- blog title --}}
-                            <h2>{{ $formattedBlog['title'] }}</h2>
+                            <h2 style="text-align: {{ app()->getLocale() === 'ar' ? 'right' : 'left' }};">{{ $formattedBlog['title'] }}</h2>
 
-                            <p>{!! $formattedBlog['content'] !!}</p>
+                            <div class="blog-content" dir="{{ app()->getLocale()==='ar'?'rtl':'ltr' }}">
+                            {!! $formattedBlog['content'] !!}
+                            </div>
                             {{-- .details__content blockquote {
  --}}
 
@@ -114,8 +161,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <aside>
+                {{-- <div class="col-lg-4">
+                    <aside> --}}
                         {{-- <div class="widget mb-40">
                             <div class="widget-title text-center">
                                 <h4>Search</h4>
@@ -172,8 +219,8 @@
                                 </ul>
                             </div>
                         </div> --}}
-                    </aside>
-                </div>
+                    {{-- </aside>
+                </div> --}}
             </div>
         </div>
     </section>

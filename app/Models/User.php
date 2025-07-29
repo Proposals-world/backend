@@ -236,4 +236,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(GuardianOtp::class);
     }
+    public function getFullNameAttribute()
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
 }

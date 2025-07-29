@@ -253,6 +253,20 @@
                             </div>
                         </div>
                         <!-- Onboarding Form -->
+                      @if(session('error'))
+                        <div id="profile-danger-alert" class="mb-4">
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="display:block;">
+                                <i class="simple-icon-info mr-2"></i>
+                                <span id="preference-danger-message">
+                                    {{ session('error') }}
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="card rounded-lg shadow-lg onboarding-card">
                             <div class="card-body p-lg-5">
                                 <form id="onboarding-form" method="POST" action="{{ route('user.profile.update') }}"
@@ -546,7 +560,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 position-level-wrapper "style="display:none;">
                                                     <div class="form-group">
                                                         <label
                                                             class="form-label">{{ __('onboarding.position_level') }}</label>
@@ -892,22 +906,7 @@
 
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">{{ __('onboarding.origin') }}</label>
-                                                        <select name="origin_id" class="form-control rounded-pill"
-                                                            required>
-                                                            <option value="">{{ __('onboarding.select_origin') }}
-                                                            </option>
-                                                            @foreach ($data['origins'] as $origin)
-                                                                <option value="{{ $origin->id }}">{{ $origin->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="error-message text-danger"
-                                                            style="font-size:12px;"></span>
-                                                    </div>
-                                                </div>
+
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -920,6 +919,22 @@
                                                             @foreach ($data['nationalities'] as $nationality)
                                                                 <option value="{{ $nationality->id }}">
                                                                     {{ $nationality->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="error-message text-danger"
+                                                            style="font-size:12px;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('onboarding.origin') }}</label>
+                                                        <select name="origin_id" class="form-control rounded-pill"
+                                                            required>
+                                                            <option value="">{{ __('onboarding.select_origin') }}
+                                                            </option>
+                                                            @foreach ($data['origins'] as $origin)
+                                                                <option value="{{ $origin->id }}">{{ $origin->name }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                         <span class="error-message text-danger"
@@ -990,19 +1005,31 @@
                                                         <div class="form-group">
                                                             <label class="form-label">
                                                                 {{ __('onboarding.guardian_contact') }}
-                                                                <small
-                                                                    class="form-text text-muted">{{ __('onboarding.guardian_contact_help') }}</small>
+                                                                <p
+                                                                    class="form-text text-muted mb-0">{{ __('onboarding.guardian_contact_help') }}</p>
                                                             </label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"><i
                                                                             class="fas fa-phone"></i></span>
                                                                 </div>
+                                                                 <select name="country_code"
+                                                                        class="form-select form-control @error('country_code') is-invalid @enderror"
+                                                                        style="max-width:110px">
+                                                                    @foreach(config('countries') as $iso => $info)
+                                                                    <option value="{{ $iso }}"
+                                                                        {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
+                                                                            {{ $iso }} {{ $info['dial_code'] }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="tel" name="guardian_contact"
                                                                     class="form-control rounded-right" required
-                                                                    placeholder="07XXXXXXXX" pattern="[0-9]{10}"
-                                                                    title="Phone number must be 10 digits starting with 07">
+
+                                                                    >
                                                             </div>
+                                                            <p
+                                                        class="form-text text-muted">{{ __('onboarding.guardian_contact_number_help') }}</p>
                                                             <span class="error-message text-danger"
                                                                 style="font-size:12px;"></span>
                                                         </div>
@@ -1219,14 +1246,21 @@
                 function toggleJobTitle() {
                     var employmentStatus = $('select[name="employment_status"]').val();
                     var $jobTitleWrapper = $('.job-title-wrapper');
+                    var $positionLevelWrapper = $('.position-level-wrapper');
                     if (employmentStatus === "1") {
                         $jobTitleWrapper.show();
                         $jobTitleWrapper.find('select').prop('required', true);
+                        $positionLevelWrapper.show();
+                        $positionLevelWrapper.find('select').prop('required', true);
                     } else {
                         $jobTitleWrapper.hide();
                         $jobTitleWrapper.find('select').prop('required', false).val('').trigger('change');
                         $jobTitleWrapper.find('select').removeClass('is-valid is-invalid');
                         $jobTitleWrapper.find('.error-message').text('');
+                        $positionLevelWrapper.hide();
+                        $positionLevelWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $positionLevelWrapper.find('select').removeClass('is-valid is-invalid');
+                        $positionLevelWrapper.find('.error-message').text('');
                     }
                 }
 
@@ -1393,14 +1427,47 @@
                             }
                             break;
 
-                        case 'bio_ar':
-                            const arabicRegex = /[\u0600-\u06FF]+/;
-                            if (!arabicRegex.test(value)) {
-                                errorSpan.text("{{ __('onboarding.arabic_required') }}");
-                                isValid = false;
-                            }
-                            break;
+                          case 'bio_en':
+                    var englishRegex = /^[A-Za-z0-9\s.,'"\-?!()]+$/;
+                    if (!englishRegex.test(value)) {
+                        errorSpan.text("{{ __('onboarding.english_required') }}");
+                        isValid = false;
+                    }
+                    if (/\d/.test(value)) {
+                        errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
+                        isValid = false;
+                    }
+                    // Check for special characters (allow only basic punctuation)
+                    var specialCharRegex = /[^A-Za-z0-9\s.,'"\-?!()]/;
+                    if (specialCharRegex.test(value)) {
+                        errorSpan.text("{{ __('onboarding.no_special_characters') }}");
+                        isValid = false;
+                    }
+                    break;
+              case 'bio_ar':
+                // 1) If there are any digits, show the no‐numbers error and stop
+                if (/\d/.test(value)) {
+                    errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
+                    isValid = false;
+                    break;
+                }
 
+                // 2) If there are any characters outside Arabic letters, spaces, and our basic punctuation,
+                //    show the special‐characters error and stop
+                var specialCharRegexAr = /[^\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]/u;
+                if (specialCharRegexAr.test(value)) {
+                    errorSpan.text("{{ __('onboarding.no_special_characters') }}");
+                    isValid = false;
+                    break;
+                }
+
+                // 3) Finally, ensure it’s at least Arabic letters (with allowed punctuation)
+                var arabicLettersAndPunc = /^[\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]+$/u;
+                if (!arabicLettersAndPunc.test(value)) {
+                    errorSpan.text("{{ __('onboarding.arabic_required_no_numbers') }}");
+                    isValid = false;
+                }
+                break;
                         case 'guardian_contact':
                             const guardianRegex = /^(078|077|079)\d{7}$/;
                             if (!guardianRegex.test(value)) {
@@ -1585,9 +1652,20 @@
                         }
                     });
                 }
-
+                function toggleCityLocationRequirement(countryId) {
+                const $loc = $('#city_location_id');
+                if (parseInt(countryId, 10) >= 23) {
+                    $loc.prop('required', false);
+                    // clear any existing error message
+                    $loc.closest('.form-group')
+                        .find('.error-message').text('');
+                } else {
+                    $loc.prop('required', true);
+                }
+                }
                 $('#country_id').on('change', function() {
                     var countryId = $(this).val();
+                    toggleCityLocationRequirement(countryId);
 
                     // Clear the city dropdown completely first
                     $('#city_id')

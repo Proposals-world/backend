@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;    // <<— import this
+use Illuminate\Support\Str;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class UserProfile extends Model
 {
@@ -223,5 +226,51 @@ class UserProfile extends Model
     public function hobbies()
     {
         return $this->belongsToMany(Hobby::class, 'user_hobby_pivots', 'user_profile_id', 'hobby_id');
+    }
+    /**
+     * Can this profile be updated now?
+     */
+    public function canBeUpdated(): bool
+    {
+        return $this->updated_at
+            ->copy()
+            ->addDays(14)
+            ->isPast();
+    }
+    /**
+     * Return just the local (national) portion of the guardian’s E.164 number.
+     */
+    public function getGuardianContactLocalAttribute(): string
+    {
+        $full = $this->guardian_contact_encrypted ?? '';
+        $iso  = $this->country_code ?: 'JO'; // default if missing
+
+        if (! $full) {
+            return '';
+        }
+
+        try {
+            // Parse & re‐format as national
+            $national = PhoneNumber::make($full, $iso)->formatNational();
+
+            // Optionally, strip out all non‐digits if you want a plain string:
+            return preg_replace('/\D+/', '', $national);
+        } catch (\Exception $e) {
+            // fallback to stripping off the dial prefix
+            $dial = config('countries')[$iso]['dial_code'] ?? '';
+            if (Str::startsWith($full, $dial)) {
+                return substr($full, strlen($dial));
+            }
+
+            return ltrim($full, '+');
+        }
+    }
+
+    /**
+     * When will the next update window open?
+     */
+    public function nextAllowedUpdateAt(): Carbon
+    {
+        return $this->updated_at->copy()->addDays(14);
     }
 }

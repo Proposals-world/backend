@@ -19,7 +19,7 @@ return [
         'religion_level' => 'Religion Level',
         'like' => 'Like',
         'Fdislike' => 'Dislike',
-
+        'onlyForSubscribedFemales' => 'This action is only available for subscribed females.',
         // Modal Categories
         'personal' => 'Personal',
         'professional' => 'Professional',
@@ -100,6 +100,7 @@ return [
         'guardian_phone' => 'Guardian Phone',
         'country_of_residence' => 'Country of Residence',
         'country_of_origin' => 'Country of Origin',
+        'city_location' => 'Area of Residence',
     ],
     'findMatch' => [
         'title' => 'Find Your Soulmate',
@@ -119,7 +120,7 @@ return [
         'main_menu' => 'Main Menu',
         'profile' => 'Your Profile',
         'desired_partner' => 'Desired Partner Characteristics',
-        'find_match' => 'Find A Match',
+        'find_match' => 'Explore Matches',
         'half_match' => 'Half Match',
         'matches' => 'Matches',
         'subscription' => 'Subscription Packages',
@@ -133,6 +134,9 @@ return [
         'delete_account' => 'Delete Account',
     ],
     'dashboard' => [
+        'You_have_no_active_subscription' => 'You have no active subscription',
+        'Your_subscription_ends_on' => 'Your subscription ends on',
+        'subscription' => 'Subscription',
         'welcome' => 'Welcome',
         'half_matches' => 'Half Matches',
         'matches' => 'Matches',
@@ -142,7 +146,7 @@ return [
         'city' => 'City',
         'phone' => 'Phone',
         'feedback_label' => 'Feedback',
-        'outcome' => 'Outcome',
+        'outcome' => 'Comment',
         'is_profile_accurate' => 'Is the profile accurate?',
         'submit' => 'Submit',
         'cancel' => 'Cancel',
@@ -171,7 +175,7 @@ return [
         'offensive' => 'Offensive',
         'other' => 'Other',
         'Confirm Action female' => 'This will take credit from your account and will share your first name and your info Mother’s phone number with this user. Don’t worry, your credit won’t be used unless your match reveals the contact information of your guardian.',
-        'Confirm Action male' => 'This will take credit from your account and will share your first name and your info with this user. Don’t worry, your credit won’t be used unless your match reveals the contact information of your guardian.',
+        'Confirm Action male' => 'This will take credit from your account and will share with you the first name of this user and her mother’s phone number.',
         'Confirm Action' => 'Confirm Action',
         'Confirm' => 'Confirm',
         'Cancel' => 'Cancel',
@@ -201,6 +205,8 @@ return [
         'other_reason_en' => 'Other Reason (English)',
         'review' => 'Review',
         'Not_Serious' => 'Not Serious',
+        'Provided_Guardian_number_is_not_for_a_real_guardian' => 'Provided Guardian number is not for a real guardian',
+
     ],
     'support' => [
         'title' => 'Support Tickets',

@@ -28,7 +28,7 @@ class FeatureSeeder extends Seeder
             ['name_en' => 'Health Information', 'name_ar' => 'المعلومات الصحية'],
             ['name_en' => 'Sports Activity Level', 'name_ar' => 'مستوى النشاط الرياضي'],
             ['name_en' => 'Social Media Presence', 'name_ar' => 'الوجود على وسائل التواصل الاجتماعي'],
-            ['name_en' => 'Guardian Contact (Encrypted)', 'name_ar' => 'اتصال الوصي (مشفّر)'],
+            ['name_en' => 'Guardian Contact (Encrypted)', 'name_ar' => 'رقم ولية الأمر(مشفّر)'],
             ['name_en' => 'Religiosity Level', 'name_ar' => 'مستوى التدين'],
             ['name_en' => 'Sleep Habits', 'name_ar' => 'عادات النوم'],
             ['name_en' => 'Marriage Budget Expectations', 'name_ar' => 'توقعات ميزانية الزواج'],

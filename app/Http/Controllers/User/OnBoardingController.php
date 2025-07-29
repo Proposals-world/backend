@@ -35,6 +35,7 @@ class OnBoardingController extends Controller
         $cities = DB::table('cities')
             ->select('id', DB::raw("{$nameField} as name"))
             ->where('country_id', $countryId)
+            ->orderBy($nameField, 'asc')
             ->get();
 
         return response()->json($cities);
@@ -61,7 +62,11 @@ class OnBoardingController extends Controller
 
         // Update the rest of the profile fields.
         $user = $this->userProfileService->updateProfile($user, $data, app()->getLocale());
-
+        // dd($user);
+        // dd($user['error']);
+        if (($user['error'])) {
+            return redirect()->back()->with('error', $user['error']);
+        }
         return redirect()->back()->with('success', __('onboarding.profile_updated_successfully'));
     }
 

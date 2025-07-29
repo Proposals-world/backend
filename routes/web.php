@@ -43,7 +43,13 @@ use App\Http\Controllers\User\FindMatchController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
-
+use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\PaymentTransactionController;
+use App\Http\Controllers\Admin\RedeemController;
+use App\Http\Controllers\Admin\SalesReportController;
+use App\Http\Controllers\Admin\MonthlySubscriptionSalesController;
+use App\Http\Controllers\Admin\SuccessStoryController;
+use App\Http\Controllers\Admin\SuspendedUserController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
@@ -57,7 +63,12 @@ Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us');
 
-
+Route::get('/terms-and-conditions', function () {
+    return view('TermsAndConditions');
+})->name('terms-and-conditions');
+Route::get('/privacy-policy', function () {
+    return view('privacyPolicy');
+})->name('privacy-policy');
 Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
 Route::get(
     '/city-locations/{cityId}',
@@ -73,16 +84,32 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // routes/web.php
 
 
+    Route::get('monthly-subscription-sales', [MonthlySubscriptionSalesController::class, 'index'])
+        ->name('admin.monthly-subscription-sales.index');
+    Route::get('yearly-subscription-sales', [\App\Http\Controllers\Admin\YearlySubscriptionSalesController::class, 'index'])
+        ->name('admin.yearly-subscription-sales.index');
     // admins route
     Route::prefix('admin')->group(function () {
         Route::get('/support', [AdminSupportTicketController::class, 'index'])->name('admin.support');
         Route::get('/support/{ticket}', [AdminSupportTicketController::class, 'show'])->name('admin.support.show');
         Route::post('/support/{ticket}/reply', [AdminSupportTicketController::class, 'reply'])->name('admin.support.reply');
         Route::post('/support/{ticket}/status', [AdminSupportTicketController::class, 'updateStatus'])->name('admin.support.update-status');
-
-
+        Route::get(
+            'contact-messages',
+            [ContactMessageController::class, 'index']
+        )->name('admin.contact-messages.index');
+        Route::get(
+            'success-stories',
+            [SuccessStoryController::class, 'index']
+        )->name('admin.success-stories.index');
+        Route::get('/payments', [PaymentTransactionController::class, 'index'])->name('admin.payments.index');
+        Route::get('suspended-users', [SuspendedUserController::class, 'index'])
+            ->name('admin.suspended-users.index');
+        Route::get('/redeem', [RedeemController::class, 'index'])->name('admin.redeem.index');
+        Route::post('redeem/{user}', [RedeemController::class, 'redeem'])->name('admin.redeem');
         Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
         Route::resource('countries', CountriesController::class);
         Route::resource('origins', OriginController::class);

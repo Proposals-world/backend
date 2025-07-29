@@ -2,13 +2,51 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     @if (app()->getLocale() === 'ar')
-        
+
     <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
     @endif
     @include("admin.partials.title-meta", ["title" => "Register"])
     @include('admin.partials.head-css')
-    <style>
-        /* Custom styles for registration page if needed */
+      <style>
+                                    .gender-options.ltr-gender .form-check-input,
+                                    .custom-checkbox.ltr-gender {
+                                        order: 0;
+                                        margin-right: 0.5rem;
+                                        margin-left: 0;
+                                    }
+                                    .gender-options.ltr-gender .form-check-label {
+                                        order: 1;
+                                    }
+                                    .gender-options.rtl-gender,
+                                    .rtl-gender .form-check {
+                                        direction: rtl;
+                                    }
+                                    .gender-options.rtl-gender .form-check-input,
+                                    .custom-checkbox.rtl-gender {
+                                        order: 1;
+                                        margin-left: 0.5rem;
+                                        margin-right: 0;
+                                    }
+                                    .gender-options.rtl-gender .form-check-label {
+                                        order: 0;
+                                    }
+                                    .gender-options {
+                                        display: flex;
+                                        gap: 1.5rem;
+                                    }
+                                    .gender-options .form-check {
+                                        display: flex;
+                                        align-items: center;
+                                        flex-direction: row;
+                                    }
+                                    /* General checkbox/radio direction for all checkboxes/radios */
+                                    .form-check.ltr-gender {
+                                        flex-direction: row;
+                                    }
+                                    .form-check.rtl-gender {
+                                        flex-direction: row-reverse;
+                                    }
+
         .auth-fluid {
             display: flex;
             min-height: 100vh;
@@ -85,7 +123,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="first_name" class="form-label">{{ __('auth.first_name') }}</label>
-                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required placeholder="{{ __('auth.first_name') }}">
+                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required placeholder="{{ __('auth.first_name') }}" >
                                     @error('first_name')
                                         <div class="text-danger mt-2">{{ $message }}</div>
                                     @enderror
@@ -94,7 +132,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="last_name" class="form-label">{{ __('auth.last_name') }}</label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="{{ __('auth.last_name') }}">
+                                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="{{ __('auth.last_name') }}" >
                                     @error('last_name')
                                         <div class="text-danger mt-2">{{ $message }}</div>
                                     @enderror
@@ -111,15 +149,34 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
+<!-- country -->
+                        <div class="mb-3">
+                        <label for="country_code" class="form-label sr-only">
+                            {{ __('auth.Country_code') }}
+                        </label>
+                        <select name="country_code" id="country_code"
+                                class="form-select @error('country_code') is-invalid @enderror">
+                            @foreach(config('countries') as $iso => $info)
+                            <option value="{{ $iso }}"
+                                    {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
+                                    {{ $info['name'] }} {{ $info['dial_code'] }}
+                            </option>
 
+                            @endforeach
+                        </select>
+                        @error('country_code')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </div>
                         <!-- Phone Number -->
                         <div class="mb-3">
                             <label for="phone_number" class="form-label">{{ __('auth.phone_number') }}</label>
-                            <input type="tel" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="07XXXXXXXX" pattern="[0-9]{10}" title="Phone number must be 10 digits starting with 07">
+                            <input type="tel" class="form-control {{ app()->getLocale() === 'ar' ? ' text-end' : '' }}" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="{{ __('auth.phone_placeholder') }}">
                             @error('phone_number')
-                                <div class="text-danger mt-2">{{ $message }}</div>
+                            <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
+
 
                         <!-- Password and Confirm Password -->
                         <div class="row">
@@ -136,6 +193,7 @@
                                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="{{ __('auth.confirm_password') }}">
                                 </div>
                             </div>
+                            <div class="text-mute mb-2">{{ __('auth.passwordInsturction')}}</div>
                             @error('password_confirmation')
                                 <div class="text-danger mb-2">{{ $message }}</div>
                             @enderror
@@ -148,14 +206,17 @@
                         <div class="mb-3">
                             <label class="form-label">{{ __('auth.gender') }}</label>
                             <div class="d-flex justify-content-around">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" {{ old('gender') == 'male' ? 'checked' : '' }} required>
-                                    <label class="form-check-label" for="male">{{ __('auth.male') }}</label>
+                                <div class="gender-options {{ app()->getLocale() === 'ar' ? 'rtl-gender' : 'ltr-gender' }}">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input custom-checkbox" type="radio" name="gender" id="male" value="male" {{ old('gender') == 'male' ? 'checked' : '' }} required>
+                                        <label class="form-check-label" for="male">{{ __('auth.male') }}</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input custom-checkbox" type="radio" name="gender" id="female" value="female" {{ old('gender') == 'female' ? 'checked' : '' }} required>
+                                        <label class="form-check-label" for="female">{{ __('auth.female') }}</label>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" {{ old('gender') == 'female' ? 'checked' : '' }} required>
-                                    <label class="form-check-label" for="female">{{ __('auth.female') }}</label>
-                                </div>
+
                             </div>
                             @error('gender')
                                 <div class="text-danger mt-2">{{ $message }}</div>
@@ -167,10 +228,27 @@
 
                         <!-- Terms and Privacy Policy -->
                         <div class="mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                <label class="form-check-label" for="terms">{{ __('auth.terms') }}</label>
-                            </div>
+                            @if(app()->getLocale() === 'ar')
+                                <div class="form-check terms-container ">
+                                    <label class="form-check-label ms-2" for="terms">
+                                        {{ __('auth.terms') }}
+                                        <a href="{{ route('terms-and-conditions') }}" class="active"> {{ __('auth.Terms and Conditions') }}</a>
+                                        {{ __('auth.and') }}
+                                        <a href="{{ route('privacy-policy') }}">{{ __('auth.Privacy Policy') }}</a>
+                                    </label>
+                                    <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                </div>
+                            @else
+                                <div class="form-check terms-container ">
+                                    <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        {{ __('auth.terms') }}
+                                        <a href="{{ route('terms-and-conditions') }}" class="active"> {{ __('auth.Terms and Conditions') }}</a>
+                                        {{ __('auth.and') }}
+                                        <a href="{{ route('privacy-policy') }}">{{ __('auth.Privacy Policy') }}</a>
+                                    </label>
+                                </div>
+                            @endif
                             @error('terms')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror

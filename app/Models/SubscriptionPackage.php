@@ -14,6 +14,7 @@ class SubscriptionPackage extends Model
         'package_name_ar',
         'price',
         'contact_limit',
+        'duration'
     ];
 
     public function subscriptions()

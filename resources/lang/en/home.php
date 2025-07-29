@@ -5,7 +5,7 @@ return [
     'slider_title' => 'Find your dream match & reach out with a serious step',
     'slider_subtitle' => 'As the best outcomes are often hidden behind doors',
     'call_to_action' => 'Get Started Today',
-
+    'contact_success' => 'Your message has been sent successfully!',
     // Features Section
     'features_title' => 'Our Features',
     'features_desc' => 'Experience a seamless way to find your ideal match with our innovative tools and trusted verification.',
@@ -17,7 +17,9 @@ return [
     'feature_3_desc' => 'Our Application respects your time and is straight forward.',
     'feature_4' => 'Aligned with Values',
     'feature_4_desc' => 'We connect you with your dream partner in a way that respects our society values.',
-
+    'For_Females' => 'For Females',
+    'For_Males' => 'For Males',
+    'in_days' => 'Days',
     // Choose Area
     'choose_title' => 'Find Your Ideal Match',
     'choose_desc_1' => 'Discover partners that adapt with your needs & meet your aspirations.',

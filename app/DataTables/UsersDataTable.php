@@ -15,11 +15,16 @@ class UsersDataTable extends DataTable
             ->editColumn('created_at', function (User $user) {
                 return $user->created_at->format('d/m/Y');
             })
+            ->addColumn('status_badge', function (User $user) {
+                $status = $user->status ?? 'inactive';
+                $badgeClass = $status === 'active' ? 'badge bg-success' : 'badge bg-danger';
+                return '<span class="' . $badgeClass . '">' . ucfirst($status) . '</span>';
+            })
             ->addColumn('action', function (User $user) {
                 return view('admin.AdminUser.columns._actions', compact('user'));
             })
             ->setRowId('id')
-            ->rawColumns(['action']);
+            ->rawColumns(['status_badge', 'action']);
     }
 
     public function query(User $model)
@@ -49,9 +54,8 @@ class UsersDataTable extends DataTable
             'last_name',
             'email',
             'phone_number',
-            'profile_status',
             'gender',
-            'status',
+            'status_badge' => ['title' => 'Status', 'searchable' => false, 'orderable' => false],
             'created_at',
         ];
     }

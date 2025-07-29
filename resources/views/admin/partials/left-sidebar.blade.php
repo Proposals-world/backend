@@ -35,7 +35,7 @@
     <div class="h-100" id="leftside-menu-container" data-simplebar>
         <!-- Leftbar User -->
         <div class="leftbar-user p-3 text-white">
-            <a href="pages-profile.html" class="d-flex align-items-center text-reset">
+            <a  class="d-flex align-items-center text-reset">
                 <div class="flex-shrink-0">
                     <img src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}" alt="user-image" height="42"
                         class="rounded-circle shadow">
@@ -108,7 +108,7 @@
                         </li>
                         <li class="side-nav-item">
                             <a href="{{route('reports.index')}}" class="side-nav-link">
-                                <i class="ri-user-3-line"></i>
+<i class="ri-file-chart-line"></i>
                                 <span> Customer Reports </span>
                             </a>
                         </li>
@@ -116,6 +116,12 @@
                             <a href="{{route('feedback.index')}}" class="side-nav-link">
                                 <i class="ri-feedback-line"></i>
                                 <span> Customer Feedback </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('admin.suspended-users.index')}}" class="side-nav-link">
+                            <i class="ri-user-unfollow-line"></i>
+                                <span> Suspended Users </span>
                             </a>
                         </li>
                         {{-- <li class="side-nav-item">
@@ -165,6 +171,30 @@
                                 <span> Subscription Packages </span>
                             </a>
                         </li>
+                           <li class="side-nav-item">
+                <a href="{{ route('admin.redeem.index') }}" class="side-nav-link">
+                    <i class="ri-gift-line"></i>
+                    <span> Redeems </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.payments.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Payments Transactions </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.monthly-subscription-sales.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Monthly Sales Report </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.yearly-subscription-sales.index') }}" class="side-nav-link">
+                    <i class="ri-bank-card-line"></i>
+                    <span> Yearly Sales Report </span>
+                </a>
+            </li>
                     </ul>
                 </div>
             </li>
@@ -231,7 +261,7 @@
                                 <span> Religions </span>
                             </a>
                         </li>
-                       
+
                         <li class="side-nav-item">
                             <a href="{{ route('pets.index') }}" class="side-nav-link d-flex align-items-center">
                                 <img width="16px" style="margin-left: 7px;" class="me-2"
@@ -290,6 +320,20 @@
                     <span> Support </span>
                 </a>
             </li>
+
+            <li class="side-nav-item">
+                <a href="{{ route('admin.contact-messages.index') }}" class="side-nav-link">
+                    <i class="ri-mail-line"></i>
+                    <span> Contact Messages </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.success-stories.index') }}" class="side-nav-link">
+                    <i class="ri-trophy-line"></i>
+                    <span> Success Stories </span>
+                </a>
+            </li>
+
 
         </ul>
         <!--- End Sidemenu -->

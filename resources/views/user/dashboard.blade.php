@@ -100,7 +100,7 @@
                 <h2 class="text-primary">
                     <i class="iconsminds-happy-face" style="font-size: 1.5em;"></i>
                     {{ __('userDashboard.dashboard.welcome') }},
-                    {{ Auth::check() ? Auth::user()->first_name : __('userDashboard.header.guest') }}
+                    {{  Auth::user()->profile->nickname  }}
                 </h2>
                 <div class="separator mb-5"></div>
             </div>
@@ -120,13 +120,32 @@
                         <p class="lead text-center">{{ $countOfMatches }}</p>
                     </div>
                 </a>
-                <a href="#" class="card mb-3">
+                @if (Auth::user()->gender === 'male')
+
+                <a  class="card mb-3">
                     <div class="card-body text-center">
                         <i class="iconsminds-remove" style="font-size: xx-large;"></i>
                         <p class="card-text mb-0">{{ __('userDashboard.dashboard.remaining_contacts') }}</p>
                         <p class="lead text-center">{{ $remainingContacts  ?? 0}}</p>
                     </div>
                 </a>
+                @else
+                <a  class="card mb-3">
+                    <div class="card-body text-center">
+                        <i class="iconsminds-remove" style="font-size: xx-large;"></i>
+                        <p class="card-text mb-0">{{ __('userDashboard.dashboard.subscription') }}</p>
+                        @if ($subscriptionEndsAt)
+                            <p class="card-text mb-0">
+                                {{ __('userDashboard.dashboard.Your_subscription_ends_on') }}: {{ \Carbon\Carbon::parse($subscriptionEndsAt)->format('F j, Y') }}
+                            </p>
+                        @else
+                            <p class="text-danger">
+                                {{ __('userDashboard.dashboard.You_have_no_active_subscription') }}
+                            </p>
+                        @endif
+                    </div>
+                </a>
+                @endif
             </div>
 
             <div class="col-xl-6 col-lg-12 mb-4">
@@ -151,9 +170,11 @@
                                                 <p class="text-muted mb-1 text-small">
                                                     {{ __('userDashboard.dashboard.city') }}: {{ $match['matched_user_city'] ?? __('Unknown') }}
                                                 </p>
-                                                <p class="text-muted mb-1 text-small">
-                                                    {{ __('userDashboard.dashboard.phone') }}: {{ $match['matched_user_phone'] }}
-                                                </p>
+                                                @if (Auth::user()->gender === 'male')
+                                                    <p class="text-muted mb-1 text-small">
+                                                        {{ __('userDashboard.dashboard.phone') }}: {{ $match['matched_user_phone'] }}
+                                                    </p>
+                                                @endif
                                             </div>
                                             <div class="text-primary text-small font-weight-medium d-none d-sm-block">
                                                 {{ $match['created_at'] }}
@@ -203,15 +224,12 @@
                                                             name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}"
                                                             class="form-control"
                                                             required>
-                                                            <option value="Contacted Successfully">{{ __('userDashboard.dashboard.Contacted_Successfully') }}</option>
-                                                            <option value="Guardian Was Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Cooperative') }}</option>
-                                                            <option value="Guardian Was Not Cooperative">{{ __('userDashboard.dashboard.Guardian_Was_Not_Cooperative') }}</option>
-                                                            <option value="Inappropriate Behavior">{{ __('userDashboard.dashboard.Inappropriate_Behavior') }}</option>
-                                                            <option value="No Response from Guardian">{{ __('userDashboard.dashboard.No_Response_from_Guardian') }}</option>
-                                                            <option value="Engagement Happened">{{ __('userDashboard.dashboard.Engagement_Happened') }}</option>
-                                                            <option value="Marriage Happened">{{ __('userDashboard.dashboard.Marriage_Happened') }}</option>
-                                                            <option value="Still in Communication">{{ __('userDashboard.dashboard.Still_in_Communication') }}</option>
-                                                            <option value="Not Serious">{{ __('userDashboard.dashboard.Not_Serious') }}</option>
+                                                                @foreach($feedbackOptions as $key => $labels)
+                                                                    <option value="{{ $key }}"
+                                                                    {{ old(app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en') == $key ? 'selected' : '' }}>
+                                                                    {{ app()->getLocale() === 'ar' ? $labels['ar'] : $labels['en'] }}
+                                                                    </option>
+                                                                @endforeach
                                                         </select>
 
 
@@ -283,7 +301,6 @@
             })
             .then(async res => {
                 const data = await res.json();
-
                 if (res.status === 201) {
                     // ✅ Success
                     const successAlert = form.querySelector('.feedback-success');
@@ -302,13 +319,14 @@
                             $(this).remove();
                         });
 
-                    form.reset();
+
 
                     // Close modal after 1 second
                     setTimeout(() => {
                         $(form.closest('.modal')).modal('hide');
                         // location.reload();
                     }, 1000);
+                    form.reset();
 
                 } else if (res.status === 422) {
                     // ❌ Validation error

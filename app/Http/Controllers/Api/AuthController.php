@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterUserRequest;
 use App\Mail\OTPVerificationMail;
 use App\Models\User;
 use App\Models\VerificationToken;
@@ -18,26 +19,19 @@ class AuthController extends Controller
     /**
      * Register a new user and send OTP for verification.
      */
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         // Validate incoming request
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'phone_number' => 'nullable|string|unique:users,phone_number',
-            'password' => 'required|string|min:6|confirmed',
-            'gender' => 'required|in:male,female',
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-    
+        $validator = $request->validated();
+
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Validation errors',
+        //         'errors' => $validator->errors(),
+        //     ], 422);
+        // }
+
         // Create user
         $user = User::create([
             'first_name' => $request->first_name,
@@ -49,15 +43,15 @@ class AuthController extends Controller
             'role_id' => 2,
             'status' => 'active',
         ]);
-    
+
         // Generate OTP
         $otp = rand(100000, 999999);
-    
+
         // Delete existing OTPs for this user
         VerificationToken::where('user_id', $user->id)
             ->where('token_type', 'otp_verification')
             ->delete();
-    
+
         // Create verification token
         VerificationToken::create([
             'user_id' => $user->id,
@@ -66,10 +60,10 @@ class AuthController extends Controller
             'expires_at' => Carbon::now()->addHour(),
             'is_used' => false,
         ]);
-    
+
         // Send OTP via email
         Mail::to($user->email)->send(new OTPVerificationMail($user, $otp));
-    
+
         return response()->json([
             'success' => true,
             'message' => 'Registration successful. Please verify your email using the OTP sent.',
@@ -178,10 +172,10 @@ class AuthController extends Controller
                 'marriage_budget_id' => null,
                 'sleep_habit_id' => null,
                 'religiosity_level_id' => null,
-
+                'updated_at' => null,
             ]);
         }
-     $token = $user->createToken('API Token')->plainTextToken;
+        $token = $user->createToken('API Token')->plainTextToken;
         return response()->json([
             'success' => true,
             'message' => 'OTP verified successfully.',
@@ -242,6 +236,7 @@ class AuthController extends Controller
             ], 403);
         }
 
+
         // Issue an access token
         $accessToken = $user->createToken('auth_token')->plainTextToken;
 
@@ -249,11 +244,11 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Login successful.',
             'data' => [
-            'access_token' => $accessToken,
-            'token_type' => 'Bearer',
+                'access_token' => $accessToken,
+                'token_type' => 'Bearer',
             ],
         ], 200);
-        }
+    }
 
     /**
      * Resend OTP verification link.

@@ -11,6 +11,7 @@ use App\Http\Resources\LikeResource;
 use App\Http\Resources\MatchResource;
 use App\Mail\LikedNotification;
 use App\Mail\MatchNotification;
+use App\Models\Subscription;
 use App\Models\UserReport;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -99,9 +100,10 @@ class LikeService
         return MatchResource::collection($matches);
     }
 
-    public function likeUserLogic($user, $likedUserId, $lang = 'en')
+    public function likeUserLogic($user, $likedUserId, $lang)
     {
-        $lang = request()->header('Accept-Language', app()->getLocale());
+        // $lang = request()->header('Accept-Language', app()->getLocale());
+        // dd($lang);
         // this inforce the language to be either 'en' or 'ar' to make sure the email is sent in the correct language
         // App::setLocale($lang); // $lang is either 'en' or 'ar'
         $likedUser = User::find($likedUserId);
@@ -109,6 +111,7 @@ class LikeService
         if (!$likedUser) {
             return [
                 'status' => 404,
+                'type' => 'danger',
                 'message' => $lang === 'ar' ? 'المستخدم غير موجود.' : 'User not found.'
             ];
         }
@@ -116,10 +119,28 @@ class LikeService
         if ($user->id === $likedUser->id) {
             return [
                 'status' => 404,
+                'type' => 'danger',
                 'message' => $lang === 'ar' ? 'لا يمكنك الإعجاب بنفسك.' : 'You cannot like yourself.'
             ];
         }
-
+        // Check if user is female and has no active subscription
+        // dd($user->gender);
+        if ($user->gender === 'female') {
+            $activeSubscription = Subscription::where('user_id', $user->id)
+                ->where('status', 'active')
+                ->where('end_date', '>', now())
+                ->exists();
+            // dd($activeSubscription);
+            if (!$activeSubscription) {
+                return [
+                    'status' => 403,
+                    'type' => 'no_subscription',
+                    'message' => $lang === 'ar'
+                        ? 'عذرًا، يجب أن يكون لديك اشتراك نشط لتتمكن من الإعجاب بالمستخدمين.'
+                        : 'Sorry, you need an active subscription to like other users.'
+                ];
+            }
+        }
         $existingDislike = Dislike::where('user_id', $user->id)
             ->where('disliked_user_id', $likedUser->id)
             ->first();
@@ -130,11 +151,12 @@ class LikeService
 
         if (
             Like::where('user_id', $user->id)
-                ->where('liked_user_id', $likedUser->id)
-                ->exists()
+            ->where('liked_user_id', $likedUser->id)
+            ->exists()
         ) {
             return [
                 'status' => 400,
+                'type' => 'danger',
                 'message' => $lang === 'ar' ? 'لقد أعجبت بهذا المستخدم مسبقاً.' : 'Already liked this user.'
             ];
         }
@@ -165,6 +187,7 @@ class LikeService
 
         return [
             'status' => 200,
+            'type' => 'success',
             'message' => $lang === 'ar' ? 'تم الإعجاب بنجاح.' : 'Liked successfully.'
         ];
     }
@@ -176,17 +199,35 @@ class LikeService
         if (!$dislikedUser) {
             return [
                 'status' => 403,
+                'type' => 'danger',
                 'message' => $lang === 'ar' ? 'المستخدم غير موجود.' : 'User not found.'
             ];
         }
+        // Check if user is female and has no active subscription
+        if ($user->gender === 'female') {
+            $activeSubscription = Subscription::where('user_id', $user->id)
+                ->where('status', 'active')
+                ->where('end_date', '>', now())
+                ->exists();
 
+            if (!$activeSubscription) {
+                return [
+                    'status' => 403,
+                    'type' => 'no_subscription',
+                    'message' => $lang === 'ar'
+                        ? 'عذرًا، يجب أن يكون لديك اشتراك نشط لتتمكن من عدم الاعجاب بالمستخدمين.'
+                        : 'Sorry, you need an active subscription to dislike other users.'
+                ];
+            }
+        }
         if (
             Dislike::where('user_id', $user->id)
-                ->where('disliked_user_id', $dislikedUser->id)
-                ->exists()
+            ->where('disliked_user_id', $dislikedUser->id)
+            ->exists()
         ) {
             return [
                 'status' => 400,
+                'type' => 'danger',
                 'message' => $lang === 'ar' ? 'لقد قمت برفض هذا المستخدم مسبقاً.' : 'You have already disliked this user.'
             ];
         }
@@ -206,6 +247,7 @@ class LikeService
 
         return [
             'status' => 200,
+            'type' => 'success',
             'message' => $lang === 'ar' ? 'تم الرفض بنجاح.' : 'Disliked successfully.'
         ];
     }

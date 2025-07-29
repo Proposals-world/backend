@@ -9,13 +9,12 @@
             <div class="mb-2">
                 <h1>{{ ucfirst($userProfile['profile']['nickname'])  }}</h1>
                 <div class="text-zero top-right-button-container">
-                    <a href="{{ route('updateProfile') }}"
-                        class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"
-                       >
-                        {{ __('profile.Update_Profile') }}
-                    </a>
+
+                      <div id="update-container"></div>
+
 
                 </div>
+
 
 
             <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
@@ -40,7 +39,7 @@
                                         </button> --}}
                                 </div>
                                 <img src="{{ collect($userProfile['profile']['photos'])->firstWhere('is_main', 1)['photo_url'] ?? asset('default-profile.png') }}"
-                                alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
+                                alt="{{ $userProfile['profile']['nickname']  }}"
                                 class="card-img-top" />
                                 {{-- <img src="{{ asset(optional($userProfile['profile']['photos']->firstWhere('is_main', 1))->photo_url ?? 'default-profile.png') }}"
                                 alt="{{ $userProfile['first_name'] . ' ' . $userProfile['last_name'] }}"
@@ -107,11 +106,65 @@
                                     </div>
                                 </div>
                             </div> --}}
+                             {{-- <div class="col-lg-6 col-12 mb-4"> --}}
+                                        <div class="card">
+                                            <div class="position-absolute card-top-buttons">
+                                                <button class="btn btn-header-light icon-button">
+                                                </button>
+                                            </div>
 
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <i class="simple-icon-heart"></i> {{ __('profile.Physical_&_Health_Info') }}
+                                                </h5>
+                                                <div>
+                                                    <!-- weight -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.weight') }}:</strong> {{ $userProfile['profile']['weight'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- height -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.height') }}:</strong> {{ $userProfile['profile']['height'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Skin Color -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.Skin_Color') }}:</strong> {{ $userProfile['profile']['skin_color'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Hair Color -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.Hair_Color') }}:</strong> {{ $userProfile['profile']['hair_color'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Hair Color -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.eye_color') }}:</strong> {{ $userProfile['profile']['eye_color'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    {{-- <!-- Health Status -->
+                                                    <div class="d-flex flex-row mb-3">
+                                                        <div class="pl-3 pt-2 pr-2 pb-2">
+                                                            <strong>{{ __('profile.Health_Status') }}:</strong> {{ $userProfile['profile']['health_status'] ?? 'N/A' }}
+                                                        </div>
+                                                    </div> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {{-- </div> --}}
                         </div>
+
                         <div class="col-12 col-lg-7 col-xl-8 col-right">
                             <div class="row listing-card-container">
-                                <div class="row">
+                                {{-- <div class="row"> --}}
                                     <!-- Personal Info & Location Info Card -->
                                     <div class="col-lg-6 col-12 mb-4">
                                         <div class="card">
@@ -162,6 +215,7 @@
                                                             <strong>{{ __('profile.City') }}:</strong> {{ $userProfile['profile']['city'] ?? 'N/A' }}
                                                         </div>
                                                     </div>
+                                                    {{-- {{ dd($userProfile['profile']   ) }} --}}
                                                     <!-- city_location -->
                                                     <div class="d-flex flex-row mb-3">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
@@ -297,9 +351,9 @@
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
                                                               @if ($userProfile['profile']['smoking_status'] == true)
     <a >
-                                                                             <strong> {{ __('profile.Smoking_Tools') }}:
+                                                                             <strong> {{ __('profile.Smoking_Tools') }}:</strong>
                                                                     @foreach ($userProfile['profile']['smoking_tools'] ?? [] as $tool)
-                                                                    </strong><span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
+                                                                    <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ $tool }}</span>
                                                                     @endforeach
                                                                 </a>
                                                             @endif
@@ -314,6 +368,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
 
 
                                     <div class="col-lg-6 col-12 mb-4">
@@ -355,7 +411,7 @@
                                                     @endif
 
 
-                                                    @if ($userProfile['gender'] === 'female')
+                                                    {{-- @if ($userProfile['gender'] === 'female')
                                                     <!-- Hijab Status -->
                                                     <div class="d-flex flex-row">
                                                         <div class="pl-3 pt-2 pr-2 pb-2">
@@ -367,7 +423,7 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        @endif
+                                                        @endif --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -512,60 +568,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="col-lg-6 col-12 mb-4">
-                                        <div class="card">
-                                            <div class="position-absolute card-top-buttons">
-                                                <button class="btn btn-header-light icon-button">
-                                                </button>
-                                            </div>
 
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <i class="simple-icon-heart"></i> {{ __('profile.Physical_&_Health_Info') }}
-                                                </h5>
-                                                <div>
-                                                    <!-- weight -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.weight') }}:</strong> {{ $userProfile['profile']['weight'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <!-- height -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.height') }}:</strong> {{ $userProfile['profile']['height'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <!-- Skin Color -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.Skin_Color') }}:</strong> {{ $userProfile['profile']['skin_color'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Hair Color -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.Hair_Color') }}:</strong> {{ $userProfile['profile']['hair_color'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <!-- Hair Color -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.eye_color') }}:</strong> {{ $userProfile['profile']['eye_color'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    {{-- <!-- Health Status -->
-                                                    <div class="d-flex flex-row mb-3">
-                                                        <div class="pl-3 pt-2 pr-2 pb-2">
-                                                            <strong>{{ __('profile.Health_Status') }}:</strong> {{ $userProfile['profile']['health_status'] ?? 'N/A' }}
-                                                        </div>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                     {{-- <div class="col-lg-6 col-12 mb-4">
                                         <div class="card">
                                             <div class="position-absolute card-top-buttons">
@@ -600,7 +603,7 @@
 
 
 
-                                </div>
+
 
 
 
@@ -610,7 +613,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab">
-                    <div class="row">
+                       <div class="row">
                         @if(empty($likes))
                             <div class="col-12">
                                 <p class="text-center text-muted">{{ __('profile.No_like_yet') }}</p>
@@ -634,9 +637,9 @@
                                                             {{ $like['user']['nickname'] ?? '' }}
                                                         </p>
                                                     </a>
-                                                    <p class="mb-2 text-muted text-small">
-                                                        {{ $like['user']['email'] ?? '' }}
-                                                    </p>
+                                                        {{-- <p class="mb-2 text-muted text-small">
+                                                            {{ $like['user']['email'] ?? '' }}
+                                                        </p> --}}
                                                     {{-- <a href="{{ route('viewUser', $like['liked_user']['id'] ) }}" type="button" class="btn btn-xs btn-outline-primary">View</a> --}}
                                                 </div>
                                             </div>
@@ -646,7 +649,6 @@
                             @endforeach
                         @endif
                     </div>
-
 
 
 
@@ -661,3 +663,72 @@
 
 
 @endsection
+@push('scripts')
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('update-container');
+    const target    = new Date("{{ auth()->user()->profile->nextAllowedUpdateAt()->toIso8601String() }}").getTime();
+
+    // HTML for your active link
+    const linkHtml = `
+      <a href="{{ route('updateProfile') }}"
+         class="btn btn-lg btn-primary mt-3 top-right-button top-right-button-single">
+        {{ __('profile.Update_Profile') }}
+      </a>
+    `;
+
+    // HTML for the locked state
+    function lockedHtml() {
+      return `
+        <button id="update-btn"
+                class="btn btn-lg btn-primary mt-3 top-right-button top-right-button-single"
+                disabled>
+           {{ __('profile.update_Available_in') }}
+          <span id="countdown"></span>
+        </button>
+
+        </small>
+      `;
+    }
+
+    // Render either link or locked UI immediately
+    function renderInitial() {
+      if (Date.now() >= target) {
+        container.innerHTML = linkHtml;
+      } else {
+        container.innerHTML = lockedHtml();
+        startCountdown();
+      }
+    }
+
+    // Kick off the ticking countdown
+    function startCountdown() {
+      const cdEl      = document.getElementById('countdown');
+      const cdSmallEl = document.getElementById('countdown-small');
+
+      function pad(n){ return String(n).padStart(2,'0'); }
+
+      const interval = setInterval(() => {
+        // uncomment the next line to use a specific target time
+        // const diff = target - Date.now();
+        const diff = 0;
+        if (diff <= 0) {
+          clearInterval(interval);
+          return container.innerHTML = linkHtml;
+        }
+        const days = Math.floor(diff/(1000*60*60*24));
+        const hrs  = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+        const mins = Math.floor((diff%(1000*60*60))/(1000*60));
+        const secs = Math.floor((diff%(1000*60))/1000);
+        const human = (days>0 ? days+'d ' : '')
+                    + pad(hrs)+'h '+pad(mins)+'m '+pad(secs)+'s';
+
+        cdEl.textContent      = human;
+        cdSmallEl.textContent = human;
+      }, 1000);
+    }
+
+    renderInitial();
+});
+    </script>
+@endpush

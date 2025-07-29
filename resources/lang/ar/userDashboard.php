@@ -42,7 +42,7 @@ return [
         'job_title' => 'المسمى الوظيفي',
         'position_level' => 'المستوى الوظيفي',
         'financial_status' => 'الوضع المالي',
-
+        'onlyForSubscribedFemales' => 'هذا الإجراء متاح فقط للإناث المشتركين.',
         'hijab_status' => 'الحجاب',
         'yes' => 'نعم',
         'no' => 'لا',
@@ -99,6 +99,7 @@ return [
         'guardian_phone' => 'رقم هاتف الولي',
         'country_of_origin' => 'بلد الأصل',
         'country_of_residence' => 'بلد الإقامة',
+        'city_location' => 'منطقة الإقامة',
     ],
     'findMatch' => [
         'title' => 'ابحث عن شريك حياتك',
@@ -134,6 +135,9 @@ return [
         'delete_account' => 'حذف الحساب',
     ],
     'dashboard' => [
+        'subscription' => 'الاشتراك',
+        'Your_subscription_ends_on' => 'تنتهي اشتراكك في',
+        'You_have_no_active_subscription' => 'ليس لديك اشتراك نشط',
         'welcome' => 'أهلاً',
         'half_matches' => 'تطابق جزئي',
         'matches' => 'التطابقات',
@@ -143,7 +147,7 @@ return [
         'city' => 'المدينة',
         'phone' => 'رقم الهاتف',
         'feedback_label' => 'ملاحظاتك',
-        'outcome' => 'النتيجة',
+        'outcome' => 'التعليق',
         'is_profile_accurate' => 'هل الملف يعكس الحقيقة؟',
         'submit' => 'إرسال',
         'cancel' => 'إلغاء',
@@ -158,7 +162,7 @@ return [
         'Suggested' => 'مقترح',
         '% Match' => ' تطابق  ',
         'Confirm Action female' => 'سيتم خصم رصيد من حسابك ومشاركة اسمك الأول ومعلومات رقم هاتف والدتك مع هذا المستخدم. لا تقلقي، فلن يتم استخدام رصيدك ما لم يكشف الطرف المقابل عن معلومات الاتصال بوكيلك أو ولي أمرك.',
-        'Confirm Action male'   => 'سيتم خصم رصيد من حسابك ومشاركة اسمك الأول ومعلومات رقم هاتف والدك مع هذا المستخدم. لا تقلق، فلن يتم استخدام رصيدك ما لم يكشف الطرف المقابل عن معلومات الاتصال بوكيلك أو ولي أمرك.',
+        'Confirm Action male'   => 'سيتم خصم رصيد من حسابك ومشاركة الأسم الأول للمشتركة ورقم هاتف والدتها  .',
         'Confirm Action' => ' تأكيد الإجراء',
         'Confirm' => 'تأكيد',
         'Cancel' => 'إلغاء',
@@ -202,6 +206,7 @@ return [
         'other_reason_ar' => 'Other Reason (Arabic)',
         'review' => 'مراجعة',
         'Not_Serious' => 'غير جاد',
+        'Provided_Guardian_number_is_not_for_a_real_guardian' => 'رقم الولي المقدم ليس لولي حقيقي',
     ],
     'support' => [
         'title' => 'تذاكر الدعم',

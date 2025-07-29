@@ -21,6 +21,7 @@ class UserFeedbackController extends Controller
 
     public function store(StoreUserFeedbackRequest $request): JsonResponse
     {
+        //dd($request->all());
         $validated = $request->validated();
 
         // 1) Normalize your feedback_text_en / feedback_text_ar as before…
@@ -32,11 +33,11 @@ class UserFeedbackController extends Controller
             ],
             'Guardian Was Cooperative' => [
                 'en' => 'Guardian Was Cooperative',
-                'ar' => 'الولي كان متعاونًا',
+                'ar' => 'الولية كانت متعاونة',
             ],
             'Guardian Was Not Cooperative' => [
                 'en' => 'Guardian Was Not Cooperative',
-                'ar' => 'الولي لم يكن متعاونًا',
+                'ar' => 'الولية لم تكن متعاونة',
             ],
             'Inappropriate Behavior' => [
                 'en' => 'Inappropriate Behavior',
@@ -44,7 +45,7 @@ class UserFeedbackController extends Controller
             ],
             'No Response from Guardian' => [
                 'en' => 'No Response from Guardian',
-                'ar' => 'لا يوجد استجابة من الولي',
+                'ar' => 'لا يوجد استجابة من الولية',
             ],
             'Engagement Happened' => [
                 'en' => 'Engagement Happened',
@@ -61,6 +62,10 @@ class UserFeedbackController extends Controller
             'Not Serious' => [
                 'en' => 'Not Serious',
                 'ar' => 'غير جاد',
+            ],
+            'Provided Guardian Number Invalid' => [
+                'en' => 'Provided guardian number is not for a real guardian',
+                'ar' => 'الرقم المقدم للولية ليس حقيقي',
             ],
         ];
 
@@ -92,7 +97,7 @@ class UserFeedbackController extends Controller
             ->whereIn('feedback_text_en', $negativeTypes)
             ->count();
 
-        if ($negCount >= 2 && $validated['match_id']) {
+        if ($negCount >= 3 && $validated['match_id']) {
             // fetch the match record
             $match = \App\Models\UserMatch::find($validated['match_id']);
             if ($match) {

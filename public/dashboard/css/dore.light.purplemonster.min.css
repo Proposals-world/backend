@@ -1661,7 +1661,7 @@ button {
 }
 #app-container.menu-sub-hidden .menu-button .sub,
 #app-container.sub-hidden .menu-button .sub {
-    fill: #8f8f8f;
+    fill: rgb(146, 44, 136);
 }
 #app-container.main-hidden .menu-button .main,
 #app-container.main-hidden .menu-button .sub,

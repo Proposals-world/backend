@@ -7,12 +7,25 @@
         <!-- Start Content-->
         <div class="container-fluid">
 
+
             <!-- start page title -->
             <div class="row">
+
                 <div class="col-12">
+
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
                         <h4 class="page-title">{{ $user->first_name }} {{ $user->last_name }} Profile</h4>
                         <div class="d-flex justify-content-end">
+                            @if ($substatus === 'active')
+                                <button type="submit" class="btn btn-sm text-success bg- text-white" style="margin-right: 10px; background-color: green; ">
+                                   <i class="ri-checkbox-circle-line"></i> Subscribed
+                                </button>
+                                @else
+                                <button type="submit" class="btn btn-sm text-danger bg-danger text-white" style="margin-right: 10px;">
+                                    <i class="ri-close-line"></i> Not Subscribed
+                                </button>
+
+                           @endif
                             @if ($user->status == 'active')
                             <form action="{{ route('deactivate', $user->id) }}" method="POST" style="display: inline;" id="status-form-{{ $user->id }}">
                                 @csrf
@@ -30,8 +43,33 @@
                                 </button>
                             </form>
                             @endif
+                            {{-- {{ dd($substatus) }} --}}
+
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between mb-4">
+  @if($previous)
+    <a
+      href="{{ route('userprofile', $previous->id) }}"
+      class="btn btn-outline-secondary " style="background-color: #9e086c; color: white !important;"
+    >
+      &laquo; Previous
+    </a>
+  @else
+    <span></span>
+  @endif
+
+  @if($next)
+    <a
+      href="{{ route('userprofile', $next->id) }}"
+      class="btn btn-outline-secondary"style="background-color: #9e086c; color: white !important;"
+    >
+      Next &raquo;
+    </a>
+  @else
+    <span></span>
+  @endif
+</div>
                 </div>
             </div>
             <!-- end page title -->
@@ -448,6 +486,7 @@
                                 </button>
                             </form>
                             @endif
+
                         </div>
 
                                         <!-- Add rest of your form content here -->
@@ -524,23 +563,6 @@
     }
     </script>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            var quillEn = new Quill('#editor-en', {
-                theme: 'snow'
-            });
 
-            var quillAr = new Quill('#editor-ar', {
-                theme: 'snow'
-            });
 
-            document.getElementById("blogForm").addEventListener("submit", function() {
-                document.getElementById("content_en").value = quillEn.root.innerHTML;
-                document.getElementById("content_ar").value = quillAr.root.innerHTML;
-            });
-
-            // Initialize Select2
-            $('#categories').select2();
-
-        });
-    </script>
 @endpush

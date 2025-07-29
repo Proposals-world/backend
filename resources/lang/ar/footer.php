@@ -18,7 +18,7 @@ return [
     'phone'        => '1800-121-3637<br>+91 555 234-8765',
     'email'        => '<a href="mailto:info@proposals.world">info@proposals.world</a><br><a href="mailto:sales@proposals.world">sales@proposals.world</a>',
     'address'      => 'عمان - الأردن',
-
+    'privacy_policy' => 'سياسة الخصوصية',
     // حقوق الطبع والنشر
     'copyright'    => '&copy; Proposals.world. جميع الحقوق محفوظة.',
 ];

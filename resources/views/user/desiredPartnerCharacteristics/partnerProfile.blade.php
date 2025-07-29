@@ -81,7 +81,7 @@
 
                     </div>
                     <div id="field-limit-counter" class="alert alert-info py-2 px-3 mb-3 shadow-sm"
-                        style="font-size: 16px; position: sticky; top: 105px; left: 0; z-index: 1000;">
+                        style="font-size: 16px; position: sticky; top: 105px; left: 0; z-index: 1;">
                         {{ __('profile.You can select up to 10 fields. Remaining:') }}
                         <strong id="remaining-count">10</strong>
                     </div>
@@ -337,7 +337,7 @@
                                                             for="city_id">{{ __('profile.Partner_City') }}</label>
                                                         <select class="form-control" name="preferred_city_id"
                                                             id="city_id">
-                                                            <option value="">{{ __('onboarding.select_city') }}
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}
                                                             </option>
                                                             @if (!empty($cities))
                                                                 @foreach ($cities as $city)
@@ -429,7 +429,7 @@
                                                     </h5>
 
                                                     {{-- Religion --}}
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_religiosity_level">{{ __('profile.Partner_Religion') }}</label>
                                                         <select class="form-control" name="preferred_religion_id" id="religion_id">
@@ -443,7 +443,7 @@
                                                             @endforeach
                                                         </select>
 
-                                                    </div>
+                                                    </div> --}}
                                                     {{-- Religiosity Level --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
@@ -1462,7 +1462,7 @@ $(document).ready(function () {
                 $('#country_id').on('change', function() {
                     var countryId = $(this).val();
                     $('#city_id').empty().append(
-                        '<option value="">{{ __('onboarding.select_city') }}</option>');
+                        '<option value="">{{ __('profile.Partner_No_Preference') }}</option>');
                     if (countryId) {
                         $.ajax({
                             url: "{{ route('cities.by.country', '') }}/" + countryId,
@@ -1488,7 +1488,7 @@ $(document).ready(function () {
                     $('#country_id').on('change', function() {
                         var countryId = $(this).val();
                         $('#city_id').empty().append(
-                            '<option value="">{{ __('onboarding.select_city') }}</option>'
+                            '<option value="">{{ __('profile.Partner_No_Preference') }}</option>'
                             ); // Clear the cities dropdown
                         if (countryId) {
                             loadCities(countryId);

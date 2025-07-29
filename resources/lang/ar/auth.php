@@ -31,7 +31,13 @@ return [
     'gender' => 'الجنس',
     'male' => 'ذكر',
     'female' => 'أنثى',
-    'terms' => 'أوافق على شروط الخدمة وسياسة الخصوصية',
+    'terms' => 'أوافق على ',
+    'Terms and Conditions' => 'الشروط والأحكام',
+    'Privacy Policy' => 'سياسة الخصوصية',
+    'passwordInsturction' => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، حرف صغير واحد، رقم واحد ورمز خاص واحد.',
+
+    'and' => ' و',
+    'privacy_policy' => 'سياسة الخصوصية',
     'current_password' => 'كلمة المرور الحالية',
     'new_password' => 'كلمة المرور الجديدة',
     'confirm_new_password' => 'تأكيد كلمة المرور الجديدة',
@@ -42,4 +48,7 @@ return [
     'confirm_with_password' => 'تأكيد باستخدام كلمة المرور',
     'delete_my_account' => 'حذف حسابي',
     'deleting' => 'جاري الحذف...',
+    'Country_code' => 'الدولة',
+    'select_country' => 'اختر الدولة',
+    'phone_placeholder' => 'أدخل رقم هاتفك بناءً على دولتك',
 ];

@@ -33,11 +33,24 @@ return [
     ],
 
     'custom' => [
+        'first_name' => [
+            'min' => 'The first name must be at least :min characters.',
+            'max' => 'The first name may not be greater than :max characters.',
+        ],
+        'last_name' => [
+            'min' => 'The last name must be at least :min characters.',
+            'max' => 'The last name may not be greater than :max characters.',
+        ],
         'email' => [
             'lowercase' => 'The email must be entirely lowercase.',
         ],
         'phone_number' => [
             'regex' => 'Your phone number must be exactly 10 digits and start with 078, 077, or 079.',
+            'phone' => 'The :attribute is not a valid phone number for the selected country.',
+        ],
+        'country_code' => [
+            'required' => 'Please select a country.',
+            'size'     => 'The selected country is invalid.',
         ],
     ],
 
@@ -54,6 +67,7 @@ return [
         'phone_number' => 'phone number',
         'gender'       => 'gender',
         'password'     => 'password',
+        'country_code' => 'Country',
     ],
-
+    'account_not_active' => 'Your account is not active. If you think this is an issue, please contact support@proposals.world.'
 ];

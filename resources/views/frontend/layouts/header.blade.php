@@ -19,6 +19,7 @@
                              <nav id="mobile-menu">
                                 <ul id="header-ul">
                                     <div></div>
+                                    {{-- <li><a href="{{ url('/') }}" style="{{ app()->getLocale() === 'ar' ? 'color: #ff3494;' : '' }}">{{ __('header.home') }}</a></li> --}}
                                     <li ><a href="{{ route('about-us') }}">{{ __('header.about_us') }}</a></li>
                                     <li><a href="{{ url('/') }}#features">{{ __('header.features') }}</a></li>
                                     <li><a href="{{ url('/') }}#blog">{{ __('header.blog') }}</a></li>

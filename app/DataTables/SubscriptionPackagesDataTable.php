@@ -69,6 +69,7 @@ class SubscriptionPackagesDataTable extends DataTable
             'package_name_ar',
             'price',
             'contact_limit',
+            'duration',
         ];
     }
 

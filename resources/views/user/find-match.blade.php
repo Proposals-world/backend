@@ -1,7 +1,9 @@
 @extends('user.layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
+<link rel="stylesheet" href="{{ asset('dashboard/css/findAmatch.css') }}" />
+
+
     {{-- Match Profile Modal --}}
 
     <div class="modal fade {{ app()->getLocale() === 'ar' ? 'modal-left' : 'modal-right' }}" id="profileModalRight"
@@ -52,6 +54,9 @@
                                 <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
+                                 <div class="col-md-6 mb-2">
+                                <strong>{{ __('userDashboard.matches.city_location') }}:</strong> <span id="city_location"></span>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -72,15 +77,24 @@
                     <form method="POST" action="{{ route('user.like') }}" style="display:inline;">
                         @csrf
                         <input type="hidden" name="liked_user_id" value="">
-                        <button class="btn btn-sm btn-outline-primary" type="submit">
-                            <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like') }}
-                        </button>
+                       <button class="btn btn-sm btn-outline-primary" type="submit"
+        @if(auth()->user()->gender == 'female' )
+        title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
+        @endif
+        @if(auth()->user()->gender == 'female' ) disabled @endif>
+    <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like') }}
+</button>
                     </form>
 
                     <form method="POST" action="{{ route('user.dislike') }}" style="display:inline;">
                         @csrf
                         <input type="hidden" name="disliked_user_id" value="">
-                        <button class="btn btn-sm btn-outline-danger" type="submit">
+                        <button class="btn btn-sm btn-outline-danger" type="submit"
+                         @if(auth()->user()->gender == 'female' )
+                        title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
+                        @endif
+                        @if(auth()->user()->gender == 'female' ) disabled @endif
+                        >
                             <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.Fdislike') }}
                         </button>
                     </form>
@@ -116,6 +130,26 @@
                 </div>
             </div>
         </div>
+        {{-- {{ dd(session('status')) }} --}}
+        @if ( (session('status')) &&(session('alert-type')  == 'no_subscription'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 1rem;">
+        {{ session('status') }}
+        {{-- {{ session('alert-type') }} --}}
+            <a href="{{ route('user.pricing') }}" style="text-decoration: underline; font-size: 1rem;" class="fw-bold text-danger">{{ __('userDashboard.dashboard.Subscription_Now') }}</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+    </div>
+@endif
+
+@if (session('status') &&(session('alert-type')  != 'no_subscription'))
+    <div class="alert alert-{{ session('alert-type', 'info') }} alert-dismissible fade show" role="alert" style="font-size: 1rem;">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
         {{-- @if ($filledPreferenceCount >= 2) --}}
 
             <!-- Clear Section Division for Exact Matches -->
@@ -633,6 +667,7 @@
                         $('#modalAge').text(user.profile?.age || 'N/A');
                         $('#modalNationality').text(user.profile?.nationality || 'N/A');
                         $('#modalCity').text(user.profile?.city || 'N/A');
+                        $('#modalCity').text(user.profile?.city_location || 'N/A');
                         $('#modalPhone').text(user.phone_number || 'N/A');
                         $('#modalCountryOfResidence').text(user.profile?.country_of_residence || 'N/A');
 $('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');

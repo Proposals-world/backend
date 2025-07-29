@@ -97,19 +97,38 @@ class UserProfileController extends Controller
     public function update(UpdateUserProfileRequest $request)
     {
         $user = $request->user();
-
+        // put if stament to to check param sent from the postman to handle it
         if (!$user) {
             return response()->json([
                 'message' => 'Unauthorized.'
             ], 401);
         }
+        $isFirstUpdate = $request->boolean('isFirstUpdate');
+        if (!$isFirstUpdate) {
 
+            // if (! $user->profile->canBeUpdated()) {
+            //     $next = $user->profile->nextAllowedUpdateAt()
+            //         ->format('d/m/Y H:i:s');
+
+            //     return response()->json([
+            //         'success'                => false,
+            //         'message'                => 'You cannot update your profile until 14 days have passed.',
+            //         'next_update_available'  => $next,
+            //     ], 403);
+            // }
+        }
         $validated = $request->validated();
+        $validated['_guardian_full'] = $request->input('_guardian_full');
 
+        // dd($validated);
         $lang = $request->header('Accept-Language', 'en');
-
+        // dd($lang);
         $userProfile = $this->userProfileService->updateProfile($user, $validated, $lang);
-
+        if (isset($userProfile['error'])) {
+            return response()->json([
+                'message' => $userProfile['error']
+            ], 400);
+        }
         return new UserProfileResource($userProfile, $lang);
     }
     /**

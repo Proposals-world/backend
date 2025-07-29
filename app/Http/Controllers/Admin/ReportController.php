@@ -8,6 +8,7 @@ use App\Models\Report;
 use App\Models\UserReport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserReportRequest;
+use App\Models\User;
 
 class ReportController extends Controller
 {
@@ -51,17 +52,27 @@ class ReportController extends Controller
                 $data['other_reason_ar'] = $request->input('other_reason_ar') ?? null;
             }
 
-            $existingReportsCount = UserReport::where('reporter_id', $data['reporter_id'])
-                ->where('reported_id', $data['reported_id'])
+            $existingReportsCount = UserReport::where('reported_id', $data['reported_id'])
                 ->count();
 
             $data['report_count'] = $existingReportsCount + 1;
+
             // dd($data);
             UserReport::create($data);
+            // Check if this is the 3rd report and suspend the account if needed
+            if ($data['report_count'] >= 3) {
+                $reportedUser = User::find($data['reported_id']);
+                if ($reportedUser) {
+                    $reportedUser->status = 'suspended'; // or INACTIVE, depending on your enum
+                    $reportedUser->save();
 
+                    // You might want to log this action or notify the user
+                    // \Log::info("User {$reportedUser->id} suspended due to multiple reports");
+                }
+            }
             return response()->json(['message' => 'Report added successfully'], 201);
         } catch (\Throwable $e) {
-            \Log::error('Error in ReportController@store: ' . $e->getMessage(), ['exception' => $e]);
+            \Log::error('Error: ' . $e->getMessage(), ['exception' => $e]);
             return response()->json([
                 'message' => 'An error occurred while submitting the report. Please try again.',
                 'error' => $e->getMessage(),

@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Models\UserProfile;
 use App\Models\UserPreference;
 use App\Models\UserReport;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,22 +23,20 @@ class UserFilterService
 
         $reportedUsers = UserReport::where('reporter_id', Auth::id())->pluck('reported_id');
 
-
-
         $baseQuery = UserProfile::with(['user', 'user.photos', 'user.pets', 'smokingTools'])
+            ->whereNotNull('nickname') // Exclude profiles without nickname
             ->whereHas('user', function ($subQ) {
                 $subQ->where('gender', '!=', Auth::user()->gender)
                     ->where('role_id', '!=', 1)
-                    ->where('status', 'active');  // Add this line to filter by active status in the user table
+                    ->where('status', 'active');
             });
 
         //  dd($baseQuery->count());
         $likedUsers    = Like::where('user_id', Auth::id())->pluck('liked_user_id');
         $dislikedUsers = Dislike::where('user_id', Auth::id())->pluck('disliked_user_id');
-        $baseQuery->whereNotIn('id', $likedUsers)
-            ->whereNotIn('id', $dislikedUsers)
-            ->whereNotIn('id', $reportedUsers);
-
+        $baseQuery->whereNotIn('user_profiles.id', $likedUsers)
+            ->whereNotIn('user_profiles.id', $dislikedUsers)
+            ->whereNotIn('user_profiles.id', $reportedUsers);
         if (!$isFromFilter) {
             // When isFilter = false, use ONLY the user's saved preferences.
             // We explicitly pull out only the non-null preferences and build the filters array.
@@ -207,6 +206,7 @@ class UserFilterService
         if (is_string($ageMax) && strtolower($ageMax) === 'any') {
             $ageMax = null;
         }
+
         $exactQuery = clone $baseQuery;
 
         if (!is_null($ageMin) && !is_null($ageMax)) {
@@ -222,7 +222,8 @@ class UserFilterService
         Log::debug('UserFilterService - Exact Query SQL', ['sql' => $exactQuery->toSql()]);
         Log::debug('UserFilterService - Exact Query Bindings', ['bindings' => $exactQuery->getBindings()]);
 
-        $exactMatches = $exactQuery->get();
+        // Apply subscription-based ordering for females
+        $exactMatches = $this->applySubscriptionOrdering($exactQuery);
 
         $nonNullFilters = array_filter($filters, fn($v) => !is_null($v));
         $totalFilters   = count($nonNullFilters);
@@ -277,16 +278,78 @@ class UserFilterService
         }
 
         $suggestionPool = $suggestionPool->sortByDesc('suggestion_ratio')->values();
-        $suggestedUsers = $suggestionPool->take(10);
+
+        // Apply subscription-based ordering for suggested users as well
+        $suggestedUsers = $this->applySubscriptionOrderingToCollection($suggestionPool)->take(10);
 
         $suggestedPercentage = $suggestionPool->isNotEmpty()
             ? round($suggestionPool->first()->suggestion_ratio, 2)
             : 0;
-        // dd(FilteredUserResource::collection($exactMatches));
+
         return [
             'exact_matches' => FilteredUserResource::collection($exactMatches),
             'suggested_users' => FilteredUserResource::collection($suggestedUsers),
             'suggestion_percentage' => $suggestedPercentage
         ];
+    }
+
+    /**
+     * Apply subscription-based ordering to a query builder
+     * Prioritizes subscribed females first, then non-subscribed females
+     */
+    private function applySubscriptionOrdering($query)
+    {
+        // Check if the current user is looking for females
+        $currentUserGender = Auth::user()->gender;
+        $lookingForFemales = $currentUserGender !== 'female';
+
+        if ($lookingForFemales) {
+            // Add subscription information and order by subscription status
+            $query->leftJoin('subscriptions', function ($join) {
+                $join->on('user_profiles.id', '=', 'subscriptions.user_id')
+                    ->where('subscriptions.status', '=', 'active')
+                    ->where('subscriptions.end_date', '>', now());
+            })
+                ->select('user_profiles.*')
+                ->selectRaw('CASE WHEN subscriptions.id IS NOT NULL THEN 1 ELSE 0 END as has_active_subscription')
+                ->orderByDesc('has_active_subscription')
+                ->orderBy('user_profiles.created_at', 'desc');
+        } else {
+            // For non-female seekers, maintain random order
+            $query->inRandomOrder();
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * Apply subscription-based ordering to a collection
+     * Prioritizes subscribed females first, then non-subscribed females
+     */
+    private function applySubscriptionOrderingToCollection($collection)
+    {
+        // Check if the current user is looking for females
+        $currentUserGender = Auth::user()->gender;
+        $lookingForFemales = $currentUserGender !== 'female';
+
+        if ($lookingForFemales && $collection->isNotEmpty()) {
+            // Get user IDs from the collection
+            $userIds = $collection->pluck('id')->toArray();
+
+            // Get active subscriptions for these users
+            $activeSubscriptions = Subscription::where('status', 'active')
+                ->where('end_date', '>', now())
+                ->whereIn('user_id', $userIds)
+                ->pluck('user_id')
+                ->toArray();
+
+            // Sort collection: subscribed users first, then non-subscribed
+            return $collection->sortBy(function ($user) use ($activeSubscriptions) {
+                return in_array($user->id, $activeSubscriptions) ? 0 : 1;
+            })->values();
+        }
+
+        // For non-female seekers or empty collection, return as is (shuffled)
+        return $collection->shuffle();
     }
 }

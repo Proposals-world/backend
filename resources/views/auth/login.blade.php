@@ -5,7 +5,7 @@
     @include("admin.partials.title-meta")
     @include('admin.partials.head-css')
     @if (app()->getLocale() === 'ar')
-        
+
     <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
     @endif
 </head>
@@ -13,7 +13,7 @@
 <body class="authentication-bg pb-0">
 
     <div class="auth-fluid">
-        
+
         <!-- Auth fluid right content -->
         <div class="auth-fluid-right text-center">
             <div class="auth-user-testimonial">
@@ -78,8 +78,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="checkbox-signin" name="remember">
+                            <div class="form-check @if(app()->getLocale() === 'ar') d-flex flex-row-reverse justify-content-end align-items-center @endif">
+                                <input type="checkbox" class="form-check-input" id="checkbox-signin" name="remember" @if(app()->getLocale() === 'ar') style="margin-left: 0.5em; margin-right: 0;" @endif>
                                 <label class="form-check-label" for="checkbox-signin">{{ __('auth.remember_me') }}</label>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
 
                 <!-- Footer-->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">{{ __('auth.not_receive_email') }} <a href="{{ route('register') }}" class="text-muted ms-1"><b>{{ __('auth.register') }}</b></a></p>
+                    <p class="text-muted">{{ __('auth.not_receive_email') }} <a href="{{ route('register') }}" class=" ms-1"><b>{{ __('auth.register') }}</b></a></p>
                 </footer>
             </div>
         </div>

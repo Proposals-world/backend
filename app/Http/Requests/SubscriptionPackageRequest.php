@@ -16,8 +16,11 @@ class SubscriptionPackageRequest extends FormRequest
         return [
             'package_name_en' => 'required|string|max:255',
             'package_name_ar' => 'required|string|max:255',
-            'price'          => 'required|numeric|min:0',
-            'contact_limit'  => 'required|integer|min:0',
+            'price'          => 'nullable|numeric|min:0',
+            'target_gender'  => 'required|in:male,female',
+
+            'contact_limit'  => 'nullable|integer|min:0|required_if:target_gender,male',
+            'duration'       => 'nullable|integer|min:0|required_if:target_gender,female',
         ];
     }
 }

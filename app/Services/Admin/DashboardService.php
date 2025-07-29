@@ -7,6 +7,7 @@ use App\Models\UserMatch;
 use App\Models\Subscription;
 use App\Models\SubscriptionContact;
 use App\Models\PaymentTransaction;
+use App\Models\UserFeedback;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,14 @@ class DashboardService
 
         // Get the total number of matches using UserMatch model
         $totalMatches = UserMatch::count();
-
+        // Get the total number of subscriptions
+        $totalSubscriptions = Subscription::count();
+        $totalSubscriptionsMale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'male');
+        })->count();
+        $totalSubscriptionsFemale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female');
+        })->count();
         // Get the number of users last month
         $lastMonthUsers = User::where('role_id', 2)
             ->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
@@ -32,6 +40,18 @@ class DashboardService
 
         // Get the number of matches since last month
         $matchesSinceLastMonth = UserMatch::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
+        $subscriptionsSinceLastMonth = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
+
+        $subscriptionsSinceLastMonthMale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->whereHas('user', function ($query) {
+                $query->where('gender', 'male');
+            })
+            ->count();
+        $subscriptionsSinceLastMonthFemale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->whereHas('user', function ($query) {
+                $query->where('gender', 'female');
+            })
+            ->count();
 
         // Calculate growth percentage for this month
         $growthPercentage = $lastMonthUsers > 0 ? (($thisMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
@@ -44,7 +64,32 @@ class DashboardService
         $thisMonthRevenue = PaymentTransaction::where('transaction_status', 'success')
             ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
             ->sum('amount');
+        // Count feedbacks where feedback_text_en contains 'Engagement Happened'
+        $engagementFeedbackCount = UserFeedback::where('feedback_text_en', 'like', '%Engagement Happened%')
+            ->count();
 
+        // Count feedbacks where feedback_text_en contains 'Marriage happened'
+        $marriageFeedbackCount = UserFeedback::where('feedback_text_en', 'like', '%Marriage Happened%')
+            ->count();
+        // Get Currently Active Subscriptions
+        $now = Carbon::now();
+
+        // Male subscriptions: contacts_remaining > 0
+        $maleSubsCount = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'male');
+        })
+            ->where('contacts_remaining', '>', 0)
+            ->count();
+
+        // Female subscriptions: end_date >= now (not expired)
+        $femaleSubsCount = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female');
+        })
+            ->where('end_date', '>=', $now)
+            ->count();
+
+        // Total sum of these two counts
+        $totalContactsCurrentlySubed = $maleSubsCount + $femaleSubsCount;
         return [
             'total_users' => $totalUsers,
             'total_matches' => $totalMatches,
@@ -53,6 +98,15 @@ class DashboardService
             'matches_since_last_month' => $matchesSinceLastMonth,
             'total_revenue' => $totalRevenue,
             'this_month_revenue' => $thisMonthRevenue,
+            'total_subscriptions' => $totalSubscriptions,
+            'subscriptions_since_last_month' => $subscriptionsSinceLastMonth,
+            'subscriptionsSinceLastMonthMale' => $subscriptionsSinceLastMonthMale,
+            'subscriptionsSinceLastMonthFemale' => $subscriptionsSinceLastMonthFemale,
+            'totalSubscriptionsMale' => $totalSubscriptionsMale,
+            'totalSubscriptionsFemale' => $totalSubscriptionsFemale,
+            'engagement_feedback_count' => $engagementFeedbackCount,
+            'marriage_feedback_count' => $marriageFeedbackCount,
+            'totalContactsCurrentlySubed' => $totalContactsCurrentlySubed,
         ];
     }
 
@@ -83,8 +137,8 @@ class DashboardService
             ->pluck('total_sales', 'month');
 
         // Ensure all months are included
-        $formattedRevenueData = $months->mapWithKeys(fn ($month) => [$month => $revenueData[$month] ?? 0]);
-        $formattedSalesData = $months->mapWithKeys(fn ($month) => [$month => $salesData[$month] ?? 0]);
+        $formattedRevenueData = $months->mapWithKeys(fn($month) => [$month => $revenueData[$month] ?? 0]);
+        $formattedSalesData = $months->mapWithKeys(fn($month) => [$month => $salesData[$month] ?? 0]);
 
         // Get total revenue and current month revenue (using transaction_status instead of status)
         $totalRevenue = PaymentTransaction::where('transaction_status', 'success')->sum('amount');
@@ -109,10 +163,10 @@ class DashboardService
     {
         // Total Users with role_id = 2
         $totalUsers = User::where('role_id', 2)->count();
-    
+
         // Total Sales (using transaction_status instead of status)
         $totalSales = PaymentTransaction::where('transaction_status', 'success')->count();
-    
+
         // Sales by city (using transaction_status instead of status)
         $salesByCity = PaymentTransaction::join('subscriptions', 'payment_transactions.subscription_id', '=', 'subscriptions.id')
             ->join('users', 'subscriptions.user_id', '=', 'users.id')
@@ -124,19 +178,19 @@ class DashboardService
             ->groupBy('cities.name_en')
             ->orderBy('total_sales', 'desc')
             ->get();
-    
+
         // Preparing data for the chart
         $cityNames = $salesByCity->pluck('city');
         $citySales = $salesByCity->pluck('total_sales');
-    
+
         // Calculate Sales Percentage based on total contacts purchased vs total possible contacts
         $salesPercentage = $totalUsers > 0 ? round(($totalSales / $totalUsers) * 100) : 0;
-        
+
         // Get contact usage percentage
         $totalContacts = SubscriptionContact::count();
         $accessedContacts = SubscriptionContact::whereNotNull('accessed_at')->count();
         $contactUsagePercentage = $totalContacts > 0 ? round(($accessedContacts / $totalContacts) * 100) : 0;
-    
+
         return [
             'total_sales' => $totalSales,
             'city_names' => $cityNames,

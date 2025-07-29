@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        @if (session('status'))
+        {{-- @if (session('status'))
             <div class="col-12">
                 <div class="alert alert-info alert-dismissible fade show shadow-sm" role="alert">
                     <i class="simple-icon-info mr-2"></i> {{ session('status') }}
@@ -31,7 +31,26 @@
                     </button>
                 </div>
             </div>
-        @endif
+        @endif --}}
+       @if ( (session('status')) &&(session('alert-type')  == 'no_subscription'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 1rem;">
+        {{ session('status') }}
+        {{-- {{ session('alert-type') }} --}}
+            <a href="{{ route('user.pricing') }}" style="text-decoration: underline; font-size: 1rem;" class="fw-bold text-danger">{{ __('userDashboard.dashboard.Subscription_Now') }}</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+    </div>
+@endif
+
+@if (session('status') &&(session('alert-type')  != 'no_subscription'))
+    <div class="alert alert-{{ session('alert-type', 'info') }} alert-dismissible fade show" role="alert" style="font-size: 1rem;">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 
         <div class="row list disable-text-selection" id="suggestedMatchResults">
             @if ($profiles->count() > 0)
@@ -127,6 +146,11 @@
                                 <div class="col-md-6 mb-2">
                                     <strong>{{ __('userDashboard.matches.city_of_Residence') }}:</strong> <span id="modalCity"></span>
                                 </div>
+
+                                 <div class="col-md-6 mb-2">
+                                <strong>{{ __('userDashboard.matches.city_location') }}:</strong> <span id="city_location"></span>
+                            </div>
+
                             </div>
                         </div>
                     </div>
@@ -147,7 +171,12 @@
                     <form method="POST" action="{{ route('user.like') }}" style="display:inline;">
                         @csrf
                         <input type="hidden" name="liked_user_id" value="">
-                        <button class="btn btn-sm btn-outline-primary" type="submit">
+                        <button class="btn btn-sm btn-outline-primary" type="submit"
+                         @if(auth()->user()->gender == 'female' )
+        title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
+        @endif
+        @if(auth()->user()->gender == 'female' ) disabled @endif
+                        >
                             <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like_back') }}
                         </button>
                     </form>
@@ -155,7 +184,12 @@
                     <form method="POST" action="{{ route('user.dislike') }}" style="display:inline;">
                         @csrf
                         <input type="hidden" name="disliked_user_id" value="">
-                        <button class="btn btn-sm btn-outline-danger" type="submit">
+                        <button class="btn btn-sm btn-outline-danger" type="submit"
+                         @if(auth()->user()->gender == 'female' )
+                        title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
+                        @endif
+                        @if(auth()->user()->gender == 'female' ) disabled @endif
+                        >
                             <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.dislike') }}
                         </button>
                     </form>
@@ -332,6 +366,7 @@
                 $('#modalAge').text(profile.profile.age || 'N/A');
                 $('#modalNationality').text(profile.profile.nationality || 'N/A');
                 $('#modalCity').text(profile.profile.city || 'N/A');
+                                $('#city_location').text(profile.profile.city_location || 'N/A');
                                 $('#modalCountryOfResidence').text(profile.profile.country_of_residence || 'N/A');
                 $('#modalCountryOfOrigin ').text(profile.profile.origin || 'N/A');
 

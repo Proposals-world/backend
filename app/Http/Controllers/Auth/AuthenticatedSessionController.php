@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             Auth::logout();
 
             return back()->withErrors([
-                'email' => 'Your account is not active. If you think this is an issue, please contact support@proposals.world. ',
+                'email' => __('validation.account_not_active'),
             ]);
         }
 

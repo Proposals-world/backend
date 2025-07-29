@@ -42,8 +42,10 @@ use App\Http\Controllers\Api\Tickets\TicketsController;
 use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
+use App\Http\Controllers\Api\SubscriptionContactController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPreferenceController;
@@ -57,6 +59,7 @@ Route::post('/password/email', [PasswordResetController::class, 'sendResetOTP'])
 Route::post('/password/verify-otp', [PasswordResetController::class, 'verifyOTP']);
 Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Protected Routes
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
@@ -83,7 +86,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
         Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
     });
-    //jop-title
+    // Record a contact for the user 
+    Route::post('/subscription', [SubscriptionContactController::class, 'store']);
+
+    // Get subscription contact info for the user
+    Route::get('/show-subscription', [SubscriptionContactController::class, 'show']);
     //mariage-buget
     Route::get('/drinking-statuses', [DrinkingStatusController::class, 'index']);
     Route::get('/hair-colors', [HairColorController::class, 'index']);
@@ -144,5 +151,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
         Route::post('/send-template', [WhatsAppController::class, 'sendTemplateMessage']); // Added new template route
     });
-
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -64,6 +65,7 @@ class AdminController extends Controller
     public function show(string $userid)
     {
         $user = User::with([
+            'subscription.package',
             'profile' => function ($query) {
                 $query->with([
                     'nationality',
@@ -91,7 +93,19 @@ class AdminController extends Controller
             'likedBy.user.profile',
             'dislikedBy.user.profile',
 
+
         ])->findOrFail($userid);
-        return view('admin.viewUser', compact('user')); // Ensure this view exists
+        $previous = User::where('id', '<', $user->id)
+            ->orderBy('id', 'desc')
+            ->first();
+        $next     = User::where('id', '>', $user->id)
+            ->orderBy('id', 'asc')
+            ->first();
+        $substatus = Subscription::where('user_id', $user->id)
+            ->latest()
+            ->value('status');
+
+        // dd($subs);
+        return view('admin.viewUser', compact('user', 'previous', 'next', 'substatus')); // Ensure this view exists
     }
 }

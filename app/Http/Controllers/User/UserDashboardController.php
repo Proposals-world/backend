@@ -10,6 +10,7 @@ use App\Models\SubscriptionPackage;
 use App\Models\UserReport;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subscription;
+use Carbon\Carbon;
 
 class UserDashboardController extends Controller
 {
@@ -55,12 +56,77 @@ class UserDashboardController extends Controller
         $remainingContacts  = Subscription::where('user_id', Auth::id())
             ->value('contacts_remaining');
 
+        $feedbackOptions = [
+            'Contacted Successfully' => [
+                'en' => 'Contacted Successfully',
+                'ar' => 'تم التواصل بنجاح',
+            ],
+            'Guardian Was Cooperative' => [
+                'en' => 'Guardian Was Cooperative',
+                'ar' => 'الولية كانت متعاونة',
+            ],
+            'Guardian Was Not Cooperative' => [
+                'en' => 'Guardian Was Not Cooperative',
+                'ar' => 'الولية لم تكن متعاونة',
+            ],
+            'Inappropriate Behavior' => [
+                'en' => 'Inappropriate Behavior',
+                'ar' => 'سلوك غير لائق',
+            ],
+            'No Response from Guardian' => [
+                'en' => 'No Response from Guardian',
+                'ar' => 'لا يوجد استجابة من الولية',
+            ],
+            'Engagement Happened' => [
+                'en' => 'Engagement Happened',
+                'ar' => 'حدثت خطوبة',
+            ],
+            'Marriage Happened' => [
+                'en' => 'Marriage Happened',
+                'ar' => 'تم الزواج',
+            ],
+            'Still in Communication' => [
+                'en' => 'Still in Communication',
+                'ar' => 'ما زلنا على تواصل',
+            ],
+            'Not Serious' => [
+                'en' => 'Not Serious',
+                'ar' => 'غير جاد',
+            ],
+            'Provided Guardian Number Invalid' => [
+                'en' => 'Provided guardian number is not for a real guardian',
+                'ar' => 'الرقم المقدم للولية ليس حقيقي',
+            ],
+        ];
+        // if female, drop these keys in one go
+        if (Auth::user()->gender === 'female') {
+            $remove = [
+                'Contacted Successfully',
+                'Guardian Was Cooperative',
+                'Guardian Was Not Cooperative',
+                'No Response from Guardian',
+                'Provided Guardian Number Invalid',
+            ];
+            $feedbackOptions = array_diff_key(
+                $feedbackOptions,
+                array_flip($remove)
+            );
+        }
+        // Get the subscription end date
+
+        $subscriptionEndsAt = Subscription::where('user_id', Auth::id())
+            ->whereDate('end_date', '>=', Carbon::today()) // only future or today
+            ->value('end_date'); // returns null if none
+
+
         return view('user.dashboard', [
             'matches'            => $transformed,
             'appLocale'          => $lang,
             'countOfHalfMatches' => $countOfHalfMatches,
             'countOfMatches'     => $countOfMatches,
             'remainingContacts'  => $remainingContacts,
+            'feedbackOptions'    => $feedbackOptions,
+            'subscriptionEndsAt' => $subscriptionEndsAt,
         ]);
     }
 
@@ -105,6 +171,7 @@ class UserDashboardController extends Controller
                 'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
                 'price'          => $package->price,
                 'contact_limit'  => $package->contact_limit,
+                'duration'  => $package->duration,
             ];
         });
     }
