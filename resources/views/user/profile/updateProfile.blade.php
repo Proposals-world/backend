@@ -198,7 +198,7 @@ $locale = app()->getLocale();
                                     </h2>
 
                                     <div class="form-group">
-                                        <label class="form-label">{{ __('onboarding.photo_upload') }}</label>
+                                        <label class="form-label">{{ __('onboarding.photo_upload') }} <span class="required-field">*</span></label>
                                         <div class="custom-file">
                                             <input type="file"  name="profile_photo" class="custom-file-input" id="customFile" accept="image/*"
                                                 @if (!optional($user->photos->firstWhere('is_main', 1))->photo_url) required @endif>
@@ -217,7 +217,7 @@ $locale = app()->getLocale();
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.bio_en') }}</label>
+                                                <label class="form-label">{{ __('onboarding.bio_en') }} <span class="required-field">*</span></label>
                                                 <textarea name="bio_en" class="form-control rounded" rows="3"
                                                     placeholder="{{ __('onboarding.bio_placeholder_en') }}" required value="">{{ $user->profile->bio_en}}</textarea>
                                                 <span class="error-message text-danger"
@@ -226,7 +226,7 @@ $locale = app()->getLocale();
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.bio_ar') }}</label>
+                                                <label class="form-label">{{ __('onboarding.bio_ar') }} <span class="required-field">*</span></label>
                                                 <textarea name="bio_ar" class="form-control rounded" rows="3"
                                                     placeholder="{{ __('onboarding.bio_placeholder_ar') }}" required>{{ $user->profile->bio_ar}}</textarea>
                                                 <span class="error-message text-danger"
@@ -239,7 +239,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.date_of_birth') }}</label>
+                                                    class="form-label">{{ __('onboarding.date_of_birth') }} <span class="required-field">*</span></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i
@@ -275,7 +275,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
-                                                            class="form-label">{{ __('onboarding.nickname') }}</label>
+                                                            class="form-label">{{ __('onboarding.nickname') }} <span class="required-field">*</span></label>
                                                      <input type="text" name="nickname"
                                                             class="form-control rounded-pill" required
                                                             value="{{ $user->profile->nickname }}"
@@ -306,7 +306,7 @@ $locale = app()->getLocale();
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.height') }}</label>
+                                                <label class="form-label">{{ __('onboarding.height') }} <span class="required-field">*</span></label>
                                                 <select name="height" class="form-control rounded-pill" required>
                                                     <option value="">{{ __('onboarding.select_height') }}
                                                     </option>
@@ -321,7 +321,7 @@ $locale = app()->getLocale();
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.weight') }}</label>
+                                                <label class="form-label">{{ __('onboarding.weight') }} <span class="required-field">*</span></label>
                                                 <select name="weight" class="form-control rounded-pill" required>
                                                     <option value="">{{ __('onboarding.select_weight') }}
                                                     </option>
@@ -340,7 +340,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.hair_color') }}</label>
+                                                    class="form-label">{{ __('onboarding.hair_color') }} <span class="required-field">*</span></label>
                                                 <select name="hair_color_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">
@@ -357,7 +357,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.skin_color') }}</label>
+                                                    class="form-label">{{ __('onboarding.skin_color') }} <span class="required-field">*</span></label>
                                                 <select name="skin_color_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">
@@ -376,7 +376,7 @@ $locale = app()->getLocale();
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.religion') }}</label>
+                                                <label class="form-label">{{ __('onboarding.religion') }} <span class="required-field">*</span></label>
                                                 <select name="religion_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">{{ __('onboarding.select_religion') }}
@@ -393,7 +393,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.religiosity_level') }}</label>
+                                                    class="form-label">{{ __('onboarding.religiosity_level') }} <span class="required-field">*</span></label>
                                                 <select id="religiosity_levels" name="religiosity_level_id"
                                                     class="form-control rounded-pill">
                                                     <option value="">
@@ -409,7 +409,7 @@ $locale = app()->getLocale();
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.eye_color') }}</label>
+                                                <label class="form-label">{{ __('onboarding.eye_color') }} <span class="required-field">*</span></label>
                                                 <select name="eye_color_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">{{ __('onboarding.select_eye_color') }}
@@ -448,7 +448,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.employment_status') }}</label>
+                                                    class="form-label">{{ __('onboarding.employment_status') }} <span class="required-field">*</span></label>
                                                     <select name="employment_status" class="form-control rounded-pill" required>
                                                         <option value="1" {{ $user->profile->employment_status == 1 ? 'selected' : '' }}>Employed</option>
                                                         <option value="0" {{ $user->profile->employment_status == 0 ? 'selected' : '' }}>Unemployed</option>
@@ -461,7 +461,7 @@ $locale = app()->getLocale();
 
                                         <div class="col-md-4 job-title-wrapper" style="display:none;">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.Job_Domain') }}</label>
+                                                <label class="form-label">{{ __('onboarding.Job_Domain') }} <span class="required-field">*</span></label>
                                                 <select name="job_title_id" class="form-control rounded-pill">
                                                     <option value="">{{ __('onboarding.select_job_domain') }}</option>
                                                     @foreach ($data['jobTitles'] as $jobTitle)
@@ -479,7 +479,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4 job-title-wrapper" style="display:none;">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.position_level') }}</label>
+                                                    class="form-label">{{ __('onboarding.position_level') }} <span class="required-field">*</span></label>
                                                 <select name="position_level_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">
@@ -498,7 +498,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.educational_level') }}</label>
+                                                    class="form-label">{{ __('onboarding.educational_level') }} <span class="required-field">*</span></label>
                                                 <select name="educational_level_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="">
@@ -516,7 +516,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.specialization') }}</label>
+                                                    class="form-label">{{ __('onboarding.specialization') }} <span class="required-field">*</span></label>
                                                 <select name="specialization_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">
@@ -534,7 +534,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.sports_activity') }}</label>
+                                                    class="form-label">{{ __('onboarding.sports_activity') }} <span class="required-field">*</span></label>
                                                 <select name="sports_activity_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="">
@@ -553,7 +553,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.smoking_status') }}</label>
+                                                    class="form-label">{{ __('onboarding.smoking_status') }} <span class="required-field">*</span></label>
                                                 <select name="smoking_status" class="form-control rounded-pill"
                                                     required>
                                                     <option value="0">{{ __('onboarding.non_smoker') }}
@@ -569,7 +569,7 @@ $locale = app()->getLocale();
                                             <div class="form-group">
                                                 <label class="form-label">
                                                     {{ __('onboarding.smoking_tools') }}
-                                                    <span class="text-danger">*</span>
+                                                    <span class="required-field">*</span>
                                                 </label>
                                                 <select name="smoking_tools[]" class="form-control rounded-pill"
                                                     multiple>
@@ -586,7 +586,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.drinking_status') }}</label>
+                                                    class="form-label">{{ __('onboarding.drinking_status') }} <span class="required-field">*</span></label>
                                                 <select name="drinking_status_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="">
@@ -607,7 +607,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.social_media_presence') }}</label>
+                                                    class="form-label">{{ __('onboarding.social_media_presence') }} <span class="required-field">*</span></label>
                                                 <select name="social_media_presence_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="">
@@ -646,7 +646,7 @@ $locale = app()->getLocale();
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.marital_status') }}</label>
+                                                <label class="form-label">{{ __('onboarding.marital_status') }} <span class="required-field">*</span></label>
                                                 <select name="marital_status_id" class="form-control rounded-pill" required>
                                                     <option value="">{{ __('onboarding.select_marital_status') }}</option>
                                                     @foreach ($data['maritalStatuses'] as $maritalStatus)
@@ -671,7 +671,7 @@ $locale = app()->getLocale();
                                         </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.pets') }}</label>
+                                                <label class="form-label">{{ __('onboarding.pets') }} <span class="required-field">*</span></label>
                                                 <select name="pets[]" class="form-control rounded-pill" required
                                                     multiple>
                                                     @foreach ($data['pets'] as $pet)
@@ -688,7 +688,7 @@ $locale = app()->getLocale();
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.hobbies') }}</label>
+                                                <label class="form-label">{{ __('onboarding.hobbies') }} <span class="required-field">*</span></label>
                                                 <select name="hobbies[]" class="form-control rounded-pill"
                                                     required multiple>
                                                     @foreach ($data['hobbies'] as $hobby)
@@ -704,7 +704,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.marriage_budget') }}</label>
+                                                    class="form-label">{{ __('onboarding.marriage_budget') }} <span class="required-field">*</span></label>
                                                     <select name="marriage_budget_id" class="form-control rounded-pill" required>
                                                         <option value="">{{ __('onboarding.select_marriage_budget') }}</option>
                                                         @foreach ($data['marriageBudget'] as $budget)
@@ -722,7 +722,7 @@ $locale = app()->getLocale();
                                     </div>
                                     @if (old('gender') == 'female')
                                         <div class="form-group">
-                                            <label class="form-label">{{ __('onboarding.hijab_status') }}</label>
+                                            <label class="form-label">{{ __('onboarding.hijab_status') }} <span class="required-field">*</span></label>
                                             <select name="hijab_status" class="form-control rounded-pill"
                                                 required>
                                                 <option value="1">{{ __('onboarding.strictly_hijab') }}
@@ -753,7 +753,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.country_of_residence') }}</label>
+                                                    class="form-label">{{ __('onboarding.country_of_residence') }} <span class="required-field">*</span></label>
                                                 <select name="country_of_residence_id" id="country_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="">{{ __('onboarding.select_country') }}
@@ -770,7 +770,7 @@ $locale = app()->getLocale();
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.city') }}</label>
+                                                <label class="form-label">{{ __('onboarding.city') }} <span class="required-field">*</span></label>
                                                 <select name="city_id" id="city_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="" >{{ __('onboarding.select_city') }}
@@ -782,7 +782,7 @@ $locale = app()->getLocale();
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.city_location') }}</label>
+                                                <label class="form-label">{{ __('onboarding.city_location') }} <span class="required-field">*</span></label>
                                                 <select name="city_location_id" id="city_location_id"
                                                     class="form-control rounded-pill" required>
                                                     <option value="">{{ __('onboarding.city_location') }}
@@ -797,7 +797,7 @@ $locale = app()->getLocale();
                                             <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.nationality') }}</label>
+                                                    class="form-label">{{ __('onboarding.nationality') }} <span class="required-field">*</span></label>
                                                 <select name="nationality_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">
@@ -813,7 +813,7 @@ $locale = app()->getLocale();
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label">{{ __('onboarding.origin') }}</label>
+                                                <label class="form-label">{{ __('onboarding.origin') }} <span class="required-field">*</span></label>
                                                 <select name="origin_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">{{ __('onboarding.select_origin') }}
@@ -850,7 +850,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.car_ownership') }}</label>
+                                                    class="form-label">{{ __('onboarding.car_ownership') }} <span class="required-field">*</span></label>
                                                 <select name="car_ownership" class="form-control rounded-pill"
                                                     required>
                                                     <option value="1">{{ __('onboarding.own_car') }}
@@ -865,7 +865,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label
-                                                    class="form-label">{{ __('onboarding.financial_status') }}</label>
+                                                    class="form-label">{{ __('onboarding.financial_status') }} <span class="required-field">*</span></label>
                                                 {{-- <br> --}}
                                                 <select name="financial_status_id"
                                                     class="form-control rounded-pill" required>
@@ -889,9 +889,10 @@ $locale = app()->getLocale();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">
-                                                    {{ __('onboarding.guardian_contact') }}
+                                                    {{ __('onboarding.guardian_contact') }} <span class="required-field">*</span>
                                                     <p
-                                                        class="form-text text-muted mb-0">{{ __('onboarding.guardian_contact_help') }}</p>
+                                                        class="form-text text-muted mb-0">{{ __('onboarding.guardian_contact_help') }} </p>
+
                                                 </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -1516,16 +1517,28 @@ $('#customFile').change(function(event) {
             });
         }
         function toggleCityLocationRequirement(countryId) {
-  const $loc = $('#city_location_id');
-  if (parseInt(countryId, 10) >= 23) {
-    $loc.prop('required', false);
-    // clear any existing error message
-    $loc.closest('.form-group')
-        .find('.error-message').text('');
-  } else {
-    $loc.prop('required', true);
-  }
-}
+            const $loc = $('#city_location_id');
+            const $formGroup = $loc.closest('.form-group');
+            const $reqSpan = $formGroup.find('.required-field');
+
+            if (parseInt(countryId, 10) >= 23) {
+                $loc.prop('required', false);
+
+                // Clear the star content
+                $reqSpan.text('');
+
+                // Clear any existing error message
+                $formGroup.find('.error-message').text('');
+            } else {
+                $loc.prop('required', true);
+
+                // Add star back if missing
+                if ($reqSpan.text().trim() === '') {
+                $reqSpan.text('*');
+                }
+            }
+            }
+
 // When the country changes, update the cities dropdown
 $('#country_id').on('change', function() {
     var countryId = $(this).val();

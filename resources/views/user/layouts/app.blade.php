@@ -3,6 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Apply for traditional marriage proposals with ease. Discover a trusted platform where tradition meets love. Start your journey today.">
+
+        <!-- Primary Meta Tags -->
+    <meta name="title" content="Proposals.world – Where Tradition Meets Love">
+    <meta name="description" content="Apply for traditional marriage proposals with ease. Discover a trusted platform where tradition meets love. Start your journey today.">
+    <meta name="keywords" content="proposals, traditional marriage, marriage application, traditional marriage application, traditional marriage website, marriage website, where tradition meets love">
+    <meta name="author" content="Proposals.world Team">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Proposals.world – Where Tradition Meets Love">
+    <meta property="og:description" content="Find meaningful connections through traditional marriage proposals. Apply now and let tradition guide your path to love.">
+    <meta property="og:image" content="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="Proposals.world – Where Tradition Meets Love">
+    <meta name="twitter:description" content="Join a community that honors tradition. Submit your marriage application online and connect through values that last.">
+    <meta name="twitter:image" content="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
+
 <title>Proposals.world - Find Your Perfect Life Partner</title>
 <link rel="icon" type="image/jpeg" href="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
 
