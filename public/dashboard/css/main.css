@@ -31,7 +31,9 @@ body.show-spinner::after {
     position: fixed;
     z-index: 1;
 }
-
+.required-field {
+    color: red;
+}
 @keyframes spin {
     to {
         transform: rotate(360deg);

@@ -309,23 +309,28 @@ html[dir="rtl"] .contact-direction {
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}"
+                                {{-- <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}" --}}
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/proposals-1.jpeg') }}"
                                     alt="slide 5">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}"
+                                {{-- <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-4.jpeg') }}" --}}
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/proposals-2.jpeg') }}"
                                     alt="slide 2">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-5.jpeg') }}"
+                                {{-- <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-5.jpeg') }}" --}}
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/proposals-3.jpeg') }}"
                                     alt="slide 1">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-2.jpeg') }}"
+                                {{-- <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-2.jpeg') }}" --}}
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/proposals-4.jpeg') }}"
                                     alt="slide 3">
                             </div>
                             <div class="swiper-slide">
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-3.jpeg') }}"
+                                {{-- <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-3.jpeg') }}" --}}
+                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/proposals-5.jpeg') }}"
                                     alt="slide 4">
                             </div>
 
