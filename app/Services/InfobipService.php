@@ -40,16 +40,16 @@ class InfobipService
     public function sendWhatsAppTemplate($to, $templateName, $language = 'en_GB', $parameters = [])
     {
         // expects: ['123456'] if just body, or ['123456', 'urlParam'] if has button
-    
+
         $bodyPlaceholder = $parameters[0] ?? '';
         $buttonParameter = $parameters[1] ?? null;
-    
+
         $templateData = [
             'body' => [
                 'placeholders' => [$bodyPlaceholder]
             ]
         ];
-    
+
         if ($buttonParameter) {
             $templateData['buttons'] = [
                 [
@@ -58,7 +58,7 @@ class InfobipService
                 ]
             ];
         }
-    
+
         $payload = [
             'messages' => [
                 [
@@ -72,14 +72,14 @@ class InfobipService
                 ]
             ]
         ];
-    
+
         Log::debug('Infobip payload', ['payload' => $payload]);
-    
+
         $response = Http::withHeaders([
             'Authorization' => 'App ' . env('INFOBIP_API_KEY'),
             'Content-Type' => 'application/json'
         ])->post(env('INFOBIP_BASE_URL') . '/whatsapp/1/message/template', $payload);
-    
+
         return $response->json();
     }
     /**
@@ -92,30 +92,50 @@ class InfobipService
      */
     public function sendWhatsAppMessage(string $to, string $message): array
     {
-        // Strip any leading "+"
+        // Format phone number (remove + and leading 0)
         $to = ltrim($to, '+');
+        $to = ltrim($to, '0');
+        if (!str_starts_with($to, '962')) {
+            $to = '962' . $to; // Add Jordan country code if missing
+        }
 
         $payload = [
-            'from' => $this->from,
-            'to' => $to,
-            'messageId'=>'a28dd97c-1ffb-4fcf-99f1-0b557ed381da',
-            'content' => [
-                'type' => 'text',
-                'text' => $message,
-            ],
+            'messages' => [
+                [
+                    'from' => '447860088970', // Static sender number
+                    'to' => $to,
+                    'content' => [
+                        'templateName' => 'abandoned_checkout', // Static template name
+                        'templateData' => [
+                            'body' => [
+                                'placeholders' => [$message] // Using message as the placeholder
+                            ]
+                        ],
+                        'language' => 'en'
+                    ]
+                ]
+            ]
         ];
 
         try {
-            $resp = $this->client->post('/whatsapp/1/message/text', [
-                'json' => $payload
+            $response = $this->client->post(env('INFOBIP_BASE_URL') . '/whatsapp/1/message/template', [ // Changed endpoint
+                'json' => $payload,
+                'timeout' => 30
             ]);
 
-            return json_decode($resp->getBody()->getContents(), true);
+            return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                return ['error' => true, 'details' => json_decode($e->getResponse()->getBody(), true)];
+                return [
+                    'error' => true,
+                    'details' => json_decode($e->getResponse()->getBody(), true)
+                ];
             }
-            return ['error' => true, 'details' => $e->getMessage()];
+            return [
+                'error' => true,
+                'details' => $e->getMessage(),
+                'payload' => $payload // Include payload for debugging
+            ];
         }
     }
 }
