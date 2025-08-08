@@ -23,4 +23,11 @@ class SubscriptionPackageRequest extends FormRequest
             'duration'       => 'nullable|integer|min:0|required_if:target_gender,female',
         ];
     }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'contact_limit' => $this->contact_limit ?? 0,
+            'duration'      => $this->duration ?? 0,
+        ]);
+    }
 }

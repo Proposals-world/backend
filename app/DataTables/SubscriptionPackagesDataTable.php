@@ -18,9 +18,19 @@ class SubscriptionPackagesDataTable extends DataTable
     public function dataTable($query)
     {
         return (new EloquentDataTable($query))
-
+            ->addColumn('duration_display', function (SubscriptionPackage $subscriptionPackage) {
+                // Display "No duration" if duration is 0 for male
+                return ($subscriptionPackage->duration == 0)
+                    ? 'No duration for male'
+                    : $subscriptionPackage->duration;
+            })
+            ->addColumn('contact_limit_display', function (SubscriptionPackage $subscriptionPackage) {
+                // Display "No contact" if contact_limit is 0 for female
+                return ($subscriptionPackage->contact_limit == 0)
+                    ? 'No contact for female'
+                    : $subscriptionPackage->contact_limit;
+            })
             ->addColumn('action', function (SubscriptionPackage $subscriptionPackage) {
-                // Make sure the view path matches your folder structure
                 return view('admin.SubscriptionPackage.columns._actions', compact('subscriptionPackage'));
             })
             ->setRowId('id')
@@ -68,8 +78,16 @@ class SubscriptionPackagesDataTable extends DataTable
             'package_name_en',
             'package_name_ar',
             'price',
-            'contact_limit',
-            'duration',
+            [
+                'data' => 'contact_limit_display',
+                'title' => 'Contact Limit',
+                'name' => 'contact_limit' // Keep original column name for sorting/filtering
+            ],
+            [
+                'data' => 'duration_display',
+                'title' => 'Duration',
+                'name' => 'duration' // Keep original column name for sorting/filtering
+            ],
         ];
     }
 
