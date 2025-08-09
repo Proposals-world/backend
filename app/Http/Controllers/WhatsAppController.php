@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GuardianOtp;
 use Illuminate\Http\Request;
 use App\Services\InfobipService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class WhatsAppController extends Controller
 {
@@ -20,14 +22,40 @@ class WhatsAppController extends Controller
      */
     public function sendMessage(Request $request)
     {
-        $data = $request->validate([
-            'to'      => 'required|string',
-            'message' => 'required|string',
-        ]);
+        // $data = $request->validate([
+        //     'to'      => 'nullable|string',
+        //     // 'message' => 'required|string',
+        // ]);
+        $language = $request->header('Accept-Language', 'en');
+        $user = Auth::user();
+        // uncomment when paid
+        // $to = $user->profile->guardian_contact_encrypted ?? null;
+        $toParentNumber = '962798716432';
+        $childPhoneNumber = $user->phone_number;
+        if (!$childPhoneNumber) {
+            return response()->json(['message' => 'Child phone number is not set.'], 400);
+        }
+        // 🛠 Check if existing OTP still valid
+        $existingOtp = GuardianOtp::where('user_id', $user->id)
+            ->where('expires_at', '>', now())
+            ->where('verified', false)
+            ->latest()
+            ->first();
 
-        Log::info('Sending plain WhatsApp message', $data);
+        if ($existingOtp) {
+            $otp = $existingOtp->code;  // Use existing OTP
+        } else {
+            // 🛠 Generate new OTP
+            $otp = rand(100000, 999999);
 
-        $result = $this->infobipService->sendWhatsAppMessage($data['to'], $data['message']);
+            GuardianOtp::create([
+                'user_id'    => $user->id,
+                'code'       => $otp,
+                'expires_at' => now()->addMinutes(15),
+            ]);
+        }
+
+        $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
 
         Log::info('Plain message result', $result);
 

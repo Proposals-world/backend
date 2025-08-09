@@ -29,7 +29,7 @@
         /* Card flip animation styles */
         .card-container {
             perspective: 1000px;
-            max-width: 343px;
+            max-width: 380px;
             width: 100%;
             height: 400px;
         }
@@ -384,7 +384,8 @@
                 button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
                 button.disabled = true;
 
-                fetch('/user/guardian-contact/send-verification', {
+                fetch('/user/guardian-contact/send-message', {
+                // fetch('/user/guardian-contact/send-verification', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -393,7 +394,9 @@
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         credentials: 'same-origin',
-                        body: JSON.stringify({})
+                        body: JSON.stringify({
+                            //  to: "962798716432",
+                        })
                     })
                     .then(async response => {
                         let data = null;

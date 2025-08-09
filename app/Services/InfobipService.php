@@ -90,20 +90,24 @@ class InfobipService
      * @param  string  $message Your message text
      * @return array
      */
-    public function sendWhatsAppMessage(string $to, string $message): array
+    public function sendWhatsAppMessage(string $toParentNumber, string $childPhoneNumber, string $language, $otp): array
     {
         // Format phone number (remove + and leading 0)
-        $to = ltrim($to, '+');
-        $to = ltrim($to, '0');
-        if (!str_starts_with($to, '962')) {
-            $to = '962' . $to; // Add Jordan country code if missing
+        // $to = ltrim($to, '+');
+        // $to = ltrim($to, '0');
+        // if (!str_starts_with($to, '962')) {
+        //     $to = '962' . $to; // Add Jordan country code if missing
+        // }
+        if ($language === 'ar') {
+            $message = "أهلا بكم، ها قد تم تسجيل ابنتكم صاحبة رقم الهاتف ($childPhoneNumber) بأول تطبيق اردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه. يرجى ارسال رمز التحقق التالي من خلال التطبيق. حيث ستتم مشاركة رقم هاتفكم للتواصل بهدف زيارة العروس والتعرف على العائلة. يرجى ارسال رمز التحقق التالي من خلال التطبيق: دامت الأفراح عامرة في بيوتكم. $otp";
+        } else {
+            $message = "Welcome! Your daughter, whose phone number is ($childPhoneNumber), has been registered in the first Jordanian marriage application that aligns with our customs and traditions. This application works in a modern way that meets the needs of society and respects its values. Please send the following verification code through the application. Your phone number will be shared for communication purposes to arrange a visit to the bride and get to know the family. Please send the following verification code through the application: May joy always fill your homes. $otp";
         }
-
         $payload = [
             'messages' => [
                 [
                     'from' => '447860088970', // Static sender number
-                    'to' => $to,
+                    'to' => $toParentNumber,
                     'content' => [
                         'templateName' => 'abandoned_checkout', // Static template name
                         'templateData' => [
@@ -111,7 +115,7 @@ class InfobipService
                                 'placeholders' => [$message] // Using message as the placeholder
                             ]
                         ],
-                        'language' => 'en'
+                        'language' => $language
                     ]
                 ]
             ]

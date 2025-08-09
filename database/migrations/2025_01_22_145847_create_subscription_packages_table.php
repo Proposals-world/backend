@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('package_name_en');
             $table->string('package_name_ar');
             $table->decimal('price', 10, 2);
-            $table->integer('duration')->default(0); // Duration in days
+            $table->integer('duration')->default(0); // Duration in days nullable
             $table->integer('contact_limit');
+            // add male and female
             $table->timestamps();
         });
     }
