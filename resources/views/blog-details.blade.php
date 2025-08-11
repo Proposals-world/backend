@@ -14,6 +14,13 @@
     margin-left: 0 !important;
     @endif
 }
+.blog-content {
+    background: #fff;
+    padding: 40px 30px;
+    position: relative;
+    z-index: 1;
+    /* height: 300px; */
+}
 /* 1. Base reset for lists inside .blog-content */
 .blog-content ul {
   list-style: none;      /* remove default bullets */

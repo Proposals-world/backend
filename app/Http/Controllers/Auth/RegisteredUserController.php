@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
             'first_name'     => $validated['first_name'],
             'last_name'      => $validated['last_name'],
             'email'          => $validated['email'],
+            'country_code'   => $validated['country_code'],
             'phone_number'   => $validated['phone_number'] ?? null,
             'password'       => Hash::make($validated['password']),
             'profile_status' => 'active',

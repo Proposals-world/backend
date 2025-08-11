@@ -71,7 +71,7 @@ html[dir="rtl"] .pricing-box {
         float: left !important; /* Ensure it moves left on smaller screens */
     }
 }
-.dripicons-align-right:before {
+html[dir="rtl"] .dripicons-align-right:before {
     color: black !important;
 }
 .pricing-amount .currency {

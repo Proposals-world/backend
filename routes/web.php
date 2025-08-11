@@ -53,6 +53,7 @@ use App\Http\Controllers\Admin\SuspendedUserController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
+use App\Http\Controllers\UserPhoneNumberOtpController;
 use App\Http\Controllers\WhatsAppController;
 use App\Models\UserProfile;
 
@@ -163,10 +164,12 @@ Route::middleware([
     'verified',
     'check.status',
     'profile.complete',         // First: ensure profile complete
+    'phone.verified',
     'guardian.verified'         // Second: ensure guardian verified
 ])->prefix('user')->group(function () {
 
-
+    Route::get('verify-phone-number-otp', [UserPhoneNumberOtpController::class, 'index'])
+        ->name('user.phone.index');
     Route::get('change-password', [ChangePasswordController::class, 'edit'])
         ->name('password.change');
 
@@ -215,9 +218,14 @@ Route::middleware([
     Route::post('/report-user', [ReportController::class, 'store']);
 
 
-    Route::get('/verify-guardian-otp', function () {
-        return view('verify-guardian-otp');
-    })->name('verify.guardian.otp');
+    Route::get('/verify-guardian-otp', [GuardianContactVerificationController::class, 'index'])
+        ->name('verify.guardian.otp');
+    // Route::get('/verify-guardian-otp', function () {
+    //     return view('verify-guardian-otp');
+    // })->name('verify.guardian.otp');
+    // Route::get('/verify-phone-number-otp', function () {
+    //     return view('verify-phone-number-otp');
+    // })->name('verify.phone.number.otp');
 });
 Route::prefix('user/guardian-contact')->group(function () {
     Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
@@ -226,6 +234,18 @@ Route::prefix('user/guardian-contact')->group(function () {
     Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
     Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
 });
+Route::prefix('user')->group(function () {
+
+    Route::post('verify-user-number', [UserPhoneNumberOtpController::class, 'sendMessage'])
+        ->name('user.send.message');
+    Route::post('verify-user-code', [UserPhoneNumberOtpController::class, 'sendMessage'])
+        ->name('user.verify');
+    Route::post('verify-user-code', [UserPhoneNumberOtpController::class, 'verify'])
+        ->name('user.verify');
+    Route::post('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
+        ->name('user.update.phone.number');
+});
+
 
 
 // Route to handle message subscriptions

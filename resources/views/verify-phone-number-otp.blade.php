@@ -93,71 +93,45 @@
 
                     {{-- Front Side: Confirmation Message --}}
                     <div class="card-front">
-                        <div class="mb-4">
-                            <i class="fas fa-user-shield " style="font-size: 3rem; color: #a72890;"></i>
-                        </div>
-                        <h4 class="mb-4">{{ __('otp.Guardian_Approval') }}</h4>
-                        <div class="alert alert-info mb-4">
-                            <i class="fas fa-info-circle me-2"></i>
-                            <strong>{{ __('otp.Important_Notice') }}</strong>
-                        </div>
-                        <p class="text-muted mb-4" style="font-size: 1.1rem; line-height: 1.5;">
-                            {{ __('otp.mother_approval_message') }}
-                        </p>
-                        <div class="d-grid gap-2">
-                            <button id="confirmProceedBtn" class="btn btn-primary btn-lg">
-                                <i class="fas fa-check me-2"></i>
-                                {{ __('otp.I_Understand_Proceed') }}
-                            </button>
-
-                        </div>
-                        <div class="flip-indicator">
-                            <i class="fas fa-sync-alt me-1"></i>
-                            {{ __('otp.Click_to_proceed') }}
-                        </div>
-                    </div>
-
-                    {{-- Back Side: Original Verification Form --}}
-                    <div class="card-back">
-                        <h4 class="mb-4">{{ __('otp.Verify_Guardian_Contact') }}</h4>
+                    <h4 class="mb-4">{{ __('otp.Verify_Phone_number') }}</h4>
                         <div id="otp-alert-success" class="alert alert-success d-none" role="alert"></div>
                         <div id="otp-alert-error" class="alert alert-danger d-none" role="alert"></div>
 
                         <div class="form-group" id="guardian-contact-row">
 
-                            <label for="guardian_contact" class="fw-bold text-left">{{ __('otp.Guardian_Contact') }}</label>
+                            <label for="phone_number" class="fw-bold text-left">{{ __('otp.Phone_number') }}</label>
 
                             <div class="d-flex align-items-center gap-2">
                                  <select name="country_code"
-                                                                        class="form-select form-control @error('country_code') is-invalid @enderror"
-                                                                        style="max-width:110px">
-                                                                    @foreach(config('countries') as $iso => $info)
-                                                                    <option value="{{ $iso }}"
-                                                                        {{ $countryCode == $iso ? 'selected' : '' }}>
-                                                                            {{ $iso }} {{ $info['dial_code'] }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                </select>
-                                <input type="text" id="guardian_contact" name="guardian_contact" class="form-control"
+                                    class="form-select form-control @error('country_code') is-invalid @enderror"
+                                    style="max-width:110px">
+                                        @foreach(config('countries') as $iso => $info)
+                                            <option value="{{ $iso }}"
+                                                {{ $countryCode == $iso ? 'selected' : '' }}>
+                                                    {{ $iso }} {{ $info['dial_code'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                <input type="text" id="phone_number" name="phone_number" class="form-control"
                                     value="{{ $localPhone }}"
-                                    placeholder="{{ __('otp.Enter_guardian_number') }}" required
+                                    placeholder="{{ __('otp.Enter_Phone_number') }}" required
                                     style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 9px;">
 
-                                <button id="update-guardian-btn" class="btn btn-transparent">
+                                <button id="update-phone-number-btn" class="btn btn-transparent">
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
 
                             <small class="form-text text-muted mt-1 text-left">
                                 <i class="fas fa-exclamation-circle text-warning me-2"></i>
-                                {{ __('otp.This_is_to_confirm_your_guardian_contact._Leave_it_as_is_if_already_correct.') }}
+                                {{ __('otp.This_is_to_confirm_your_phone_number._Leave_it_as_is_if_already_correct.') }}
                             </small>
                         </div>
 
 
                         {{-- Step 1: Initial Button --}}
                         <button id="show-otp-btn" class="btn btn-primary btn-block">
-                            {{ __('otp.Verify_Guardian_Contact') }}
+                            {{ __('otp.Verify_Phone_number') }}
                         </button>
                         <div id="guardian-loading" style="display:none;" class="mt-2 text-muted small">
                             {{ __('otp.Sending_verification_code') }}...
@@ -165,7 +139,7 @@
 
                         {{-- Step 2: OTP Inputs (hidden at first) --}}
                         <div id="otp-wrapper" style="display: none;">
-                            <h5 class="mt-4 mb-3">{{ __('otp.Enter_the_6_digit_Code') }}</h5>
+                            <h5 class="mt-4 mb-3">{{ __('otp.Enter_the_6_digit_Code_phone_number') }}</h5>
 
                             <form id="otp-form" onsubmit="return false;">
                                 @csrf
@@ -193,11 +167,16 @@
                             </form>
                         </div>
 
-                        <div class="flip-indicator">
+                        {{-- <div class="flip-indicator">
                             <i class="fas fa-sync-alt me-1"></i>
                             {{ __('otp.Verification_form') }}
-                        </div>
+                        </div> --}}
                     </div>
+
+                    {{-- Back Side: Original Verification Form --}}
+                    {{-- <div class="card-back">
+
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -248,17 +227,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Card flip functionality - MOVED INSIDE DOMContentLoaded
             const confirmProceedBtn = document.getElementById('confirmProceedBtn');
-            const cardFlipper = document.getElementById('cardFlipper');
+            // const cardFlipper = document.getElementById('cardFlipper');
 
-            if (confirmProceedBtn && cardFlipper) {
-                confirmProceedBtn.addEventListener('click', function() {
-                    cardFlipper.classList.add('flipped');
-                });
-            }
+            // if (confirmProceedBtn && cardFlipper) {
+            //     confirmProceedBtn.addEventListener('click', function() {
+            //         cardFlipper.classList.add('flipped');
+            //     });
+            // }
 
             // Update Guardian Contact functionality
-            const updateGuardianBtn = document.getElementById('update-guardian-btn');
-            const guardianContactInput = document.getElementById('guardian_contact');
+            const updateGuardianBtn = document.getElementById('update-phone-number-btn');
+            const guardianContactInput = document.getElementById('phone_number');
              const countryCodeSelect   = document.querySelector('select[name="country_code"]');
 
             if (updateGuardianBtn && guardianContactInput) {
@@ -275,11 +254,13 @@
                     updateGuardianBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> `;
 
                     const formData = new FormData();
-                    formData.append('guardian_contact', contact);
+                    formData.append('phone_number', contact);
                     formData.append('country_code', country);
+                    // formData.append('_method', 'PUT'); // Laravel method spoofing
 
-                    fetch('guardian-contact/update-guardian-contact', {
-                            method: 'POST',
+                    // console.log(formData);
+                    fetch('{{ route('user.update.phone.number') }}', {
+                            method: 'post',
                             headers: {
                                 'Accept': 'application/json',
                                 'Accept-Language': '{{ app()->getLocale() }}',
@@ -290,12 +271,12 @@
                         })
                         .then(async response => {
                             const result = await response.json();
-                            if (!response.ok) throw new Error(result.message || '{{ __('otp.update_failed') }}');
+                            if (!response.ok) throw new Error(result.message || '{{ __('otp.update_failed_phone') }}');
                             showSuccessMessage(result.message);
                         })
                         .catch(err => {
-                            showErrorMessage(err.message || '{{ __('otp.update_failed') }}');
-                        })
+  // Show friendly error
+    showErrorMessage(err.message || '{{ __("otp.update_failed_phone") }}');                        })
                         .finally(() => {
                             updateGuardianBtn.disabled = false;
                             updateGuardianBtn.innerHTML = `<i class="fas fa-sync-alt"></i>`;
@@ -384,7 +365,7 @@
                 button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
                 button.disabled = true;
 
-                fetch('/user/guardian-contact/send-message', {
+                fetch('{{ route('user.send.message') }}', {
                 // fetch('/user/guardian-contact/send-verification', {
                         method: 'POST',
                         headers: {
@@ -496,7 +477,7 @@
                     }
 
                     try {
-                        const response = await fetch('/user/guardian-contact/verify-code', {
+                        const response = await fetch('{{ route('user.verify') }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

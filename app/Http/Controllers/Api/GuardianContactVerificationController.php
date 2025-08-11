@@ -15,6 +15,29 @@ use Throwable;
 
 class GuardianContactVerificationController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        $profile = $user->profile; // Assuming relation user->profile exists
+
+        $phone = $profile->guardian_contact_encrypted ?? '';
+        $countryCode = $user->country_code ?? 'JO'; // or get from profile if available
+        $dialCode = config('countries')[$countryCode]['dial_code'] ?? '';
+
+        // Remove leading + from phone number
+        $phoneTrimmed = ltrim($phone, '+');
+
+        // Remove dial code from start if it exists
+        if (str_starts_with($phoneTrimmed, ltrim($dialCode, '+'))) {
+            $phoneTrimmed = substr($phoneTrimmed, strlen(ltrim($dialCode, '+')));
+        }
+
+        return view('verify-guardian-otp', [
+            'localPhone' => $phoneTrimmed,
+            'countryCode' => $countryCode,
+        ]);
+    }
+
     // fix it edit to take the last send or resent the same code
     public function send(Request $request, GuardianContactVerificationService $service)
     {
@@ -25,14 +48,14 @@ class GuardianContactVerificationController extends Controller
             if (!$user || !$user->profile || !$user->profile->guardian_contact_encrypted) {
                 return response()->json([
                     'message' => $locale === 'ar'
-                        ? 'رقم ولي الأمر غير موجود في الملف الشخصي.'
+                        ? 'رقم ولية الأمر غير موجود في الملف الشخصي.'
                         : 'Guardian phone is not set in the profile.',
                 ], 400);
             }
             if ($user->profile->guardian_contact_encrypted === $user->phone_number) {
                 return response()->json([
                     'message' => $locale === 'ar'
-                        ? 'رقم ولي الأمر لا يمكن أن يكون نفس رقم المستخدم.'
+                        ? 'رقم ولية الأمر لا يمكن أن يكون نفس رقم المستخدم.'
                         : 'Guardian phone cannot be the same as the user phone.',
                 ], 400);
             }
@@ -98,7 +121,7 @@ class GuardianContactVerificationController extends Controller
                 ], 400);
             }
 
-            $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
+            // $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
 
             // 🛠 Only check the newest, latest OTP
             $record = GuardianOtp::where('user_id', $user->id)
@@ -171,6 +194,7 @@ class GuardianContactVerificationController extends Controller
 
         // Save
         $user->profile()->update([
+            'country_code' => $request->input('country_code'),
             'guardian_contact_encrypted' => $e164,
         ]);
 

@@ -9,6 +9,7 @@ use App\Http\Middleware\Localization;
 use App\Http\Middleware\EnsureProfileIsComplete;
 use App\Http\Middleware\RedirectIfProfileComplete;
 use App\Http\Middleware\EnsureGuardianContactIsVerified;
+use App\Http\Middleware\EnsurePhoneIsVerified;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -26,7 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'profile.complete' => EnsureProfileIsComplete::class,
             'redirect.if.profile.complete' => RedirectIfProfileComplete::class,
             'check.status' => CheckUserStatus::class,
-            'guardian.verified' => EnsureGuardianContactIsVerified::class, // ✅ Register your middleware alias here
+            'guardian.verified' => EnsureGuardianContactIsVerified::class,
+            'phone.verified' => EnsurePhoneIsVerified::class,
 
 
         ]);

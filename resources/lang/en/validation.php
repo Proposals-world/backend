@@ -46,12 +46,15 @@ return [
         ],
         'phone_number' => [
             'regex' => 'Your phone number must be exactly 10 digits and start with 078, 077, or 079.',
-            'phone' => 'The :attribute is not a valid phone number for the selected country.',
+            'phone' => 'The phone number is not a valid phone number for the selected country.',
         ],
         'country_code' => [
             'required' => 'Please select a country.',
             'size'     => 'The selected country is invalid.',
         ],
+        // 'phone_number' => [
+        //     'phone' => 'The :attribute is not a valid phone number for the selected country.',
+        // ],
     ],
 
     /*
@@ -68,6 +71,8 @@ return [
         'gender'       => 'gender',
         'password'     => 'password',
         'country_code' => 'Country',
+        'phone_number' => 'phone number',
+
     ],
     'account_not_active' => 'Your account is not active. If you think this is an issue, please contact support@proposals.world.'
 ];
