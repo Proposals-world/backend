@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\GuardianOtp;
 use Illuminate\Http\Request;
 use App\Services\InfobipService;
+use App\Services\SendWhatsAppMessageService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Services\WhatsAppContactService;
 
 class WhatsAppController extends Controller
 {
     protected InfobipService $infobipService;
+    protected SendWhatsAppMessageService $whatsapp;
+    protected WhatsAppContactService $contactService;
+    protected  $sessionId;
 
-    public function __construct(InfobipService $infobipService)
+    public function __construct(InfobipService $infobipService, SendWhatsAppMessageService $whatsapp, WhatsAppContactService $contactService)
     {
         $this->infobipService = $infobipService;
+        $this->whatsapp       = $whatsapp;
+        $this->contactService = $contactService;
+        $this->sessionId = config('services.whatsapp.session', 'samer'); // try to manipulate this value from env file
+
     }
 
     /**
@@ -29,8 +38,8 @@ class WhatsAppController extends Controller
         $language = $request->header('Accept-Language', 'en');
         $user = Auth::user();
         // uncomment when paid
-        // $to = $user->profile->guardian_contact_encrypted ?? null;
-        $toParentNumber = '962798716432';
+        $toParentNumber = $user->profile->guardian_contact_encrypted ?? null;
+        // $toParentNumber = '962798716432';
         $childPhoneNumber = $user->phone_number;
         if (!$childPhoneNumber) {
             return response()->json(['message' => 'Child phone number is not set.'], 400);
@@ -54,12 +63,30 @@ class WhatsAppController extends Controller
                 'expires_at' => now()->addMinutes(15),
             ]);
         }
+        $this->contactService->insert([
+            'sessionId'    => $this->sessionId,
+            "id"       =>   $toParentNumber . "@s.whatsapp.net",
+        ]);
+        // $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
+        $message = "Your child with phone number $childPhoneNumber has requested to verify their Guardian Contact. Use the OTP: $otp to verify the number.";
 
-        $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
+        $result = $this->whatsapp->send($toParentNumber, $message);
 
         Log::info('Plain message result', $result);
 
-        return response()->json($result);
+        // ✅ Handle API error gracefully
+        if (isset($result['error']) && $result['error'] === true) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => __('messages.otp_failed')
+            ], $result['status'] ?? 500);
+        }
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => __('messages.otp_success'),
+            'result'  => $result
+        ]);
     }
 
     /**

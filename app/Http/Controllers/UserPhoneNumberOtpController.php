@@ -7,16 +7,25 @@ use App\Models\UserPhoneNumberOtp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\InfobipService;
+use App\Services\SendWhatsAppMessageService;
+use App\Services\WhatsAppContactService;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class UserPhoneNumberOtpController extends Controller
 {
     protected InfobipService $infobipService;
+    protected SendWhatsAppMessageService $whatsapp;
+    protected WhatsAppContactService $contactService;
+    protected  $sessionId;
 
-    public function __construct(InfobipService $infobipService)
+    public function __construct(InfobipService $infobipService, SendWhatsAppMessageService $whatsapp, WhatsAppContactService $contactService)
     {
         $this->infobipService = $infobipService;
+        $this->whatsapp       = $whatsapp;
+        $this->contactService = $contactService;
+        $this->sessionId = config('services.whatsapp.session', 'samer'); // try to manipulate this value from env file
+
     }
     public function index()
     {
@@ -46,9 +55,8 @@ class UserPhoneNumberOtpController extends Controller
         $language = $request->header('Accept-Language', 'en');
         $user = Auth::user();
         // uncomment when paid
-        // $to = $user->profile->guardian_contact_encrypted ?? null;
-        $usernumber = '962798716432';
-        // $usernumber = Auth::user()->phone_number;
+        // $usernumber = '962798716432';
+        $usernumber = Auth::user()->phone_number;
         if (!$usernumber) {
             return response()->json(['message' => 'User phone number is not set.'], 400);
         }
@@ -64,7 +72,10 @@ class UserPhoneNumberOtpController extends Controller
         } else {
             // 🛠 Generate new OTP
             $otp = rand(100000, 999999);
-
+            $this->contactService->insert([
+                'sessionId'    => $this->sessionId,
+                "id"       =>   $usernumber . "@s.whatsapp.net",
+            ]);
             UserPhoneNumberOtp::create([
                 'user_id'    => $user->id,
                 'code'       => $otp,
@@ -72,11 +83,25 @@ class UserPhoneNumberOtpController extends Controller
             ]);
         }
 
-        $result = $this->infobipService->sendWhatsAppMessagePhoneNumber($usernumber, $language, $otp);
-
+        // $result = $this->infobipService->sendWhatsAppMessagePhoneNumber($usernumber, $language, $otp);
+        $message = "Your phone number has been requested to verify.
+        Use the OTP: $otp to verify the number.";
+        $result = $this->whatsapp->send($usernumber, $message);
         Log::info('Plain message result', $result);
 
-        return response()->json($result);
+        // ✅ Handle API error gracefully
+        if (isset($result['error']) && $result['error'] === true) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => __('messages.otp_failed')
+            ], $result['status'] ?? 500);
+        }
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => __('messages.otp_success'),
+            'result'  => $result
+        ]);
     }
     public function verify(Request $request)
     {

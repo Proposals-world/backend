@@ -62,6 +62,16 @@ return [
             ]) : [],
         ],
 
+        'whatsapp' => [
+            'driver' => 'mysql',
+            'host' => env('WHATSAPP_DB_HOST', '127.0.0.1'),
+            'database' => env('WHATSAPP_DB_DATABASE', 'whatsapp_db'),
+            'username' => env('WHATSAPP_DB_USERNAME', 'root'),
+            'password' => env('WHATSAPP_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
@@ -147,7 +157,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
