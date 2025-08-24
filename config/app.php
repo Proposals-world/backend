@@ -27,6 +27,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'api_url' => env('APP_URL') . ':' . env('API_PORT', 3000),
 
     /*
     |--------------------------------------------------------------------------
@@ -123,6 +124,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    
+
 
 ];

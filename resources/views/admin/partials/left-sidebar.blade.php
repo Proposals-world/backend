@@ -60,6 +60,14 @@
                     <span class="badge bg-success float-end" style="background-color: #9e086c !important;">9+</span>
                     <span> Dashboard </span>
                 </a>
+
+            </li>
+            <li class="side-nav-item">
+               <a href="{{ route('admin.whatsapp.qr.code') }}" class="side-nav-link">
+                <i class="ri-whatsapp-fill"></i>
+                    {{-- <span class="badge bg-success float-end" style="background-color: #9e086c !important;">9+</span> --}}
+                    <span> Whatsapp </span>
+                </a>
             </li>
 
             <li class="side-nav-title mt-2">Managment</li>

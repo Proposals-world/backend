@@ -24,8 +24,10 @@ class UserPhoneNumberOtpController extends Controller
         $this->infobipService = $infobipService;
         $this->whatsapp       = $whatsapp;
         $this->contactService = $contactService;
-        $this->sessionId = config('services.whatsapp.session', 'samer'); // try to manipulate this value from env file
+        $dbSessionId = $contactService->getSessionId();
 
+        // $this->sessionId = config('services.whatsapp.session', 'samer'); // try to manipulate this value from env file
+        $this->sessionId = $dbSessionId ?? config('services.whatsapp.session', 'samer');
     }
     public function index()
     {
@@ -86,9 +88,11 @@ class UserPhoneNumberOtpController extends Controller
         // $result = $this->infobipService->sendWhatsAppMessagePhoneNumber($usernumber, $language, $otp);
         $message = "Your phone number has been requested to verify.
         Use the OTP: $otp to verify the number.";
+        // dd($message);
         $result = $this->whatsapp->send($usernumber, $message);
         Log::info('Plain message result', $result);
-
+        // dd($this->sessionId);
+        // dd($result);
         // ✅ Handle API error gracefully
         if (isset($result['error']) && $result['error'] === true) {
             return response()->json([

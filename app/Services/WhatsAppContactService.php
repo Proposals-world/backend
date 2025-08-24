@@ -51,4 +51,28 @@ class WhatsAppContactService
                 'status'       => $data['status'] ?? null,
             ]);
     }
+    public function sessionExists(string $sessionId): bool
+    {
+        // Check in 'session' table
+        $sessionExists = DB::connection($this->connection)
+            ->table('session')
+            ->where('sessionId', $sessionId)
+            ->exists();
+
+        // Check in 'contact' table
+        $contactExists = DB::connection($this->connection)
+            ->table('contact')
+            ->where('sessionId', $sessionId)
+            ->exists();
+
+        // Return true only if it exists in both tables
+        return $sessionExists && $contactExists;
+    }
+    public function getSessionId(): ?string
+    {
+        return DB::connection($this->connection)
+            ->table('session')
+            // ->where('sessionId', $sessionId)
+            ->value('sessionId'); // returns the sessionId or null if not found
+    }
 }
