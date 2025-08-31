@@ -14,7 +14,7 @@ class SendWhatsAppMessageService
         // Local API
         $dbSessionId = $contactService->getSessionId();
         $this->sessionId = $dbSessionId ?? config('services.whatsapp.session', 'samer');
-        $this->apiUrl    = config('app.api_url')  . '/' . $this->sessionId . '/messages/send'; //config('services.whatsapp.url');
+        $this->apiUrl    = env('API_URL') . '/' . $this->sessionId . '/messages/send'; //config('services.whatsapp.url');
     }
 
     /**
