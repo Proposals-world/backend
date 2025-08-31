@@ -78,6 +78,7 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ sessionId: "{{ Auth::user()->first_name }}" })
+                    // body: JSON.stringify({ sessionId: "samer" })
                 });
 
                 if (!response.ok) {

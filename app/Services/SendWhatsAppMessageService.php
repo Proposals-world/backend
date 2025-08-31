@@ -29,6 +29,7 @@ class SendWhatsAppMessageService
         // Validate phone number format
         $to = ltrim($to, '+');
         // dd("from send " . $this->sessionId);
+
         $payload = [
             "sessionId" => $this->sessionId,
             "jid"       => $to . "@s.whatsapp.net",
@@ -39,7 +40,7 @@ class SendWhatsAppMessageService
 
         // dd($payload); // Debugging line, remove in production
         $response = Http::post($this->apiUrl, $payload);
-        // dd($response->body());
+        // dd($response->body());\
         return $response->successful() ? $response->json() : [
             'error' => true,
             'status' => $response->status(),

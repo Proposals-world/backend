@@ -29,6 +29,7 @@ class WhatsAppController extends Controller
     /**
      * Send a plain WhatsApp message (within 24-hour window).
      */
+    // guardian contact verification message
     public function sendMessage(Request $request)
     {
         // $data = $request->validate([
@@ -36,7 +37,9 @@ class WhatsAppController extends Controller
         //     // 'message' => 'required|string',
         // ]);
         $language = $request->header('Accept-Language', 'en');
+        // dd($language);
         $user = Auth::user();
+        // dd($user);
         // uncomment when paid
         $toParentNumber = $user->profile->guardian_contact_encrypted ?? null;
         // $toParentNumber = '962798716432';
@@ -68,10 +71,21 @@ class WhatsAppController extends Controller
             "id"       =>   $toParentNumber . "@s.whatsapp.net",
         ]);
         // $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
-        $message = "Your child with phone number $childPhoneNumber has requested to verify their Guardian Contact. Use the OTP: $otp to verify the number.";
-
+        if ($language === 'ar') {
+            $message = "طلب طفلك الذي يحمل رقم الهاتف $childPhoneNumber التحقق من جهة اتصال ولي الأمر. استخدم رمز التحقق OTP: $otp للتحقق من الرقم.";
+        } else {
+            $message = "Your child with phone number $childPhoneNumber has requested to verify their Guardian Contact. Use the OTP: $otp to verify the number.";
+        }
+        if ($childPhoneNumber === $toParentNumber) {
+            // dd($toParentNumber);
+            return response()->json([
+                'status'  => 'error',
+                'message' => $language === 'ar'
+                    ? 'لا يمكن أن يكون رقم هاتف الطفل وجهة اتصال ولي الأمر متطابقين.'
+                    : 'Child phone number and guardian contact cannot be the same.'
+            ], 400);
+        }
         $result = $this->whatsapp->send($toParentNumber, $message);
-
         Log::info('Plain message result', $result);
 
         // ✅ Handle API error gracefully

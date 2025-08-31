@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserPhoneNumberRequest;
+use App\Models\User;
 use App\Models\UserPhoneNumberOtp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use App\Services\InfobipService;
 use App\Services\SendWhatsAppMessageService;
 use App\Services\WhatsAppContactService;
 use Illuminate\Support\Facades\Log;
+
 use Throwable;
 
 class UserPhoneNumberOtpController extends Controller
@@ -24,10 +26,10 @@ class UserPhoneNumberOtpController extends Controller
         $this->infobipService = $infobipService;
         $this->whatsapp       = $whatsapp;
         $this->contactService = $contactService;
-        $dbSessionId = $contactService->getSessionId();
+        $this->sessionId = $contactService->getSessionId();
 
         // $this->sessionId = config('services.whatsapp.session', 'samer'); // try to manipulate this value from env file
-        $this->sessionId = $dbSessionId ?? config('services.whatsapp.session', 'samer');
+        // $this->sessionId = $dbSessionId ?? config('services.whatsapp.session', 'samer');
     }
     public function index()
     {
@@ -78,6 +80,7 @@ class UserPhoneNumberOtpController extends Controller
                 'sessionId'    => $this->sessionId,
                 "id"       =>   $usernumber . "@s.whatsapp.net",
             ]);
+
             UserPhoneNumberOtp::create([
                 'user_id'    => $user->id,
                 'code'       => $otp,
@@ -86,8 +89,11 @@ class UserPhoneNumberOtpController extends Controller
         }
 
         // $result = $this->infobipService->sendWhatsAppMessagePhoneNumber($usernumber, $language, $otp);
-        $message = "Your phone number has been requested to verify.
-        Use the OTP: $otp to verify the number.";
+        if ($language === 'ar') {
+            $message = "تم طلب التحقق من رقم هاتفك. استخدم رمز التحقق: $otp للتحقق من الرقم.";
+        } else {
+            $message = "Your phone number has been requested to verify. Use the OTP: $otp to verify the number.";
+        }
         // dd($message);
         $result = $this->whatsapp->send($usernumber, $message);
         Log::info('Plain message result', $result);
@@ -165,7 +171,7 @@ class UserPhoneNumberOtpController extends Controller
     {
         $locale = $request->header('Accept-Language', 'en');
         $user   = auth()->user();
-
+        $oldnumber = $user->phone_number ?? null;
         // Grab the validated E.164 number
         $e164 = $request->input('_user_full_phone');
 
@@ -177,12 +183,30 @@ class UserPhoneNumberOtpController extends Controller
                     : 'New phone number cannot be the same as the current one.',
             ], 400);
         }
-
-        // Save
+        // Check if the new phone number already exists for another user
+        if (User::where('phone_number', $e164)->where('id', '!=', $user->id)->exists()) {
+            return response()->json([
+                'message' => $locale === 'ar'
+                    ? 'رقم الهاتف مستخدم بالفعل من قبل مستخدم آخر.'
+                    : 'Phone number already exists for another user.',
+            ], 409);
+        }
+        // // Save
         $user->update([
             'country_code' => $request->input('country_code'),
             'phone_number' => $e164,
         ]);
+        $sessionId = $this->contactService->getSessionId();
+        if ($sessionId) {
+            // dd($sessionId);
+            // insert phone number into whatsapp contact table for male
+            $this->contactService->insert([
+                'sessionId'    => $sessionId,
+                "id"       =>   $user->phone_number . "@s.whatsapp.net",
+            ]);
+            // remove old number from whatsapp contact table if exists
+            $this->contactService->removeByNumber($oldnumber);
+        }
         return response()->json([
             'message' => $locale === 'ar'
                 ? 'تم تحديث رقم الهاتف بنجاح.'

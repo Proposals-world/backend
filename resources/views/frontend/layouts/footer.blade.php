@@ -5,8 +5,8 @@
                 <!-- Logo & Description -->
                 <div class="col-xl-3 col-lg-3 col-sm-6">
                     <div class="footer-widget mb-30">
-                        <div class="logo mt-15 mb-15">
-                            <a href="#"><img src="{{ asset('frontend/img/logo/proposals-logo-removebg-preview.png') }}" height="80px" alt="logo"></a>
+                        <div class="logo mt-15 mb-15 d-flex justify-content-center align-items-center">
+                            <a href="#"><img src="{{ asset('frontend/img/logo/tolba.png') }}" style="height:140px; width:140px;" alt="logo"></a>
                         </div>
                         <div class="footer-text mb-20">
                             <p>{{ __('footer.footer_text') }}</p>

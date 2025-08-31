@@ -417,6 +417,7 @@
                         return data;
                     })
                     .catch(err => {
+                        // showErrorMessage(err.message || '{{ __('otp.otp_invalid') }}');
                         showErrorMessage(err.message || '{{ __('otp.otp_invalid') }}');
                     })
                     .finally(() => {
