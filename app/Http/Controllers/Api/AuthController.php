@@ -230,6 +230,13 @@ class AuthController extends Controller
                 'message' => 'Your email is not verified. Please verify your email before logging in.',
             ], 403);
         }
+        if (!$user || $user->status === 'suspended') {
+            return response()->json([
+                'success' => false,
+                "status" => $user->status,
+                'message' => 'Your account is suspended. If you think this is an issue, please contact support.',
+            ], 403);
+        }
         if (!$user || $user->status !== 'active') {
             return response()->json([
                 'success' => false,
