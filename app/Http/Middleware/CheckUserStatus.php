@@ -32,8 +32,12 @@ class CheckUserStatus
                 return redirect()->route('onboarding');
             }
         }
-
-        if ($user->status !== 'active') {
+        if ($user->status === 'suspended') {
+            if (!$request->routeIs('user.support')) {  // Use route name here
+                return redirect()->route('user.support');
+            }
+        }
+        if ($user->status !== 'active' && $user->status != "suspended") {
             Auth::logout();
             return redirect()->route('login')->withErrors([
                 'email' => __('Your account is not active. Please wait for admin review or contact support.'),
