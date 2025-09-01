@@ -61,6 +61,7 @@ class UserProfile extends Model
         'sports_activity_id',
         'marriage_budget_id',
         'social_media_presence_id',
+        'country_code',
         'guardian_contact_encrypted',
         'religiosity_level_id',
         'sleep_habit_id',

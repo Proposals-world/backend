@@ -2,7 +2,7 @@
 
 return [
     // قسم الشعار والوصف
-    'footer_text' => 'يكرس موقع Proposals.world جهوده لربط الأشخاص من أجل علاقات دائمة. انضم إلى مجتمعنا واختبر أفضل خدمات التوفيق بين الشركاء.',
+    'footer_text' => 'يكرس موقع tolba.world جهوده لربط الأشخاص من أجل علاقات دائمة. انضم إلى مجتمعنا واختبر أفضل خدمات التوفيق بين الشركاء.',
 
     // قسم الروابط المفيدة
     'useful_links' => 'روابط مفيدة',
@@ -16,9 +16,9 @@ return [
     // قسم اتصل بنا
     'contact_us'   => 'اتصل بنا',
     'phone'        => '1800-121-3637<br>+91 555 234-8765',
-    'email'        => '<a href="mailto:info@proposals.world">info@proposals.world</a><br><a href="mailto:sales@proposals.world">sales@proposals.world</a>',
+    'email'        => '<a href="mailto:info@tolba.world">info@tolba.world</a>',
     'address'      => 'عمان - الأردن',
     'privacy_policy' => 'سياسة الخصوصية',
     // حقوق الطبع والنشر
-    'copyright'    => '&copy; Proposals.world. جميع الحقوق محفوظة.',
+    'copyright'    => '&copy; tolba.world. جميع الحقوق محفوظة.',
 ];

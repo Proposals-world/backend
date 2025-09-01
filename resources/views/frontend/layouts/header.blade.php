@@ -7,9 +7,9 @@
             <div class="second-menu">
                 <div class="row align-items-center">
                     <div class="col-xl-2 col-lg-2">
-                        <div class="logo">
+                        <div class="logo" style="max-height: 11vh;">
                             <a href="{{ route('welcome') }}">
-                                <img src="{{ asset('frontend/img/logo/proposals-logo-removebg-preview.png') }}" style="width: 170px;" alt="logo">
+                                <img src="{{ asset('frontend/img/logo/tolba.png') }}" style="width: 118px; " alt="logo">
                             </a>
                         </div>
                     </div>

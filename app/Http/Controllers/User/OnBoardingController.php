@@ -8,16 +8,20 @@ use App\Services\User\OnboardingService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateUserProfileRequest;
 use App\Services\UserProfileService;
+use App\Services\WhatsAppContactService;
 
 class OnBoardingController extends Controller
 {
     protected $onboardingService;
     protected $userProfileService;
+    protected $whatsAppContactService;
 
-    public function __construct(OnboardingService $onboardingService, UserProfileService $userProfileService)
+
+    public function __construct(OnboardingService $onboardingService, UserProfileService $userProfileService, WhatsAppContactService $whatsAppContactService)
     {
         $this->onboardingService = $onboardingService;
         $this->userProfileService = $userProfileService;
+        $this->whatsAppContactService = $whatsAppContactService;
     }
 
     public function index(Request $request)
@@ -62,11 +66,33 @@ class OnBoardingController extends Controller
 
         // Update the rest of the profile fields.
         $user = $this->userProfileService->updateProfile($user, $data, app()->getLocale());
-        // dd($user);
         // dd($user['error']);
         if (($user['error'])) {
             return redirect()->back()->with('error', $user['error']);
         }
+        // Check if user is male before proceeding
+        $sessionId = $this->whatsAppContactService->getSessionId();
+        if ($sessionId) {
+            if ($user->gender === 'male') {
+                // insert phone number into whatsapp contact table for male
+                $this->whatsAppContactService->insert([
+                    'sessionId'    => $sessionId,
+                    "id"       =>   $user->phone_number . "@s.whatsapp.net",
+                ]);
+            } else {
+                // insert both phone number and guardian contact into whatsapp contact table for female
+                $this->whatsAppContactService->insert([
+                    'sessionId'    => $sessionId,
+                    "id"       =>   $user->phone_number . "@s.whatsapp.net",
+                ]);
+                $this->whatsAppContactService->insert([
+                    'sessionId'    => $sessionId,
+                    "id"       =>   $user->profile->guardian_contact_encrypted . "@s.whatsapp.net",
+                ]);
+            }
+        }
+
+
         return redirect()->back()->with('success', __('onboarding.profile_updated_successfully'));
     }
 

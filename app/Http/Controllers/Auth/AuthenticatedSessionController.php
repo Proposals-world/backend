@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if ($user->status !== 'active') {
+        if ($user->status !== 'active' && $user->status != "suspended") {
             Auth::logout();
 
             return back()->withErrors([

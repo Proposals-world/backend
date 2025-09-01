@@ -38,6 +38,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
+            'country_code' => $request->country_code,
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
             'role_id' => 2,
@@ -227,6 +228,13 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Your email is not verified. Please verify your email before logging in.',
+            ], 403);
+        }
+        if (!$user || $user->status === 'suspended') {
+            return response()->json([
+                'success' => false,
+                "status" => $user->status,
+                'message' => 'Your account is suspended. If you think this is an issue, please contact support.',
             ], 403);
         }
         if (!$user || $user->status !== 'active') {

@@ -21,6 +21,8 @@ class RegisterUserRequest extends FormRequest
         if ($this->filled('country_code') && $this->filled('phone_number')) {
             $dialCode = $countries[$iso]['dial_code'] ?? '';
             $national = preg_replace('/\D+/', '', $this->input('phone_number'));
+            $national = ltrim($national, '0');
+
             $this->merge([
                 'phone_number' => $dialCode . $national,
             ]);

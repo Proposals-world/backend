@@ -10,11 +10,48 @@ use App\Services\GuardianContactVerificationService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UpdateGuardianContactRequest;
-
+use App\Services\WhatsAppContactService;
 use Throwable;
 
 class GuardianContactVerificationController extends Controller
 {
+    protected WhatsAppContactService $contactService;
+    protected  $sessionId;
+
+
+    public function __construct(WhatsAppContactService $contactService)
+    {
+
+        $this->contactService = $contactService;
+        $this->sessionId = $contactService->getSessionId();
+
+        // $this->sessionId = config('services.whatsapp.session', 'samer'); // try to manipulate this value from env file
+        // $this->sessionId = $dbSessionId ?? config('services.whatsapp.session', 'samer');
+    }
+    // this old no user for the vrefy send use \app\Http\Controllers\WhatsAppController.php
+    public function index()
+    {
+        $user = auth()->user();
+        $profile = $user->profile; // Assuming relation user->profile exists
+
+        $phone = $profile->guardian_contact_encrypted ?? '';
+        $countryCode = $user->country_code ?? 'JO'; // or get from profile if available
+        $dialCode = config('countries')[$countryCode]['dial_code'] ?? '';
+
+        // Remove leading + from phone number
+        $phoneTrimmed = ltrim($phone, '+');
+
+        // Remove dial code from start if it exists
+        if (str_starts_with($phoneTrimmed, ltrim($dialCode, '+'))) {
+            $phoneTrimmed = substr($phoneTrimmed, strlen(ltrim($dialCode, '+')));
+        }
+
+        return view('verify-guardian-otp', [
+            'localPhone' => $phoneTrimmed,
+            'countryCode' => $countryCode,
+        ]);
+    }
+
     // fix it edit to take the last send or resent the same code
     public function send(Request $request, GuardianContactVerificationService $service)
     {
@@ -25,14 +62,14 @@ class GuardianContactVerificationController extends Controller
             if (!$user || !$user->profile || !$user->profile->guardian_contact_encrypted) {
                 return response()->json([
                     'message' => $locale === 'ar'
-                        ? 'رقم ولي الأمر غير موجود في الملف الشخصي.'
+                        ? 'رقم ولية الأمر غير موجود في الملف الشخصي.'
                         : 'Guardian phone is not set in the profile.',
                 ], 400);
             }
             if ($user->profile->guardian_contact_encrypted === $user->phone_number) {
                 return response()->json([
                     'message' => $locale === 'ar'
-                        ? 'رقم ولي الأمر لا يمكن أن يكون نفس رقم المستخدم.'
+                        ? 'رقم ولية الأمر لا يمكن أن يكون نفس رقم المستخدم.'
                         : 'Guardian phone cannot be the same as the user phone.',
                 ], 400);
             }
@@ -98,7 +135,7 @@ class GuardianContactVerificationController extends Controller
                 ], 400);
             }
 
-            $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
+            // $formattedPhone = $this->formatJordanianPhone($user->profile->guardian_contact_encrypted);
 
             // 🛠 Only check the newest, latest OTP
             $record = GuardianOtp::where('user_id', $user->id)
@@ -156,24 +193,39 @@ class GuardianContactVerificationController extends Controller
     {
         $locale = $request->header('Accept-Language', 'en');
         $user   = auth()->user();
-
+        $oldContact = $user->profile->guardian_contact_encrypted ?? null;
         // Grab the validated E.164 number
         $e164 = $request->input('_guardian_full');
-
+        if ($oldContact === $e164) {
+            return response()->json([
+                'message' => $locale === 'ar'
+                    ? 'رقم ولية الأمر هو نفسه الرقم الحالي.'
+                    : 'Guardian contact is already the same as the current one.',
+            ], 400);
+        }
         // Prevent saving user’s own number
         if ($e164 === $user->phone_number) {
             return response()->json([
                 'message' => $locale === 'ar'
-                    ? 'رقم ولي الأمر لا يمكن أن يكون نفس رقم المستخدم.'
+                    ? 'رقم ولية الأمر لا يمكن أن يكون نفس رقم المستخدم.'
                     : 'Guardian contact cannot be the same as the user phone.',
             ], 400);
         }
 
+        // $whatsappService = app(WhatsAppContactService::class);
+        // $whatsappService->removeByNumber($oldContact);
         // Save
         $user->profile()->update([
+            'country_code' => $request->input('country_code'),
             'guardian_contact_encrypted' => $e164,
         ]);
-
+        // add contact to whatsapp db
+        $this->contactService->insert([
+            'sessionId'    => $this->sessionId,
+            "id"       =>   $e164 . "@s.whatsapp.net",
+        ]);
+        // dd($oldContact);
+        $this->contactService->removeByNumber($oldContact);
         return response()->json([
             'message' => $locale === 'ar'
                 ? 'تم تحديث رقم ولي الأمر بنجاح.'

@@ -48,6 +48,7 @@ use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\User\OnBoardingController;
+use App\Http\Controllers\UserPhoneNumberOtpController;
 use App\Http\Controllers\UserPreferenceController;
 use App\Http\Controllers\WhatsAppController;
 
@@ -86,7 +87,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/verify-code', [GuardianContactVerificationController::class, 'verify']);
         Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'updateGuardianContact']);
     });
-    // Record a contact for the user 
+    // Record a contact for the user
     Route::post('/subscription', [SubscriptionContactController::class, 'store']);
 
     // Get subscription contact info for the user
@@ -151,4 +152,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
         Route::post('/send-template', [WhatsAppController::class, 'sendTemplateMessage']); // Added new template route
     });
+    // send otp to the user phone number
+    Route::post('verify-user-number', [UserPhoneNumberOtpController::class, 'sendMessage'])
+        ->name('user.send.message');
+    Route::post('verify-user-code', [UserPhoneNumberOtpController::class, 'verify'])
+        ->name('user.verify');
+    Route::put('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
+        ->name('user.update.phone.number');
 });

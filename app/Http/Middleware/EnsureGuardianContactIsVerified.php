@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\GuardianOtp;
+use App\Models\UserPhoneNumberOtp;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,15 @@ class EnsureGuardianContactIsVerified
         if (!$user) {
             return redirect()->route('login');
         }
+        // Check if phone is verified first
+        $phoneVerified = UserPhoneNumberOtp::where('user_id', $user->id)
+            ->where('verified', 1)
+            ->exists();
 
+        if (!$phoneVerified) {
+            // Skip guardian check if phone not verified
+            return $next($request);
+        }
         // Only apply to females
         if (strtolower($user->gender) === 'female') {
             $guardianVerification = GuardianOtp::where('user_id', $user->id)

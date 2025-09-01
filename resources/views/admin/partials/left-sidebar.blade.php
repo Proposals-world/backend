@@ -60,7 +60,34 @@
                     <span class="badge bg-success float-end" style="background-color: #9e086c !important;">9+</span>
                     <span> Dashboard </span>
                 </a>
+
             </li>
+            {{-- Example: Display sessionId from getSessionId() --}}
+            @php
+                $sessionId = app('App\Services\WhatsAppContactService')->getSessionId();
+            @endphp
+            @if($sessionId)
+
+                <li class="side-nav-item">
+                   <a href="{{ route('admin.whatsapp.qr.code') }}" class="side-nav-link">
+                    <i class="ri-whatsapp-fill"></i>
+                        <span class="badge bg-success float-end" style="background-color: green !important;padding: 2px 6px;">
+                            <i class="ri-check-line"></i>
+                        </span>
+                        <span> Whatsapp </span>
+                    </a>
+                </li>
+                @else
+                <li class="side-nav-item">
+                   <a href="{{ route('admin.whatsapp.qr.code') }}" class="side-nav-link">
+                    <i class="ri-whatsapp-fill"></i>
+                        <span class="badge bg-success float-end" style="background-color: red !important; font-size: 10px; padding: 2px 6px;">
+                            <i class="ri-close-line"></i>
+                        </span>
+                        <span> Whatsapp </span>
+                    </a>
+                </li>
+            @endif
 
             <li class="side-nav-title mt-2">Managment</li>
             {{--
