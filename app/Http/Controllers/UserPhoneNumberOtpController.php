@@ -74,6 +74,14 @@ class UserPhoneNumberOtpController extends Controller
         if ($existingOtp) {
             $otp = $existingOtp->code;  // Use existing OTP
         } else {
+            if (!$this->sessionId) {
+                return response()->json([
+                    'status'  => 'error',
+                    'message' => $language === 'ar'
+                        ? 'الجلسة غير موجودة، لا يمكن إرسال رمز التحقق.'
+                        : 'Session not found, cannot send OTP.'
+                ], 400);
+            }
             // 🛠 Generate new OTP
             $otp = rand(100000, 999999);
             $this->contactService->insert([
