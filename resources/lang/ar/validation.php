@@ -70,5 +70,5 @@ return [
         'password'     => 'كلمة المرور',
         'country_code' => 'الدولة',
     ],
-    'account_not_active' => 'حسابك غير مفعل. إذا كنت تعتقد أن هناك مشكلة، يرجى التواصل مع support@proposals.world.',
+    'account_not_active' => 'حسابك غير مفعل. إذا كنت تعتقد أن هناك مشكلة، يرجى التواصل مع support@Tolba.world.',
 ];

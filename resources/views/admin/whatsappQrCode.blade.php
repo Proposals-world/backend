@@ -72,12 +72,13 @@
             container.innerHTML = `<p>Loading QR Code...</p>`; // show loading state
 
             try {
-                const response = await fetch("{{ config('app.api_url') }}/sessions/add", {
+                const response = await fetch("{{ env('API_URL')  }}/sessions/add", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ sessionId: "{{ Auth::user()->first_name }}" })
+                    // body: JSON.stringify({ sessionId: "samer" })
                 });
 
                 if (!response.ok) {

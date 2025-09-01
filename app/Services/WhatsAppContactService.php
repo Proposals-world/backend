@@ -75,4 +75,30 @@ class WhatsAppContactService
             // ->where('sessionId', $sessionId)
             ->value('sessionId'); // returns the sessionId or null if not found
     }
+    /**
+     * Remove contact by phone number (id) if exists.
+     *
+     * @param string $number
+     * @return bool True if deleted, false if not found
+     */
+    public function removeByNumber(string $number): bool
+    {
+        // Check if contact exists
+        $contact = DB::connection($this->connection)
+            ->table('contact')
+            ->where('id', $number . "@s.whatsapp.net")
+            ->first();
+
+        if ($contact) {
+            // Delete the contact
+            DB::connection($this->connection)
+                ->table('contact')
+                ->where('id', $number . "@s.whatsapp.net")
+                ->delete();
+
+            return true; // Deleted successfully
+        }
+
+        return false; // Not found
+    }
 }

@@ -15,6 +15,7 @@ class AdminDashboardController extends Controller
     public function __construct(DashboardService $dashboardService, WhatsAppContactService $whatsappService)
     {
         $this->whatsappService = $whatsappService;
+        $this->dashboardService = $dashboardService;
     }
 
     public function index()

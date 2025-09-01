@@ -67,6 +67,21 @@
     </div>
 
     <!-- Success/Error Messages -->
+    @if(Auth::user()->status === 'suspended')
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {!! Auth::user()?->status === 'suspended'
+                ? __('messages.suspended_notice')
+                : '' !!}
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
     @if(session('success'))
     <div class="row mb-4">
         <div class="col-12">
@@ -208,7 +223,7 @@
         z-index: 1; pointer-events: auto;
         content: ""; background-color: rgba(0,0,0,0);
     }
-    
+
     /* Responsive filter buttons */
     .filter-buttons-container {
         display: flex;
@@ -216,13 +231,13 @@
         gap: 10px;
         justify-content: center;
     }
-    
+
     .filter-btn {
         margin-bottom: 5px;
         flex: 0 0 auto;
         white-space: nowrap;
     }
-    
+
     /* Additional responsive adjustments */
     @media (max-width: 768px) {
         .filter-btn {
@@ -230,7 +245,7 @@
             padding: 0.375rem 0.75rem;
         }
     }
-    
+
     @media (max-width: 576px) {
         .filter-buttons-container {
             display: grid;
@@ -238,20 +253,20 @@
             gap: 8px;
             width: 100%;
         }
-        
+
         .filter-btn {
             margin: 0;
             text-align: center;
             padding: 0.375rem 0.5rem;
             width: 100%;
         }
-        
+
         .badge {
             display: block;
             margin: 0 auto 5px auto !important;
         }
     }
-    
+
     @media (max-width: 450px) {
         .filter-btn {
             font-size: 0.75rem;
@@ -263,22 +278,22 @@
         border-radius: 0.75rem;
         border: none;
     }
-    
+
     .modal-header {
         border-bottom: 1px solid rgba(0,0,0,0.1);
         padding: 1.25rem 1.5rem;
     }
-    
+
     .modal-footer {
         border-top: 1px solid rgba(0,0,0,0.1);
         padding: 1.25rem 1.5rem;
     }
-    
+
     .modal .form-control {
         border-radius: 0.5rem;
         padding: 0.75rem 1rem;
     }
-    
+
     .modal textarea.form-control {
         min-height: 120px;
     }
@@ -297,15 +312,15 @@
             <form id="create-ticket-form" action="{{ route('user.support.store') }}" method="POST">
                 <div class="modal-body">
                     @csrf
-                    
+
                     <!-- Subject Field -->
                     <div class="form-group">
                         <label for="subject">{{ __('userDashboard.support.subject') }} <span class="text-danger">*</span></label>
-                        <input 
-                            type="text" 
-                            class="form-control @error('subject') is-invalid @enderror" 
-                            id="subject" 
-                            name="subject" 
+                        <input
+                            type="text"
+                            class="form-control @error('subject') is-invalid @enderror"
+                            id="subject"
+                            name="subject"
                             value="{{ old('subject') }}"
                             placeholder="{{ __('userDashboard.support.subject_placeholder') }}"
                             required
@@ -317,14 +332,14 @@
                             {{ __('userDashboard.support.subject_required') }}
                         </div>
                     </div>
-                    
+
                     <!-- Message Field -->
                     <div class="form-group">
                         <label for="description">{{ __('userDashboard.support.description') }} <span class="text-danger">*</span></label>
-                        <textarea 
-                            class="form-control @error('description') is-invalid @enderror" 
-                            id="description" 
-                            name="description" 
+                        <textarea
+                            class="form-control @error('description') is-invalid @enderror"
+                            id="description"
+                            name="description"
                             rows="5"
                             placeholder="{{ __('userDashboard.support.description_placeholder') }}"
                             required
@@ -360,25 +375,25 @@
                 let valid = true;
                 const subject = document.getElementById('subject');
                 const description = document.getElementById('description');
-                
+
                 // Reset previous validation
                 subject.classList.remove('is-invalid');
                 description.classList.remove('is-invalid');
-                
+
                 // Validate subject
                 if (!subject.value.trim()) {
                     subject.classList.add('is-invalid');
                     document.getElementById('subject-error').style.display = 'block';
                     valid = false;
                 }
-                
+
                 // Validate description
                 if (!description.value.trim()) {
                     description.classList.add('is-invalid');
                     document.getElementById('description-error').style.display = 'block';
                     valid = false;
                 }
-                
+
                 if (!valid) {
                     e.preventDefault();
                 } else {
@@ -397,7 +412,7 @@
                 document.getElementById('description').classList.remove('is-invalid');
             }
         });
-        
+
         // Make sure modal is working with the buttons
         const createButtons = document.querySelectorAll('[data-target="#createTicketModal"]');
         createButtons.forEach(button => {

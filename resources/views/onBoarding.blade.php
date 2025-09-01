@@ -1006,7 +1006,7 @@
                                                             <label class="form-label">
                                                                 {{ __('onboarding.guardian_contact') }} <span class="required-field">*</span>
                                                                 <p
-                                                                    class="form-text text-muted mb-0">{{ __('onboarding.guardian_contact_help') }}</p>
+                                                                    class="form-text text-muted mb-0 text-left">{{ __('onboarding.guardian_contact_help') }}</p>
                                                             </label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
@@ -1029,7 +1029,7 @@
                                                                     >
                                                             </div>
                                                             <p
-                                                        class="form-text text-muted">{{ __('onboarding.guardian_contact_number_help') }}</p>
+                                                        class="form-text text-muted text-left">{{ __('onboarding.guardian_contact_number_help') }}</p>
                                                             <span class="error-message text-danger"
                                                                 style="font-size:12px;"></span>
                                                         </div>
@@ -1468,13 +1468,13 @@
                     isValid = false;
                 }
                 break;
-                        case 'guardian_contact':
-                            const guardianRegex = /^(078|077|079)\d{7}$/;
-                            if (!guardianRegex.test(value)) {
-                                errorSpan.text("{{ __('onboarding.invalid_guardian_contact') }}");
-                                isValid = false;
-                            }
-                            break;
+                        // case 'guardian_contact':
+                        //     const guardianRegex = /^(078|077|079)\d{7}$/;
+                        //     if (!guardianRegex.test(value)) {
+                        //         errorSpan.text("{{ __('onboarding.invalid_guardian_contact') }}");
+                        //         isValid = false;
+                        //     }
+                        //     break;
 
                         case 'photo_url':
                             if (value) {
