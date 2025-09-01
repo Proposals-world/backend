@@ -74,5 +74,5 @@ return [
         'phone_number' => 'phone number',
 
     ],
-    'account_not_active' => 'Your account is not active. If you think this is an issue, please contact support@proposals.world.'
+    'account_not_active' => 'Your account is not active. If you think this is an issue, please contact support@Tolba.world.'
 ];

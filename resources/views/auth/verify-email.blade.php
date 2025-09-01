@@ -3,7 +3,7 @@
 
 <head>
     @if (app()->getLocale() === 'ar')
-        
+
     <link rel="stylesheet" href="{{ asset('frontend/css/auth-rtl.css') }}">
     @endif
     @include("admin.partials.title-meta")
@@ -87,7 +87,7 @@
                 <!-- Footer -->
                 <footer class="footer footer-alt">
                     <p class="text-muted">
-                        <script>document.write(new Date().getFullYear())</script> © Propasals - Propasals.world
+                        <script>document.write(new Date().getFullYear())</script> © Tolba - Tolba.world
                     </p>
                 </footer>
 
