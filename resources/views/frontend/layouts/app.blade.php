@@ -5,30 +5,30 @@
 <!-- Basic Meta Tags -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Proposals.world - Find Your Perfect Life Partner</title>
-<meta name="description" content="Proposals.world is a premium matchmaking platform dedicated to helping you find your ideal life partner. Join thousands of happy couples and start your journey toward a lifelong relationship.">
-<meta name="keywords" content="matchmaking, proposals, marriage, soulmate, dating, relationships, proposals world">
-<meta name="author" content="Proposals.world">
+<title>Tolba.world - Find Your Perfect Life Partner</title>
+<meta name="description" content="tolba.world is a premium matchmaking platform dedicated to helping you find your ideal life partner. Join thousands of happy couples and start your journey toward a lifelong relationship.">
+<meta name="keywords" content="matchmaking, tolba, marriage, soulmate, dating, relationships, tolba world">
+<meta name="author" content="tolba.world">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://proposals.world">
+<link rel="canonical" href="https://tolba.world">
 
 <!-- Open Graph / Facebook -->
-<meta property="og:title" content="Proposals.world - Find Your Perfect Life Partner">
-<meta property="og:description" content="Join thousands of happy couples who discovered true love on Proposals.world.">
-<meta property="og:image" content="{{ asset('frontend/img/logo/proposals-logo-removebg-preview.png') }}">
-<meta property="og:url" content="https://proposals.world">
+<meta property="og:title" content="tolba.world - Find Your Perfect Life Partner">
+<meta property="og:description" content="Join thousands of happy couples who discovered true love on tolba.world.">
+<meta property="og:image" content="{{ asset('frontend\img\logo\tolba.png') }}">
+<meta property="og:url" content="https://tolba.world">
 <meta property="og:type" content="website">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Proposals.world - Find Your Perfect Life Partner">
-<meta name="twitter:description" content="Join thousands of happy couples who discovered true love on Proposals.world.">
-<meta name="twitter:image" content="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
+<meta name="twitter:title" content="tolba.world - Find Your Perfect Life Partner">
+<meta name="twitter:description" content="Join thousands of happy couples who discovered true love on tolba.world.">
+<meta name="twitter:image" content="{{ asset('frontend\img\logo\tolba.png') }}">
 
 <!-- Favicon & Apple Touch Icon -->
-<link rel="icon" type="image/jpeg" href="{{ asset('admin/assets/images/proposals-logo.jpeg') }}">
-<link rel="apple-touch-icon" href="{{ asset('frontend/img/logo/proposals-logo-removebg-preview.png') }}">
+<link rel="icon" type="image/jpeg" href="{{ asset('frontend\img\logo\tolba.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('frontend\img\logo\tolba.png') }}">
     <!-- CSS here -->
     @if (app()->getLocale() === 'ar')
         <!-- RTL CSS -->

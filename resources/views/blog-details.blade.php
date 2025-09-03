@@ -19,7 +19,7 @@
     padding: 40px 30px;
     position: relative;
     z-index: 1;
-    /* height: 300px; */
+    height: auto;
 }
 /* 1. Base reset for lists inside .blog-content */
 .blog-content ul {
