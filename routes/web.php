@@ -56,8 +56,18 @@ use App\Http\Controllers\User\UserProfileController as UserUserProfileController
 use App\Http\Controllers\UserPhoneNumberOtpController;
 use App\Http\Controllers\WhatsAppController;
 use App\Models\UserProfile;
+use App\Http\Controllers\FintesaWebhookController;
+use App\Http\Controllers\Api\PaymentController as ApiPaymentController;
+use App\Http\Controllers\PaymentPageController;
+
 
 Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Payment webhook and success URL
+Route::post('webhook/fintesa', [FintesaWebhookController::class, 'handle']);
+Route::get('payment/success', [PaymentPageController::class, 'success'])->name('payment.success');
+Route::get('payment/error', [PaymentPageController::class, 'fail'])->name('payment.error');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/about-us', function () {
@@ -207,7 +217,7 @@ Route::middleware([
     Route::get('/matches', [MatchController::class, 'index'])->name('matches');
     Route::get('/get-matches', [MatchController::class, 'getMatches'])->name('getMatchesApi');
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
+    Route::get('pricing', [PaymentPageController::class, 'pricing'])->name('user.pricing');
     Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
     Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
     Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');

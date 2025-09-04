@@ -130,15 +130,6 @@ class UserDashboardController extends Controller
         ]);
     }
 
-    public function pricing()
-    {
-        $lang = $this->getAppLocale();
-        $subscriptionCards = $this->getSubscriptionCards($lang);
-
-        // dd($subscriptionCards);
-        return view('user.pricing', compact('subscriptionCards'));
-    }
-
     private function getUserMatches()
     {
         return UserMatch::with(['user1', 'user2'])

@@ -14,7 +14,19 @@ class SubscriptionPackage extends Model
         'package_name_ar',
         'price',
         'contact_limit',
-        'duration'
+        'duration',
+        'gender',
+        'is_one_time',
+        'fintesa_product_id',
+        'fintesa_price_id',
+        'payment_url',
+        'purchase_count',
+    ];
+    protected $casts = [
+        'is_one_time' => 'boolean',
+        'duration' => 'integer',
+        'contact_limit' => 'integer',
+        'price' => 'decimal:2',
     ];
 
     public function subscriptions()
@@ -28,5 +40,21 @@ class SubscriptionPackage extends Model
         return $this->belongsToMany(Feature::class)
             ->withPivot('included')
             ->withTimestamps();
+    }
+
+    public function generatePaymentUrl(): ?string
+    {
+        if (!$this->fintesa_product_id) {
+            return null;
+        }
+        $baseUrl = config('services.fintesa.base_url');
+        $successUrl = config('services.fintesa.success_url');
+        return rtrim($baseUrl, '/') . '/checkout/' . $this->fintesa_product_id . '?success_url=' . urlencode($successUrl) . '&metadata[package_id]=' . $this->id;
+    }
+
+    public function syncWithFintesa(): void
+    {
+        app(\App\Services\FintesaPaymentService::class);
+        // Intentionally left as a hint; actual syncing done in controller/service flow
     }
 }

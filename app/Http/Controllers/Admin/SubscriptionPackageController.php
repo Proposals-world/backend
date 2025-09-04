@@ -8,6 +8,7 @@ use App\Models\Feature;
 use App\Models\SubscriptionPackage;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubscriptionPackageRequest;
+use App\Services\FintesaPaymentService;
 
 class SubscriptionPackageController extends Controller
 {
@@ -21,9 +22,20 @@ class SubscriptionPackageController extends Controller
         return view('admin.SubscriptionPackage.create');
     }
 
-    public function store(SubscriptionPackageRequest $request)
+    public function store(SubscriptionPackageRequest $request, FintesaPaymentService $paymentService)
     {
-        SubscriptionPackage::create($request->validated());
+        $package = SubscriptionPackage::create($request->validated());
+
+        // Sync with Fintesa
+        $create = $paymentService->createProduct($package);
+        if ($create['ok'] ?? false) {
+            $package->fintesa_product_id = $create['product_id'] ?? null;
+            $package->fintesa_price_id = $create['price_id'] ?? null;
+            if (!empty($create['payment_url'])) {
+                $package->payment_url = $create['payment_url'];
+            }
+            $package->save();
+        }
 
         return response()->json(['message' => 'Subscription package added successfully']);
     }
@@ -39,16 +51,28 @@ class SubscriptionPackageController extends Controller
     }
 
 
-    public function update(SubscriptionPackageRequest $request, $id)
+    public function update(SubscriptionPackageRequest $request, $id, FintesaPaymentService $paymentService)
     {
         // Find the package first
         $package = SubscriptionPackage::findOrFail($id);
 
-        // Debugging: Check the request data
-        // \Log::info('Updating Package', $request->validated());
+        // Update the subscription package (gender/is_one_time)
+        $validated = $request->validated();
+        $package->update($validated);
 
-        // Update the subscription package
-        $package->update($request->validated());
+        // Re-sync product price if needed
+        if ($package->fintesa_product_id) {
+            // Re-create product on update to ensure it's up-to-date in Fintesa
+            $create = $paymentService->createProduct($package);
+            if ($create['ok'] ?? false) {
+                $package->fintesa_product_id = $create['product_id'] ?? $package->fintesa_product_id;
+                $package->fintesa_price_id = $create['price_id'] ?? $package->fintesa_price_id;
+                if (!empty($create['payment_url'])) {
+                    $package->payment_url = $create['payment_url'];
+                }
+                $package->save();
+            }
+        }
 
         return response()->json(['message' => 'Subscription package updated successfully']);
     }
