@@ -134,7 +134,7 @@ class UserDashboardController extends Controller
     {
         $lang = $this->getAppLocale();
         $subscriptionCards = $this->getSubscriptionCards($lang);
-
+        // dd($subscriptionCards);
         // dd($subscriptionCards);
         return view('user.pricing', compact('subscriptionCards'));
     }
@@ -166,13 +166,26 @@ class UserDashboardController extends Controller
 
     private function getSubscriptionCards($lang)
     {
-        return SubscriptionPackage::all()->map(function ($package) use ($lang) {
-            return [
-                'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
-                'price'          => $package->price,
-                'contact_limit'  => $package->contact_limit,
-                'duration'  => $package->duration,
-            ];
+        $userGender = Auth::user()->gender;
+
+        $packages = SubscriptionPackage::where('gender', $userGender)->get();
+
+        return $packages->map(function ($package) use ($lang, $userGender) {
+            if ($userGender === "male") {
+                return [
+                    'package_name'  => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price'         => $package->price,
+                    'contact_limit' => $package->contact_limit,
+                    "gender"      => $package->gender,
+                ];
+            } else { // female
+                return [
+                    'package_name' => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price'        => $package->price,
+                    'duration'     => $package->duration,
+                    "gender"      => $package->gender,
+                ];
+            }
         });
     }
 }

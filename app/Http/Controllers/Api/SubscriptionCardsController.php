@@ -13,11 +13,23 @@ class SubscriptionCardsController extends Controller
         $lang = $request->header('Accept-Language', 'en');
 
         $subscriptionCards = SubscriptionPackage::all()->map(function ($package) use ($lang) {
-            return [
-                'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
-                'price'          => $package->price,
-                'contact_limit'  => $package->contact_limit,
-            ];
+            // dd($package)->gender;
+            if ($package->gender == "male") {
+
+                return [
+                    'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price'          => $package->price,
+                    'contact_limit'  => $package->contact_limit,
+                    // 'duration'  => $package->duration,
+                ];
+            } else {
+                return [
+                    'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price'          => $package->price,
+                    // 'contact_limit'  => $package->contact_limit,
+                    'duration'  => $package->duration,
+                ];
+            }
         });
 
         return response()->json([

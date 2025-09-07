@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Services\UserRegistrationFreeSubsService; // add at top
+
 use Carbon\Carbon;
 use Validator;
 
@@ -74,8 +76,9 @@ class AuthController extends Controller
     /**
      * Verify OTP for user registration.
      */
-    public function verifyOTP(Request $request)
+    public function verifyOTP(Request $request, UserRegistrationFreeSubsService $freesubsservice)
     {
+
         // Validate incoming request
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
@@ -92,7 +95,7 @@ class AuthController extends Controller
 
         // Retrieve user
         $user = User::where('email', $request->email)->first();
-
+        // dd($user);
         // Retrieve the latest unused OTP
         $verificationToken = VerificationToken::where('user_id', $user->id)
             ->where('token_type', 'otp_verification')
@@ -175,6 +178,12 @@ class AuthController extends Controller
                 'religiosity_level_id' => null,
                 'updated_at' => null,
             ]);
+        }
+        $userscount = User::count()->where('role_id', 2);
+        // Assign free subscription
+
+        if ($userscount <= 1000) {
+            $freesubsservice->assignFreeSubscription($user);
         }
         $token = $user->createToken('API Token')->plainTextToken;
         return response()->json([

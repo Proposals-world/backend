@@ -12,14 +12,10 @@
             </div>
 
             <div class="row equal-height-container">
-             @php
-    $isMale = Auth::user()->gender === 'male';
-    $cardsToShow = $isMale
-        ? $subscriptionCards->slice(0, 3)
-        : $subscriptionCards->slice(3, 3);
-@endphp
 
-@forelse ($cardsToShow as $card)
+
+@forelse ($subscriptionCards as $card)
+
     <div class="col-md-12 col-lg-4 mb-4 col-item">
         <div class="card">
             <div class="card-body pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
@@ -33,7 +29,7 @@
 
                 <div class="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">
                     <ul class="list-unstyled">
-                        @if ($isMale)
+                        @if (Auth::user()->gender == "male")
                             <li>
                                 <p class="mb-0">
                                     {{ __('userDashboard.pricing.contact_limit') }}: {{ $card['contact_limit'] }}

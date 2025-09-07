@@ -437,20 +437,18 @@ html[dir="rtl"] .contact-direction {
                     </div>
                 </div>
                 <div class="row justify-content-center" id="pricing-plan-cards">
-                    @if (isset($subscriptionPackage) && count($subscriptionPackage) > 0)
-                       @php
-                            $chunks = $subscriptionPackage->chunk(3);
-                        @endphp
+                    @if (isset($malePackages) && count($malePackages) > 0)
 
-                        @foreach ($chunks as $index => $group)
+
+
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <h3 class="text- text-left mb-4">
-                                        {{ $index === 0 ? __('home.For_Males') : __('home.For_Females') }}
+                                        {{  __('home.For_Males') }}
                                     </h3>
                                 </div>
 
-                                @foreach ($group as $package)
+                                @foreach ($malePackages as $package)
                                     <div class="col-lg-4 col-md-6">
                                         <div class="pricing-box text-center mb-60">
                                             <div class="pricing-head">
@@ -465,12 +463,39 @@ html[dir="rtl"] .contact-direction {
                                             </div>
                                             <div class="pricing-body mb-40 text-left">
                                                 <ul>
-                                                    @if ($index !== 0)
-                                                    <li>{{ __('home.duration') }}: {{ $package['duration'] ?? 'N/A' }} {{ __('home.in_days') }} </li>
-                                                    @else
+
                                                     <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
 
-                                                    @endif                                                </ul>
+                                            </div>
+                                            <div class="pricing-btn">
+                                                <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                     <div class="col-12">
+                                    <h3 class="text- text-left mb-4">
+                                        {{  __('home.For_Females') }}
+                                    </h3>
+                                </div>
+
+                                @foreach ($femalePackages as $package)
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="pricing-box text-center mb-60">
+                                            <div class="pricing-head">
+                                                <h4>{{ $package['package_name'] }}</h4>
+                                                <div class="pricing-amount">
+                                                    <sup><span class="currency">$</span></sup>
+                                                    <span class="price">{{ $package['price'] }}</span>
+                                                    <br>
+                                                    <span class="subscription"></span>
+                                                </div>
+                                                <h5></h5>
+                                            </div>
+                                            <div class="pricing-body mb-40 text-left">
+                                                <ul>
+                                                    <li>{{ __('home.duration') }}: {{ $package['duration'] ?? 'N/A' }} {{ __('home.in_days') }} </li>
+                                                                                                 </ul>
                                             </div>
                                             <div class="pricing-btn">
                                                 <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
@@ -479,7 +504,6 @@ html[dir="rtl"] .contact-direction {
                                     </div>
                                 @endforeach
                             </div>
-                        @endforeach
 
                     @else
                         <div class="col-12 text-center">
