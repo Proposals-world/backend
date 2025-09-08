@@ -377,7 +377,7 @@ $locale = app()->getLocale();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-label">{{ __('onboarding.religion') }} <span class="required-field">*</span></label>
-                                                <select name="religion_id" class="form-control rounded-pill"
+                                                <select name="religion_id" id="religion_id" class="form-control rounded-pill"
                                                     required>
                                                     <option value="">{{ __('onboarding.select_religion') }}
                                                     </option>
@@ -945,39 +945,41 @@ $locale = app()->getLocale();
 
 @push('scripts')
 <script>
-    // Assume user gender is available from a hidden field or global variable.
-    var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
-    $('#religion_id').on('change', function () {
-    var religionId = $(this).val();
-    var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
 
-    $('#religiosity_levels')
-        .empty()
-        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+        var userGender = "{{  auth()->user()->gender ?? '' }}";
+        $('#religion_id').on('change', function () {
+        var religionId = $(this).val();
+        // console.log('Selected religion ID:', religionId);
+        var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
 
-    if (religionId) {
-        $.ajax({
-            url: "{{ url('user/religious-levels-gender') }}",
-            type: 'GET',
-            data: {
-                religion_id: religionId,
-                gender: gender === 'male' ? 1 : 2
-            },
-            success: function (response) {
-                if (response.religiousLevels && response.religiousLevels.length > 0) {
-                    $.each(response.religiousLevels, function (index, level) {
-                        $('#religiosity_levels').append(
-                            '<option value="' + level.id + '">' + level.name + '</option>'
-                        );
-                    });
+        $('#religiosity_levels')
+            .empty()
+            .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+
+        if (religionId) {
+            $.ajax({
+                url: "{{ url('user/religious-levels-gender') }}",
+                type: 'GET',
+                data: {
+                    religion_id: religionId,
+                    gender: gender === 'male' ? 1 : 2
+                },
+                success: function (response) {
+                    if (response.religiousLevels && response.religiousLevels.length > 0) {
+                        $.each(response.religiousLevels, function (index, level) {
+                            $('#religiosity_levels').append(
+                                '<option value="' + level.id + '">' + level.name + '</option>'
+                            );
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    console.error('Error fetching religiosity levels:', xhr.responseText);
                 }
-            },
-            error: function (xhr) {
-                console.error('Error fetching religiosity levels:', xhr.responseText);
-            }
-        });
-    }
-});
+            });
+        }
+    });
+    // Assume user gender is available from a hidden field or global variable.
 $('select[name="marital_status_id"]').on('change', function () {
     var selectedMaritalStatus = $(this).val();
 
@@ -1571,6 +1573,14 @@ $(document).ready(function() {
     if (userCountryId) {
         $('#country_id').val(userCountryId).trigger('change'); // Set the selected country and trigger the change event
     }
+     // On page load: if religion is already selected, load its levels
+    var initialReligion = $('#religion_id').val();
+    var initialLevel = "{{ old('religiosity_level_id', $user->profile->religiosity_level_id ?? '') }}";
+
+    if (initialReligion) {
+        console.log("fire load")
+        loadReligiosityLevels(initialReligion, initialLevel);
+    }
 });
  /* --------------------------------------------------
              * Fetch city locations when a city is chosen
@@ -1619,8 +1629,39 @@ $(document).ready(function() {
         loadCityLocations(cityId, null);
 
     });
-});
 
+});
+function loadReligiosityLevels(religionId, selectedLevelId = null) {
+        var gender = userGender === 'male' ? 1 : 2;
+        var $select = $('#religiosity_levels');
+
+        $select.empty().append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+
+        if (!religionId) return;
+
+        $.ajax({
+            url: "{{ url('user/religious-levels-gender') }}",
+            type: 'GET',
+            data: { religion_id: religionId, gender: gender },
+            success: function (response) {
+                if (response.religiousLevels && response.religiousLevels.length) {
+                    $.each(response.religiousLevels, function (index, level) {
+                        $select.append('<option value="' + level.id + '"' +
+                            (selectedLevelId == level.id ? ' selected' : '') +
+                            '>' + level.name + '</option>');
+                    });
+                }
+            },
+            error: function (xhr) {
+                console.error('Error fetching religiosity levels:', xhr.responseText);
+            }
+        });
+    }
+    // Bind change event
+    $('#religionId').on('change', function () {
+        var religionId = $(this).val();
+        loadReligiosityLevels(religionId);
+    });
 
 
 </script>
