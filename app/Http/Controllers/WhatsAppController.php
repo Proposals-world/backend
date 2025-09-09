@@ -42,6 +42,14 @@ class WhatsAppController extends Controller
         // dd($user);
         // uncomment when paid
         $toParentNumber = $user->profile->guardian_contact_encrypted ?? null;
+        if (!$toParentNumber) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => $language === 'ar'
+                    ? 'لا يوجد رقم ولي أمر مرتبط بالحساب.'
+                    : 'Guardian contact number is missing.'
+            ], 400);
+        }
         // $toParentNumber = '962798716432';
         $childPhoneNumber = $user->phone_number;
         if (!$childPhoneNumber) {
