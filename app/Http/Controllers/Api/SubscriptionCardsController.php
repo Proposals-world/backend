@@ -20,7 +20,8 @@ class SubscriptionCardsController extends Controller
                     'package_name'   => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
                     'price'          => $package->price,
                     'contact_limit'  => $package->contact_limit,
-                    // 'duration'  => $package->duration,
+                    'gender'  => $package->gender,
+
                 ];
             } else {
                 return [
@@ -28,6 +29,8 @@ class SubscriptionCardsController extends Controller
                     'price'          => $package->price,
                     // 'contact_limit'  => $package->contact_limit,
                     'duration'  => $package->duration,
+                    'gender'  => $package->gender,
+
                 ];
             }
         });
