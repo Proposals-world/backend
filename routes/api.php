@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\GuardianContactVerificationController;
+use App\Http\Controllers\Api\IsVerifiedController;
 use App\Http\Controllers\Api\LikeController as ApiLikeController;
 use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\PasswordResetController;
@@ -63,6 +64,7 @@ Route::post('/resend-verification-link', [AuthController::class, 'resendVerifica
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Protected Routes
+Route::get('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
 Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 
@@ -159,4 +161,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name('user.verify');
     Route::put('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
         ->name('user.update.phone.number');
+    Route::get('/is-phone-number-verified', [IsVerifiedController::class, 'isPhoneVerified']);
+    Route::get('/is-guardian-contact-verified', [IsVerifiedController::class, 'isGuardianVerified']);
+    Route::get('/is-profile-completed', [IsVerifiedController::class, 'isProfileCompleted']);
 });
