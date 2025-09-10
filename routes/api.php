@@ -62,7 +62,7 @@ Route::post('/password/verify-otp', [PasswordResetController::class, 'verifyOTP'
 Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
+Route::post('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
 
 // Protected Routes
 // Route::get('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
