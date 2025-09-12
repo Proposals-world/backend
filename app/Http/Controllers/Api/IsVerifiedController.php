@@ -65,7 +65,7 @@ class IsVerifiedController extends Controller
     {
         // Get the currently authenticated user
         $user = Auth::user();
-
+        // dd($user);
         if (!$user) {
             return response()->json([
                 'error'   => true,
@@ -89,16 +89,17 @@ class IsVerifiedController extends Controller
                 'verified'   => 'رقم الهاتف مفعل'
             ]
         ];
-
+        // dd$user->id;
         // Find latest unverified OTP that hasn't expired
         $otp = UserPhoneNumberOtp::where('user_id', $user->id)
-            ->where('expires_at', '>', now())
-            ->where('verified', false)
+            // ->where('expires_at', '>', now())
+            ->where('verified', 0) // use 1 instead of true
             ->latest()
             ->first();
 
+        // dd($otp);
         // If OTP exists and unverified
-        if ($otp) {
+        if (!$otp) {
             return response()->json([
                 'verified' => false,
                 'message'  => $messages[$lang]['unverified'] ?? $messages['en']['unverified']
@@ -114,7 +115,7 @@ class IsVerifiedController extends Controller
     public function isGuardianVerified(Request $request)
     {
         // Get the authenticated user
-        $user = Auth::user();
+        $user = Auth::user()->profile;
 
         if (!$user) {
             return response()->json([
@@ -143,7 +144,7 @@ class IsVerifiedController extends Controller
         ];
 
         // Case 1: Check if guardian contact exists
-        if (!$user->guardian_contact) {
+        if (!$user->guardian_contact_encrypted) {
             return response()->json([
                 'error'   => true,
                 'message' => $messages[$lang]['not_set'] ?? $messages['en']['not_set']
@@ -152,12 +153,12 @@ class IsVerifiedController extends Controller
 
         // Case 2: Check Guardian OTP verification
         $otp = GuardianOtp::where('user_id', $user->id)
-            ->where('expires_at', '>', now())
-            ->where('verified', false)
+            // ->where('expires_at', '>', now())
+            ->where('verified', true)
             ->latest()
             ->first();
 
-        if ($otp) {
+        if (!$otp) {
             return response()->json([
                 'verified' => false,
                 'message'  => $messages[$lang]['unverified'] ?? $messages['en']['unverified']
@@ -234,7 +235,7 @@ class IsVerifiedController extends Controller
                 $missingFields[] = $field;
             }
         }
-        $missingFields = [];
+        // $missingFields = [];
 
         try {
             $exists = DB::table('user_smoking_tool_pivots')

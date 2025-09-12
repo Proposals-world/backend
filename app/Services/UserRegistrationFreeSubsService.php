@@ -31,7 +31,7 @@ class UserRegistrationFreeSubsService
                 'user_id' => $user->id,
                 'package_id' => 1, // optional
                 'start_date' => now(),
-                'end_date' => null,          // no expiry
+                'end_date' => now()->addDays(365),          // no expiry
                 'contacts_remaining' => 1,   // exactly 1 contact
                 'status' => 'active',
             ]);
