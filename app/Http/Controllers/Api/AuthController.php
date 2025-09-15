@@ -179,7 +179,7 @@ class AuthController extends Controller
                 'updated_at' => null,
             ]);
         }
-        $userscount = User::count()->where('role_id', 2);
+        $userscount = User::where('role_id', 2)->count();
         // Assign free subscription
 
         if ($userscount <= 1000) {
