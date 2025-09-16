@@ -200,9 +200,9 @@ class IsVerifiedController extends Controller
         $requiredFields = [
             'nickname' => 'nickname',
             'bio' => 'bio_en', // or choose based on Accept-Language
-            'avatar_url' => 'avatar_url',
+            // 'avatar_url' => 'avatar_url',
             'nationality' => 'nationality_id',
-            'language' => 'language_id',
+            // 'language' => 'language_id',
             'origin' => 'origin_id',
             'religion' => 'religion_id',
             'religion_level' => 'religiosity_level_id',
@@ -217,14 +217,14 @@ class IsVerifiedController extends Controller
             'financial_status' => 'financial_status_id',
             'guardian_contact' => 'guardian_contact_encrypted',
             'skin_color' => 'skin_color_id',
-            'hair_color' => 'hair_color_id',
+            'hair_color' => 'hair_color_id', //hair check on  male
             'eye_color' => 'eye_color_id',
             'smoking_status' => 'smoking_status',
             'drinking_status' => 'drinking_status_id',
             'sports_activity' => 'sports_activity_id',
             'social_media_presence' => 'social_media_presence_id',
             'religiosity_level' => 'religiosity_level_id',
-            'marriage_budget' => 'marriage_budget_id',
+            'marriage_budget' => 'marriage_budget_id', //hair check on  male
         ];
 
 
@@ -249,31 +249,31 @@ class IsVerifiedController extends Controller
             // If table doesn't exist, treat as missing
             $missingFields[] = 'smoking_tools';
         }
-        // Check hobbies
-        try {
-            $exists = DB::table('user_hobbies')
-                ->where('user_id', $profile->id)
-                ->exists();
+        // // Check hobbies
+        // try {
+        //     $exists = DB::table('user_hobbies')
+        //         ->where('user_id', $profile->id)
+        //         ->exists();
 
-            if (!$exists) {
-                $missingFields[] = 'hobbies';
-            }
-        } catch (\Exception $e) {
-            $missingFields[] = 'hobbies';
-        }
+        //     if (!$exists) {
+        //         $missingFields[] = 'hobbies';
+        //     }
+        // } catch (\Exception $e) {
+        //     $missingFields[] = 'hobbies';
+        // }
 
-        // Check pets
-        try {
-            $exists = DB::table('user_pets')
-                ->where('user_id', $profile->id)
-                ->exists();
+        // // Check pets
+        // try {
+        //     $exists = DB::table('user_pets')
+        //         ->where('user_id', $profile->id)
+        //         ->exists();
 
-            if (!$exists) {
-                $missingFields[] = 'pets';
-            }
-        } catch (\Exception $e) {
-            $missingFields[] = 'pets';
-        }
+        //     if (!$exists) {
+        //         $missingFields[] = 'pets';
+        //     }
+        // } catch (\Exception $e) {
+        //     $missingFields[] = 'pets';
+        // }
         if (count($missingFields) > 0) {
             return response()->json([
                 'completed' => false,
