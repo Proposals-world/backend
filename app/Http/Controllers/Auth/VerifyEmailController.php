@@ -44,7 +44,7 @@ class VerifyEmailController extends Controller
                 ) + ['user_id' => $user->id]                   // user_id must be set
             );
         }
-        $userscount = User::count()->where('role_id', 2);
+        $userscount = User::where()->count('role_id', 2);
         $userAuth = auth()->user();
         if ($userscount <= 1000) {
             $freesubsservice->assignFreeSubscription($userAuth);
