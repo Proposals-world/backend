@@ -89,24 +89,21 @@ class IsVerifiedController extends Controller
                 'verified'   => 'رقم الهاتف مفعل'
             ]
         ];
-        // dd$user->id;
         // Find latest unverified OTP that hasn't expired
+
         $otp = UserPhoneNumberOtp::where('user_id', $user->id)
-            // ->where('expires_at', '>', now())
-            ->where('verified', 0) // use 1 instead of true
             ->latest()
             ->first();
 
-        // dd($otp);
-        // If OTP exists and unverified
-        if (!$otp) {
+        // Case 1: No OTP found OR not verified
+        if (!$otp || $otp->verified != 1) {
             return response()->json([
                 'verified' => false,
                 'message'  => $messages[$lang]['unverified'] ?? $messages['en']['unverified']
             ]);
         }
 
-        // Otherwise, phone is verified
+        // Case 2: Verified
         return response()->json([
             'verified' => true,
             'message'  => $messages[$lang]['verified'] ?? $messages['en']['verified']
@@ -215,7 +212,7 @@ class IsVerifiedController extends Controller
             'job_title' => 'job_title_id',
             'position_level' => 'position_level_id',
             'financial_status' => 'financial_status_id',
-            'guardian_contact' => 'guardian_contact_encrypted',
+            // 'guardian_contact' => 'guardian_contact_encrypted',
             'skin_color' => 'skin_color_id',
             'hair_color' => 'hair_color_id', //hair check on  male
             'eye_color' => 'eye_color_id',
@@ -224,30 +221,40 @@ class IsVerifiedController extends Controller
             'sports_activity' => 'sports_activity_id',
             'social_media_presence' => 'social_media_presence_id',
             'religiosity_level' => 'religiosity_level_id',
-            'marriage_budget' => 'marriage_budget_id', //hair check on  male
+            // 'marriage_budget' => 'marriage_budget_id', // check on  male
         ];
 
-
+        // ✅ Add `marriage_budget_id` only if male
+        if ($user->gender === 'male') {
+            $requiredFields['marriage_budget'] = 'marriage_budget_id';
+        }
+        // ✅ Add `guardian_contact` only if female
+        if ($user->gender === 'female') {
+            $requiredFields['guardian_contact'] = 'guardian_contact_encrypted';
+        }
         $missingFields = [];
 
         foreach ($requiredFields as $field) {
-            if (empty($profile->$field)) {
+            if (!isset($profile->$field) || is_null($profile->$field) || $profile->$field === '') {
                 $missingFields[] = $field;
             }
         }
         // $missingFields = [];
 
-        try {
-            $exists = DB::table('user_smoking_tool_pivots')
-                ->where('user_profile_id', $profile->id)
-                ->exists();
+        // ✅ Only check smoking tools if smoking_status = 0
+        if ($profile->smoking_status == 1) {
+            try {
+                $exists = DB::table('user_smoking_tool_pivots')
+                    ->where('user_profile_id', $profile->id)
+                    ->exists();
 
-            if (!$exists) {
+                if (!$exists) {
+                    $missingFields[] = 'smoking_tools';
+                }
+            } catch (\Exception $e) {
+                // If table doesn't exist, treat as missing
                 $missingFields[] = 'smoking_tools';
             }
-        } catch (\Exception $e) {
-            // If table doesn't exist, treat as missing
-            $missingFields[] = 'smoking_tools';
         }
         // // Check hobbies
         // try {
@@ -300,6 +307,21 @@ class IsVerifiedController extends Controller
             'message' => $request->header('Accept-Language') === 'ar'
                 ? 'الملف الشخصي مكتمل'
                 : 'Profile is complete'
+        ]);
+    }
+    public function allVerifications(Request $request)
+    {
+        // Call each method internally
+        $emailCheck    = $this->isEmailVerified($request)->getData(true);
+        $phoneCheck    = $this->isPhoneVerified($request)->getData(true);
+        $guardianCheck = $this->isGuardianVerified($request)->getData(true);
+        $profileCheck  = $this->isProfileCompleted($request)->getData(true);
+
+        return response()->json([
+            'email'    => $emailCheck,
+            'phone'    => $phoneCheck,
+            'guardian' => $guardianCheck,
+            'profile'  => $profileCheck,
         ]);
     }
 }

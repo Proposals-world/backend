@@ -16,6 +16,8 @@ return [
     'already_registered' => 'Already registered?',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',
+    'send_email_verification_link' => 'Send Email Verification Link',
+
     'confirm' => 'Confirm',
     'verify_email' => 'Verify Your Email Address',
     'verification_link_sent' => 'A new verification link has been sent to your email address.',

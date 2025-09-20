@@ -43,7 +43,7 @@ class WhatsAppContactService
             ->table('contact')
             ->insertGetId([
                 'sessionId'    => $data['sessionId'],
-                'id'           => $data['id'],
+                'id' => ltrim(trim($data['id']), '+'),
                 'name'         => $data['name'] ?? null,
                 'notify'       => $data['notify'] ?? null,
                 'verifiedName' => $data['verifiedName'] ?? null,
@@ -72,7 +72,7 @@ class WhatsAppContactService
     {
         return DB::connection($this->connection)
             ->table('session')
-            // ->where('sessionId', $sessionId)
+            // ->where('sessionId', 'Admin') // explicitly
             ->value('sessionId'); // returns the sessionId or null if not found
     }
     /**

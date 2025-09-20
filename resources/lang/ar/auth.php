@@ -19,6 +19,7 @@ return [
     'already_registered' => 'هل لديك حساب بالفعل؟',
     'reset_password' => 'إعادة تعيين كلمة المرور',
     'send_password_reset_link' => 'إرسال رابط إعادة تعيين كلمة المرور',
+    'send_email_verification_link' => 'إرسال رابط تحقق البريد الإلكتروني',
     'confirm' => 'تأكيد',
     'verify_email' => 'تأكيد عنوان البريد الإلكتروني',
     'verification_link_sent' => 'تم إرسال رابط تحقق جديد إلى بريدك الإلكتروني.',

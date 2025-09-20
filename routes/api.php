@@ -165,4 +165,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/is-phone-number-verified', [IsVerifiedController::class, 'isPhoneVerified']);
     Route::get('/is-guardian-contact-verified', [IsVerifiedController::class, 'isGuardianVerified']);
     Route::get('/is-profile-completed', [IsVerifiedController::class, 'isProfileCompleted']);
+    Route::get('/all-verifications', [IsVerifiedController::class, 'allVerifications']); // wrapper
 });

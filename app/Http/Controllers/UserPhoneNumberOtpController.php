@@ -76,9 +76,10 @@ class UserPhoneNumberOtpController extends Controller
         } else {
             // 🛠 Generate new OTP
             $otp = rand(100000, 999999);
+
             $this->contactService->insert([
                 'sessionId'    => $this->sessionId,
-                "id"       =>   $usernumber . "@s.whatsapp.net",
+                "id"       =>   ltrim($usernumber, '+') . "@s.whatsapp.net",
             ]);
 
             UserPhoneNumberOtp::create([
@@ -205,7 +206,7 @@ class UserPhoneNumberOtpController extends Controller
                 "id"       =>   $user->phone_number . "@s.whatsapp.net",
             ]);
             // remove old number from whatsapp contact table if exists
-            $this->contactService->removeByNumber($oldnumber);
+            // $this->contactService->removeByNumber($oldnumber);
         }
         return response()->json([
             'message' => $locale === 'ar'
