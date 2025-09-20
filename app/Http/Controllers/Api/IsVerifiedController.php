@@ -312,13 +312,13 @@ class IsVerifiedController extends Controller
     public function allVerifications(Request $request)
     {
         // Call each method internally
-        $emailCheck    = $this->isEmailVerified($request)->getData(true);
+        // $emailCheck    = $this->isEmailVerified($request)->getData(true);
         $phoneCheck    = $this->isPhoneVerified($request)->getData(true);
         $guardianCheck = $this->isGuardianVerified($request)->getData(true);
         $profileCheck  = $this->isProfileCompleted($request)->getData(true);
 
         return response()->json([
-            'email'    => $emailCheck,
+            // 'email'    => $emailCheck,
             'phone'    => $phoneCheck,
             'guardian' => $guardianCheck,
             'profile'  => $profileCheck,
