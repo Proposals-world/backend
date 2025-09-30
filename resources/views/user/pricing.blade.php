@@ -45,12 +45,50 @@
                                             @endif
                                         </ul>
                                         <div class="text-center">
+                                            <!-- Button to trigger modal -->
+
+
                                             @if (!empty($card['payment_url']))
-                                                <a href="{{ $card['payment_url'] }}" target="_blank"
-                                                    class="btn btn-link btn-empty btn-lg">
-                                                    {{ __('userDashboard.pricing.button') }} <i
-                                                        class="simple-icon-arrow-right"></i>
-                                                </a>
+                                               <a href="#" class="btn btn-link btn-empty btn-lg" data-toggle="modal" data-target="#paymentModal">
+    {{ __('userDashboard.pricing.button') }} <i class="simple-icon-arrow-right"></i>
+</a>
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content shadow-lg">
+
+            <!-- Header -->
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title font-weight-bold">
+                    <i class="simple-icon-credit-card mr-2"></i> Payment Notice
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body text-center">
+                <p class="mb-0">
+                    Please enter the <strong>email you registered with on Tolba</strong>
+                    in the payment form to continue.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">
+                    Cancel
+                </button>
+                <a href="{{ $card['payment_url'] }}" target="_blank" class="btn btn-primary">
+                    Proceed to Payment
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
                                             @else
                                                 <span class="text-muted">Payment link unavailable</span>
                                             @endif

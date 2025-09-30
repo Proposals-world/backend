@@ -237,6 +237,9 @@ Route::middleware([
     // Route::get('/verify-phone-number-otp', function () {
     //     return view('verify-phone-number-otp');
     // })->name('verify.phone.number.otp');
+    Route::get('/payment-success', function () {
+        return view('user.successPayment');
+    })->name('payment.success');
 });
 Route::prefix('user/guardian-contact')->group(function () {
     Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);
