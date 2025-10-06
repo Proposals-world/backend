@@ -60,7 +60,7 @@
             <!-- Header -->
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title font-weight-bold">
-                    <i class="simple-icon-credit-card mr-2"></i> Payment Notice
+                    <i class="simple-icon-credit-card mr-2"></i>  {{ __('payment.Payment_Notice') }}
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -70,15 +70,14 @@
             <!-- Body -->
             <div class="modal-body text-center">
                 <p class="mb-0">
-                    Please enter the <strong>email you registered with on Tolba</strong>
-                    in the payment form to continue.
+                    {{ __('payment.message') }}
                 </p>
             </div>
 
             <!-- Footer -->
           <div class="modal-footer bg-light">
     <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">
-        Cancel
+          {{ __('payment.Cancel') }}
     </button>
     <button type="button"
         class="btn btn-primary proceed-payment-btn"
@@ -88,8 +87,7 @@
         data-amount="{{ $card['price'] }}"
         data-date="{{ now() }}"
         data-url="{{ $card['payment_url'] }}">
-        Proceed to Payment
-    </button>
+  {{ __('payment.Proceed_to_Payment') }}
 </div>
 
 
