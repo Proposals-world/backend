@@ -57,4 +57,8 @@ class SubscriptionPackage extends Model
         app(\App\Services\FintesaPaymentService::class);
         // Intentionally left as a hint; actual syncing done in controller/service flow
     }
+    public function payments()
+    {
+        return $this->hasMany(UserPayment::class, 'package_id');
+    }
 }

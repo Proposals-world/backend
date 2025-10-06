@@ -11,10 +11,12 @@ return new class extends Migration
         Schema::create('user_payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('package_id')->constrained('subscription_packages')->onDelete('cascade'); // ✅ link to subscription_packages
+
             $table->string('email');
             $table->decimal('amount', 10, 2);
             $table->dateTime('date');
-            $table->enum('status', ['pending', 'active', 'failed'])->default('pending'); // payment/subscription status
+            $table->enum('status', ['pending', 'paid', 'failed', "false_info"])->default('pending'); // payment/subscription status
             $table->timestamps();
         });
     }

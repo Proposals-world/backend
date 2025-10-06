@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserPaymentController;
 use App\Http\Controllers\Api\DynamicDataController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\CountryController;
@@ -159,4 +160,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name('user.verify');
     Route::put('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
         ->name('user.update.phone.number');
+    Route::get('admin/payments/subscribe-for-user', [UserPaymentController::class, 'subscribeForUser'])
+        ->name('admin.payments.subscribe-for-user');
 });
