@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
+use App\Services\SubscriptionService;
 
 class RegisteredUserController extends Controller
 {
@@ -31,7 +32,7 @@ class RegisteredUserController extends Controller
      */
 
 
-    public function store(RegisterUserRequest $request): RedirectResponse
+    public function store(RegisterUserRequest $request, SubscriptionService $subscriptionService): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -50,7 +51,13 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
         Auth::login($user);
+        // Count how many users already registered
+        $registeredCount = User::count();
 
+        if ($registeredCount <= 1000) {
+            $packageId = $user->gender === 'male' ? 999 : 1000;
+            $subscriptionService->createOrRenew($user->id, $packageId);
+        }
         return redirect()->route('user.dashboard');
     }
 }

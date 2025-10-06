@@ -13,6 +13,7 @@ class HomeController extends Controller
     {
         $locale = app()->getLocale();
         $subscriptionPackage = SubscriptionPackage::where('id', '!=', 999)
+            ->where('id', '!=', 1000)
             ->get()
             ->map(function ($package) use ($locale) {
                 return [

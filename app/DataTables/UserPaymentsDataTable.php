@@ -12,9 +12,21 @@ class UserPaymentsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('user_name', function (UserPayment $payment) {
-                return '<a href="' . route('userprofile', $payment->user->id) . '" class="primary-text  ">'
-                    . $payment->user->first_name . ' ' . $payment->user->last_name . '</a>';
+                // If user_id = -1 or 999999999 → invalid email
+                if ($payment->user_id == -1 || $payment->user_id == 999999999) {
+                    return '<span class="text-danger font-weight-bold">Invalid email given</span>';
+                }
+
+                // Check if user exists to avoid null error
+                if ($payment->user) {
+                    return '<a href="' . route('userprofile', $payment->user->id) . '" class="primary-text">'
+                        . e($payment->user->first_name . ' ' . $payment->user->last_name) . '</a>';
+                }
+
+                // Fallback if relation missing
+                return '<span class="text-muted">User not found</span>';
             })
+
             ->addColumn('package_name', function (UserPayment $payment) {
                 return $payment->package ? $payment->package->package_name_en : '-';
             })

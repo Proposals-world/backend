@@ -34,6 +34,7 @@ use App\Http\Controllers\FCMController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CheckUserPaymentController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\GuardianContactVerificationController;
 use App\Http\Controllers\Api\LikeController as ApiLikeController;
@@ -47,6 +48,7 @@ use App\Http\Controllers\Api\SubscriptionContactController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FintesaWebhookController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPhoneNumberOtpController;
@@ -66,9 +68,12 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // Protected Routes
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
 Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
+Route::post('webhook/fintesa', [FintesaWebhookController::class, 'handle']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/check-user-payment', [CheckUserPaymentController::class, 'store'])->middleware('auth:sanctum');
+
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/profile', [UserProfileController::class, 'show'])->name('api.profile.show');
     Route::get('/user-profile', [UserProfileController::class, 'getUserWithProfile']);

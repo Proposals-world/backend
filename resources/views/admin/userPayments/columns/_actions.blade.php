@@ -2,8 +2,9 @@
   <td>
     <button
         class="btn btn-sm btn-primary subscribe-btn"
-        data-user-id="{{ $payment->user->id }}"
+        data-email="{{ $payment->email }}"
         data-package-id="{{ $payment->package->id }}"
+        data-payment-id="{{ $payment->id }}"
         {{ $payment->status !== 'pending' ? 'disabled' : '' }}
     >
         Verify subscription

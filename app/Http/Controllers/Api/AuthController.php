@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Validator;
+use App\Services\SubscriptionService;
 
 class AuthController extends Controller
 {
     /**
      * Register a new user and send OTP for verification.
      */
-    public function register(RegisterUserRequest $request)
+    public function register(RegisterUserRequest $request, SubscriptionService $subscriptionService)
     {
         // Validate incoming request
         $validator = $request->validated();
@@ -64,7 +65,13 @@ class AuthController extends Controller
 
         // Send OTP via email
         Mail::to($user->email)->send(new OTPVerificationMail($user, $otp));
+        // Count how many users already registered
+        $registeredCount = User::count();
 
+        if ($registeredCount <= 1000) {
+            $packageId = $user->gender === 'male' ? 999 : 1000;
+            $subscriptionService->createOrRenew($user->id, $packageId);
+        }
         return response()->json([
             'success' => true,
             'message' => 'Registration successful. Please verify your email using the OTP sent.',

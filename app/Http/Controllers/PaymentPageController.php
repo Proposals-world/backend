@@ -14,6 +14,8 @@ class PaymentPageController extends Controller
         $isMale = Auth::check() && (Auth::user()->gender === 'male');
 
         $packages = SubscriptionPackage::query()
+            ->where('id', '!=', 999)
+            ->where('id', '!=', 1000)
             ->when($isMale, fn($q) => $q->where('gender', 'male'))
             ->when(!$isMale, fn($q) => $q->where('gender', 'female'))
             ->orderBy('id')
@@ -45,6 +47,7 @@ class PaymentPageController extends Controller
             }
 
             return [
+                'id'         => $package->id,
                 'package_name'  => $lang === 'ar' ? $package->package_name_ar : $package->package_name_en,
                 'price'         => $package->price,
                 'contact_limit' => $package->contact_limit,
@@ -67,4 +70,3 @@ class PaymentPageController extends Controller
         return view('payment.error');
     }
 }
-

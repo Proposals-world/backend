@@ -27,6 +27,9 @@
                     <div class="card">
                         <div class="card-body">
                             {{-- <a class="btn btn-primary mb-3" id="add_btn">Add Category</a> --}}
+                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subscribeModal">
+                                Subscribe User
+                            </button>
                             <div class="table-responsive">
                                 {{ $dataTable->table([
                                     'class' => 'table table-bordered table-hover w-100',
@@ -35,7 +38,52 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Button to open the modal -->
+
+
+<!-- Subscribe Modal -->
+<div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true" style="height: auto;
+">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="subscribeModalLabel">Subscribe User</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="user-select-dropdown" class="form-label">Select User:</label>
+          <select id="user-select-dropdown" class="form-select">
+            <option value="">-- Select user --</option>
+            @foreach(\App\Models\User::all() as $user)
+              <option value="{{ $user->email }}">{{ $user->name }} ({{ $user->email }})</option>
+            @endforeach
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="package-select-dropdown" class="form-label">Select Package:</label>
+          <select id="package-select-dropdown" class="form-select">
+            <option value="">-- Select package --</option>
+            @foreach(\App\Models\SubscriptionPackage::all() as $package)
+              <option value="{{ $package->id }}">{{ $package->package_name_en }} ({{ $package->price }})</option>
+            @endforeach
+          </select>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="subscribe-user-btn" data-payment-id="1" class="btn btn-primary">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -63,27 +111,93 @@
     // remove('remove_btn', 'admin/categories', 'categories-table', '{{ csrf_token() }}');
 
 $(document).on('click', '.subscribe-btn', function() {
-    let userId = $(this).data('user-id');
+    let email = $(this).data('email');
     let packageId = $(this).data('package-id');
-
-    if (!userId || !packageId) {
-        alert('User ID or Package ID not found');
+    let paymentId = $(this).data('payment-id');
+    if (!packageId) {
+        alert('Package ID not found');
         return;
     }
 
     $.ajax({
         url: '{{ route("admin.payments.subscribe-for-user") }}',
-        type: 'GET', // or POST depending on your route
+        type: 'GET',
         data: {
-            user_id: userId,
-            package_id: packageId
+            email: email,
+            package_id: packageId,
+            payment_id: paymentId
         },
         success: function(res) {
             alert(res.message || 'Subscribed successfully');
-            $('#userpayments-table').DataTable().ajax.reload(); // reload table
+            $('#userpayments-table').DataTable().ajax.reload();
         },
         error: function(err) {
-            alert(err.responseJSON?.error || 'Subscription failed');
+            if (err.status === 404 && err.responseJSON && err.responseJSON.users) {
+                // Show dropdown to select user
+                let users = err.responseJSON.users;
+                let options = users.map(u => `<option value="${u.id}">${u.name} (${u.email})</option>`).join('');
+                let dropdownHtml = `
+                    <div id="user-select-modal">
+                        <label>Select a user:</label>
+                        <select id="user-select">${options}</select>
+                        <button id="confirm-user-select">Confirm</button>
+                    </div>
+                `;
+                $('body').append(dropdownHtml);
+
+                $('#confirm-user-select').on('click', function() {
+                    let userId = $('#user-select').val();
+                    // Retry subscription with selected user ID
+                    $.ajax({
+                        url: '{{ route("admin.payments.subscribe-for-user") }}',
+                        type: 'POST',
+                        data: {
+                            user_id: userId,
+                            package_id: packageId
+                        },
+                        success: function(res2) {
+                            alert(res2.message || 'Subscribed successfully');
+                            $('#userpayments-table').DataTable().ajax.reload();
+                            $('#user-select-modal').remove();
+                        }
+                    });
+                });
+            } else {
+                let errorMsg = err.responseJSON?.message || 'Subscription failed';
+                alert(errorMsg);
+                console.error(err);
+            }
+        }
+    });
+});
+$(document).on('click', '#subscribe-user-btn', function() {
+    let email = $('#user-select-dropdown').val();
+    let packageId = $('#package-select-dropdown').val();
+    let paymentId = 1;
+    if (!email || !packageId) {
+        alert('Please select both a user and a package');
+        return;
+    }
+
+    $.ajax({
+        url: '{{ route("admin.payments.subscribe-for-user") }}',
+        type: 'get',
+        data: {
+            email: email,
+            package_id: packageId,
+            payment_id: paymentId
+        },
+        success: function(res) {
+            alert(res.message || 'User subscribed successfully');
+            $('#userpayments-table').DataTable().ajax.reload(); // reload table
+            $('#subscribeModal').modal('hide');
+            $('#user-select-dropdown').val('');
+            $('#package-select-dropdown').val('');
+        },
+        error: function(err) {
+            let errorMsg = err.responseJSON?.message || 'Subscription failed';
+            alert(errorMsg);
+            console.error(err);
         }
     });
 });
