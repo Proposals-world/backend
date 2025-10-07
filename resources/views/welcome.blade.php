@@ -498,7 +498,7 @@ html[dir="rtl"] .contact-direction {
                                                                                                  </ul>
                                             </div>
                                             <div class="pricing-btn">
-                                                <a href="#" class="btn">{{ __('home.pricing_button') }}</a>
+                                                <a href="{{ route('user.pricing') }}" class="btn">{{ __('home.pricing_button') }}</a>
                                             </div>
                                         </div>
                                     </div>

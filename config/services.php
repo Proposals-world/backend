@@ -41,5 +41,12 @@ return [
         'sender' => env('INFOBIP_SENDER'),
     ],
 
+    'fintesa' => [
+        'secret_key' => env('FINTESA_SECRET_KEY'),
+        'public_key' => env('FINTESA_PUBLIC_KEY'),
+        'base_url' => env('FINTESA_BASE_URL', 'https://development.menacart.fintesa.co'),
+        'success_url' => env('FINTESA_SUCCESS_URL', env('APP_URL') . '/payment/success'),
+    ],
+
 
 ];

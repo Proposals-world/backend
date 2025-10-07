@@ -30,6 +30,7 @@ class SubscriptionPackagesDataTable extends DataTable
                     ? 'No contact for female'
                     : $subscriptionPackage->contact_limit;
             })
+            ->addColumn('gender', fn(SubscriptionPackage $p) => ucfirst($p->gender ?? ''))
             ->addColumn('action', function (SubscriptionPackage $subscriptionPackage) {
                 return view('admin.SubscriptionPackage.columns._actions', compact('subscriptionPackage'));
             })
@@ -37,12 +38,7 @@ class SubscriptionPackagesDataTable extends DataTable
             ->rawColumns(['action']);
     }
 
-    /**
-     * Get the query source of dataTable.
-     *
-     * @param Sub $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+
     public function query(SubscriptionPackage $model)
     {
         return $model->newQuery();
@@ -88,6 +84,7 @@ class SubscriptionPackagesDataTable extends DataTable
                 'title' => 'Duration',
                 'name' => 'duration' // Keep original column name for sorting/filtering
             ],
+            'gender',
         ];
     }
 

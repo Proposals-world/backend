@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('package_name_en');
             $table->string('package_name_ar');
             $table->decimal('price', 10, 2);
-            $table->integer('duration')->nullable(); // Duration in days nullable
-            $table->integer('contact_limit')->nullable();
-            $table->enum('gender', ['male', 'female']); // enum for gender targeting
-            $table->boolean('is_one_time')->default(true); // Active status of the package
+            $table->integer('duration')->default(0); // Duration in days nullable
+            $table->integer('contact_limit');
             $table->timestamps();
         });
     }

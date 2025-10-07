@@ -50,14 +50,25 @@ use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\Admin\MonthlySubscriptionSalesController;
 use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\SuspendedUserController;
+use App\Http\Controllers\Admin\UserPaymentController as AdminUserPaymentController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
 use App\Http\Controllers\UserPhoneNumberOtpController;
 use App\Http\Controllers\WhatsAppController;
 use App\Models\UserProfile;
+use App\Http\Controllers\FintesaWebhookController;
+use App\Http\Controllers\Api\PaymentController as ApiPaymentController;
+use App\Http\Controllers\PaymentPageController;
+use App\Http\Controllers\UserPaymentController;
 
 Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Payment webhook and success URL
+Route::post('webhook/fintesa', [FintesaWebhookController::class, 'handle']);
+Route::get('payment/success', [PaymentPageController::class, 'success'])->name('payment.success');
+Route::get('payment/error', [PaymentPageController::class, 'fail'])->name('payment.error');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/about-us', function () {
@@ -142,6 +153,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('/deactivate/{id}', [AdminsController::class, 'deactivate'])->name('deactivate');
         Route::put('/active/{id}', [AdminsController::class, 'active'])->name('active');
         Route::resource('feedback', FeedbackController::class);
+        Route::get('user/payments', [AdminUserPaymentController::class, 'index'])
+            ->name('admin.user.payments.index');
+        Route::get('payments/subscribe-for-user', [AdminUserPaymentController::class, 'subscribeForUser'])
+            ->name('admin.payments.subscribe-for-user');
     });
 
     // Route::resource('blogs', BlogController::class);
@@ -207,7 +222,7 @@ Route::middleware([
     Route::get('/matches', [MatchController::class, 'index'])->name('matches');
     Route::get('/get-matches', [MatchController::class, 'getMatches'])->name('getMatchesApi');
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('pricing', [UserDashboardController::class, 'pricing'])->name('user.pricing');
+    Route::get('pricing', [PaymentPageController::class, 'pricing'])->name('user.pricing');
     Route::get('/profile', [UserUserProfileController::class, 'index'])->name('user.profile');
     Route::post('/updateDesiredPartner', [UserPreferenceController::class, 'updateChangedData'])->name('updateDesiredPartner');
     Route::get('/desired', [UserUserProfileController::class, 'desired'])->name('desired');
@@ -227,6 +242,9 @@ Route::middleware([
     // Route::get('/verify-phone-number-otp', function () {
     //     return view('verify-phone-number-otp');
     // })->name('verify.phone.number.otp');
+    Route::get('/payment-success', function () {
+        return view('user.successPayment');
+    })->name('payment.success');
 });
 Route::prefix('user/guardian-contact')->group(function () {
     Route::post('/send-verification', [GuardianContactVerificationController::class, 'send']);

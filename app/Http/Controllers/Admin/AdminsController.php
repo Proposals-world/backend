@@ -6,6 +6,7 @@ use App\DataTables\AdminsDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminsStoreRequest;
 use App\Http\Requests\Admin\AdminsUpdateRequest;
+use App\Models\AdminPermission;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
@@ -42,6 +43,14 @@ class AdminsController extends Controller
             'role_id' => 1, // Admin role
             'email_verified_at' => now(), // Mark email as verified
         ]);
+        AdminPermission::create([
+            'user_id' => $admin->id,   // link to the newly created user
+            'can_create' => false,
+            'can_edit' => false,
+            'can_delete' => false,
+            'can_view' => true,       // default permissions
+            'can_manage_roles' => false,
+        ]);
 
         return response()->json(['message' => 'Admin created successfully.']);
     }
@@ -74,7 +83,23 @@ class AdminsController extends Controller
      */
     public function destroy(User $admin)
     {
+        // Retrieve the admin's permissions
+        $user = auth()->user(); // currently logged-in user
+        $permissions = $user->adminPermission;
+        if (!$permissions) {
+            return response()->json([
+                'message' => 'No permission record found for this admin.'
+            ], 403);
+        }
+        if (!$permissions->can_delete) {
+            return response()->json([
+                'message' => 'You are not authorized to delete this admin.'
+            ], 403);
+        }
+
+        // Delete the user
         $admin->delete();
+
         return response()->json(['message' => 'Admin deleted successfully.']);
     }
     /**

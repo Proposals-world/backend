@@ -31,9 +31,10 @@
     <!-- Target Gender -->
     <div class="mb-3">
         <label for="target_gender" class="form-label">Target Gender</label>
-<select name="target_gender" id="target_gender" class="form-control" onchange="toggleFields()" required>
-            <option value="male" {{ old('target_gender', isset($subscriptionPackage) ? $subscriptionPackage->contact_limit  : '') > 0  ? 'selected' : '' }}>Male</option>
-            <option value="female" {{ old('target_gender', isset($subscriptionPackage) ? $subscriptionPackage->duration : '') > 0  ? 'selected' : '' }}>Female</option>
+        <select name="target_gender" id="target_gender" class="form-control" onchange="toggleFields()" required>
+            @php($selectedGender = old('target_gender', $subscriptionPackage->gender ?? 'male'))
+            <option value="male" {{ $selectedGender === 'male' ? 'selected' : '' }}>Male</option>
+            <option value="female" {{ $selectedGender === 'female' ? 'selected' : '' }}>Female</option>
         </select>
     </div>
 
@@ -41,7 +42,7 @@
     <div class="mb-3 d-none" id="contactLimitContainer">
         <label for="contact_limit" class="form-label">Contact Limit <span class="text-muted">(For Men)</span></label>
         <input type="number" name="contact_limit" id="contact_limit" class="form-control"
-               value="{{ old('contact_limit', $subscriptionPackage->contact_limit ?? 0) }}">
+               value="{{ old('contact_limit', $subscriptionPackage->contact_limit ?? '') }}" min="0">
         {{-- <span class="text-muted">Fill only if the target for the package is men</span> --}}
     </div>
 
@@ -49,9 +50,18 @@
     <div class="mb-3 d-none" id="durationContainer">
         <label for="duration" class="form-label">Duration In Days <span class="text-muted">(For Women)</span></label>
         <input type="number" name="duration" id="duration" class="form-control"
-               value="{{ old('duration', $subscriptionPackage->duration ?? '') }}">
+               value="{{ old('duration', $subscriptionPackage->duration ?? '') }}" min="0">
         {{-- <span class="text-muted">Fill only if the target for the package is woman</span> --}}
     </div>
+
+    @if(isset($subscriptionPackage) && !empty($subscriptionPackage->payment_url))
+        <div class="mb-3">
+            <label class="form-label">Payment URL</label>
+            <div>
+                <a href="{{ $subscriptionPackage->payment_url }}" target="_blank">{{ $subscriptionPackage->payment_url }}</a>
+            </div>
+        </div>
+    @endif
 
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
