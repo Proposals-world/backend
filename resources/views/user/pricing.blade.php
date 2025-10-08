@@ -53,7 +53,7 @@
     {{ __('userDashboard.pricing.button') }} <i class="simple-icon-arrow-right"></i>
 </a>
 <!-- Payment Modal -->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="paymentModal{{ $card['id'] }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content shadow-lg">
 
