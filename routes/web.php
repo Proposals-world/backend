@@ -71,6 +71,7 @@ Route::get('payment/error', [PaymentPageController::class, 'fail'])->name('payme
 
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::post('/', [FintesaWebhookController::class, 'handle']);
 Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us');
