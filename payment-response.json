@@ -1,0 +1,92 @@
+{
+    "charge_data": {
+        "id": "ch_3SAz2FPHyiaoBNpV25Fx5bNJ",
+        "created": 1758744725,
+        "currency": "usd",
+        "amount": 0.5,
+        "integrations": "[]",
+        "source": "started args",
+        "status": "succeeded",
+        "billing_details": {
+            "address": {
+                "city": null,
+                "country": "JO",
+                "line1": null,
+                "line2": null,
+                "postal_code": "11971",
+                "state": null
+            },
+            "email": "alhababseha@gmail.com",
+            "name": "abdelhababseh",
+            "phone": null,
+            "tax_id": null
+        },
+        "captured": true,
+        "amount_captured": 0.5,
+        "amount_refunded": 0.0,
+        "payment_method_details": {
+            "card": {
+                "amount_authorized": 50,
+                "authorization_code": "567554",
+                "brand": "visa",
+                "checks": {
+                    "address_line1_check": null,
+                    "address_postal_code_check": "unavailable",
+                    "cvc_check": "pass"
+                },
+                "country": "JO",
+                "exp_month": 2,
+                "exp_year": 2028,
+                "extended_authorization": {
+                    "status": "disabled"
+                },
+                "fingerprint": "VV3UuOmELzbvtp06",
+                "funding": "debit",
+                "incremental_authorization": {
+                    "status": "unavailable"
+                },
+                "installments": null,
+                "last4": "7455",
+                "mandate": null,
+                "multicapture": {
+                    "status": "unavailable"
+                },
+                "network": "visa",
+                "network_token": {
+                    "used": false
+                },
+                "network_transaction_id": "465267727257370",
+                "overcapture": {
+                    "maximum_amount_capturable": 50,
+                    "status": "unavailable"
+                },
+                "regulated_status": "unregulated",
+                "three_d_secure": null,
+                "wallet": {
+                    "dynamic_last4": null,
+                    "link": {},
+                    "type": "link"
+                }
+            },
+            "type": "card"
+        },
+        "fees_percentage": 2.9,
+        "transaction_fee": 0.3,
+        "charge_fees": 0.3145,
+        "net_volume": 0.1855,
+        "outcome": {
+            "advice_code": null,
+            "network_advice_code": null,
+            "network_decline_code": null,
+            "network_status": "approved_by_network",
+            "reason": null,
+            "risk_level": "normal",
+            "seller_message": "Payment complete.",
+            "type": "authorized"
+        },
+        "merchant_metadata": null,
+        "merchant_id": "acct_1Otn8fPHyiaoBNpV",
+        "prod_id": "prod_T7DHgOSY2lUzDT",
+        "price_id": "price_1SAyrDPHyiaoBNpV4Ti4RxBw"
+    }
+}
