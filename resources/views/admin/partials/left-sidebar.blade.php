@@ -198,6 +198,12 @@
                                 <span> Subscription Packages </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('admin.user.payments.index') }}" class="side-nav-link">
+                                <i class="ri-wallet-line"></i>
+                                <span> User Payments </span>
+                            </a>
+                        </li>
                            <li class="side-nav-item">
                 <a href="{{ route('admin.redeem.index') }}" class="side-nav-link">
                     <i class="ri-gift-line"></i>

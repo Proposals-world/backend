@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Services\SubscriptionService;
 
 class SubscriptionContactController extends Controller
 {
+    protected $subscriptionService;
+
+    public function __construct(SubscriptionService $subscriptionService)
+    {
+        $this->subscriptionService = $subscriptionService;
+    }
     // Create or renew a subscription
     public function store(Request $request)
     {
@@ -18,53 +25,20 @@ class SubscriptionContactController extends Controller
             'package_id' => 'required|exists:subscription_packages,id'
         ]);
 
-        // Get the package
-        $package = SubscriptionPackage::findOrFail($request->package_id);
+        // Get the currently authenticated user ID
+        $userId = Auth::id();
 
-        // Check for existing active subscription
-        $existingSubscription = Subscription::where('user_id', Auth::id())
-            ->where('status', 'active')
-            ->where('end_date', '>', now())
-            ->first();
-
-        $startDate = Carbon::now();
-
-        // Calculate end date based on whether there's an existing subscription
-        if ($existingSubscription) {
-            // Renew by adding to the existing end date
-            $endDate = Carbon::parse($existingSubscription->end_date)
-                ->addDays($package->duration);
-
-            // Update existing subscription
-            $existingSubscription->update([
-                'package_id' => $package->id,
-                'end_date' => $endDate,
-                'contacts_remaining' => $existingSubscription->contacts_remaining + $package->contact_limit,
-                'status' => 'active'
-            ]);
-
-            $subscription = $existingSubscription;
-        } else {
-            // Create new subscription
-            $endDate = $startDate->copy()->addDays($package->duration);
-
-            $subscription = Subscription::create([
-                'user_id' => Auth::id(),
-                'package_id' => $package->id,
-                'start_date' => $startDate,
-                'end_date' => $endDate,
-                'contacts_remaining' => $package->contact_limit,
-                'status' => 'active'
-            ]);
-        }
+        // Call the service
+        $subscription = $this->subscriptionService->createOrRenew($userId, $request->package_id);
 
         return response()->json([
-            'message' => $existingSubscription ? 'Subscription renewed successfully' : 'Subscription created successfully',
+            'message' => request()->header('Accept-Language') === 'ar' ? 'تمت معالجة الاشتراك بنجاح' : 'Subscription processed successfully',
             'subscription' => $subscription,
             'contacts_remaining' => $subscription->contacts_remaining,
-            'expires_at' => $endDate->toDateTimeString()
+            'expires_at' => $subscription->end_date->toDateTimeString(),
         ], 201);
     }
+
 
     // Get current subscription info
     public function show()
