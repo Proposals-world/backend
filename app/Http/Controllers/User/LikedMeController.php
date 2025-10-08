@@ -58,7 +58,11 @@ class LikedMeController extends Controller
         // dd($user->gender);
         $lang = app()->getLocale();
         $response = $this->likeService->likeUserLogic($user, $request->liked_user_id, $lang);
-
+        if ($response['status'] === 200) {
+            $response['type'] = 'success';
+        } else {
+            $response['type'] = 'danger';
+        }
         return redirect()->back()->with('status', $response['message'])
             ->with('alert-type', $response['type']);
     }

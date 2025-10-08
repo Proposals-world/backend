@@ -172,10 +172,10 @@
                         @csrf
                         <input type="hidden" name="liked_user_id" value="">
                         <button class="btn btn-sm btn-outline-primary" type="submit"
-                         @if(auth()->user()->gender == 'female' )
-        title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
-        @endif
-        @if(auth()->user()->gender == 'female' ) disabled @endif
+                         @if(auth()->user()->gender == 'female' && !auth()->user()->subscription)
+                            title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
+                            disabled
+                         @endif
                         >
                             <i class="simple-icon-like"></i> {{ __('userDashboard.likeMe.like_back') }}
                         </button>
@@ -185,10 +185,10 @@
                         @csrf
                         <input type="hidden" name="disliked_user_id" value="">
                         <button class="btn btn-sm btn-outline-danger" type="submit"
-                         @if(auth()->user()->gender == 'female' )
-                        title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
-                        @endif
-                        @if(auth()->user()->gender == 'female' ) disabled @endif
+                        @if(auth()->user()->gender == 'female' && !auth()->user()->subscription)
+                            title="{{ __('userDashboard.likeMe.onlyForSubscribedFemales') }}"
+                            disabled
+                         @endif
                         >
                             <i class="simple-icon-dislike"></i> {{ __('userDashboard.likeMe.dislike') }}
                         </button>
