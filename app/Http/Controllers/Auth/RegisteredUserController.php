@@ -52,9 +52,13 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
         Auth::login($user);
         // Count how many users already registered
-        $registeredCount = User::count();
+        $maleCount = User::where('gender', 'male')->count();
+        $femaleCount = User::where('gender', 'female')->count();
 
-        if ($registeredCount <= 1000) {
+        if (
+            ($user->gender === 'male' && $maleCount <= 1000) ||
+            ($user->gender === 'female' && $femaleCount <= 1000)
+        ) {
             $packageId = $user->gender === 'male' ? 999 : 1000;
             $subscriptionService->createOrRenew($user->id, $packageId);
         }

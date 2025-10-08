@@ -57,7 +57,7 @@
           <select id="user-select-dropdown" class="form-select">
             <option value="">-- Select user --</option>
             @foreach(\App\Models\User::all() as $user)
-              <option value="{{ $user->email }}">{{ $user->name }} ({{ $user->email }})</option>
+              <option value="{{ $user->email }}">{{ $user->first_name }} ({{ $user->email }})</option>
             @endforeach
           </select>
         </div>
@@ -67,7 +67,7 @@
           <select id="package-select-dropdown" class="form-select">
             <option value="">-- Select package --</option>
             @foreach(\App\Models\SubscriptionPackage::all() as $package)
-              <option value="{{ $package->id }}">{{ $package->package_name_en }} ({{ $package->price }})</option>
+              <option value="{{ $package->id }}">{{ $package->package_name_en }} ({{ $package->price }}) ({{ $package->gender }})</option>
             @endforeach
           </select>
 
