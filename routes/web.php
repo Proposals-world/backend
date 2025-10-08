@@ -16,6 +16,7 @@ use App\Http\Controllers\MessageSubscriptionController;
 // use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\SupportTicketController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\Admin\HairColorsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HobbiesController;
@@ -71,7 +72,7 @@ Route::get('payment/error', [PaymentPageController::class, 'fail'])->name('payme
 
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
-Route::post('/', [FintesaWebhookController::class, 'handle']);
+Route::post('/', [FintesaWebhookController::class, 'handle'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us');
