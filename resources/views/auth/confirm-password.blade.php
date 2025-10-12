@@ -46,10 +46,10 @@
                 <!-- Logo -->
                 <div class="auth-brand text-center text-lg-start">
                     <a href="{{ url('/') }}" class="logo-dark">
-                        <span><img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo" class="auth-logo"></span>
+                        <span><img src="{{asset('frontend/img/logo/tolba.png')}}" alt="dark logo" class="auth-logo"></span>
                     </a>
                     <a href="{{ url('/') }}" class="logo-light">
-                        <span><img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="logo" height="24"></span>
+                        <span><img src="{{asset('frontend/img/logo/tolba.png')}}" alt="logo" height="24"></span>
                     </a>
                 </div>
 

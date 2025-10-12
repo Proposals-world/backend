@@ -150,30 +150,30 @@
                             @enderror
                         </div>
 <!-- country -->
-                        <div class="mb-3">
-                        <label for="country_code" class="form-label sr-only">
-                            {{ __('auth.Country_code') }}
-                        </label>
-                        <select name="country_code" id="country_code"
-                                class="form-select @error('country_code') is-invalid @enderror">
-                            @foreach(config('countries') as $iso => $info)
-                            <option value="{{ $iso }}"
-                                    {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
-                                    {{ $info['name'] }} {{ $info['dial_code'] }}
-                            </option>
-
-                            @endforeach
-                        </select>
-                        @error('country_code')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        </div>
-                        <!-- Phone Number -->
-                        <div class="mb-3">
-                            <label for="phone_number" class="form-label">{{ __('auth.phone_number') }}</label>
-                            <input type="tel" class="form-control {{ app()->getLocale() === 'ar' ? ' text-end' : '' }}" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="{{ __('auth.phone_placeholder') }}">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="country_code" class="form-label sr-only">
+                                    {{ __('auth.Country_code') }}
+                                </label>
+                                <select name="country_code" id="country_code"
+                                        class="form-select @error('country_code') is-invalid @enderror">
+                                    @foreach(config('countries') as $iso => $info)
+                                    <option value="{{ $iso }}"
+                                            {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
+                                            {{ $info['name'] }} {{ $info['dial_code'] }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label for="phone_number" class="form-label">{{ __('auth.phone_number') }}</label>
+                                <input type="tel" class="form-control{{ app()->getLocale() === 'ar' ? ' text-end' : '' }}" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required placeholder="{{ __('auth.phone_placeholder') }}">
+                            </div>
                             @error('phone_number')
                             <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                            @error('country_code')
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
