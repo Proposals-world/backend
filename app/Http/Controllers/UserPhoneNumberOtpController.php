@@ -200,6 +200,8 @@ class UserPhoneNumberOtpController extends Controller
                     : 'Phone number already exists for another user.',
             ], 409);
         }
+        // Mark all previous OTPs for this user as not verified
+        UserPhoneNumberOtp::where('user_id', $user->id)->delete();
         // // Save
         $user->update([
             'country_code' => $request->input('country_code'),

@@ -49,7 +49,7 @@
         .card-front,
         .card-back {
             position: absolute;
-            width: 112%;
+            width: 117%;
             height: 100%;
             backface-visibility: hidden;
             border-radius: 0.375rem;
@@ -108,19 +108,21 @@
                                                     </div>
                                  <select name="country_code"
                                     class="form-select form-control @error('country_code') is-invalid @enderror"
-                                    style="max-width:110px">
-
-                                        @foreach(config('countries') as $iso => $info)
+                                    style="max-width:143px">
+@php
+    $countries = \App\Helpers\CountryHelper::getCountries();
+@endphp
+                                        @foreach($countries as $iso => $info)
                                             <option value="{{ $iso }}"
                                                 {{ $countryCode == $iso ? 'selected' : '' }}>
-                                                    {{ $iso }} {{ $info['dial_code'] }}
+                                                    {{ $info['name'] }}{{ $info['dial_code'] }}
                                             </option>
                                         @endforeach
                                     </select>
                                 <input type="text" id="phone_number" name="phone_number" class="form-control"
                                     value="{{ $localPhone }}"
                                     placeholder="{{ __('otp.Enter_Phone_number') }}" required
-                                    style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 9px;">
+                                    style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 4px;">
 
                                 <button id="update-phone-number-btn" class="btn btn-transparent">
                                     <i class="fas fa-sync-alt"></i>
@@ -251,7 +253,7 @@
                     const country = countryCodeSelect.value;
 
                     if (!contact) {
-                        showErrorMessage('{{ __('otp.Please_enter_guardian_contact') }}');
+                        showErrorMessage('{{ __('otp.Please_enter_phone_number') }}');
                         return;
                     }
 

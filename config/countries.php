@@ -5,15 +5,22 @@ use libphonenumber\PhoneNumberUtil;
 
 $phoneUtil = PhoneNumberUtil::getInstance();
 
-// load Umpirsky’s English‐names array
+// Detect app locale (you can also use request()->getPreferredLanguage() if needed)
+// $locale = app()->getLocale();
+// dd($locale);
+// Load country names based on locale
+// if ($locale === 'ar') {
+//     $all = require base_path('vendor/umpirsky/country-list/data/ar/country.php');
+// } else {
+// }
 $all = require base_path('vendor/umpirsky/country-list/data/en/country.php');
 
 $list = [];
+
 foreach ($all as $iso => $name) {
-    // fetch the country calling code, e.g. “962” for “JO”
     $code = $phoneUtil->getCountryCodeForRegion($iso);
 
-    // skip entries without metadata (e.g. AQ / Antarctica has no dialing code)
+    // Skip countries without dialing codes (e.g., AQ - Antarctica)
     if (!$code) {
         continue;
     }
@@ -23,5 +30,5 @@ foreach ($all as $iso => $name) {
         'dial_code' => '+' . $code,
     ];
 }
-
+// dd($list);
 return $list;

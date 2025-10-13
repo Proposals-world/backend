@@ -26,24 +26,25 @@ class WhatsAppContactService
      */
     public function insert(array $data): int
     {
+        $id = ltrim(trim($data['id']), '+');
+
         // Check if contact already exists
         $existing = DB::connection($this->connection)
             ->table('contact')
             ->where('sessionId', $data['sessionId'])
-            ->where('id', $data['id'])
+            ->where('id', $id)
             ->first();
-
+        // dd($existing);
         if ($existing) {
-            // dd('Contact already exists', $existing);
-            return $existing->pkId; // Return existing ID
+            return (int) $existing->id; // cast to int
         }
 
         // Insert new contact
-        return DB::connection($this->connection)
+        return (int) DB::connection($this->connection)
             ->table('contact')
             ->insertGetId([
                 'sessionId'    => $data['sessionId'],
-                'id' => ltrim(trim($data['id']), '+'),
+                'id'           => $id,
                 'name'         => $data['name'] ?? null,
                 'notify'       => $data['notify'] ?? null,
                 'verifiedName' => $data['verifiedName'] ?? null,
@@ -51,6 +52,9 @@ class WhatsAppContactService
                 'status'       => $data['status'] ?? null,
             ]);
     }
+
+
+
     public function sessionExists(string $sessionId): bool
     {
         // Check in 'session' table

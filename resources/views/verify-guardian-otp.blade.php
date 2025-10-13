@@ -49,7 +49,7 @@
         .card-front,
         .card-back {
             position: absolute;
-            width: 113%;
+            width: 117%;
             height: 100%;
             backface-visibility: hidden;
             border-radius: 0.375rem;
@@ -134,18 +134,21 @@
                                                     </div>
                                  <select name="country_code"
                                                                         class="form-select form-control @error('country_code') is-invalid @enderror"
-                                                                        style="max-width:110px">
-                                                                    @foreach(config('countries') as $iso => $info)
+                                                                        style="max-width:148px">
+                                                                        @php
+                                                                            $countries = \App\Helpers\CountryHelper::getCountries();
+                                                                        @endphp
+                                                                    @foreach($countries as $iso => $info)
                                                                     <option value="{{ $iso }}"
                                                                         {{ $countryCode == $iso ? 'selected' : '' }}>
-                                                                            {{ $iso }} {{ $info['dial_code'] }}
+                                                                           {{ $info['name'] }} {{ $info['dial_code'] }}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
                                 <input type="text" id="guardian_contact" name="guardian_contact" class="form-control"
                                     value="{{ $localPhone }}"
                                     placeholder="{{ __('otp.Enter_guardian_number') }}" required
-                                    style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 9px;">
+                                    style="flex: 1; min-width: 0; {{ app()->getLocale() === 'en' ? 'margin-right' : 'margin-left' }}: 4px;">
 
                                 <button id="update-guardian-btn" class="btn btn-transparent">
                                     <i class="fas fa-sync-alt"></i>

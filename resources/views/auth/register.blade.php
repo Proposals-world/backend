@@ -150,10 +150,13 @@
                             @enderror
                         </div>
 <!-- country -->
-                        <div class="mb-3 row">
+@php
+    $countries = \App\Helpers\CountryHelper::getCountries();
+@endphp
+                        <div class="mb-3 row" style="direction: ltr;">
     <div class="col-5">
         <select name="country_code" id="country_code" class="form-select @error('country_code') is-invalid @enderror">
-            @foreach(config('countries') as $iso => $info)
+            @foreach($countries as $iso => $info)
                 <option value="{{ $iso }}" {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
                     {{ $info['name'] }} {{ $info['dial_code'] }}
                 </option>

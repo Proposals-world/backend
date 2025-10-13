@@ -228,6 +228,7 @@ class IsVerifiedController extends Controller
         if ($user->gender === 'male') {
             $requiredFields['marriage_budget'] = 'marriage_budget_id';
         }
+        // fix
         // ✅ Add `guardian_contact` only if female
         if ($user->gender === 'female') {
             $requiredFields['guardian_contact'] = 'guardian_contact_encrypted';
@@ -314,14 +315,23 @@ class IsVerifiedController extends Controller
         // Call each method internally
         // $emailCheck    = $this->isEmailVerified($request)->getData(true);
         $phoneCheck    = $this->isPhoneVerified($request)->getData(true);
-        $guardianCheck = $this->isGuardianVerified($request)->getData(true);
+        $guardianCheck = Auth::user()->gender === 'female'
+            ? $this->isGuardianVerified($request)->getData(true)
+            : null;
         $profileCheck  = $this->isProfileCompleted($request)->getData(true);
 
-        return response()->json([
-            // 'email'    => $emailCheck,
-            'phone'    => $phoneCheck,
-            'guardian' => $guardianCheck,
-            'profile'  => $profileCheck,
-        ]);
+        // Build the response array
+        $data = [
+            // 'email'   => $emailCheck,
+            'phone'   => $phoneCheck,
+            'profile' => $profileCheck,
+        ];
+
+        // Conditionally add guardian if user is female
+        if (Auth::user()->gender === 'female') {
+            $data['guardian'] = $guardianCheck;
+        }
+
+        return response()->json($data);
     }
 }

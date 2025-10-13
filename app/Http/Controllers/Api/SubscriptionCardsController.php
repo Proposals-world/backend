@@ -21,6 +21,7 @@ class SubscriptionCardsController extends Controller
                     'price'          => $package->price,
                     'contact_limit'  => $package->contact_limit,
                     'gender'  => $package->gender,
+                    'payment_link' => $package->payment_url,
 
                 ];
             } else {
@@ -30,6 +31,8 @@ class SubscriptionCardsController extends Controller
                     // 'contact_limit'  => $package->contact_limit,
                     'duration'  => $package->duration,
                     'gender'  => $package->gender,
+                    'payment_link' => $package->payment_url,
+
 
                 ];
             }

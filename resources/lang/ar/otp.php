@@ -24,7 +24,7 @@ return [
     'هذا فقط للتأكد من رقم ولية الأمر. اتركه كما هو إذا كان صحيحًا.',
     'This_is_to_confirm_your_phone_number._Leave_it_as_is_if_already_correct.' =>
     'هذا فقط للتأكد من رقم هاتفك. اتركه كما هو إذا كان صحيحًا.',
-
+    'Please_enter_phone_number' => 'يرجى إدخال رقم الهاتف.',
     'Guardian_Approval' => 'موافقة ولية الأمر',
     'Important_Notice' => 'إشعار مهم',
     'I_Understand_Proceed' => 'أفهم وأريد المتابعة',

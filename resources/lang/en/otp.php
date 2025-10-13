@@ -22,6 +22,7 @@ return [
     'Please_enter_phone_number' => 'Please enter phone number.',
     'This_is_to_confirm_your_guardian_contact._Leave_it_as_is_if_already_correct.' =>
     'This is only to confirm your guardian contact. Leave it as it is if already correct.',
+    'Please_enter_phone_number' => 'Please enter phone number.',
     'This_is_to_confirm_your_phone_number._Leave_it_as_is_if_already_correct.' =>
     'This is only to confirm your phone number. Leave it as it is if already correct.',
     'Guardian_Approval' => 'Guardian Approval',

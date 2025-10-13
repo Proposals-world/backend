@@ -45,7 +45,7 @@ class HomeController extends Controller
                     'image' => $blog->image,
                 ];
             });
-        return view('welcome', compact('malePackages', 'femalePackages', 'faqs', 'blogs'));
+        return view('welcome', compact('subscriptionPackage', 'faqs', 'blogs'));
     }
 
 

@@ -901,11 +901,14 @@ $locale = app()->getLocale();
                                                     </div>
                                                      <select name="country_code"
                                                                         class="form-select form-control @error('country_code') is-invalid @enderror"
-                                                                        style="max-width:110px">
-                                                                    @foreach(config('countries') as $iso => $info)
+                                                                        style="max-width:152px">
+                                                                        @php
+    $countries = \App\Helpers\CountryHelper::getCountries();
+@endphp
+                                                                    @foreach($countries as $iso => $info)
                                                                     <option value="{{ $iso }}"
                                                                         {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
-                                                                            {{ $iso }} {{ $info['dial_code'] }}
+                                                                            {{ $info['name'] }} {{ $info['dial_code'] }}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>

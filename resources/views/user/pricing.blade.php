@@ -1,113 +1,13 @@
 @extends('user.layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row mb-5">
-            <div class="col-12">
-
+<div class="container-fluid">
+    <div class="row mb-5">
+        <div class="col-12">
             <div class="mb-2">
                 <h1>{{ __('userDashboard.pricing.title') }}</h1>
                 <p>{{ __('userDashboard.pricing.desc') }}</p>
                 <div class="separator mb-5"></div>
-            </div>
-
-            <div class="row equal-height-container">
-
-
-@forelse ($subscriptionCards as $card)
-
-    <div class="col-md-12 col-lg-4 mb-4 col-item">
-        <div class="card">
-            <div class="card-body pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
-                <div class="price-top-part">
-                    <i class="iconsminds-wallet large-icon"></i>
-                    <h5 class="mb-0 font-weight-semibold color-theme-1 mb-4">
-                        {{ $card['package_name'] }}
-                    </h5>
-                    <p class="text-large mb-2 text-default">${{ $card['price'] }}</p>
-                </div>
-
-                <div class="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">
-                    <ul class="list-unstyled">
-                        @if (Auth::user()->gender == "male")
-                            <li>
-                                <p class="mb-0">
-                                    {{ __('userDashboard.pricing.contact_limit') }}: {{ $card['contact_limit'] }}
-                                </p>
-                            </li>
-                        @else
-                            <li>
-                                <p class="mb-0">
-                                    {{ __('userDashboard.pricing.duration') }}: {{ $card['duration'] ?? 'N/A' }} {{ __('home.in_days') }}
-                                </p>
-                            </li>
-                        @endif
-                    </ul>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-link btn-empty btn-lg">
-                            {{ __('userDashboard.pricing.button') }} <i class="simple-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                <div class="mb-2">
-                    <h1>{{ __('userDashboard.pricing.title') }}</h1>
-                    <p>{{ __('userDashboard.pricing.desc') }}</p>
-                    <div class="separator mb-5"></div>
-                </div>
-
-                <div class="row equal-height-container">
-                    @php $isMale = Auth::user()->gender === 'male'; @endphp
-
-                    @forelse ($subscriptionCards as $card)
-                        <div class="col-md-12 col-lg-4 mb-4 col-item">
-                            <div class="card">
-                                <div class="card-body pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
-                                    <div class="price-top-part">
-                                        <i class="iconsminds-wallet large-icon"></i>
-                                        <h5 class="mb-0 font-weight-semibold color-theme-1 mb-4">
-                                            {{ $card['package_name'] }}
-                                        </h5>
-                                        <p class="text-large mb-2 text-default">${{ $card['price'] }}</p>
-                                    </div>
-
-                                    <div class="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">
-                                        <ul class="list-unstyled">
-                                            @if ($isMale)
-                                                <li>
-                                                    <p class="mb-0">
-                                                        {{ __('userDashboard.pricing.contact_limit') }}:
-                                                        {{ $card['contact_limit'] }}
-                                                    </p>
-                                                </li>
-                                            @else
-                                                <li>
-                                                    <p class="mb-0">
-                                                        {{ __('userDashboard.pricing.duration') }}:
-                                                        {{ $card['duration'] ?? 'N/A' }} {{ __('home.in_days') }}
-                                                    </p>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                        <div class="text-center">
-                                            <!-- Button to trigger modal -->
-
-
-                                            @if (!empty($card['payment_url']))
-                                               <a href="#" class="btn btn-link btn-empty btn-lg" data-toggle="modal" data-target="#paymentModal">
-    {{ __('userDashboard.pricing.button') }} <i class="simple-icon-arrow-right"></i>
-</a>
-<!-- Payment Modal -->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-        <div class="modal-content shadow-lg">
-
-            <!-- Header -->
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title font-weight-bold">
-                    <i class="simple-icon-credit-card mr-2"></i>  {{ __('payment.Payment_Notice') }}
-                </h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
             </div>
 
             <div class="row equal-height-container">
