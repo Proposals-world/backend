@@ -52,7 +52,7 @@ class RegisterUserRequest extends FormRequest
                 'nullable',
                 'string',
                 'phone:' . $country,
-                Rule::unique(User::class, 'phone_number'),
+                Rule::unique(User::class, 'phone_number')->whereNull('deleted_at'),
             ],
             'gender'       => ['required', Rule::in(['male', 'female'])],
             'password'     => [

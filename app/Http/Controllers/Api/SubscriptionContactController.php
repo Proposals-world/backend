@@ -45,22 +45,31 @@ class SubscriptionContactController extends Controller
     {
         $subscription = Subscription::with('package')
             ->where('user_id', Auth::id())
-            ->where('status', 'active')
-            ->where('end_date', '>', now())
+            // ->where('status', 'active')
+            // ->where('end_date', '>', now())
             ->first();
-
+        // dd($subscription);
         if (!$subscription) {
             return response()->json([
                 'message' => 'No active subscription found'
             ], 404);
         }
-
-        return response()->json([
-            'subscription_id' => $subscription->id,
-            'package_name' => $subscription->package->package_name_en,
-            'contacts_remaining' => $subscription->contacts_remaining,
-            'expires_at' => $subscription->end_date,
-            'status' => $subscription->status
-        ]);
+        if ($subscription->package->gender === 'male') {
+            return response()->json([
+                'subscription_id' => $subscription->id,
+                'package_name' => $subscription->package->package_name_en,
+                'contacts_remaining' => $subscription->contacts_remaining,
+                // 'expires_at' => $subscription->end_date,
+                // 'status' => $subscription->status
+            ]);
+        } else {
+            return response()->json([
+                'subscription_id' => $subscription->id,
+                'package_name' => $subscription->package->package_name_en,
+                // 'contacts_remaining' => $subscription->contacts_remaining,
+                'expires_at' => $subscription->end_date,
+                // 'status' => $subscription->status
+            ]);
+        }
     }
 }

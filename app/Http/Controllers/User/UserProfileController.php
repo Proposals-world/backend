@@ -100,7 +100,9 @@ class UserProfileController extends Controller
 
         // dd($user->phone_number, $user->profile->guardian_contact);
         $data = $this->onboardingService->getOnboardingData();
+
         // dd($profile);
+        // dd($data['weights']);
         return view('user.profile.updateProfile', compact('user', 'profile', 'data', 'locale'));
     }
 }

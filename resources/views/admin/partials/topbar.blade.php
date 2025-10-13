@@ -134,7 +134,7 @@
             <li class="dropdown me-md-2">
                 <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="{{asset('admin/assets/images/users/avatar-1.jpg')}}" alt="user-image" width="32" class="rounded-circle">
+                        <img src="{{asset('dashboard/logos/tolba.png')}}" style="background: #f8f9fa;" alt="user-image" width="32" class="rounded-circle">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">{{ Auth::user()->first_name ?? 'Guest' }}</h5>
@@ -167,7 +167,7 @@
                     </a> --}}
 
                     <!-- item-->
-                    <a href="{{ route('logout') }}" class="dropdown-item" 
+                    <a href="{{ route('logout') }}" class="dropdown-item"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="ri-logout-box-fill align-middle me-1"></i>
                         <span>Logout</span>

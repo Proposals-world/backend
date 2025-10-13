@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CheckUserPaymentController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\GuardianContactVerificationController;
+use App\Http\Controllers\Api\IsVerifiedController;
 use App\Http\Controllers\Api\LikeController as ApiLikeController;
 use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\PasswordResetController;
@@ -64,8 +65,10 @@ Route::post('/password/verify-otp', [PasswordResetController::class, 'verifyOTP'
 Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
 
 // Protected Routes
+// Route::get('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);
 Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 Route::post('webhook/fintesa', [FintesaWebhookController::class, 'handle']);
@@ -165,6 +168,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name('user.verify');
     Route::put('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
         ->name('user.update.phone.number');
+    Route::get('/is-phone-number-verified', [IsVerifiedController::class, 'isPhoneVerified']);
+    Route::get('/is-guardian-contact-verified', [IsVerifiedController::class, 'isGuardianVerified']);
+    Route::get('/is-profile-completed', [IsVerifiedController::class, 'isProfileCompleted']);
+    Route::get('/all-verifications', [IsVerifiedController::class, 'allVerifications']); // wrapper
     Route::get('admin/payments/subscribe-for-user', [UserPaymentController::class, 'subscribeForUser'])
         ->name('admin.payments.subscribe-for-user');
 });

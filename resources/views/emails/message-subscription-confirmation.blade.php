@@ -23,7 +23,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
-        
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -46,7 +46,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             object-fit: cover;
         }
-        
+
         /* Content Styles */
         .content {
             padding: 35px 40px;
@@ -67,7 +67,7 @@
         .message p {
             margin: 0 0 15px;
         }
-        
+
         /* Feature List */
         .feature-list {
             list-style: none;
@@ -92,7 +92,7 @@
             color: #9c0c58;
             font-weight: bold;
         }
-        
+
         /* Button Styles */
         .button-container {
             margin: 30px 0;
@@ -112,7 +112,7 @@
         .button:hover {
             background-color: #7c0946;
         }
-        
+
         /* Footer Styles */
         .footer {
             text-align: center;
@@ -150,7 +150,7 @@
         .disclaimer p {
             margin: 5px 0;
         }
-        
+
         /* Responsive styles */
         @media only screen and (max-width: 600px) {
             .email-container {
@@ -174,13 +174,13 @@
 <body>
     <div class="email-container">
         <div class="header">
-            <img src="{{ asset('admin/assets/images/brands/proposals-logo.jpeg') }}" alt="Islamic Proposals" class="logo">
+            <img src="{{ asset('admin/assets/images/tolba.png') }}"height= "100px" alt="Islamic Proposals" class="logo">
             <h1>Subscription Confirmation</h1>
         </div>
-        
+
         <div class="content">
             <h1 class="greeting">Thank You for Subscribing!</h1>
-            
+
             <div class="message">
                 <p>Hello,</p>
                 <p>Thank you for subscribing to Proposals. We're excited to have you join our community of individuals seeking a halal way to find their life partner.</p>
@@ -203,14 +203,14 @@
 
         <div class="footer">
             <p class="tagline">Finding Your Soulmate</p>
-            
+
             <!-- Optional: Add social media links here -->
             <!-- <div class="social-links">
                 <a href="#" class="social-link">Facebook</a>
                 <a href="#" class="social-link">Twitter</a>
                 <a href="#" class="social-link">Instagram</a>
             </div> -->
-            
+
             <div class="disclaimer">
                 <p>This email was sent to {{ $email }}</p>
                 <p>If you didn't subscribe to Proposals, please ignore this email.</p>

@@ -71,7 +71,7 @@
                     <form method="POST" action="{{ route('verification.send') }}" class="mb-3">
                         @csrf
                         <div class="d-grid text-center">
-                            <button type="submit" class="btn btn-primary">{{ __('auth.send_password_reset_link') }}</button>
+                            <button id="sendVerificationBtn" type="submit" class="btn btn-primary">{{ __('auth.send_email_verification_link') }}</button>
                         </div>
                     </form>
 
@@ -100,7 +100,50 @@
 
     <!-- App js -->
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
+    @push('script')
+<script>
+const btn = document.getElementById('sendVerificationBtn');
+const originalText = btn.innerText;
 
+// Check if a countdown is already in progress in localStorage
+let countdownEnd = localStorage.getItem('emailVerificationCountdown');
+if (countdownEnd) {
+    const remaining = Math.floor((countdownEnd - Date.now()) / 1000);
+    if (remaining > 0) {
+        disableButton(remaining);
+    } else {
+        localStorage.removeItem('emailVerificationCountdown');
+    }
+}
+
+btn.addEventListener('click', function(e) {
+    // Disable button and start countdown
+    disableButton(60);
+
+    // Save end time in localStorage
+    const endTime = Date.now() + 60000; // 60 seconds
+    localStorage.setItem('emailVerificationCountdown', endTime);
+});
+
+function disableButton(seconds) {
+    btn.disabled = true;
+    let counter = seconds;
+    btn.innerText = `${originalText} (${counter}s)`;
+
+    const interval = setInterval(() => {
+        counter--;
+        btn.innerText = `${originalText} (${counter}s)`;
+
+        if (counter <= 0) {
+            clearInterval(interval);
+            btn.disabled = false;
+            btn.innerText = originalText;
+            localStorage.removeItem('emailVerificationCountdown');
+        }
+    }, 1000);
+}
+</script>
+    @endpush
 </body>
 
 </html>

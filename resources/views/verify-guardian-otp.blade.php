@@ -49,7 +49,7 @@
         .card-front,
         .card-back {
             position: absolute;
-            width: 100%;
+            width: 113%;
             height: 100%;
             backface-visibility: hidden;
             border-radius: 0.375rem;
@@ -128,6 +128,10 @@
                             <label for="guardian_contact" class="fw-bold text-left">{{ __('otp.Guardian_Contact') }}</label>
 
                             <div class="d-flex align-items-center gap-2">
+                            <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="height: 39px;"><i
+                                                                class="fas fa-phone"></i></span>
+                                                    </div>
                                  <select name="country_code"
                                                                         class="form-select form-control @error('country_code') is-invalid @enderror"
                                                                         style="max-width:110px">

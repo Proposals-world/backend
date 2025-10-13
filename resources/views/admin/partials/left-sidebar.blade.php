@@ -37,7 +37,7 @@
         <div class="leftbar-user p-3 text-white">
             <a  class="d-flex align-items-center text-reset">
                 <div class="flex-shrink-0">
-                    <img src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}" alt="user-image" height="42"
+                    <img src="{{ asset('dashboard/logos/tolba.png') }}" style="background-color: #f8f9fa;" alt="user-image" height="42"
                         class="rounded-circle shadow">
                 </div>
                 <div class="flex-grow-1 ms-2">

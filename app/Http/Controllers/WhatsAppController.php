@@ -42,6 +42,14 @@ class WhatsAppController extends Controller
         // dd($user);
         // uncomment when paid
         $toParentNumber = $user->profile->guardian_contact_encrypted ?? null;
+        if (!$toParentNumber) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => $language === 'ar'
+                    ? 'لا يوجد رقم ولي أمر مرتبط بالحساب.'
+                    : 'Guardian contact number is missing.'
+            ], 400);
+        }
         // $toParentNumber = '962798716432';
         $childPhoneNumber = $user->phone_number;
         if (!$childPhoneNumber) {
@@ -72,10 +80,18 @@ class WhatsAppController extends Controller
         ]);
         // $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
         if ($language === 'ar') {
-            $message = "طلب طفلك الذي يحمل رقم الهاتف $childPhoneNumber التحقق من جهة اتصال ولي الأمر. استخدم رمز التحقق OTP: $otp للتحقق من الرقم.";
+            $message = "أهلا بكم، ها قد تم تسجيل طفلكم صاحب رقم الهاتف $childPhoneNumber بأول تطبيق أردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه.
+يرجى إرسال رمز التحقق التالي من خلال التطبيق: $otp
+حيث ستتم مشاركة رقم هاتفكم للتواصل بهدف زيارة العروس والتعرف على العائلة.
+دامت الأفراح عامرة في بيوتكم.";
         } else {
-            $message = "Your child with phone number $childPhoneNumber has requested to verify their Guardian Contact. Use the OTP: $otp to verify the number.";
+            $message = "Welcome! Your child with phone number $childPhoneNumber has been registered in the first Jordanian matchmaking app that respects our customs and traditions.
+This app works in a modern way to meet the community's needs while respecting its values.
+Please use the following OTP in the app to verify: $otp
+Your phone number will be shared for communication purposes to visit the bride and meet the family.
+Wishing you continuous joy and happiness.";
         }
+
         if ($childPhoneNumber === $toParentNumber) {
             // dd($toParentNumber);
             return response()->json([

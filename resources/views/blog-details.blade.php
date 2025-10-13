@@ -155,7 +155,7 @@
                                     <div class="col-md-6">
                                         <div class="related-post-wrap mb-30">
                                             <div class="post-thumb">
-                                                <img src="{{asset('storage/' . $blog['image']) }}" alt="">
+                                                <img src="{{asset('storage/' . $blog['image']) }}" alt="" style="height: 500px; object-fit: cover;">
                                             </div>
                                             <div class="rp__content">
                                                 <h3><a href="{{ route('blog-details', $blog['id']) }}">{{ $blog['title'] }}</a></h3>
