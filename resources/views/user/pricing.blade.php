@@ -60,10 +60,10 @@
                                     @endif
                                 </div>
 
-                                <div class="text-right mt-auto">
+                                {{-- <div class="text-right mt-auto">
                                     <img src="{{ asset('frontend/img/mastercard.png') }}" alt="Mastercard" height="20" class="ml-1">
                                     <img src="{{ asset('frontend/img/VISA-logo.png') }}" alt="VISA" height="20" class="ml-1">
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

@@ -67,14 +67,14 @@
             </div>
 
             <!-- Payment Methods -->
-            <div class="row justify-content-center">
+            {{-- <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="payment-logos text-center mb-20">
                         <img src="{{ asset('frontend/img/mastercard.png') }}" alt="Mastercard" height="40" class="mx-2">
                         <img src="{{ asset('frontend/img/VISA-logo.png') }}" alt="VISA" height="40" class="mx-2">
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
