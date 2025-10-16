@@ -48,15 +48,18 @@ class OnboardingService
 
         // Helper closure to avoid repetition.
         // Optionally, a specific field can be provided.
-        $getData = function ($model, $field = null) use ($nameField) {
+        $getData = function ($model, $field = null, $orderBy = false) use ($nameField) {
             $column = $field ?: $nameField;
 
             $query = $model::select('id', DB::raw("{$column} as name"));
 
+            if ($orderBy) {
+                $query->orderBy('name', 'asc');
+            }
 
             return $query->get();
-            // return $query->orderBy('name', 'asc')->get();
         };
+
 
 
         // Get the authenticated user's gender (if available).
@@ -85,7 +88,7 @@ class OnboardingService
             // For MarriageBudget, pass the specific field.
             'eyeColors'    => $getData(EyeColor::class),
             'marriageBudget'    => $getData(MarriageBudget::class, $budgetField),
-            'jobTitles'         => $getData(JobTitle::class),
+            'jobTitles'         => $getData(JobTitle::class, null, true),
             'hobbies'           => $getData(Hobby::class),
             'pets'              => $getData(Pet::class),
             'sportsActivities'  => $getData(SportsActivity::class),
