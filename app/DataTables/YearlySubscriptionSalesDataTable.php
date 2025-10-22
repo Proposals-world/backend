@@ -26,6 +26,7 @@ class YearlySubscriptionSalesDataTable extends DataTable
             ->rawColumns(['year', 'total_subscriptions', 'total_revenue']);
     }
 
+
     public function query(Subscription $model)
     {
         $query = $model->with(['package' => function ($query) {
@@ -37,11 +38,13 @@ class YearlySubscriptionSalesDataTable extends DataTable
                 SUM(subscription_packages.price) as total_revenue
             ")
             ->leftJoin('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')
+            ->whereNotIn('subscriptions.package_id', [999, 1000]) // ✅ exclude free packages
             ->groupBy('year')
             ->orderBy('year', 'desc');
 
         return $this->applyScopes($query);
     }
+
 
     public function html()
     {

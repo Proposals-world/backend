@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckUserStatus;
+use App\Http\Middleware\EnsureEmailIsVerified;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -29,7 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.status' => CheckUserStatus::class,
             'guardian.verified' => EnsureGuardianContactIsVerified::class,
             'phone.verified' => EnsurePhoneIsVerified::class,
-
+            'verified' => EnsureEmailIsVerified::class,
 
         ]);
     })

@@ -46,6 +46,7 @@ use App\Http\Controllers\Api\UserPreferenceController as ApiUserPreferenceContro
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubscriptionCardsController;
 use App\Http\Controllers\Api\SubscriptionContactController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\ContactController;
@@ -66,6 +67,7 @@ Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
+Route::post('/users/restore', [UserController::class, 'restore']);
 
 // Protected Routes
 // Route::get('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);

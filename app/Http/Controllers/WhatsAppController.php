@@ -79,18 +79,17 @@ class WhatsAppController extends Controller
             "id"       =>   $toParentNumber . "@s.whatsapp.net",
         ]);
         // $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
-        if ($language === 'ar') {
-            $message = "أهلا بكم، ها قد تم تسجيل طفلكم صاحب رقم الهاتف $childPhoneNumber بأول تطبيق أردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه.
+        $message = "أهلا بكم، ها قد تم تسجيل طفلكم صاحب رقم الهاتف $childPhoneNumber بأول تطبيق أردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه.
 يرجى إرسال رمز التحقق التالي من خلال التطبيق: $otp
 حيث ستتم مشاركة رقم هاتفكم للتواصل بهدف زيارة العروس والتعرف على العائلة.
-دامت الأفراح عامرة في بيوتكم.";
-        } else {
-            $message = "Welcome! Your child with phone number $childPhoneNumber has been registered in the first Jordanian matchmaking app that respects our customs and traditions.
+دامت الأفراح عامرة في بيوتكم.
+
+Welcome! Your child with phone number $childPhoneNumber has been registered in the first Jordanian matchmaking app that respects our customs and traditions.
 This app works in a modern way to meet the community's needs while respecting its values.
 Please use the following OTP in the app to verify: $otp
 Your phone number will be shared for communication purposes to visit the bride and meet the family.
 Wishing you continuous joy and happiness.";
-        }
+
 
         if ($childPhoneNumber === $toParentNumber) {
             // dd($toParentNumber);

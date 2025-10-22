@@ -28,7 +28,7 @@ return [
     'height' => 'الطول',
     'weight' => 'الوزن',
     'nationality' => 'الجنسية',
-    'origin' => 'بلد الأصل',
+    'origin' => ' الأصل',
     'city_location' => 'المنطقة',
     // Location and Education Step
     'location_education' => 'الموقع والتعليم',

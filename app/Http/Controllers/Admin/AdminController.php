@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\GuardianOtp;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\UserPhoneNumberOtp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 // this for managing customers
@@ -104,8 +106,23 @@ class AdminController extends Controller
         $substatus = Subscription::where('user_id', $user->id)
             ->latest()
             ->value('status');
+        // ✅ Only check verification for the authenticated user
+        $verifiedStatus = false;
 
-        // dd($subs);
-        return view('admin.viewUser', compact('user', 'previous', 'next', 'substatus')); // Ensure this view exists
+        $phoneVerified = UserPhoneNumberOtp::where('user_id', $user->id)
+            ->where('verified', true)
+            ->exists();
+        if ($user->gender == 'female') {
+
+            $guardianVerified = GuardianOtp::where('user_id', $user->id)
+                ->where('verified', true)
+                ->exists();
+
+            $verifiedStatus = $phoneVerified && $guardianVerified;
+        } else {
+            $verifiedStatus = $phoneVerified;
+        }
+        // dd($substatus);
+        return view('admin.viewUser', compact('user', 'previous', 'next', 'substatus', 'verifiedStatus')); // Ensure this view exists
     }
 }

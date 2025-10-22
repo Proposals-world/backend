@@ -115,7 +115,7 @@
                     {{-- <p class="text-muted mb-4">{{ __('auth.not_receive_email') }}</p> --}}
 
                     <!-- Registration Form -->
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register.store') }}">
                         @csrf
 
                         <!-- First Name and Last Name -->

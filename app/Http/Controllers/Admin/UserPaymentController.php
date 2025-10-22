@@ -11,6 +11,8 @@ use App\Models\UserPayment;
 use Illuminate\Http\Request;
 use App\Services\SubscriptionService;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SubscriptionReceiptMail;
 
 class UserPaymentController extends Controller
 {
@@ -46,7 +48,6 @@ class UserPaymentController extends Controller
             ->first();
 
         $startDate = now();
-
         if ($existingSubscription) {
             $endDate = Carbon::parse($existingSubscription->end_date)
                 ->addDays($package->duration);
@@ -73,11 +74,13 @@ class UserPaymentController extends Controller
         }
 
         // ✅ Update only the pressed record
-        UserPayment::where('id', $paymentId)->update([
-            'status' => 'paid',
-            'amount' => $package->price ?? 0,
-            'date' => now(),
-        ]);
+        // UserPayment::where('id', $paymentId)->update([
+        //     'status' => 'paid',
+        //     'amount' => $package->price ?? 0,
+        //     'date' => now(),
+        // ]);
+        $subscription->load('user', 'package');
+        Mail::to($subscription->user->email)->send(new SubscriptionReceiptMail($subscription));
 
         return response()->json([
             'message' => 'User subscribed successfully',

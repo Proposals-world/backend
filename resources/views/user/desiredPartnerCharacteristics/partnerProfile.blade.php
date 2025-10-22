@@ -429,7 +429,7 @@
                                                     </h5>
 
                                                     {{-- Religion --}}
-                                                    {{-- <div class="form-group">
+                                                    <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_religiosity_level">{{ __('profile.Partner_Religion') }}</label>
                                                         <select class="form-control" name="preferred_religion_id" id="religion_id">
@@ -443,7 +443,7 @@
                                                             @endforeach
                                                         </select>
 
-                                                    </div> --}}
+                                                    </div>
                                                     {{-- Religiosity Level --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
@@ -690,7 +690,7 @@
                                                     @endif
 
                                                     {{-- Sleep Habit --}}
-                                                    @if (!empty($data['sleepHabits']))
+                                                    {{-- @if (!empty($data['sleepHabits']))
                                                         <div class="form-group">
                                                             <label class="form-label"
                                                                 for="preferred_sleep_habit">{{ __('profile.Partner_Sleep_Habit') }}</label>
@@ -705,7 +705,7 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                    @endif
+                                                    @endif --}}
 
                                                     {{-- Sports Activity --}}
                                                     @if (!empty($data['sportsActivities']))

@@ -62,6 +62,7 @@ class RegisteredUserController extends Controller
             $packageId = $user->gender === 'male' ? 999 : 1000;
             $subscriptionService->createOrRenew($user->id, $packageId);
         }
+
         return redirect()->route('user.dashboard');
     }
 }

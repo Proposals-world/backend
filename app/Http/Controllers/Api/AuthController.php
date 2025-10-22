@@ -245,7 +245,22 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        $deleteduser = User::withTrashed()->where('email', $request->email)->first();
 
+        if (!$deleteduser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ], 404);
+        }
+
+        // Check if the user is soft-deleted
+        if ($deleteduser->trashed()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This account has been deleted.',
+            ], 403);
+        }
         // Attempt to authenticate
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([

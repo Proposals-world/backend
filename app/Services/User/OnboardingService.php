@@ -96,7 +96,7 @@ class OnboardingService
             'drinkingStatuses'  => $getData(DrinkingStatus::class),
             'countries'         => $getData(Country::class, null, true),
             'religions'         => $getData(Religion::class),
-            'nationalities'     => $getData(Nationality::class),
+            'nationalities'     => $getData(Nationality::class, null, true),
             'housingStatuses'   => $getData(HousingStatus::class),
             'financialStatuses' => $getData(FinancialStatus::class),
             'specializations'   => $getData(Specialization::class),

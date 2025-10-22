@@ -33,16 +33,18 @@ class SubscriptionSalesDataTable extends DataTable
             $query->select('id', 'price');
         }])
             ->selectRaw("
-                DATE_FORMAT(subscriptions.created_at, '%Y-%m') as month,
-                COUNT(*) as total_subscriptions,
-                SUM(subscription_packages.price) as total_revenue
-            ")
+            DATE_FORMAT(subscriptions.created_at, '%Y-%m') as month,
+            COUNT(*) as total_subscriptions,
+            SUM(subscription_packages.price) as total_revenue
+        ")
             ->leftJoin('subscription_packages', 'subscriptions.package_id', '=', 'subscription_packages.id')
+            ->whereNotIn('subscriptions.package_id', [999, 1000]) // ✅ Exclude packages 999 and 1000
             ->groupBy('month')
             ->orderBy('month', 'desc');
 
         return $this->applyScopes($query);
     }
+
 
     public function html()
     {
