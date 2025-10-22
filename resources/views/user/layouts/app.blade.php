@@ -16,17 +16,17 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="Tolba.world – Where Tradition Meets Love">
     <meta property="og:description" content="Find meaningful connections through traditional marriage Tolba. Apply now and let tradition guide your path to love.">
-    <meta property="og:image" content="{{ asset('admin/assets/images/tolba.png') }}">
+    <meta property="og:image" content="{{ asset('admin/assets/images/rings-tolba-logo.png') }}">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="Tolba.world – Where Tradition Meets Love">
     <meta name="twitter:description" content="Join a community that honors tradition. Submit your marriage application online and connect through values that last.">
-    <meta name="twitter:image" content="{{ asset('admin/assets/images/tolba.png') }}">
+    <meta name="twitter:image" content="{{ asset('admin/assets/images/rings-tolba-logo.png') }}">
 
 <title>Tolba.world - Find Your Perfect Life Partner</title>
-<link rel="icon" type="image/jpeg" href="{{ asset('admin/assets/images/tolba.png') }}">
+<link rel="icon" type="image/jpeg" href="{{ asset('admin/assets/images/rings-tolba-logo.png') }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 

@@ -21,13 +21,29 @@ class DashboardService
         // Get the total number of matches using UserMatch model
         $totalMatches = UserMatch::count();
         // Get the total number of subscriptions
-        $totalSubscriptions = Subscription::count();
+        $totalSubscriptions = Subscription::where('package_id', '!=', 999)
+            ->where('package_id', '!=', 1000)
+            ->count();
+        // Get total free subscriptions
+        $totalFreeSubscriptions = Subscription::where('package_id', 999)
+            ->orWhere('package_id', 1000)
+            ->count();
         $totalSubscriptionsMale = Subscription::whereHas('user', function ($query) {
-            $query->where('gender', 'male');
+            $query->where('gender', 'male')->where('package_id', '!=', 999);
         })->count();
         $totalSubscriptionsFemale = Subscription::whereHas('user', function ($query) {
-            $query->where('gender', 'female');
+            $query->where('gender', 'female')->where('package_id', '!=', 1000);
         })->count();
+        // Get total free subscriptions for male users
+        $totalFreeSubscriptionsMale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'male')->where('package_id', 999);
+        })->count();
+
+        // Get total free subscriptions for female users
+        $totalFreeSubscriptionsFemale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female')->where('package_id', 1000);
+        })->count();
+
         // Get the number of users last month
         $lastMonthUsers = User::where('role_id', 2)
             ->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
@@ -40,18 +56,32 @@ class DashboardService
 
         // Get the number of matches since last month
         $matchesSinceLastMonth = UserMatch::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
-        $subscriptionsSinceLastMonth = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())->count();
+        $subscriptionsSinceLastMonth = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->where('package_id', '!=', 999)
+            ->where('package_id', '!=', 1000)
+            ->count();
 
         $subscriptionsSinceLastMonthMale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->where('package_id', '!=', 999)
             ->whereHas('user', function ($query) {
                 $query->where('gender', 'male');
             })
             ->count();
+        $subscriptionsSinceLastMonthFreeMale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->where(function ($query) {
+                $query->where('package_id', 999);
+            })
+            ->count();
         $subscriptionsSinceLastMonthFemale = Subscription::where('created_at', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->where('package_id', '!=', 1000)
             ->whereHas('user', function ($query) {
                 $query->where('gender', 'female');
             })
             ->count();
+        // Get total free subscriptions for female users
+        $subscriptionsSinceLastMonthFreeFeMale = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female')->where('package_id', 1000);
+        })->count();
 
         // Calculate growth percentage for this month
         $growthPercentage = $lastMonthUsers > 0 ? (($thisMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
@@ -76,20 +106,45 @@ class DashboardService
 
         // Male subscriptions: contacts_remaining > 0
         $maleSubsCount = Subscription::whereHas('user', function ($query) {
-            $query->where('gender', 'male');
+            $query->where('gender', 'male')
+                ->where('package_id', '!=', 999);
         })
+
             ->where('contacts_remaining', '>', 0)
             ->count();
 
         // Female subscriptions: end_date >= now (not expired)
         $femaleSubsCount = Subscription::whereHas('user', function ($query) {
-            $query->where('gender', 'female');
+            $query->where('gender', 'female')
+                ->where('package_id', '!=', 1000);
         })
+
             ->where('end_date', '>=', $now)
             ->count();
 
         // Total sum of these two counts
         $totalContactsCurrentlySubed = $maleSubsCount + $femaleSubsCount;
+        // Male free subscriptions: contacts_remaining > 0
+        $maleSubsFreeCount = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'male')
+                ->where('package_id', 999);
+        })
+
+            ->where('contacts_remaining', '>', 0)
+            ->count();
+
+        // Female free subscriptions: end_date >= now (not expired)
+        $femaleSubsFreeCount = Subscription::whereHas('user', function ($query) {
+            $query->where('gender', 'female')
+                ->where('package_id', 1000);
+        })
+
+            ->where('end_date', '>=', $now)
+            ->count();
+
+        // Total sum of free subscriptions
+        $totalFreeContactsCurrentlySubed = $maleSubsFreeCount + $femaleSubsFreeCount;
+
         return [
             'total_users' => $totalUsers,
             'total_matches' => $totalMatches,
@@ -99,6 +154,7 @@ class DashboardService
             'total_revenue' => $totalRevenue,
             'this_month_revenue' => $thisMonthRevenue,
             'total_subscriptions' => $totalSubscriptions,
+            'totalFreeSubscriptions' => $totalFreeSubscriptions,
             'subscriptions_since_last_month' => $subscriptionsSinceLastMonth,
             'subscriptionsSinceLastMonthMale' => $subscriptionsSinceLastMonthMale,
             'subscriptionsSinceLastMonthFemale' => $subscriptionsSinceLastMonthFemale,
@@ -107,6 +163,11 @@ class DashboardService
             'engagement_feedback_count' => $engagementFeedbackCount,
             'marriage_feedback_count' => $marriageFeedbackCount,
             'totalContactsCurrentlySubed' => $totalContactsCurrentlySubed,
+            'totalFreeContactsCurrentlySubed' => $totalFreeContactsCurrentlySubed,
+            'totalFreeSubscriptionsMale' => $totalFreeSubscriptionsMale,
+            'totalFreeSubscriptionsFemale' => $totalFreeSubscriptionsFemale,
+            'subscriptionsSinceLastMonthFreeMale' => $subscriptionsSinceLastMonthFreeMale,
+            'subscriptionsSinceLastMonthFreeFemale' => $subscriptionsSinceLastMonthFreeFeMale,
         ];
     }
 

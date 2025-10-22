@@ -41,6 +41,8 @@ class AdminsController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 1, // Admin role
+            'status' => 'active',
+            'gender' => $request->gender,
             'email_verified_at' => now(), // Mark email as verified
         ]);
         AdminPermission::create([

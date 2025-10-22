@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Admin;
+
 use App\Http\Requests\DefaultRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,6 +20,7 @@ class AdminsStoreRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'gender' => 'required|string|in:male,female',
         ];
     }
 }

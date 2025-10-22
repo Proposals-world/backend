@@ -45,6 +45,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\FwateerController;
 use App\Http\Controllers\Admin\PaymentTransactionController;
 use App\Http\Controllers\Admin\RedeemController;
 use App\Http\Controllers\Admin\SalesReportController;
@@ -101,6 +102,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // routes/web.php
 
+    Route::get('/fwateer', [FwateerController::class, 'index'])->name('fwateer.index');
 
     Route::get('monthly-subscription-sales', [MonthlySubscriptionSalesController::class, 'index'])
         ->name('admin.monthly-subscription-sales.index');

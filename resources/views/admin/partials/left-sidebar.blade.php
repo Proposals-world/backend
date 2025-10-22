@@ -204,6 +204,12 @@
                                 <span> User Payments </span>
                             </a>
                         </li>
+                        <li class="side-nav-item"></li>
+                            <a href="{{ route('fwateer.index') }}" class="side-nav-link">
+                                <i class="ri-file-list-line"></i>
+                                <span> Invoice </span>
+                            </a>
+                        </li>
                            <li class="side-nav-item">
                 <a href="{{ route('admin.redeem.index') }}" class="side-nav-link">
                     <i class="ri-gift-line"></i>

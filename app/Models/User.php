@@ -249,4 +249,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserPayment::class);
     }
+    public function fwateer()
+    {
+        return $this->hasMany(Fwateer::class, 'user_id');
+    }
 }

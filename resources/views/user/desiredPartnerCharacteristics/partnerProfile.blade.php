@@ -429,7 +429,7 @@
                                                     </h5>
 
                                                     {{-- Religion --}}
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_religiosity_level">{{ __('profile.Partner_Religion') }}</label>
                                                         <select class="form-control" name="preferred_religion_id" id="religion_id">
@@ -443,7 +443,7 @@
                                                             @endforeach
                                                         </select>
 
-                                                    </div>
+                                                    </div> --}}
                                                     {{-- Religiosity Level --}}
                                                     <div class="form-group">
                                                         <label class="form-label"
@@ -942,57 +942,37 @@
              var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
 
 // Function to load religiosity levels
-function loadReligiosityLevels(religionId, selectedLevelId = null) {
-    $('#preferred_religiosity_level')
-        .empty()
-        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
 
-    if (religionId) {
-        $.ajax({
-            url: "{{ route('religious.levels.gender') }}",
-            type: 'GET',
+document.addEventListener('DOMContentLoaded', function () {
+    const select = document.getElementById('preferred_religiosity_level');
+    const userReligionId = "{{ auth()->user()->profile->religion_id ?? '' }}";
+    const userGender = "{{ auth()->user()->gender ?? '' }}";
+    const selectedLevelId = "{{ old('preferred_religiosity_level_id', $userPreferences['preferred_religiosity_level_id'] ?? '') }}";
+
+
+    if (userReligionId) {
+        fetch("{{ route('religious.levels.gender') }}?religion_id=" + userReligionId + "&gender=" + (userGender === 'male' ? 2 : 1), {
             headers: {
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data: {
-                religion_id: religionId,
-                // send  opposite gender to get the right levels from the api
-                gender: userGender === 'male' ? 2 : 1
-            },
-            success: function (response) {
-                if (response.religiousLevels && response.religiousLevels.length > 0) {
-                    $.each(response.religiousLevels, function (index, level) {
-                        $('#preferred_religiosity_level').append(
-                            '<option value="' + level.id + '"' +
-                            (level.id == selectedLevelId ? ' selected' : '') +
-                            '>' + level.name + '</option>'
-                        );
-                    });
-                }
-            },
-            error: function (xhr) {
-                console.error('Error fetching religiosity levels:', xhr.responseText);
             }
-        });
-    }
-}
-
-// On change
-$('#religion_id').on('change', function () {
-    var religionId = $(this).val();
-    loadReligiosityLevels(religionId);
-});
-
-// 🚀 Preload on page load if religion is already selected
-$(document).ready(function () {
-    var preselectedReligionId = $('#religion_id').val();
-    var selectedReligiosityLevelId = "{{ old('preferred_religiosity_level_id', $userPreferences['preferred_religiosity_level_id'] ?? '') }}";
-
-    if (preselectedReligionId) {
-        loadReligiosityLevels(preselectedReligionId, selectedReligiosityLevelId);
+        })
+        .then(res => res.json())
+        .then(data => {
+            select.innerHTML = `<option value="">{{ __('profile.Partner_No_Preference') }}</option>`;
+            if (data.religiousLevels && data.religiousLevels.length > 0) {
+                data.religiousLevels.forEach(level => {
+                    const selected = level.id == selectedLevelId ? 'selected' : '';
+                    select.insertAdjacentHTML('beforeend', `<option value="${level.id}" ${selected}>${level.name}</option>`);
+                });
+            }
+        })
+        .catch(err => console.error('❌ Error fetching religiosity levels:', err));
+    } else {
+        console.warn("⚠️ No religion_id found for user");
     }
 });
+
 
             $(document).ready(function() {
                 const MAX_FIELDS = 10;

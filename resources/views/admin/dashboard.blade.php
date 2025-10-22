@@ -157,7 +157,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="flex-grow-1 overflow-hidden">
                                     <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
-                                        Current subscriptions</h5>
+                                        Current subscriptions (active)</h5>
                                     <h3 class="my-3">{{ $stats['totalContactsCurrentlySubed'] }}</h3>
                                     <p class="mb-0 text-muted text-truncate">
                                         <span class=" bg-success me-1">
@@ -213,6 +213,109 @@
                                     <p class="mb-0 text-muted text-truncate">
                                         <span class="badge bg-success me-1"><i class="ri-arrow-up-line"></i>
                                             {{ $stats['subscriptionsSinceLastMonthFemale'] }}</span>
+                                        <span>Since last month</span>
+                                    </p>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span
+                                        class="avatar-title bg-pink rounded rounded-3 fs-3 widget-icon-box-avatar"
+                                        style="background-color: #e83e8c;">
+                                        <i class="ri-women-line"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+                <div class="col">
+                    <div class="card widget-icon-box">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
+                                        Total free subscriptions </h5>
+                                    <h3 class="my-3">{{ $stats['totalFreeSubscriptions'] }}</h3>
+                                    <p class="mb-0 text-muted text-truncate">
+                                        <span class="badge bg-success me-1"><i class="ri-arrow-up-line"></i>
+                                            {{ $stats['subscriptionsSinceLastMonthFreeMale'] }}</span>
+                                        <span>Since last month</span>
+                                    </p>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span
+                                        class="avatar-title text-bg-warning rounded rounded-3 fs-3 widget-icon-box-avatar">
+                                        <i class="ri-bank-card-line"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+                {{-- {{ dd($stats) }} --}}
+                <div class="col">
+                    <div class="card widget-icon-box">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
+                                        Current free subscriptions (active)</h5>
+                                    <h3 class="my-3">{{ $stats['totalFreeContactsCurrentlySubed'] }}</h3>
+                                    <p class="mb-0 text-muted text-truncate">
+                                        <span class=" bg-success me-1">
+                                            {{-- {{ $stats['subscriptions_since_last_month'] }}</span> --}}
+                                        <span></span>
+                                    </p>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span
+                                        class="avatar-title text-bg-warning rounded rounded-3 fs-3 widget-icon-box-avatar">
+                                        <i class="ri-bank-card-line"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+                <div class="col">
+                    <div class="card widget-icon-box">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
+                                        free subscriptions (males)</h5>
+                                    <h3 class="my-3">{{ $stats['totalFreeSubscriptionsMale'] }}</h3>
+                                    <p class="mb-0 text-muted text-truncate">
+                                        <span class="badge bg-success me-1"><i class="ri-arrow-up-line"></i>
+                                            {{ $stats['subscriptionsSinceLastMonthFreeMale'] }}</span>
+                                        <span>Since last month</span>
+                                    </p>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span
+                                        class="avatar-title bg-info rounded rounded-3 fs-3 widget-icon-box-avatar"
+                                        style="background-color: #0dcaf0;">
+                                        <i class="ri-men-line"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+                <div class="col">
+                    <div class="card widget-icon-box">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="text-muted text-uppercase fs-13 mt-0" title="Contact Usage">
+                                        free subscriptions (females)</h5>
+                                    <h3 class="my-3">{{ $stats['totalFreeSubscriptionsFemale'] }}</h3>
+                                    <p class="mb-0 text-muted text-truncate">
+                                        <span class="badge bg-success me-1"><i class="ri-arrow-up-line"></i>
+                                            {{ $stats['subscriptionsSinceLastMonthFreeFemale'] }}</span>
                                         <span>Since last month</span>
                                     </p>
                                 </div>

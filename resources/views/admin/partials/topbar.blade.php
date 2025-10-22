@@ -18,10 +18,10 @@
                 <!-- Logo Dark -->
                 <a href="{{ route('dashboard') }}" class="logo-dark">
                     <span class="logo-lg">
-                        <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="dark logo" >
+                        <img src="{{asset('admin/assets/images/tolba.png')}}" alt="dark logo" >
                     </span>
                     <span class="logo-sm">
-                        <img src="{{asset('admin/assets/images/proposals-logo.jpeg')}}" alt="small logo">
+                        <img src="{{asset('admin/assets/images/tolba.png')}}" alt="small logo">
                     </span>
                 </a>
             </div>

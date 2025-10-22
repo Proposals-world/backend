@@ -13,14 +13,17 @@ use App\Services\SubscriptionService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionReceiptMail;
+use App\Services\FwateerService;
 
 class UserPaymentController extends Controller
 {
     protected $subscriptionService;
+    protected $fwateerService;
 
-    public function __construct(SubscriptionService $subscriptionService)
+    public function __construct(SubscriptionService $subscriptionService, FwateerService $fwateerService)
     {
         $this->subscriptionService = $subscriptionService;
+        $this->fwateerService = $fwateerService;
     }
 
     public function index(UserPaymentsDataTable $dataTable)
@@ -74,13 +77,24 @@ class UserPaymentController extends Controller
         }
 
         // ✅ Update only the pressed record
-        // UserPayment::where('id', $paymentId)->update([
-        //     'status' => 'paid',
-        //     'amount' => $package->price ?? 0,
-        //     'date' => now(),
-        // ]);
+        UserPayment::where('id', $paymentId)->update([
+            'status' => 'paid',
+            'amount' => $package->price ?? 0,
+            'date' => now(),
+        ]);
         $subscription->load('user', 'package');
         Mail::to($subscription->user->email)->send(new SubscriptionReceiptMail($subscription));
+        // ✅ Create an invoice (fwateer record)
+        $this->fwateerService->create([
+            'company_name'     => 'Tolba Platform',
+            'company_address'  => 'Amman, Jordan',
+            'trade_reg_number' => 'TR-2025',
+            'sales_tax_number' => '40290018',
+            'invoice_date'     => now()->toDateString(),
+            'user_id'          => $userId,
+            'amount'           => $package->price ?? 0,
+            'payment_method'   => 'card', // or 'click' depending on your logic
+        ]);
 
         return response()->json([
             'message' => 'User subscribed successfully',
