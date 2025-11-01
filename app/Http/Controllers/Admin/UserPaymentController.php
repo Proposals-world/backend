@@ -83,6 +83,8 @@ class UserPaymentController extends Controller
             'date' => now(),
         ]);
         $subscription->load('user', 'package');
+        // ✅ Retrieve the updated payment
+        $payment = UserPayment::find($paymentId);
         // ✅ Create an invoice (fwateer record)
         $fwateer = $this->fwateerService->create([
             'company_name'     => 'Tolba Platform',
@@ -91,7 +93,7 @@ class UserPaymentController extends Controller
             'sales_tax_number' => '40290018',
             'invoice_date'     => now()->toDateString(),
             'user_id'          => $userId,
-            'amount'           => $package->price ?? 0,
+            'amount'           => $payment->final_amount ?? ($package->price ?? 0),
             'payment_method'   => 'card', // or 'click' depending on your logic
         ]);
         Mail::to($subscription->user->email)->send(new SubscriptionReceiptMail($subscription, $fwateer));
