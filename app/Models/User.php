@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract; // ✅ correct interface
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\VerifyEmail;
+
 use App\Enums\AccountStatus;
 use App\Enums\EmploymentStatus;
 use App\Enums\Gender;
@@ -14,10 +17,8 @@ use App\Enums\MatchGender;
 use App\Enums\MatchStatus;
 use App\Enums\ReportStatus;
 use App\Enums\SubscriptionStatus;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmailContract
 {
     use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
     /** @use HasFactory<\Database\Factories\UserFactory>
@@ -252,5 +253,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function fwateer()
     {
         return $this->hasMany(Fwateer::class, 'user_id');
+    }
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail());
     }
 }
