@@ -59,7 +59,9 @@
                     <p class="text-muted text-center mb-4">
                         {{ __('auth.check_email_verification') }}
                     </p>
-
+                    <p class="text-muted text-center fw-bold ">
+                        {!! __('auth.check_email_note') !!}
+                    </p>
                     <!-- Status Message -->
                     @if (session('status') == 'verification-link-sent')
                         <div class="alert alert-success text-center">

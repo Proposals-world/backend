@@ -22,6 +22,8 @@ return [
     'verify_email' => 'Verify Your Email Address',
     'verification_link_sent' => 'A new verification link has been sent to your email address.',
     'check_email_verification' => 'Before proceeding, please check your email for a verification link.',
+    'check_email_note' => '<strong>Note:</strong> If you don’t see it, please check your <u>Spam or Junk</u> folder and mark it as “Not Spam” to make future emails visible.',
+
     'not_receive_email' => 'If you did not receive the email',
     'passwordInsturction' => 'the password must contain at least one uppercase letter, one lowercase letter, one number and one symbol.',
     'request_another' => 'click here to request another',
