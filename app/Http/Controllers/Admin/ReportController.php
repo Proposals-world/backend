@@ -9,6 +9,7 @@ use App\Models\UserReport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserReportRequest;
 use App\Models\User;
+use App\Services\UserSuspensionService;
 
 class ReportController extends Controller
 {
@@ -25,7 +26,7 @@ class ReportController extends Controller
         return view('admin.reports.create');
     }
 
-    public function store(StoreUserReportRequest $request)
+    public function store(StoreUserReportRequest $request, UserSuspensionService $suspensionService)
     {
         try {
             $data = $request->validated();
@@ -56,18 +57,23 @@ class ReportController extends Controller
                 ->count();
 
             $data['report_count'] = $existingReportsCount + 1;
-
+            if (
+                (isset($data['reason_en']) && strcasecmp($data['reason_en'], 'Inappropriate Photos') === 0)
+                || (isset($data['reason_ar']) && $data['reason_ar'] === 'صور غير لائقة')
+            ) {
+                $reportedUser = User::find($data['reported_id']);
+                $data['reported_photo'] = $reportedUser ? ($reportedUser->photos()->first()->photo_url ?? null) : null;
+            } else {
+                $data['reported_photo'] = null;
+            }
             // dd($data);
+
             UserReport::create($data);
             // Check if this is the 3rd report and suspend the account if needed
             if ($data['report_count'] >= 3) {
                 $reportedUser = User::find($data['reported_id']);
-                if ($reportedUser) {
-                    $reportedUser->status = 'suspended'; // or INACTIVE, depending on your enum
-                    $reportedUser->save();
-
-                    // You might want to log this action or notify the user
-                    // \Log::info("User {$reportedUser->id} suspended due to multiple reports");
+                if ($reportedUser && $reportedUser->status !== 'suspended') {
+                    $suspensionService->suspendUser($reportedUser);
                 }
             }
             return response()->json(['message' => 'Report added successfully'], 201);

@@ -16,6 +16,8 @@ class UserPayment extends Model
         'email',
         'status',
         'package_id',
+        'reference_number',
+        'final_amount',
     ];
 
     public function user()

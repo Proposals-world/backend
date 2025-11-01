@@ -18,6 +18,7 @@ class UserReport extends Model
         'other_reason_ar',
         'status',
         'report_count',
+        'reported_photo',
     ];
     const REASONS_EN = [
         'Inappropriate Photos',

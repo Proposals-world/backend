@@ -52,4 +52,11 @@ return [
     'Country_code' => 'الدولة',
     'select_country' => 'اختر الدولة',
     'phone_placeholder' => 'أدخل رقم هاتفك بناءً على دولتك',
+    // restore account
+    'restore_account' => 'استعادة الحساب',
+    'restore_account_message' => 'اضغط على الزر أدناه لإعادة تفعيل حسابك.',
+    'restore_now' => 'استعادة الحساب',
+    'restoring_account' => 'جاري استعادة الحساب...',
+    'restore_failed' => 'فشل في استعادة الحساب. حاول مرة أخرى.',
+    'password_restore' => 'كلمة المرور',
 ];

@@ -11,10 +11,11 @@ use App\Http\Resources\ReportResource;
 use App\Models\User;
 use App\Models\UserReport;
 use Illuminate\Support\Facades\Auth;
+use App\Services\UserSuspensionService;
 
 class ReportController extends Controller
 {
-    public function store(ReportRequest $request)
+    public function store(ReportRequest $request, UserSuspensionService $suspensionService)
     {
         // Check if the user has already reported the same user
         $existingReport = UserReport::where('reported_id', $request->reported_id)
@@ -30,11 +31,24 @@ class ReportController extends Controller
             }
         }
 
-        // Store the report in the database with the reporter_id from Auth
-        $report = UserReport::create(array_merge(
+        // Prepare base data
+        $data = array_merge(
             $request->validated(),
             ['reporter_id' => Auth::id()]
-        ));
+        );
+
+        // // ✅ Handle photo upload
+        // if ($request->hasFile('photo')) {
+        //     // Store in /storage/app/public/reports
+        //     $path = $request->file('photo')->store('reports', 'public');
+        //     $data['photo_path'] = $path;
+        // }
+        if ($request->reason === 'Inappropriate Photos' || $request->reason === 'صور غير لائقة') {
+            $data['reported_photo'] = User::find($data['reported_id'])->photos()->first()->photo_url ?? null;
+        }
+
+        // Store report
+        $report = UserReport::create($data);
         // Count all reports for this user (including this new one)
         $reportCount = UserReport::where('reported_id', $request->reported_id)
             ->count();
@@ -43,10 +57,8 @@ class ReportController extends Controller
         if ($reportCount >= 3) {
             $reportedUser = User::find($request->reported_id);
 
-            if ($reportedUser) {
-                // Suspend the user
-                $reportedUser->status = 'suspended';
-                $reportedUser->save();
+            if ($reportedUser && $reportedUser->status !== 'suspended') {
+                $suspensionService->suspendUser($reportedUser);
             }
         }
         // Return a success message along with the report data

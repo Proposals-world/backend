@@ -16,7 +16,7 @@ class FwateerService
     {
         // Auto-generate invoice number like tolba1, tolba2, ...
         $nextNumber = Fwateer::count() + 1;
-        $invoiceNumber = 'tolba' . $nextNumber;
+        $invoiceNumber = 'tolba' . str_pad($nextNumber, 9, '0', STR_PAD_LEFT);
 
         $data['invoice_number'] = $invoiceNumber;
 

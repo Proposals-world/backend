@@ -52,6 +52,7 @@ use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FintesaWebhookController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\Log\UserProfileLogController;
 use App\Http\Controllers\User\OnBoardingController;
 use App\Http\Controllers\UserPhoneNumberOtpController;
 use App\Http\Controllers\UserPreferenceController;
@@ -67,8 +68,10 @@ Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']
 Route::post('/resend-verification-link', [AuthController::class, 'resendVerificationLink']);
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
-Route::post('/users/restore', [UserController::class, 'restore']);
-
+Route::post('/users/restore', [UserController::class, 'restore'])->name('users.restore');
+Route::get('/admin/user-profile-logs/data', [UserProfileLogController::class, 'data'])
+    // ->middleware(['auth', 'admin'])
+    ->name('admin.profile.logs.data');
 // Protected Routes
 // Route::get('/is-email-verified', [IsVerifiedController::class, 'isEmailVerified']);
 Route::get('/subscription-cards', [SubscriptionCardsController::class, 'index']);

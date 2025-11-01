@@ -109,6 +109,32 @@
     // addModal('add_btn', '{{ route('categories.create') }}', 'Add Category', 'categoryForm', 'categories-table');
     // editModal('edit_btn', 'admin/categories', 'Edit Category', 'categoryForm', 'categories-table');
     // remove('remove_btn', 'admin/categories', 'categories-table', '{{ csrf_token() }}');
+$(document).on('click', '.save-payment', function() {
+    let id = $(this).data('id');
+    let final_amount = $('.amount-input[data-id="'+id+'"]').val();
+    let reference_number = $('.ref-input[data-id="'+id+'"]').val();
+
+    $.ajax({
+        url: '{{ route("admin.user.payments.update-details") }}',
+        method: 'POST',
+        data: {
+            payment_id: id,
+            final_amount: final_amount,
+            reference_number: reference_number,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            alert(response.message);
+            $('#userpayments-table').DataTable().ajax.reload();
+
+        },
+        error: function(xhr) {
+            toastr.error(xhr.responseJSON?.message || 'Error updating payment.');
+        }
+    });
+});
+
+
 
 $(document).on('click', '.subscribe-btn', function() {
     let email = $(this).data('email');

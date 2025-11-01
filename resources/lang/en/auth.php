@@ -49,4 +49,11 @@ return [
     'Country_code' => 'Country',
     'select_country' => 'Select Country',
     'phone_placeholder' => 'Enter your phone number based on your country',
+    // restore account
+    'restore_account' => 'Restore Your Account',
+    'restore_account_message' => 'Click the button below to reactivate your account.',
+    'restore_now' => 'Restore Account',
+    'restoring_account' => 'Restoring account...',
+    'restore_failed' => 'Failed to restore account. Please try again.',
+    'password_restore' => 'Password',
 ];

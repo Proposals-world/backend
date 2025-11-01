@@ -22,6 +22,19 @@ class ReportsDataTable extends DataTable
             ->editColumn('reason', function ($report) {
                 return $report->reason_en;
             })
+            // ✅ Add reported photo column
+            ->addColumn('reported_photo', function ($report) {
+                if (!empty($report->reported_photo)) {
+                    // If using storage, generate full URL
+                    $photoUrl = asset('storage/' . $report->reported_photo);
+
+                    return '<img src="' . ($photoUrl) . '" alt="Reported Photo"
+                            style="width:60px; height:60px; border-radius:8px; object-fit:cover; border:1px solid #ddd;">';
+                }
+
+                // If no photo available
+                return '<span class="text-muted fst-italic">This report does not require a photo</span>';
+            })
             ->addColumn('status_badge', function ($report) {
                 $status = strtolower($report->status);
                 $badgeClass = match ($status) {
@@ -37,7 +50,7 @@ class ReportsDataTable extends DataTable
                 return view('admin.reports.columns._actions', compact('report'));
             })
             ->setRowId('id')
-            ->rawColumns(['status_badge', 'action']);
+            ->rawColumns(['reported_photo', 'status_badge', 'action']);
     }
 
     public function query(UserReport $model)
@@ -62,6 +75,12 @@ class ReportsDataTable extends DataTable
             Column::make('reporter_id')->title('Reporter'),
             Column::make('reported_id')->title('Reported'),
             Column::make('reason_en')->title('Reason'),
+            Column::computed('reported_photo')
+                ->title('Reported Photo')
+                ->exportable(false)
+                ->printable(false)
+                ->width(100)
+                ->addClass('text-center'),
             Column::computed('status_badge')
                 ->title('Status')
                 ->exportable(false)

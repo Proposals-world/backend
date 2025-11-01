@@ -27,6 +27,7 @@ class ReportRequest extends FormRequest
             'other_reason_ar' => $acceptLanguage === 'ar' ? 'nullable|string|max:255|required_if:reason_ar,أخرى' : 'nullable', // Custom reason in Arabic, required if 'أخرى' is selected
             'status' => 'required|in:pending,reviewed,resolved,rejected', // Valid status
             'report_count' => 'nullable|integer|min:1', // Valid report count (cannot be less than 1)
+            'reported_photo' => 'nullable|image|max:2048', // Optional reported photo
         ];
     }
 

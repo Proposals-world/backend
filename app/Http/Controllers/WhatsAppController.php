@@ -53,7 +53,7 @@ class WhatsAppController extends Controller
         // $toParentNumber = '962798716432';
         $childPhoneNumber = $user->phone_number;
         if (!$childPhoneNumber) {
-            return response()->json(['message' => 'Child phone number is not set.'], 400);
+            return response()->json(['message' => 'Daughter phone number is not set.'], 400);
         }
         // 🛠 Check if existing OTP still valid
         $existingOtp = GuardianOtp::where('user_id', $user->id)
@@ -79,12 +79,12 @@ class WhatsAppController extends Controller
             "id"       =>   $toParentNumber . "@s.whatsapp.net",
         ]);
         // $result = $this->infobipService->sendWhatsAppMessage($toParentNumber, $childPhoneNumber, $language, $otp);
-        $message = "أهلا بكم، ها قد تم تسجيل طفلكم صاحب رقم الهاتف $childPhoneNumber بأول تطبيق أردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه.
+        $message = "أهلا بكم، ها قد تم تسجيل ابنتكم صاحبة رقم الهاتف $childPhoneNumber بأول تطبيق أردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه.
 يرجى إرسال رمز التحقق التالي من خلال التطبيق: $otp
 حيث ستتم مشاركة رقم هاتفكم للتواصل بهدف زيارة العروس والتعرف على العائلة.
 دامت الأفراح عامرة في بيوتكم.
 
-Welcome! Your child with phone number $childPhoneNumber has been registered in the first Jordanian matchmaking app that respects our customs and traditions.
+Welcome! Your Daughter with phone number $childPhoneNumber has been registered in the first Jordanian matchmaking app that respects our customs and traditions.
 This app works in a modern way to meet the community's needs while respecting its values.
 Please use the following OTP in the app to verify: $otp
 Your phone number will be shared for communication purposes to visit the bride and meet the family.
@@ -96,8 +96,8 @@ Wishing you continuous joy and happiness.";
             return response()->json([
                 'status'  => 'error',
                 'message' => $language === 'ar'
-                    ? 'لا يمكن أن يكون رقم هاتف الطفل وجهة اتصال ولي الأمر متطابقين.'
-                    : 'Child phone number and guardian contact cannot be the same.'
+                    ? 'لا يمكن أن يكون رقم هاتف الابنة وجهة اتصال ولي الأمر متطابقين.'
+                    : 'Daughter phone number and guardian contact cannot be the same.'
             ], 400);
         }
         $result = $this->whatsapp->send($toParentNumber, $message);

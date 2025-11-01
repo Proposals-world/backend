@@ -445,6 +445,8 @@
 
                                                     </div> --}}
                                                     {{-- Religiosity Level --}}
+                                                    <input type="hidden" name="preferred_religion_id" id="preferred_religion_id" value="{{ auth()->user()->profile->religion_id }}">
+
                                                     <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_religiosity_level">{{ __('profile.Partner_Religiosity_Level') }}</label>
@@ -949,6 +951,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const userGender = "{{ auth()->user()->gender ?? '' }}";
     const selectedLevelId = "{{ old('preferred_religiosity_level_id', $userPreferences['preferred_religiosity_level_id'] ?? '') }}";
 
+ // ✅ Ensure religion is stored
+    document.getElementById('preferred_religion_id').value = userReligionId;
 
     if (userReligionId) {
         fetch("{{ route('religious.levels.gender') }}?religion_id=" + userReligionId + "&gender=" + (userGender === 'male' ? 2 : 1), {
@@ -959,7 +963,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(res => res.json())
         .then(data => {
-            select.innerHTML = `<option value="">{{ __('profile.Partner_No_Preference') }}</option>`;
+            select.innerHTML = data.religiousLevels === null ?
+                `<option value="">{{ __('profile.Partner_No_Preference') }}</option>` :
+                '';
             if (data.religiousLevels && data.religiousLevels.length > 0) {
                 data.religiousLevels.forEach(level => {
                     const selected = level.id == selectedLevelId ? 'selected' : '';
@@ -1094,7 +1100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // console.log('Success response:', response);
                         // console.log('preferred_housing_status_id:', $('[name="preferred_housing_status_id"]').val());
                         // console.log('preferred_marriage_budget_id:', $('[name="preferred_marriage_budget_id"]').val());
-                        // console.log('preferred_religiosity_level_id:', $('[name="preferred_religiosity_level_id"]').val());
+                        console.log('preferred_religiosity_level_id:', $('[name="preferred_religiosity_level_id"]').val());
                         const alertContainer = $('#preference-success-alert');
                         $('#preference-success-message').text(
                             "{{ __('profile.Desired_partner_characteristics_saved_successfully') }}");

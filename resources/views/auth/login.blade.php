@@ -70,9 +70,14 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <a href="{{ route('password.request') }}" class="text-muted float-end"><small>{{ __('auth.forgot_password') }}</small></a>
+
+                            {{-- <a href="{{ route('password.request') }}" class="text-muted float-end"><small>{{ __('auth.forgot_password') }}</small></a> --}}
                             <label for="password" class="form-label">{{ __('auth.password_label') }}</label>
                             <input class="form-control" type="password" name="password" id="password" required placeholder="{{ __('auth.password_label') }}">
+                            <div class="d-flex justify-content-between mt-2">
+                                <a href="{{ route('password.request') }}" class="small text-muted">{{ __('auth.forgot_password') }}</a>
+                                <a href="{{ route('restore-my-account') }}" class="small text-primary">{{ __('auth.restore_now') }}</a>
+                            </div>
                             @error('password')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -92,7 +97,7 @@
 
                 <!-- Footer-->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">{{ __('auth.not_receive_email') }} <a href="{{ route('register') }}" class=" ms-1"><b>{{ __('auth.register') }}</b></a></p>
+                    <p class="text-muted">{{ __('auth.not_receive_email') }} ? <a href="{{ route('register') }}" class=" ms-1"><b>{{ __('auth.register') }}</b></a></p>
                 </footer>
             </div>
         </div>

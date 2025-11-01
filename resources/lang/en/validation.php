@@ -74,5 +74,5 @@ return [
         'phone_number' => 'phone number',
 
     ],
-    'account_not_active' => 'Your account is not active. If you think this is an issue, please contact support@Tolba.world.'
+    'account_not_active' => 'Your account has been suspended due to multiple complaints from different users. If you believe this is an error, please contact support@Tolba.world.'
 ];

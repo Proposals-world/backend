@@ -36,7 +36,7 @@ class UserPaymentController extends Controller
         $request->validate([
             'email' => 'required|exists:users,email',
             'package_id' => 'required|exists:subscription_packages,id',
-            'payment_id' => 'required|exists:user_payments,id',
+            // 'payment_id' => 'required|exists:user_payments,id',
         ]);
 
         $email = $request->email;
@@ -83,9 +83,8 @@ class UserPaymentController extends Controller
             'date' => now(),
         ]);
         $subscription->load('user', 'package');
-        Mail::to($subscription->user->email)->send(new SubscriptionReceiptMail($subscription));
         // ✅ Create an invoice (fwateer record)
-        $this->fwateerService->create([
+        $fwateer = $this->fwateerService->create([
             'company_name'     => 'Tolba Platform',
             'company_address'  => 'Amman, Jordan',
             'trade_reg_number' => 'TR-2025',
@@ -95,11 +94,47 @@ class UserPaymentController extends Controller
             'amount'           => $package->price ?? 0,
             'payment_method'   => 'card', // or 'click' depending on your logic
         ]);
+        Mail::to($subscription->user->email)->send(new SubscriptionReceiptMail($subscription, $fwateer));
 
         return response()->json([
             'message' => 'User subscribed successfully',
             'contacts_remaining' => $subscription->contacts_remaining,
             'expires_at' => $subscription->end_date->toDateTimeString(),
         ]);
+    }
+    public function updatePaymentDetails(Request $request)
+    {
+        try {
+            // ✅ Validate input
+            $validated = $request->validate([
+                'payment_id' => 'required|exists:user_payments,id',
+                'final_amount' => 'required|numeric|min:0',
+                'reference_number' => 'nullable|string|max:100',
+            ]);
+
+            // ✅ Find payment record
+            $payment = UserPayment::findOrFail($validated['payment_id']);
+
+            // ✅ Update the fields
+            $payment->update([
+                'final_amount' => $validated['final_amount'],
+                'reference_number' => $validated['reference_number'],
+            ]);
+
+            return response()->json([
+                'message' => 'Payment details updated successfully.',
+                'data' => [
+                    'id' => $payment->id,
+                    'final_amount' => $payment->final_amount,
+                    'reference_number' => $payment->reference_number,
+                ],
+            ], 200);
+        } catch (\Throwable $e) {
+            \Log::error('Error updating payment details: ' . $e->getMessage(), ['exception' => $e]);
+            return response()->json([
+                'message' => 'An error occurred while updating payment details.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

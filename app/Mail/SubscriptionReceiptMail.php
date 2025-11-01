@@ -12,8 +12,15 @@ use Illuminate\Support\Carbon;
 class SubscriptionReceiptMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $subscription;
+    public $fwateer;
 
-    public function __construct(public Subscription $subscription) {}
+    public function __construct($subscription, $fwateer)
+    {
+        $this->subscription = $subscription;
+        $this->fwateer = $fwateer;
+    }
+    // public function __construct(public Subscription $subscription) {}
 
     public function build()
     {
@@ -31,8 +38,6 @@ class SubscriptionReceiptMail extends Mailable
         $days     = max(1, $start->diffInDays($end) ?: 1);
         $months   = max(1, (int) ceil($days / 30));
 
-        // Reason: keep static text, but pass a key if you want to localize later
-        $reason   = 'Subscription purchase via website';
 
         // Gender-specific fields
         $isMale   = strtolower((string) $user->gender) === 'male';
@@ -43,12 +48,12 @@ class SubscriptionReceiptMail extends Mailable
                 'user'      => $user,
                 'package'   => $package,
                 'price'     => $price,
-                'reason'    => $reason,
                 'start'     => $start,
                 'end'       => $end,
                 'months'    => $months,
                 'isMale'    => $isMale,
                 'contacts'  => $contacts,
+                'fwateer'   => $this->fwateer,
             ]);
     }
 }

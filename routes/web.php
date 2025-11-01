@@ -63,6 +63,7 @@ use App\Http\Controllers\FintesaWebhookController;
 use App\Http\Controllers\Api\PaymentController as ApiPaymentController;
 use App\Http\Controllers\PaymentPageController;
 use App\Http\Controllers\UserPaymentController;
+use App\Http\Controllers\Log\UserProfileLogController;
 
 Route::get('/main-dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -77,6 +78,7 @@ Route::post('/', [FintesaWebhookController::class, 'handle'])->withoutMiddleware
 Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us');
+
 
 Route::get('/terms-and-conditions', function () {
     return view('TermsAndConditions');
@@ -161,6 +163,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
             ->name('admin.user.payments.index');
         Route::get('payments/subscribe-for-user', [AdminUserPaymentController::class, 'subscribeForUser'])
             ->name('admin.payments.subscribe-for-user');
+        Route::post('user-payments/update-details', [AdminUserPaymentController::class, 'updatePaymentDetails'])
+            ->name('admin.user.payments.update-details');
     });
 
     // Route::resource('blogs', BlogController::class);
@@ -177,6 +181,8 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
 });
+
+
 
 // User dashboard and match routes
 Route::middleware([
@@ -273,5 +279,17 @@ Route::prefix('user')->group(function () {
 
 // Route to handle message subscriptions
 Route::post('/subscribe-message', [MessageSubscriptionController::class, 'subscribe'])->name('subscribe.message');
+
+
+
+// logs
+Route::get('/admin/user-profile-logs', [UserProfileLogController::class, 'index'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.profile.logs');
+
+Route::get('/admin/user-profile-logs/data', [UserProfileLogController::class, 'data'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.profile.logs.data');
+
 
 require __DIR__ . '/auth.php';
