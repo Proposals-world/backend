@@ -164,7 +164,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('payments/subscribe-for-user', [AdminUserPaymentController::class, 'subscribeForUser'])
             ->name('admin.payments.subscribe-for-user');
         Route::post('user-payments/update-details', [AdminUserPaymentController::class, 'updatePaymentDetails'])
+
             ->name('admin.user.payments.update-details');
+        Route::get('/fwateer/export/pdf', [FwateerController::class, 'exportPdf'])
+            ->name('admin.fwateer.export.pdf');
+        Route::get('/fwateer/{id}/pdf', [FwateerController::class, 'singlePdf'])->name('admin.fwateer.single.pdf');
     });
 
     // Route::resource('blogs', BlogController::class);

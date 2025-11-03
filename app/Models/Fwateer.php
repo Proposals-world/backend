@@ -20,6 +20,7 @@ class Fwateer extends Model
         'invoice_number',
         'user_id',
         'amount',
+        'package_id',
         'payment_method',
     ];
 
@@ -30,5 +31,9 @@ class Fwateer extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function package()
+    {
+        return $this->belongsTo(SubscriptionPackage::class, 'package_id');
     }
 }

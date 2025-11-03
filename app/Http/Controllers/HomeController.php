@@ -12,8 +12,20 @@ class HomeController extends Controller
     public function index()
     {
         $locale = app()->getLocale();
-        $subscriptionPackage = SubscriptionPackage::where('id', '!=', 999)
-            ->where('id', '!=', 1000)
+        $malePackages = SubscriptionPackage::where('gender', 'male')
+            ->whereNotIn('id', [999, 1000])
+            ->get()
+            ->map(function ($package) use ($locale) {
+                return [
+                    'package_name' => $locale === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price' => $package->price,
+                    'duration' => $package->duration,
+                    'contact_limit' => $package->contact_limit,
+                ];
+            });
+
+        $femalePackages = SubscriptionPackage::where('gender', 'female')
+            ->whereNotIn('id', [999, 1000])
             ->get()
             ->map(function ($package) use ($locale) {
                 return [
@@ -45,7 +57,7 @@ class HomeController extends Controller
                     'image' => $blog->image,
                 ];
             });
-        return view('welcome', compact('subscriptionPackage', 'faqs', 'blogs'));
+        return view('welcome', compact('malePackages', 'femalePackages', 'faqs', 'blogs'));
     }
 
 

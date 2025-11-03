@@ -55,10 +55,13 @@ return [
     'all_rights_reserved' => 'All rights reserved.',
 
 
-    'verify_subject' => 'تأكيد عنوان البريد الإلكتروني',
-    'hello' => 'مرحباً',
-    'welcome' => 'مرحباً بك في :app! 🎉',
-    'verify_instruction' => 'يرجى تأكيد عنوان بريدك الإلكتروني لتفعيل حسابك.',
-    'verify_button' => 'تأكيد البريد الإلكتروني',
-    'no_action' => 'إذا لم تقم بإنشاء حساب، يمكنك تجاهل هذه الرسالة بأمان.',
+
+    'verify_subject' => 'Verify Your Email Address',
+    'hello' => 'Hello',
+    'welcome' => 'Welcome to :app! 🎉',
+    'verify_instruction' => 'Please confirm your email address to activate your account.',
+    'verify_button' => 'Verify My Email',
+    'no_action' => 'If you did not create an account, you can safely ignore this message.',
+    'Payment_Method' => 'payment method',
+    'Company_Name' => 'Company Name',
 ];
