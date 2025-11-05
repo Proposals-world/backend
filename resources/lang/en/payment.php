@@ -30,4 +30,7 @@ return [
     'cliq_success_message' => 'Your payment has been submitted successfully and is under review.',
     'cliq_error_message' => 'Something went wrong while submitting your payment. Please try again.',
     'invalid_package' => 'Invalid package selected.',
+    'note' => 'Note:',
+    'cliq_disclaimer' => 'Transfers must be made only to the official CliQ account: Tolba962. We are not responsible for any transfers made to other CliQ accounts.',
+
 ];

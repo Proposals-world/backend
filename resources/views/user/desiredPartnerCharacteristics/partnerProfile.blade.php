@@ -949,33 +949,69 @@ document.addEventListener('DOMContentLoaded', function () {
     const select = document.getElementById('preferred_religiosity_level');
     const userReligionId = "{{ auth()->user()->profile->religion_id ?? '' }}";
     const userGender = "{{ auth()->user()->gender ?? '' }}";
-    const selectedLevelId = "{{ old('preferred_religiosity_level_id', $userPreferences['preferred_religiosity_level_id'] ?? '') }}";
+    const selectedLevelName = "{{ $userPreferences['preferred_religiosity_level'] ?? '' }}"; // e.g. "Average"
 
- // ✅ Ensure religion is stored
-    document.getElementById('preferred_religion_id').value = userReligionId;
+    function renderReligiosityOptions(levels = []) {
+        select.innerHTML = `<option value="">{{ __('profile.Partner_No_Preference') }}</option>`;
+
+        let selectedFound = false;
+
+        levels.forEach(level => {
+            // Match by name from user preference
+            const isSelected = level.name.trim().toLowerCase() === selectedLevelName.trim().toLowerCase();
+            if (isSelected) selectedFound = true;
+
+            select.insertAdjacentHTML(
+                'beforeend',
+                `<option value="${level.id}" ${isSelected ? 'selected' : ''}>${level.name}</option>`
+            );
+        });
+
+        // ✅ if saved name is not in fetched levels, show it still
+        if (selectedLevelName && !selectedFound) {
+            select.insertAdjacentHTML(
+                'beforeend',
+                `<option selected disabled>${selectedLevelName}</option>`
+            );
+        }
+    }
 
     if (userReligionId) {
-        fetch("{{ route('religious.levels.gender') }}?religion_id=" + userReligionId + "&gender=" + (userGender === 'male' ? 2 : 1), {
-            headers: {
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        fetch(
+            "{{ route('religious.levels.gender') }}" +
+            "?religion_id=" + userReligionId +
+            "&gender=" + (userGender === 'male' ? 2 : 1),
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
             }
-        })
+        )
         .then(res => res.json())
-        .then(data => {
-            select.innerHTML = data.religiousLevels === null ?
-                `<option value="">{{ __('profile.Partner_No_Preference') }}</option>` :
-                '';
-            if (data.religiousLevels && data.religiousLevels.length > 0) {
-                data.religiousLevels.forEach(level => {
-                    const selected = level.id == selectedLevelId ? 'selected' : '';
-                    select.insertAdjacentHTML('beforeend', `<option value="${level.id}" ${selected}>${level.name}</option>`);
-                });
+.then(data => {
+    console.log('befire Fetching religiosity levels ');
+    renderReligiosityOptions(data.religiousLevels || []);
+    console.log('✅ Fetched religiosity levels:', data);
+
+        // ✅ wait for the DOM to update, then recount
+        setTimeout(() => {
+            if (typeof toggleFieldsDisabledState === 'function') {
+                toggleFieldsDisabledState();
             }
-        })
-        .catch(err => console.error('❌ Error fetching religiosity levels:', err));
+            console.log('✅ Religiosity options rendered and fields state toggled.');
+        }, 300);
+    })
+    .catch(err => {
+            console.error('❌ Error fetching religiosity levels:', err);
+            renderReligiosityOptions();
+        });
+        // 🔥 NEW: recount after options finish rendering
+    if (typeof toggleFieldsDisabledState === 'function') {
+        toggleFieldsDisabledState();
+    }
     } else {
-        console.warn("⚠️ No religion_id found for user");
+        renderReligiosityOptions();
     }
 });
 
@@ -1100,7 +1136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // console.log('Success response:', response);
                         // console.log('preferred_housing_status_id:', $('[name="preferred_housing_status_id"]').val());
                         // console.log('preferred_marriage_budget_id:', $('[name="preferred_marriage_budget_id"]').val());
-                        console.log('preferred_religiosity_level_id:', $('[name="preferred_religiosity_level_id"]').val());
+                        // console.log('preferred_religiosity_level_id:', $('[name="preferred_religiosity_level_id"]').val());
                         const alertContainer = $('#preference-success-alert');
                         $('#preference-success-message').text(
                             "{{ __('profile.Desired_partner_characteristics_saved_successfully') }}");
@@ -1553,6 +1589,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateSlider();
 });
 
+toggleFieldsDisabledState();
         </script>
     @endpush
     {{--

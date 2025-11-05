@@ -119,33 +119,43 @@
                 </div>
 
                 <div class="modal-body">
-            <div id="cliqAlert" style="display:none;"></div>
-          <!-- 🔽 Package Selection -->
-          <div class="mb-3">
-            <label for="package_id" class="form-label font-weight-semibold">
-              {{ __('payment.select_package') }}
-            </label>
-            <select name="package_id" id="package_id" class="form-control" required>
-              <option value="">{{ __('payment.choose_package') }}</option>
-              @foreach ($packages as $package)
-                  <option value="{{ $package->id }}">
-                      {{ app()->getLocale() === 'ar' ? $package->package_name_ar : $package->package_name_en }}
-                      — ${{ number_format($package->price, 2) }}
-                  </option>
-              @endforeach
-            </select>
-          </div>
+    <div id="cliqAlert" style="display:none;"></div>
 
-          <!-- 📸 Upload Screenshot -->
-          <div class="mb-3">
-            <label for="payment_screenshot" class="form-label font-weight-semibold">
-              {{ __('payment.upload_label') }}
-            </label>
-            <input type="file" class="form-control" id="payment_screenshot" name="photo_url" accept="image/*" required>
-          </div>
+    <!-- 🔽 Package Selection -->
+    <div class="mb-3">
+        <label for="package_id" class="form-label font-weight-semibold">
+            {{ __('payment.select_package') }}
+        </label>
+        <select name="package_id" id="package_id" class="form-control" required>
+            <option value="">{{ __('payment.choose_package') }}</option>
+            @foreach ($packages as $package)
+                <option value="{{ $package->id }}">
+                    {{ app()->getLocale() === 'ar' ? $package->package_name_ar : $package->package_name_en }}
+                    — ${{ number_format($package->price, 2) }}
+                </option>
+            @endforeach
+        </select>
+    </div>
 
-          <input type="hidden" name="payment_type" value="cliq">
-        </div>
+    <!-- 📸 Upload Screenshot -->
+    <div class="mb-3">
+        <label for="payment_screenshot" class="form-label font-weight-semibold">
+            {{ __('payment.upload_label') }}
+        </label>
+        <input type="file" class="form-control" id="payment_screenshot" name="photo_url" accept="image/*" required>
+    </div>
+
+    <!-- ⚠️ Disclaimer -->
+    <div class="alert alert-warning mt-4 mb-0" style="font-size: 14px;">
+        ⚠️ <strong>{{ __('payment.note') }}</strong>
+       {{ __('payment.cliq_disclaimer') }}
+
+    </div>
+
+    <input type="hidden" name="payment_type" value="cliq">
+</div>
+
+
 
         <div class="modal-footer bg-light">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
