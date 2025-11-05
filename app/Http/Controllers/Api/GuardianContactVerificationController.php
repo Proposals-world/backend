@@ -232,4 +232,25 @@ class GuardianContactVerificationController extends Controller
                 : 'Guardian contact updated successfully.',
         ]);
     }
+    public function validateGuardianContact(UpdateGuardianContactRequest $request)
+    {
+        $locale = $request->header('Accept-Language', 'en');
+        $e164 = $request->input('_guardian_full');
+        $user   = auth()->user();
+        // Prevent saving user’s own number
+        if ($e164 === $user->phone_number) {
+            return response()->json([
+                'message' => $locale === 'ar'
+                    ? 'رقم ولية الأمر لا يمكن أن يكون نفس رقم المستخدم.'
+                    : 'Guardian contact cannot be the same as the user phone.',
+            ], 400);
+        }
+        // The request has already been validated by UpdateGuardianContactRequest
+        // Just return a success message if it passes.
+        return response()->json([
+            'message' => $locale === 'ar'
+                ? 'رقم ولي الأمر صالح.'
+                : 'Guardian contact is valid.',
+        ]);
+    }
 }

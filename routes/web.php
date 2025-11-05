@@ -279,6 +279,7 @@ Route::prefix('user')->group(function () {
         ->name('user.update.phone.number');
 });
 
+Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'validateGuardianContact'])->name('validate.guardian.contact');
 
 
 // Route to handle message subscriptions

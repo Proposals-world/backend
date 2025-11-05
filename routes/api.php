@@ -92,6 +92,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('tickets/{ticket}/reply', [SupportTicketController::class, 'reply']);
     Route::post('tickets/{ticket}/close', [SupportTicketController::class, 'close'])
         ->name('api.tickets.close');
+    Route::post('/payment/cliq', [UserPaymentController::class, 'storeCliq'])->name('user.payment.cliq');
 
     Route::post('/profile', [UserProfileController::class, 'update']);
 

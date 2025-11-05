@@ -54,10 +54,11 @@ class PaymentPageController extends Controller
                 'duration'      => $package->duration,
                 'payment_url'   => $paymentUrl,
                 'gender'        => $package->gender,
+
             ];
         });
 
-        return view('user.pricing', compact('subscriptionCards'));
+        return view('user.pricing', compact('subscriptionCards', 'packages'));
     }
 
     public function success()

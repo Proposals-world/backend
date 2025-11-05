@@ -13,8 +13,10 @@ use Exception;
 use App\Http\Resources\MatchResource;
 use App\Http\Resources\UserProfileResource;
 use App\Models\Like;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Services\ContactMaskingService;
+use Kreait\Firebase\Database\Query\Sorter\OrderByKey;
 
 class MatchController extends Controller
 {
@@ -100,11 +102,18 @@ class MatchController extends Controller
     {
         $user = auth()->user();
         $lang = request()->header('Accept-Language', app()->getLocale());
-
         // Check if the user has a subscription
-        $subscription = $user->subscription;
-        if (!$subscription || $subscription->status !== 'active') {
-            $errorMessage = $lang === 'ar' ? 'يجب أن تكون مشتركًا لكشف معلومات الاتصال.' : 'You must be subscribed to reveal contact info.';
+        $subscription = Subscription::where('user_id', $user->id)->where('end_date', '>', now())->orderByDesc('end_date')->first();
+        // $subscription = Auth::user()->subscription->where('user_id', Auth::user()->id)->where('end_date', '>', now())->first();
+        // dd($subscription);
+        if (
+            !$subscription ||
+            now()->greaterThan($subscription->end_date)
+        ) {
+            $errorMessage = $lang === 'ar'
+                ? 'يجب أن تكون مشتركًا فعالًا لكشف معلومات الاتصال (انتهى الاشتراك أو غير مفعل).'
+                : 'You must have an active subscription to reveal contact info (expired or inactive).';
+
             return response()->json(['error' => $errorMessage], 403);
         }
 
@@ -119,9 +128,9 @@ class MatchController extends Controller
         // Get contact info
         $result = $this->contactMaskingService->getContactInfo($user->id, $matchedUserId);
         // If contact info revealed successfully, reduce contacts
-        if (!isset($result['error'])) {
-            $subscription->decrement('contacts_remaining');
-        }
+        // if (!isset($result['error'])) {
+        //     $subscription->decrement('contacts_remaining');
+        // }
 
         return response()->json($result, isset($result['error']) ? 404 : 200);
     }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\UserMatch;
 use App\Models\UserProfile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
 class ContactMaskingService
@@ -56,7 +57,10 @@ class ContactMaskingService
         if (! $user) {
             return ['error' => 'User not found.'];
         }
-
+        // dd($match->contact_exchanged);
+        if (!$match->contact_exchanged) {
+            Auth::user()->subscription->where('user_id', Auth::user()->id)->where('end_date', '>', now())->decrement('contacts_remaining');
+        }
         // Mark as exchanged if not already
         if (! $match->contact_exchanged) {
             $match->update(['contact_exchanged' => true]);

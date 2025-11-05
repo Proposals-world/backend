@@ -80,7 +80,7 @@ class UpdateUserProfileRequest extends FormRequest
 
         ];
         // 👇 Apply only if authenticated user is female
-        if (auth()->user()?->gender === 'female') {
+        if (auth()->user()?->gender === 'female' || true) {
             $rules['country_code'] = 'required|string|size:2';
         }
         if ($this->input('smoking_status') == 1) {

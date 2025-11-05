@@ -74,6 +74,96 @@
                 </div>
                 @endforelse
             </div>
+
+      <!-- ============================= -->
+<!-- ✅ Pay with CliQ Section -->
+<!-- ============================= -->
+<div class="row equal-height-container mt-5">
+    <div class="col-12">
+        <h3 class="mb-3 text-left font-weight-bold text-primary">
+            {{ __('payment.or_pay_with_cliq') }}
+        </h3>
+    </div>
+
+    <div class="col-md-12 col-lg-4 mb-4 col-item">
+        <div class="card h-100 shadow-lg hover-shadow" id="openCliqModal"
+            style="cursor: pointer; border: 2px dashed #0d6efd; transition: all 0.3s;">
+            <div class="card-body pt-5 pb-5 d-flex flex-column justify-content-center align-items-center text-center">
+               <img src="{{ asset('admin\assets\images\cliq.svg') }}" alt="" height="80" class="mb-3">
+                <h5 class="font-weight-semibold mb-2">{{ __('payment.Pay_with_CliQ') }}</h5>
+                <p class="text-muted mb-0">{{ __('payment.upload_your_payment_screenshot') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- CliQ Payment Modal -->
+<!-- CliQ Payment Modal -->
+<!-- CliQ Payment Modal -->
+<div class="modal fade" id="cliqModal" tabindex="-1" aria-labelledby="cliqModalLabel" aria-hidden="true">
+    <!-- 🔔 Dynamic Alert Placeholder -->
+
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content shadow-lg">
+            <form id="cliqPaymentForm" enctype="multipart/form-data">
+                @csrf
+
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="cliqModalLabel">
+                        <i class="simple-icon-camera mr-2"></i> {{ __('payment.provide_screenshot') }}
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+            <div id="cliqAlert" style="display:none;"></div>
+          <!-- 🔽 Package Selection -->
+          <div class="mb-3">
+            <label for="package_id" class="form-label font-weight-semibold">
+              {{ __('payment.select_package') }}
+            </label>
+            <select name="package_id" id="package_id" class="form-control" required>
+              <option value="">{{ __('payment.choose_package') }}</option>
+              @foreach ($packages as $package)
+                  <option value="{{ $package->id }}">
+                      {{ app()->getLocale() === 'ar' ? $package->package_name_ar : $package->package_name_en }}
+                      — ${{ number_format($package->price, 2) }}
+                  </option>
+              @endforeach
+            </select>
+          </div>
+
+          <!-- 📸 Upload Screenshot -->
+          <div class="mb-3">
+            <label for="payment_screenshot" class="form-label font-weight-semibold">
+              {{ __('payment.upload_label') }}
+            </label>
+            <input type="file" class="form-control" id="payment_screenshot" name="photo_url" accept="image/*" required>
+          </div>
+
+          <input type="hidden" name="payment_type" value="cliq">
+        </div>
+
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+            {{ __('payment.Cancel') }}
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitCliqPaymentBtn">
+            {{ __('payment.Submit_Payment') }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+
+
+        <!-- ============================= -->
+        <!-- End Pay with CliQ Section -->
+        <!-- ============================= -->
+
         </div>
     </div>
 </div>
@@ -115,6 +205,10 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     let currentPackage = null;
+// Open CliQ modal
+document.getElementById('openCliqModal').addEventListener('click', function () {
+    $('#cliqModal').modal('show');
+});
 
     // When clicking a "Subscribe" button
     document.querySelectorAll('.open-payment-modal').forEach(btn => {
@@ -169,5 +263,81 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Open CliQ modal
+document.getElementById('openCliqModal').addEventListener('click', function () {
+    $('#cliqModal').modal('show');
+});
+
+// Handle CliQ form submission (AJAX)
+document.getElementById('cliqPaymentForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const submitBtn = document.getElementById('submitCliqPaymentBtn');
+    const alertBox = document.getElementById('cliqAlert');
+
+    // Reset alert box
+    alertBox.style.display = 'none';
+    alertBox.innerHTML = '';
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = '{{ __("payment.Processing") ?? "Processing..." }}';
+
+    try {
+        const response = await fetch('{{ route('user.payment.cliq') }}', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer {{ Auth::user()->createToken("web")->plainTextToken ?? "" }}',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        submitBtn.disabled = false;
+        submitBtn.innerText = '{{ __("payment.Submit_Payment") }}';
+
+        if (response.ok && data.success) {
+            // ✅ Success alert inside modal
+            alertBox.className = 'alert alert-success alert-dismissible fade show';
+            alertBox.innerHTML = `
+                <strong><i class="simple-icon-check"></i></strong> ${data.message}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            `;
+            alertBox.style.display = 'block';
+            form.reset();
+
+            // Auto-hide modal after 2.5s
+            setTimeout(() => {
+                $('#cliqModal').modal('hide');
+                alertBox.style.display = 'none';
+            }, 5000);
+        } else {
+            // ❌ Validation or upload error
+            const errors = data.errors ? Object.values(data.errors).flat().join('<br>') : data.message;
+            alertBox.className = 'alert alert-danger alert-dismissible fade show';
+            alertBox.innerHTML = `
+                <strong><i class="simple-icon-close"></i></strong> ${errors}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            `;
+            alertBox.style.display = 'block';
+        }
+
+    } catch (err) {
+        console.error(err);
+        submitBtn.disabled = false;
+        submitBtn.innerText = '{{ __("payment.Submit_Payment") }}';
+        alertBox.className = 'alert alert-danger alert-dismissible fade show';
+        alertBox.innerHTML = `
+            <strong><i class="simple-icon-close"></i></strong> Connection error. Please try again.
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        `;
+        alertBox.style.display = 'block';
+    }
+});
+
 </script>
 @endpush

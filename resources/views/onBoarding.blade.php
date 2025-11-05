@@ -1026,7 +1026,7 @@
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
-                                                                <input type="tel" name="guardian_contact"
+                                                                <input type="tel" name="guardian_contact" id="guardian_contact_input"
                                                                     class="form-control rounded-right" required
 
                                                                     >
@@ -1741,6 +1741,94 @@
                     });
                 }
             });
+
+     document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('guardian_contact_input');
+    if (!input) return; // skip for male users
+
+    const countrySelect = document.querySelector('select[name="country_code"]');
+    const errorSpan = input.closest('.form-group').querySelector('.error-message');
+    // ✅ find the next-step button within the same step block
+    const currentStep = input.closest('.onboarding-step');
+    const nextButton = currentStep ? currentStep.querySelector('.next-step') : null;
+
+    let debounceTimer = null;
+
+    input.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            validateGuardianContact();
+        }, 700); // wait 700ms after typing stops
+    });
+
+    async function validateGuardianContact() {
+        const guardianContact = input.value.trim();
+        const countryCode = countrySelect.value;
+
+        // Reset visual states
+        errorSpan.textContent = '';
+        input.classList.remove('is-valid', 'is-invalid');
+        errorSpan.classList.remove('text-success', 'text-danger');
+
+        if (nextButton) nextButton.disabled = true; // disable by default
+
+        // If field empty — no validation yet
+        if (!guardianContact) {
+            errorSpan.textContent = '';
+            if (nextButton) nextButton.disabled = true;
+            return;
+        }
+
+        // Build FormData for API call
+        const formData = new FormData();
+        formData.append('country_code', countryCode);
+        formData.append('guardian_contact', guardianContact);
+
+        try {
+            const response = await fetch("{{ route('validate.guardian.contact') }}", {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept-Language': '{{ app()->getLocale() }}',
+                    'Accept': 'application/json',
+                },
+                credentials: 'same-origin',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                // ❌ Backend validation failed
+                let message = data.message || "{{ __('Invalid guardian contact.') }}";
+                if (data.errors && data.errors.guardian_contact) {
+                    message = data.errors.guardian_contact[0];
+                }
+
+                errorSpan.textContent = message;
+                errorSpan.classList.add('text-danger');
+                input.classList.add('is-invalid');
+                if (nextButton) nextButton.disabled = true; // block moving forward
+            } else {
+                // ✅ Valid number
+                errorSpan.textContent = data.message || "{{ __('Guardian contact valid.') }}";
+                errorSpan.classList.add('text-success');
+                input.classList.add('is-valid');
+                if (nextButton) nextButton.disabled = false; // allow next step
+            }
+
+        } catch (error) {
+            // ❌ Network or unknown failure
+            errorSpan.textContent = "{{ __('Network error, please try again.') }}";
+            errorSpan.classList.add('text-danger');
+            input.classList.add('is-invalid');
+            if (nextButton) nextButton.disabled = true;
+        }
+    }
+});
+
+
+
         </script>
     @endpush
 @endsection

@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionReceiptMail;
 use App\Services\FwateerService;
+use Illuminate\Support\Facades\Validator;
 
 class UserPaymentController extends Controller
 {
@@ -136,6 +137,83 @@ class UserPaymentController extends Controller
             return response()->json([
                 'message' => 'An error occurred while updating payment details.',
                 'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    // saves cliq payment
+
+    public function storeCliq(Request $request)
+    {
+        try {
+            // ✅ Validate incoming data
+            $validator = Validator::make($request->all(), [
+                'photo_url'  => 'required|image|max:2048',
+                'package_id' => [
+                    'required',
+                    'exists:subscription_packages,id',
+                    function ($attribute, $value, $fail) {
+                        if (in_array($value, [999, 1000])) {
+                            $fail(__('Invalid package selected.'));
+                        }
+                    },
+                ],
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation error',
+                    'errors'  => $validator->errors(),
+                ], 422);
+            }
+
+            // ✅ Try storing the uploaded image
+            try {
+                $photoPath = $request->file('photo_url')->store('cliq_payments', 'public');
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error uploading screenshot: ' . $e->getMessage(),
+                ], 500);
+            }
+
+            // ✅ Fetch the package
+            $package = SubscriptionPackage::find($request->package_id);
+            if (!$package) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Selected package not found.',
+                ], 404);
+            }
+
+            // ✅ Create the payment record
+            $payment = UserPayment::create([
+                'user_id'      => auth()->id(),
+                'package_id'   => $package->id,
+                'email'        => auth()->user()->email,
+                'amount'       => $package->price,
+                'date'         => now(),
+                'status'       => 'pending',
+                'payment_type' => 'cliq',
+                'photo_url'    => $photoPath,
+            ]);
+
+            // ✅ Success response
+            return response()->json([
+                'success' => true,
+                'message' => __('payment.cliq_success_message') ?? 'Payment submitted successfully.',
+                'data'    => [
+                    'payment_id' => $payment->id,
+                    'package_name' => $package->package_name_en ?? '',
+                    'amount' => $package->price,
+                    'photo_url' => asset('storage/' . $photoPath),
+                ],
+            ], 201);
+        } catch (\Exception $e) {
+            // ✅ Catch any unexpected server errors
+            return response()->json([
+                'success' => false,
+                'message' => 'Unexpected error: ' . $e->getMessage(),
             ], 500);
         }
     }

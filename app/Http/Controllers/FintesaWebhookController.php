@@ -160,7 +160,9 @@ class FintesaWebhookController extends Controller
                 'amount' => (float) $amount,
                 'date' => now(),
                 'status' => $status === 'succeeded' ? 'pending' : 'failed',
+                'payment_type' => 'visa',
             ]);
+
 
 
             Log::info('Payment saved successfully', [

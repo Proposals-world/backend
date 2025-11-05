@@ -18,6 +18,9 @@ class UserPayment extends Model
         'package_id',
         'reference_number',
         'final_amount',
+        'payment_type',
+        'photo_url',
+
     ];
 
     public function user()
