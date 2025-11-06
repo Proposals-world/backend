@@ -996,11 +996,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // ✅ wait for the DOM to update, then recount
         setTimeout(() => {
-            if (typeof toggleFieldsDisabledState === 'function') {
-                toggleFieldsDisabledState();
-            }
-            // console.log('✅ Religiosity options rendered and fields state toggled.');
-        }, 300);
+    if (window.toggleFieldsDisabledState) {
+        window.toggleFieldsDisabledState();
+    }
+}, 300);
+
     })
     .catch(err => {
             console.error('❌ Error fetching religiosity levels:', err);
@@ -1068,7 +1068,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#remaining-count').text(remaining);
                 }
 
-                function toggleFieldsDisabledState() {
+                window.toggleFieldsDisabledState = function() {
                     const total = countTotalSelected();
                     const remaining = MAX_FIELDS - total;
                     const disable = total >= MAX_FIELDS;
