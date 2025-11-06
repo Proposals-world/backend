@@ -114,7 +114,7 @@ Wishing you continuous joy and happiness.";
         return response()->json([
             'status'  => 'success',
             'message' => __('messages.otp_success'),
-            'result'  => $result
+            // 'result'  => $result
         ]);
     }
 

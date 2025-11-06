@@ -53,6 +53,7 @@ return [
     'support_note' => 'للمساعدة يرجى التواصل عبر:',
     'all_rights_reserved' => 'جميع الحقوق محفوظة.',
 
+    'Reference_Number' => 'رقم المرجع',
 
 
     'verify_subject' => 'تأكيد عنوان البريد الإلكتروني',

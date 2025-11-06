@@ -27,7 +27,7 @@ return [
     'choose_package' => 'Choose a Package',
 
     // API messages
-    'cliq_success_message' => 'Your payment has been submitted successfully and is under review.',
+    'cliq_success_message' => 'Your payment has been submitted successfully and is under review will be activated in 24 hours.',
     'cliq_error_message' => 'Something went wrong while submitting your payment. Please try again.',
     'invalid_package' => 'Invalid package selected.',
     'note' => 'Note:',

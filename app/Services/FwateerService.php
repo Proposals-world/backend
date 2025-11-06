@@ -30,6 +30,9 @@ class FwateerService
             'user_id'          => $data['user_id'],
             'amount'           => $data['amount'],
             'payment_method'   => $data['payment_method'], // 'card' or 'click'
+            'reference_number' => $data['reference_number'] ?? null, // ✅ added here
+            'package_id'       => $data['package_id'] ?? null, // ✅ added here
+
         ]);
     }
 }

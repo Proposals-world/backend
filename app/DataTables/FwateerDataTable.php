@@ -49,6 +49,7 @@ class FwateerDataTable extends DataTable
             'invoice_date',
             'amount',
             'payment_method',
+            'reference_number',
             'user_id',
             'package_id',
         ]);
@@ -99,6 +100,7 @@ class FwateerDataTable extends DataTable
             'invoice_number' => ['title' => 'Invoice #'],
             'invoice_date' => ['title' => 'Issue Date'],
             'amount' => ['title' => 'Amount'],
+            'reference_number' => ['title' => 'Reference #'],
             'package' => ['title' => 'Package'],
             'payment_method' => ['title' => 'Payment Method'],
             'user' => ['title' => 'User'],

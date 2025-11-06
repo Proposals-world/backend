@@ -119,7 +119,7 @@ class UserPhoneNumberOtpController extends Controller
         return response()->json([
             'status'  => 'success',
             'message' => __('messages.otp_success'),
-            'result'  => $result
+            // 'result'  => $result
         ]);
     }
     public function verify(Request $request)

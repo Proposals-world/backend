@@ -990,16 +990,16 @@ document.addEventListener('DOMContentLoaded', function () {
         )
         .then(res => res.json())
 .then(data => {
-    console.log('befire Fetching religiosity levels ');
+    // console.log('befire Fetching religiosity levels ');
     renderReligiosityOptions(data.religiousLevels || []);
-    console.log('✅ Fetched religiosity levels:', data);
+    // console.log('✅ Fetched religiosity levels:', data);
 
         // ✅ wait for the DOM to update, then recount
         setTimeout(() => {
             if (typeof toggleFieldsDisabledState === 'function') {
                 toggleFieldsDisabledState();
             }
-            console.log('✅ Religiosity options rendered and fields state toggled.');
+            // console.log('✅ Religiosity options rendered and fields state toggled.');
         }, 300);
     })
     .catch(err => {

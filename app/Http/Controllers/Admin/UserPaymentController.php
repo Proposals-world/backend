@@ -88,14 +88,17 @@ class UserPaymentController extends Controller
         $payment = UserPayment::find($paymentId);
         // ✅ Create an invoice (fwateer record)
         $fwateer = $this->fwateerService->create([
-            'company_name'     => 'Tolba Platform',
+            'company_name'     => 'Authenticatcity and modernity Company for Information Technology',
             'company_address'  => 'Amman, Jordan',
-            'trade_reg_number' => 'TR-2025',
+            'trade_reg_number' => '75739',
             'sales_tax_number' => '40290018',
             'invoice_date'     => now()->toDateString(),
             'user_id'          => $userId,
             'amount'           => $payment->final_amount ?? ($package->price ?? 0),
-            'payment_method'   => 'card', // or 'click' depending on your logic
+            'package_id'       => $package->id ?? null, // ✅ new line
+            'payment_method'   => $payment->payment_type,
+            'reference_number' => $payment->reference_number ?? null,
+
         ]);
         Mail::to($subscription->user->email)->send(new SubscriptionReceiptMail($subscription, $fwateer));
 

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('invoice_number')->unique(); // e.g. tolba1, tolba2, ...
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->decimal('amount', 10, 2);
+            $table->enum('payment_method', ['cliq', 'visa', 'mastercard', 'fintesa']);
+
             $table->enum('payment_method', ['card', 'click']);
             $table->timestamps();
         });

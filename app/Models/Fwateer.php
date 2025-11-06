@@ -22,6 +22,7 @@ class Fwateer extends Model
         'amount',
         'package_id',
         'payment_method',
+        'reference_number',
     ];
 
     protected $casts = [

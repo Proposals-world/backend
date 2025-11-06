@@ -31,21 +31,12 @@ class UserPaymentsDataTable extends DataTable
             // ✅ Show Payment Type with colored badge
             ->addColumn('payment_type', function (UserPayment $payment) {
                 if (empty($payment->payment_type)) {
-                    return '<span class="badge badge-light text-muted">Unknown</span>';
+                    return 'Unknown';
                 }
 
-                $type = strtolower($payment->payment_type);
-                $label = ucfirst($type);
-                $color = match ($type) {
-                    'visa' => 'success',
-                    'cliq' => 'info',
-                    'mastercard' => 'primary',
-                    'fintesa' => 'warning',
-                    default => 'secondary',
-                };
-
-                return '<span class="badge badge-' . $color . '">' . e($label) . '</span>';
+                return ucfirst(strtolower($payment->payment_type));
             })
+
 
             // ✅ Show uploaded photo (only for CliQ)
             ->addColumn('photo_url', function (UserPayment $payment) {
@@ -141,7 +132,7 @@ class UserPaymentsDataTable extends DataTable
             // ✅ Gender Column (English only)
 
             ->setRowId('id')
-            ->rawColumns(['user_name', 'gender', 'photo_url', 'reference_number', 'final_amount', 'actions']);
+            ->rawColumns(['user_name', 'gender', 'photo_url', 'reference_number', 'final_amount', 'actions', 'payment_type']);
     }
 
 
@@ -172,6 +163,7 @@ class UserPaymentsDataTable extends DataTable
             'gender' => ['title' => 'Gender'],
             'package_name' => ['title' => 'Package'],
             'amount' => ['title' => 'Amount'],
+            'payment_type' => ['title' => 'Payment Method'],
             'date' => ['title' => 'Date'],
             'photo_url' => ['title' => 'Photo'],
             'reference_number' => ['title' => 'Reference number'],

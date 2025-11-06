@@ -109,10 +109,16 @@
     // addModal('add_btn', '{{ route('categories.create') }}', 'Add Category', 'categoryForm', 'categories-table');
     // editModal('edit_btn', 'admin/categories', 'Edit Category', 'categoryForm', 'categories-table');
     // remove('remove_btn', 'admin/categories', 'categories-table', '{{ csrf_token() }}');
+// ✅ Handle Save Payment button
 $(document).on('click', '.save-payment', function() {
-    let id = $(this).data('id');
+    let $btn = $(this);
+    let id = $btn.data('id');
     let final_amount = $('.amount-input[data-id="'+id+'"]').val();
     let reference_number = $('.ref-input[data-id="'+id+'"]').val();
+
+    // Save the original text to restore later
+    const originalText = $btn.html();
+    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Saving...');
 
     $.ajax({
         url: '{{ route("admin.user.payments.update-details") }}',
@@ -127,23 +133,32 @@ $(document).on('click', '.save-payment', function() {
             alert(response.message);
             $('#userpayments-table').DataTable().ajax.reload();
 
+            // Restore button
+            $btn.prop('disabled', false).html(originalText);
         },
         error: function(xhr) {
             toastr.error(xhr.responseJSON?.message || 'Error updating payment.');
+            $btn.prop('disabled', false).html(originalText);
         }
     });
 });
 
 
-
+// ✅ Handle Verify Subscription button
 $(document).on('click', '.subscribe-btn', function() {
-    let email = $(this).data('email');
-    let packageId = $(this).data('package-id');
-    let paymentId = $(this).data('payment-id');
+    let $btn = $(this);
+    let email = $btn.data('email');
+    let packageId = $btn.data('package-id');
+    let paymentId = $btn.data('payment-id');
+
     if (!packageId) {
         alert('Package ID not found');
         return;
     }
+
+    // Show spinner while verifying
+    const originalText = $btn.html();
+    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Verifying...');
 
     $.ajax({
         url: '{{ route("admin.payments.subscribe-for-user") }}',
@@ -156,46 +171,63 @@ $(document).on('click', '.subscribe-btn', function() {
         success: function(res) {
             alert(res.message || 'Subscribed successfully');
             $('#userpayments-table').DataTable().ajax.reload();
+
+            // Restore button
+            $btn.prop('disabled', false).html(originalText);
         },
         error: function(err) {
-            if (err.status === 404 && err.responseJSON && err.responseJSON.users) {
-                // Show dropdown to select user
-                let users = err.responseJSON.users;
-                let options = users.map(u => `<option value="${u.id}">${u.name} (${u.email})</option>`).join('');
-                let dropdownHtml = `
-                    <div id="user-select-modal">
-                        <label>Select a user:</label>
-                        <select id="user-select">${options}</select>
-                        <button id="confirm-user-select">Confirm</button>
-                    </div>
-                `;
-                $('body').append(dropdownHtml);
+            let errorMsg = err.responseJSON?.message || 'Subscription failed';
+            alert(errorMsg);
+            console.error(err);
 
-                $('#confirm-user-select').on('click', function() {
-                    let userId = $('#user-select').val();
-                    // Retry subscription with selected user ID
-                    $.ajax({
-                        url: '{{ route("admin.payments.subscribe-for-user") }}',
-                        type: 'POST',
-                        data: {
-                            user_id: userId,
-                            package_id: packageId
-                        },
-                        success: function(res2) {
-                            alert(res2.message || 'Subscribed successfully');
-                            $('#userpayments-table').DataTable().ajax.reload();
-                            $('#user-select-modal').remove();
-                        }
-                    });
-                });
-            } else {
-                let errorMsg = err.responseJSON?.message || 'Subscription failed';
-                alert(errorMsg);
-                console.error(err);
-            }
+            // Restore button
+            $btn.prop('disabled', false).html(originalText);
         }
     });
 });
+
+
+
+$(document).on('click', '.subscribe-btn', function() {
+    let $btn = $(this);
+    let email = $btn.data('email');
+    let packageId = $btn.data('package-id');
+    let paymentId = $btn.data('payment-id');
+
+    if (!packageId) {
+        alert('Package ID not found');
+        return;
+    }
+
+    // ✅ Disable the button and show a spinner
+    const originalText = $btn.html();
+    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Verifying...');
+
+    $.ajax({
+        url: '{{ route("admin.payments.subscribe-for-user") }}',
+        type: 'GET',
+        data: {
+            email: email,
+            package_id: packageId,
+            payment_id: paymentId
+        },
+        success: function(res) {
+            // ✅ Restore button and refresh table
+            $btn.prop('disabled', false).html(originalText);
+            alert(res.message || 'Subscribed successfully');
+            $('#userpayments-table').DataTable().ajax.reload();
+        },
+        error: function(err) {
+            // ✅ Restore button
+            $btn.prop('disabled', false).html(originalText);
+
+            let errorMsg = err.responseJSON?.message || 'Subscription failed';
+            alert(errorMsg);
+            console.error(err);
+        }
+    });
+});
+
 $(document).on('click', '#subscribe-user-btn', function() {
     let email = $('#user-select-dropdown').val();
     let packageId = $('#package-select-dropdown').val();

@@ -11,6 +11,7 @@ use App\Models\UserReport;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Container\Attributes\Auth as AttributesAuth;
 
 class UserDashboardController extends Controller
 {
@@ -118,6 +119,29 @@ class UserDashboardController extends Controller
             ->whereDate('end_date', '>=', Carbon::today()) // only future or today
             ->value('end_date'); // returns null if none
 
+        $gender = Auth::user()->gender;
+
+        $packageId = $gender === 'male' ? 999 : 1000;
+        $hasActiveFreeSub = Subscription::where('user_id', Auth::id())
+            ->where('package_id', $packageId)
+            ->where('status', 'active')
+            ->exists();
+
+        $message = null;
+
+        if (!$hasActiveFreeSub) {
+            if ($gender === 'female') {
+                $message = [
+                    'ar' => 'مبارك لقد تم اختياركم للفوز باشتراك شهري مجاني بمناسبة افتتاح المنصة',
+                    'en' => 'Congratulations! You have been selected for a free monthly subscription in celebration of our platform’s launch.',
+                ];
+            } elseif ($gender === 'male') {
+                $message = [
+                    'ar' => 'مبارك، لقد تم اختياركم للفوز باشتراك شهري بقيمة مكالمة واحدة بمناسبة افتتاح المنصة',
+                    'en' => 'Congratulations! You have been selected for a monthly subscription with single call value to celebrate our platform launch.',
+                ];
+            }
+        }
 
         return view('user.dashboard', [
             'matches'            => $transformed,
@@ -127,6 +151,7 @@ class UserDashboardController extends Controller
             'remainingContacts'  => $remainingContacts,
             'feedbackOptions'    => $feedbackOptions,
             'subscriptionEndsAt' => $subscriptionEndsAt,
+            'freeMessage' => $message,
         ]);
     }
 

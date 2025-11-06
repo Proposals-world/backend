@@ -330,6 +330,7 @@
                                                             style="font-size:12px;"></span>
                                                     </div>
                                                 </div>
+
                                                 {{--
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1000,7 +1001,7 @@
 
 
                                                 {{--  --}}
-                                                @if (old('gender') !== 'male')
+                                              @if (old('gender') !== 'male')
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label">
@@ -1008,7 +1009,7 @@
                                                                 <p
                                                                     class="form-text text-muted mb-0 text-left">{{ __('onboarding.guardian_contact_help') }}</p>
                                                             </label>
-                                                            <div class="input-group">
+                                                            <div class="input-group"  dir="ltr">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"><i
                                                                             class="fas fa-phone"></i></span>
@@ -1038,6 +1039,7 @@
                                                         </div>
                                                     </div>
                                                 @endif
+
 
                                             </div>
                                             <div class="onboarding-navigation d-flex justify-content-between mt-4">
@@ -1429,6 +1431,16 @@
                                 isValid = false;
                             }
                             break;
+                            case 'guardian_contact':
+                            // Use the latest global validation state from API
+                            if (!guardianContactValid) {
+                                // errorSpan.text("{{ __('onboarding.invalid_guardian_contact') }}");
+                                isValid = false;
+                            } else {
+                                $(field).removeClass('is-invalid').addClass('is-valid');
+                                errorSpan.text('');
+                            }
+                            break;
 
                           case 'bio_en':
                     var englishRegex = /^[A-Za-z0-9\s.,'"\-?!()]+$/;
@@ -1762,69 +1774,64 @@
     });
 
     async function validateGuardianContact() {
-        const guardianContact = input.value.trim();
-        const countryCode = countrySelect.value;
+    const guardianContact = input.value.trim();
+    const countryCode = countrySelect.value;
 
-        // Reset visual states
-        errorSpan.textContent = '';
-        input.classList.remove('is-valid', 'is-invalid');
-        errorSpan.classList.remove('text-success', 'text-danger');
+    // Reset
+    errorSpan.textContent = '';
+    input.classList.remove('is-valid', 'is-invalid');
+    errorSpan.classList.remove('text-success', 'text-danger');
+    guardianContactValid = false; // default = invalid
 
-        if (nextButton) nextButton.disabled = true; // disable by default
+    if (nextButton) nextButton.disabled = true;
 
-        // If field empty — no validation yet
-        if (!guardianContact) {
-            errorSpan.textContent = '';
-            if (nextButton) nextButton.disabled = true;
-            return;
-        }
+    if (!guardianContact) return; // nothing entered yet
 
-        // Build FormData for API call
-        const formData = new FormData();
-        formData.append('country_code', countryCode);
-        formData.append('guardian_contact', guardianContact);
+    const formData = new FormData();
+    formData.append('country_code', countryCode);
+    formData.append('guardian_contact', guardianContact);
 
-        try {
-            const response = await fetch("{{ route('validate.guardian.contact') }}", {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept-Language': '{{ app()->getLocale() }}',
-                    'Accept': 'application/json',
-                },
-                credentials: 'same-origin',
-                body: formData
-            });
+    try {
+        const response = await fetch("{{ route('validate.guardian.contact') }}", {
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept-Language': '{{ app()->getLocale() }}',
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin',
+            body: formData
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            if (!response.ok) {
-                // ❌ Backend validation failed
-                let message = data.message || "{{ __('Invalid guardian contact.') }}";
-                if (data.errors && data.errors.guardian_contact) {
-                    message = data.errors.guardian_contact[0];
-                }
-
-                errorSpan.textContent = message;
-                errorSpan.classList.add('text-danger');
-                input.classList.add('is-invalid');
-                if (nextButton) nextButton.disabled = true; // block moving forward
-            } else {
-                // ✅ Valid number
-                errorSpan.textContent = data.message || "{{ __('Guardian contact valid.') }}";
-                errorSpan.classList.add('text-success');
-                input.classList.add('is-valid');
-                if (nextButton) nextButton.disabled = false; // allow next step
+        if (!response.ok) {
+            let message = data.message ;
+            if (data.errors && data.errors.guardian_contact) {
+                message = data.errors.guardian_contact[0];
             }
 
-        } catch (error) {
-            // ❌ Network or unknown failure
-            errorSpan.textContent = "{{ __('Network error, please try again.') }}";
+            errorSpan.textContent = message;
             errorSpan.classList.add('text-danger');
             input.classList.add('is-invalid');
+            guardianContactValid = false;
             if (nextButton) nextButton.disabled = true;
+        } else {
+            errorSpan.textContent = data.message || "{{ __('Guardian contact valid.') }}";
+            errorSpan.classList.add('text-success');
+            input.classList.add('is-valid');
+            guardianContactValid = true;
+            if (nextButton) nextButton.disabled = false;
         }
+    } catch (error) {
+        errorSpan.textContent = "{{ __('Network error, please try again.') }}";
+        errorSpan.classList.add('text-danger');
+        input.classList.add('is-invalid');
+        guardianContactValid = false;
+        if (nextButton) nextButton.disabled = true;
     }
+}
+
 });
 
 

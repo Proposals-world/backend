@@ -54,7 +54,7 @@ return [
     'support_note' => 'For assistance, please contact:',
     'all_rights_reserved' => 'All rights reserved.',
 
-
+    'Reference_Number' => 'Reference Number',
 
     'verify_subject' => 'Verify Your Email Address',
     'hello' => 'Hello',

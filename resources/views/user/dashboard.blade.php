@@ -91,10 +91,56 @@
 .scroll.dashboard-list-with-thumbs {
     max-height: 500px; /* Adjust as needed */
     overflow-y: auto;
+}.floating-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: auto;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #eaffea 0%, #d4ffd4 100%);
+    color: #155724;
+    border: 1px solid #28a745;
+    animation: fadeInDown 0.6s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+[dir="rtl"] .floating-alert {
+    right: auto;
+    left: 20px;
+}
+
 </style>
     {{-- {{ dd($matches) }} --}}
     <div class="container-fluid">
+ @if(isset($freeMessage))
+<div id="freeAlertWrapper" style="display:none;">
+    <div class="alert alert-success alert-dismissible fade show floating-alert shadow-sm"
+         role="alert"
+         dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+        <strong>{{ $freeMessage[app()->getLocale()] }}</strong>
+        <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" id="neverShowAgainCheckbox">
+            <label class="form-check-label" for="neverShowAgainCheckbox" style="font-size: 0.9rem;">
+                {{ app()->getLocale() === 'ar' ? 'عدم الإظهار مرة أخرى' : 'Never show again' }}
+            </label>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                style="outline:none; border:none; background:transparent;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
+
+
         <div class="row">
             <div class="col-12">
                 <h2 class="text-primary">
@@ -421,6 +467,51 @@ modals.forEach(modal => {
 
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const alertWrapper = document.getElementById('freeAlertWrapper');
+    if (!alertWrapper) return;
+
+    const alertKey = 'hideFreeSubAlert';
+    const neverShow = localStorage.getItem(alertKey);
+
+    // ✅ If user already checked "Never show again" → do nothing
+    if (neverShow === 'true') {
+        alertWrapper.remove();
+        return;
+    }
+
+    // ✅ Otherwise, make it visible now
+    alertWrapper.style.display = 'block';
+
+    const alertEl = alertWrapper.querySelector('.floating-alert');
+    const checkbox = alertEl.querySelector('#neverShowAgainCheckbox');
+
+    // Save preference when checkbox is checked
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            localStorage.setItem(alertKey, 'true');
+        } else {
+            localStorage.removeItem(alertKey);
+        }
+    });
+
+    // Handle manual close button
+    alertEl.querySelector('.close').addEventListener('click', function () {
+        if (checkbox.checked) {
+            localStorage.setItem(alertKey, 'true');
+        }
+        alertEl.classList.remove('show');
+        setTimeout(() => alertWrapper.remove(), 400);
+    });
+
+    // Optional auto-dismiss after 5s
+    // setTimeout(() => {
+    //     if (alertEl && alertEl.classList.contains('show')) {
+    //         alertEl.classList.remove('show');
+    //         setTimeout(() => alertWrapper.remove(), 400);
+    //     }
+    // }, 5000);
+});
 
     </script>
     @endpush

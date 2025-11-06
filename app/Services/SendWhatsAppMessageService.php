@@ -44,7 +44,7 @@ class SendWhatsAppMessageService
         return $response->successful() ? $response->json() : [
             'error' => true,
             'status' => $response->status(),
-            'body'   => $response->body()
+            // 'body'   => $response->body()
         ];
     }
 }

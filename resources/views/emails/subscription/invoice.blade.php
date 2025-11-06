@@ -1,4 +1,8 @@
 <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Invoice - for  {{ $user->first_name ?? '' }} {{ $user->last_name ?? '' }} {{ now()->format('Y-m-d') }}</title> <!-- ✅ Dynamic title -->
+  </head>
   <body style="font-family:'DejaVu Sans',sans-serif; font-size:12px;">
 
     {{-- Header with "Tolba" title --}}
@@ -18,6 +22,7 @@
       <strong>{{ __('email.Company_Name') }}:</strong> {{ $fwateer->company_name ?? 'Tolba Platform' }}<br>
       <strong>{{ __('email.Customer') }}:</strong> {{ $user->first_name ?? '' }} {{ $user->last_name ?? '' }}<br>
       <strong>{{ __('email.Invoice_Number') }}:</strong> {{ $fwateer->invoice_number ?? '' }}<br>
+      <strong>{{ __('email.Reference_Number') }}:</strong> {{ $fwateer->reference_number ?? '-' }}<br> <!-- ✅ Added line -->
       <strong>{{ __('email.Invoice_Date') }}:</strong> {{ $fwateer->invoice_date?->format('Y-m-d') ?? '' }}<br>
       <strong>{{ __('email.Payment_Method') }}:</strong> {{ ucfirst($fwateer->payment_method ?? '-') }}
     </p>
