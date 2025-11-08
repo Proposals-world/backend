@@ -146,9 +146,15 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('admin.suspended-users.index')}}" class="side-nav-link">
+                            <a href="{{route('admin.suspended-users.index.by-system')}}" class="side-nav-link">
                             <i class="ri-user-unfollow-line"></i>
-                                <span> Suspended Users </span>
+                                <span> Suspended By System</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('admin.suspended-users.index.by-admin')}}" class="side-nav-link">
+                            <i class="ri-user-unfollow-line"></i>
+                                <span> Suspended By Admin</span>
                             </a>
                         </li>
                         {{-- <li class="side-nav-item">
@@ -397,6 +403,12 @@
                 <a href="{{ route('admin.success-stories.index') }}" class="side-nav-link">
                     <i class="ri-trophy-line"></i>
                     <span> Success Stories </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.profile.logs') }}" class="side-nav-link">
+                    <i class="ri-database-2-line"></i>
+                    <span> Profile Logs </span>
                 </a>
             </li>
 

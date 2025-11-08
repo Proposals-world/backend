@@ -53,6 +53,7 @@ use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\Admin\MonthlySubscriptionSalesController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\SuccessStoryController;
+use App\Http\Controllers\Admin\SuspendedByAdminUserController;
 use App\Http\Controllers\Admin\SuspendedUserController;
 use App\Http\Controllers\Admin\TermsAndConditionController;
 use App\Http\Controllers\Admin\UserPaymentController as AdminUserPaymentController;
@@ -127,8 +128,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
             [SuccessStoryController::class, 'index']
         )->name('admin.success-stories.index');
         Route::get('/payments', [PaymentTransactionController::class, 'index'])->name('admin.payments.index');
-        Route::get('suspended-users', [SuspendedUserController::class, 'index'])
-            ->name('admin.suspended-users.index');
+        Route::get('suspended-users-by-system', [SuspendedUserController::class, 'index'])
+            ->name('admin.suspended-users.index.by-system');
+        Route::get('suspended-users-by-admin', [SuspendedByAdminUserController::class, 'index'])
+            ->name('admin.suspended-users.index.by-admin');
         Route::get('/redeem', [RedeemController::class, 'index'])->name('admin.redeem.index');
         Route::post('redeem/{user}', [RedeemController::class, 'redeem'])->name('admin.redeem');
         Route::get('/userprofile/{id}', [AdminController::class, 'show'])->name('userprofile');
