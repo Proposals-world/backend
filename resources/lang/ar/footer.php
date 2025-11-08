@@ -21,4 +21,6 @@ return [
     'privacy_policy' => 'سياسة الخصوصية',
     // حقوق الطبع والنشر
     'copyright'    => '&copy; tolba.world. جميع الحقوق محفوظة.',
+    'CancellationRefundPolicy' => 'سياسة الإلغاء والاسترداد',
+    'last_updated' => 'آخر تحديث',
 ];

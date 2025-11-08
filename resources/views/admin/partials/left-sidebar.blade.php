@@ -333,25 +333,52 @@
                     </ul>
                 </div>
             </li>
+           <li class="side-nav-item">
+    <a data-bs-toggle="collapse" href="#sidebarManagement" aria-expanded="false" aria-controls="sidebarManagement" class="side-nav-link">
+        <i class="ri-settings-3-line"></i>
+        <span> Management </span>
+        <span class="menu-arrow"></span>
+    </a>
+
+    <div class="collapse" id="sidebarManagement">
+        <ul class="side-nav-second-level">
+
+            {{-- FAQs --}}
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarManagement" aria-expanded="false" aria-controls="sidebarManagement" class="side-nav-link">
-                    <i class="ri-settings-3-line"></i>
-                        <span> Management </span>
-                    <span class="menu-arrow"></span>
+                <a href="{{ route('faqs.index') }}" class="side-nav-link">
+                    <i class="ri-question-line"></i>
+                    <span> Manage FAQs </span>
                 </a>
-                <div class="collapse" id="sidebarManagement">  <!-- Changed ID here -->
-                    <ul class="side-nav-second-level">
-
-
-                        <li class="side-nav-item">
-                            <a href="{{route('faqs.index')}}" class="side-nav-link">
-                                <i class="ri-question-line"></i>
-                                <span> Manage FAQs </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
+
+            {{-- Terms & Conditions --}}
+            <li class="side-nav-item">
+                <a href="{{ route('terms.index') }}" class="side-nav-link">
+                    <i class="ri-file-list-3-line"></i>
+                    <span> Terms & Conditions </span>
+                </a>
+            </li>
+
+            {{-- Privacy Policy --}}
+            <li class="side-nav-item">
+                <a href="{{ route('privacy.index') }}" class="side-nav-link">
+                    <i class="ri-shield-check-line"></i>
+                    <span> Privacy Policy </span>
+                </a>
+            </li>
+
+            {{-- Cancellation & Refund Policy --}}
+            <li class="side-nav-item">
+                <a href="{{ route('cancellation.index') }}" class="side-nav-link">
+                    <i class="ri-refund-2-line"></i>
+                    <span> Cancellation & Refund </span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</li>
+
 
             <li class="side-nav-item">
                 <a href="{{ route('admin.support') }}" class="side-nav-link">

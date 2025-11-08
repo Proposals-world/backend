@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\MarriageBudgetsController;
 use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\SubscriptionPackageController;
 use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\CancellationRefundPolicyController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\JobTitlesController;
@@ -50,8 +51,10 @@ use App\Http\Controllers\Admin\PaymentTransactionController;
 use App\Http\Controllers\Admin\RedeemController;
 use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\Admin\MonthlySubscriptionSalesController;
+use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\SuspendedUserController;
+use App\Http\Controllers\Admin\TermsAndConditionController;
 use App\Http\Controllers\Admin\UserPaymentController as AdminUserPaymentController;
 // users dashboard routes
 use App\Http\Controllers\User\UserDashboardController;
@@ -79,13 +82,12 @@ Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us');
 
-
-Route::get('/terms-and-conditions', function () {
-    return view('TermsAndConditions');
-})->name('terms-and-conditions');
-Route::get('/privacy-policy', function () {
-    return view('privacyPolicy');
-})->name('privacy-policy');
+Route::get('/terms-and-conditions', [TermsAndConditionController::class, 'showTermsAndConditionsFrontend'])
+    ->name('terms-and-conditions');
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'showPrivacyPolicyFrontend'])
+    ->name('privacy-policy');
+Route::get('/cancellation-refund-policy', [CancellationRefundPolicyController::class, 'showCancellationRefundPolicyFrontend'])
+    ->name('cancellation-refund-policy');
 Route::get('/cities-by-country/{countryId}', [OnBoardingController::class, 'getCitiesByCountry'])->name('cities.by.country');
 Route::get(
     '/city-locations/{cityId}',
@@ -169,6 +171,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/fwateer/export/pdf', [FwateerController::class, 'exportPdf'])
             ->name('admin.fwateer.export.pdf');
         Route::get('/fwateer/{id}/pdf', [FwateerController::class, 'singlePdf'])->name('admin.fwateer.single.pdf');
+        Route::resource('terms', TermsAndConditionController::class);
+        Route::resource('privacy', PrivacyPolicyController::class);
+        Route::resource('cancellation', CancellationRefundPolicyController::class);
     });
 
     // Route::resource('blogs', BlogController::class);

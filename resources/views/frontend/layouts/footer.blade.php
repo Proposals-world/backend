@@ -34,6 +34,7 @@
                                 <li><a href="{{ url('/') }}#blog">{{ __('header.blog') }}</a></li>
                                 <li><a href="{{ route('terms-and-conditions') }}">{{ __('TermsAndConditions.title') }}</a></li>
                                 <li><a href="{{ route('privacy-policy') }}">{{ __('footer.privacy_policy') }}</a></li>
+                                <li><a href="{{ route('cancellation-refund-policy') }}">{{ __('footer.CancellationRefundPolicy') }}</a></li>
                             </ul>
                         </div>
                     </div>

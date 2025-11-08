@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'title' => 'Terms and Conditions',
+    'title' => 'Cancellation and Refund Policy',
     'last_updated' => 'Last Updated',
 ];

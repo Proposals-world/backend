@@ -22,4 +22,6 @@ return [
     'privacy_policy' => 'Privacy Policy',
     // Copyright
     'copyright'    => '&copy; Tolba.world. All rights reserved.',
+    'cancellation_refund_policy' => 'Cancellation & Refund Policy',
+    'last_updated' => 'Last Updated',
 ];

@@ -128,6 +128,7 @@ function editModal(editClass, route, title = 'Edit', form_id, table_id) {
 function remove(removeClass, url, table_id, csrf_token, table_type = false) {
     $(document).on('click', '.' + removeClass, function () {
         var id = $(this).attr('id');
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -139,27 +140,40 @@ function remove(removeClass, url, table_id, csrf_token, table_type = false) {
         }).then(function (result) {
             if (result.value) {
                 $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': csrf_token
-                    },
+                    headers: { 'X-CSRF-TOKEN': csrf_token },
                     url: '/' + url + '/' + id,
-                    method: 'delete',
+                    method: 'DELETE',
                     success: function (data) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Your item has been removed',
+                            title: data.message || 'Deleted successfully!',
                             showConfirmButton: false,
                             timer: 1500
                         });
+
+                        // ✅ Reload table
                         if (table_type)
                             table_id.ajax.reload();
                         else
                             window.LaravelDataTables[table_id].ajax.reload();
+                    },
+                    error: function (xhr) {
+                        // ❌ Show backend validation / error message
+                        let message = 'An error occurred while deleting.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Delete Failed',
+                            text: message,
+                            confirmButtonColor: '#d33',
+                        });
                     }
                 });
             }
         });
-
     });
 }
 
