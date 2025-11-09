@@ -80,10 +80,10 @@
                     <div class="breadcrumb-wrap text-center">
                         <div class="breadcrumb-title mt-60 mb-30">
                             <h2>{{ __('TermsAndConditions.title') }}</h2>
-                            <small class="d-block">
+                            {{-- <small class="d-block">
                                 {{ __('TermsAndConditions.last_updated') }}:
                                 {{ isset($term) && $term->effective_date ? \Carbon\Carbon::parse($term->effective_date)->format('d M Y') : now()->format('d M Y') }}
-                            </small>
+                            </small> --}}
                         </div>
                     </div>
                 </div>

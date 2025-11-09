@@ -24,4 +24,5 @@ return [
     'copyright'    => '&copy; Tolba.world. All rights reserved.',
     'cancellation_refund_policy' => 'Cancellation & Refund Policy',
     'last_updated' => 'Last Updated',
+    'CancellationRefundPolicy'    => 'Cancellation & Refund Policy',
 ];

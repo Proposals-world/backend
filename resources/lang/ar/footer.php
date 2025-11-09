@@ -23,4 +23,5 @@ return [
     'copyright'    => '&copy; tolba.world. جميع الحقوق محفوظة.',
     'CancellationRefundPolicy' => 'سياسة الإلغاء والاسترداد',
     'last_updated' => 'آخر تحديث',
+    'CancellationRefundPolicy'    => 'سياسة الإلغاء والاسترداد',
 ];

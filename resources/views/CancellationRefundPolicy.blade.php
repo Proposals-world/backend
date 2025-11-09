@@ -80,10 +80,10 @@
                     <div class="breadcrumb-wrap text-center">
                         <div class="breadcrumb-title mt-60 mb-30">
                             <h2>{{ __('CancellationRefundPolicy.title') }}</h2>
-                            <small class="d-block">
+                            {{-- <small class="d-block">
                                 {{ __('CancellationRefundPolicy.last_updated') }}:
                                 {{ isset($policy) && $policy->effective_date ? \Carbon\Carbon::parse($policy->effective_date)->format('d M Y') : now()->format('d M Y') }}
-                            </small>
+                            </small> --}}
                         </div>
                     </div>
                 </div>
