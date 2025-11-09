@@ -42,14 +42,35 @@
         margin-top: 2rem;
         font-weight: bold;
     }
+
+    .processing-box {
+        background: #fff7fb;
+        border: 1px dashed #d7a8c2;
+        text-align: center;
+        padding: 50px 25px;
+        border-radius: 12px;
+        color: #9c0c58;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .processing-box i {
+        font-size: 40px;
+        color: #9c0c58;
+        display: block;
+        margin-bottom: 15px;
+    }
 </style>
 
 <div>
     {{-- ========== Breadcrumb ========== --}}
     <section class="breadcrumb-area d-flex align-items-center"
         style="
-        @if (app()->getLocale() === 'ar') background-image: url({{ asset('frontend/img/bg/breadcrumb.png') }}); background-position: left 0;
-        @else background-image: url({{ asset('frontend/img/bg/breadcrumb.png') }}); background-position: right 0; @endif
+        @if (app()->getLocale() === 'ar')
+            background-image: url({{ asset('frontend/img/bg/breadcrumb.png') }}); background-position: left 0;
+        @else
+            background-image: url({{ asset('frontend/img/bg/breadcrumb.png') }}); background-position: right 0;
+        @endif
         background-repeat: no-repeat;
         background-size: cover;
     ">
@@ -61,7 +82,7 @@
                             <h2>{{ __('privacy_policy.title') }}</h2>
                             <small class="d-block">
                                 {{ __('privacy_policy.last_updated') }}:
-                                {{ isset($policy->effective_date) ? \Carbon\Carbon::parse($policy->effective_date)->format('d M Y') : now()->format('d M Y') }}
+                                {{ isset($policy) && $policy->effective_date ? \Carbon\Carbon::parse($policy->effective_date)->format('d M Y') : now()->format('d M Y') }}
                             </small>
                         </div>
                     </div>
@@ -77,16 +98,28 @@
                 <div class="col-lg-12">
                     <div class="policy-details-wrap">
                         <div class="details__content pb-50">
-                            {{-- Title --}}
-                            <h2 style="text-align: {{ app()->getLocale() === 'ar' ? 'right' : 'left' }};">
-                                {{ app()->getLocale() === 'ar' ? $policy->title_ar : $policy->title_en }}
-                            </h2>
 
-                            {{-- Content --}}
-                            <div class="policy-content"
-                                dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
-                                {!! app()->getLocale() === 'ar' ? $policy->content_ar : $policy->content_en !!}
-                            </div>
+                            @if ($policy)
+                                {{-- Title --}}
+                                <h2 style="text-align: {{ app()->getLocale() === 'ar' ? 'right' : 'left' }};">
+                                    {{ app()->getLocale() === 'ar' ? $policy->title_ar : $policy->title_en }}
+                                </h2>
+
+                                {{-- Content --}}
+                                <div class="policy-content"
+                                    dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+                                    {!! app()->getLocale() === 'ar' ? $policy->content_ar : $policy->content_en !!}
+                                </div>
+                            @else
+                                {{-- Under Processing Message --}}
+                                <div class="processing-box">
+                                    <i class="ri-time-line"></i>
+                                    {{ app()->getLocale() === 'ar'
+                                        ? 'سياسة الخصوصية قيد المعالجة حالياً. يرجى العودة لاحقاً.'
+                                        : 'Privacy Policy is currently under processing. Please check back later.' }}
+                                </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>

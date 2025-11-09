@@ -64,4 +64,10 @@ return [
     'no_action' => 'If you did not create an account, you can safely ignore this message.',
     'Payment_Method' => 'payment method',
     'Company_Name' => 'Company Name',
+
+
+    'title' => 'Contact Redeemed Successfully!',
+    'greeting' => 'Hello',
+    'message_redeemed' => 'Your contact redemption was successful. You’ve gained one additional contact.',
+    'remaining_contacts' => 'You now have :count contact(s) remaining.',
 ];

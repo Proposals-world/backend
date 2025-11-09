@@ -556,6 +556,7 @@
                                                     </div>
 
                                                     {{-- Employment Status --}}
+                                                    @if(Auth::user()->gender == 'male')
                                                     <div class="form-group">
                                                         <label class="form-label"
                                                             for="preferred_employment_status">{{ __('profile.Partner_Employment_Status') }}</label>
@@ -569,19 +570,46 @@
                                                                 {{-- 1 = Employed --}}
                                                                 <option value="1"
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
-                                                                     @lang('profile.employed')
+                                                                     @lang('profile.employed_him')
                                                                 </option>
 
                                                                 {{-- 0 = Unemployed --}}
                                                                 <option value="0"
                                                                     {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
-                                                                    @lang('profile.unemployed')
+                                                                    @lang('profile.unemployed_him')
+
+                                                                </option>
+                                                            </select>
+
+                                                    </div>
+                                                    @else
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_employment_status">{{ __('profile.Partner_Employment_Status') }}</label>
+                                                            <select class="form-control" name="preferred_employment_status" id="preferred_employment_status">
+                                                                {{-- NULL = No Preference --}}
+                                                                <option value=""
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === null ? 'selected' : '' }}>
+                                                                    {{ __('profile.Partner_No_Preference') }}
+                                                                </option>
+
+                                                                {{-- 1 = Employed --}}
+                                                                <option value="1"
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 1 || ($userPreferences['preferred_employment_status'] ?? null) === '1' ? 'selected' : '' }}>
+                                                                     @lang('profile.employed_her')
+                                                                </option>
+
+                                                                {{-- 0 = Unemployed --}}
+                                                                <option value="0"
+                                                                    {{ ($userPreferences['preferred_employment_status'] ?? null) === 0 || ($userPreferences['preferred_employment_status'] ?? null) === '0' ? 'selected' : '' }}>
+                                                                    @lang('profile.unemployed_her')
 
                                                                 </option>
                                                             </select>
 
                                                     </div>
 
+                                                    @endif
 
 
                                                 </div>

@@ -88,8 +88,10 @@ return [
     'Partner_Contact_&_Social_Media' => 'اتصال الشريك ومواقع التواصل',
     'Partner_Contact' => 'اتصال الشريك',
     'Partner_Social_Media_Presence' => 'حضور الشريك على مواقع التواصل',
-    'employed' => 'موظف',
-    'unemployed' => 'عاطل عن العمل',
+    'employed_him' => 'يعمل',
+    'unemployed_him' => 'لا يعمل',
+    'employed_her' => 'تعمل',
+    'unemployed_her' => 'لا تعمل',
     'No_like_yet' => 'لا توجد إعجابات حتى الآن',
 
     'Update_Profile' => 'تحديث الملف الشخصي',

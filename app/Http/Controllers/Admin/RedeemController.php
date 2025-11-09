@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use App\Mail\ContactRedeemedMail;
+use Illuminate\Support\Facades\Mail;
 
 class RedeemController extends Controller
 {
@@ -17,11 +19,17 @@ class RedeemController extends Controller
 
     public function redeem(User $user)
     {
-        // Get the user's active subscription
         $subscription = $user->subscription()->where('status', 'active')->first();
 
         if ($subscription) {
             $subscription->increment('contacts_remaining');
+
+            // Determine user language
+            $lang = $user->preferred_language ?? 'en';
+
+            // Send email
+            Mail::to($user->email)->send(new ContactRedeemedMail($user, $lang));
+
             return response()->json(['message' => 'Contact redeemed successfully']);
         }
 
