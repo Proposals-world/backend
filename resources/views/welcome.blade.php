@@ -310,7 +310,7 @@ html[dir="rtl"] .contact-direction {
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 {{-- <img style="height:638px;" src="{{ asset('frontend/img/gallery/screen-1.jpeg') }}" --}}
-                                <img style="height:638px;" src="{{ asset('frontend/img/gallery/tolba-1.jpeg') }}"
+                                <img style="height:638px;max-width: 102%;" src="{{ asset('frontend/img/gallery/tolba-1.jpeg') }}"
                                     alt="slide 5">
                             </div>
                             <div class="swiper-slide">
