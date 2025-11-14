@@ -176,4 +176,5 @@ return [
     'values' => 'Values',
     'financial' => 'Financial',
     'hobbies' => 'Hobbies',
+    'slider_tagline' => 'Tolba: Where Tradition Meets Love',
 ];

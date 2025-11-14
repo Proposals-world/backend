@@ -89,19 +89,29 @@ html[dir="rtl"] .contact-direction {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="slider-content second-slider-content left-center">
-                            <h2 data-animation="fadeInUp" data-delay=".4s">
-                                {{ __('home.slider_title') }}
-                            </h2>
-                            <p data-animation="fadeInUp" data-delay=".6s">
-                                {{ __('home.slider_subtitle') }}
-                            </p>
-                            <div class="slider-btn mt-30 mb-30">
-                                <a  href="{{ route('register') }}" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">
-                                    {{ __('home.call_to_action') }}
-                                </a>
-                            </div>
-                        </div>
+                       <div class="slider-content second-slider-content left-center">
+
+    <!-- Bigger Tagline -->
+    <div class="slider-tagline mb-2" data-animation="fadeInUp" data-delay=".2s"
+         style="font-size: 17px; font-weight:600;">
+        {{ __('home.slider_tagline') }}
+    </div>
+
+    <h2 data-animation="fadeInUp" data-delay=".4s">
+        {{ __('home.slider_title') }}
+    </h2>
+
+    <p data-animation="fadeInUp" data-delay=".6s">
+        {{ __('home.slider_subtitle') }}
+    </p>
+
+    <div class="slider-btn mt-30 mb-30">
+        <a href="{{ route('register') }}" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">
+            {{ __('home.call_to_action') }}
+        </a>
+    </div>
+</div>
+
                     </div>
                     <div class="col-xl-4 col-lg-5">
                         {{-- <div class="matchmaking-form-wrapper">
