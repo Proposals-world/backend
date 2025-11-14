@@ -24,11 +24,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="tolba.world - Find Your Perfect Life Partner">
 <meta name="twitter:description" content="Join thousands of happy couples who discovered true love on tolba.world.">
-<meta name="twitter:image" content="{{ asset('frontend\img\logo\rings-tolba-logo.png') }}">
+<meta name="twitter:image" content="{{ asset('admin/assets/images/rings-tolba-logo.png') }}">
 
 <!-- Favicon & Apple Touch Icon -->
-<link rel="icon" type="image/jpeg" href="{{ asset('frontend\img\logo\rings-tolba-logo.png') }}">
-<link rel="apple-touch-icon" href="{{ asset('frontend\img\logo\rings-tolba-logo.png') }}">
+<link rel="icon" type="image/jpeg" href="{{ asset('admin/assets/images/rings-tolba-logo.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('admin/assets/images/rings-tolba-logo.png') }}">
     <!-- CSS here -->
     @if (app()->getLocale() === 'ar')
         <!-- RTL CSS -->
