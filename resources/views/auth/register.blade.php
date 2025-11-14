@@ -99,15 +99,25 @@
         <!-- Left Content: Registration Form -->
         <div class="auth-fluid-form-box">
             <div class="card-body d-flex flex-column h-100 gap-3">
-                <!-- Logo -->
-                <div class="auth-brand text-center text-lg-start">
-                    <a href="{{ url('/') }}" class="logo-dark" style="height: 63px;">
-                        <span><img src="{{ asset('admin/assets/images/tolba.png') }}" alt="dark logo" class="auth-logo"></span>
-                    </a>
-                    <a href="{{ url('/') }}" class="logo-light" style="height: 63px;">
-                        <span><img src="{{ asset('admin/assets/images/tolba.png') }}" alt="logo" height="24"></span>
-                    </a>
-                </div>
+   <div class="auth-brand text-center text-lg-start position-relative mb-3">
+
+    <!-- Language Switcher Positioned Top Right of Logo -->
+    <div style="position: absolute; top: 0; right: 0;">
+        <a class="btn btn-outline-primary btn-sm"
+           href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
+            {{ __('header.language_switcher') }}
+        </a>
+    </div>
+
+    <!-- Logo -->
+    <a href="{{ url('/') }}" class="logo-dark" style="height: 63px;">
+        <span><img src="{{ asset('admin/assets/images/tolba.png') }}" alt="dark logo" class="auth-logo"></span>
+    </a>
+    <a href="{{ url('/') }}" class="logo-light" style="height: 63px;">
+        <span><img src="{{ asset('admin/assets/images/tolba.png') }}" alt="logo" height="24"></span>
+    </a>
+
+</div>
 
                 <div class="my-auto">
                     <!-- Title -->
