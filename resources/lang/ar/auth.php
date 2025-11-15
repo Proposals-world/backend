@@ -37,6 +37,12 @@ return [
     'terms' => 'أوافق على ',
     'Terms and Conditions' => 'الشروط والأحكام',
     'Privacy Policy' => 'سياسة الخصوصية',
+    'Refund Policy' => 'سياسة الاسترجاع',
+    'Policy' => 'السياسة',
+    'I accept cookies' => 'أوافق على استخدام ملفات تعريف الارتباط',
+    'full_terms_text' => 'أوافق على :terms و :privacy و :refund و :cookies.',
+    'last_name_note' => 'للانضمام فقط ولن يظهر في التطبيق.',
+
     'passwordInsturction' => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، حرف صغير واحد، رقم واحد ورمز خاص واحد.',
 
     'and' => ' و',

@@ -66,6 +66,17 @@
             justify-content: center;
             padding: 2rem;
         }
+        .terms-label {
+    white-space: normal !important;   /* يسمح للنص يكمل */
+    display: inline-block;
+    line-height: 1.7;
+    text-align: start !important;
+}
+.form-check-label {
+    flex: 1 !important;
+    max-width: 100%;
+}
+
     </style>
 </head>
 <body class="authentication-bg pb-0">
@@ -143,6 +154,7 @@
                                 <div class="mb-3">
                                     <label for="last_name" class="form-label">{{ __('auth.last_name') }}</label>
                                     <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="{{ __('auth.last_name') }}" >
+                                    <small class="text-muted d-block mt-1">{{ __('auth.last_name_note') }}</small>
                                     @error('last_name')
                                         <div class="text-danger mt-2">{{ $message }}</div>
                                     @enderror
@@ -237,23 +249,31 @@
                         <div class="mb-3">
                             @if(app()->getLocale() === 'ar')
                                 <div class="form-check terms-container ">
-                                    <label class="form-check-label ms-2" for="terms">
-                                        {{ __('auth.terms') }}
-                                        <a href="{{ route('terms-and-conditions') }}" class="active"> {{ __('auth.Terms and Conditions') }}</a>
-                                        {{ __('auth.and') }}
-                                        <a href="{{ route('privacy-policy') }}">{{ __('auth.Privacy Policy') }}</a>
+                                      <label class="form-check-label" for="terms">
+                                        {!! __('auth.full_terms_text', [
+                                            'terms' => '<a href="'.route('terms-and-conditions').'" class="active">'.__('auth.Terms and Conditions').'</a>',
+                                            'privacy' => '<a href="'.route('privacy-policy').'">'.__('auth.Privacy Policy').'</a>',
+                                            'refund' => '<a href="'.route('cancellation-refund-policy').'">'.__('auth.Refund Policy').'</a>',
+                                            'cookies' => __('auth.I accept cookies'),
+                                        ]) !!}
                                     </label>
+
                                     <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
                                 </div>
                             @else
                                 <div class="form-check terms-container ">
                                     <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
                                     <label class="form-check-label" for="terms">
-                                        {{ __('auth.terms') }}
-                                        <a href="{{ route('terms-and-conditions') }}" class="active"> {{ __('auth.Terms and Conditions') }}</a>
-                                        {{ __('auth.and') }}
-                                        <a href="{{ route('privacy-policy') }}">{{ __('auth.Privacy Policy') }}</a>
+                                        {!! __('auth.full_terms_text', [
+                                            'terms' => '<a href="'.route('terms-and-conditions').'" class="active">'.__('auth.Terms and Conditions').'</a>',
+                                            'privacy' => '<a href="'.route('privacy-policy').'">'.__('auth.Privacy Policy').'</a>',
+                                            'refund' => '<a href="'.route('cancellation-refund-policy').'">'.__('auth.Refund Policy').'</a>',
+                                            'cookies' => __('auth.I accept cookies'),
+                                        ]) !!}
                                     </label>
+
+
+
                                 </div>
                             @endif
                             @error('terms')
