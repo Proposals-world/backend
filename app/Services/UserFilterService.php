@@ -312,6 +312,7 @@ class UserFilterService
             })
                 ->select('user_profiles.*')
                 ->selectRaw('CASE WHEN subscriptions.id IS NOT NULL THEN 1 ELSE 0 END as has_active_subscription')
+                ->distinct('user_profiles.id') // 👈 يمنع التكرار 100%
                 ->orderByDesc('has_active_subscription')
                 ->orderBy('user_profiles.created_at', 'desc');
         } else {
