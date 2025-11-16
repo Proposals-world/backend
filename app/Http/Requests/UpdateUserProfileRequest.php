@@ -4,14 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
-
 use App\Http\Requests\DefaultRequest;
 
 class UpdateUserProfileRequest extends FormRequest
 {
-
     use DefaultRequest;
 
+    /**
+     * Prepare guardian full phone number (E.164)
+     */
     protected function prepareForValidation(): void
     {
         if ($this->filled('country_code') && $this->filled('guardian_contact')) {
@@ -19,18 +20,18 @@ class UpdateUserProfileRequest extends FormRequest
             $iso       = $this->input('country_code');
             $dial      = $countries[$iso]['dial_code'] ?? '';
 
-            $national  = preg_replace('/\D+/', '', $this->input('guardian_contact'));
+            // Remove non-digits
+            $national = preg_replace('/\D+/', '', $this->input('guardian_contact'));
             // Remove leading zero if present
             $national = ltrim($national, '0');
-            // merge a full E.164 number for validation & use
+
+            // Create full E164 number
             $this->merge(['_guardian_full' => $dial . $national]);
         }
     }
 
     public function rules()
     {
-        $country = $this->input('country_code') ?: 'ANY';
-
         $rules = [
             'nickname' => 'required|string|max:255',
             'photo_url' => 'nullable|image',
@@ -63,26 +64,37 @@ class UpdateUserProfileRequest extends FormRequest
             'hobbies' => 'nullable|array',
             'hobbies.*' => 'integer|exists:hobbies,id',
             'pets' => 'nullable|array',
-            'hijab_status' => 'nullable|boolean',
-            'financial_status_id' => 'required|integer|exists:financial_statuses,id',
             'pets.*' => 'integer|exists:pets,id',
             'health_issues_en' => 'nullable|string|max:2000',
             'health_issues_ar' => 'nullable|string|max:2000',
-            'guardian_contact' => 'nullable|string',
             'car_ownership' => 'required|boolean',
+            'financial_status_id' => 'required|integer|exists:financial_statuses,id',
             'religiosity_level_id' => 'required|integer|exists:religiosity_levels,id',
             'sleep_habit_id' => 'nullable|integer|exists:sleep_habits,id',
             'marriage_budget_id' => 'nullable|integer|exists:marriage_budgets,id',
             'position_level_id' => 'nullable|integer|exists:position_levels,id',
             'eye_color_id' => 'nullable|integer|exists:eye_colors,id',
             'city_location_id' => 'nullable|string|max:255',
-            // 'country_code'      => 'required|string|size:2',
-
         ];
-        // 👇 Apply only if authenticated user is female
-        if (auth()->user()?->gender === 'female' || true) {
+
+        // -------------------------------------------------------
+        // 👩 FEMALE ONLY → guardian required + country code required
+        // -------------------------------------------------------
+        if (auth()->user()?->gender === 'female') {
             $rules['country_code'] = 'required|string|size:2';
+            $rules['guardian_contact'] = 'required|string';
         }
+        // -------------------------------------------------------
+        // 👨 MALE → both optional
+        // -------------------------------------------------------
+        else {
+            $rules['country_code'] = 'nullable|string|size:2';
+            $rules['guardian_contact'] = 'nullable|string';
+        }
+
+        // -------------------------------------------------------
+        // Smoking tools required only when smoking_status = 1
+        // -------------------------------------------------------
         if ($this->input('smoking_status') == 1) {
             $rules['smoking_tools'] = [
                 'required',
@@ -97,22 +109,31 @@ class UpdateUserProfileRequest extends FormRequest
 
         return $rules;
     }
+
+    /**
+     * After validator: Apply phone number validation on guardian_contact
+     */
     public function withValidator($validator)
     {
         $validator->after(function ($v) {
-            if ($this->filled('_guardian_full')) {
-                // apply country‐specific phone rule
-                $rule  = 'phone:' . $this->input('country_code');
-                $check = Validator::make(
-                    ['full' => $this->input('_guardian_full')],
-                    ['full' => $rule]
+
+            // If no country code or guardian number → skip
+            if (! $this->filled('_guardian_full') || ! $this->filled('country_code')) {
+                return;
+            }
+
+            $rule  = 'phone:' . $this->input('country_code');
+
+            $check = Validator::make(
+                ['full' => $this->input('_guardian_full')],
+                ['full' => $rule]
+            );
+
+            if (! $check->passes()) {
+                $v->errors()->add(
+                    'guardian_contact',
+                    __('validation.custom.phone_number.phone')
                 );
-                if (! $check->passes()) {
-                    $v->errors()->add(
-                        'guardian_contact',
-                        __('validation.custom.phone_number.phone')
-                    );
-                }
             }
         });
     }
