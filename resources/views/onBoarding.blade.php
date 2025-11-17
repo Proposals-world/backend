@@ -1,3 +1,8 @@
+
+
+
+
+
 @extends('frontend.layouts.app')
 @section('section')
 
@@ -290,7 +295,7 @@
                                                 <label class="form-label">{{ __('onboarding.photo_upload') }} <span class="required-field">*</span></label>
                                                 <div class="custom-file">
                                                     <input type="file" name="photo_url" class="custom-file-input"
-                                                        id="customFile" accept="image/*" >
+                                                        id="customFile" accept="image/*" required>
                                                     <label class="custom-file-label"
                                                         for="customFile">{{ __('onboarding.choose_photo') }}</label>
                                                 </div>
@@ -1218,6 +1223,16 @@ if (key === "city_location_id") {
 if (key === "country_of_residence_id") {
     savedCountryValue = data[key];
 }
+if (key === "guardian_contact") {
+    $('#guardian_contact_input').val(data[key]);
+
+    // ⭐ قم بتفعيل الفالديشن تلقائيًا عند التحميل
+    setTimeout(() => {
+        if (typeof validateGuardianContact === 'function') {
+            validateGuardianContact();
+        }
+    }, 500);
+}
 
 
 if (el.prop("multiple")) {
@@ -1347,10 +1362,18 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
 
 
             $(document).ready(function() {
-                $("#final-submit-button").prop("disabled", true);
+                var pageReloaded = performance.navigation.type === 1;
 
-            $(".btn-text").hide();
-            $(".btn-loader").show();
+if (!pageReloaded) {
+    // ⭐ بدون ريفريش → اعتبر كل الـ APIs Loaded
+    loadedApis = totalApis;
+
+}
+if (pageReloaded) {
+    $(".btn-text").hide();
+    $(".btn-loader").show();
+    $("#final-submit-button").prop("disabled", true);
+}
 
             // Load form data FIRST (before select2 initialization)
             loadFormDataFromLocalStorage();
@@ -1360,6 +1383,8 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
 
             // Load step AFTER form data
             let startingStep = loadSavedStep();
+            applyStepRequiredRules($(`#step-${startingStep}`));
+
             function validateReligiosityLevel() {
                 // DO NOT modify required dynamically — it breaks restore + API loading
                 // Just check validity, leave required always true in the HTML
@@ -1804,6 +1829,8 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
                         currentStep.hide();
                         nextStep.show();
                         updateStepIndicator(currentIndex + 1);
+                                applyStepRequiredRules(nextStep);
+
                         $('html, body').animate({
                             scrollTop: 0
                         }, 'fast');
@@ -1811,56 +1838,70 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
                         onStepShown(currentIndex + 1);
 
                 });
-                // let startingStep = loadSavedStep();
-
-function autoValidateStep(step) {
-    // نحدد كل الحقول داخل الستيب
-    $(step).find('input, select, textarea').each(function() {
-        $(this).data('touched', true); // نعتبره تم لمسه
-        validateField(this); // 🔥 نفس الدالة التي لديك
-    });
-
-    // 🔥 استخدم validateStep الأصلي
-    if (validateStep(step)) {
-        $(step).find('.next-step').prop('disabled', false);
-    } else {
-        $(step).find('.next-step').prop('disabled', true);
-    }
-}
-
-setTimeout(() => {
-    let currentStep = $(`#step-${startingStep}`);
-    autoValidateStep(currentStep);
-}, 300);
-
 
                 $('.prev-step').click(function() {
                     var currentStep = $(this).closest('.onboarding-step');
                     var currentStepId = currentStep.attr('id');
                     var currentIndex = parseInt(currentStepId.split('-')[1]);
                     var prevStep = currentStep.prev('.onboarding-step');
-                     saveCurrentFormToLocalStorage();
-    saveCurrentStep(currentIndex - 1);
+
+                    // حفظ بيانات الخطوة
+                    saveCurrentFormToLocalStorage();
+                    saveCurrentStep(currentIndex - 1);
+                        applyStepRequiredRules(prevStep);
+
+                    // إظهار الخطوة السابقة
                     currentStep.hide();
                     prevStep.show();
-                    updateStepIndicator(currentIndex - 1);
-                        autoValidateStep(prevStep);
 
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, 'fast');
+                    updateStepIndicator(currentIndex - 1);
+
+                    // ⭐ أهم شيء: فعل الفالديشن الموجودة مسبقاً
+                    // ضع جميع حقول الخطوة السابقة كـ touched
+                    prevStep.find('input, select, textarea').each(function() {
+                        $(this).data('touched', true);
+                        validateField(this);  // ← الفالديشن الموجودة عندك
+                    });
+
+                    // ⭐ استخدم validateStep الأصلي
+                    if (validateStep(prevStep)) {
+                        prevStep.find('.next-step').prop('disabled', false);
+                    } else {
+                        prevStep.find('.next-step').prop('disabled', true);
+                    }
+
+                    // ⭐ منع أي لودر عن previous
+                    $(".btn-text").show();
+                    $(".btn-loader").hide();
+
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
                 });
+/* ============================================================
+   FIX: HTML5 “invalid form control is not focusable”
+   By enabling required ONLY for visible step
+   ============================================================ */
+
+function applyStepRequiredRules(step) {
+    // اجعل جميع required داخل الستب الحالية فعّالة
+    step.find('[required]').each(function () {
+        $(this).prop('required', true);
+    });
+
+    // عطّل required داخل كل الستبات المخفية
+    $('.onboarding-step').not(step).find('[required]').prop('required', false);
+}
+
                 // Replace your existing disclaimerAgreement change handler with this
                 $('#disclaimerAgreement').on('change', function() {
                     $(this).data('touched', true);
                     validateField(this);
 
                     // Directly enable/disable the submit button based on checkbox state
-                    if ($(this).is(':checked') && loadedApis >= totalApis) {
-        $("#final-submit-button").prop("disabled", false);
-    } else {
-        $("#final-submit-button").prop("disabled", true);
-    }
+                        if ($(this).is(':checked') && loadedApis >= totalApis) {
+            $("#final-submit-button").prop("disabled", false);
+        } else {
+            $("#final-submit-button").prop("disabled", true);
+        }
                 });
                 $('#onboarding-form').on('submit', function(e) {
                     e.preventDefault();

@@ -164,6 +164,8 @@ class UserProfileService
 
 
         $profile->save();
+        $user->load('profile');
+
         // Handle Smoking Tools based on Smoking Status
         if (isset($data['smoking_status']) && $data['smoking_status'] == 1) {
             if (isset($data['smoking_tools']) && is_array($data['smoking_tools'])) { // missing

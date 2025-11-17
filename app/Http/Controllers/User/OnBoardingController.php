@@ -58,7 +58,6 @@ class OnBoardingController extends Controller
         // dd($request->file('photo_url'));
         $user = $request->user();
         $data = $request->all();
-
         // If a new profile image is uploaded, update the profile image.
         if ($request->hasFile('photo_url')) {
             $user = $this->userProfileService->updateProfilePhoto($user, $request->file('photo_url'));
