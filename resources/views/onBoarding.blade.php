@@ -1112,6 +1112,10 @@
         <script>
             // Assume user gender is available from a hidden field or global variable.
             var userGender = "{{ old('gender', auth()->user()->gender ?? '') }}";
+            var savedReligiosityValue = null;
+            var savedCityValue = null;
+            var savedCityLocationValue = null;
+
             $('#religion_id').on('change', function() {
                 var religionId = $(this).val();
                 var gender = "{{ old('gender', auth()->user()->gender ?? '') }}"; // You already have user's gender.
@@ -1120,29 +1124,9 @@
                     .empty()
                     .append('<option value="">{{ __('onboarding.select_religiosity') }}</option>');
 
-                if (religionId) {
-                    $.ajax({
-                        url: "{{ url('user/religious-levels-gender') }}",
-                        type: 'GET',
-                        data: {
-                            religion_id: religionId,
-                            gender: gender === 'male' ? 1 : 2
-                        },
-                        success: function(response) {
-                            if (response.religiousLevels && response.religiousLevels.length > 0) {
-                                $.each(response.religiousLevels, function(index, level) {
-                                    $('#religiosity_levels').append(
-                                        '<option value="' + level.id + '">' + level.name +
-                                        '</option>'
-                                    );
-                                });
-                            }
-                        },
-                        error: function(xhr) {
-                            console.error('Error fetching religiosity levels:', xhr.responseText);
-                        }
-                    });
-                }
+                  if (religionId) {
+        loadReligiosityLevelsByReligion(religionId, null);
+    }
             });
             $('select[name="marital_status_id"]').on('change', function() {
                 var selectedMaritalStatus = $(this).val();
@@ -1155,41 +1139,217 @@
                 }
             });
 
-            // Save progress to localStorage and load on page load.
-            const formSelector = '#onboarding-form';
-            const formStorageKey = 'onboardingFormData';
+           /* ============================================================
+   LOCAL STORAGE AUTO SAVE SYSTEM FOR ONBOARDING
+   ============================================================ */
 
-            // function saveFormData() {
-            //     const formData = $(formSelector).serializeArray();
-            //     let dataObj = {};
-            //     formData.forEach(item => {
-            //         dataObj[item.name] = item.value;
-            //     });
-            //     localStorage.setItem(formStorageKey, JSON.stringify(dataObj));
-            // }
+const LS_KEY_DATA = "onboardingFormData";
+const LS_KEY_STEP = "onboardingCurrentStep";
 
-            // function loadFormData() {
-            //     const stored = localStorage.getItem(formStorageKey);
-            //     if (stored) {
-            //         const dataObj = JSON.parse(stored);
-            //         for (const [key, value] of Object.entries(dataObj)) {
-            //             $(`[name="${key}"]`).val(value);
-            //         }
-            //     }
-            // }
+function saveCurrentFormToLocalStorage() {
+    let data = {};
+
+    // Save all inputs, selects, textareas
+    $("#onboarding-form")
+        .find("input, select, textarea")
+        .each(function () {
+            const name = $(this).attr("name");
+            if (!name) return;
+
+            // Skip hidden select2 search field
+            if ($(this).hasClass("select2-search__field")) return;
+
+            if ($(this).is(":file")) return; // ignore files
+
+            if ($(this).prop("multiple")) {
+                data[name] = $(this).val() || [];
+            } else {
+                data[name] = $(this).val();
+            }
+        });
+
+    localStorage.setItem(LS_KEY_DATA, JSON.stringify(data));
+}
+
+function loadFormDataFromLocalStorage() {
+    let stored = localStorage.getItem(LS_KEY_DATA);
+
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+
+    for (let key in data) {
+        let el = $(`[name="${key}"]`);
+
+        if (!el.length) continue;
+
+      if (key === "religiosity_level_id") {
+    savedReligiosityValue = data[key]; // ⬅️ خزّن القيمة لحين تحميل API
+}
+if (key === "city_id") {
+    savedCityValue = data[key];
+}
+
+if (key === "city_location_id") {
+    savedCityLocationValue = data[key];
+}
+
+if (key === "country_of_residence_id") {
+    savedCountryValue = data[key];
+}
+
+
+if (el.prop("multiple")) {
+    el.val(data[key]).trigger("change");
+} else {
+    el.val(data[key]).trigger("change");
+}
+
+    }
+}
+
+function saveCurrentStep(stepIndex) {
+    localStorage.setItem(LS_KEY_STEP, stepIndex);
+}
+// AUTO LOAD COUNTRY → CITY → LOCATION IF THEY EXIST IN STORAGE
+function autoLoadCityAndLocation() {
+    if (!savedCountryValue) return;
+
+    // 1️⃣ اضبط الدولة
+    $('#country_id').val(savedCountryValue);
+
+    // 2️⃣ حمل المدن
+    $.ajax({
+        url: "{{ route('cities.by.country', '') }}/" + savedCountryValue,
+        type: "GET",
+        success: function(cities) {
+
+            $('#city_id')
+                .empty()
+                .append('<option value="">{{ __("onboarding.select_city") }}</option>');
+
+            cities.forEach(city => {
+                $('#city_id').append(`<option value="${city.id}">${city.name}</option>`);
+            });
+
+            // 3️⃣ استعادة المدينة
+            if (savedCityValue) {
+                $('#city_id').val(savedCityValue);
+            }
+
+            // 4️⃣ إذا المدينة موجودة → حمّل المناطق مباشرة
+            if (savedCityValue) {
+                loadCityLocations(savedCityValue);
+            }
+        }
+    });
+}
+
+// LOAD CITY LOCATIONS FUNCTION
+function loadCityLocations(cityId) {
+    $.ajax({
+        url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+        type: "GET",
+        success: function(locations) {
+
+            $('#city_location_id')
+                .empty()
+                .append('<option value="">{{ __("onboarding.city_location") }}</option>');
+
+            locations.forEach(location => {
+                $('#city_location_id').append(
+                    `<option value="${location.id}">${location.name}</option>`
+                );
+            });
+
+            // 5️⃣ استعادة المنطقة المحفوظة
+            if (savedCityLocationValue) {
+                $('#city_location_id').val(savedCityLocationValue);
+            }
+        }
+    });
+}
+
+function loadSavedStep() {
+    let saved = localStorage.getItem(LS_KEY_STEP);
+    if (!saved) return 0;
+
+    saved = parseInt(saved);
+
+    $(".onboarding-step").hide();
+    $(`#step-${saved}`).show();
+
+    $(".step-indicator").removeClass("active");
+    $(`.step-indicator[data-step="${saved}"]`).addClass("active");
+
+    return saved;
+}
+function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
+    $('#religiosity_levels')
+        .empty()
+        .append('<option value="">{{ __("onboarding.select_religiosity") }}</option>');
+
+    if (!religionId) return;
+
+    $.ajax({
+        url: "{{ url('user/religious-levels-gender') }}",
+        type: 'GET',
+        data: {
+            religion_id: religionId,
+            gender: userGender === 'male' ? 1 : 2
+        },
+        success: function (response) {
+
+            if (response.religiousLevels && response.religiousLevels.length > 0) {
+                response.religiousLevels.forEach(function (level) {
+                    $('#religiosity_levels').append(
+                        `<option value="${level.id}">${level.name}</option>`
+                    );
+                });
+            }
+
+            // ⭐ اختار القيمة المحفوظة بدقة فائقة
+            let finalValue = selectedLevel || savedReligiosityValue;
+
+            if (finalValue) {
+                $('#religiosity_levels').val(finalValue).trigger('change');
+            }
+        }
+    });
+}
+
 
             $(document).ready(function() {
-                function validateReligiosityLevel() {
-                    var religiosityField = $('select[name="religiosity_level_id"]');
-                    var religiosityValue = religiosityField.val();
+            // Load form data FIRST (before select2 initialization)
+            loadFormDataFromLocalStorage();
+            setTimeout(() => {
+                autoLoadCityAndLocation();
+            }, 200);
 
-                    // If the field is empty, set it to required
-                    if (!religiosityValue) {
-                        religiosityField.prop('required', true);
-                    } else {
-                        religiosityField.prop('required', false);
-                    }
+            // Load step AFTER form data
+            let startingStep = loadSavedStep();
+            function validateReligiosityLevel() {
+                // DO NOT modify required dynamically — it breaks restore + API loading
+                // Just check validity, leave required always true in the HTML
+                var field = $('select[name="religiosity_level_id"]');
+
+                if (!field.val()) {
+                    field.addClass('is-invalid');
+                } else {
+                    field.removeClass('is-invalid');
                 }
+            }
+
+          function onStepShown(stepIndex) {
+    if (stepIndex === 1) {
+        let religionVal = $('[name="religion_id"]').val();
+
+        if (religionVal) {
+            loadReligiosityLevelsByReligion(religionVal, savedReligiosityValue);
+        }
+    }
+}
+
 
                 // Run the check when the page loads
                 validateReligiosityLevel();
@@ -1231,6 +1391,7 @@
                         $select.append('<option value="' + option.id + '">' + option.name + '</option>');
                     });
                 }
+
 
                 // Toggle Smoking Tools based on Smoking Status
                 function toggleSmokingTools() {
@@ -1603,6 +1764,11 @@
                         var currentStepId = currentStep.attr('id');
                         var currentIndex = parseInt(currentStepId.split('-')[1]);
                         var nextStep = currentStep.next('.onboarding-step');
+                        // Save current step form data
+    saveCurrentFormToLocalStorage();
+
+    // Save next step number
+    saveCurrentStep(currentIndex + 1);
                         currentStep.hide();
                         nextStep.show();
                         updateStepIndicator(currentIndex + 1);
@@ -1610,6 +1776,8 @@
                             scrollTop: 0
                         }, 'fast');
                     }
+                        onStepShown(currentIndex + 1);
+
                 });
 
                 $('.prev-step').click(function() {
@@ -1617,6 +1785,8 @@
                     var currentStepId = currentStep.attr('id');
                     var currentIndex = parseInt(currentStepId.split('-')[1]);
                     var prevStep = currentStep.prev('.onboarding-step');
+                     saveCurrentFormToLocalStorage();
+    saveCurrentStep(currentIndex - 1);
                     currentStep.hide();
                     prevStep.show();
                     updateStepIndicator(currentIndex - 1);
