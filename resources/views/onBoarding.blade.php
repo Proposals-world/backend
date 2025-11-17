@@ -200,6 +200,13 @@
                 -webkit-touch-callout: auto;
             }
         }
+#final-submit-button {
+    position: relative;
+}
+#final-submit-button .btn-loader {
+    vertical-align: middle;
+    margin-left: 8px;
+}
 
         /* onboarding css ends */
     </style>
@@ -283,7 +290,7 @@
                                                 <label class="form-label">{{ __('onboarding.photo_upload') }} <span class="required-field">*</span></label>
                                                 <div class="custom-file">
                                                     <input type="file" name="photo_url" class="custom-file-input"
-                                                        id="customFile" accept="image/*" required>
+                                                        id="customFile" accept="image/*" >
                                                     <label class="custom-file-label"
                                                         for="customFile">{{ __('onboarding.choose_photo') }}</label>
                                                 </div>
@@ -883,7 +890,7 @@
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.city') }} <span class="required-field">*</span></label>
                                                         <select name="city_id" id="city_id"
-                                                            class="form-control rounded-pill" required>
+                                                            class="form-control rounded-pill" >
                                                             <option value="">{{ __('onboarding.select_city') }}
                                                             </option>
                                                         </select>
@@ -896,7 +903,7 @@
                                                         <label
                                                             class="form-label">{{ __('onboarding.city_location') }} <span class="required-field">*</span></label>
                                                         <select name="city_location_id" id="city_location_id"
-                                                            class="form-control rounded-pill" required>
+                                                            class="form-control rounded-pill" >
                                                             <option value="">{{ __('onboarding.city_location') }}
                                                             </option>
                                                         </select>
@@ -1094,7 +1101,9 @@
                                                 </button>
                                                 <button type="submit" class="btn btn-success rounded-pill"
                                                     id="final-submit-button" disabled>
-                                                    {{ __('onboarding.submit') }} <i class="fas fa-check ml-2"></i>
+                                                    {{-- {{ __('onboarding.submit') }}  --}}
+                                                        <span class="btn-loader spinner-border spinner-border-sm" style="display:none;"></span>
+                                                        <span class="btn-text">{{ __('onboarding.submit') }}<i class="fas fa-check ml-2"></i></span>
                                                 </button>
                                             </div>
                                         </div>
@@ -1115,6 +1124,19 @@
             var savedReligiosityValue = null;
             var savedCityValue = null;
             var savedCityLocationValue = null;
+            var totalApis = 3;
+            var loadedApis = 0;
+
+            function apiLoaded() {
+                loadedApis++;
+
+                // إذا انتهت كل الـ APIs → نرجع النص الأصلي
+                if (loadedApis >= totalApis) {
+                    $(".btn-text").show();
+                    $(".btn-loader").hide();
+                }
+                console.log("API Loaded: " + loadedApis + "/" + totalApis);
+            }
 
             $('#religion_id').on('change', function() {
                 var religionId = $(this).val();
@@ -1168,11 +1190,11 @@ function saveCurrentFormToLocalStorage() {
             }
         });
 
-    localStorage.setItem(LS_KEY_DATA, JSON.stringify(data));
+    sessionStorage.setItem(LS_KEY_DATA, JSON.stringify(data));
 }
 
 function loadFormDataFromLocalStorage() {
-    let stored = localStorage.getItem(LS_KEY_DATA);
+    let stored = sessionStorage.getItem(LS_KEY_DATA);
 
     if (!stored) return;
 
@@ -1209,7 +1231,7 @@ if (el.prop("multiple")) {
 }
 
 function saveCurrentStep(stepIndex) {
-    localStorage.setItem(LS_KEY_STEP, stepIndex);
+    sessionStorage.setItem(LS_KEY_STEP, stepIndex);
 }
 // AUTO LOAD COUNTRY → CITY → LOCATION IF THEY EXIST IN STORAGE
 function autoLoadCityAndLocation() {
@@ -1241,6 +1263,8 @@ function autoLoadCityAndLocation() {
             if (savedCityValue) {
                 loadCityLocations(savedCityValue);
             }
+                apiLoaded();
+
         }
     });
 }
@@ -1266,12 +1290,14 @@ function loadCityLocations(cityId) {
             if (savedCityLocationValue) {
                 $('#city_location_id').val(savedCityLocationValue);
             }
+                apiLoaded();
+
         }
     });
 }
 
 function loadSavedStep() {
-    let saved = localStorage.getItem(LS_KEY_STEP);
+    let saved = sessionStorage.getItem(LS_KEY_STEP);
     if (!saved) return 0;
 
     saved = parseInt(saved);
@@ -1314,12 +1340,19 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
             if (finalValue) {
                 $('#religiosity_levels').val(finalValue).trigger('change');
             }
+            apiLoaded();
+
         }
     });
 }
 
 
             $(document).ready(function() {
+                $("#final-submit-button").prop("disabled", true);
+
+            $(".btn-text").hide();
+            $(".btn-loader").show();
+
             // Load form data FIRST (before select2 initialization)
             loadFormDataFromLocalStorage();
             setTimeout(() => {
@@ -1800,30 +1833,39 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
                     validateField(this);
 
                     // Directly enable/disable the submit button based on checkbox state
-                    if ($(this).is(':checked')) {
-                        $('#final-submit-button').prop('disabled', false);
-                    } else {
-                        $('#final-submit-button').prop('disabled', true);
-                    }
+                    if ($(this).is(':checked') && loadedApis >= totalApis) {
+        $("#final-submit-button").prop("disabled", false);
+    } else {
+        $("#final-submit-button").prop("disabled", true);
+    }
                 });
                 $('#onboarding-form').on('submit', function(e) {
                     e.preventDefault();
+
                     var currentStep = $('.onboarding-step:visible');
                     markStepFieldsAsTouched(currentStep);
+
                     if (!validateStep(currentStep)) {
                         return false;
                     }
+
+                    // Ensure disclaimer is checked
                     if (!$('#disclaimerAgreement').prop('checked')) {
                         $('#disclaimerAgreement').addClass('is-invalid');
-                        $('#disclaimerAgreement').closest('.form-check').find('.error-message').text(
-                            "{{ __('onboarding.consent_required') }}");
-                        e.preventDefault();
+                        $('#disclaimerAgreement')
+                            .closest('.form-check')
+                            .find('.error-message')
+                            .text("{{ __('onboarding.consent_required') }}");
                         return false;
                     }
-                    // clear saved form data from localStorage upon successful submission.
-                    localStorage.removeItem(formStorageKey);
-                    this.submit();
+
+                    // 🔥🔥🔥 حذف بيانات sessionStorage عند الضغط على SUBMIT
+                    sessionStorage.removeItem("onboardingFormData");
+                    sessionStorage.removeItem("onboardingCurrentStep");
+
+                    this.submit(); // allow real submit
                 });
+
 
                 function updateStepIndicator(currentIndex) {
                     $('.step-indicator').each(function(index) {
