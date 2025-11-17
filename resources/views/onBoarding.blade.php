@@ -1135,7 +1135,6 @@
                     $(".btn-text").show();
                     $(".btn-loader").hide();
                 }
-                console.log("API Loaded: " + loadedApis + "/" + totalApis);
             }
 
             $('#religion_id').on('change', function() {
@@ -1812,6 +1811,28 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
                         onStepShown(currentIndex + 1);
 
                 });
+                // let startingStep = loadSavedStep();
+
+function autoValidateStep(step) {
+    // نحدد كل الحقول داخل الستيب
+    $(step).find('input, select, textarea').each(function() {
+        $(this).data('touched', true); // نعتبره تم لمسه
+        validateField(this); // 🔥 نفس الدالة التي لديك
+    });
+
+    // 🔥 استخدم validateStep الأصلي
+    if (validateStep(step)) {
+        $(step).find('.next-step').prop('disabled', false);
+    } else {
+        $(step).find('.next-step').prop('disabled', true);
+    }
+}
+
+setTimeout(() => {
+    let currentStep = $(`#step-${startingStep}`);
+    autoValidateStep(currentStep);
+}, 300);
+
 
                 $('.prev-step').click(function() {
                     var currentStep = $(this).closest('.onboarding-step');
@@ -1823,6 +1844,8 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
                     currentStep.hide();
                     prevStep.show();
                     updateStepIndicator(currentIndex - 1);
+                        autoValidateStep(prevStep);
+
                     $('html, body').animate({
                         scrollTop: 0
                     }, 'fast');
