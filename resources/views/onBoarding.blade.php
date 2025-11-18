@@ -485,7 +485,7 @@
                                                         <label
                                                             class="form-label">{{ __('onboarding.religiosity_level') }} <span class="required-field">*</span></label>
                                                         <select id="religiosity_levels" name="religiosity_level_id"
-                                                            class="form-control rounded-pill">
+                                                            class="form-control rounded-pill" required>
                                                             <option value="">
                                                                 {{ __('onboarding.select_religiosity') }}</option>
                                                             {{-- @foreach ($data['religiousLevels'] as $religiousLevel)
@@ -895,7 +895,7 @@
                                                     <div class="form-group">
                                                         <label class="form-label">{{ __('onboarding.city') }} <span class="required-field">*</span></label>
                                                         <select name="city_id" id="city_id"
-                                                            class="form-control rounded-pill" >
+                                                            class="form-control rounded-pill" required >
                                                             <option value="">{{ __('onboarding.select_city') }}
                                                             </option>
                                                         </select>
@@ -908,7 +908,7 @@
                                                         <label
                                                             class="form-label">{{ __('onboarding.city_location') }} <span class="required-field">*</span></label>
                                                         <select name="city_location_id" id="city_location_id"
-                                                            class="form-control rounded-pill" >
+                                                            class="form-control rounded-pill" required >
                                                             <option value="">{{ __('onboarding.city_location') }}
                                                             </option>
                                                         </select>
@@ -1129,8 +1129,10 @@
             var savedReligiosityValue = null;
             var savedCityValue = null;
             var savedCityLocationValue = null;
+            var savedCountryValue = null;
             var totalApis = 3;
             var loadedApis = 0;
+            var guardianContactValid = false;
 
             function apiLoaded() {
                 loadedApis++;
@@ -1197,52 +1199,7 @@ function saveCurrentFormToLocalStorage() {
     sessionStorage.setItem(LS_KEY_DATA, JSON.stringify(data));
 }
 
-function loadFormDataFromLocalStorage() {
-    let stored = sessionStorage.getItem(LS_KEY_DATA);
 
-    if (!stored) return;
-
-    let data = JSON.parse(stored);
-
-    for (let key in data) {
-        let el = $(`[name="${key}"]`);
-
-        if (!el.length) continue;
-
-      if (key === "religiosity_level_id") {
-    savedReligiosityValue = data[key]; // ⬅️ خزّن القيمة لحين تحميل API
-}
-if (key === "city_id") {
-    savedCityValue = data[key];
-}
-
-if (key === "city_location_id") {
-    savedCityLocationValue = data[key];
-}
-
-if (key === "country_of_residence_id") {
-    savedCountryValue = data[key];
-}
-if (key === "guardian_contact") {
-    $('#guardian_contact_input').val(data[key]);
-
-    // ⭐ قم بتفعيل الفالديشن تلقائيًا عند التحميل
-    setTimeout(() => {
-        if (typeof validateGuardianContact === 'function') {
-            validateGuardianContact();
-        }
-    }, 500);
-}
-
-
-if (el.prop("multiple")) {
-    el.val(data[key]).trigger("change");
-} else {
-    el.val(data[key]).trigger("change");
-}
-
-    }
-}
 
 function saveCurrentStep(stepIndex) {
     sessionStorage.setItem(LS_KEY_STEP, stepIndex);
@@ -1310,6 +1267,28 @@ function loadCityLocations(cityId) {
     });
 }
 
+                 function resetCityLocationIfEmpty() {
+    const $loc = $('#city_location_id');
+    const optionCount = $loc.find('option').length;
+
+    // If ONLY placeholder exists → remove any validation state
+    if (optionCount <= 1) {
+        $loc.prop('required', false);
+        $loc.data('touched', false);
+
+        // Remove all validation classes
+        $loc.removeClass('is-valid is-invalid');
+        $loc.closest('.form-group').find('.error-message').text('');
+
+        // ⭐ NEW LINE → mark as valid (green)
+        $loc.addClass('is-valid');
+
+        return true; // means: empty → don't validate
+    }
+
+    return false; // means: has data → normal behavior
+}
+
 function loadSavedStep() {
     let saved = sessionStorage.getItem(LS_KEY_STEP);
     if (!saved) return 0;
@@ -1362,7 +1341,9 @@ function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
 
 
             $(document).ready(function() {
-                var pageReloaded = performance.navigation.type === 1;
+
+const navEntries = performance.getEntriesByType("navigation");
+const pageReloaded = navEntries.length > 0 && navEntries[0].type === "reload";
 
 if (!pageReloaded) {
     // ⭐ بدون ريفريش → اعتبر كل الـ APIs Loaded
@@ -1407,122 +1388,18 @@ if (pageReloaded) {
     }
 }
 
-
-                // Run the check when the page loads
-                validateReligiosityLevel();
-
-                // Check again if the field changes
-                $('select[name="religiosity_level_id"]').on('change', function() {
-                    validateReligiosityLevel();
-                });
-                // loadFormData();
-
-                // Save data on change
-                // $('#onboarding-form').on('change', 'input, select, textarea', function() {
-                //     // saveFormData();
-                // });
-
-                // Initialize Select2 on multi-selects
-                $('select[multiple]').select2({
-                    placeholder: "{{ __('profile.you_can_select_more_than_one') }}",
-                    allowClear: true
-                });
-
-                // Remove housing and marriage budget for female users
-                if (userGender === 'female') {
-                    // In Step 3, remove housing status and marriage budget fields
-                    $('select[name="housing_status_id"]').closest('.form-group').remove();
-                    $('select[name="marriage_budget_id"]').closest('.form-group').remove();
-                }
-
-                // Remove guardian contact for male users (Step 4)
-                if (userGender === 'male') {
-                    $('input[name="guardian_contact"]').closest('.form-group').remove();
-                }
-
-                if (window.religiousLevels) {
-                    var $select = $('#religiosity_levels');
-                    $select.empty();
-                    $select.append('<option value="">{{ __('onboarding.select_religiosity') }}</option>');
-                    window.religiousLevels.forEach(function(option) {
-                        $select.append('<option value="' + option.id + '">' + option.name + '</option>');
-                    });
-                }
-
-
-                // Toggle Smoking Tools based on Smoking Status
-                function toggleSmokingTools() {
-                    var smokingStatus = $('select[name="smoking_status"]').val();
-                    var $smokingToolsWrapper = $('.smoking-tools-wrapper');
-                    if (smokingStatus === "1") {
-                        $smokingToolsWrapper.show();
-                        $smokingToolsWrapper.find('select').prop('required', true);
-                    } else {
-                        $smokingToolsWrapper.hide();
-                        $smokingToolsWrapper.find('select').prop('required', false).val('').trigger('change');
-                        $smokingToolsWrapper.find('select').removeClass('is-valid is-invalid');
-                        $smokingToolsWrapper.find('.error-message').text('');
-                    }
-                }
-
-                // Toggle Job Title based on Employment Status
-                function toggleJobTitle() {
-                    var employmentStatus = $('select[name="employment_status"]').val();
-                    var $jobTitleWrapper = $('.job-title-wrapper');
-                    var $positionLevelWrapper = $('.position-level-wrapper');
-                    if (employmentStatus === "1") {
-                        $jobTitleWrapper.show();
-                        $jobTitleWrapper.find('select').prop('required', true);
-                        $positionLevelWrapper.show();
-                        $positionLevelWrapper.find('select').prop('required', true);
-                    } else {
-                        $jobTitleWrapper.hide();
-                        $jobTitleWrapper.find('select').prop('required', false).val('').trigger('change');
-                        $jobTitleWrapper.find('select').removeClass('is-valid is-invalid');
-                        $jobTitleWrapper.find('.error-message').text('');
-                        $positionLevelWrapper.hide();
-                        $positionLevelWrapper.find('select').prop('required', false).val('').trigger('change');
-                        $positionLevelWrapper.find('select').removeClass('is-valid is-invalid');
-                        $positionLevelWrapper.find('.error-message').text('');
-                    }
-                }
-
-                // Run toggles on page load
-                toggleSmokingTools();
-                toggleJobTitle();
-
-                // Bind change events for conditional fields
-                $('select[name="smoking_status"]').on('change', function() {
-                    toggleSmokingTools();
-                });
-                $('select[name="employment_status"]').on('change', function() {
-                    toggleJobTitle();
-                });
-
-                // Function to mark fields as touched
-                function markStepFieldsAsTouched(step) {
-                    $(step).find('input, select, textarea').each(function() {
-                        $(this).data('touched', true);
-                    });
-                }
-                $('#customFile').on('change', function() {
-                    const input = this;
-
-                    if (input.files && input.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            $('#preview').attr('src', e.target.result).fadeIn();
-                        };
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                });
-                // Validate individual field
+                  // Validate individual field
                 function validateField(field) {
                     // 0) Skip validation for fields that aren't actually part of your form
                     //    e.g., the internal search box that Select2 creates.
                     const fieldName = $(field).attr('name');
                     const fieldType = $(field).attr('type');
-
+                    // Skip City Location entirely if it has no options
+                    if ($(field).attr('id') === 'city_location_id') {
+                        if ($('#city_location_id option').length <= 1) {
+                            return true; // no validation
+                        }
+                    }
                     if (
                         !fieldName // no name means not a real form field
                         ||
@@ -1547,7 +1424,21 @@ if (pageReloaded) {
                         ($(field).val() || '').trim();
 
                     let isValid = true;
+                    if ($(field).is("select")) {
 
+                        let placeholder = $(field).find("option:first").val();
+                        let realVal = $(field).val();
+
+                        let isPlaceholder =
+                            realVal === "" ||
+                            realVal === null ||
+                            realVal === undefined
+                            ;
+
+                        if (isPlaceholder) {
+                            isValid = false;
+                        }
+                    }
                     // 4) Decide which error span to use:
                     //    - If there is a <span id="error-<fieldId>">, use that;
                     //    - Otherwise use the nearest .error-message in .form-group
@@ -1561,7 +1452,14 @@ if (pageReloaded) {
                     errorSpan.text('');
 
                     // If not “touched” yet, skip
-                    if (!touched) return true;
+// If not touched yet → only bypass for guardian contact
+if (!touched) {
+    if (fieldName === 'guardian_contact') {
+        return guardianContactValid;  // use API result
+    }
+    return false; // all other fields stay invalid
+}
+
 
                     // ------------------------------------------------------
                     // (A) Universal "required" check
@@ -1760,7 +1658,187 @@ if (pageReloaded) {
 
                     return isValid;
                 }
+                // Run the check when the page loads
+                validateReligiosityLevel();
 
+                // Check again if the field changes
+                $('select[name="religiosity_level_id"]').on('change', function() {
+                    validateReligiosityLevel();
+                });
+                // loadFormData();
+
+                // Save data on change
+                // $('#onboarding-form').on('change', 'input, select, textarea', function() {
+                //     // saveFormData();
+                // });
+
+                // Initialize Select2 on multi-selects
+                $('select[multiple]').select2({
+                    placeholder: "{{ __('profile.you_can_select_more_than_one') }}",
+                    allowClear: true
+                });
+
+                // Remove housing and marriage budget for female users
+                if (userGender === 'female') {
+                    // In Step 3, remove housing status and marriage budget fields
+                    $('select[name="housing_status_id"]').closest('.form-group').remove();
+                    $('select[name="marriage_budget_id"]').closest('.form-group').remove();
+                }
+
+                // Remove guardian contact for male users (Step 4)
+                if (userGender === 'male') {
+                    $('input[name="guardian_contact"]').closest('.form-group').remove();
+                }
+
+                if (window.religiousLevels) {
+                    var $select = $('#religiosity_levels');
+                    $select.empty();
+                    $select.append('<option value="">{{ __('onboarding.select_religiosity') }}</option>');
+                    window.religiousLevels.forEach(function(option) {
+                        $select.append('<option value="' + option.id + '">' + option.name + '</option>');
+                    });
+                }
+
+
+                // Toggle Smoking Tools based on Smoking Status
+                function toggleSmokingTools() {
+                    var smokingStatus = $('select[name="smoking_status"]').val();
+                    var $smokingToolsWrapper = $('.smoking-tools-wrapper');
+                    if (smokingStatus === "1") {
+                        $smokingToolsWrapper.show();
+                        $smokingToolsWrapper.find('select').prop('required', true);
+                    } else {
+                        $smokingToolsWrapper.hide();
+                        $smokingToolsWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $smokingToolsWrapper.find('select').removeClass('is-valid is-invalid');
+                        $smokingToolsWrapper.find('.error-message').text('');
+                    }
+                }
+
+                // Toggle Job Title based on Employment Status
+                function toggleJobTitle() {
+                    var employmentStatus = $('select[name="employment_status"]').val();
+                    var $jobTitleWrapper = $('.job-title-wrapper');
+                    var $positionLevelWrapper = $('.position-level-wrapper');
+                    if (employmentStatus === "1") {
+                        $jobTitleWrapper.show();
+                        $jobTitleWrapper.find('select').prop('required', true);
+                        $positionLevelWrapper.show();
+                        $positionLevelWrapper.find('select').prop('required', true);
+                    } else {
+                        $jobTitleWrapper.hide();
+                        $jobTitleWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $jobTitleWrapper.find('select').removeClass('is-valid is-invalid');
+                        $jobTitleWrapper.find('.error-message').text('');
+                        $positionLevelWrapper.hide();
+                        $positionLevelWrapper.find('select').prop('required', false).val('').trigger('change');
+                        $positionLevelWrapper.find('select').removeClass('is-valid is-invalid');
+                        $positionLevelWrapper.find('.error-message').text('');
+                    }
+                }
+
+                // Run toggles on page load
+                toggleSmokingTools();
+                toggleJobTitle();
+
+                // Bind change events for conditional fields
+                $('select[name="smoking_status"]').on('change', function() {
+                    toggleSmokingTools();
+                });
+                $('select[name="employment_status"]').on('change', function() {
+                    toggleJobTitle();
+                });
+
+                // // Function to mark fields as touched
+                // function markStepFieldsAsTouched(step) {
+                //     $(step).find('input, select, textarea').each(function() {
+                //         $(this).data('touched', true);
+                //     });
+                // }
+                $('#customFile').on('change', function() {
+                    const input = this;
+
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('#preview').attr('src', e.target.result).fadeIn();
+                        };
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                });
+
+// ⭐ Auto-touch + validate city_location if country 1–22
+function autoTouchCityLocationByCity(cityId) {
+    const min = 1;
+    const max = 22;
+
+    let $loc = $('#city_location_id');
+
+    // Reset first
+    $loc.prop('required', false);
+
+    if (cityId >= min && cityId <= max) {
+
+        // make required
+        $loc.prop('required', true);
+
+        // mark touched
+        $loc.data('touched', true);
+
+        // validate immediately
+        validateField($loc[0]);
+    }
+}
+function loadFormDataFromLocalStorage() {
+    let stored = sessionStorage.getItem(LS_KEY_DATA);
+
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+
+    for (let key in data) {
+        let el = $(`[name="${key}"]`);
+
+        if (!el.length) continue;
+
+      if (key === "religiosity_level_id") {
+    savedReligiosityValue = data[key]; // ⬅️ خزّن القيمة لحين تحميل API
+}
+if (key === "city_id") {
+    savedCityValue = data[key];
+}
+
+if (key === "city_location_id") {
+    savedCityLocationValue = data[key];
+}
+
+if (key === "country_of_residence_id") {
+    savedCountryValue = data[key];
+}
+if (key === "guardian_contact") {
+    $('#guardian_contact_input').val(data[key]);
+
+    // ⭐ قم بتفعيل الفالديشن تلقائيًا عند التحميل
+    setTimeout(() => {
+        if (typeof validateGuardianContact === 'function') {
+            validateGuardianContact();
+        }
+    }, 500);
+}
+
+
+if (el.prop("multiple")) {
+    el.val(data[key]).trigger("change");
+} else {
+    el.val(data[key]).trigger("change");
+}
+
+// ⭐ Mark as touched + validate immediately
+el.data('touched', true);
+validateField(el);
+
+    }
+}
                 // Validate all fields in a step
                 function validateStep(step) {
                     var isValid = true;
@@ -1816,7 +1894,7 @@ if (pageReloaded) {
 
                 $('.next-step').click(function() {
                     var currentStep = $(this).closest('.onboarding-step');
-                    markStepFieldsAsTouched(currentStep);
+                    // markStepFieldsAsTouched(currentStep);
                     if (validateStep(currentStep)) {
                         var currentStepId = currentStep.attr('id');
                         var currentIndex = parseInt(currentStepId.split('-')[1]);
@@ -1907,7 +1985,7 @@ function applyStepRequiredRules(step) {
                     e.preventDefault();
 
                     var currentStep = $('.onboarding-step:visible');
-                    markStepFieldsAsTouched(currentStep);
+                    // markStepFieldsAsTouched(currentStep);
 
                     if (!validateStep(currentStep)) {
                         return false;
@@ -1968,6 +2046,7 @@ function applyStepRequiredRules(step) {
                 $('#country_id').on('change', function() {
                     var countryId = $(this).val();
                     toggleCityLocationRequirement(countryId);
+                        // autoTouchCityLocationByCity(parseInt(countryId));
 
                     // Clear the city dropdown completely first
                     $('#city_id')
@@ -1983,6 +2062,7 @@ function applyStepRequiredRules(step) {
                                     $('#city_id').append('<option value="' + city.id +
                                         '">' + city.name + '</option>');
                                 });
+                                 apiLoaded()
                             },
                             error: function() {
                                 console.error("Error loading cities.");
@@ -1991,34 +2071,43 @@ function applyStepRequiredRules(step) {
                     }
                 });
 
-            });
-            /* --------------------------------------------------
-             * Fetch city locations when a city is chosen
-             * -------------------------------------------------- */
-            $('#city_id').on('change', function() {
-                var cityId = $(this).val();
-
-                // reset the select first
-                $('#city_location_id')
-                    .empty()
-                    .append('<option value="">{{ __('onboarding.city_location') }}</option>');
-
-                if (cityId) {
-                    $.ajax({
-                        url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
-                        type: 'GET',
-                        success: function(data) {
-                            $.each(data, function(index, location) {
-                                $('#city_location_id').append(
-                                    '<option value="' + location.id + '">' + location.name +
-                                    '</option>'
-                                );
-                            });
-                        },
-                    });
-                }
 
 
+                /* --------------------------------------------------
+                 * Fetch city locations when a city is chosen
+                 * -------------------------------------------------- */
+                $('#city_id').on('change', function() {
+                    var cityId = $(this).val();
+        // autoTouchCityLocationByCity(cityId);
+
+
+        // Otherwise run your old logic:
+        autoTouchCityLocationByCity(cityId);
+                    // reset the select first
+                    $('#city_location_id')
+                        .empty()
+                        .append('<option value="">{{ __('onboarding.city_location') }}</option>');
+
+                    if (cityId) {
+                        $.ajax({
+                            url: "{{ route('cityLocations.by.city', '') }}/" + cityId,
+                            type: 'GET',
+                            success: function(data) {
+                                $.each(data, function(index, location) {
+                                    $('#city_location_id').append(
+                                        '<option value="' + location.id + '">' + location.name +
+                                        '</option>'
+                                    );
+                                });
+                                 apiLoaded()
+                                 // ⛔ STOP if no locations exist (this also resets validation)
+        if (resetCityLocationIfEmpty()) return;
+                            },
+                        });
+                    }
+
+
+                });
             });
 
             $(document).ready(function() {
@@ -2097,6 +2186,7 @@ function applyStepRequiredRules(step) {
             errorSpan.classList.add('text-success');
             input.classList.add('is-valid');
             guardianContactValid = true;
+
             if (nextButton) nextButton.disabled = false;
         }
     } catch (error) {

@@ -53,47 +53,71 @@ class OnBoardingController extends Controller
      */
     public function updateProfileAndImage(UpdateUserProfileRequest $request)
     {
+        try {
+            $user = $request->user();
+            $data = $request->all();
 
-        // dd($request);
-        // dd($request->file('photo_url'));
-        $user = $request->user();
-        $data = $request->all();
-        // If a new profile image is uploaded, update the profile image.
-        if ($request->hasFile('photo_url')) {
-            $user = $this->userProfileService->updateProfilePhoto($user, $request->file('photo_url'));
-        }
-
-        // Update the rest of the profile fields.
-        $user = $this->userProfileService->updateProfile($user, $data, app()->getLocale());
-        // dd($user['error']);
-        if (($user['error'])) {
-            return redirect()->back()->with('error', $user['error']);
-        }
-        // Check if user is male before proceeding
-        $sessionId = $this->whatsAppContactService->getSessionId();
-        if ($sessionId) {
-            if ($user->gender === 'male') {
-                // insert phone number into whatsapp contact table for male
-                $this->whatsAppContactService->insert([
-                    'sessionId'    => $sessionId,
-                    "id"       =>   $user->phone_number . "@s.whatsapp.net",
-                ]);
-            } else {
-                // insert both phone number and guardian contact into whatsapp contact table for female
-                $this->whatsAppContactService->insert([
-                    'sessionId'    => $sessionId,
-                    "id"       =>   $user->phone_number . "@s.whatsapp.net",
-                ]);
-                $this->whatsAppContactService->insert([
-                    'sessionId'    => $sessionId,
-                    "id"       =>   $user->profile->guardian_contact_encrypted . "@s.whatsapp.net",
-                ]);
+            // Update profile image if uploaded
+            if ($request->hasFile('photo_url')) {
+                $user = $this->userProfileService->updateProfilePhoto(
+                    $user,
+                    $request->file('photo_url')
+                );
             }
+
+            // Update other profile fields
+            $user = $this->userProfileService->updateProfile(
+                $user,
+                $data,
+                app()->getLocale()
+            );
+
+            // Validation of updateProfile response
+            if (!empty($user['error'])) {
+                return redirect()->back()->with('error', $user['error']);
+            }
+
+            // WhatsApp contact insertion
+            $sessionId = $this->whatsAppContactService->getSessionId();
+
+            if ($sessionId) {
+                if ($user->gender === 'male') {
+
+                    // Insert only phone number for male users
+                    $this->whatsAppContactService->insert([
+                        'sessionId' => $sessionId,
+                        'id'        => $user->phone_number . "@s.whatsapp.net",
+                    ]);
+                } else {
+
+                    // Insert woman's phone number
+                    $this->whatsAppContactService->insert([
+                        'sessionId' => $sessionId,
+                        'id'        => $user->phone_number . "@s.whatsapp.net",
+                    ]);
+
+                    // Insert guardian contact also
+                    $this->whatsAppContactService->insert([
+                        'sessionId' => $sessionId,
+                        'id'        => $user->profile->guardian_contact_encrypted . "@s.whatsapp.net",
+                    ]);
+                }
+            }
+
+            return redirect()->back()->with('success', __('Profile updated successfully'));
+        } catch (\Exception $e) {
+
+            // Optional: log the error
+            \Log::error('Update Profile Error', [
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+                'file'    => $e->getFile(),
+            ]);
+
+            return redirect()->back()->with('error', __('Something went wrong, please try again.'));
         }
-
-
-        return redirect()->back()->with('success', __('onboarding.profile_updated_successfully'));
     }
+
 
     public function getCityLocationsByCity($cityId)
     {
