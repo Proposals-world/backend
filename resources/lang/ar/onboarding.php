@@ -119,8 +119,8 @@ return [
     'choose_photo' => 'اختر صورة',
 
     // Lifestyle Choices
-    'employed' => 'موظف',
-    'unemployed' => 'عاطل عن العمل',
+    'employed' => 'يعمل / صاحب عمل',
+    'unemployed' => 'عاطل عن العمل / متقاعد',
     'non_smoker' => 'غير مدخن',
     'smoker' => 'مدخن',
 

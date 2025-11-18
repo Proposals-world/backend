@@ -12,7 +12,7 @@ return [
 
     // liked email
     'subject' => 'Someone Liked Your Profile!',
-    'title' => 'New Like!',
+    'title_like' => 'New Like!',
     'greeting' => 'Good news!',
     'message' => 'Someone liked your profile. Check it out!',
     'view_my_likes' => 'View My Likes',

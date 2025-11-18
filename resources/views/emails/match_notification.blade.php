@@ -200,7 +200,7 @@
 
             <div class="disclaimer">
                 <p>This notification was sent to keep you updated on your matching status.</p>
-                <p>© {{ date('Y') }} Proposals. All rights reserved.</p>
+                <p>© {{ date('Y') }} Tolba. All rights reserved.</p>
             </div>
         </div>
     </div>

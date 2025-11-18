@@ -28,18 +28,32 @@ class LikeResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => [
-                'id' => $relatedUser->id,
-                'first_name' => $relatedUser->first_name,
-                'last_name' => $relatedUser->last_name,
-                'nickname'=>$relatedUser->profile->nickname,
-                'country_of_residence' => optional($relatedUser->profile->countryOfResidence)["name_$locale"],
-                'city_of_residence' => optional($relatedUser->profile->city)["name_$locale"],
-                'email' => $this->contactMaskingService->maskEmail($relatedUser->email),
-                'photos' => $relatedUser->photos->map(fn($photo) => [
-                    'id' => $photo->id,
-                    'url' => $photo->photo_url,
-                    'is_main' => $photo->is_main,
-                ]),
+                'id' => $relatedUser->id ?? 'N/A',
+                'first_name' => $relatedUser->first_name ?? 'N/A',
+                'last_name' => $relatedUser->last_name ?? 'N/A',
+
+                'nickname' => optional($relatedUser->profile)->nickname ?? 'N/A',
+
+                'country_of_residence' =>
+                optional(optional($relatedUser->profile)->countryOfResidence)["name_$locale"]
+                    ?? 'N/A',
+
+                'city_of_residence' =>
+                optional(optional($relatedUser->profile)->city)["name_$locale"]
+                    ?? 'N/A',
+
+                'email' =>
+                $relatedUser->email
+                    ? $this->contactMaskingService->maskEmail($relatedUser->email)
+                    : 'N/A',
+
+                'photos' => $relatedUser->photos
+                    ? $relatedUser->photos->map(fn($photo) => [
+                        'id' => $photo->id ?? 'N/A',
+                        'url' => $photo->photo_url ?? 'N/A',
+                        'is_main' => $photo->is_main ?? false,
+                    ])
+                    : [],
             ],
         ];
     }

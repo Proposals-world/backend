@@ -46,6 +46,15 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/vendor/select2/css/select2.min.css') }}">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Tolba",
+  "url": "https://tolba.world",
+  "logo": "https://tolba.world/frontend/img/logo/tolba.png"
+}
+</script>
 
 </head>
 

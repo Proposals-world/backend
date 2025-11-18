@@ -116,8 +116,8 @@ return [
     'choose_photo' => 'Choose Photo',
 
     // Lifestyle Choices
-    'employed' => 'Employed',
-    'unemployed' => 'Unemployed',
+    'unemployed' => 'Unemployed / Retired',
+    'employed'   => 'Employed / Business Owner',
     'non_smoker' => 'Non-Smoker',
     'smoker' => 'Smoker',
 

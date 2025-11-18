@@ -450,8 +450,8 @@ $locale = app()->getLocale();
                                                 <label
                                                     class="form-label">{{ __('onboarding.employment_status') }} <span class="required-field">*</span></label>
                                                     <select name="employment_status" class="form-control rounded-pill" required>
-                                                        <option value="1" {{ $user->profile->employment_status == 1 ? 'selected' : '' }}>Employed</option>
-                                                        <option value="0" {{ $user->profile->employment_status == 0 ? 'selected' : '' }}>Unemployed</option>
+                                                        <option value="1" {{ $user->profile->employment_status == 1 ? 'selected' : '' }}>{{ __('onboarding.employed') }}</option>
+                                                        <option value="0" {{ $user->profile->employment_status == 0 ? 'selected' : '' }}>{{ __('onboarding.unemployed') }}</option>
                                                     </select>
 
                                                 <span class="error-message text-danger"

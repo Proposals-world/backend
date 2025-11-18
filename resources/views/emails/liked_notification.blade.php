@@ -164,7 +164,7 @@
 <body dir="{{ request()->header('Accept-Language', app()->getLocale()) == 'ar' ? 'rtl' : 'ltr' }}">
     <div class="email-container">
         <div class="header">
-            <h1>{{ __('email.title') }}</h1>
+            <h1>{{ __('email.title_like') }}</h1>
         </div>
 
         <div class="content">
