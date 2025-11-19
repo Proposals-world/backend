@@ -1,6 +1,6 @@
-@extends('frontend.layouts.app')
+@extends('user.layouts.app')
 
-@section('section')
+@section('content')
 <style>
     .icon-size {
         height: 117px;
@@ -24,20 +24,10 @@
     }
 </style>
 
-<div class="slider-bg2" style="
-    @if (app()->getLocale() === 'ar')
-        background-image: url({{ asset('frontend/img/bg/pink-header-bg-rtl.png') }});
-        background-position: left 0;
-    @else
-        background-image: url({{ asset('frontend/img/bg/pink-header-bg.png') }});
-        background-position: right 0;
-    @endif
-    background-repeat: no-repeat;
-    background-size: 65%;
-    min-height: 700px;
-">
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card shadow p-4 text-center" style="max-width: 400px; width: 100%;">
+
+    <div class="container d-flex justify-content-center align-items-start py-5">
+    <div class="card shadow p-4 text-center" style="max-width: 400px; width: 100%;">
+
 
             <h4 class="mb-4">{{ __('auth.reset_password') }}</h4>
 
@@ -76,7 +66,6 @@
 
         </div>
     </div>
-</div>
 
 <!-- Include jQuery -->
 @push('scripts')

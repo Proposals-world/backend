@@ -18,7 +18,7 @@ return [
     'Success' => 'Success',
 
     // CliQ-specific
-    'or_pay_with_cliq' => 'Or pay with CliQ',
+    'pay_by_cliq' => 'Subscribe now, pay by Cliq',
     'Pay_with_CliQ' => 'Pay with CliQ',
     'upload_your_payment_screenshot' => 'Upload your payment screenshot',
     'provide_screenshot' => 'Provide your payment screenshot',
@@ -32,5 +32,5 @@ return [
     'invalid_package' => 'Invalid package selected.',
     'note' => 'Note:',
     'cliq_disclaimer' => 'Transfers must be made only to the official CliQ account: Tolba962. We are not responsible for any transfers made to other CliQ accounts.',
-
+    'pay_by_card'    => 'Subscribe now, pay by card'
 ];
