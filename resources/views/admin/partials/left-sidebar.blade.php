@@ -412,6 +412,13 @@
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="{{ route('admin.email.form') }}" class="side-nav-link">
+                    <i class="ri-mail-line"></i>
+                    <span> Send Dynamic Email </span>
+                </a>
+            </li>
+
 
         </ul>
         <!--- End Sidemenu -->

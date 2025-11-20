@@ -184,7 +184,7 @@
         <div class="footer">
 
             <div class="disclaimer">
-                <p>© {{ date('Y') }} {{ config('app.name', 'Proposals') }}. All rights reserved.</p>
+                <p>© {{ date('Y') }} {{ config('app.name', 'Tolba') }}. All rights reserved.</p>
             </div>
         </div>
     </div>

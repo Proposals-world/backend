@@ -46,6 +46,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\DynamicEmailController;
 use App\Http\Controllers\Admin\FwateerController;
 use App\Http\Controllers\Admin\PaymentTransactionController;
 use App\Http\Controllers\Admin\RedeemController;
@@ -177,6 +178,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('terms', TermsAndConditionController::class);
         Route::resource('privacy', PrivacyPolicyController::class);
         Route::resource('cancellation', CancellationRefundPolicyController::class);
+        Route::get('/email/send', [DynamicEmailController::class, 'showForm'])->name('admin.email.form');
+        Route::post('/email/send', [DynamicEmailController::class, 'send'])->name('admin.email.send');
     });
 
     // Route::resource('blogs', BlogController::class);

@@ -6,6 +6,19 @@
     <div class="content">
         <!-- Start Content-->
         <div class="container-fluid">
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <i class="ri-check-line"></i> {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <i class="ri-error-warning-line"></i> {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
 
             <!-- start page title -->
@@ -16,6 +29,17 @@
                     <div class="page-title-box justify-content-between d-flex align-items-md-center flex-md-row flex-column">
                         <h4 class="page-title">{{ $user->first_name }} {{ $user->last_name }} Profile</h4>
                         <div class="d-flex justify-content-end">
+                            <button
+                                class="btn btn-sm btn-info text-white"
+                                style="background-color:#9e086c; margin-right:10px;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#sendEmailModal"
+                                data-id="{{ $user->id }}"
+                                data-email="{{ $user->email }}"
+                            >
+                                <i class="ri-mail-send-line"></i> Send Email
+                            </button>
+
                             @if ($substatus === 'active')
                                 <button type="submit" class="btn btn-sm text-success bg- text-white" style="margin-right: 10px; background-color: green; ">
                                    <i class="ri-checkbox-circle-line"></i> Subscribed
@@ -533,6 +557,54 @@
         </div>
         <!-- container -->
     </div>
+<!-- Send Email Modal -->
+<div class="modal fade" id="sendEmailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <form method="POST" action="{{ route('admin.email.send') }}" id="modalEmailForm">
+      @csrf
+
+      <input type="hidden" name="user_id" id="modal_user_id">
+      <input type="hidden" name="to" id="modal_email">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Send Custom Email</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label class="form-label">Email Title</label>
+            <input type="text" class="form-control" name="title" required>
+          </div>
+
+          {{-- <div class="mb-3">
+            <label class="form-label">Language</label>
+            <select name="lang" class="form-control">
+              <option value="en">English</option>
+              <option value="ar">Arabic</option>
+            </select>
+          </div> --}}
+
+          <div class="mb-3">
+            <label class="form-label">Email Content</label>
+            <div id="modal-editor" style="height:220px;"></div>
+            <input type="hidden" name="content" id="modal_content">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" style="background-color:#9e086c;">Send</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
 
 @endsection
 
@@ -540,11 +612,56 @@
     <!-- Select2 -->
     <script src="{{ asset('admin/assets/vendor/select2/js/select2.min.js') }}"></script>
     <link href="{{ asset('admin/assets/vendor/select2/css/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('admin/assets/vendor/quill/quill.snow.css') }}" rel="stylesheet"/>
+<script src="{{ asset('admin/assets/vendor/quill/quill.min.js') }}"></script>
 
     <!-- Quill Editor -->
     <script src="{{ asset('admin/assets/vendor/quill/quill.min.js') }}"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+    // Initialize Quill editor for modal
+var modalQuill = new Quill('#modal-editor', {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'ltr' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            ['clean'],
+            ['link', 'image', 'video']
+        ]
+    }
+});
+
+    // When Send Email button clicked
+    $('.send-email-btn, button[data-bs-target="#sendEmailModal"]').on('click', function () {
+        let userId = $(this).data('id');
+        let email = $(this).data('email');
+
+        $('#modal_user_id').val(userId);
+        $('#modal_email').val(email);
+
+        modalQuill.root.innerHTML = ""; // Clear old content
+    });
+
+    // Before submit: fill hidden content field
+    $('#modalEmailForm').on('submit', function () {
+        $('#modal_content').val(modalQuill.root.innerHTML);
+    });
+
+});
+
      function confirmStatusChange(userId) {
         event.preventDefault(); // Prevent form submission
         Swal.fire({
