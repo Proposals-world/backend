@@ -157,7 +157,6 @@ class NonArabicCountriesTableSeeder extends Seeder
             ['name_en' => 'Slovenia', 'name_ar' => 'سلوفينيا', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Solomon Islands', 'name_ar' => 'جزر سليمان', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'South Africa', 'name_ar' => 'جنوب أفريقيا', 'created_at' => now(), 'updated_at' => now()],
-            ['name_en' => 'South Sudan', 'name_ar' => 'جنوب السودان', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Spain', 'name_ar' => 'إسبانيا', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Sri Lanka', 'name_ar' => 'سريلانكا', 'created_at' => now(), 'updated_at' => now()],
             ['name_en' => 'Suriname', 'name_ar' => 'سورينام', 'created_at' => now(), 'updated_at' => now()],
