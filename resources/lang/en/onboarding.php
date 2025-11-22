@@ -125,7 +125,8 @@ return [
     'health_issues_en' => 'Please specify any health issues (in English)',
     'health_issues_ar' => 'Please specify any health issues (in Arabic)',
 
-
+    'select_car_ownership' => 'Select Car Ownership',
+    'select_smoking_status' => 'Select Smoking Status',
     'very_devout' => 'Very Devout',
     'devout' => 'Devout',
     'moderately_devout' => 'Moderately Devout',

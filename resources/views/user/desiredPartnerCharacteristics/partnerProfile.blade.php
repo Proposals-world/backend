@@ -69,7 +69,7 @@
                 <form id="user-preference-form" method="POST">
                     @csrf
                     <div class="mb-2">
-                        <h1>{{ ucfirst(auth()->user()->first_name) . ' ' . ucfirst(auth()->user()->last_name) }}</h1>
+                        <h1>{{ auth()->user()->profile->nickname ?? '' }}</h1>
                         <div class="text-zero top-right-button-container">
                             <button type="submit"
                                 class="btn btn-lg btn-primary mt-3   top-right-button top-right-button-single"

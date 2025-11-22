@@ -34,6 +34,12 @@ class SportsActivitiesTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name_en'    => 'Not for me - little',
+                'name_ar'    => 'قليلًا ليس لي',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

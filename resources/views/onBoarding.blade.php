@@ -653,6 +653,7 @@
                                                             class="form-label">{{ __('onboarding.smoking_status') }} <span class="required-field">*</span></label>
                                                         <select name="smoking_status" class="form-control rounded-pill"
                                                             required>
+                                                            <option value="" >{{ __('onboarding.select_smoking_status') }}</option>
                                                             <option value="0">{{ __('onboarding.non_smoker') }}
                                                             </option>
                                                             <option value="1">{{ __('onboarding.smoker') }}</option>
@@ -981,6 +982,9 @@
                                                             class="form-label">{{ __('onboarding.car_ownership') }} <span class="required-field">*</span></label>
                                                         <select name="car_ownership" class="form-control rounded-pill"
                                                             required>
+                                                            <option value="">
+                                                                {{ __('onboarding.select_car_ownership') }}
+                                                            </option>
                                                             <option value="1">{{ __('onboarding.own_car') }}
                                                             </option>
                                                             <option value="0">{{ __('onboarding.no_car') }}</option>
@@ -1028,7 +1032,7 @@
                                                                 </div>
                                                                  <select name="country_code"
                                                                         class="form-select form-control @error('country_code') is-invalid @enderror"
-                                                                        style="max-width:152px">
+                                                                        style="max-width:171px">
                                                                         @php
     $countries = \App\Helpers\CountryHelper::getCountries();
 @endphp

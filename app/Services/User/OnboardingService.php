@@ -89,9 +89,19 @@ class OnboardingService
             'eyeColors'    => $getData(EyeColor::class),
             'marriageBudget'    => $getData(MarriageBudget::class, $budgetField),
             'jobTitles'         => $getData(JobTitle::class, null, true),
-            'hobbies'           => $getData(Hobby::class),
+            'hobbies'           => $getData(Hobby::class, null, true),
             'pets'              => $getData(Pet::class),
-            'sportsActivities'  => $getData(SportsActivity::class),
+            'sportsActivities' => SportsActivity::select('id', DB::raw("{$nameField} as name"))
+                ->orderByRaw("
+                        CASE
+                            WHEN name_en = 'Not for me - little' THEN 0
+                            WHEN name_en = 'Always' THEN 2
+                            ELSE 1
+                        END
+                    ")
+                ->orderBy('name', 'asc')
+                ->get(),
+
             'smokingTools'      => $getData(SmokingTool::class),
             'drinkingStatuses'  => $getData(DrinkingStatus::class),
             'countries'         => $getData(Country::class, null, true),
@@ -99,7 +109,7 @@ class OnboardingService
             'nationalities'     => $getData(Nationality::class, null, true),
             'housingStatuses'   => $getData(HousingStatus::class),
             'financialStatuses' => $getData(FinancialStatus::class),
-            'specializations'   => $getData(Specialization::class),
+            'specializations'   => $getData(Specialization::class, null, true),
             'positionLevels'    => $getData(PositionLevel::class),
             'educationalLevels' => $getData(EducationalLevel::class),
             'socialMediaPresence' => $getData(SocialMediaPresence::class),

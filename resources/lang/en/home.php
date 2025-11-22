@@ -177,4 +177,6 @@ return [
     'financial' => 'Financial',
     'hobbies' => 'Hobbies',
     'slider_tagline' => 'Tolba: Where Tradition Meets Love',
+    'register' => 'Join now',
+    'login' => 'sign in',
 ];

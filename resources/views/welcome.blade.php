@@ -107,7 +107,11 @@ html[dir="rtl"] .contact-direction {
 
     <div class="slider-btn mt-30 mb-30">
         <a href="{{ route('register') }}" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">
-            {{ __('home.call_to_action') }}
+            {{ __('home.register') }}
+        </a>
+
+        <a href="{{ route('login') }}" class="btn ss-btn" data-animation="fadeInUp" data-delay=".8s">
+            {{ __('home.login') }}
         </a>
     </div>
 </div>

@@ -128,7 +128,8 @@ return [
     'health_issues_en' => 'يرجى توضيح أي مشاكل صحية (باللغة الإنجليزية)',
     'health_issues_ar' => 'يرجى توضيح أي مشاكل صحية (باللغة العربية)',
 
-
+    'select_car_ownership' => 'اختر حالة امتلاك السيارة',
+    'select_smoking_status' => 'اختر حالة التدخين',
     'very_devout' => 'ملتزم جدا',
     'devout' => 'ملتزم',
     'moderately_devout' => 'معتدل',
