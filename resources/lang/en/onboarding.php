@@ -114,7 +114,7 @@ return [
     'bio_placeholder_en' => 'Write a short bio in English',
     'bio_placeholder_ar' => 'Write a short bio in Arabic',
     'choose_photo' => 'Choose Photo',
-
+    'select_country_code' => 'Select Country Code',
     // Lifestyle Choices
     'unemployed' => 'Unemployed / Retired',
     'employed'   => 'Employed / Business Owner',

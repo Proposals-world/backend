@@ -123,7 +123,7 @@ return [
     'unemployed' => 'عاطل عن العمل / متقاعد',
     'non_smoker' => 'غير مدخن',
     'smoker' => 'مدخن',
-
+    'select_country_code' => 'اختر رمز الدولة',
     // Health Issues
     'health_issues_en' => 'يرجى توضيح أي مشاكل صحية (باللغة الإنجليزية)',
     'health_issues_ar' => 'يرجى توضيح أي مشاكل صحية (باللغة العربية)',

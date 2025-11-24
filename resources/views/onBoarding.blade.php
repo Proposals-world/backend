@@ -1036,9 +1036,10 @@
                                                                         @php
     $countries = \App\Helpers\CountryHelper::getCountries();
 @endphp
+                                                                <option value="" selected>{{ __('onboarding.select_country_code') }}</option>
                                                                     @foreach($countries as $iso => $info)
                                                                     <option value="{{ $iso }}"
-                                                                        {{ old('country_code', 'JO') == $iso ? 'selected' : '' }}>
+                                                                        {{ old('country_code', 'JO') == $iso ? '' : '' }}>
                                                                            {{ $info['name'] }} {{ $info['dial_code'] }}
                                                                     </option>
                                                                     @endforeach
