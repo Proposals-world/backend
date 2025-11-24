@@ -91,17 +91,7 @@ class OnboardingService
             'jobTitles'         => $getData(JobTitle::class, null, true),
             'hobbies'           => $getData(Hobby::class, null, true),
             'pets'              => $getData(Pet::class),
-            'sportsActivities' => SportsActivity::select('id', DB::raw("{$nameField} as name"))
-                ->orderByRaw("
-                        CASE
-                            WHEN name_en = 'Not for me - little' THEN 0
-                            WHEN name_en = 'Always' THEN 2
-                            ELSE 1
-                        END
-                    ")
-                ->orderBy('name', 'asc')
-                ->get(),
-
+            'sportsActivities' => $getData(SportsActivity::class, null, true),
             'smokingTools'      => $getData(SmokingTool::class),
             'drinkingStatuses'  => $getData(DrinkingStatus::class),
             'countries'         => $getData(Country::class, null, true),

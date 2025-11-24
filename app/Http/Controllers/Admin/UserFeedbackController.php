@@ -81,6 +81,7 @@ class UserFeedbackController extends Controller
             $validated['feedback_text_en'] = 'Other';
             $validated['feedback_text_ar'] = 'أخرى';
         }
+        ksort($feedbackOptions);
 
         // 2) Make sure you capture which match this feedback is for:
         //    e.g. your StoreUserFeedbackRequest should validate a `match_id` or `matched_user_id`.

@@ -270,12 +270,16 @@
                                                             name="{{ app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en' }}"
                                                             class="form-control"
                                                             required>
+                                                            <option value="" disabled selected>
+                                                                {{ __('userDashboard.dashboard.select_feedback_option') }}
+                                                            </option>
                                                                 @foreach($feedbackOptions as $key => $labels)
                                                                     <option value="{{ $key }}"
                                                                     {{ old(app()->getLocale() === 'ar' ? 'feedback_text_ar' : 'feedback_text_en') == $key ? 'selected' : '' }}>
                                                                     {{ app()->getLocale() === 'ar' ? $labels['ar'] : $labels['en'] }}
                                                                     </option>
                                                                 @endforeach
+
                                                         </select>
 
 
@@ -286,16 +290,29 @@
                                                             <input type="text" class="form-control" name="outcome">
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <label class="mb-2 d-block">{{ __('userDashboard.dashboard.is_profile_accurate') }}</label>
-                                                            <div class="custom-switch custom-switch-primary-inverse custom-switch-large switch-wrapper">
-                                                                <input class="custom-switch-input"
-                                                                    id="isProfileAccurate_{{ $match['id'] }}"
-                                                                    type="checkbox" name="is_profile_accurate" value="1">
-                                                                <label class="custom-switch-btn"
-                                                                    for="isProfileAccurate_{{ $match['id'] }}"></label>
-                                                            </div>
+                                                    <div class="form-group">
+                                                        <label class="mb-2 d-block">{{ __('userDashboard.dashboard.is_profile_accurate') }}</label>
+
+                                                        <div class="custom-switch custom-switch-primary-inverse custom-switch-large switch-wrapper d-flex align-items-center gap-2">
+                                                            <input class="custom-switch-input"
+                                                                id="isProfileAccurate_{{ $match['id'] }}"
+                                                                type="checkbox"
+                                                                name="is_profile_accurate"
+                                                                value="1"
+                                                                onchange="updateAccurateText({{ $match['id'] }})">
+
+                                                            <label class="custom-switch-btn"
+                                                                for="isProfileAccurate_{{ $match['id'] }}"></label>
+
+                                                            <!-- Small Text -->
+                                                            <small id="accurateText_{{ $match['id'] }}" class="text-muted ml-2">
+                                                                {{ __('userDashboard.dashboard.no') }}
+                                                            </small>
                                                         </div>
+
+                                                    </div>
+
+
 
 
 
@@ -511,8 +528,12 @@ document.addEventListener('DOMContentLoaded', function () {
     //         setTimeout(() => alertWrapper.remove(), 400);
     //     }
     // }, 5000);
-});
+});function updateAccurateText(id) {
+    let checkbox = document.getElementById('isProfileAccurate_' + id);
+    let text = document.getElementById('accurateText_' + id);
 
+    text.innerText = checkbox.checked ? "{{ __('userDashboard.dashboard.yes') }}" : "{{ __('userDashboard.dashboard.no') }}";
+}
     </script>
     @endpush
 
