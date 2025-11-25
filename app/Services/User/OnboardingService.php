@@ -77,7 +77,12 @@ class OnboardingService
 
         return [
             'gender'            => $userGender,
-            'hairColors'        => $getData(HairColor::class),
+            'hairColors' => HairColor::select('id', DB::raw("{$nameField} as name"))
+                ->when(
+                    auth()->check() && auth()->user()->gender !== 'male',
+                    fn($q) => $q->where('name_en', '!=', 'Hijab')
+                )
+                ->get(),
             'heights'           => $getData(Height::class),
             'weights'           => $getData(Weight::class),
             'origins'           => $getData(Origin::class, null, true),

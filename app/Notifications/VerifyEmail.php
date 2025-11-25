@@ -13,15 +13,19 @@ class VerifyEmail extends BaseVerifyEmail
         $locale = app()->getLocale();
 
         $mail = (new MailMessage)
-            ->subject(__('Verify Your Email Address'));
+            ->subject(__('email.Verify Your Email Address'));
 
         if ($locale === 'ar') {
-            $mail->greeting('أهلاً وسهلاً بكم!')
-                ->line('أهلا وسهلا بكم بأول تطبيق أردني للزواج المتوافق مع عاداتنا وتقاليدنا. ويعمل هذا التطبيق بطريقة عصرية تحاكي احتياج المجتمع وتحترم قيمه.')
+
+            // 🌙 Arabic Version
+            $mail->greeting('أهلاً!')
+                ->line('مرحباً في أول تطبيق زواج أردني يتوافق مع تقاليدنا وقيمنا. يقدم هذا التطبيق طريقة حديثة لتلبية احتياجاتك مع احترام قيم المجتمع.')
                 ->line('يرجى إرسال رمز التحقق التالي من خلال التطبيق.')
                 ->action('تأكيد البريد الإلكتروني', $verifyUrl)
                 ->line('شكراً لاستخدامكم تطبيقنا!');
         } else {
+
+            // 🌞 English Version
             $mail->greeting('Welcome!')
                 ->line('Welcome to the first Jordanian marriage application that aligns with our traditions and values. This app offers a modern way to meet your needs while respecting community values.')
                 ->line('Please send the following verification code through the application.')

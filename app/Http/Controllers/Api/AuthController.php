@@ -38,6 +38,9 @@ class AuthController extends Controller
      */
     public function register(RegisterUserRequest $request, SubscriptionService $subscriptionService)
     {
+        // Determine language from header or fallback
+        $lang = $request->header('Accept-Language', app()->getLocale());
+        app()->setLocale($lang);
         // Validate incoming request
         $validator = $request->validated();
 
@@ -95,7 +98,7 @@ class AuthController extends Controller
         }
         return response()->json([
             'success' => true,
-            'message' => 'Registration successful. Please verify your email using the OTP sent.',
+            'message' => __('auth.registration_success'),
         ], 201);
     }
 

@@ -23,7 +23,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
-        
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -40,7 +40,7 @@
         .logo {
             margin-bottom: 15px;
         }
-        
+
         /* Content Styles */
         .content {
             padding: 35px 40px;
@@ -58,7 +58,7 @@
             margin-bottom: 25px;
             line-height: 1.6;
         }
-        
+
         /* OTP Box Styles */
         .otp-container {
             margin: 25px 0;
@@ -81,7 +81,7 @@
             color: #777777;
             font-style: italic;
         }
-        
+
         /* Button Styles */
         .button-container {
             margin: 30px 0;
@@ -100,7 +100,7 @@
         .button:hover {
             background-color: #7c0946;
         }
-        
+
         /* Instructions Box */
         .instructions {
             margin: 25px 0;
@@ -122,14 +122,14 @@
         .instructions li {
             margin-bottom: 5px;
         }
-        
+
         /* Help Text */
         .help-text {
             font-size: 14px;
             color: #777777;
             margin-top: 20px;
         }
-        
+
         /* Footer Styles */
         .footer {
             text-align: center;
@@ -156,6 +156,32 @@
             color: #999999;
             margin-top: 15px;
         }
+  .rtl-block {
+        direction: rtl !important;
+        text-align: right !important;
+        display: block !important;
+    }
+
+    /* لضبط القائمة والعناصر داخلها */
+    .rtl-block ul {
+        padding-right: 20px !important;
+        padding-left: 0 !important;
+        list-style: disc !important;
+        list-style-position: inside !important;
+    }
+
+    .rtl-block ul li {
+        direction: rtl !important;
+        text-align: right !important;
+        display: block !important;
+    }
+
+    .rtl-block p,
+    .rtl-block strong {
+        direction: rtl !important;
+        text-align: right !important;
+        display: block !important;
+    }
     </style>
 </head>
 <body>
@@ -163,50 +189,82 @@
         <div class="header">
             <!-- Optional: Add your logo here -->
             <!-- <div class="logo"><img src="your-logo.png" alt="Logo" width="120"></div> -->
-            <h1>OTP Verification</h1>
+            <h1>{{ __('email.verification.title') }}</h1>
         </div>
-        
+
         <div class="content">
-            <p class="greeting">Hello, {{$user->name}}</p>
-            
+            <p class="greeting">{{ __('email.verification.greeting') }}, {{$user->name}}</p>
+
             <div class="message">
-                <p>Your verification code is ready to use. Please enter this code to complete your verification process.</p>
-            </div>
-            
-            <div class="otp-container">
+
+                {{-- English --}}
+                <p>{{ __('email.verification.message') }}</p>
+        </div>
+
+
+           <div class="otp-container">
                 <div class="otp-box">{{ $otp }}</div>
-                <p class="expiry-note">This code will expire in 10 minutes</p>
+
+
+
+
+                    <p class="expiry-note">
+                        {{ __('email.verification.expire') }}
+                    </p>
+
             </div>
-            
+
+
+
             {{-- <div class="button-container">
                 <a href="{{ config(key: 'app.frontend_url') }}/verify-otp" class="button">Verify OTP</a>
             </div> --}}
-            
-            <div class="instructions">
-                <p><strong>If the button doesn't work, you can:</strong></p>
-                <ul>
-                    <li>Copy the OTP code shown above</li>
-                    <li>Visit our website and enter the code manually</li>
-                    <li>Ensure you use the code before it expires</li>
-                </ul>
-                <p>If you did not request this verification code, please ignore this email or contact our support team.</p>
-            </div>
-            
-            <p class="help-text">Need help? Our support team is available to assist you.</p>
+
+       <div class="instructions" style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 25px 0; font-size: 14px; color: #666;">
+
+    <p style="direction: rtl; text-align: right; display: block; margin: 0 0 10px 0;">
+        <strong>{{ __('email.verification.instructions_title') }}</strong>
+    </p>
+
+    <ul style="direction: rtl; text-align: right; display: block; list-style: disc; list-style-position: inside; margin: 10px 0; padding: 0 20px 0 0;">
+        <li style="direction: rtl; text-align: right; display: list-item; margin-bottom: 5px;">
+            {{ __('email.verification.instructions_step_1') }}
+        </li>
+        <li style="direction: rtl; text-align: right; display: list-item; margin-bottom: 5px;">
+            {{ __('email.verification.instructions_step_2') }}
+        </li>
+        <li style="direction: rtl; text-align: right; display: list-item; margin-bottom: 5px;">
+            {{ __('email.verification.instructions_step_3') }}
+        </li>
+    </ul>
+
+    <p style="direction: rtl; text-align: right; display: block; margin-top: 10px;">
+        {{ __('email.verification.instructions_warning') }}
+    </p>
+
+</div>
+
+
+
+        <p class="help-text">
+            {{ __('email.verification.help_text') }}
+        </p>
+
+
         </div>
-        
+
         <div class="footer">
-            <p>Thanks,<br><strong>{{ config('app.name') }}</strong></p>
-            
+            <p>{{ __('email.verification.footer_thanks') }}<br><strong>{{ config('app.name') }}</strong></p>
+
             <!-- Optional: Add social media links here -->
             <!-- <div class="social-links">
                 <a href="#" class="social-link">Facebook</a>
                 <a href="#" class="social-link">Twitter</a>
                 <a href="#" class="social-link">Instagram</a>
             </div> -->
-            
+
             <div class="disclaimer">
-                This is an automated message, please do not reply to this email.
+                {{ __('email.verification.footer_disclaimer') }}
             </div>
         </div>
     </div>

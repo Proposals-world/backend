@@ -64,4 +64,6 @@ return [
     'restoring_account' => 'Restoring account...',
     'restore_failed' => 'Failed to restore account. Please try again.',
     'password_restore' => 'Password',
+    'registration_success' => 'Registration successful. Please verify your email using the OTP sent.',
+
 ];

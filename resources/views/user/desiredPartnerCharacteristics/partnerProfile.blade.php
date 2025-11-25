@@ -173,43 +173,35 @@
 
                                                         {{-- Age Range --}}
                                                         <div class="form-group">
-                                                            <label
-                                                                class="form-label d-block mb-2">{{ __('profile.Partner_Age') }}</label>
+    <label class="form-label d-block mb-2">{{ __('profile.Partner_Age') }}</label>
 
-                                                            {{-- Top Labels --}}
-                                                                <div class="d-flex justify-content-between px-2 mt-2 @if(app()->getLocale()==='ar') flex-row-reverse @endif">
+    <div class="d-flex w-100 gap-2"
+         style="gap:10px;"
+         @if(app()->getLocale()==='ar') dir="rtl" @endif>
 
-                                                                <div class="bg-light rounded px-3 py-1 border"
-                                                                    @if(app()->getLocale()==='ar') style="padding-left: 1rem !important;" @endif
-                                                                    id="age-min-label">
-                                                                    {{ $userPreferences['preferred_age_min'] ?? 18 }}</div>
-                                                                <div class="bg-light rounded px-3 py-1 border"
-                                                                    @if(app()->getLocale()==='ar') style="padding-left: 1rem !important;" @endif
-                                                                    id="age-max-label">
-                                                                    {{ $userPreferences['preferred_age_max'] ?? 65 }}</div>
-                                                            </div>
-                                                            {{-- Slider --}}
-                                                            {{-- these 4 should be as one input in js --}}
-                                                            <div class="position-relative slider-wrapper mb-3">
-                                                                <input type="range" min="18" max="65"
-                                                                    value="{{ $userPreferences['preferred_age_min'] ?? 18 }}"
-                                                                    id="ageMin" class="form-range slider-track">
-                                                                <input type="range" min="18" max="65"
-                                                                    value="{{ $userPreferences['preferred_age_max'] ?? 65 }}"
-                                                                    id="ageMax" class="form-range slider-track">
-                                                                <div class="range-highlight"></div>
-                                                                <input type="hidden"
-                                                                    class="form-control form-control-sm mx-1"
-                                                                    name="preferred_age_min" id="preferred_age_min"
-                                                                    value="{{ $userPreferences['preferred_age_min'] ?? 18 }}"
-                                                                    placeholder="Min Age" min="18" max="100">
-                                                                <input type="hidden" class="form-control form-control-sm"
-                                                                    name="preferred_age_max" id="preferred_age_max"
-                                                                    value="{{ $userPreferences['preferred_age_max'] ?? 65 }}"
-                                                                    placeholder="Max Age" min="18" max="100">
-                                                            </div>
+        <!-- Min Age -->
+        <input type="number"
+               class="form-control"
+               name="preferred_age_min"
+               id="preferred_age_min"
+               min="18"
+               max="100"
+               value="{{ $userPreferences['preferred_age_min'] ?? 18 }}"
+               placeholder="{{ __('profile.Min_Age') }}">
 
-                                                        </div>
+        <!-- Max Age -->
+        <input type="number"
+               class="form-control"
+               name="preferred_age_max"
+               id="preferred_age_max"
+               min="18"
+               max="100"
+               value="{{ $userPreferences['preferred_age_max'] ?? 65 }}"
+               placeholder="{{ __('profile.Max_Age') }}">
+    </div>
+</div>
+
+
 
 
                                                         {{-- <div class="d-flex flex-row">

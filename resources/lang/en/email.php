@@ -9,7 +9,7 @@ return [
     'guardian_involved' => 'A guardian contact (wali) will be involved to help ensure a blessed and respectful communication insha’Allah.',
     'dua' => 'May Allah (SWT) bless this connection with goodness and barakah.',
     'view_matches' => 'View Your Matches',
-
+    'Verify Your Email Address' => 'Verify Your Email Address',
     // liked email
     'subject' => 'Someone Liked Your Profile!',
     'title_like' => 'New Like!',
@@ -70,4 +70,22 @@ return [
     'greeting' => 'Hello',
     'message_redeemed' => 'Your contact redemption was successful. You’ve gained one additional contact.',
     'remaining_contacts' => 'You now have :count contact(s) remaining.',
+    'verification' => [
+        'title' => 'OTP Verification',
+        'greeting' => 'Hello',
+        'message' => 'Your verification code is ready to use. Please enter this code to complete your verification process.',
+        'expire' => 'This code will expire in 10 minutes.',
+        'instructions_title' => "If the button doesn't work, you can:",
+        'instructions_step_1' => "Copy the OTP code shown above",
+        'instructions_step_2' => "Visit our website and enter the code manually",
+        'instructions_step_3' => "Ensure you use the code before it expires",
+        'instructions_warning' => "If you did not request this verification code, please ignore this email or contact our support team.",
+
+        'help_text' => "Need help? Our support team is available to assist you.",
+
+        'footer_thanks' => "Thanks,",
+        'footer_disclaimer' => "This is an automated message, please do not reply to this email.",
+        'title' => 'OTP Verification',
+        'greeting' => 'Hello',
+    ],
 ];

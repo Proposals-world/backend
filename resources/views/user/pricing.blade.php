@@ -20,8 +20,17 @@
 
                 @forelse ($subscriptionCards as $card)
                 <div class="col-md-12 col-lg-4 mb-4 col-item">
-                    <div class="card">
-                        <div class="card-body pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
+                    <div class="card position-relative
+                            @if($activePackageId == $card['id']) border-success shadow-lg @endif"
+                            style="@if($activePackageId == $card['id']) border-width:3px !important; @endif">
+                             @if($activePackageId == $card['id'])
+                                <!-- 🎯 ACTIVE Badge -->
+                                <span class="badge badge-success position-absolute"
+                                    style="top:10px; right:10px; font-size:13px; padding:6px 10px;">
+                                    {{ __('payment.Active') }}
+                                </span>
+                                @endif
+                            <div class="card-body pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
                             <div class="price-top-part">
                                 <i class="iconsminds-wallet large-icon"></i>
                                 <h5 class="mb-0 font-weight-semibold color-theme-1 mb-4">
@@ -60,9 +69,20 @@
                                         data-url="{{ $card['payment_url'] }}">
                                         {{ __('userDashboard.pricing.button') }} <i class="simple-icon-arrow-right"></i>
                                     </a>
+
                                     @else
                                     <span class="text-muted">Payment link unavailable</span>
                                     @endif
+                                    <div class="text-center mt-2">
+                                        <!-- PAY WITH CLIQ BUTTON -->
+                                        <button
+                                            class="btn btn-outline-primary btn-sm open-cliq-with-package"
+                                            data-package-id="{{ $card['id'] }}">
+                                            {{ __('payment.Pay_with_CliQ') }}
+                                            <i class="simple-icon-camera"></i>
+                                        </button>
+                                    </div>
+
                                 </div>
 
                                 {{-- <div class="text-right mt-auto">
@@ -352,6 +372,19 @@ document.getElementById('cliqPaymentForm').addEventListener('submit', async func
         `;
         alertBox.style.display = 'block';
     }
+});
+// Open CliQ modal from inside subscription card
+document.querySelectorAll('.open-cliq-with-package').forEach(btn => {
+    btn.addEventListener('click', function () {
+
+        let packageId = this.dataset.packageId;
+
+        // Open modal
+        $('#cliqModal').modal('show');
+
+        // Pre-select the correct package
+        document.getElementById('package_id').value = packageId;
+    });
 });
 
 </script>

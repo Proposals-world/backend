@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscription;
 use App\Models\SubscriptionPackage;
 use App\Services\FintesaPaymentService;
 use Illuminate\Support\Facades\Auth;
@@ -57,8 +58,10 @@ class PaymentPageController extends Controller
 
             ];
         });
-
-        return view('user.pricing', compact('subscriptionCards', 'packages'));
+        $activePackageId = Subscription::where('user_id', Auth::id())
+            ->where('status', 'active')
+            ->value('package_id');
+        return view('user.pricing', compact('subscriptionCards', 'packages', 'activePackageId'));
     }
 
     public function success()
