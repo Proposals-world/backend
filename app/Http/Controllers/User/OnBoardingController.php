@@ -27,8 +27,9 @@ class OnBoardingController extends Controller
     public function index(Request $request)
     {
         // Retrieve aggregated onboarding data with names based on current locale
-
-        $data = $this->onboardingService->getOnboardingData();
+        $fromupdate = true;
+        $fromdesired = false;
+        $data = $this->onboardingService->getOnboardingData($fromupdate, $fromdesired);
         return view('onBoarding', compact('data'));
     }
     public function getCitiesByCountry($countryId)

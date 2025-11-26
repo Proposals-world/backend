@@ -66,8 +66,9 @@ class UserProfileController extends Controller
         $userPreferences = $user->preference()->firstOrNew([
             'user_id' => $user->id
         ]);
-
-        $data = $this->onboardingService->getOnboardingData();
+        $fromdesired = true;
+        $fromupdatefalse = false;
+        $data = $this->onboardingService->getOnboardingData($fromupdatefalse, $fromdesired);
 
         $formattedUserPreferences = new UserPreferenceResource($userPreferences, app()->getLocale());
         // dd($formattedUserPreferences->resolve());
@@ -99,7 +100,9 @@ class UserProfileController extends Controller
         // }
 
         // dd($user->phone_number, $user->profile->guardian_contact);
-        $data = $this->onboardingService->getOnboardingData();
+        $fromupdate = true;
+        $fromdesired = false;
+        $data = $this->onboardingService->getOnboardingData($fromupdate, $fromdesired);
 
         // dd($profile);
         // dd($data['weights']);

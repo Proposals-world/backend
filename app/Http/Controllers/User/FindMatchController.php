@@ -17,7 +17,9 @@ class FindMatchController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->onboardingService->getOnboardingData();
+        $fromupdate = false;
+        $fromdesired = false;
+        $data = $this->onboardingService->getOnboardingData($fromupdate, $fromdesired);
 
         $user = auth()->user();
         $filledPreferenceCount = 0;

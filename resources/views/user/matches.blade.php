@@ -454,8 +454,8 @@
                 "{{ __('userDashboard.likeMe.car_ownership') }}": profile.profile.car_ownership ?
                     "{{ __('userDashboard.likeMe.yes') }}" : "{{ __('userDashboard.likeMe.no') }}",
                 "{{ __('userDashboard.likeMe.housing_status') }}": profile.profile.housing_status,
-                "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
-                    "{{ __('userDashboard.likeMe.na') }}",
+                // "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
+                //     "{{ __('userDashboard.likeMe.na') }}",
 
             },
             "{{ __('userDashboard.likeMe.professional') }}": {

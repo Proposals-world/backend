@@ -29,7 +29,7 @@ return [
         // Modal Fields
         'date_of_birth' => 'تاريخ الميلاد',
         'religion' => 'الديانة',
-        'marital_status' => 'الحالة الزوجية',
+        'marital_status' => 'الحالة الاجتماعية',
         'children' => 'الأطفال',
         'skin_color' => 'لون البشرة',
         'hair_color' => 'لون الشعر',

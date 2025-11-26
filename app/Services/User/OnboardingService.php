@@ -38,7 +38,7 @@ class OnboardingService
      *
      * @return array
      */
-    public function getOnboardingData()
+    public function getOnboardingData($fromupdate = false, $fromdesired = false)
     {
         $locale = app()->getLocale();
         // For most models we use these columns:
@@ -77,12 +77,21 @@ class OnboardingService
 
         return [
             'gender'            => $userGender,
-            'hairColors' => HairColor::select('id', DB::raw("{$nameField} as name"))
-                ->when(
-                    auth()->check() && auth()->user()->gender !== 'male',
-                    fn($q) => $q->where('name_en', '!=', 'Hijab')
-                )
-                ->get(),
+            'hairColors' =>
+            // 1) desired → always show Hijab
+            $fromdesired
+                ? $getData(HairColor::class)
+
+                // 2) update → hide Hijab only if male
+                : ($fromupdate && auth()->check() && auth()->user()->gender === 'male'
+                    ? HairColor::select('id', DB::raw("{$nameField} as name"))
+                    ->where('name_en', '!=', 'Hijab')
+                    ->get()
+
+                    // 3) onboarding → return full list
+                    : $getData(HairColor::class)
+                ),
+
             'heights'           => $getData(Height::class),
             'weights'           => $getData(Weight::class),
             'origins'           => $getData(Origin::class, null, true),

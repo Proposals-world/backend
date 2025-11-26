@@ -581,11 +581,15 @@
                         "{{ __('userDashboard.likeMe.date_of_birth') }}": profile.profile.date_of_birth,
                         "{{ __('userDashboard.likeMe.religion') }}": profile.profile.religion,
                         "{{ __('userDashboard.likeMe.religion_level') }}": profile.profile.religion_level ,
-                        "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,
-                        "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
-                            "{{ __('userDashboard.likeMe.na') }}",
+                        // "{{ __('userDashboard.likeMe.children') }}": profile.profile.children ??
+                        //     "{{ __('userDashboard.likeMe.na') }}",
                         "{{ __('userDashboard.likeMe.skin_color') }}": profile.profile.skin_color,
                         "{{ __('userDashboard.likeMe.hair_color') }}": profile.profile.hair_color,
+                                        "{{ __('userDashboard.likeMe.housing_status') }}": profile.profile.housing_status,
+
+                        "{{ __('userDashboard.likeMe.car_ownership') }}": profile.profile.car_ownership ?
+                  "{{ __('userDashboard.likeMe.yes') }}" : "{{ __('userDashboard.likeMe.no') }}",
+
                     },
                     "{{ __('userDashboard.likeMe.professional') }}": {
                         "{{ __('userDashboard.likeMe.educational_level') }}": profile.profile.educational_level,
@@ -611,12 +615,14 @@
                         "{{ __('userDashboard.likeMe.sports_activity') }}": profile.profile.sports_activity,
                     },
                     "{{ __('userDashboard.likeMe.social') }}": {
-                        "{{ __('userDashboard.likeMe.social_media_presence') }}": profile.profile.social_media_presence,
+                                        "{{ __('userDashboard.likeMe.marital_status') }}": profile.profile.marital_status,
+
                     },
                     "{{ __('userDashboard.likeMe.interests') }}": {
                         "{{ __('userDashboard.likeMe.smoking_tools') }}": profile.profile.smoking_tools,
                         "{{ __('userDashboard.likeMe.hobbies') }}": profile.profile.hobbies,
                         "{{ __('userDashboard.likeMe.pets') }}": profile.profile.pets,
+                        "{{ __('userDashboard.likeMe.social_media_presence') }}": profile.profile.social_media_presence,
                     }
                 };
             }
@@ -667,7 +673,7 @@
                         $('#modalAge').text(user.profile?.age || 'N/A');
                         $('#modalNationality').text(user.profile?.nationality || 'N/A');
                         $('#modalCity').text(user.profile?.city || 'N/A');
-                        $('#modalCity').text(user.profile?.city_location || 'N/A');
+                        $('#city_location').text(user.profile?.city_location || 'N/A');
                         $('#modalPhone').text(user.phone_number || 'N/A');
                         $('#modalCountryOfResidence').text(user.profile?.country_of_residence || 'N/A');
 $('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');
@@ -684,7 +690,7 @@ $('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');
 
                         const details = categorizeDetails(user);
                         populateExtraDetails(details);
-                        console.log(details)
+                        // console.log(details)
                         $('#profileModalRight').modal('show');
                     }
                 });
