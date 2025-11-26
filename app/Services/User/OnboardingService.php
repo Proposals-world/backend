@@ -96,7 +96,7 @@ class OnboardingService
             'jobTitles'         => $getData(JobTitle::class, null, true),
             'hobbies'           => $getData(Hobby::class, null, true),
             'pets'              => $getData(Pet::class),
-            'sportsActivities' => $getData(SportsActivity::class, null, true),
+            'sportsActivities' => $getData(SportsActivity::class),
             'smokingTools'      => $getData(SmokingTool::class),
             'drinkingStatuses'  => $getData(DrinkingStatus::class),
             'countries'         => $getData(Country::class, null, true),
