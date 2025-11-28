@@ -232,9 +232,9 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // Validate incoming request
+        // Validate request
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,email',
+            'email'    => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -242,29 +242,30 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Validation errors',
-                'errors' => $validator->errors(),
+                'errors'  => $validator->errors(),
             ], 422);
         }
 
-        $user = User::where('email', $request->email)->first();
+        // Get user including soft-deleted
+        $user = User::withTrashed()->where('email', $request->email)->first();
 
-        $deleteduser = User::withTrashed()->where('email', $request->email)->first();
-
-        if (!$deleteduser) {
+        // User does not exist
+        if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'User not found.',
             ], 404);
         }
 
-        // Check if the user is soft-deleted
-        if ($deleteduser->trashed()) {
+        // User is soft-deleted
+        if ($user->trashed()) {
             return response()->json([
                 'success' => false,
-                'message' => 'This account has been deleted.',
+                'message' => 'Your account has been deleted. Please contact support to restore it.',
             ], 403);
         }
-        // Attempt to authenticate
+
+        // Wrong password
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'success' => false,
@@ -272,7 +273,32 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // Check if the user's role is authorized (e.g., role_id = 2 for this example)
+        // Email not verified
+        if (!$user->email_verified_at) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your email is not verified.',
+            ], 403);
+        }
+
+        // Suspended
+        if ($user->status === 'suspended') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is suspended.',
+                'status'  => $user->status,
+            ], 403);
+        }
+
+        // Not active
+        if ($user->status !== 'active') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is not active.',
+            ], 403);
+        }
+
+        // Wrong role
         if ($user->role_id !== 2) {
             return response()->json([
                 'success' => false,
@@ -280,29 +306,7 @@ class AuthController extends Controller
             ], 403);
         }
 
-        // Check if the user's email is verified
-        if (!$user->email_verified_at) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Your email is not verified. Please verify your email before logging in.',
-            ], 403);
-        }
-        if (!$user || $user->status === 'suspended') {
-            return response()->json([
-                'success' => false,
-                "status" => $user->status,
-                'message' => 'Your account is suspended. If you think this is an issue, please contact support.',
-            ], 403);
-        }
-        if (!$user || $user->status !== 'active') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Your account is not active. If you think this is an issue, please contact support.',
-            ], 403);
-        }
-
-
-        // Issue an access token
+        // Issue token
         $accessToken = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -310,7 +314,7 @@ class AuthController extends Controller
             'message' => 'Login successful.',
             'data' => [
                 'access_token' => $accessToken,
-                'token_type' => 'Bearer',
+                'token_type'   => 'Bearer',
             ],
         ], 200);
     }

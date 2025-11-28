@@ -77,20 +77,56 @@ class OnboardingService
 
         return [
             'gender'            => $userGender,
-            'hairColors' =>
-            // 1) desired → always show Hijab
-            $fromdesired
-                ? $getData(HairColor::class)
+            'hairColors' => (function () use ($fromdesired, $fromupdate, $nameField) {
 
-                // 2) update → hide Hijab only if male
-                : ($fromupdate && auth()->check() && auth()->user()->gender === 'male'
-                    ? HairColor::select('id', DB::raw("{$nameField} as name"))
-                    ->where('name_en', '!=', 'Hijab')
-                    ->get()
+                $userGender = auth()->user()->gender ?? null;
 
-                    // 3) onboarding → return full list
-                    : $getData(HairColor::class)
-                ),
+                // Determine desired partner gender
+                // female user → wants male partner
+                // male user → wants female partner
+                $desiredGender = $userGender === 'female' ? 'male' : 'female';
+
+
+                /* -----------------------------------------
+     * CASE 1: Desired Partner Page
+     * fromdesired = true
+     * ----------------------------------------- */
+                if ($fromdesired) {
+                    // Female looking for male → remove Hijab
+                    if ($desiredGender === 'male') {
+                        return HairColor::select('id', DB::raw("{$nameField} as name"))
+                            ->where('name_en', '!=', 'Hijab')
+                            ->get();
+                    }
+
+                    // Male looking for female → allow Hijab
+                    return HairColor::select('id', DB::raw("{$nameField} as name"))->get();
+                }
+
+
+                /* -----------------------------------------
+     * CASE 2: Update Profile Page
+     * fromupdate = true
+     * ----------------------------------------- */
+                if ($fromupdate) {
+                    // If user is male → hide Hijab
+                    if ($userGender === 'male') {
+                        return HairColor::select('id', DB::raw("{$nameField} as name"))
+                            ->where('name_en', '!=', 'Hijab')
+                            ->get();
+                    }
+
+                    // Female user editing her profile → show Hijab
+                    return HairColor::select('id', DB::raw("{$nameField} as name"))->get();
+                }
+
+
+                /* -----------------------------------------
+     * CASE 3: Onboarding (Default)
+     * fromdesired = false, fromupdate = false
+     * ----------------------------------------- */
+                return HairColor::select('id', DB::raw("{$nameField} as name"))->get();
+            })(),
 
             'heights'           => $getData(Height::class),
             'weights'           => $getData(Weight::class),

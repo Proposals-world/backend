@@ -25,15 +25,36 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->only('email', 'password');
+        $email = strtolower(trim($request->email));
 
-        if (!Auth::attempt($credentials)) {
+        // 1️⃣ Check if user exists including soft-deleted
+        $user = User::withTrashed()
+            ->whereRaw('LOWER(email) = ?', [$email])
+            ->first();
+
+        // 2️⃣ If user is soft-deleted → show restore button
+        if ($user && $user->deleted_at !== null) {
             return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.',
+                'email' =>
+                "Your account has been deleted.<br>" .
+                    '<a href="' . route('restore-my-account', ['email' => $email]) . '"
+                    class="text-primary font-medium">
+                    Restore Account
+                </a>',
             ]);
         }
 
-        $user = User::where('email', $request->email)->first();
+        // 3️⃣ Proceed with normal breeze login
+        $credentials = ['email' => $email, 'password' => $request->password];
+
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        // 4️⃣ Additional status check
+        $user = User::where('email', $email)->first();
 
         if ($user->status !== 'active' && $user->status != "suspended") {
             Auth::logout();
@@ -43,14 +64,19 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
+        // 5️⃣ Success → regenerate session
         $request->session()->regenerate();
 
+        // 6️⃣ Redirect based on role
         if ($user->role_id == 1) {
             return redirect()->intended(route('admin.dashboard'));
         } elseif ($user->role_id == 2) {
             return redirect()->intended(route('user.dashboard'));
         }
+
+        return redirect('/');
     }
+
 
     /**
      * Destroy an authenticated session.

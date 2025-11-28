@@ -15,7 +15,8 @@ return [
     'Phone' => 'Phone',
     'City' => 'City',
     'Partner_City' => 'Partner City',
-
+    'Max_Age' => 'Max Age',
+    'Min_Age' => 'Min Age',
     //Personal Info
     'Partner_Personal_Info' => 'Partner Personal Info',
     'Partner_Nationality' => 'Partner Nationality',

@@ -74,7 +74,7 @@
                             <label for="email" class="form-label">{{ __('auth.email') }}</label>
                             <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="{{ __('auth.email') }}">
                             @error('email')
-                                <div class="text-danger mt-2">{{ $message }}</div>
+                                <div class="text-danger mt-2">{!! $message !!}</div>
                             @enderror
                         </div>
                         <div class="mb-3">

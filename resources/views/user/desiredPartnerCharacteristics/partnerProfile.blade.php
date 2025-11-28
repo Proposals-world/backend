@@ -186,7 +186,7 @@
                id="preferred_age_min"
                min="18"
                max="100"
-               value="{{ $userPreferences['preferred_age_min'] ?? 18 }}"
+               value="{{ $userPreferences['preferred_age_min'] ?? "" }}"
                placeholder="{{ __('profile.Min_Age') }}">
 
         <!-- Max Age -->
@@ -196,7 +196,7 @@
                id="preferred_age_max"
                min="18"
                max="100"
-               value="{{ $userPreferences['preferred_age_max'] ?? 65 }}"
+               value="{{ $userPreferences['preferred_age_max'] ?? "" }}"
                placeholder="{{ __('profile.Max_Age') }}">
     </div>
 </div>
@@ -1039,7 +1039,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     let count = 0;
                     const ageMinVal = parseInt($('#preferred_age_min').val()) || 18;
                     const ageMaxVal = parseInt($('#preferred_age_max').val()) || 65;
-
+                    const defaultMin = 18;
+                    const defaultMax = 65;
                     $(trackedInputsSelector).each(function() {
                         const el = $(this);
                         const name = el.attr('name');
@@ -1052,22 +1053,25 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (el.prop('disabled')) return;
 
                         if (el.is('select[multiple]')) {
-                            if (value && value.length > 0 && value.some(v => v !== '' && v !== 'null' && v !==
-                                    'No Preference')) {
-                                // console.log(`Multi-select ${name} counted:`, value);
+                            if (value && value.length > 0 && value.some(v => v !== '' && v !== null && v !== 'No Preference')) {
                                 count += 1;
                             }
-                        } else if (value && value !== '' && value !== 'null' && value !== 'No Preference') {
-                            // console.log(`Input ${name} counted:`, value);
-                            count += 1;
-                        }
-                    });
-
-                    if (ageMinVal !== 18 || ageMaxVal !== 65) {
-                        // console.log(`Age range counted: ${ageMinVal} - ${ageMaxVal}`);
+                            return;
+                        }else if (
+                        value !== null &&
+                        value !== '' &&
+                        value !== 'No Preference' &&
+                        value !== '0' &&
+                        value !== 0 &&
+                        value !== undefined
+                    ) {
                         count += 1;
                     }
+                    });
 
+                    if (ageMinVal != defaultMin || ageMaxVal != defaultMax) {
+                            count += 1;
+                        }
                     // console.log('Total count:', count);
                     return count;
                 }

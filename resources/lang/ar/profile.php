@@ -15,7 +15,8 @@ return [
     'Phone' => 'رقم الهاتف',
     'City' => 'مدينة',
     'Partner_City' => 'مدينة الشريك',
-
+    'Max_Age' => 'الحد الأقصى للعمر',
+    'Min_Age' => 'الحد الأدنى للعمر',
     // Personal Info
     'Partner_Personal_Info' => 'معلومات الشريك الشخصية',
     'Partner_Nationality' => 'جنسية الشريك',

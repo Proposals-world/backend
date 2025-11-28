@@ -103,7 +103,7 @@
       <!-- ============================= -->
 <!-- ✅ Pay with CliQ Section -->
 <!-- ============================= -->
-<div class="row equal-height-container mt-5">
+{{-- <div class="row equal-height-container mt-5">
     <div class="col-12">
         <h3 class="mb-3 text-left font-weight-bold text-primary">
             {{ __('payment.pay_by_card') }}
@@ -120,7 +120,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
         <!-- CliQ Payment Modal -->
