@@ -144,6 +144,11 @@
                 </div>
 
                 <div class="modal-body">
+                    <!-- 🔹 Obvious CliQ Text -->
+<div class="text-center mb-3 p-2"
+     style="font-size: 18px; font-weight: bold; color:#922c88 ; border:1px solid #922c88 ; border-radius:8px;">
+    Cliq: Tolba962
+</div>
     <div id="cliqAlert" style="display:none;"></div>
 
     <!-- 🔽 Package Selection -->
@@ -239,17 +244,16 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    let currentPackage = null;
-// Open CliQ modal
-document.getElementById('openCliqModal').addEventListener('click', function () {
-    $('#cliqModal').modal('show');
-});
 
-    // When clicking a "Subscribe" button
+    let currentPackage = null;
+
+    // ============================
+    // 1️⃣ OPEN PAYMENT NOTICE MODAL
+    // ============================
     document.querySelectorAll('.open-payment-modal').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
-            // Save the clicked card’s data
+
             currentPackage = {
                 packageId: this.dataset.packageId,
                 email: this.dataset.email,
@@ -257,12 +261,16 @@ document.getElementById('openCliqModal').addEventListener('click', function () {
                 date: this.dataset.date,
                 url: this.dataset.url
             };
+
             $('#paymentModal').modal('show');
         });
     });
 
-    // When clicking "Proceed to Payment"
+    // ============================
+    // 2️⃣ PROCEED TO PAYMENT
+    // ============================
     document.querySelector('.proceed-payment-btn').addEventListener('click', function () {
+
         if (!currentPackage) {
             alert('No package selected.');
             return;
@@ -292,12 +300,96 @@ document.getElementById('openCliqModal').addEventListener('click', function () {
                 alert('Error: ' + (data.message || 'Could not insert payment.'));
             }
         })
-        .catch(err => {
-            console.error(err);
-            alert('Something went wrong.');
+        .catch(() => alert('Something went wrong.'));
+    });
+
+
+    // ============================
+    // 3️⃣ OPEN CLIQ MODAL FROM BUTTON INSIDE CARD
+    // ============================
+    document.querySelectorAll('.open-cliq-with-package').forEach(btn => {
+        btn.addEventListener('click', function () {
+
+            let packageId = this.dataset.packageId;
+
+            // Open modal
+            $('#cliqModal').modal('show');
+
+            // Pre-select the correct package
+            document.getElementById('package_id').value = packageId;
         });
     });
+
+
+    // ============================
+    // 4️⃣ SUBMIT CLIQ PAYMENT (AJAX)
+    // ============================
+    document.getElementById('cliqPaymentForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const submitBtn = document.getElementById('submitCliqPaymentBtn');
+        const alertBox = document.getElementById('cliqAlert');
+
+        alertBox.style.display = 'none';
+        alertBox.innerHTML = '';
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = '{{ __("payment.Processing") }}';
+
+        try {
+            const response = await fetch('{{ route('user.payment.cliq') }}', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer {{ Auth::user()->createToken("web")->plainTextToken ?? "" }}',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+            submitBtn.disabled = false;
+            submitBtn.innerText = '{{ __("payment.Submit_Payment") }}';
+
+            if (response.ok && data.success) {
+                alertBox.className = 'alert alert-success alert-dismissible fade show';
+                alertBox.innerHTML = `
+                    <strong><i class="simple-icon-check"></i></strong> ${data.message}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                `;
+                alertBox.style.display = 'block';
+                form.reset();
+
+                setTimeout(() => {
+                    $('#cliqModal').modal('hide');
+                }, 2000);
+
+            } else {
+                const errors = data.errors ? Object.values(data.errors).flat().join('<br>') : data.message;
+                alertBox.className = 'alert alert-danger alert-dismissible fade show';
+                alertBox.innerHTML = `
+                    <strong><i class="simple-icon-close"></i></strong> ${errors}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                `;
+                alertBox.style.display = 'block';
+            }
+
+        } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = '{{ __("payment.Submit_Payment") }}';
+            alertBox.className = 'alert alert-danger alert-dismissible fade show';
+            alertBox.innerHTML = `
+                <strong><i class="simple-icon-close"></i></strong> Connection error. Please try again.
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            `;
+            alertBox.style.display = 'block';
+        }
+    });
+
 });
+
 
 // Open CliQ modal
 document.getElementById('openCliqModal').addEventListener('click', function () {

@@ -39,6 +39,7 @@ class UserPreferenceResource extends JsonResource
             'preferred_age_max' => $this->preferred_age_max,
             'preferred_educational_level' => $this->preferredEducationalLevel ? $this->preferredEducationalLevel->{"name_{$lang}"} : null,
             'preferred_specialization' => $this->preferredSpecialization ? $this->preferredSpecialization->{"name_{$lang}"} : null,
+            'preferred_position_level' => $this->preferredPositionLevel ? $this->preferredPositionLevel->{"name_{$lang}"} : null,
             'preferred_employment_status' => $this->preferred_employment_status,
             'preferred_job_title' => $this->preferredJobTitle ? $this->preferredJobTitle->{"name_{$lang}"} : null,
             'preferred_financial_status' => $this->preferredFinancialStatus ? $this->preferredFinancialStatus->{"name_{$lang}"} : null,

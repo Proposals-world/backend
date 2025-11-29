@@ -597,6 +597,25 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    {{-- Position Level --}}
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="preferred_position_level">{{ __('profile.Partner_Position_Level') }}</label>
+
+                                                        <select class="form-control"
+                                                                name="preferred_position_level_id"
+                                                                id="preferred_position_level">
+
+                                                            <option value="">{{ __('profile.Partner_No_Preference') }}</option>
+
+                                                            @foreach ($data['positionLevels'] as $option)
+                                                                <option value="{{ $option->id }}"
+                                                                    {{ $userPreferences['preferred_position_level'] == $option->name ? 'selected' : '' }}>
+                                                                    {{ $option->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
 
                                                 </div>
                                             </div>

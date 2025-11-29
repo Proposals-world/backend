@@ -40,6 +40,7 @@ class UserPreference extends Model
         'preferred_car_ownership',  // Added car ownership
         'preferred_housing_status_id', // Added housing status
         'preferred_religion_id', // Added religion
+        'preferred_position_level_id', // Added position level
     ];
 
 
@@ -168,5 +169,9 @@ class UserPreference extends Model
     public function preferredReligion()
     {
         return $this->belongsTo(Religion::class, 'preferred_religion_id');
+    }
+    public function preferredPositionLevel()
+    {
+        return $this->belongsTo(PositionLevel::class, 'preferred_position_level_id');
     }
 }
