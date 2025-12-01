@@ -34,5 +34,5 @@ return [
     'cliq_disclaimer' => 'Transfers must be made only to the official CliQ account: Tolba962. We are not responsible for any transfers made to other CliQ accounts.',
     'pay_by_card'    => 'Subscribe now, pay by card',
     'Active' => 'Active',
-
+    'expires_at' => 'Expires at',
 ];

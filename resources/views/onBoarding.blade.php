@@ -1138,6 +1138,7 @@
             var totalApis = 3;
             var loadedApis = 0;
             var guardianContactValid = false;
+            let isPageLoading = true;
 
             function apiLoaded() {
                 loadedApis++;
@@ -1564,7 +1565,7 @@ if (!touched) {
                             break;
 
                           case 'bio_en':
-                    var englishRegex = /^[A-Za-z0-9\s.,'"\-?!()]+$/;
+                            var englishRegex = /^[A-Za-z\s.,'"()\-\?!]+$/;
                     if (!englishRegex.test(value)) {
                         errorSpan.text("{{ __('onboarding.english_required') }}");
                         isValid = false;
@@ -1581,21 +1582,24 @@ if (!touched) {
                     }
                     break;
               case 'bio_ar':
-                // 1) If there are any digits, show the no‐numbers error and stop
+                // ❌ منع الأرقام
                 if (/\d/.test(value)) {
                     errorSpan.text("{{ __('onboarding.no_numbers_allowed') }}");
                     isValid = false;
                     break;
                 }
 
-                // 2) If there are any characters outside Arabic letters, spaces, and our basic punctuation,
-                //    show the special‐characters error and stop
-                var specialCharRegexAr = /[^\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]/u;
-                if (specialCharRegexAr.test(value)) {
+                // ✔ السماح بالحروف العربية + المسافة + النقطة والفاصلة فقط
+                var arabicAllowedRegex = /^[\u0600-\u06FF\s\.,]+$/u;
+
+                if (!arabicAllowedRegex.test(value)) {
                     errorSpan.text("{{ __('onboarding.no_special_characters') }}");
                     isValid = false;
                     break;
                 }
+
+                break;
+
 
                 // 3) Finally, ensure it’s at least Arabic letters (with allowed punctuation)
                 var arabicLettersAndPunc = /^[\u0600-\u06FF\s\u060C\u061B\u061F\.,'"()\-\?!]+$/u;
@@ -1843,6 +1847,8 @@ el.data('touched', true);
 validateField(el);
 
     }
+    isPageLoading = false;
+
 }
                 // Validate all fields in a step
                 function validateStep(step) {
@@ -2138,6 +2144,8 @@ function applyStepRequiredRules(step) {
 
     input.addEventListener('input', function () {
         clearTimeout(debounceTimer);
+            if (isPageLoading) return;
+
         debounceTimer = setTimeout(() => {
             validateGuardianContact();
         }, 700); // wait 700ms after typing stops

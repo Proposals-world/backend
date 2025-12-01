@@ -84,36 +84,46 @@ class AdminController extends Controller
                     'drinkingStatus',
                     'socialMediaPresence',
                     'zodiacSign',
-                    'eyeColor', // 👈 added
-                    'cityLocation'
+                    'eyeColor',
+                    'cityLocation',
+
+                    // 🔥 العلاقات الناقصة
+                    'housingStatus',
+                    'financialStatus',
+                    'maritalStatus',
+                    'hairColor',
+                    'skinColor',
+                    'sportsActivity',
+                    'sleepHabit',
+                    'religiosityLevel',
+                    'marriageBudget',
                 ]);
             },
+
             'photos',
-            'matches',
+
+            // لو تستخدمها تحت كله صح
             'likes.likedUser.profile',
             'dislikes.dislikedUser.profile',
             'likedBy.user.profile',
             'dislikedBy.user.profile',
-
+            'matches',
 
         ])->findOrFail($userid);
-        $previous = User::where('id', '<', $user->id)
-            ->orderBy('id', 'desc')
-            ->first();
-        $next     = User::where('id', '>', $user->id)
-            ->orderBy('id', 'asc')
-            ->first();
-        $substatus = Subscription::where('user_id', $user->id)
-            ->latest()
-            ->value('status');
-        // ✅ Only check verification for the authenticated user
-        $verifiedStatus = false;
 
+        // Previous / Next
+        $previous = User::where('id', '<', $user->id)->orderBy('id', 'desc')->first();
+        $next = User::where('id', '>', $user->id)->orderBy('id', 'asc')->first();
+
+        // Subscription Status
+        $substatus = Subscription::where('user_id', $user->id)->latest()->value('status');
+
+        // Verification Logic
         $phoneVerified = UserPhoneNumberOtp::where('user_id', $user->id)
             ->where('verified', true)
             ->exists();
-        if ($user->gender == 'female') {
 
+        if ($user->gender == 'female') {
             $guardianVerified = GuardianOtp::where('user_id', $user->id)
                 ->where('verified', true)
                 ->exists();
@@ -122,7 +132,7 @@ class AdminController extends Controller
         } else {
             $verifiedStatus = $phoneVerified;
         }
-        // dd($substatus);
-        return view('admin.viewUser', compact('user', 'previous', 'next', 'substatus', 'verifiedStatus')); // Ensure this view exists
+
+        return view('admin.viewUser', compact('user', 'previous', 'next', 'substatus', 'verifiedStatus'));
     }
 }

@@ -37,6 +37,13 @@
                                     {{ $card['package_name'] }}
                                 </h5>
                                 <p class="text-large mb-2 text-default">${{ $card['price'] }}</p>
+                                @if($activePackageId == $card['id'] && $activeSubscription)
+                                    <p class="text-success font-weight-bold mt-2" style="font-size: 14px;">
+                                        {{ __('payment.expires_at') }}:
+                                        {{ \Carbon\Carbon::parse($activeSubscription->expires_at)->format('Y-m-d') }}
+                                    </p>
+                                @endif
+
                             </div>
 
                             <div class="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">

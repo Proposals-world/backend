@@ -61,7 +61,11 @@ class PaymentPageController extends Controller
         $activePackageId = Subscription::where('user_id', Auth::id())
             ->where('status', 'active')
             ->value('package_id');
-        return view('user.pricing', compact('subscriptionCards', 'packages', 'activePackageId'));
+        $activeSubscription = Subscription::where('user_id', Auth::id())
+            ->where('status', 'active')
+            ->first();
+
+        return view('user.pricing', compact('subscriptionCards', 'packages', 'activePackageId', 'activeSubscription'));
     }
 
     public function success()
