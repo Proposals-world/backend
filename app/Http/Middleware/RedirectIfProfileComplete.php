@@ -35,6 +35,14 @@ class RedirectIfProfileComplete
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
+        // PAGES THAT MUST NOT REDIRECT
+        if (
+            $request->is('user/verify-phone-number-otp') ||
+            $request->is('user/verify-user-code') ||
+            $request->is('user/update-phone-number')
+        ) {
+            return $next($request);
+        }
 
 
         if ($user && $user->profile) {
@@ -46,6 +54,7 @@ class RedirectIfProfileComplete
                     break;
                 }
             }
+
             if ($isComplete) {
                 // If the profile is complete, redirect away from on-boarding (e.g., to the dashboard).
                 return redirect()->route('user.dashboard');

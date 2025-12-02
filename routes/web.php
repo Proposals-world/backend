@@ -184,7 +184,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Route::resource('blogs', BlogController::class);
 });
-Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
+Route::middleware(['auth', 'verified', 'phone.verified'])->prefix('user')->group(function () {
     Route::middleware('redirect.if.profile.complete')->group(function () {
         Route::get('/on-boarding', [OnBoardingController::class, 'index'])->name('onboarding');
     });
@@ -204,13 +204,13 @@ Route::middleware([
     'auth',
     'verified',
     'check.status',
-    'profile.complete',         // First: ensure profile complete
-    'phone.verified',
+    'phone.verified', // First: ensure profile complete
+    'profile.complete',
     'guardian.verified'         // Second: ensure guardian verified
 ])->prefix('user')->group(function () {
 
-    Route::get('verify-phone-number-otp', [UserPhoneNumberOtpController::class, 'index'])
-        ->name('user.phone.index');
+    // Route::get('verify-phone-number-otp', [UserPhoneNumberOtpController::class, 'index'])
+    //     ->name('user.phone.index');
     Route::get('change-password', [ChangePasswordController::class, 'edit'])
         ->name('password.change');
 
@@ -286,8 +286,8 @@ Route::prefix('user')->group(function () {
         ->name('user.verify');
     Route::post('verify-user-code', [UserPhoneNumberOtpController::class, 'verify'])
         ->name('user.verify');
-    Route::post('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
-        ->name('user.update.phone.number');
+    // Route::post('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
+    //     ->name('user.update.phone.number');
 });
 
 Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'validateGuardianContact'])->name('validate.guardian.contact');
@@ -306,6 +306,19 @@ Route::get('/admin/user-profile-logs', [UserProfileLogController::class, 'index'
 Route::get('/admin/user-profile-logs/data', [UserProfileLogController::class, 'data'])
     ->middleware(['auth', 'admin'])
     ->name('admin.profile.logs.data');
+Route::middleware(['auth', 'verified'])
+    ->prefix('user')
+    ->group(function () {
+        Route::get('verify-phone-number-otp', [UserPhoneNumberOtpController::class, 'index'])
+            ->name('user.phone.index');
+
+        Route::post('verify-phone-number-otp', [UserPhoneNumberOtpController::class, 'verify'])
+            ->name('user.phone.verify');
+
+        Route::post('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
+            ->name('user.update.phone.number');
+    });
+
 
 
 require __DIR__ . '/auth.php';

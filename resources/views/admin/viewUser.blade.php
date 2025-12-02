@@ -129,7 +129,8 @@
 
                                 <div class="tab-pane fade show active" id="aboutme">
                                     <form>
-                                        <h5 class="mb-4 text-uppercase"><i class="ri-contacts-book-2-line me-1"></i> Personal Info</h5>
+
+                                        <h5 class="mb-4 text-uppercase"><i class="ri-camera-line me-1"></i> Personal Picture</h5>
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mb-3 text-center">
@@ -139,6 +140,51 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    <h5 class="mb-3 text-uppercase bg-light p-2"><i class="ri-contacts-book-2-line me-1"></i> Basic User Data</h5>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">First Name</label>
+                                                    <p>{{ $user->first_name ?? 'None' }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Last Name</label>
+                                                    <p>{{ $user->last_name ?? 'None' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email</label>
+                                                    <p>{{ $user->email ?? 'None' }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Phone Number</label>
+                                                    <p>{{ $user->phone_number ?? 'None' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Gender</label>
+                                                    <p>{{ ucfirst($user->gender) ?? 'None' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    <h5 class="mb-3 text-uppercase bg-light p-2"><i class="ri-contacts-book-2-line me-1"></i> Basic Information</h5>
 
                                         <div class="row">
                                             <div class="col-md-6">
