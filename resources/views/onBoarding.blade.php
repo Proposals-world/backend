@@ -1848,7 +1848,17 @@ validateField(el);
 
     }
     isPageLoading = false;
+      // 🔥🔥🔥 AUTO-VALIDATE GUARDIAN CONTACT AFTER REFRESH
+    if (userGender === "female") {
+        const guardianInput = document.getElementById('guardian_contact_input');
 
+        if (guardianInput && guardianInput.value.trim() !== "") {
+            // wait for select2 / DOM to finish updating
+            setTimeout(() => {
+                validateGuardianContact();  // TRIGGER VALIDATION
+            }, 300);
+        }
+    }
 }
                 // Validate all fields in a step
                 function validateStep(step) {
@@ -2144,7 +2154,7 @@ function applyStepRequiredRules(step) {
 
     input.addEventListener('input', function () {
         clearTimeout(debounceTimer);
-            if (isPageLoading) return;
+            // if (isPageLoading) return;
 
         debounceTimer = setTimeout(() => {
             validateGuardianContact();
