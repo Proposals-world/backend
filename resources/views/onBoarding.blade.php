@@ -1296,18 +1296,18 @@ function loadCityLocations(cityId) {
 }
 
 function loadSavedStep() {
-    let saved = sessionStorage.getItem(LS_KEY_STEP);
-    if (!saved) return 0;
+    // let saved = sessionStorage.getItem(LS_KEY_STEP);
+    // if (!saved) return 0;
 
-    saved = parseInt(saved);
+    // saved = parseInt(saved);
 
-    $(".onboarding-step").hide();
-    $(`#step-${saved}`).show();
+    // $(".onboarding-step").hide();
+    // $(`#step-${saved}`).show();
 
-    $(".step-indicator").removeClass("active");
-    $(`.step-indicator[data-step="${saved}"]`).addClass("active");
+    // $(".step-indicator").removeClass("active");
+    // $(`.step-indicator[data-step="${saved}"]`).addClass("active");
 
-    return saved;
+    // return saved;
 }
 function loadReligiosityLevelsByReligion(religionId, selectedLevel = null) {
     $('#religiosity_levels')
