@@ -82,7 +82,6 @@ class UserPhoneNumberOtpController extends Controller
                         : 'Session not found, cannot send OTP.'
                 ], 400);
             }
-            dd($this->sessionId);
 
             // 🛠 Generate new OTP
             $otp = rand(100000, 999999);
