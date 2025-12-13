@@ -14,20 +14,20 @@ class InfobipService
     protected Client $client;
     protected string $from;
 
-    public function __construct()
-    {
-        $this->client = new Client([
-            'base_uri' => env('INFOBIP_BASE_URL'),
-            'headers'  => [
-                'Authorization' => 'App ' . env('INFOBIP_API_KEY'),
-                'Content-Type'  => 'application/json',
-                'Accept'        => 'application/json',
-            ],
-        ]);
+    // public function __construct()
+    // {
+    //     $this->client = new Client([
+    //         'base_uri' => env('INFOBIP_BASE_URL'),
+    //         'headers'  => [
+    //             'Authorization' => 'App ' . env('INFOBIP_API_KEY'),
+    //             'Content-Type'  => 'application/json',
+    //             'Accept'        => 'application/json',
+    //         ],
+    //     ]);
 
-        // The WhatsApp sender number
-        $this->from = env('INFOBIP_SENDER');
-    }
+    //     // The WhatsApp sender number
+    //     // $this->from = env('INFOBIP_SENDER');
+    // }
 
     /**
      * Send a WhatsApp template message.
@@ -38,51 +38,51 @@ class InfobipService
      * @param  array   $parameters   Template parameters (if any)
      * @return array
      */
-    public function sendWhatsAppTemplate($to, $templateName, $language = 'en_GB', $parameters = [])
-    {
-        // expects: ['123456'] if just body, or ['123456', 'urlParam'] if has button
+    // public function sendWhatsAppTemplate($to, $templateName, $language = 'en_GB', $parameters = [])
+    // {
+    //     // expects: ['123456'] if just body, or ['123456', 'urlParam'] if has button
 
-        $bodyPlaceholder = $parameters[0] ?? '';
-        $buttonParameter = $parameters[1] ?? null;
+    //     $bodyPlaceholder = $parameters[0] ?? '';
+    //     $buttonParameter = $parameters[1] ?? null;
 
-        $templateData = [
-            'body' => [
-                'placeholders' => [$bodyPlaceholder]
-            ]
-        ];
+    //     $templateData = [
+    //         'body' => [
+    //             'placeholders' => [$bodyPlaceholder]
+    //         ]
+    //     ];
 
-        if ($buttonParameter) {
-            $templateData['buttons'] = [
-                [
-                    'type' => 'URL',
-                    'parameter' => $buttonParameter
-                ]
-            ];
-        }
+    //     if ($buttonParameter) {
+    //         $templateData['buttons'] = [
+    //             [
+    //                 'type' => 'URL',
+    //                 'parameter' => $buttonParameter
+    //             ]
+    //         ];
+    //     }
 
-        $payload = [
-            'messages' => [
-                [
-                    'from' => $this->from,
-                    'to' => $to,
-                    'content' => [
-                        'templateName' => $templateName,
-                        'templateData' => $templateData,
-                        'language' => $language
-                    ]
-                ]
-            ]
-        ];
+    //     $payload = [
+    //         'messages' => [
+    //             [
+    //                 'from' => $this->from,
+    //                 'to' => $to,
+    //                 'content' => [
+    //                     'templateName' => $templateName,
+    //                     'templateData' => $templateData,
+    //                     'language' => $language
+    //                 ]
+    //             ]
+    //         ]
+    //     ];
 
-        Log::debug('Infobip payload', ['payload' => $payload]);
+    //     Log::debug('Infobip payload', ['payload' => $payload]);
 
-        $response = Http::withHeaders([
-            'Authorization' => 'App ' . env('INFOBIP_API_KEY'),
-            'Content-Type' => 'application/json'
-        ])->post(env('INFOBIP_BASE_URL') . '/whatsapp/1/message/template', $payload);
+    //     $response = Http::withHeaders([
+    //         'Authorization' => 'App ' . env('INFOBIP_API_KEY'),
+    //         'Content-Type' => 'application/json'
+    //     ])->post(env('INFOBIP_BASE_URL') . '/whatsapp/1/message/template', $payload);
 
-        return $response->json();
-    }
+    //     return $response->json();
+    // }
     /**
      * Send a plain-text WhatsApp message.
      * NOTE: This can only be used within the 24-hour customer service window.

@@ -82,6 +82,8 @@ class UserPhoneNumberOtpController extends Controller
                         : 'Session not found, cannot send OTP.'
                 ], 400);
             }
+            dd($this->sessionId);
+
             // 🛠 Generate new OTP
             $otp = rand(100000, 999999);
 
@@ -89,7 +91,6 @@ class UserPhoneNumberOtpController extends Controller
                 'sessionId'    => $this->sessionId,
                 "id"       =>   ltrim($usernumber, '+') . "@s.whatsapp.net",
             ]);
-
             UserPhoneNumberOtp::create([
                 'user_id'    => $user->id,
                 'code'       => $otp,

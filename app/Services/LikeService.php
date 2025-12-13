@@ -23,32 +23,44 @@ class LikeService
     {
         $user = Auth::user();
         abort_unless($user, 403);
-        $reportedUsers = UserReport::where('reporter_id', Auth::id())->pluck('reported_id');
+
+        // users I reported
+        $reportedUsers = UserReport::where('reporter_id', $user->id)
+            ->pluck('reported_id');
+
+        // users I disliked (rejected)
+        $dislikedUsers = Dislike::where('user_id', $user->id)
+            ->pluck('disliked_user_id');
 
         /* ------------------------------------------
-         | 1. build an array of all my matched user-ids
-         * ------------------------------------------*/
+     | 1. all matched user ids
+     * ------------------------------------------*/
         $matchedUserIds = UserMatch::where(function ($q) use ($user) {
             $q->where('user1_id', $user->id)
                 ->orWhere('user2_id', $user->id);
         })
-            ->get()                       // each row has user1_id & user2_id
+            ->get()
             ->flatMap(fn($m) => [$m->user1_id, $m->user2_id])
             ->unique()
-            ->reject(fn($id) => $id == $user->id)   // toss my own id
-            ->all();                     // ->all() returns plain array
+            ->reject(fn($id) => $id == $user->id)
+            ->all();
 
         /* ------------------------------------------
-         | 2. return likes that are NOT in that list
-         * ------------------------------------------*/
+     | 2. likes that liked me BUT:
+     |    - not matched
+     |    - not reported
+     |    - not disliked
+     * ------------------------------------------*/
         $likes = Like::where('liked_user_id', $user->id)
             ->whereNotIn('user_id', $matchedUserIds)
             ->whereNotIn('user_id', $reportedUsers)
+            ->whereNotIn('user_id', $dislikedUsers)
             ->with('user.photos')
             ->get();
 
-        return LikeResource::collection($likes); // default = false
+        return LikeResource::collection($likes);
     }
+
 
     public function getLikes()
     {

@@ -286,8 +286,8 @@ Route::prefix('user')->group(function () {
         ->name('user.verify');
     Route::post('verify-user-code', [UserPhoneNumberOtpController::class, 'verify'])
         ->name('user.verify');
-    // Route::post('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
-    //     ->name('user.update.phone.number');
+    Route::post('update-phone-number', [UserPhoneNumberOtpController::class, 'updatePhoneNumber'])
+        ->name('user.update.phone.number');
 });
 
 Route::post('/update-guardian-contact', [GuardianContactVerificationController::class, 'validateGuardianContact'])->name('validate.guardian.contact');
