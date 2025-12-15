@@ -16,6 +16,7 @@ use App\Models\UserReport;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\Eloquent\Builder;
 
 class LikeService
 {
@@ -107,6 +108,10 @@ class LikeService
             })
             ->whereNotIn('user1_id', $blockedUserIds)
             ->whereNotIn('user2_id', $blockedUserIds)
+
+            // ⛔ exclude soft-deleted users
+            ->whereHas('user1', fn(Builder $q) => $q->whereNull('deleted_at'))
+            ->whereHas('user2', fn(Builder $q) => $q->whereNull('deleted_at'))
             ->get();
 
         return MatchResource::collection($matches);
