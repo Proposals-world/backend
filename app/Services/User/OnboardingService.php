@@ -151,7 +151,24 @@ class OnboardingService
             'financialStatuses' => $getData(FinancialStatus::class),
             'specializations'   => $getData(Specialization::class, null, true),
             'positionLevels'    => $getData(PositionLevel::class),
-            'educationalLevels' => $getData(EducationalLevel::class),
+            'educationalLevels' => EducationalLevel::select(
+                'id',
+                DB::raw("{$nameField} as name")
+            )
+                ->orderByRaw("
+                CASE name_en
+                    WHEN 'Less than high School' THEN 1
+                    WHEN 'High School' THEN 2
+                    WHEN 'Vocational Degree' THEN 3
+                    WHEN 'Diploma' THEN 4
+                    WHEN \"Bachelor's Degree\" THEN 5
+                    WHEN 'Higher Diploma' THEN 6
+                    WHEN \"Master's Degree\" THEN 7
+                    WHEN 'PhD' THEN 8
+                    ELSE 99
+                END
+            ")
+                ->get(),
             'socialMediaPresence' => $getData(SocialMediaPresence::class),
             'religiousLevels'   => $religiousLevels,
         ];
