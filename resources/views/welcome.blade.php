@@ -401,41 +401,7 @@ html[dir="rtl"] .contact-direction {
         <!-- faq-area-end -->
 
 
-        <!-- newslater-area (Subscribe for Updates) -->
-        <section class="newslater-area pt-90 pb-100"
-            style="background-image: url({{ asset('frontend/img/bg/subscribe-bg.png') }}); background-size: cover;">
-            <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-10">
-                <div class="section-title text-center pl-40 pr-40 mb-50">
-                    <h2>{{ __('home.subscribe_title') }}</h2>
-                    <p>{{ __('home.subscribe_desc') }}</p>
-                </div>
-                </div>
-            </div>
-            <div class="row justify-content-center" style="direction: ltr;">
-                <div class="col-xl-6 col-lg-10">
-                <form name="ajax-form" id="contact-form4" action="{{ route('subscribe.message') }}" method="post"
-                    class="contact-form newslater">
-                    @csrf
-                    <div class="form-group">
-                    <input class="form-control" id="email2" name="email" type="email"
-                        placeholder="{{ __('home.subscribe_placeholder') }}" value="" required>
-                    <button type="submit" class="btn btn-custom" id="send2">
-                        {{ __('home.subscribe_button') }}
-                    </button>
-                    </div>
-                    @if (session('success'))
-                    <div class="alert alert-success mt-3">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-                </form>
-                </div>
-            </div>
-            </div>
-        </section>
-        <!-- newslater-area-end -->
+
 
         <!-- pricing-area (Our Pricing Plans) -->
         <section id="pricing" class="pricing-area pt-100 pb-50"
@@ -477,8 +443,8 @@ html[dir="rtl"] .contact-direction {
                                             </div>
                                             <div class="pricing-body mb-40 text-left">
                                                 <ul>
-
                                                     <li>{{ __('home.contact_limit') }}: {{ $package['contact_limit'] }}</li>
+                                                    <li>{{ __('home.duration') }}: {{ $package['duration'] ?? 'N/A' }} {{ __('home.in_days') }} </li>
 
                                             </div>
                                             <div class="pricing-btn">
@@ -571,7 +537,41 @@ html[dir="rtl"] .contact-direction {
             </div>
         </section>
         <!-- blog-area-end -->
-
+         <!-- newslater-area (Subscribe for Updates) -->
+        <section class="newslater-area pt-90 pb-100"
+            style="background-image: url({{ asset('frontend/img/bg/subscribe-bg.png') }}); background-size: cover;">
+            <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                <div class="section-title text-center pl-40 pr-40 mb-50">
+                    <h2>{{ __('home.subscribe_title') }}</h2>
+                    <p>{{ __('home.subscribe_desc') }}</p>
+                </div>
+                </div>
+            </div>
+            <div class="row justify-content-center" style="direction: ltr;">
+                <div class="col-xl-6 col-lg-10">
+                <form name="ajax-form" id="contact-form4" action="{{ route('subscribe.message') }}" method="post"
+                    class="contact-form newslater">
+                    @csrf
+                    <div class="form-group">
+                    <input class="form-control" id="email2" name="email" type="email"
+                        placeholder="{{ __('home.subscribe_placeholder') }}" value="" required>
+                    <button type="submit" class="btn btn-custom" id="send2">
+                        {{ __('home.subscribe_button') }}
+                    </button>
+                    </div>
+                    @if (session('success'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                </form>
+                </div>
+            </div>
+            </div>
+        </section>
+        <!-- newslater-area-end -->
       <!-- contact-area (Get In Touch) -->
 <section id="contact" class="contact-area pt-50 pb-100"
 style="background-color: #fff; position: relative;">

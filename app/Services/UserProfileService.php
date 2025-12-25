@@ -18,7 +18,7 @@ class UserProfileService
      * @param string $lang
      * @return User|null
      */
-    public function getAuthenticatedUserProfile(User $user, string $lang = 'en'): ?User
+    public function     getAuthenticatedUserProfile(User $user, string $lang = 'en'): ?User
     {
         // Validate language parameter
         $lang = in_array($lang, ['en', 'ar']) ? $lang : 'en';
@@ -121,45 +121,46 @@ class UserProfileService
 
         // Ensure only valid fields are updated
         $profile->fill([
-            'nickname' => $data['nickname'] ?? $profile->nickname, //
-            'bio_en' => $data['bio_en'] ?? $profile->bio_en, //
-            'bio_ar' => $data['bio_ar'] ?? $profile->bio_ar, //
-            'date_of_birth' => $data['date_of_birth'], //
-            'age' => Carbon::parse($data['date_of_birth'])->age, //
-            'height_id' => $data['height'], //
-            'weight_id' => $data['weight'], //
-            'nationality_id' => $data['nationality_id'] ?? null, //
-            'origin_id' => $data['origin_id'] ?? null, //
-            'religion_id' => $data['religion_id'] ?? null, //
-            'skin_color_id' => $data['skin_color_id'] ?? null, //
-            'hair_color_id' => $data['hair_color_id'] ?? null, //
-            'country_of_residence_id' => $data['country_of_residence_id'], //
-            'city_id' => $data['city_id'], //
-            'city_location_id' => $data['city_location_id'] ?? null, //
-            'educational_level_id' => $data['educational_level_id'], //
-            'specialization_id' => $data['specialization_id'] ?? null, //
-            'employment_status' => $data['employment_status'] ?? null, //
-            'job_title_id' => $data['job_title_id'] ?? null, //
-            'smoking_status' => $data['smoking_status'] ?? null, //
-            'drinking_status_id' => $data['drinking_status_id'] ?? null, //
-            'sports_activity_id' => $data['sports_activity_id'] ?? null, //
-            'social_media_presence_id' => $data['social_media_presence_id'] ?? null, //missing
-            'marital_status_id' => $data['marital_status_id'],  //
-            'children' => $data['number_of_children'] ?? null, //
-            'housing_id' => $data['housing_status_id'] ?? null, //
-            'hijab_status' => $data['hijab_status'] ?? 0, //missing for wemon only
-            'position_level_id' => $data['position_level_id'] ?? null,  //missing
-            'financial_status_id' => $data['financial_status_id'] ?? null, //
-            'health_issues_en' => $data['health_issues_en'] ?? null,
-            'car_ownership' => $data['car_ownership'] ?? null, //missing
-            'health_issues_ar' => $data['health_issues_ar'] ?? null,
-            'zodiac_sign_id' => $data['zodiac_sign_id'] ?? null, //missing
-            'religiosity_level_id' => $data['religiosity_level_id'] ?? null,  //missing
-            'sleep_habit_id' => $data['sleep_habit_id'] ?? null,
-            'marriage_budget_id' => $data['marriage_budget_id'] ?? null, //missing for men
-            'eye_color_id' => $data['eye_color_id'] ?? null, //missing for men
-            // 'guardian_contact_encrypted' => $data['_guardian_full'] ?? $profile->guardian_contact_encrypted,
-            'guardian_contact_encrypted' => $guardianContact,
+            'nickname' => $data['nickname'] ?? ($profile->nickname ?? null),
+            'bio_en' => $data['bio_en'] ?? ($profile->bio_en ?? null),
+            'bio_ar' => $data['bio_ar'] ?? ($profile->bio_ar ?? null),
+            'date_of_birth' => $data['date_of_birth'] ?? ($profile->date_of_birth ?? null),
+            'age' => isset($data['date_of_birth']) && !empty($data['date_of_birth'])
+                ? Carbon::parse($data['date_of_birth'])->age
+                : ($profile->age ?? null),
+            'height_id' => $data['height'] ?? ($profile->height_id ?? null),
+            'weight_id' => $data['weight'] ?? ($profile->weight_id ?? null),
+            'nationality_id' => $data['nationality_id'] ?? ($profile->nationality_id ?? null),
+            'origin_id' => $data['origin_id'] ?? ($profile->origin_id ?? null),
+            'religion_id' => $data['religion_id'] ?? ($profile->religion_id ?? null),
+            'skin_color_id' => $data['skin_color_id'] ?? ($profile->skin_color_id ?? null),
+            'hair_color_id' => $data['hair_color_id'] ?? ($profile->hair_color_id ?? null),
+            'country_of_residence_id' => $data['country_of_residence_id'] ?? ($profile->country_of_residence_id ?? null),
+            'city_id' => $data['city_id'] ?? ($profile->city_id ?? null),
+            'city_location_id' => $data['city_location_id'] ?? ($profile->city_location_id ?? null),
+            'educational_level_id' => $data['educational_level_id'] ?? ($profile->educational_level_id ?? null),
+            'specialization_id' => $data['specialization_id'] ?? ($profile->specialization_id ?? null),
+            'employment_status' => $data['employment_status'] ?? ($profile->employment_status ?? null),
+            'job_title_id' => $data['job_title_id'] ?? ($profile->job_title_id ?? null),
+            'smoking_status' => $data['smoking_status'] ?? ($profile->smoking_status ?? null),
+            'drinking_status_id' => $data['drinking_status_id'] ?? ($profile->drinking_status_id ?? null),
+            'sports_activity_id' => $data['sports_activity_id'] ?? ($profile->sports_activity_id ?? null),
+            'social_media_presence_id' => $data['social_media_presence_id'] ?? ($profile->social_media_presence_id ?? null),
+            'marital_status_id' => $data['marital_status_id'] ?? ($profile->marital_status_id ?? null),
+            'children' => $data['number_of_children'] ?? ($profile->children ?? null),
+            'housing_id' => $data['housing_status_id'] ?? ($profile->housing_id ?? null),
+            'hijab_status' => $data['hijab_status'] ?? ($profile->hijab_status ?? null),
+            'position_level_id' => $data['position_level_id'] ?? ($profile->position_level_id ?? null),
+            'financial_status_id' => $data['financial_status_id'] ?? ($profile->financial_status_id ?? null),
+            'health_issues_en' => $data['health_issues_en'] ?? ($profile->health_issues_en ?? null),
+            'car_ownership' => $data['car_ownership'] ?? ($profile->car_ownership ?? null),
+            'health_issues_ar' => $data['health_issues_ar'] ?? ($profile->health_issues_ar ?? null),
+            'zodiac_sign_id' => $data['zodiac_sign_id'] ?? ($profile->zodiac_sign_id ?? null),
+            'religiosity_level_id' => $data['religiosity_level_id'] ?? ($profile->religiosity_level_id ?? null),
+            'sleep_habit_id' => $data['sleep_habit_id'] ?? ($profile->sleep_habit_id ?? null),
+            'marriage_budget_id' => $data['marriage_budget_id'] ?? ($profile->marriage_budget_id ?? null),
+            'eye_color_id' => $data['eye_color_id'] ?? ($profile->eye_color_id ?? null),
+            'guardian_contact_encrypted' => $guardianContact ?? ($profile->guardian_contact_encrypted ?? null),
         ]);
 
 

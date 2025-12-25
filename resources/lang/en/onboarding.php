@@ -188,4 +188,6 @@ return [
     'english_required' => 'Please write in English. Arabic are not allowed in this field.',
     'no_special_characters' => 'Special characters are not allowed in this field.',
     'no_numbers_allowed' => 'Numbers are not allowed in this field.',
+
+    'complete_profile_tooltip' => 'Complete my profile to <br> access all features',
 ];
