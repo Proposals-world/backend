@@ -192,6 +192,8 @@ Route::middleware(['auth', 'verified', 'phone.verified'])->prefix('user')->group
     // Guardian verification should only happen AFTER profile is complete
     Route::post('/profile/update', [OnBoardingController::class, 'updateProfileAndImage'])
         ->name('user.profile.update');
+    Route::post('/profile/update/part2', [OnBoardingController::class, 'updateProfileAndImagePart2'])
+        ->name('user.profile.update.part2');
 });
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/religious-levels-gender', [OnBoardingController::class, 'getReligiousLevels'])->name('religious.levels.gender');
@@ -213,6 +215,10 @@ Route::middleware([
     //     ->name('user.phone.index');
     Route::get('change-password', [ChangePasswordController::class, 'edit'])
         ->name('password.change');
+    Route::middleware(['auth', 'profile.part2'])->group(function () {
+        Route::get('/complete-onboarding', [OnBoardingController::class, 'completeOnboarding'])
+            ->name('onboarding.complete');
+    });
 
     Route::put('change-password', [ChangePasswordController::class, 'update'])
         ->name('password.update');

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\DefaultRequest;
 
-class UpdateUserProfileRequest extends FormRequest
+class UpdateUserProfilePart2Request extends FormRequest
 {
     use DefaultRequest;
 
@@ -33,18 +33,18 @@ class UpdateUserProfileRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'nickname' => 'required|string|max:255',
+            'nickname' => 'nullable|string|max:255',
             'photo_url' => 'nullable|image',
             'bio_en' => 'nullable|string|max:1000',
             'bio_ar' => 'nullable|string|max:1000',
-            'date_of_birth' => 'required|date',
-            'height' => 'required|integer|exists:heights,id',
-            'weight' => 'required|integer|exists:weights,id',
-            'nationality_id' => 'required|integer|exists:nationalities,id',
+            'date_of_birth' => 'nullable|date',
+            'height' => 'nullable|integer|exists:heights,id',
+            'weight' => 'nullable|integer|exists:weights,id',
+            'nationality_id' => 'nullable|integer|exists:nationalities,id',
             'origin_id' => 'nullable|integer|exists:origins,id',
-            'country_of_residence_id' => 'required|integer|exists:countries,id',
+            'country_of_residence_id' => 'nullable|integer|exists:countries,id',
             'zodiac_sign_id' => 'nullable|integer|exists:zodiac_signs,id',
-            'city_id' => 'required|integer|exists:cities,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
             'educational_level_id' => 'nullable|integer|exists:educational_levels,id',
             'specialization_id' => 'nullable|integer|exists:specializations,id',
             'employment_status' => 'nullable|boolean',
@@ -57,9 +57,9 @@ class UpdateUserProfileRequest extends FormRequest
             'social_media_presence_id' => 'nullable|integer|exists:social_media_presences,id',
             'marital_status_id' => 'nullable|integer|exists:marital_statuses,id',
             'number_of_children' => 'nullable|integer|min:0',
-            'religion_id' => 'required|integer|exists:religions,id',
-            'skin_color_id' => 'required|integer|exists:skin_colors,id',
-            'hair_color_id' => 'required|integer|exists:hair_colors,id',
+            'religion_id' => 'nullable|integer|exists:religions,id',
+            'skin_color_id' => 'nullable|integer|exists:skin_colors,id',
+            'hair_color_id' => 'nullable|integer|exists:hair_colors,id',
             'housing_status_id' => 'nullable|integer|exists:housing_statuses,id',
             'hobbies' => 'nullable|array',
             'hobbies.*' => 'integer|exists:hobbies,id',
@@ -67,9 +67,9 @@ class UpdateUserProfileRequest extends FormRequest
             'pets.*' => 'integer|exists:pets,id',
             'health_issues_en' => 'nullable|string|max:2000',
             'health_issues_ar' => 'nullable|string|max:2000',
-            'car_ownership' => 'required|boolean',
-            'financial_status_id' => 'required|integer|exists:financial_statuses,id',
-            'religiosity_level_id' => 'required|integer|exists:religiosity_levels,id',
+            'car_ownership' => 'nullable|boolean',
+            'financial_status_id' => 'nullable|integer|exists:financial_statuses,id',
+            'religiosity_level_id' => 'nullable|integer|exists:religiosity_levels,id',
             'sleep_habit_id' => 'nullable|integer|exists:sleep_habits,id',
             'marriage_budget_id' => 'nullable|integer|exists:marriage_budgets,id',
             'position_level_id' => 'nullable|integer|exists:position_levels,id',

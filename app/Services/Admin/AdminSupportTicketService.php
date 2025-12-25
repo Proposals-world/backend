@@ -13,21 +13,29 @@ class AdminSupportTicketService
      */
     public function getAllTickets()
     {
-        return SupportTicket::withCount('replies')
+        return SupportTicket::whereHas('user', function ($q) {
+            $q->whereNull('deleted_at');
+        })
+            ->withCount('replies')
             ->with('user')
             ->orderBy('created_at', 'desc')
             ->get();
     }
+
 
     /**
      * Fetch a single ticket and its replies
      */
     public function getTicketWithReplies(int $ticketId): ?SupportTicket
     {
-        return SupportTicket::with(['replies.user', 'user'])
+        return SupportTicket::whereHas('user', function ($q) {
+            $q->whereNull('deleted_at');
+        })
+            ->with(['replies.user', 'user'])
             ->where('id', $ticketId)
             ->first();
     }
+
 
     /**
      * Add a reply to a ticket

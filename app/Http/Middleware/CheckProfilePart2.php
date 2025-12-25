@@ -5,27 +5,24 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class EnsureProfileIsComplete
+class CheckProfilePart2
 {
     /**
-     * List of required profile fields.
+     * List of profile fields that should be complete.
+     * If ALL of these fields are filled, redirect to dashboard.
      *
      * @var array
      */
     protected $requiredFields = [
-        'nationality_id',
-        'religion_id',
-        'country_of_residence_id',
-        'city_id',
-        'date_of_birth',
-        'age',
-        // 'educational_level_id',
+        'educational_level_id',
+        'employment_status',
     ];
 
     /**
      * Handle an incoming request.
      *
-     * If any of the required profile fields is empty, redirect to the on-boarding page.
+     * If ALL of the required profile fields are complete, redirect to dashboard.
+     * Otherwise, allow access to the onboarding process.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
@@ -35,14 +32,24 @@ class EnsureProfileIsComplete
     {
         $user = $request->user();
 
-        // Only proceed if the user is authenticated and has a profile relationship.
+        // Only check if user is authenticated and has a profile
         if ($user && $user->profile) {
             $attributes = $user->profile->getAttributes();
 
+            $allFieldsComplete = true;
+
             foreach ($this->requiredFields as $field) {
                 if (!isset($attributes[$field]) || is_null($attributes[$field]) || $attributes[$field] === '') {
-                    return redirect()->route('onboarding');
+                    $allFieldsComplete = false;
+                    break;
                 }
+            }
+
+            // If ALL fields are complete, redirect to dashboard
+            if ($allFieldsComplete) {
+                // Optional: Add a flash message
+                // session()->flash('info', 'Your profile is already complete.');
+                return redirect()->route('dashboard');
             }
         }
 

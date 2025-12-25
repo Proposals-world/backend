@@ -34,16 +34,23 @@ class SuccessStoriesDataTable extends DataTable
             })
             ->filterColumn('user1_info', function ($query, $keyword) {
                 $query->whereHas('match.user1', function ($q) use ($keyword) {
-                    $q->where('first_name', 'like', "%{$keyword}%")
-                        ->orWhere('last_name', 'like', "%{$keyword}%")
-                        ->orWhere('email', 'like', "%{$keyword}%");
+                    $q->whereNull('deleted_at')
+                        ->where(function ($qq) use ($keyword) {
+                            $qq->where('first_name', 'like', "%{$keyword}%")
+                                ->orWhere('last_name', 'like', "%{$keyword}%")
+                                ->orWhere('email', 'like', "%{$keyword}%");
+                        });
                 });
             })
+
             ->filterColumn('user2_info', function ($query, $keyword) {
                 $query->whereHas('match.user2', function ($q) use ($keyword) {
-                    $q->where('first_name', 'like', "%{$keyword}%")
-                        ->orWhere('last_name', 'like', "%{$keyword}%")
-                        ->orWhere('email', 'like', "%{$keyword}%");
+                    $q->whereNull('deleted_at')
+                        ->where(function ($qq) use ($keyword) {
+                            $qq->where('first_name', 'like', "%{$keyword}%")
+                                ->orWhere('last_name', 'like', "%{$keyword}%")
+                                ->orWhere('email', 'like', "%{$keyword}%");
+                        });
                 });
             })
             ->filterColumn('outcome', function ($query, $keyword) {
@@ -59,8 +66,10 @@ class SuccessStoriesDataTable extends DataTable
     public function query(UserFeedback $model)
     {
         return $model->newQuery()
-            ->with(['match.user1', 'match.user2'])
             ->whereIn('feedback_text_en', ['Engagement Happened', 'Marriage Happened'])
+            ->whereHas('match.user1', fn($q) => $q->whereNull('deleted_at'))
+            ->whereHas('match.user2', fn($q) => $q->whereNull('deleted_at'))
+            ->with(['match.user1', 'match.user2'])
             ->select('user_feedback.*');
     }
 

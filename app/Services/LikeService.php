@@ -123,6 +123,23 @@ class LikeService
         // dd($lang);
         // this inforce the language to be either 'en' or 'ar' to make sure the email is sent in the correct language
         // App::setLocale($lang); // $lang is either 'en' or 'ar'
+
+        // ================= Profile completion check =================
+        if (
+            !$user->profile ||
+            empty($user->profile->educational_level_id) ||
+            empty($user->profile->employment_status)
+        ) {
+            return [
+                'status' => 403,
+                'type' => 'danger',
+                'message' => $lang === 'ar'
+                    ? 'يرجى استكمال الملف الشخصي  للوصول إلى هذه الميزة.'
+                    : 'Please complete your profile  to access this feature.'
+            ];
+        }
+        // ============================================================
+
         $likedUser = User::find($likedUserId);
 
         if (!$likedUser) {
@@ -211,6 +228,22 @@ class LikeService
 
     public function dislikeUserLogic($user, $dislikedUserId, $lang = 'en')
     {
+        // ================= Profile completion check =================
+        if (
+            !$user->profile ||
+            empty($user->profile->educational_level_id) ||
+            empty($user->profile->employment_status)
+        ) {
+            return [
+                'status' => 403,
+                'type' => 'danger',
+                'message' => $lang === 'ar'
+                    ? 'يرجى استكمال الملف الشخصي  للوصول إلى هذه الميزة.'
+                    : 'Please complete your profile  to access this feature.'
+            ];
+        }
+        // ============================================================
+
         $dislikedUser = User::find($dislikedUserId);
 
         if (!$dislikedUser) {

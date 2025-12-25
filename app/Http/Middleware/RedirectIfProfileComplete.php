@@ -19,7 +19,7 @@ class RedirectIfProfileComplete
         'city_id',
         'date_of_birth',
         'age',
-        'educational_level_id',
+        // 'educational_level_id',
     ];
 
     /**
@@ -54,7 +54,7 @@ class RedirectIfProfileComplete
                     break;
                 }
             }
-
+            // dd($isComplete);
             if ($isComplete) {
                 // If the profile is complete, redirect away from on-boarding (e.g., to the dashboard).
                 return redirect()->route('user.dashboard');

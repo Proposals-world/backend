@@ -16,7 +16,7 @@ class CheckUserStatus
         'city_id',
         'date_of_birth',
         'age',
-        'educational_level_id',
+        // 'educational_level_id',
     ];
 
     public function handle(Request $request, Closure $next): Response
