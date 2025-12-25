@@ -12,7 +12,13 @@ class Country extends Model
     protected $fillable = [
         'name_en',
         'name_ar',
+        'country_group_id',
     ];
+
+    public function countryGroup()
+    {
+        return $this->belongsTo(CountryGroup::class);
+    }
 
     public function cities()
     {

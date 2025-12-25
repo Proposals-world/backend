@@ -21,9 +21,14 @@ class SubscriptionPackage extends Model
         'fintesa_price_id',
         'payment_url',
         'purchase_count',
+        'country_group_id',
+        'is_default',
+        'is_special_offer',
     ];
     protected $casts = [
         'is_one_time' => 'boolean',
+        'is_default' => 'boolean',
+        'is_special_offer' => 'boolean',
         'duration' => 'integer',
         'contact_limit' => 'integer',
         'price' => 'decimal:2',
@@ -33,6 +38,11 @@ class SubscriptionPackage extends Model
     {
         return $this->hasMany(Subscription::class, 'package_id');
     }
+
+    public function countryGroup()
+    {
+        return $this->belongsTo(CountryGroup::class);
+    }
     public function features()
     {
         // return $this->belongsToMany(Feature::class, 'feature_subscription_package', 'subscription_package_id ', 'feature_id ');
@@ -40,6 +50,16 @@ class SubscriptionPackage extends Model
         return $this->belongsToMany(Feature::class)
             ->withPivot('included')
             ->withTimestamps();
+    }
+
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true);
+    }
+
+    public function scopeSpecialOffer($query)
+    {
+        return $query->where('is_special_offer', true);
     }
 
     public function generatePaymentUrl(): ?string
