@@ -215,7 +215,11 @@ class UserFilterService
 
         foreach ($filters as $key => $value) {
             if (!is_null($value)) {
-                $exactQuery->where($key, $value);
+                if (is_array($value)) {
+                    $exactQuery->whereIn($key, $value);
+                } else {
+                    $exactQuery->where($key, $value);
+                }
             }
         }
 
@@ -238,7 +242,11 @@ class UserFilterService
         $strictKeys = ['country_of_residence_id', 'religion_id'];
         foreach ($strictKeys as $strictKey) {
             if (!empty($filters[$strictKey])) {
-                $candidateQuery->where($strictKey, $filters[$strictKey]);
+                if (is_array($filters[$strictKey])) {
+                    $candidateQuery->whereIn($strictKey, $filters[$strictKey]);
+                } else {
+                    $candidateQuery->where($strictKey, $filters[$strictKey]);
+                }
                 unset($nonNullFilters[$strictKey]); // Exclude from relaxed filters
                 $totalFilters--;
             }
@@ -248,7 +256,11 @@ class UserFilterService
         if ($totalFilters > 0) {
             $candidateQuery->where(function ($q) use ($nonNullFilters) {
                 foreach ($nonNullFilters as $key => $value) {
-                    $q->orWhere($key, $value);
+                    if (is_array($value)) {
+                        $q->orWhereIn($key, $value);
+                    } else {
+                        $q->orWhere($key, $value);
+                    }
                 }
             });
         }
@@ -265,8 +277,15 @@ class UserFilterService
 
             $matchCount = 0;
             foreach ($nonNullFilters as $key => $value) {
-                if ($candidate->{$key} == $value) {
-                    $matchCount++;
+                $candidateValue = $candidate->{$key};
+                if (is_array($value)) {
+                    if (in_array($candidateValue, $value)) {
+                        $matchCount++;
+                    }
+                } else {
+                    if ($candidateValue == $value) {
+                        $matchCount++;
+                    }
                 }
             }
 

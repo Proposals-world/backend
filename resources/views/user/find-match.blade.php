@@ -467,15 +467,18 @@
                     {{-- EDUCATION & WORK --}}
                     <div class="form-group">
                         <label>{{ __('userDashboard.submenu.educational_level') }}</label>
-                        <select name="educational_level_id" class="form-control">
-                            <option value="any">{{ __('userDashboard.submenu.any') }}</option>
+                        <div class="checkbox-filter-container border rounded p-2" style="max-height: 150px; overflow-y: auto; background: #f8f9fa;">
                             @foreach ($data['educationalLevels'] as $item)
-                                <option value="{{ $item->id }}"
-                                    {{ isset($prefs['preferred_educational_level_id']) && $prefs['preferred_educational_level_id'] == $item->id ? 'selected' : '' }}>
-                                    {{ $item->name }}
-                                </option>
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input filter-checkbox" 
+                                        id="edu_{{ $item->id }}" 
+                                        name="educational_level_id[]" 
+                                        value="{{ $item->id }}"
+                                        {{ isset($prefs['preferred_educational_level_id']) && $prefs['preferred_educational_level_id'] == $item->id ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="edu_{{ $item->id }}">{{ $item->name }}</label>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -794,13 +797,24 @@ $('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');
                 // Track active filters and update counters
                 function updateFilterCounters() {
                     let activeFilters = 0;
+                    let countedGroups = new Set();
 
                     // Check each filter input/select
-                    $('#filterForm').find('select, input[type="number"]').each(function() {
+                    $('#filterForm').find('select, input[type="number"], input[type="checkbox"]:checked').each(function() {
                         const $this = $(this);
                         const value = $this.val();
                         const id = $this.attr('id');
+                        const name = $this.attr('name');
                         const activeLabel = $('#' + id + 'Active');
+
+                        // Handle checkbox groups as a single filter
+                        if ($this.is(':checkbox')) {
+                            if (!countedGroups.has(name)) {
+                                activeFilters++;
+                                countedGroups.add(name);
+                            }
+                            return;
+                        }
 
                         if (value && value !== '' && value !== 'any' && id !== '_token') {
                             activeFilters++;
@@ -1053,6 +1067,23 @@ $('#modalCountryOfOrigin').text(user.profile?.origin || 'N/A');
                 }
                 .font-large {
                     font-size: 2rem;
+                }
+                .checkbox-filter-container::-webkit-scrollbar {
+                    width: 5px;
+                }
+                .checkbox-filter-container::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                }
+                .checkbox-filter-container::-webkit-scrollbar-thumb {
+                    background: #888;
+                    border-radius: 5px;
+                }
+                .checkbox-filter-container::-webkit-scrollbar-thumb:hover {
+                    background: #555;
+                }
+                .checkbox-filter-container .custom-control-label {
+                    cursor: pointer;
+                    font-size: 0.85rem;
                 }
             `).appendTo('head');
             });

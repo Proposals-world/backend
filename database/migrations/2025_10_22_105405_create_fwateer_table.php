@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->enum('payment_method', ['cliq', 'visa', 'mastercard', 'fintesa']);
 
-            $table->enum('payment_method', ['card', 'click']);
+            // $table->enum('payment_method', ['card', 'click']);
             $table->timestamps();
         });
     }
