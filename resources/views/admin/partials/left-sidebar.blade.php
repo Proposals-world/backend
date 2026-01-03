@@ -90,28 +90,24 @@
             @endif
 
             <li class="side-nav-title mt-2">Managment</li>
-            {{--
+
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false" aria-controls="sidebarLocations" class="side-nav-link">
-                    <i class="ri-user-location-fill"></i>
+                <a data-bs-toggle="collapse" href="#sidebarLocations1" aria-expanded="false" aria-controls="sidebarLocations" class="side-nav-link">
+                    <i class="ri-map-pin-2-fill"></i>
                     <span> Locations </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarLocations">
+                <div class="collapse" id="sidebarLocations1">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{route('countries.index')}}" class="side-nav-link">
+                            <a href="{{route('countries.index')}}" class="side-nav-link @if(request()->routeIs('countries.*')) active @endif">
+                                <i class="ri-earth-line"></i>
                                 <span> Countries </span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="{{route('cities.index')}}" class="side-nav-link">
-                                <span> Cities </span>
                             </a>
                         </li>
                     </ul>
                 </div>
-            </li> --}}
+            </li>
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLocations" aria-expanded="false" aria-controls="sidebarLocations" class="side-nav-link">

@@ -24,6 +24,8 @@ class SubscriptionPackage extends Model
         'country_group_id',
         'is_default',
         'is_special_offer',
+        'hide_package'
+
     ];
     protected $casts = [
         'is_one_time' => 'boolean',

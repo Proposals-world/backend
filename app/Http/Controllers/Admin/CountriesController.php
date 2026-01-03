@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\CountriesDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CountryRequest;
 use App\Http\Requests\LocalizationRequest;
 use App\Models\Country;
+use App\Models\CountryGroup;
 use Illuminate\Http\Request;
 
 
@@ -18,10 +20,10 @@ class CountriesController extends Controller
 
     public function create()
     {
-        return view('admin.countries.create');
+        $countryGroups = CountryGroup::all();
+        return view('admin.countries.create', compact('countryGroups'));
     }
-
-    public function store(LocalizationRequest  $request)
+    public function store(CountryRequest   $request)
     {
         Country::create($request->validated());
 
@@ -29,10 +31,11 @@ class CountriesController extends Controller
     }
     public function edit(Country $country)
     {
-        return view('admin.countries.create', compact('country'));
+        $countryGroups = CountryGroup::all();
+        return view('admin.countries.create', compact('country', 'countryGroups'));
     }
 
-    public function update(LocalizationRequest  $request, Country $country)
+    public function update(CountryRequest   $request, Country $country)
     {
 
         $country->update($request->validated());

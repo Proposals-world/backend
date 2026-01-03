@@ -93,6 +93,55 @@
 html[dir="rtl"] .contact-direction {
     flex-direction: row-reverse;
 }
+/* ✅ Ribbon Wrapper */
+.offer-ribbon {
+    position: absolute;
+    top: 0;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* ✅ EN = Left */
+.ribbon-left {
+    left: 0;
+}
+
+/* ✅ AR = Right */
+.ribbon-right {
+    right: 0;
+}
+
+/* ✅ Ribbon Strip */
+.offer-ribbon span {
+    position: absolute;
+    display: block;
+    width: 170px;
+    padding: 8px 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    box-shadow: 0 8px 20px rgba(221, 36, 118, 0.35);
+    letter-spacing: 0.4px;
+}
+
+/* ✅ Left Ribbon Rotation */
+.ribbon-left span {
+    transform: rotate(-45deg);
+    top: 28px;
+    left: -45px;
+}
+
+/* ✅ Right Ribbon Rotation */
+.ribbon-right span {
+    transform: rotate(45deg);
+    top: 28px;
+    right: -45px;
+}
+
 
 </style>
     <div style="
@@ -446,27 +495,27 @@ html[dir="rtl"] .contact-direction {
 
                     </div>
                 </div>
-                <form method="GET" action="{{ url()->current() }}" class="mb-5">
-                    <div class="pricing-filter-wrapper">
-                        <label class="pricing-filter-label">
-                            {{ __('home.select_country_group') }}
-                        </label>
+              <form method="GET" action="{{ url()->current() }}#pricing" class="mb-5">
+                <div class="pricing-filter-wrapper">
+                    <label class="pricing-filter-label">
+                        {{ __('home.select_country_group') }}
+                    </label>
 
-                        <select name="country_group_id"
-                                class="form-control pricing-filter-select"
-                                onchange="this.form.submit()">
+                    <select name="country_group_id"
+                            class="form-control pricing-filter-select"
+                            onchange="this.form.submit()">
 
-                            <option value="">{{ __('home.select_country_group') }}</option>
+                        <option value="">{{ __('home.select_country_group') }}</option>
 
-                            @foreach($countryGroups as $group)
-                                <option value="{{ $group['id'] }}" {{ $selectedGroupId == $group['id'] ? 'selected' : '' }}>
-                                    {{ $group['name'] }}
-                                </option>
-                            @endforeach
+                        @foreach($countryGroups as $group)
+                            <option value="{{ $group['id'] }}" {{ $selectedGroupId == $group['id'] ? 'selected' : '' }}>
+                                {{ $group['name'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
 
-                        </select>
-                    </div>
-                </form>
 
 
                 <div class="row justify-content-center" id="pricing-plan-cards">
@@ -483,7 +532,13 @@ html[dir="rtl"] .contact-direction {
 
                                 @foreach ($malePackages as $package)
                                     <div class="col-lg-4 col-md-6">
-                                        <div class="pricing-box text-center mb-60">
+                                        <div class="pricing-box text-center mb-60 position-relative">
+
+                                            @if(!empty($package['is_special_offer']) && $package['is_special_offer'])
+                                                <div class="offer-ribbon {{ app()->getLocale() === 'ar' ? 'ribbon-right' : 'ribbon-left' }}">
+                                                    <span>{{ __('payment.Special_Offer') }}</span>
+                                                </div>
+                                            @endif
                                             <div class="pricing-head">
                                                 <h4>{{ $package['package_name'] }}</h4>
                                                 <div class="pricing-amount">

@@ -144,6 +144,13 @@
                value="1" {{ old('is_special_offer', $subscriptionPackage->is_special_offer ?? false) ? 'checked' : '' }}>
         <label for="is_special_offer" class="form-check-label">Special Offer</label>
     </div>
+<!-- Hide Package -->
+<input type="hidden" name="hide_package" value="0">
+<div class="mb-3 form-check">
+    <input type="checkbox" name="hide_package" id="hide_package" class="form-check-input"
+           value="1" {{ old('hide_package', $subscriptionPackage->hide_package ?? false) ? 'checked' : '' }}>
+    <label for="hide_package" class="form-check-label">Hide Package</label>
+</div>
 
     <button type="submit" class="btn btn-success">Submit</button>
 </form>

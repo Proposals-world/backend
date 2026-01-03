@@ -20,31 +20,41 @@ class HomeController extends Controller
                 'name' => $locale === 'ar' ? $group->name_ar : $group->name_en,
             ];
         });
-        $selectedGroupId = request('country_group_id'); // dropdown value
+
+        $selectedGroupId = request('country_group_id');
 
         // =======================
         // MALE PACKAGES
         // =======================
         $malePackagesQuery = SubscriptionPackage::query()
             ->whereNotIn('id', [999, 1000])
-            ->where('gender', 'male');
+            ->where('gender', 'male')
+            ->where('hide_package', false);
 
-        // if no group selected => show only default
         if (!$selectedGroupId) {
             $malePackagesQuery->where('is_default', true);
         } else {
             $malePackagesQuery->where('country_group_id', $selectedGroupId);
 
-            // fallback if empty
             if (!$malePackagesQuery->exists()) {
                 $malePackagesQuery = SubscriptionPackage::query()
                     ->whereNotIn('id', [999, 1000])
                     ->where('gender', 'male')
+                    ->where('hide_package', false)
                     ->where('is_default', true);
             }
         }
 
-        $malePackages = $malePackagesQuery->orderBy('id')->get();
+        $malePackages = $malePackagesQuery->orderBy('id')->get()
+            ->map(function ($package) use ($locale) {
+                return [
+                    'package_name' => $locale === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price' => $package->price,
+                    'duration' => $package->duration,
+                    'contact_limit' => $package->contact_limit,
+                    'is_special_offer' => $package->is_special_offer,
+                ];
+            });
 
 
         // =======================
@@ -52,7 +62,8 @@ class HomeController extends Controller
         // =======================
         $femalePackagesQuery = SubscriptionPackage::query()
             ->whereNotIn('id', [999, 1000])
-            ->where('gender', 'female');
+            ->where('gender', 'female')
+            ->where('hide_package', false);
 
         if (!$selectedGroupId) {
             $femalePackagesQuery->where('is_default', true);
@@ -63,11 +74,21 @@ class HomeController extends Controller
                 $femalePackagesQuery = SubscriptionPackage::query()
                     ->whereNotIn('id', [999, 1000])
                     ->where('gender', 'female')
+                    ->where('hide_package', false)
                     ->where('is_default', true);
             }
         }
 
-        $femalePackages = $femalePackagesQuery->orderBy('id')->get();
+        $femalePackages = $femalePackagesQuery->orderBy('id')->get()
+            ->map(function ($package) use ($locale) {
+                return [
+                    'package_name' => $locale === 'ar' ? $package->package_name_ar : $package->package_name_en,
+                    'price' => $package->price,
+                    'duration' => $package->duration,
+                    'contact_limit' => $package->contact_limit,
+                    'is_special_offer' => $package->is_special_offer,
+                ];
+            });
 
         // Fetch FAQs
         $faqs = Faq::all()->map(function ($faq) use ($locale) {
@@ -91,14 +112,7 @@ class HomeController extends Controller
                     'image' => $blog->image,
                 ];
             });
-        return view('welcome', compact(
-            'malePackages',
-            'femalePackages',
-            'faqs',
-            'blogs',
-            'countryGroups',
-            'selectedGroupId'
-        ));
+        return view('welcome', compact('malePackages', 'femalePackages', 'faqs', 'blogs', 'countryGroups', 'selectedGroupId'));
     }
 
 

@@ -28,6 +28,10 @@ class SubscriptionPackagesDataTable extends DataTable
             ->addColumn('is_default_display', function (SubscriptionPackage $subscriptionPackage) {
                 return $subscriptionPackage->is_default ? 'Yes' : 'No';
             })
+            ->addColumn('hide_package_display', function (SubscriptionPackage $subscriptionPackage) {
+                return $subscriptionPackage->hide_package ? 'Yes' : 'No';
+            })
+
             ->addColumn('action', function (SubscriptionPackage $subscriptionPackage) {
                 return view('admin.SubscriptionPackage.columns._actions', compact('subscriptionPackage'));
             })
@@ -80,6 +84,13 @@ class SubscriptionPackagesDataTable extends DataTable
                 'data' => 'is_default_display',
                 'title' => 'Default',
                 'name' => 'is_default',
+            ],
+
+            // ✅ NEW COLUMN
+            [
+                'data' => 'hide_package_display',
+                'title' => 'Hidden',
+                'name' => 'hide_package',
             ],
         ];
     }

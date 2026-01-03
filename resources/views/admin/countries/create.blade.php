@@ -13,5 +13,20 @@
     <label for="name_ar" class="form-label">Name (Arabic)</label>
     <input type="text" name="name_ar" id="name_ar" class="form-control" value="{{ $country->name_ar ?? '' }}">
 </div>
+<div class="mb-3">
+    <label for="country_group_id" class="form-label">Country Group</label>
+
+    <select name="country_group_id" id="country_group_id" class="form-control">
+        <option value="">-- Select Country Group --</option>
+
+        @foreach($countryGroups as $group)
+            <option value="{{ $group->id }}"
+                {{ (isset($country) && $country->country_group_id == $group->id) ? 'selected' : '' }}>
+                {{ $group->name_en }} / {{ $group->name_ar }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
 <button type="submit" class="btn btn-success">Submit</button>
 </form>

@@ -53,6 +53,7 @@ class SubscriptionPackageController extends Controller
 
     public function update(SubscriptionPackageRequest $request, $id, FintesaPaymentService $paymentService)
     {
+        // dd($request->all());
         // Find the package first
         $package = SubscriptionPackage::findOrFail($id);
 

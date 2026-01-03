@@ -19,13 +19,14 @@ class SubscriptionPackageRequest extends FormRequest
             'gender'               => 'required|in:male,female',
             'is_one_time'          => 'required|boolean',
             'contact_limit'        => 'nullable|integer|min:0|required_if:target_gender,male',
-            'duration'             => 'nullable|integer|min:0|required_if:target_gender,female',
+            'duration'             => 'nullable|integer|min:0|required',
             'fintesa_product_id'   => 'nullable|string|max:255',
             'fintesa_price_id'     => 'nullable|string|max:255',
             'payment_url'          => 'nullable|url|max:500',
             'country_group_id'     => 'nullable|exists:country_groups,id',
             'is_default'           => 'nullable|boolean',
             'is_special_offer'     => 'nullable|boolean',
+            'hide_package'        => 'nullable|boolean',
         ];
     }
 
@@ -41,7 +42,7 @@ class SubscriptionPackageRequest extends FormRequest
         ];
 
         if ($gender === 'male') {
-            $normalized['duration'] = 0;
+            // $normalized['duration'] = 0;
             $normalized['contact_limit'] = (int) ($this->contact_limit ?? 0);
         } elseif ($gender === 'female') {
             $normalized['contact_limit'] = 0;
