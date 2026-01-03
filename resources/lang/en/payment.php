@@ -35,4 +35,5 @@ return [
     'pay_by_card'    => 'Subscribe now, pay by card',
     'Active' => 'Active',
     'expires_at' => 'Expires at',
+    'Special_Offer' => 'Special Offer',
 ];

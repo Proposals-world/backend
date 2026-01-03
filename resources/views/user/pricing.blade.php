@@ -1,6 +1,60 @@
 @extends('user.layouts.app')
 
 @section('content')
+<style>/* =========================
+   CORNER LABEL CONTAINER
+========================= */
+
+/* ✅ Ribbon Wrapper */
+.offer-ribbon {
+    position: absolute;
+    top: 0;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* ✅ EN = Left */
+.ribbon-left {
+    left: 0;
+}
+
+/* ✅ AR = Right */
+.ribbon-right {
+    right: 0;
+}
+
+/* ✅ Ribbon Strip */
+.offer-ribbon span {
+    position: absolute;
+    display: block;
+    width: 170px;
+    padding: 8px 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    box-shadow: 0 8px 20px rgba(221, 36, 118, 0.35);
+    letter-spacing: 0.4px;
+}
+
+/* ✅ Left Ribbon Rotation */
+.ribbon-left span {
+    transform: rotate(-45deg);
+    top: 28px;
+    left: -45px;
+}
+
+/* ✅ Right Ribbon Rotation */
+.ribbon-right span {
+    transform: rotate(45deg);
+    top: 28px;
+    right: -45px;
+}
+
+</style>
 <div class="container-fluid">
     <div class="row mb-5">
         <div class="col-12">
@@ -30,6 +84,16 @@
                                     {{ __('payment.Active') }}
                                 </span>
                                 @endif
+                                {{-- {{ dd($card) }} --}}
+                              @if(!empty($card['is_special_offer']) && $card['is_special_offer'])
+                                <div class="offer-ribbon {{ app()->getLocale() === 'ar' ? 'ribbon-right' : 'ribbon-left' }}">
+                                    <span>{{ __('payment.Special_Offer') }}</span>
+                                </div>
+                            @endif
+
+
+
+
                             <div class="card-body pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
                             <div class="price-top-part">
                                 <i class="iconsminds-wallet large-icon"></i>

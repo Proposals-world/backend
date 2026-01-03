@@ -103,6 +103,17 @@
       0 => 'Spatie\\Enum\\Laravel\\EnumServiceProvider',
     ),
   ),
+  'stevebauman/location' => 
+  array (
+    'aliases' => 
+    array (
+      'Location' => 'Stevebauman\\Location\\Facades\\Location',
+    ),
+    'providers' => 
+    array (
+      0 => 'Stevebauman\\Location\\LocationServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-buttons' => 
   array (
     'providers' => 

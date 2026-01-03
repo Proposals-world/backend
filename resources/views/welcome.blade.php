@@ -1,6 +1,36 @@
 @extends('frontend.layouts.app')
 @section('section')
 <style>
+    .pricing-filter-wrapper {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.pricing-filter-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 15px;
+    color: #333;
+}
+
+.pricing-filter-select {
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 0 16px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background: #fff;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+}
+
+.pricing-filter-select:focus {
+    border-color: #ff4da6;
+    box-shadow: 0 0 0 3px rgba(255, 77, 166, 0.25);
+}
+
     .blog-image {
     height: 500px;
     object-fit: cover;
@@ -416,6 +446,29 @@ html[dir="rtl"] .contact-direction {
 
                     </div>
                 </div>
+                <form method="GET" action="{{ url()->current() }}" class="mb-5">
+                    <div class="pricing-filter-wrapper">
+                        <label class="pricing-filter-label">
+                            {{ __('home.select_country_group') }}
+                        </label>
+
+                        <select name="country_group_id"
+                                class="form-control pricing-filter-select"
+                                onchange="this.form.submit()">
+
+                            <option value="">{{ __('home.select_country_group') }}</option>
+
+                            @foreach($countryGroups as $group)
+                                <option value="{{ $group['id'] }}" {{ $selectedGroupId == $group['id'] ? 'selected' : '' }}>
+                                    {{ $group['name'] }}
+                                </option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                </form>
+
+
                 <div class="row justify-content-center" id="pricing-plan-cards">
                     @if (isset($malePackages) && count($malePackages) > 0)
 

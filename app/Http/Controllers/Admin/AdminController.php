@@ -38,7 +38,7 @@ class AdminController extends Controller
         // Create the user
         User::create($validatedData);
 
-        return response()->json(['message' => 'Admin created successfully'], 201);
+        return response()->json(['message' => 'User created successfully'], 201);
     }
 
 
@@ -48,7 +48,7 @@ class AdminController extends Controller
 
         $user->update($validatedData);
 
-        return response()->json(['message' => 'Admin updated successfully']);
+        return response()->json(['message' => 'User updated successfully']);
     }
     public function destroy(User $user)
     {
@@ -59,9 +59,9 @@ class AdminController extends Controller
             }
 
             $user->delete();
-            return response()->json(['message' => 'Admin deleted successfully'], 200);
+            return response()->json(['message' => 'User deleted successfully'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to delete admin', 'message' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to delete User', 'message' => $e->getMessage()], 500);
         }
     }
     public function show(string $userid)

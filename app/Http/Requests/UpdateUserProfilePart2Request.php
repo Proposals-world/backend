@@ -81,8 +81,8 @@ class UpdateUserProfilePart2Request extends FormRequest
         // 👩 FEMALE ONLY → guardian required + country code required
         // -------------------------------------------------------
         if (auth()->user()?->gender === 'female') {
-            $rules['country_code'] = 'required|string|size:2';
-            $rules['guardian_contact'] = 'required|string';
+            $rules['country_code'] = 'nullable|string|size:2';
+            $rules['guardian_contact'] = 'nullable|string';
         }
         // -------------------------------------------------------
         // 👨 MALE → both optional

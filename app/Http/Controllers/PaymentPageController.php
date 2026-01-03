@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Subscription;
 use App\Models\SubscriptionPackage;
 use App\Services\FintesaPaymentService;
@@ -12,16 +13,34 @@ class PaymentPageController extends Controller
     public function pricing(FintesaPaymentService $paymentService)
     {
         $lang = app()->getLocale();
+        $user = Auth::user()->profile;
         $isMale = Auth::check() && (Auth::user()->gender === 'male');
-
+        // Get user's country group
+        $countryGroupId = $user->country_of_residence_id
+            ? Country::find($user->country_of_residence_id)?->country_group_id
+            : null;
+        // dd($countryGroupId);
         $packages = SubscriptionPackage::query()
             ->where('id', '!=', 999)
             ->where('id', '!=', 1000)
             ->when($isMale, fn($q) => $q->where('gender', 'male'))
             ->when(!$isMale, fn($q) => $q->where('gender', 'female'))
+            ->when($countryGroupId, fn($q) => $q->where('country_group_id', $countryGroupId))
+            // ->when(!$countryGroupId, fn($q) => $q->where('is_default', true))
             ->orderBy('id')
             ->get();
-
+        // If no packages for this country group, fallback to default packages
+        if ($packages->isEmpty()) {
+            $packages = SubscriptionPackage::query()
+                ->where('id', '!=', 999)
+                ->where('id', '!=', 1000)
+                ->when($isMale, fn($q) => $q->where('gender', 'male'))
+                ->when(!$isMale, fn($q) => $q->where('gender', 'female'))
+                ->where('is_default', true)
+                ->orderBy('id')
+                ->get();
+        }
+        // dd($packages);
         $subscriptionCards = $packages->map(function (SubscriptionPackage $package) use ($lang, $paymentService) {
             $paymentUrl = $package->payment_url;
 
@@ -55,6 +74,9 @@ class PaymentPageController extends Controller
                 'duration'      => $package->duration,
                 'payment_url'   => $paymentUrl,
                 'gender'        => $package->gender,
+                'is_default'    => $package->is_default,
+                'country_group_id' => $package->country_group_id,
+                'is_special_offer' => $package->is_special_offer,
 
             ];
         });

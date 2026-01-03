@@ -205,6 +205,12 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
+                            <a href="{{ route('admin.country-groups.index') }}" class="side-nav-link">
+                                <i class="ri-earth-line"></i>
+                                <span> Country Groups </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
                             <a href="{{ route('admin.user.payments.index') }}" class="side-nav-link">
                                 <i class="ri-wallet-line"></i>
                                 <span> User Payments </span>

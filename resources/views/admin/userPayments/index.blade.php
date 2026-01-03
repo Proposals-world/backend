@@ -188,46 +188,6 @@ $(document).on('click', '.subscribe-btn', function() {
 
 
 
-$(document).on('click', '.subscribe-btn', function() {
-    let $btn = $(this);
-    let email = $btn.data('email');
-    let packageId = $btn.data('package-id');
-    let paymentId = $btn.data('payment-id');
-
-    if (!packageId) {
-        alert('Package ID not found');
-        return;
-    }
-
-    // ✅ Disable the button and show a spinner
-    const originalText = $btn.html();
-    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Verifying...');
-
-    $.ajax({
-        url: '{{ route("admin.payments.subscribe-for-user") }}',
-        type: 'GET',
-        data: {
-            email: email,
-            package_id: packageId,
-            payment_id: paymentId
-        },
-        success: function(res) {
-            // ✅ Restore button and refresh table
-            $btn.prop('disabled', false).html(originalText);
-            alert(res.message || 'Subscribed successfully');
-            $('#userpayments-table').DataTable().ajax.reload();
-        },
-        error: function(err) {
-            // ✅ Restore button
-            $btn.prop('disabled', false).html(originalText);
-
-            let errorMsg = err.responseJSON?.message || 'Subscription failed';
-            alert(errorMsg);
-            console.error(err);
-        }
-    });
-});
-
 $(document).on('click', '#subscribe-user-btn', function() {
     let email = $('#user-select-dropdown').val();
     let packageId = $('#package-select-dropdown').val();

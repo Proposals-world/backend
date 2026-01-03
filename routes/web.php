@@ -46,6 +46,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\CountryGroupController;
 use App\Http\Controllers\Admin\DynamicEmailController;
 use App\Http\Controllers\Admin\FwateerController;
 use App\Http\Controllers\Admin\PaymentTransactionController;
@@ -105,7 +106,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/whatsapp-qr-code', [AdminDashboardController::class, 'whatsaapView'])->name('admin.whatsapp.qr.code');
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::delete('/profile/subscription-packages', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // routes/web.php
 
     Route::get('/fwateer', [FwateerController::class, 'index'])->name('fwateer.index');
@@ -150,6 +151,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('categories', CategoryController::class);
         Route::resource('features', FeatureController::class);
         Route::resource('subscription-packages', SubscriptionPackageController::class);
+        Route::resource('country-groups', CountryGroupController::class)->names('admin.country-groups');
+
         Route::resource('marriage-budgets', MarriageBudgetsController::class);
         Route::resource('religions', ReligionController::class);
         Route::resource('admins', AdminsController::class);

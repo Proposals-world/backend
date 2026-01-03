@@ -39,7 +39,7 @@ class OnBoardingController extends Controller
         $fromupdate = true;
         $fromdesired = false;
         $data = $this->onboardingService->getOnboardingData($fromupdate, $fromdesired);
-        return view('onBoardingpart2', compact('data'));
+        return view('onBoardingPart2', compact('data'));
     }
     public function getCitiesByCountry($countryId)
     {

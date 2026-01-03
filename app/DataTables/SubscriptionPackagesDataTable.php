@@ -2,35 +2,32 @@
 
 namespace App\DataTables;
 
-use App\Models\Sub;
 use App\Models\SubscriptionPackage;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
 class SubscriptionPackagesDataTable extends DataTable
 {
-    /**
-     * Build the DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return EloquentDataTable
-     */
     public function dataTable($query)
     {
         return (new EloquentDataTable($query))
             ->addColumn('duration_display', function (SubscriptionPackage $subscriptionPackage) {
-                // Display "No duration" if duration is 0 for male
                 return ($subscriptionPackage->duration == 0)
                     ? 'No duration for male'
                     : $subscriptionPackage->duration;
             })
             ->addColumn('contact_limit_display', function (SubscriptionPackage $subscriptionPackage) {
-                // Display "No contact" if contact_limit is 0 for female
                 return ($subscriptionPackage->contact_limit == 0)
                     ? 'No contact for female'
                     : $subscriptionPackage->contact_limit;
             })
             ->addColumn('gender', fn(SubscriptionPackage $p) => ucfirst($p->gender ?? ''))
+            ->addColumn('is_special_offer_display', function (SubscriptionPackage $subscriptionPackage) {
+                return $subscriptionPackage->is_special_offer ? 'Yes' : 'No';
+            })
+            ->addColumn('is_default_display', function (SubscriptionPackage $subscriptionPackage) {
+                return $subscriptionPackage->is_default ? 'Yes' : 'No';
+            })
             ->addColumn('action', function (SubscriptionPackage $subscriptionPackage) {
                 return view('admin.SubscriptionPackage.columns._actions', compact('subscriptionPackage'));
             })
@@ -38,17 +35,11 @@ class SubscriptionPackagesDataTable extends DataTable
             ->rawColumns(['action']);
     }
 
-
     public function query(SubscriptionPackage $model)
     {
         return $model->newQuery();
     }
 
-    /**
-     * Optional method if you want to use the html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
     public function html()
     {
         return $this->builder()
@@ -62,11 +53,6 @@ class SubscriptionPackagesDataTable extends DataTable
             ]);
     }
 
-    /**
-     * Get the DataTable columns definition.
-     *
-     * @return array
-     */
     protected function getColumns()
     {
         return [
@@ -77,22 +63,27 @@ class SubscriptionPackagesDataTable extends DataTable
             [
                 'data' => 'contact_limit_display',
                 'title' => 'Contact Limit',
-                'name' => 'contact_limit' // Keep original column name for sorting/filtering
+                'name' => 'contact_limit',
             ],
             [
                 'data' => 'duration_display',
                 'title' => 'Duration',
-                'name' => 'duration' // Keep original column name for sorting/filtering
+                'name' => 'duration',
             ],
             'gender',
+            [
+                'data' => 'is_special_offer_display',
+                'title' => 'Special Offer',
+                'name' => 'is_special_offer',
+            ],
+            [
+                'data' => 'is_default_display',
+                'title' => 'Default',
+                'name' => 'is_default',
+            ],
         ];
     }
 
-    /**
-     * Get the filename for export.
-     *
-     * @return string
-     */
     protected function filename(): string
     {
         return 'Subs_' . date('YmdHis');

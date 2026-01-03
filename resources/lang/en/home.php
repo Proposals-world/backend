@@ -179,4 +179,5 @@ return [
     'slider_tagline' => 'Tolba: Where Tradition Meets Love',
     'register' => 'Join now',
     'login' => 'sign in',
+    'select_country_group' => 'Select Country Group',
 ];

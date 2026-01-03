@@ -78,6 +78,27 @@ class AuthenticatedSessionController extends Controller
     }
 
 
+        // // 6️⃣ Detect country from IP and save in session
+        // $ip = app()->environment('local') ? '109.107.253.100' : $request->ip();
+        // $position = Location::get($ip);
+
+        // if ($position && $position->countryName) {
+        //     $country = Country::where('name_en', $position->countryName)->first();
+
+        //     if ($country) {
+        //         session([
+        //             'country_id' => $country->id,
+        //             // 'country_group_id' => $country->country_group_id,
+        //         ]);
+        //     }
+        // }
+        // dd(
+        //     $ip,
+        //     $position,
+        //     session('country_id'),
+        //     // Country::where('name_en', $position->countryName)->first()
+        //     // session('country_group_id')
+        // );
     /**
      * Destroy an authenticated session.
      */
