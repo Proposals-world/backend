@@ -32,7 +32,7 @@ class PaymentPageController extends Controller
             // ->when(!$countryGroupId, fn($q) => $q->where('is_default', true))
             ->orderBy('id')
             ->get();
-        dd($packages);
+        // dd($packages);
         // If no packages for this country group, fallback to default packages
         if ($packages->isEmpty()) {
             $packages = SubscriptionPackage::query()
