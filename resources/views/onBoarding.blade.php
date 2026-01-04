@@ -1218,23 +1218,36 @@ $locale = app()->getLocale();
 
                     break;
 
-                case 'photo_url':
-                    if (value) {
-                        const fileExtension = value.split('.').pop().toLowerCase();
-                        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-                        if (!allowedExtensions.includes(fileExtension)) {
-                            errorSpan.text("{{ __('onboarding.invalid_image_file') }}");
-                            isValid = false;
-                        }
-                        if ($(field)[0].files.length > 0) {
-                            const fileSize = $(field)[0].files[0].size / 1024 / 1024; // MB
-                            if (fileSize > 5) {
-                                errorSpan.text("{{ __('onboarding.file_size') }}");
-                                isValid = false;
-                            }
-                        }
-                    }
-                    break;
+           case 'photo_url':
+    const fileInput = $(field)[0];
+
+    // ✅ إذا ما في ملف فعلاً
+    if (!fileInput.files || fileInput.files.length === 0) {
+        errorSpan.text("{{ __('onboarding.required') }}");
+        isValid = false;
+        break;
+    }
+
+    const file = fileInput.files[0];
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    const fileExtension = file.name.split('.').pop().toLowerCase();
+
+    // ✅ نوع الملف
+    if (!allowedExtensions.includes(fileExtension)) {
+        errorSpan.text("{{ __('onboarding.invalid_image_file') }}");
+        isValid = false;
+        break;
+    }
+
+    // ✅ حجم الملف
+    const fileSizeMB = file.size / 1024 / 1024;
+    if (fileSizeMB > 5) {
+        errorSpan.text("{{ __('onboarding.file_size') }}");
+        isValid = false;
+        break;
+    }
+    break;
+
 
                 case 'number_of_children':
                     if (isNaN(value) || value < 0 || value > 10) {
