@@ -45,11 +45,13 @@ class SubscriptionPackageController extends Controller
     public function edit($id)
     {
         // Fetch the SubscriptionPackage by its ID
+        $countryGroups = CountryGroup::all();
+
         $subscriptionPackage = SubscriptionPackage::findOrFail($id);
 
 
         // Return the view with the subscriptionPackage, all features, and selected features for this package
-        return view('admin.SubscriptionPackage.create', compact('subscriptionPackage'));
+        return view('admin.SubscriptionPackage.create', compact('subscriptionPackage', 'countryGroups'));
     }
 
 
