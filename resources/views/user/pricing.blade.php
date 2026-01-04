@@ -71,7 +71,7 @@
         </h3>
     </div>
                 @php $isMale = Auth::user()->gender === 'male'; @endphp
-    {{ dd($subscriptionCards) }}
+    {{-- {{ dd($subscriptionCards) }} --}}
                 @forelse ($subscriptionCards as $card)
                 <div class="col-md-12 col-lg-4 mb-4 col-item">
                     <div class="card position-relative
