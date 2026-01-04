@@ -119,7 +119,8 @@
     <div class="mb-3">
         <label for="country_group_id" class="form-label">Country Group</label>
         <select name="country_group_id" id="country_group_id" class="form-control">
-            @foreach(\App\Models\CountryGroup::all() as $group)
+            <option value="">-- Select Country Group --</option>
+            @foreach($countryGroups as $group)
                 <option value="{{ $group->id }}"
                     {{ old('country_group_id', $subscriptionPackage->country_group_id ?? '') == $group->id ? 'selected' : '' }}>
                     {{ $group->name_en }}

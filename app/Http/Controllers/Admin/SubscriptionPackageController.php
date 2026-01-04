@@ -8,6 +8,7 @@ use App\Models\Feature;
 use App\Models\SubscriptionPackage;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubscriptionPackageRequest;
+use App\Models\CountryGroup;
 use App\Services\FintesaPaymentService;
 
 class SubscriptionPackageController extends Controller
@@ -19,7 +20,8 @@ class SubscriptionPackageController extends Controller
 
     public function create()
     {
-        return view('admin.SubscriptionPackage.create');
+        $countryGroups = CountryGroup::all();
+        return view('admin.SubscriptionPackage.create', compact('countryGroups'));
     }
 
     public function store(SubscriptionPackageRequest $request, FintesaPaymentService $paymentService)
