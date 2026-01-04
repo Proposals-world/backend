@@ -16,19 +16,23 @@ class PaymentPageController extends Controller
         $user = Auth::user()->profile;
         $isMale = Auth::check() && (Auth::user()->gender === 'male');
         // Get user's country group
-        $countryGroupId = $user->country_of_residence_id
-            ? Country::find($user->country_of_residence_id)?->country_group_id
-            : null;
+        $user = Auth::user();
+
+        $countryId = $user->country_of_residence_id ?? $user->profile?->country_of_residence_id;
+
+        $countryGroupId = $countryId ? Country::where('id', $countryId)->value('country_group_id') : null;
+
         // dd($countryGroupId);
         $packages = SubscriptionPackage::query()
             ->where('id', '!=', 999)
             ->where('id', '!=', 1000)
             ->when($isMale, fn($q) => $q->where('gender', 'male'))
             ->when(!$isMale, fn($q) => $q->where('gender', 'female'))
-            ->when($countryGroupId, fn($q) => $q->where('country_group_id', $countryGroupId))
+            ->where('country_group_id', $countryGroupId)
             // ->when(!$countryGroupId, fn($q) => $q->where('is_default', true))
             ->orderBy('id')
             ->get();
+        dd($packages);
         // If no packages for this country group, fallback to default packages
         if ($packages->isEmpty()) {
             $packages = SubscriptionPackage::query()
