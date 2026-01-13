@@ -139,10 +139,10 @@ class User extends Authenticatable implements MustVerifyEmailContract
         return $this->hasMany(UserFeedback::class);
     }
 
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class);
-    }
+    // public function notifications()
+    // {
+    //     return $this->hasMany(Notification::class);
+    // }
 
     public function deviceTokens()
     {
@@ -257,5 +257,9 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
+    }
+    public function appNotifications()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 }

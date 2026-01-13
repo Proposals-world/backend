@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\PaymentTransaction;
 use App\Models\Subscription;
 use App\Models\SubscriptionPackage;
+use App\Models\User;
 use App\Models\UserPayment;
 use App\Services\FintesaPaymentService;
+use App\Services\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -114,7 +116,7 @@ class FintesaWebhookController extends Controller
 
     //     return response()->json(['message' => 'Processed'], 200);
     // }
-    public function handle(Request $request)
+    public function handle(Request $request, NotificationService $notificationService)
     {
         try {
             // Get payload
@@ -162,7 +164,47 @@ class FintesaWebhookController extends Controller
                 'status' => $status === 'succeeded' ? 'pending' : 'failed',
                 'payment_type' => 'visa',
             ]);
+            // ============================
+            // ✅ NOTIFICATIONS
+            // ============================
 
+            // ✅ Notify Admins
+            $admins = User::where('role_id', 1)->get(); // <-- replace with correct admin filter
+            foreach ($admins as $admin) {
+                $notificationService->create($admin, [
+                    'notification_type' => 'fintesa_payment_webhook',
+                    'target_role'       => 'admin',
+                    'content_en'        => "A new Visa payment webhook was received ({$payment->status}).",
+                    'content_ar'        => "تم استلام دفعة فيزا جديدة ({$payment->status}).",
+                    // if you have json 'data' column:
+                    // 'data' => ['payment_id' => $payment->id, 'email' => $email, 'package_id' => $package->id],
+                ]);
+            }
+
+            // ✅ Notify the user only if we found a real userId
+            // if ($userId) {
+            //     $user = User::find($userId);
+            //     if ($user) {
+            //         if ($payment->status === 'pending') {
+            //             $notificationService->create($user, [
+            //                 'notification_type' => 'payment_received',
+            //                 'target_role'       => 'user',
+            //                 'content_en'        => 'We received your payment and it is pending review.',
+            //                 'content_ar'        => 'تم استلام دفعتك وهي قيد المراجعة.',
+            //                 // 'data' => ['payment_id' => $payment->id],
+            //             ]);
+            //         } else {
+            //             $notificationService->create($user, [
+            //                 'notification_type' => 'payment_failed',
+            //                 'target_role'       => 'user',
+            //                 'content_en'        => 'Your payment could not be processed.',
+            //                 'content_ar'        => 'تعذر معالجة دفعتك.',
+            //             ]);
+            //         }
+            //     }
+            // }
+
+            // ============================
 
 
             Log::info('Payment saved successfully', [

@@ -20,40 +20,50 @@ class LikeResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $locale = request()->header('Accept-Language', app()->getLocale());
+        $locale = $request->header('Accept-Language', app()->getLocale());
         $locale = in_array($locale, ['en', 'ar']) ? $locale : app()->getLocale();
 
+        // IMPORTANT: $relatedUser itself can be null -> must guard it first
         $relatedUser = $this->viewedAsLiker ? $this->likedUser : $this->user;
+
+        // Make user/profile safe without changing your structure much
+        $profile = optional(optional($relatedUser)->profile);
+
+        // Ensure photos is always a Collection (fixes "firstWhere on array" issues in downstream accessors)
+        $photos = collect(optional($relatedUser)->photos ?? []);
 
         return [
             'id' => $this->id,
             'user' => [
-                'id' => $relatedUser->id ?? 'N/A',
-                'first_name' => $relatedUser->first_name ?? 'N/A',
-                'last_name' => $relatedUser->last_name ?? 'N/A',
+                'id' => optional($relatedUser)->id ?? 'N/A',
+                'first_name' => optional($relatedUser)->first_name ?? 'N/A',
+                'last_name' => optional($relatedUser)->last_name ?? 'N/A',
 
-                'nickname' => optional($relatedUser->profile)->nickname ?? 'N/A',
+                'nickname' => $profile->nickname ?? 'N/A',
 
                 'country_of_residence' =>
-                optional(optional($relatedUser->profile)->countryOfResidence)["name_$locale"]
-                    ?? 'N/A',
+                optional($profile->countryOfResidence)->{"name_$locale"} ?? 'N/A',
 
                 'city_of_residence' =>
-                optional(optional($relatedUser->profile)->city)["name_$locale"]
-                    ?? 'N/A',
+                optional($profile->city)->{"name_$locale"} ?? 'N/A',
 
                 'email' =>
-                $relatedUser->email
-                    ? $this->contactMaskingService->maskEmail($relatedUser->email)
+                optional($relatedUser)->email
+                    ? $this->contactMaskingService->maskEmail(optional($relatedUser)->email)
                     : 'N/A',
 
-                'photos' => $relatedUser->photos
-                    ? $relatedUser->photos->map(fn($photo) => [
-                        'id' => $photo->id ?? 'N/A',
-                        'url' => $photo->photo_url ?? 'N/A',
-                        'is_main' => $photo->is_main ?? false,
-                    ])
-                    : [],
+                'photos' => $photos->map(function ($photo) {
+                    // $photo might be Model or array, handle both safely
+                    $id = is_array($photo) ? ($photo['id'] ?? null) : ($photo->id ?? null);
+                    $url = is_array($photo) ? ($photo['photo_url'] ?? null) : ($photo->photo_url ?? null);
+                    $isMain = is_array($photo) ? ($photo['is_main'] ?? false) : ($photo->is_main ?? false);
+
+                    return [
+                        'id' => $id ?? 'N/A',
+                        'url' => $url ?? 'N/A',
+                        'is_main' => (bool) $isMain,
+                    ];
+                })->values(),
             ],
         ];
     }

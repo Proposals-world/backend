@@ -145,7 +145,7 @@
                                     <span class="text-muted">Payment link unavailable</span>
                                     @endif
                                     <div class="text-center mt-2">
-                                        @if($card['country_group_id'] == 1)
+                                        {{-- @if($card['country_group_id'] == 1) --}}
                                             <!-- PAY WITH CLIQ BUTTON -->
                                             <button
                                                 class="btn btn-outline-primary btn-sm open-cliq-with-package"
@@ -153,7 +153,7 @@
                                                 {{ __('payment.Pay_with_CliQ') }}
                                                 <i class="simple-icon-camera"></i>
                                             </button>
-                                        @endif
+                                        {{-- @endif --}}
                                     </div>
 
                                 </div>

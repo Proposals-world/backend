@@ -9,6 +9,7 @@ use App\Models\UserReport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserReportRequest;
 use App\Models\User;
+use App\Services\NotificationService;
 use App\Services\UserSuspensionService;
 
 class ReportController extends Controller
@@ -26,11 +27,25 @@ class ReportController extends Controller
         return view('admin.reports.create');
     }
 
-    public function store(StoreUserReportRequest $request, UserSuspensionService $suspensionService)
+    public function store(StoreUserReportRequest $request, UserSuspensionService $suspensionService, NotificationService $notificationService)
     {
+
         try {
             $data = $request->validated();
             $data['reporter_id'] = auth()->id();
+            // ✅ Prevent duplicate pending report by same reporter for same user
+            $existingReport = UserReport::where('reported_id', $data['reported_id'])
+                ->where('reporter_id', $data['reporter_id'])
+                ->where('status', 'pending')
+                ->first();
+            if ($existingReport && $existingReport->status === 'pending') {
+                throw new \Exception(
+                    app()->getLocale() === 'ar'
+                        ? 'لقد أبلغت عن هذا المستخدم بالفعل، وهو قيد المراجعة.'
+                        : 'You have already reported this user, and it is under review.',
+                    422 // custom code
+                );
+            }
 
             $lang = $request->header('lang', app()->getLocale());
 
@@ -69,18 +84,38 @@ class ReportController extends Controller
             // dd($data);
 
             UserReport::create($data);
+            // ✅ Notify Admins (new report)
+            $admins = User::where('role_id', 1)->get();
+
+            foreach ($admins as $admin) {
+                $notificationService->create($admin, [
+                    'notification_type' => 'new_user_report',
+                    'target_role'       => 'admin',
+                    'content_en'        => 'A new user report has been submitted.',
+                    'content_ar'        => 'تم إرسال بلاغ جديد عن مستخدم.',
+                    // If you added "data" json column in notifications table:
+                    // 'data' => ['report_id' => $report->id, 'reported_id' => $data['reported_id']],
+                ]);
+            }
             // Check if this is the 3rd report and suspend the account if needed
             if ($data['report_count'] >= 3) {
                 $reportedUser = User::find($data['reported_id']);
                 if ($reportedUser && $reportedUser->status !== 'suspended') {
                     $suspensionService->suspendUser($reportedUser);
+                    // ✅ Notify the reported user
+                    $notificationService->create($reportedUser, [
+                        'notification_type' => 'account_suspended',
+                        'target_role'       => 'user',
+                        'content_en'        => 'Your account has been suspended due to multiple reports.',
+                        'content_ar'        => 'تم إيقاف حسابك بسبب تعدد البلاغات.',
+                    ]);
                 }
             }
             return response()->json(['message' => 'Report added successfully'], 201);
         } catch (\Throwable $e) {
             \Log::error('Error: ' . $e->getMessage(), ['exception' => $e]);
             return response()->json([
-                'message' => 'An error occurred while submitting the report. Please try again.',
+                'message' => app()->getLocale() === 'ar' ? 'حدث خطأ أثناء إرسال البلاغ. يرجى المحاولة مرة أخرى.' : 'An error occurred while submitting the report. Please try again.',
                 'error' => $e->getMessage(),
             ], 500);
         }

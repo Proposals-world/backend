@@ -55,9 +55,9 @@
         }
 
         // ✅ Debug FormData
-        console.log('FormData content:');
+        // console.log('FormData content:');
         for (let pair of formData.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
+            // console.log(pair[0] + ': ' + pair[1]);
         }
 
         // Send Ajax
@@ -94,11 +94,19 @@
                 setTimeout(() => {
                     $('#reportModalMain').modal('hide');
                 }, 500);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
             },
-            error: function(xhr) {
-                console.error('Error submitting report:', xhr.responseText);
-                alert('Something went wrong, please try again.');
-            }
+          error: function (xhr) {
+    const message =
+    xhr.responseJSON?.error ||
+        xhr.responseJSON?.message ||
+        (xhr.responseText ? xhr.responseText : 'Something went wrong');
+
+    alert(message);
+}
+
         });
     }
 </script>

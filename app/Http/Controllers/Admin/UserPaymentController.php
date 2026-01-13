@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionReceiptMail;
 use App\Services\FwateerService;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\Validator;
 
 class UserPaymentController extends Controller
@@ -145,7 +146,7 @@ class UserPaymentController extends Controller
     }
     // saves cliq payment
 
-    public function storeCliq(Request $request)
+    public function storeCliq(Request $request, NotificationService $notificationService)
     {
         try {
             // ✅ Validate incoming data
@@ -200,7 +201,36 @@ class UserPaymentController extends Controller
                 'payment_type' => 'cliq',
                 'photo_url'    => $photoPath,
             ]);
+            // ============================
+            // ✅ NOTIFICATIONS START HERE
+            // ============================
 
+            // 1) ✅ Notify Admins
+            $admins = User::where('role_id', 1)->get(); // <-- replace with your real admin filter
+
+            foreach ($admins as $admin) {
+                $notificationService->create($admin, [
+                    'notification_type' => 'new_cliq_payment',
+                    'target_role'       => 'admin',
+                    'content_en'        => 'A new CliQ payment has been submitted and is pending review.',
+                    'content_ar'        => 'تم إرسال دفعة CliQ جديدة وهي قيد المراجعة.',
+                    // if you have json data column:
+                    // 'data' => ['payment_id' => $payment->id, 'user_id' => auth()->id()],
+                ]);
+            }
+
+            // // 2) ✅ Notify User (optional)
+            // $notificationService->create(auth()->user(), [
+            //     'notification_type' => 'cliq_payment_submitted',
+            //     'target_role'       => 'user',
+            //     'content_en'        => 'Your CliQ payment was submitted successfully and is pending review.',
+            //     'content_ar'        => 'تم إرسال دفعة CliQ بنجاح وهي قيد المراجعة.',
+            //     // 'data' => ['payment_id' => $payment->id],
+            // ]);
+
+            // ============================
+            // ✅ NOTIFICATIONS END HERE
+            // ============================
             // ✅ Success response
             return response()->json([
                 'success' => true,

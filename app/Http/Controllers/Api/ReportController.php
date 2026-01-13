@@ -10,12 +10,13 @@ use App\Http\Requests\ReportRequest;
 use App\Http\Resources\ReportResource;
 use App\Models\User;
 use App\Models\UserReport;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\UserSuspensionService;
 
 class ReportController extends Controller
 {
-    public function store(ReportRequest $request, UserSuspensionService $suspensionService)
+    public function store(ReportRequest $request, UserSuspensionService $suspensionService, NotificationService $notificationService)
     {
         // Check if the user has already reported the same user
         $existingReport = UserReport::where('reported_id', $request->reported_id)
@@ -26,7 +27,7 @@ class ReportController extends Controller
         if ($existingReport) {
             if ($existingReport->status === 'pending') {
                 return response()->json([
-                    'message' => 'You have already reported this user, and it is under review.',
+                    'message' => app()->getLocale() === 'ar' ? 'لقد أبلغت عن هذا المستخدم بالفعل، وهو قيد المراجعة.' : 'You have already reported this user, and it is under review.',
                 ], 400);
             }
         }
@@ -49,6 +50,19 @@ class ReportController extends Controller
 
         // Store report
         $report = UserReport::create($data);
+        // ✅ Notify Admins (since admin is also User with role=admin)
+        $admins = User::where('role_id', 1)->get();
+
+        foreach ($admins as $admin) {
+            $notificationService->create($admin, [
+                'notification_type' => 'new_user_report',
+                'target_role'       => 'admin',
+                'content_en'        => 'A new user report has been submitted.',
+                'content_ar'        => 'تم إرسال بلاغ جديد عن مستخدم.',
+                // optional extra info if you added json column:
+                // 'data' => ['report_id' => $report->id, 'reported_id' => $request->reported_id],
+            ]);
+        }
         // Count all reports for this user (including this new one)
         $reportCount = UserReport::where('reported_id', $request->reported_id)
             ->count();
@@ -59,6 +73,13 @@ class ReportController extends Controller
 
             if ($reportedUser && $reportedUser->status !== 'suspended') {
                 $suspensionService->suspendUser($reportedUser);
+                // ✅ Notify the reported user that they were suspended
+                $notificationService->create($reportedUser, [
+                    'notification_type' => 'account_suspended',
+                    'target_role'       => 'user',
+                    'content_en'        => 'Your account has been suspended due to multiple reports.',
+                    'content_ar'        => 'تم إيقاف حسابك بسبب تعدد البلاغات.',
+                ]);
             }
         }
         // Return a success message along with the report data

@@ -328,6 +328,19 @@ Route::middleware(['auth', 'verified'])
             ->name('user.update.phone.number');
     });
 
+// routes/web.php
+Route::post('/notifications/{id}/read', function ($id) {
+    app(\App\Services\NotificationService::class)
+        ->markRead($id, auth()->user());
+
+    return response()->json(['success' => true]);
+})->middleware('auth');
+Route::post('/notifications/read-all', function () {
+    app(\App\Services\NotificationService::class)
+        ->markAllRead(auth()->user());
+
+    return response()->json(['success' => true]);
+})->middleware('auth');
 
 
 require __DIR__ . '/auth.php';

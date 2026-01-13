@@ -10,15 +10,18 @@ class Notification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'notifiable_type',
+        'notifiable_id',
         'notification_type',
         'content_en',
         'content_ar',
         'is_read',
+        // if you added them in migration:
+        // 'title_en', 'title_ar', 'action_url', 'data',
     ];
 
-    public function user()
+    public function notifiable()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 }
