@@ -52,15 +52,20 @@ class LikeService
      |    - not reported
      |    - not disliked
      * ------------------------------------------*/
-        $likes = Like::withoutTrashed()
-            ->where('liked_user_id', $user->id)
+
+        $likes = Like::where('liked_user_id', $user->id)
             ->whereNotIn('user_id', $matchedUserIds)
             ->whereNotIn('user_id', $reportedUsers)
             ->whereNotIn('user_id', $dislikedUsers)
-            ->with('user.photos')
+
+            // ✅ exclude soft-deleted users who liked me
+            ->whereHas('user', fn($q) => $q->withoutTrashed())
+
+            ->with([
+                'user' => fn($q) => $q->withoutTrashed(),
+                'user.photos', // add withoutTrashed here only if Photo uses SoftDeletes
+            ])
             ->get();
-
-
         return LikeResource::collection($likes);
     }
 
@@ -73,12 +78,14 @@ class LikeService
             return null;
         }
 
-        $likes = Like::withoutTrashed() // if Like uses SoftDeletes
-            ->where('user_id', $user->id)
-            ->whereHas('likedUser', fn($q) => $q->withoutTrashed()) // exclude deleted users
+        $likes = Like::where('user_id', $user->id)
+
+            // ✅ exclude soft-deleted users I liked
+            ->whereHas('likedUser', fn($q) => $q->withoutTrashed())
+
             ->with([
                 'likedUser' => fn($q) => $q->withoutTrashed(),
-                'likedUser.photos' => fn($q) => method_exists($q->getModel(), 'trashed') ? $q->withoutTrashed() : $q
+                'likedUser.photos',
             ])
             ->get();
 
@@ -108,19 +115,17 @@ class LikeService
         // Combine both arrays
         $blockedUserIds = array_unique(array_merge($youReported, $theyReportedYou));
 
-        $matches = UserMatch::withoutTrashed() // ✅ important (exclude soft-deleted matches)
+        $matches = UserMatch::with(['user1', 'user2'])
             ->where(function ($query) use ($user) {
                 $query->where('user1_id', $user->id)
                     ->orWhere('user2_id', $user->id);
             })
             ->whereNotIn('user1_id', $blockedUserIds)
             ->whereNotIn('user2_id', $blockedUserIds)
-            ->whereHas('user1', fn($q) => $q->withoutTrashed())
-            ->whereHas('user2', fn($q) => $q->withoutTrashed())
-            ->with([
-                'user1' => fn($q) => $q->withoutTrashed(),
-                'user2' => fn($q) => $q->withoutTrashed(),
-            ])
+
+            // ⛔ exclude soft-deleted users
+            ->whereHas('user1', fn(Builder $q) => $q->whereNull('deleted_at'))
+            ->whereHas('user2', fn(Builder $q) => $q->whereNull('deleted_at'))
             ->get();
 
         return MatchResource::collection($matches);
